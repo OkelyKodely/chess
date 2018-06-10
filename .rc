@@ -1,0 +1,5 @@
+#include "resource.h"
+
+IDI_MYICON ICON "Icon.ico"
+
+IDB_SAMPLEBITMAP        BITMAP  DISCARDABLE     "pawnwhite.bmp"
