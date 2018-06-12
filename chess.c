@@ -184,9 +184,9 @@ DWORD WINAPI ThreadFunc(void* data) {
         min = secs / 60;
         total = min*60 + sec;
         if(turn == 'h') {
-            sprintf(b, "White move.  %d minutes and %d seconds elapsed out of %d min.", min, sec, ttw);
+            sprintf(b, "White to move.  %d mins and %d secs elapsed out of %d mins", min, sec, ttw);
         } else {
-            sprintf(b, "Black move.  %d minutes and %d seconds elapsed out of %d min.", min, sec, ttw);
+            sprintf(b, "Black to move.  %d mins and %d secs elapsed out of %d mins", min, sec, ttw);
         }
         if(ls != cs) {
             
@@ -1525,7 +1525,7 @@ boolean checkBishopCheckRed(int j, int i) {
 
     if(redKingSquare.posX != greyBishop2Square.posX &&
        redKingSquare.posY != greyBishop2Square.posY) {
-        f2 = moveGreyBishop2(0, j, i, redKingSquare.posY - greyBishop2Square.posY, redKingSquare.posX - greyBishop2Square.posX, redKingSquare.posY - greyBishop2Square.posY, redKingSquare.posX - greyBishop2Square.posX);
+        f2 = moveGreyBishop2(0, -666, i, redKingSquare.posY - greyBishop2Square.posY, redKingSquare.posX - greyBishop2Square.posX, redKingSquare.posY - greyBishop2Square.posY, redKingSquare.posX - greyBishop2Square.posX);
         f2 = greyBishop2Square.failedpath;
     } else {
         f2 = greyBishop2Square.failedpath = TRUE;
@@ -13901,32 +13901,32 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         
                                         if(!failed) {
 
-                                            int a1 = redKnight1Rectangle1.posY;
-                                            int a0 = redKnight1Rectangle1.posX;
+                                            int a1 = redKnight2Rectangle1.posY;
+                                            int a0 = redKnight2Rectangle1.posX;
 
-                                            int a2 = redKnight1Rectangle1.x1;
-                                            int a3 = redKnight1Rectangle1.x2;
+                                            int a2 = redKnight2Rectangle1.x1;
+                                            int a3 = redKnight2Rectangle1.x2;
 
-                                            int a4 = redKnight1Rectangle2.x1;
-                                            int a5 = redKnight1Rectangle2.x2;
+                                            int a4 = redKnight2Rectangle2.x1;
+                                            int a5 = redKnight2Rectangle2.x2;
 
-                                            int a6 = redKnight1Base.x1;
-                                            int a7 = redKnight1Base.x2;
+                                            int a6 = redKnight2Base.x1;
+                                            int a7 = redKnight2Base.x2;
 
-                                            int a8 = redKnight1Ellipse.x1;
-                                            int a9 = redKnight1Ellipse.x2;
+                                            int a8 = redKnight2Ellipse.x1;
+                                            int a9 = redKnight2Ellipse.x2;
 
-                                            int a10 = redKnight1Rectangle1.y1;
-                                            int a11 = redKnight1Rectangle1.y2;
+                                            int a10 = redKnight2Rectangle1.y1;
+                                            int a11 = redKnight2Rectangle1.y2;
 
-                                            int a12 = redKnight1Rectangle2.y1;
-                                            int a13 = redKnight1Rectangle2.y2;
+                                            int a12 = redKnight2Rectangle2.y1;
+                                            int a13 = redKnight2Rectangle2.y2;
 
-                                            int a14 = redKnight1Base.y1;
-                                            int a15 = redKnight1Base.y2;
+                                            int a14 = redKnight2Base.y1;
+                                            int a15 = redKnight2Base.y2;
 
-                                            int a16 = redKnight1Ellipse.y1;
-                                            int a17 = redKnight1Ellipse.y2;
+                                            int a16 = redKnight2Ellipse.y1;
+                                            int a17 = redKnight2Ellipse.y2;
 
                                             redKnight2Rectangle1.posX = i*100;
                                             redKnight2Rectangle1.posY = j*100;
@@ -13955,32 +13955,32 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             
                                             if(ffff) {
 
-                                                redKnight1Rectangle1.posY = a1;
-                                                redKnight1Rectangle1.posX = a0;
+                                                redKnight2Rectangle1.posY = a1;
+                                                redKnight2Rectangle1.posX = a0;
 
-                                                redKnight1Rectangle1.x1 = a2;
-                                                redKnight1Rectangle1.x2 = a3;
+                                                redKnight2Rectangle1.x1 = a2;
+                                                redKnight2Rectangle1.x2 = a3;
 
-                                                redKnight1Rectangle2.x1 = a4;
-                                                redKnight1Rectangle2.x2 = a5;
+                                                redKnight2Rectangle2.x1 = a4;
+                                                redKnight2Rectangle2.x2 = a5;
 
-                                                redKnight1Base.x1 = a6;
-                                                redKnight1Base.x2 = a7;
+                                                redKnight2Base.x1 = a6;
+                                                redKnight2Base.x2 = a7;
 
-                                                redKnight1Ellipse.x1 = a8;
-                                                redKnight1Ellipse.x2 = a9;
+                                                redKnight2Ellipse.x1 = a8;
+                                                redKnight2Ellipse.x2 = a9;
 
-                                                redKnight1Rectangle1.y1 = a10;
-                                                redKnight1Rectangle1.y2 = a11;
+                                                redKnight2Rectangle1.y1 = a10;
+                                                redKnight2Rectangle1.y2 = a11;
 
-                                                redKnight1Rectangle2.y1 = a12;
-                                                redKnight1Rectangle2.y2 = a13;
+                                                redKnight2Rectangle2.y1 = a12;
+                                                redKnight2Rectangle2.y2 = a13;
 
-                                                redKnight1Base.y1 = a14;
-                                                redKnight1Base.y2 = a15;
+                                                redKnight2Base.y1 = a14;
+                                                redKnight2Base.y2 = a15;
 
-                                                redKnight1Ellipse.y1 = a16;
-                                                redKnight1Ellipse.y2 = a17;
+                                                redKnight2Ellipse.y1 = a16;
+                                                redKnight2Ellipse.y2 = a17;
 
                                             } else {
 
@@ -14154,32 +14154,32 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                         if(!failed) {
 
-                                            int a1 = redKnight1Rectangle1.posY;
-                                            int a0 = redKnight1Rectangle1.posX;
+                                            int a1 = redKnight2Rectangle1.posY;
+                                            int a0 = redKnight2Rectangle1.posX;
 
-                                            int a2 = redKnight1Rectangle1.x1;
-                                            int a3 = redKnight1Rectangle1.x2;
+                                            int a2 = redKnight2Rectangle1.x1;
+                                            int a3 = redKnight2Rectangle1.x2;
 
-                                            int a4 = redKnight1Rectangle2.x1;
-                                            int a5 = redKnight1Rectangle2.x2;
+                                            int a4 = redKnight2Rectangle2.x1;
+                                            int a5 = redKnight2Rectangle2.x2;
 
-                                            int a6 = redKnight1Base.x1;
-                                            int a7 = redKnight1Base.x2;
+                                            int a6 = redKnight2Base.x1;
+                                            int a7 = redKnight2Base.x2;
 
-                                            int a8 = redKnight1Ellipse.x1;
-                                            int a9 = redKnight1Ellipse.x2;
+                                            int a8 = redKnight2Ellipse.x1;
+                                            int a9 = redKnight2Ellipse.x2;
 
-                                            int a10 = redKnight1Rectangle1.y1;
-                                            int a11 = redKnight1Rectangle1.y2;
+                                            int a10 = redKnight2Rectangle1.y1;
+                                            int a11 = redKnight2Rectangle1.y2;
 
-                                            int a12 = redKnight1Rectangle2.y1;
-                                            int a13 = redKnight1Rectangle2.y2;
+                                            int a12 = redKnight2Rectangle2.y1;
+                                            int a13 = redKnight2Rectangle2.y2;
 
-                                            int a14 = redKnight1Base.y1;
-                                            int a15 = redKnight1Base.y2;
+                                            int a14 = redKnight2Base.y1;
+                                            int a15 = redKnight2Base.y2;
 
-                                            int a16 = redKnight1Ellipse.y1;
-                                            int a17 = redKnight1Ellipse.y2;
+                                            int a16 = redKnight2Ellipse.y1;
+                                            int a17 = redKnight2Ellipse.y2;
 
                                             redKnight2Rectangle1.posX = i*100;
                                             redKnight2Rectangle1.posY = j*100;
@@ -14208,32 +14208,32 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             
                                             if(ffff) {
 
-                                                redKnight1Rectangle1.posY = a1;
-                                                redKnight1Rectangle1.posX = a0;
+                                                redKnight2Rectangle1.posY = a1;
+                                                redKnight2Rectangle1.posX = a0;
 
-                                                redKnight1Rectangle1.x1 = a2;
-                                                redKnight1Rectangle1.x2 = a3;
+                                                redKnight2Rectangle1.x1 = a2;
+                                                redKnight2Rectangle1.x2 = a3;
 
-                                                redKnight1Rectangle2.x1 = a4;
-                                                redKnight1Rectangle2.x2 = a5;
+                                                redKnight2Rectangle2.x1 = a4;
+                                                redKnight2Rectangle2.x2 = a5;
 
-                                                redKnight1Base.x1 = a6;
-                                                redKnight1Base.x2 = a7;
+                                                redKnight2Base.x1 = a6;
+                                                redKnight2Base.x2 = a7;
 
-                                                redKnight1Ellipse.x1 = a8;
-                                                redKnight1Ellipse.x2 = a9;
+                                                redKnight2Ellipse.x1 = a8;
+                                                redKnight2Ellipse.x2 = a9;
 
-                                                redKnight1Rectangle1.y1 = a10;
-                                                redKnight1Rectangle1.y2 = a11;
+                                                redKnight2Rectangle1.y1 = a10;
+                                                redKnight2Rectangle1.y2 = a11;
 
-                                                redKnight1Rectangle2.y1 = a12;
-                                                redKnight1Rectangle2.y2 = a13;
+                                                redKnight2Rectangle2.y1 = a12;
+                                                redKnight2Rectangle2.y2 = a13;
 
-                                                redKnight1Base.y1 = a14;
-                                                redKnight1Base.y2 = a15;
+                                                redKnight2Base.y1 = a14;
+                                                redKnight2Base.y2 = a15;
 
-                                                redKnight1Ellipse.y1 = a16;
-                                                redKnight1Ellipse.y2 = a17;
+                                                redKnight2Ellipse.y1 = a16;
+                                                redKnight2Ellipse.y2 = a17;
 
                                             } else {
 
@@ -14407,32 +14407,32 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                         if(!failed) {
 
-                                            int a1 = redKnight1Rectangle1.posY;
-                                            int a0 = redKnight1Rectangle1.posX;
+                                            int a1 = redKnight2Rectangle1.posY;
+                                            int a0 = redKnight2Rectangle1.posX;
 
-                                            int a2 = redKnight1Rectangle1.x1;
-                                            int a3 = redKnight1Rectangle1.x2;
+                                            int a2 = redKnight2Rectangle1.x1;
+                                            int a3 = redKnight2Rectangle1.x2;
 
-                                            int a4 = redKnight1Rectangle2.x1;
-                                            int a5 = redKnight1Rectangle2.x2;
+                                            int a4 = redKnight2Rectangle2.x1;
+                                            int a5 = redKnight2Rectangle2.x2;
 
-                                            int a6 = redKnight1Base.x1;
-                                            int a7 = redKnight1Base.x2;
+                                            int a6 = redKnight2Base.x1;
+                                            int a7 = redKnight2Base.x2;
 
-                                            int a8 = redKnight1Ellipse.x1;
-                                            int a9 = redKnight1Ellipse.x2;
+                                            int a8 = redKnight2Ellipse.x1;
+                                            int a9 = redKnight2Ellipse.x2;
 
-                                            int a10 = redKnight1Rectangle1.y1;
-                                            int a11 = redKnight1Rectangle1.y2;
+                                            int a10 = redKnight2Rectangle1.y1;
+                                            int a11 = redKnight2Rectangle1.y2;
 
-                                            int a12 = redKnight1Rectangle2.y1;
-                                            int a13 = redKnight1Rectangle2.y2;
+                                            int a12 = redKnight2Rectangle2.y1;
+                                            int a13 = redKnight2Rectangle2.y2;
 
-                                            int a14 = redKnight1Base.y1;
-                                            int a15 = redKnight1Base.y2;
+                                            int a14 = redKnight2Base.y1;
+                                            int a15 = redKnight2Base.y2;
 
-                                            int a16 = redKnight1Ellipse.y1;
-                                            int a17 = redKnight1Ellipse.y2;
+                                            int a16 = redKnight2Ellipse.y1;
+                                            int a17 = redKnight2Ellipse.y2;
 
                                             redKnight2Rectangle1.posX = i*100;
                                             redKnight2Rectangle1.posY = j*100;
@@ -14461,32 +14461,32 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             
                                             if(ffff) {
 
-                                                redKnight1Rectangle1.posY = a1;
-                                                redKnight1Rectangle1.posX = a0;
+                                                redKnight2Rectangle1.posY = a1;
+                                                redKnight2Rectangle1.posX = a0;
 
-                                                redKnight1Rectangle1.x1 = a2;
-                                                redKnight1Rectangle1.x2 = a3;
+                                                redKnight2Rectangle1.x1 = a2;
+                                                redKnight2Rectangle1.x2 = a3;
 
-                                                redKnight1Rectangle2.x1 = a4;
-                                                redKnight1Rectangle2.x2 = a5;
+                                                redKnight2Rectangle2.x1 = a4;
+                                                redKnight2Rectangle2.x2 = a5;
 
-                                                redKnight1Base.x1 = a6;
-                                                redKnight1Base.x2 = a7;
+                                                redKnight2Base.x1 = a6;
+                                                redKnight2Base.x2 = a7;
 
-                                                redKnight1Ellipse.x1 = a8;
-                                                redKnight1Ellipse.x2 = a9;
+                                                redKnight2Ellipse.x1 = a8;
+                                                redKnight2Ellipse.x2 = a9;
 
-                                                redKnight1Rectangle1.y1 = a10;
-                                                redKnight1Rectangle1.y2 = a11;
+                                                redKnight2Rectangle1.y1 = a10;
+                                                redKnight2Rectangle1.y2 = a11;
 
-                                                redKnight1Rectangle2.y1 = a12;
-                                                redKnight1Rectangle2.y2 = a13;
+                                                redKnight2Rectangle2.y1 = a12;
+                                                redKnight2Rectangle2.y2 = a13;
 
-                                                redKnight1Base.y1 = a14;
-                                                redKnight1Base.y2 = a15;
+                                                redKnight2Base.y1 = a14;
+                                                redKnight2Base.y2 = a15;
 
-                                                redKnight1Ellipse.y1 = a16;
-                                                redKnight1Ellipse.y2 = a17;
+                                                redKnight2Ellipse.y1 = a16;
+                                                redKnight2Ellipse.y2 = a17;
                                                 
                                             } else {
 
@@ -14660,32 +14660,32 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         
                                         if(!failed) {
 
-                                            int a1 = redKnight1Rectangle1.posY;
-                                            int a0 = redKnight1Rectangle1.posX;
+                                            int a1 = redKnight2Rectangle1.posY;
+                                            int a0 = redKnight2Rectangle1.posX;
 
-                                            int a2 = redKnight1Rectangle1.x1;
-                                            int a3 = redKnight1Rectangle1.x2;
+                                            int a2 = redKnight2Rectangle1.x1;
+                                            int a3 = redKnight2Rectangle1.x2;
 
-                                            int a4 = redKnight1Rectangle2.x1;
-                                            int a5 = redKnight1Rectangle2.x2;
+                                            int a4 = redKnight2Rectangle2.x1;
+                                            int a5 = redKnight2Rectangle2.x2;
 
-                                            int a6 = redKnight1Base.x1;
-                                            int a7 = redKnight1Base.x2;
+                                            int a6 = redKnight2Base.x1;
+                                            int a7 = redKnight2Base.x2;
 
-                                            int a8 = redKnight1Ellipse.x1;
-                                            int a9 = redKnight1Ellipse.x2;
+                                            int a8 = redKnight2Ellipse.x1;
+                                            int a9 = redKnight2Ellipse.x2;
 
-                                            int a10 = redKnight1Rectangle1.y1;
-                                            int a11 = redKnight1Rectangle1.y2;
+                                            int a10 = redKnight2Rectangle1.y1;
+                                            int a11 = redKnight2Rectangle1.y2;
 
-                                            int a12 = redKnight1Rectangle2.y1;
-                                            int a13 = redKnight1Rectangle2.y2;
+                                            int a12 = redKnight2Rectangle2.y1;
+                                            int a13 = redKnight2Rectangle2.y2;
 
-                                            int a14 = redKnight1Base.y1;
-                                            int a15 = redKnight1Base.y2;
+                                            int a14 = redKnight2Base.y1;
+                                            int a15 = redKnight2Base.y2;
 
-                                            int a16 = redKnight1Ellipse.y1;
-                                            int a17 = redKnight1Ellipse.y2;
+                                            int a16 = redKnight2Ellipse.y1;
+                                            int a17 = redKnight2Ellipse.y2;
 
                                             redKnight2Rectangle1.posX = i*100;
                                             redKnight2Rectangle1.posY = j*100;
@@ -14714,32 +14714,32 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             
                                             if(ffff) {
                                                 
-                                                redKnight1Rectangle1.posY = a1;
-                                                redKnight1Rectangle1.posX = a0;
+                                                redKnight2Rectangle1.posY = a1;
+                                                redKnight2Rectangle1.posX = a0;
 
-                                                redKnight1Rectangle1.x1 = a2;
-                                                redKnight1Rectangle1.x2 = a3;
+                                                redKnight2Rectangle1.x1 = a2;
+                                                redKnight2Rectangle1.x2 = a3;
 
-                                                redKnight1Rectangle2.x1 = a4;
-                                                redKnight1Rectangle2.x2 = a5;
+                                                redKnight2Rectangle2.x1 = a4;
+                                                redKnight2Rectangle2.x2 = a5;
 
-                                                redKnight1Base.x1 = a6;
-                                                redKnight1Base.x2 = a7;
+                                                redKnight2Base.x1 = a6;
+                                                redKnight2Base.x2 = a7;
 
-                                                redKnight1Ellipse.x1 = a8;
-                                                redKnight1Ellipse.x2 = a9;
+                                                redKnight2Ellipse.x1 = a8;
+                                                redKnight2Ellipse.x2 = a9;
 
-                                                redKnight1Rectangle1.y1 = a10;
-                                                redKnight1Rectangle1.y2 = a11;
+                                                redKnight2Rectangle1.y1 = a10;
+                                                redKnight2Rectangle1.y2 = a11;
 
-                                                redKnight1Rectangle2.y1 = a12;
-                                                redKnight1Rectangle2.y2 = a13;
+                                                redKnight2Rectangle2.y1 = a12;
+                                                redKnight2Rectangle2.y2 = a13;
 
-                                                redKnight1Base.y1 = a14;
-                                                redKnight1Base.y2 = a15;
+                                                redKnight2Base.y1 = a14;
+                                                redKnight2Base.y2 = a15;
 
-                                                redKnight1Ellipse.y1 = a16;
-                                                redKnight1Ellipse.y2 = a17;
+                                                redKnight2Ellipse.y1 = a16;
+                                                redKnight2Ellipse.y2 = a17;
 
                                             } else {
 
@@ -14913,32 +14913,32 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         
                                         if(!failed) {
 
-                                            int a1 = redKnight1Rectangle1.posY;
-                                            int a0 = redKnight1Rectangle1.posX;
+                                            int a1 = redKnight2Rectangle1.posY;
+                                            int a0 = redKnight2Rectangle1.posX;
 
-                                            int a2 = redKnight1Rectangle1.x1;
-                                            int a3 = redKnight1Rectangle1.x2;
+                                            int a2 = redKnight2Rectangle1.x1;
+                                            int a3 = redKnight2Rectangle1.x2;
 
-                                            int a4 = redKnight1Rectangle2.x1;
-                                            int a5 = redKnight1Rectangle2.x2;
+                                            int a4 = redKnight2Rectangle2.x1;
+                                            int a5 = redKnight2Rectangle2.x2;
 
-                                            int a6 = redKnight1Base.x1;
-                                            int a7 = redKnight1Base.x2;
+                                            int a6 = redKnight2Base.x1;
+                                            int a7 = redKnight2Base.x2;
 
-                                            int a8 = redKnight1Ellipse.x1;
-                                            int a9 = redKnight1Ellipse.x2;
+                                            int a8 = redKnight2Ellipse.x1;
+                                            int a9 = redKnight2Ellipse.x2;
 
-                                            int a10 = redKnight1Rectangle1.y1;
-                                            int a11 = redKnight1Rectangle1.y2;
+                                            int a10 = redKnight2Rectangle1.y1;
+                                            int a11 = redKnight2Rectangle1.y2;
 
-                                            int a12 = redKnight1Rectangle2.y1;
-                                            int a13 = redKnight1Rectangle2.y2;
+                                            int a12 = redKnight2Rectangle2.y1;
+                                            int a13 = redKnight2Rectangle2.y2;
 
-                                            int a14 = redKnight1Base.y1;
-                                            int a15 = redKnight1Base.y2;
+                                            int a14 = redKnight2Base.y1;
+                                            int a15 = redKnight2Base.y2;
 
-                                            int a16 = redKnight1Ellipse.y1;
-                                            int a17 = redKnight1Ellipse.y2;
+                                            int a16 = redKnight2Ellipse.y1;
+                                            int a17 = redKnight2Ellipse.y2;
 
                                             redKnight2Rectangle1.posX = i*100;
                                             redKnight2Rectangle1.posY = j*100;
@@ -14967,32 +14967,32 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             
                                             if(ffff) {
                                                 
-                                                redKnight1Rectangle1.posY = a1;
-                                                redKnight1Rectangle1.posX = a0;
+                                                redKnight2Rectangle1.posY = a1;
+                                                redKnight2Rectangle1.posX = a0;
 
-                                                redKnight1Rectangle1.x1 = a2;
-                                                redKnight1Rectangle1.x2 = a3;
+                                                redKnight2Rectangle1.x1 = a2;
+                                                redKnight2Rectangle1.x2 = a3;
 
-                                                redKnight1Rectangle2.x1 = a4;
-                                                redKnight1Rectangle2.x2 = a5;
+                                                redKnight2Rectangle2.x1 = a4;
+                                                redKnight2Rectangle2.x2 = a5;
 
-                                                redKnight1Base.x1 = a6;
-                                                redKnight1Base.x2 = a7;
+                                                redKnight2Base.x1 = a6;
+                                                redKnight2Base.x2 = a7;
 
-                                                redKnight1Ellipse.x1 = a8;
-                                                redKnight1Ellipse.x2 = a9;
+                                                redKnight2Ellipse.x1 = a8;
+                                                redKnight2Ellipse.x2 = a9;
 
-                                                redKnight1Rectangle1.y1 = a10;
-                                                redKnight1Rectangle1.y2 = a11;
+                                                redKnight2Rectangle1.y1 = a10;
+                                                redKnight2Rectangle1.y2 = a11;
 
-                                                redKnight1Rectangle2.y1 = a12;
-                                                redKnight1Rectangle2.y2 = a13;
+                                                redKnight2Rectangle2.y1 = a12;
+                                                redKnight2Rectangle2.y2 = a13;
 
-                                                redKnight1Base.y1 = a14;
-                                                redKnight1Base.y2 = a15;
+                                                redKnight2Base.y1 = a14;
+                                                redKnight2Base.y2 = a15;
 
-                                                redKnight1Ellipse.y1 = a16;
-                                                redKnight1Ellipse.y2 = a17;
+                                                redKnight2Ellipse.y1 = a16;
+                                                redKnight2Ellipse.y2 = a17;
 
                                             } else {
 
@@ -15166,32 +15166,32 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         
                                         if(!failed) {
 
-                                            int a1 = redKnight1Rectangle1.posY;
-                                            int a0 = redKnight1Rectangle1.posX;
+                                            int a1 = redKnight2Rectangle1.posY;
+                                            int a0 = redKnight2Rectangle1.posX;
 
-                                            int a2 = redKnight1Rectangle1.x1;
-                                            int a3 = redKnight1Rectangle1.x2;
+                                            int a2 = redKnight2Rectangle1.x1;
+                                            int a3 = redKnight2Rectangle1.x2;
 
-                                            int a4 = redKnight1Rectangle2.x1;
-                                            int a5 = redKnight1Rectangle2.x2;
+                                            int a4 = redKnight2Rectangle2.x1;
+                                            int a5 = redKnight2Rectangle2.x2;
 
-                                            int a6 = redKnight1Base.x1;
-                                            int a7 = redKnight1Base.x2;
+                                            int a6 = redKnight2Base.x1;
+                                            int a7 = redKnight2Base.x2;
 
-                                            int a8 = redKnight1Ellipse.x1;
-                                            int a9 = redKnight1Ellipse.x2;
+                                            int a8 = redKnight2Ellipse.x1;
+                                            int a9 = redKnight2Ellipse.x2;
 
-                                            int a10 = redKnight1Rectangle1.y1;
-                                            int a11 = redKnight1Rectangle1.y2;
+                                            int a10 = redKnight2Rectangle1.y1;
+                                            int a11 = redKnight2Rectangle1.y2;
 
-                                            int a12 = redKnight1Rectangle2.y1;
-                                            int a13 = redKnight1Rectangle2.y2;
+                                            int a12 = redKnight2Rectangle2.y1;
+                                            int a13 = redKnight2Rectangle2.y2;
 
-                                            int a14 = redKnight1Base.y1;
-                                            int a15 = redKnight1Base.y2;
+                                            int a14 = redKnight2Base.y1;
+                                            int a15 = redKnight2Base.y2;
 
-                                            int a16 = redKnight1Ellipse.y1;
-                                            int a17 = redKnight1Ellipse.y2;
+                                            int a16 = redKnight2Ellipse.y1;
+                                            int a17 = redKnight2Ellipse.y2;
                                             
                                             redKnight2Rectangle1.posX = i*100;
                                             redKnight2Rectangle1.posY = j*100;
@@ -15220,32 +15220,32 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             
                                             if(ffff) {
                                                 
-                                                redKnight1Rectangle1.posY = a1;
-                                                redKnight1Rectangle1.posX = a0;
+                                                redKnight2Rectangle1.posY = a1;
+                                                redKnight2Rectangle1.posX = a0;
 
-                                                redKnight1Rectangle1.x1 = a2;
-                                                redKnight1Rectangle1.x2 = a3;
+                                                redKnight2Rectangle1.x1 = a2;
+                                                redKnight2Rectangle1.x2 = a3;
 
-                                                redKnight1Rectangle2.x1 = a4;
-                                                redKnight1Rectangle2.x2 = a5;
+                                                redKnight2Rectangle2.x1 = a4;
+                                                redKnight2Rectangle2.x2 = a5;
 
-                                                redKnight1Base.x1 = a6;
-                                                redKnight1Base.x2 = a7;
+                                                redKnight2Base.x1 = a6;
+                                                redKnight2Base.x2 = a7;
 
-                                                redKnight1Ellipse.x1 = a8;
-                                                redKnight1Ellipse.x2 = a9;
+                                                redKnight2Ellipse.x1 = a8;
+                                                redKnight2Ellipse.x2 = a9;
 
-                                                redKnight1Rectangle1.y1 = a10;
-                                                redKnight1Rectangle1.y2 = a11;
+                                                redKnight2Rectangle1.y1 = a10;
+                                                redKnight2Rectangle1.y2 = a11;
 
-                                                redKnight1Rectangle2.y1 = a12;
-                                                redKnight1Rectangle2.y2 = a13;
+                                                redKnight2Rectangle2.y1 = a12;
+                                                redKnight2Rectangle2.y2 = a13;
 
-                                                redKnight1Base.y1 = a14;
-                                                redKnight1Base.y2 = a15;
+                                                redKnight2Base.y1 = a14;
+                                                redKnight2Base.y2 = a15;
 
-                                                redKnight1Ellipse.y1 = a16;
-                                                redKnight1Ellipse.y2 = a17;
+                                                redKnight2Ellipse.y1 = a16;
+                                                redKnight2Ellipse.y2 = a17;
 
                                             } else {
 
@@ -15419,32 +15419,32 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                         if(!failed) {
 
-                                            int a1 = redKnight1Rectangle1.posY;
-                                            int a0 = redKnight1Rectangle1.posX;
+                                            int a1 = redKnight2Rectangle1.posY;
+                                            int a0 = redKnight2Rectangle1.posX;
 
-                                            int a2 = redKnight1Rectangle1.x1;
-                                            int a3 = redKnight1Rectangle1.x2;
+                                            int a2 = redKnight2Rectangle1.x1;
+                                            int a3 = redKnight2Rectangle1.x2;
 
-                                            int a4 = redKnight1Rectangle2.x1;
-                                            int a5 = redKnight1Rectangle2.x2;
+                                            int a4 = redKnight2Rectangle2.x1;
+                                            int a5 = redKnight2Rectangle2.x2;
 
-                                            int a6 = redKnight1Base.x1;
-                                            int a7 = redKnight1Base.x2;
+                                            int a6 = redKnight2Base.x1;
+                                            int a7 = redKnight2Base.x2;
 
-                                            int a8 = redKnight1Ellipse.x1;
-                                            int a9 = redKnight1Ellipse.x2;
+                                            int a8 = redKnight2Ellipse.x1;
+                                            int a9 = redKnight2Ellipse.x2;
 
-                                            int a10 = redKnight1Rectangle1.y1;
-                                            int a11 = redKnight1Rectangle1.y2;
+                                            int a10 = redKnight2Rectangle1.y1;
+                                            int a11 = redKnight2Rectangle1.y2;
 
-                                            int a12 = redKnight1Rectangle2.y1;
-                                            int a13 = redKnight1Rectangle2.y2;
+                                            int a12 = redKnight2Rectangle2.y1;
+                                            int a13 = redKnight2Rectangle2.y2;
 
-                                            int a14 = redKnight1Base.y1;
-                                            int a15 = redKnight1Base.y2;
+                                            int a14 = redKnight2Base.y1;
+                                            int a15 = redKnight2Base.y2;
 
-                                            int a16 = redKnight1Ellipse.y1;
-                                            int a17 = redKnight1Ellipse.y2;
+                                            int a16 = redKnight2Ellipse.y1;
+                                            int a17 = redKnight2Ellipse.y2;
                                             
                                             redKnight2Rectangle1.posX = i*100;
                                             redKnight2Rectangle1.posY = j*100;
@@ -15473,32 +15473,32 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             
                                             if(ffff) {
                                                 
-                                                redKnight1Rectangle1.posY = a1;
-                                                redKnight1Rectangle1.posX = a0;
+                                                redKnight2Rectangle1.posY = a1;
+                                                redKnight2Rectangle1.posX = a0;
 
-                                                redKnight1Rectangle1.x1 = a2;
-                                                redKnight1Rectangle1.x2 = a3;
+                                                redKnight2Rectangle1.x1 = a2;
+                                                redKnight2Rectangle1.x2 = a3;
 
-                                                redKnight1Rectangle2.x1 = a4;
-                                                redKnight1Rectangle2.x2 = a5;
+                                                redKnight2Rectangle2.x1 = a4;
+                                                redKnight2Rectangle2.x2 = a5;
 
-                                                redKnight1Base.x1 = a6;
-                                                redKnight1Base.x2 = a7;
+                                                redKnight2Base.x1 = a6;
+                                                redKnight2Base.x2 = a7;
 
-                                                redKnight1Ellipse.x1 = a8;
-                                                redKnight1Ellipse.x2 = a9;
+                                                redKnight2Ellipse.x1 = a8;
+                                                redKnight2Ellipse.x2 = a9;
 
-                                                redKnight1Rectangle1.y1 = a10;
-                                                redKnight1Rectangle1.y2 = a11;
+                                                redKnight2Rectangle1.y1 = a10;
+                                                redKnight2Rectangle1.y2 = a11;
 
-                                                redKnight1Rectangle2.y1 = a12;
-                                                redKnight1Rectangle2.y2 = a13;
+                                                redKnight2Rectangle2.y1 = a12;
+                                                redKnight2Rectangle2.y2 = a13;
 
-                                                redKnight1Base.y1 = a14;
-                                                redKnight1Base.y2 = a15;
+                                                redKnight2Base.y1 = a14;
+                                                redKnight2Base.y2 = a15;
 
-                                                redKnight1Ellipse.y1 = a16;
-                                                redKnight1Ellipse.y2 = a17;
+                                                redKnight2Ellipse.y1 = a16;
+                                                redKnight2Ellipse.y2 = a17;
 
                                             } else {
 
@@ -15672,32 +15672,32 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         
                                         if(!failed) {
 
-                                            int a1 = redKnight1Rectangle1.posY;
-                                            int a0 = redKnight1Rectangle1.posX;
+                                            int a1 = redKnight2Rectangle1.posY;
+                                            int a0 = redKnight2Rectangle1.posX;
 
-                                            int a2 = redKnight1Rectangle1.x1;
-                                            int a3 = redKnight1Rectangle1.x2;
+                                            int a2 = redKnight2Rectangle1.x1;
+                                            int a3 = redKnight2Rectangle1.x2;
 
-                                            int a4 = redKnight1Rectangle2.x1;
-                                            int a5 = redKnight1Rectangle2.x2;
+                                            int a4 = redKnight2Rectangle2.x1;
+                                            int a5 = redKnight2Rectangle2.x2;
 
-                                            int a6 = redKnight1Base.x1;
-                                            int a7 = redKnight1Base.x2;
+                                            int a6 = redKnight2Base.x1;
+                                            int a7 = redKnight2Base.x2;
 
-                                            int a8 = redKnight1Ellipse.x1;
-                                            int a9 = redKnight1Ellipse.x2;
+                                            int a8 = redKnight2Ellipse.x1;
+                                            int a9 = redKnight2Ellipse.x2;
 
-                                            int a10 = redKnight1Rectangle1.y1;
-                                            int a11 = redKnight1Rectangle1.y2;
+                                            int a10 = redKnight2Rectangle1.y1;
+                                            int a11 = redKnight2Rectangle1.y2;
 
-                                            int a12 = redKnight1Rectangle2.y1;
-                                            int a13 = redKnight1Rectangle2.y2;
+                                            int a12 = redKnight2Rectangle2.y1;
+                                            int a13 = redKnight2Rectangle2.y2;
 
-                                            int a14 = redKnight1Base.y1;
-                                            int a15 = redKnight1Base.y2;
+                                            int a14 = redKnight2Base.y1;
+                                            int a15 = redKnight2Base.y2;
 
-                                            int a16 = redKnight1Ellipse.y1;
-                                            int a17 = redKnight1Ellipse.y2;
+                                            int a16 = redKnight2Ellipse.y1;
+                                            int a17 = redKnight2Ellipse.y2;
 
                                             redKnight2Rectangle1.posX = i*100;
                                             redKnight2Rectangle1.posY = j*100;
@@ -15726,32 +15726,32 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             
                                             if(ffff) {
                                                 
-                                                redKnight1Rectangle1.posY = a1;
-                                                redKnight1Rectangle1.posX = a0;
+                                                redKnight2Rectangle1.posY = a1;
+                                                redKnight2Rectangle1.posX = a0;
 
-                                                redKnight1Rectangle1.x1 = a2;
-                                                redKnight1Rectangle1.x2 = a3;
+                                                redKnight2Rectangle1.x1 = a2;
+                                                redKnight2Rectangle1.x2 = a3;
 
-                                                redKnight1Rectangle2.x1 = a4;
-                                                redKnight1Rectangle2.x2 = a5;
+                                                redKnight2Rectangle2.x1 = a4;
+                                                redKnight2Rectangle2.x2 = a5;
 
-                                                redKnight1Base.x1 = a6;
-                                                redKnight1Base.x2 = a7;
+                                                redKnight2Base.x1 = a6;
+                                                redKnight2Base.x2 = a7;
 
-                                                redKnight1Ellipse.x1 = a8;
-                                                redKnight1Ellipse.x2 = a9;
+                                                redKnight2Ellipse.x1 = a8;
+                                                redKnight2Ellipse.x2 = a9;
 
-                                                redKnight1Rectangle1.y1 = a10;
-                                                redKnight1Rectangle1.y2 = a11;
+                                                redKnight2Rectangle1.y1 = a10;
+                                                redKnight2Rectangle1.y2 = a11;
 
-                                                redKnight1Rectangle2.y1 = a12;
-                                                redKnight1Rectangle2.y2 = a13;
+                                                redKnight2Rectangle2.y1 = a12;
+                                                redKnight2Rectangle2.y2 = a13;
 
-                                                redKnight1Base.y1 = a14;
-                                                redKnight1Base.y2 = a15;
+                                                redKnight2Base.y1 = a14;
+                                                redKnight2Base.y2 = a15;
 
-                                                redKnight1Ellipse.y1 = a16;
-                                                redKnight1Ellipse.y2 = a17;
+                                                redKnight2Ellipse.y1 = a16;
+                                                redKnight2Ellipse.y2 = a17;
 
                                             } else {
                                             
@@ -19794,7 +19794,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey rook1
                         hdcMem = CreateCompatibleDC(hdc);
-                        HBITMAP hBmp = ReplaceColor(rookWhite,0xff0000,0x64c8c8,hdcMem); // replace red by beige
+                        HBITMAP hBmp = ReplaceColor(rookWhite,0xff0000,0x00a5ff,hdcMem); // replace red by beige
                         if(((greyRook1Rectangle1.posX/100)+(greyRook1Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(rookWhite,0xff0000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -19805,7 +19805,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey rook2
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(rook2White,0xff0000,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(rook2White,0xff0000,0x00a5ff,hdcMem); // replace red by beige
                         if(((greyRook2Rectangle1.posX/100)+(greyRook2Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(rook2White,0xff0000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -19816,7 +19816,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey knight1
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(knightWhite,0x00ff00,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(knightWhite,0x00ff00,0x00a5ff,hdcMem); // replace red by beige
                         if(((greyKnight1Rectangle1.posX/100)+(greyKnight1Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(knightWhite,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -19827,7 +19827,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey knight2
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(knight2White,0x00ff00,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(knight2White,0x00ff00,0x00a5ff,hdcMem); // replace red by beige
                         if(((greyKnight2Rectangle1.posX/100)+(greyKnight2Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(knight2White,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -19838,7 +19838,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey bishop1
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(bishopWhite,0x4cb122,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(bishopWhite,0x4cb122,0x00a5ff,hdcMem); // replace red by beige
                         if(((greyBishop1Square.posX/100)+(greyBishop1Square.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(bishopWhite,0x4cb122,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -19849,7 +19849,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey bishop2
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(bishop2White,0x4cb122,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(bishop2White,0x4cb122,0x00a5ff,hdcMem); // replace red by beige
                         if(((greyBishop2Square.posX/100)+(greyBishop2Square.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(bishop2White,0x4cb122,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -19860,7 +19860,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey queen
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(queenWhite,0xff0000,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(queenWhite,0xff0000,0x00a5ff,hdcMem); // replace red by beige
                         if(((greyQueenSquare.posX/100)+(greyQueenSquare.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(queenWhite,0xff0000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -19872,7 +19872,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey king
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(kingWhite,0x00ff00,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(kingWhite,0x00ff00,0x00a5ff,hdcMem); // replace red by beige
                         if(((greyKingSquare.posX/100)+(greyKingSquare.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(kingWhite,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -19884,7 +19884,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                         //draw grey pawns
                         hdcMem = CreateCompatibleDC(hdc);
                         for(int o=0; o<8; o++) {
-                            hBmp = ReplaceColor(pawnWhite,0x000000,0x64c8c8,hdcMem); // replace red by beige
+                            hBmp = ReplaceColor(pawnWhite,0x000000,0x00a5ff,hdcMem); // replace red by beige
                             if(((greyPawnsBase[o].posX/100)+(greyPawnsBase[o].posY/100)) % 2 == 0)
                                 hBmp = ReplaceColor(pawnWhite,0x000000,0xffffff,hdcMem); // replace red by white
                             oldBitmap = SelectObject(hdcMem, hBmp);
@@ -19897,7 +19897,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw red rook1
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(rookBlack,0x00ff00,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(rookBlack,0x00ff00,0x00a5ff,hdcMem); // replace red by beige
                         if(((redRook1Rectangle1.posX/100)+(redRook1Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(rookBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -19908,7 +19908,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw red rook2
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(rook2Black,0x00ff00,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(rook2Black,0x00ff00,0x00a5ff,hdcMem); // replace red by beige
                         if(((redRook2Rectangle1.posX/100)+(redRook2Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(rook2Black,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -19919,7 +19919,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey knight1
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(knightBlack,0x00ff00,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(knightBlack,0x00ff00,0x00a5ff,hdcMem); // replace red by beige
                         if(((redKnight1Rectangle1.posX/100)+(redKnight1Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(knightBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -19930,7 +19930,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey knight2
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(knight2Black,0x00ff00,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(knight2Black,0x00ff00,0x00a5ff,hdcMem); // replace red by beige
                         if(((redKnight2Rectangle1.posX/100)+(redKnight2Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(knight2Black,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -19941,7 +19941,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey bishop1
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(bishopBlack,0xff0000,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(bishopBlack,0xff0000,0x00a5ff,hdcMem); // replace red by beige
                         if(((redBishop1Square.posX/100)+(redBishop1Square.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(bishopBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -19952,7 +19952,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey bishop2
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(bishop2Black,0xff0000,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(bishop2Black,0xff0000,0x00a5ff,hdcMem); // replace red by beige
                         if(((redBishop2Square.posX/100)+(redBishop2Square.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(bishop2Black,0xff0000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -19963,7 +19963,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey queen
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(queenBlack,0x00ff00,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(queenBlack,0x00ff00,0x00a5ff,hdcMem); // replace red by beige
                         if(((redQueenSquare.posX/100)+(redQueenSquare.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(queenBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -19975,7 +19975,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey king
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(kingBlack,0xff0000,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(kingBlack,0xff0000,0x00a5ff,hdcMem); // replace red by beige
                         if(((redKingSquare.posX/100)+(redKingSquare.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(kingBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -19987,7 +19987,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                         //draw grey pawns
                         hdcMem = CreateCompatibleDC(hdc);
                         for(int o=0; o<8; o++) {
-                            hBmp = ReplaceColor(pawnBlack,0xff0000,0x64c8c8,hdcMem); // replace red by beige
+                            hBmp = ReplaceColor(pawnBlack,0xff0000,0x00a5ff,hdcMem); // replace red by beige
                             if(((redPawnsBase[o].posX/100)+(redPawnsBase[o].posY/100)) % 2 == 0)
                                 hBmp = ReplaceColor(pawnBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                             oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20025,7 +20025,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey rook1
                         hdcMem = CreateCompatibleDC(hdc);
-                        HBITMAP hBmp = ReplaceColor(rookWhite,0xff0000,0x64c8c8,hdcMem); // replace red by beige
+                        HBITMAP hBmp = ReplaceColor(rookWhite,0xff0000,0x00a5ff,hdcMem); // replace red by beige
                         if(((greyRook1Rectangle1.posX/100)+(greyRook1Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(rookWhite,0xff0000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20036,7 +20036,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey rook2
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(rook2White,0xff0000,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(rook2White,0xff0000,0x00a5ff,hdcMem); // replace red by beige
                         if(((greyRook2Rectangle1.posX/100)+(greyRook2Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(rook2White,0xff0000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20047,7 +20047,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey knight1
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(knightWhite,0x00ff00,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(knightWhite,0x00ff00,0x00a5ff,hdcMem); // replace red by beige
                         if(((greyKnight1Rectangle1.posX/100)+(greyKnight1Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(knightWhite,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20058,7 +20058,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey knight2
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(knight2White,0x00ff00,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(knight2White,0x00ff00,0x00a5ff,hdcMem); // replace red by beige
                         if(((greyKnight2Rectangle1.posX/100)+(greyKnight2Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(knight2White,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20069,7 +20069,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey bishop1
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(bishopWhite,0x4cb122,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(bishopWhite,0x4cb122,0x00a5ff,hdcMem); // replace red by beige
                         if(((greyBishop1Square.posX/100)+(greyBishop1Square.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(bishopWhite,0x4cb122,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20080,7 +20080,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey bishop2
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(bishop2White,0x4cb122,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(bishop2White,0x4cb122,0x00a5ff,hdcMem); // replace red by beige
                         if(((greyBishop2Square.posX/100)+(greyBishop2Square.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(bishop2White,0x4cb122,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20091,7 +20091,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey queen
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(queenWhite,0xff0000,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(queenWhite,0xff0000,0x00a5ff,hdcMem); // replace red by beige
                         if(((greyQueenSquare.posX/100)+(greyQueenSquare.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(queenWhite,0xff0000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20103,7 +20103,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey king
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(kingWhite,0x00ff00,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(kingWhite,0x00ff00,0x00a5ff,hdcMem); // replace red by beige
                         if(((greyKingSquare.posX/100)+(greyKingSquare.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(kingWhite,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20115,7 +20115,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                         //draw grey pawns
                         hdcMem = CreateCompatibleDC(hdc);
                         for(int o=0; o<8; o++) {
-                            hBmp = ReplaceColor(pawnWhite,0x000000,0x64c8c8,hdcMem); // replace red by beige
+                            hBmp = ReplaceColor(pawnWhite,0x000000,0x00a5ff,hdcMem); // replace red by beige
                             if(((greyPawnsBase[o].posX/100)+(greyPawnsBase[o].posY/100)) % 2 == 0)
                                 hBmp = ReplaceColor(pawnWhite,0x000000,0xffffff,hdcMem); // replace red by white
                             oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20128,7 +20128,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw red rook1
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(rookBlack,0x00ff00,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(rookBlack,0x00ff00,0x00a5ff,hdcMem); // replace red by beige
                         if(((redRook1Rectangle1.posX/100)+(redRook1Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(rookBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20139,7 +20139,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw red rook2
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(rook2Black,0x00ff00,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(rook2Black,0x00ff00,0x00a5ff,hdcMem); // replace red by beige
                         if(((redRook2Rectangle1.posX/100)+(redRook2Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(rook2Black,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20150,7 +20150,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey knight1
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(knightBlack,0x00ff00,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(knightBlack,0x00ff00,0x00a5ff,hdcMem); // replace red by beige
                         if(((redKnight1Rectangle1.posX/100)+(redKnight1Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(knightBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20161,7 +20161,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey knight2
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(knight2Black,0x00ff00,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(knight2Black,0x00ff00,0x00a5ff,hdcMem); // replace red by beige
                         if(((redKnight2Rectangle1.posX/100)+(redKnight2Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(knight2Black,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20172,7 +20172,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey bishop1
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(bishopBlack,0xff0000,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(bishopBlack,0xff0000,0x00a5ff,hdcMem); // replace red by beige
                         if(((redBishop1Square.posX/100)+(redBishop1Square.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(bishopBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20183,7 +20183,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey bishop2
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(bishop2Black,0xff0000,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(bishop2Black,0xff0000,0x00a5ff,hdcMem); // replace red by beige
                         if(((redBishop2Square.posX/100)+(redBishop2Square.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(bishop2Black,0xff0000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20194,7 +20194,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey queen
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(queenBlack,0x00ff00,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(queenBlack,0x00ff00,0x00a5ff,hdcMem); // replace red by beige
                         if(((redQueenSquare.posX/100)+(redQueenSquare.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(queenBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20206,7 +20206,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey king
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(kingBlack,0xff0000,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(kingBlack,0xff0000,0x00a5ff,hdcMem); // replace red by beige
                         if(((redKingSquare.posX/100)+(redKingSquare.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(kingBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20218,7 +20218,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                         //draw grey pawns
                         hdcMem = CreateCompatibleDC(hdc);
                         for(int o=0; o<8; o++) {
-                            hBmp = ReplaceColor(pawnBlack,0xff0000,0x64c8c8,hdcMem); // replace red by beige
+                            hBmp = ReplaceColor(pawnBlack,0xff0000,0x00a5ff,hdcMem); // replace red by beige
                             if(((redPawnsBase[o].posX/100)+(redPawnsBase[o].posY/100)) % 2 == 0)
                                 hBmp = ReplaceColor(pawnBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                             oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20311,7 +20311,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey rook1
                     hdcMem = CreateCompatibleDC(hdc);
-                    HBITMAP hBmp = ReplaceColor(rookWhite,0xff0000,0x64c8c8,hdcMem); // replace red by beige
+                    HBITMAP hBmp = ReplaceColor(rookWhite,0xff0000,0x00a5ff,hdcMem); // replace red by beige
                     if(((greyRook1Rectangle1.posX/100)+(greyRook1Rectangle1.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(rookWhite,0xff0000,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20322,7 +20322,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey rook2
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(rook2White,0xff0000,0x64c8c8,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(rook2White,0xff0000,0x00a5ff,hdcMem); // replace red by beige
                     if(((greyRook2Rectangle1.posX/100)+(greyRook2Rectangle1.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(rook2White,0xff0000,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20333,7 +20333,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey knight1
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(knightWhite,0x00ff00,0x64c8c8,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(knightWhite,0x00ff00,0x00a5ff,hdcMem); // replace red by beige
                     if(((greyKnight1Rectangle1.posX/100)+(greyKnight1Rectangle1.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(knightWhite,0x00ff00,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20344,7 +20344,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey knight2
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(knight2White,0x00ff00,0x64c8c8,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(knight2White,0x00ff00,0x00a5ff,hdcMem); // replace red by beige
                     if(((greyKnight2Rectangle1.posX/100)+(greyKnight2Rectangle1.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(knight2White,0x00ff00,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20355,7 +20355,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey bishop1
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(bishopWhite,0x4cb122,0x64c8c8,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(bishopWhite,0x4cb122,0x00a5ff,hdcMem); // replace red by beige
                     if(((greyBishop1Square.posX/100)+(greyBishop1Square.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(bishopWhite,0x4cb122,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20366,7 +20366,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey bishop2
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(bishop2White,0x4cb122,0x64c8c8,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(bishop2White,0x4cb122,0x00a5ff,hdcMem); // replace red by beige
                     if(((greyBishop2Square.posX/100)+(greyBishop2Square.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(bishop2White,0x4cb122,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20377,7 +20377,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey queen
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(queenWhite,0xff0000,0x64c8c8,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(queenWhite,0xff0000,0x00a5ff,hdcMem); // replace red by beige
                     if(((greyQueenSquare.posX/100)+(greyQueenSquare.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(queenWhite,0xff0000,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20389,7 +20389,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey king
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(kingWhite,0x00ff00,0x64c8c8,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(kingWhite,0x00ff00,0x00a5ff,hdcMem); // replace red by beige
                     if(((greyKingSquare.posX/100)+(greyKingSquare.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(kingWhite,0x00ff00,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20401,7 +20401,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     //draw grey pawns
                     hdcMem = CreateCompatibleDC(hdc);
                     for(int o=0; o<8; o++) {
-                        hBmp = ReplaceColor(pawnWhite,0x000000,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(pawnWhite,0x000000,0x00a5ff,hdcMem); // replace red by beige
                         if(((greyPawnsBase[o].posX/100)+(greyPawnsBase[o].posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(pawnWhite,0x000000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20414,7 +20414,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw red rook1
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(rookBlack,0x00ff00,0x64c8c8,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(rookBlack,0x00ff00,0x00a5ff,hdcMem); // replace red by beige
                     if(((redRook1Rectangle1.posX/100)+(redRook1Rectangle1.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(rookBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20425,7 +20425,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw red rook2
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(rook2Black,0x00ff00,0x64c8c8,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(rook2Black,0x00ff00,0x00a5ff,hdcMem); // replace red by beige
                     if(((redRook2Rectangle1.posX/100)+(redRook2Rectangle1.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(rook2Black,0x00ff00,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20436,7 +20436,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey knight1
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(knightBlack,0x00ff00,0x64c8c8,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(knightBlack,0x00ff00,0x00a5ff,hdcMem); // replace red by beige
                     if(((redKnight1Rectangle1.posX/100)+(redKnight1Rectangle1.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(knightBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20447,7 +20447,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey knight2
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(knight2Black,0x00ff00,0x64c8c8,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(knight2Black,0x00ff00,0x00a5ff,hdcMem); // replace red by beige
                     if(((redKnight2Rectangle1.posX/100)+(redKnight2Rectangle1.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(knight2Black,0x00ff00,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20458,7 +20458,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey bishop1
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(bishopBlack,0xff0000,0x64c8c8,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(bishopBlack,0xff0000,0x00a5ff,hdcMem); // replace red by beige
                     if(((redBishop1Square.posX/100)+(redBishop1Square.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(bishopBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20469,7 +20469,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey bishop2
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(bishop2Black,0xff0000,0x64c8c8,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(bishop2Black,0xff0000,0x00a5ff,hdcMem); // replace red by beige
                     if(((redBishop2Square.posX/100)+(redBishop2Square.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(bishop2Black,0xff0000,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20480,7 +20480,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey queen
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(queenBlack,0x00ff00,0x64c8c8,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(queenBlack,0x00ff00,0x00a5ff,hdcMem); // replace red by beige
                     if(((redQueenSquare.posX/100)+(redQueenSquare.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(queenBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20492,7 +20492,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey king
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(kingBlack,0xff0000,0x64c8c8,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(kingBlack,0xff0000,0x00a5ff,hdcMem); // replace red by beige
                     if(((redKingSquare.posX/100)+(redKingSquare.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(kingBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20504,7 +20504,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     //draw grey pawns
                     hdcMem = CreateCompatibleDC(hdc);
                     for(int o=0; o<8; o++) {
-                        hBmp = ReplaceColor(pawnBlack,0xff0000,0x64c8c8,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(pawnBlack,0xff0000,0x00a5ff,hdcMem); // replace red by beige
                         if(((redPawnsBase[o].posX/100)+(redPawnsBase[o].posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(pawnBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);

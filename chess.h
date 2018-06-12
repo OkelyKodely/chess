@@ -487,7 +487,7 @@ void DrawChessBoard() {
                 } else
                     x = 255;
             }
-            brush = CreateSolidBrush(RGB(200,200,100));
+            brush = CreateSolidBrush(RGB(255,165,0));
             if(x == 255) {
                 brush = CreateSolidBrush(RGB(255,255,255));
             }
@@ -556,6 +556,11 @@ boolean moveGreyQueen(UINT msg, int j, int i, int pos, int o) {
             greyQueenSquare.failedpath = TRUE;
             return TRUE;
         }
+    }
+    if(redKingSquare.posX == greyQueenSquare.posX &&
+       redKingSquare.posY == greyQueenSquare.posY) {
+        greyQueenSquare.failedpath = TRUE;
+        return TRUE;
     }
     if(pos < 0) {
         boolean f = FALSE;
@@ -1663,6 +1668,11 @@ boolean moveRedQueen(UINT msg, int j, int i, int pos, int o) {
             redQueenSquare.failedpath = TRUE;
             return TRUE;
         }
+    }
+    if(greyKingSquare.posX == redQueenSquare.posX &&
+       greyKingSquare.posY == redQueenSquare.posY) {
+        greyQueenSquare.failedpath = TRUE;
+        return TRUE;
     }
     if(pos < 0) {
         boolean f = FALSE;
@@ -6388,43 +6398,43 @@ boolean moveGreyQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int p
 
     if(redKnight1Rectangle1.posX == greyQueenSquare.posX &&
        redKnight1Rectangle1.posY == greyQueenSquare.posY) {
-        redQueenSquare.failedpath = TRUE;
+        greyQueenSquare.failedpath = TRUE;
         return TRUE;
     }
     if(redKnight2Rectangle1.posX == greyQueenSquare.posX &&
        redKnight2Rectangle1.posY == greyQueenSquare.posY) {
-        redQueenSquare.failedpath = TRUE;
+        greyQueenSquare.failedpath = TRUE;
         return TRUE;
     }
     if(redBishop1Square.posX == greyQueenSquare.posX &&
        redBishop1Square.posY == greyQueenSquare.posY) {
-        redQueenSquare.failedpath = TRUE;
+        greyQueenSquare.failedpath = TRUE;
         return TRUE;
     }
     if(redBishop2Square.posX == greyQueenSquare.posX &&
        redBishop2Square.posY == greyQueenSquare.posY) {
-        redQueenSquare.failedpath = TRUE;
+        greyQueenSquare.failedpath = TRUE;
         return TRUE;
     }
     if(redRook1Rectangle1.posX == greyQueenSquare.posX &&
        redRook1Rectangle1.posY == greyQueenSquare.posY) {
-        redQueenSquare.failedpath = TRUE;
+        greyQueenSquare.failedpath = TRUE;
         return TRUE;
     }
     if(redRook2Rectangle1.posX == greyQueenSquare.posX &&
        redRook2Rectangle1.posY == greyQueenSquare.posY) {
-        redQueenSquare.failedpath = TRUE;
+        greyQueenSquare.failedpath = TRUE;
         return TRUE;
     }
     if(redQueenSquare.posX == greyQueenSquare.posX &&
        redQueenSquare.posY == greyQueenSquare.posY) {
-        redQueenSquare.failedpath = TRUE;
+        greyQueenSquare.failedpath = TRUE;
         return TRUE;
     }
     for(int g=0; g<8; g++) {
         if(redPawnsBase[g].posX == greyQueenSquare.posX &&
            redPawnsBase[g].posY == greyQueenSquare.posY) {
-            redQueenSquare.failedpath = TRUE;
+            greyQueenSquare.failedpath = TRUE;
             return TRUE;
         }
     }
@@ -14166,7 +14176,6 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
                                 greyBishop2Square.failedpath = TRUE;
                                 return TRUE;
                             }
-                            
                             if(greyBishop1Square.posY == greyBishop2Square.posY &&
                                greyBishop1Square.posX == greyBishop2Square.posX) {
                                 greyBishop2Square.failedpath = TRUE;
@@ -14197,119 +14206,109 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
                                 greyBishop2Square.failedpath = TRUE;
                                 return TRUE;
                             }
-
-                            if(redPawnsBase[s].posY == greyBishop2Square.posY &&
-                               redPawnsBase[s].posX == greyBishop2Square.posX) {
-                                redPawnsBase[s].posX = -1000;
-                                redPawnsBase[s].x1 = -1000;
-                                redPawnsBase[s].x2 = -1000;
-                                redPawnsEllipse[s].x1 = -1000;
-                                redPawnsEllipse[s].x2 = -1000;
-                            }
-                            
-                            if(redQueenSquare.posY == greyBishop2Square.posY &&
-                               redQueenSquare.posX == greyBishop2Square.posX) {
-                                redQueenSquare.posX = -1000;
-                                redQueenSquare.x1 = -1000;
-                                redQueenSquare.x2 = -1000;
-                                redQueenBase.x1 = -1000;
-                                redQueenBase.x2 = -1000;
-                                redQueenEllipse.x1 = -1000;
-                                redQueenEllipse.x2 = -1000;
-                                redQueenRectangle1.x1 = -1000;
-                                redQueenRectangle1.x2 = -1000;
-                                redQueenRectangle2.x1 = -1000;
-                                redQueenRectangle2.x2 = -1000;
-                                redQueenRectangle3.x1 = -1000;
-                                redQueenRectangle3.x2 = -1000;
-                            }
-                            
-                            for(int z=0; z<8; z++) {
-                                if(redQueenSquareK[z].posY == greyBishop2Square.posY &&
-                                   redQueenSquareK[z].posX == greyBishop2Square.posX) {
-                                    redQueenSquareK[z].posX = -1000;
-                                    redQueenSquareK[z].x1 = -1000;
-                                    redQueenSquareK[z].x2 = -1000;
-                                    redQueenBaseK[z].x1 = -1000;
-                                    redQueenBaseK[z].x2 = -1000;
-                                    redQueenEllipseK[z].x1 = -1000;
-                                    redQueenEllipseK[z].x2 = -1000;
-                                    redQueenRectangle1K[z].x1 = -1000;
-                                    redQueenRectangle1K[z].x2 = -1000;
-                                    redQueenRectangle2K[z].x1 = -1000;
-                                    redQueenRectangle2K[z].x2 = -1000;
-                                    redQueenRectangle3K[z].x1 = -1000;
-                                    redQueenRectangle3K[z].x2 = -1000;
+                            if(j != -666) {
+                                if(redPawnsBase[s].posY == greyBishop2Square.posY &&
+                                   redPawnsBase[s].posX == greyBishop2Square.posX) {
+                                    redPawnsBase[s].posX = -1000;
+                                    redPawnsBase[s].x1 = -1000;
+                                    redPawnsBase[s].x2 = -1000;
+                                    redPawnsEllipse[s].x1 = -1000;
+                                    redPawnsEllipse[s].x2 = -1000;
                                 }
-                            }
-
-                            if(redKnight1Rectangle1.posY == greyBishop2Square.posY &&
-                               redKnight1Rectangle1.posX == greyBishop2Square.posX) {
-                                redKnight1Rectangle1.posX = -1000;
-                                redKnight1Rectangle1.x1 = -1000;
-                                redKnight1Rectangle1.x2 = -1000;
-                                redKnight1Rectangle2.x1 = -1000;
-                                redKnight1Rectangle2.x2 = -1000;
-                                redKnight1Base.x1 = -1000;
-                                redKnight1Base.x2 = -1000;
-                                redKnight1Ellipse.x1 = -1000;
-                                redKnight1Ellipse.x2 = -1000;
-                            }
-                            
-                            if(redKnight2Rectangle1.posY == greyBishop2Square.posY &&
-                               redKnight2Rectangle1.posX == greyBishop2Square.posX) {
-                                redKnight2Rectangle1.posX = -1000;
-                                redKnight2Rectangle1.x1 = -1000;
-                                redKnight2Rectangle1.x2 = -1000;
-                                redKnight2Rectangle2.x1 = -1000;
-                                redKnight2Rectangle2.x2 = -1000;
-                                redKnight2Base.x1 = -1000;
-                                redKnight2Base.x2 = -1000;
-                                redKnight2Ellipse.x1 = -1000;
-                                redKnight2Ellipse.x2 = -1000;
-                            }
-                            
-                            if(redQueenSquare.posY == greyBishop2Square.posY &&
-                               redQueenSquare.posX == greyBishop2Square.posX) {
-                                redQueenSquare.posX = -1000;
-                                redQueenSquare.x1 = -1000;
-                                redQueenSquare.x2 = -1000;
-                                redQueenRectangle1.x1 = -1000;
-                                redQueenRectangle1.x2 = -1000;
-                                redQueenRectangle2.x1 = -1000;
-                                redQueenRectangle2.x2 = -1000;
-                                redQueenRectangle3.x1 = -1000;
-                                redQueenRectangle3.x2 = -1000;
-                                redQueenBase.x1 = -1000;
-                                redQueenBase.x2 = -1000;
-                                redQueenEllipse.x1 = -1000;
-                                redQueenEllipse.x2 = -1000;
-                            }
-                            
-                            if(redRook1Rectangle1.posY == greyBishop2Square.posY &&
-                               redRook1Rectangle1.posX == greyBishop2Square.posX) {
-                                redRook1Rectangle1.posX = -1000;
-                                redRook1Rectangle1.x1 = -1000;
-                                redRook1Rectangle1.x2 = -1000;
-                                redRook1Rectangle2.x1 = -1000;
-                                redRook1Rectangle2.x2 = -1000;
-                                redRook1Base.x1 = -1000;
-                                redRook1Base.x2 = -1000;
-                                redRook1Ellipse.x1 = -1000;
-                                redRook1Ellipse.x2 = -1000;
-                            }
-                            
-                            if(redRook2Rectangle1.posY == greyBishop2Square.posY &&
-                               redRook2Rectangle1.posX == greyBishop2Square.posX) {
-                                redRook2Rectangle1.posX = -1000;
-                                redRook2Rectangle1.x1 = -1000;
-                                redRook2Rectangle1.x2 = -1000;
-                                redRook2Rectangle2.x1 = -1000;
-                                redRook2Rectangle2.x2 = -1000;
-                                redRook2Base.x1 = -1000;
-                                redRook2Base.x2 = -1000;
-                                redRook2Ellipse.x1 = -1000;
-                                redRook2Ellipse.x2 = -1000;
+                                for(int z=0; z<8; z++) {
+                                    if(redQueenSquareK[z].posY == greyBishop2Square.posY &&
+                                       redQueenSquareK[z].posX == greyBishop2Square.posX) {
+                                        redQueenSquareK[z].posX = -1000;
+                                        redQueenSquareK[z].x1 = -1000;
+                                        redQueenSquareK[z].x2 = -1000;
+                                        redQueenBaseK[z].x1 = -1000;
+                                        redQueenBaseK[z].x2 = -1000;
+                                        redQueenEllipseK[z].x1 = -1000;
+                                        redQueenEllipseK[z].x2 = -1000;
+                                        redQueenRectangle1K[z].x1 = -1000;
+                                        redQueenRectangle1K[z].x2 = -1000;
+                                        redQueenRectangle2K[z].x1 = -1000;
+                                        redQueenRectangle2K[z].x2 = -1000;
+                                        redQueenRectangle3K[z].x1 = -1000;
+                                        redQueenRectangle3K[z].x2 = -1000;
+                                    }
+                                }
+                                if(redQueenSquare.posY == greyBishop2Square.posY &&
+                                   redQueenSquare.posX == greyBishop2Square.posX) {
+                                    redQueenSquare.posX = -1000;
+                                    redQueenSquare.x1 = -1000;
+                                    redQueenSquare.x2 = -1000;
+                                    redQueenBase.x1 = -1000;
+                                    redQueenBase.x2 = -1000;
+                                    redQueenEllipse.x1 = -1000;
+                                    redQueenEllipse.x2 = -1000;
+                                    redQueenRectangle1.x1 = -1000;
+                                    redQueenRectangle1.x2 = -1000;
+                                    redQueenRectangle2.x1 = -1000;
+                                    redQueenRectangle2.x2 = -1000;
+                                    redQueenRectangle3.x1 = -1000;
+                                    redQueenRectangle3.x2 = -1000;
+                                }
+                                if(redKnight1Rectangle1.posY == greyBishop2Square.posY &&
+                                   redKnight1Rectangle1.posX == greyBishop2Square.posX) {
+                                    redKnight1Rectangle1.posX = -1000;
+                                    redKnight1Rectangle1.x1 = -1000;
+                                    redKnight1Rectangle1.x2 = -1000;
+                                    redKnight1Rectangle2.x1 = -1000;
+                                    redKnight1Rectangle2.x2 = -1000;
+                                    redKnight1Base.x1 = -1000;
+                                    redKnight1Base.x2 = -1000;
+                                    redKnight1Ellipse.x1 = -1000;
+                                    redKnight1Ellipse.x2 = -1000;
+                                }
+                                if(redKnight2Rectangle1.posY == greyBishop2Square.posY &&
+                                   redKnight2Rectangle1.posX == greyBishop2Square.posX) {
+                                    redKnight2Rectangle1.posX = -1000;
+                                    redKnight2Rectangle1.x1 = -1000;
+                                    redKnight2Rectangle1.x2 = -1000;
+                                    redKnight2Rectangle2.x1 = -1000;
+                                    redKnight2Rectangle2.x2 = -1000;
+                                    redKnight2Base.x1 = -1000;
+                                    redKnight2Base.x2 = -1000;
+                                    redKnight2Ellipse.x1 = -1000;
+                                    redKnight2Ellipse.x2 = -1000;
+                                }
+                                if(redBishop2Square.posY == greyBishop2Square.posY &&
+                                   redBishop2Square.posX == greyBishop2Square.posX) {
+                                    redBishop2Square.posX = -1000;
+                                    redBishop2Square.x1 = -1000;
+                                    redBishop2Square.x2 = -1000;
+                                    redBishop2Rectangle.x1 = -1000;
+                                    redBishop2Rectangle.x2 = -1000;
+                                    redBishop2Base.x1 = -1000;
+                                    redBishop2Base.x2 = -1000;
+                                    redBishop2Ellipse.x1 = -1000;
+                                    redBishop2Ellipse.x2 = -1000;
+                                }
+                                if(redRook1Rectangle1.posY == greyBishop2Square.posY &&
+                                   redRook1Rectangle1.posX == greyBishop2Square.posX) {
+                                    redRook1Rectangle1.posX = -1000;
+                                    redRook1Rectangle1.x1 = -1000;
+                                    redRook1Rectangle1.x2 = -1000;
+                                    redRook1Rectangle2.x1 = -1000;
+                                    redRook1Rectangle2.x2 = -1000;
+                                    redRook1Base.x1 = -1000;
+                                    redRook1Base.x2 = -1000;
+                                    redRook1Ellipse.x1 = -1000;
+                                    redRook1Ellipse.x2 = -1000;
+                                }
+                                if(redRook2Rectangle1.posY == greyBishop2Square.posY &&
+                                   redRook2Rectangle1.posX == greyBishop2Square.posX) {
+                                    redRook2Rectangle1.posX = -1000;
+                                    redRook2Rectangle1.x1 = -1000;
+                                    redRook2Rectangle1.x2 = -1000;
+                                    redRook2Rectangle2.x1 = -1000;
+                                    redRook2Rectangle2.x2 = -1000;
+                                    redRook2Base.x1 = -1000;
+                                    redRook2Base.x2 = -1000;
+                                    redRook2Ellipse.x1 = -1000;
+                                    redRook2Ellipse.x2 = -1000;
+                                }
                             }
                         }
                     }
@@ -14337,13 +14336,13 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == greyBishop2Square.posY - 100 &&
-                       redBishop1Square.posX == greyBishop2Square.posX - 100) {
+                    if(redBishop2Square.posY == greyBishop2Square.posY - 100 &&
+                       redBishop2Square.posX == greyBishop2Square.posX - 100) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyBishop2Square.posY - 100 &&
-                       redBishop2Square.posX == greyBishop2Square.posX - 100) {
+                    if(redBishop1Square.posY == greyBishop2Square.posY - 100 &&
+                       redBishop1Square.posX == greyBishop2Square.posX - 100) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
@@ -14395,22 +14394,22 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
 
                     if(!flag) {
                         greyBishop2Square.posY = greyBishop2Square.posY - 100;
-                        greyBishop2Square.y1 = greyBishop2Square.y1 - 100;
-                        greyBishop2Square.y2 = greyBishop2Square.y2 - 100;
-                        greyBishop2Rectangle.y1 = greyBishop2Rectangle.y1 - 100;
-                        greyBishop2Rectangle.y2 = greyBishop2Rectangle.y2 - 100;
-                        greyBishop2Ellipse.y1 = greyBishop2Ellipse.y1 - 100;
-                        greyBishop2Ellipse.y2 = greyBishop2Ellipse.y2 - 100;
-                        greyBishop2Base.y1 = greyBishop2Base.y1 - 100;
-                        greyBishop2Base.y2 = greyBishop2Base.y2 - 100;
                         greyBishop2Square.posX = greyBishop2Square.posX - 100;
+                        greyBishop2Square.y1 = greyBishop2Square.y1 - 100;
                         greyBishop2Square.x1 = greyBishop2Square.x1 - 100;
+                        greyBishop2Square.y2 = greyBishop2Square.y2 - 100;
                         greyBishop2Square.x2 = greyBishop2Square.x2 - 100;
+                        greyBishop2Rectangle.y1 = greyBishop2Rectangle.y1 - 100;
                         greyBishop2Rectangle.x1 = greyBishop2Rectangle.x1 - 100;
+                        greyBishop2Rectangle.y2 = greyBishop2Rectangle.y2 - 100;
                         greyBishop2Rectangle.x2 = greyBishop2Rectangle.x2 - 100;
+                        greyBishop2Ellipse.y1 = greyBishop2Ellipse.y1 - 100;
                         greyBishop2Ellipse.x1 = greyBishop2Ellipse.x1 - 100;
+                        greyBishop2Ellipse.y2 = greyBishop2Ellipse.y2 - 100;
                         greyBishop2Ellipse.x2 = greyBishop2Ellipse.x2 - 100;
+                        greyBishop2Base.y1 = greyBishop2Base.y1 - 100;
                         greyBishop2Base.x1 = greyBishop2Base.x1 - 100;
+                        greyBishop2Base.y2 = greyBishop2Base.y2 - 100;
                         greyBishop2Base.x2 = greyBishop2Base.x2 - 100;
                     }
 
@@ -14420,11 +14419,11 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
 
             else {
 
-                greyBishop1Square.failedpath = TRUE;
+                greyBishop2Square.failedpath = TRUE;
                 return TRUE;
             }
         }
-        else if(ps1 > 0) {
+        if(ps1 > 0) {
             boolean f = FALSE;
             if(pos1 < -100 && ps1 > 100) {
                 f = moveGreyBishop2(msg, j, i, pos1 + 100, ps1 - 100, pos2, ps2);
@@ -14460,7 +14459,6 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
                                 greyBishop2Square.failedpath = TRUE;
                                 return TRUE;
                             }
-
                             if(greyBishop1Square.posY == greyBishop2Square.posY &&
                                greyBishop1Square.posX == greyBishop2Square.posX) {
                                 greyBishop2Square.failedpath = TRUE;
@@ -14491,119 +14489,109 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
                                 greyBishop2Square.failedpath = TRUE;
                                 return TRUE;
                             }
-
-                            if(redPawnsBase[s].posY == greyBishop2Square.posY &&
-                               redPawnsBase[s].posX == greyBishop2Square.posX) {
-                                redPawnsBase[s].posX = -1000;
-                                redPawnsBase[s].x1 = -1000;
-                                redPawnsBase[s].x2 = -1000;
-                                redPawnsEllipse[s].x1 = -1000;
-                                redPawnsEllipse[s].x2 = -1000;
-                            }
-                            
-                            if(redQueenSquare.posY == greyBishop2Square.posY &&
-                               redQueenSquare.posX == greyBishop2Square.posX) {
-                                redQueenSquare.posX = -1000;
-                                redQueenSquare.x1 = -1000;
-                                redQueenSquare.x2 = -1000;
-                                redQueenBase.x1 = -1000;
-                                redQueenBase.x2 = -1000;
-                                redQueenEllipse.x1 = -1000;
-                                redQueenEllipse.x2 = -1000;
-                                redQueenRectangle1.x1 = -1000;
-                                redQueenRectangle1.x2 = -1000;
-                                redQueenRectangle2.x1 = -1000;
-                                redQueenRectangle2.x2 = -1000;
-                                redQueenRectangle3.x1 = -1000;
-                                redQueenRectangle3.x2 = -1000;
-                            }
-                            
-                            if(redKnight1Rectangle1.posY == greyBishop2Square.posY &&
-                               redKnight1Rectangle1.posX == greyBishop2Square.posX) {
-                                redKnight1Rectangle1.posX = -1000;
-                                redKnight1Rectangle1.x1 = -1000;
-                                redKnight1Rectangle1.x2 = -1000;
-                                redKnight1Rectangle2.x1 = -1000;
-                                redKnight1Rectangle2.x2 = -1000;
-                                redKnight1Base.x1 = -1000;
-                                redKnight1Base.x2 = -1000;
-                                redKnight1Ellipse.x1 = -1000;
-                                redKnight1Ellipse.x2 = -1000;
-                            }
-                            
-                            if(redKnight2Rectangle1.posY == greyBishop2Square.posY &&
-                               redKnight2Rectangle1.posX == greyBishop2Square.posX) {
-                                redKnight2Rectangle1.posX = -1000;
-                                redKnight2Rectangle1.x1 = -1000;
-                                redKnight2Rectangle1.x2 = -1000;
-                                redKnight2Rectangle2.x1 = -1000;
-                                redKnight2Rectangle2.x2 = -1000;
-                                redKnight2Base.x1 = -1000;
-                                redKnight2Base.x2 = -1000;
-                                redKnight2Ellipse.x1 = -1000;
-                                redKnight2Ellipse.x2 = -1000;
-                            }
-                            
-                            if(redQueenSquare.posY == greyBishop2Square.posY &&
-                               redQueenSquare.posX == greyBishop2Square.posX) {
-                                redQueenSquare.posX = -1000;
-                                redQueenSquare.x1 = -1000;
-                                redQueenSquare.x2 = -1000;
-                                redQueenRectangle1.x1 = -1000;
-                                redQueenRectangle1.x2 = -1000;
-                                redQueenRectangle2.x1 = -1000;
-                                redQueenRectangle2.x2 = -1000;
-                                redQueenRectangle3.x1 = -1000;
-                                redQueenRectangle3.x2 = -1000;
-                                redQueenBase.x1 = -1000;
-                                redQueenBase.x2 = -1000;
-                                redQueenEllipse.x1 = -1000;
-                                redQueenEllipse.x2 = -1000;
-                            }
-                            
-                            for(int z=0; z<8; z++) {
-                                if(redQueenSquareK[z].posY == greyBishop2Square.posY &&
-                                   redQueenSquareK[z].posX == greyBishop2Square.posX) {
-                                    redQueenSquareK[z].posX = -1000;
-                                    redQueenSquareK[z].x1 = -1000;
-                                    redQueenSquareK[z].x2 = -1000;
-                                    redQueenBaseK[z].x1 = -1000;
-                                    redQueenBaseK[z].x2 = -1000;
-                                    redQueenEllipseK[z].x1 = -1000;
-                                    redQueenEllipseK[z].x2 = -1000;
-                                    redQueenRectangle1K[z].x1 = -1000;
-                                    redQueenRectangle1K[z].x2 = -1000;
-                                    redQueenRectangle2K[z].x1 = -1000;
-                                    redQueenRectangle2K[z].x2 = -1000;
-                                    redQueenRectangle3K[z].x1 = -1000;
-                                    redQueenRectangle3K[z].x2 = -1000;
+                            if(j != -666) {
+                                if(redPawnsBase[s].posY == greyBishop2Square.posY &&
+                                   redPawnsBase[s].posX == greyBishop2Square.posX) {
+                                    redPawnsBase[s].posX = -1000;
+                                    redPawnsBase[s].x1 = -1000;
+                                    redPawnsBase[s].x2 = -1000;
+                                    redPawnsEllipse[s].x1 = -1000;
+                                    redPawnsEllipse[s].x2 = -1000;
                                 }
-                            }
-
-                            if(redRook1Rectangle1.posY == greyBishop2Square.posY &&
-                               redRook1Rectangle1.posX == greyBishop2Square.posX) {
-                                redRook1Rectangle1.posX = -1000;
-                                redRook1Rectangle1.x1 = -1000;
-                                redRook1Rectangle1.x2 = -1000;
-                                redRook1Rectangle2.x1 = -1000;
-                                redRook1Rectangle2.x2 = -1000;
-                                redRook1Base.x1 = -1000;
-                                redRook1Base.x2 = -1000;
-                                redRook1Ellipse.x1 = -1000;
-                                redRook1Ellipse.x2 = -1000;
-                            }
-                            
-                            if(redRook2Rectangle1.posY == greyBishop2Square.posY &&
-                               redRook2Rectangle1.posX == greyBishop2Square.posX) {
-                                redRook2Rectangle1.posX = -1000;
-                                redRook2Rectangle1.x1 = -1000;
-                                redRook2Rectangle1.x2 = -1000;
-                                redRook2Rectangle1.x1 = -1000;
-                                redRook2Rectangle1.x2 = -1000;
-                                redRook2Base.x1 = -1000;
-                                redRook2Base.x2 = -1000;
-                                redRook2Ellipse.x1 = -1000;
-                                redRook2Ellipse.x2 = -1000;
+                                for(int z=0; z<8; z++) {
+                                    if(redQueenSquareK[z].posY == greyBishop2Square.posY &&
+                                       redQueenSquareK[z].posX == greyBishop2Square.posX) {
+                                        redQueenSquareK[z].posX = -1000;
+                                        redQueenSquareK[z].x1 = -1000;
+                                        redQueenSquareK[z].x2 = -1000;
+                                        redQueenBaseK[z].x1 = -1000;
+                                        redQueenBaseK[z].x2 = -1000;
+                                        redQueenEllipseK[z].x1 = -1000;
+                                        redQueenEllipseK[z].x2 = -1000;
+                                        redQueenRectangle1K[z].x1 = -1000;
+                                        redQueenRectangle1K[z].x2 = -1000;
+                                        redQueenRectangle2K[z].x1 = -1000;
+                                        redQueenRectangle2K[z].x2 = -1000;
+                                        redQueenRectangle3K[z].x1 = -1000;
+                                        redQueenRectangle3K[z].x2 = -1000;
+                                    }
+                                }
+                                if(redQueenSquare.posY == greyBishop2Square.posY &&
+                                   redQueenSquare.posX == greyBishop2Square.posX) {
+                                    redQueenSquare.posX = -1000;
+                                    redQueenSquare.x1 = -1000;
+                                    redQueenSquare.x2 = -1000;
+                                    redQueenBase.x1 = -1000;
+                                    redQueenBase.x2 = -1000;
+                                    redQueenEllipse.x1 = -1000;
+                                    redQueenEllipse.x2 = -1000;
+                                    redQueenRectangle1.x1 = -1000;
+                                    redQueenRectangle1.x2 = -1000;
+                                    redQueenRectangle2.x1 = -1000;
+                                    redQueenRectangle2.x2 = -1000;
+                                    redQueenRectangle3.x1 = -1000;
+                                    redQueenRectangle3.x2 = -1000;
+                                }
+                                if(redKnight1Rectangle1.posY == greyBishop2Square.posY &&
+                                   redKnight1Rectangle1.posX == greyBishop2Square.posX) {
+                                    redKnight1Rectangle1.posX = -1000;
+                                    redKnight1Rectangle1.x1 = -1000;
+                                    redKnight1Rectangle1.x2 = -1000;
+                                    redKnight1Rectangle2.x1 = -1000;
+                                    redKnight1Rectangle2.x2 = -1000;
+                                    redKnight1Base.x1 = -1000;
+                                    redKnight1Base.x2 = -1000;
+                                    redKnight1Ellipse.x1 = -1000;
+                                    redKnight1Ellipse.x2 = -1000;
+                                }
+                                if(redKnight2Rectangle1.posY == greyBishop2Square.posY &&
+                                   redKnight2Rectangle1.posX == greyBishop2Square.posX) {
+                                    redKnight2Rectangle1.posX = -1000;
+                                    redKnight2Rectangle1.x1 = -1000;
+                                    redKnight2Rectangle1.x2 = -1000;
+                                    redKnight2Rectangle2.x1 = -1000;
+                                    redKnight2Rectangle2.x2 = -1000;
+                                    redKnight2Base.x1 = -1000;
+                                    redKnight2Base.x2 = -1000;
+                                    redKnight2Ellipse.x1 = -1000;
+                                    redKnight2Ellipse.x2 = -1000;
+                                }
+                                if(redBishop2Square.posY == greyBishop2Square.posY &&
+                                   redBishop2Square.posX == greyBishop2Square.posX) {
+                                    redBishop2Square.posX = -1000;
+                                    redBishop2Square.x1 = -1000;
+                                    redBishop2Square.x2 = -1000;
+                                    redBishop2Rectangle.x1 = -1000;
+                                    redBishop2Rectangle.x2 = -1000;
+                                    redBishop2Base.x1 = -1000;
+                                    redBishop2Base.x2 = -1000;
+                                    redBishop2Ellipse.x1 = -1000;
+                                    redBishop2Ellipse.x2 = -1000;
+                                }
+                                if(redRook1Rectangle1.posY == greyBishop2Square.posY &&
+                                   redRook1Rectangle1.posX == greyBishop2Square.posX) {
+                                    redRook1Rectangle1.posX = -1000;
+                                    redRook1Rectangle1.x1 = -1000;
+                                    redRook1Rectangle1.x2 = -1000;
+                                    redRook1Rectangle2.x1 = -1000;
+                                    redRook1Rectangle2.x2 = -1000;
+                                    redRook1Base.x1 = -1000;
+                                    redRook1Base.x2 = -1000;
+                                    redRook1Ellipse.x1 = -1000;
+                                    redRook1Ellipse.x2 = -1000;
+                                }
+                                if(redRook2Rectangle1.posY == greyBishop2Square.posY &&
+                                   redRook2Rectangle1.posX == greyBishop2Square.posX) {
+                                    redRook2Rectangle1.posX = -1000;
+                                    redRook2Rectangle1.x1 = -1000;
+                                    redRook2Rectangle1.x2 = -1000;
+                                    redRook2Rectangle2.x1 = -1000;
+                                    redRook2Rectangle2.x2 = -1000;
+                                    redRook2Base.x1 = -1000;
+                                    redRook2Base.x2 = -1000;
+                                    redRook2Ellipse.x1 = -1000;
+                                    redRook2Ellipse.x2 = -1000;
+                                }
                             }
                         }
                     }
@@ -14631,13 +14619,13 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == greyBishop2Square.posY - 100 &&
-                       redBishop1Square.posX == greyBishop2Square.posX + 100) {
+                    if(redBishop2Square.posY == greyBishop2Square.posY - 100 &&
+                       redBishop2Square.posX == greyBishop2Square.posX + 100) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyBishop2Square.posY - 100 &&
-                       redBishop2Square.posX == greyBishop2Square.posX + 100) {
+                    if(redBishop1Square.posY == greyBishop2Square.posY - 100 &&
+                       redBishop1Square.posX == greyBishop2Square.posX + 100) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
@@ -14689,22 +14677,22 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
 
                     if(!flag) {
                         greyBishop2Square.posY = greyBishop2Square.posY - 100;
-                        greyBishop2Square.y1 = greyBishop2Square.y1 - 100;
-                        greyBishop2Square.y2 = greyBishop2Square.y2 - 100;
-                        greyBishop2Rectangle.y1 = greyBishop2Rectangle.y1 - 100;
-                        greyBishop2Rectangle.y2 = greyBishop2Rectangle.y2 - 100;
-                        greyBishop2Ellipse.y1 = greyBishop2Ellipse.y1 - 100;
-                        greyBishop2Ellipse.y2 = greyBishop2Ellipse.y2 - 100;
-                        greyBishop2Base.y1 = greyBishop2Base.y1 - 100;
-                        greyBishop2Base.y2 = greyBishop2Base.y2 - 100;
                         greyBishop2Square.posX = greyBishop2Square.posX + 100;
+                        greyBishop2Square.y1 = greyBishop2Square.y1 - 100;
                         greyBishop2Square.x1 = greyBishop2Square.x1 + 100;
+                        greyBishop2Square.y2 = greyBishop2Square.y2 - 100;
                         greyBishop2Square.x2 = greyBishop2Square.x2 + 100;
+                        greyBishop2Rectangle.y1 = greyBishop2Rectangle.y1 - 100;
                         greyBishop2Rectangle.x1 = greyBishop2Rectangle.x1 + 100;
+                        greyBishop2Rectangle.y2 = greyBishop2Rectangle.y2 - 100;
                         greyBishop2Rectangle.x2 = greyBishop2Rectangle.x2 + 100;
+                        greyBishop2Ellipse.y1 = greyBishop2Ellipse.y1 - 100;
                         greyBishop2Ellipse.x1 = greyBishop2Ellipse.x1 + 100;
+                        greyBishop2Ellipse.y2 = greyBishop2Ellipse.y2 - 100;
                         greyBishop2Ellipse.x2 = greyBishop2Ellipse.x2 + 100;
+                        greyBishop2Base.y1 = greyBishop2Base.y1 - 100;
                         greyBishop2Base.x1 = greyBishop2Base.x1 + 100;
+                        greyBishop2Base.y2 = greyBishop2Base.y2 - 100;
                         greyBishop2Base.x2 = greyBishop2Base.x2 + 100;
                     }
 
@@ -14755,7 +14743,6 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
                                 greyBishop2Square.failedpath = TRUE;
                                 return TRUE;
                             }
-                            
                             if(greyBishop1Square.posY == greyBishop2Square.posY &&
                                greyBishop1Square.posX == greyBishop2Square.posX) {
                                 greyBishop2Square.failedpath = TRUE;
@@ -14786,119 +14773,109 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
                                 greyBishop2Square.failedpath = TRUE;
                                 return TRUE;
                             }
-
-                            if(redPawnsBase[s].posY == greyBishop2Square.posY &&
-                               redPawnsBase[s].posX == greyBishop2Square.posX) {
-                                redPawnsBase[s].posX = -1000;
-                                redPawnsBase[s].x1 = -1000;
-                                redPawnsBase[s].x2 = -1000;
-                                redPawnsEllipse[s].x1 = -1000;
-                                redPawnsEllipse[s].x2 = -1000;
-                            }
-                            
-                            if(redQueenSquare.posY == greyBishop2Square.posY &&
-                               redQueenSquare.posX == greyBishop2Square.posX) {
-                                redQueenSquare.posX = -1000;
-                                redQueenSquare.x1 = -1000;
-                                redQueenSquare.x2 = -1000;
-                                redQueenBase.x1 = -1000;
-                                redQueenBase.x2 = -1000;
-                                redQueenEllipse.x1 = -1000;
-                                redQueenEllipse.x2 = -1000;
-                                redQueenRectangle1.x1 = -1000;
-                                redQueenRectangle1.x2 = -1000;
-                                redQueenRectangle2.x1 = -1000;
-                                redQueenRectangle2.x2 = -1000;
-                                redQueenRectangle3.x1 = -1000;
-                                redQueenRectangle3.x2 = -1000;
-                            }
-                            
-                            for(int z=0; z<8; z++) {
-                                if(redQueenSquareK[z].posY == greyBishop2Square.posY &&
-                                   redQueenSquareK[z].posX == greyBishop2Square.posX) {
-                                    redQueenSquareK[z].posX = -1000;
-                                    redQueenSquareK[z].x1 = -1000;
-                                    redQueenSquareK[z].x2 = -1000;
-                                    redQueenBaseK[z].x1 = -1000;
-                                    redQueenBaseK[z].x2 = -1000;
-                                    redQueenEllipseK[z].x1 = -1000;
-                                    redQueenEllipseK[z].x2 = -1000;
-                                    redQueenRectangle1K[z].x1 = -1000;
-                                    redQueenRectangle1K[z].x2 = -1000;
-                                    redQueenRectangle2K[z].x1 = -1000;
-                                    redQueenRectangle2K[z].x2 = -1000;
-                                    redQueenRectangle3K[z].x1 = -1000;
-                                    redQueenRectangle3K[z].x2 = -1000;
+                            if(j != -666) {
+                                if(redPawnsBase[s].posY == greyBishop2Square.posY &&
+                                   redPawnsBase[s].posX == greyBishop2Square.posX) {
+                                    redPawnsBase[s].posX = -1000;
+                                    redPawnsBase[s].x1 = -1000;
+                                    redPawnsBase[s].x2 = -1000;
+                                    redPawnsEllipse[s].x1 = -1000;
+                                    redPawnsEllipse[s].x2 = -1000;
                                 }
-                            }
-
-                            if(redKnight1Rectangle1.posY == greyBishop2Square.posY &&
-                               redKnight1Rectangle1.posX == greyBishop2Square.posX) {
-                                redKnight1Rectangle1.posX = -1000;
-                                redKnight1Rectangle1.x1 = -1000;
-                                redKnight1Rectangle1.x2 = -1000;
-                                redKnight1Rectangle2.x1 = -1000;
-                                redKnight1Rectangle2.x2 = -1000;
-                                redKnight1Base.x1 = -1000;
-                                redKnight1Base.x2 = -1000;
-                                redKnight1Ellipse.x1 = -1000;
-                                redKnight1Ellipse.x2 = -1000;
-                            }
-                            
-                            if(redKnight2Rectangle1.posY == greyBishop2Square.posY &&
-                               redKnight2Rectangle1.posX == greyBishop2Square.posX) {
-                                redKnight2Rectangle1.posX = -1000;
-                                redKnight2Rectangle1.x1 = -1000;
-                                redKnight2Rectangle1.x2 = -1000;
-                                redKnight2Rectangle2.x1 = -1000;
-                                redKnight2Rectangle2.x2 = -1000;
-                                redKnight2Base.x1 = -1000;
-                                redKnight2Base.x2 = -1000;
-                                redKnight2Ellipse.x1 = -1000;
-                                redKnight2Ellipse.x2 = -1000;
-                            
-                            
-                            if(redQueenSquare.posY == greyBishop2Square.posY &&
-                               redQueenSquare.posX == greyBishop2Square.posX) {
-                                redQueenSquare.posX = -1000;
-                                redQueenSquare.x1 = -1000;
-                                redQueenSquare.x2 = -1000;
-                                redQueenRectangle1.x1 = -1000;
-                                redQueenRectangle1.x2 = -1000;
-                                redQueenRectangle2.x1 = -1000;
-                                redQueenRectangle2.x2 = -1000;
-                                redQueenRectangle3.x1 = -1000;
-                                redQueenRectangle3.x2 = -1000;
-                                redQueenBase.x1 = -1000;
-                                redQueenBase.x2 = -1000;
-                                redQueenEllipse.x1 = -1000;
-                                redQueenEllipse.x2 = -1000;
-                            }
-                            
-                            if(redRook1Rectangle1.posY == greyBishop2Square.posY &&
-                               redRook1Rectangle1.posX == greyBishop2Square.posX) {
-                                redRook1Rectangle1.posX = -1000;
-                                redRook1Rectangle1.x1 = -1000;
-                                redRook1Rectangle1.x2 = -1000;
-                                redRook1Rectangle2.x1 = -1000;
-                                redRook1Rectangle2.x2 = -1000;
-                                redRook1Base.x1 = -1000;
-                                redRook1Base.x2 = -1000;
-                                redRook1Ellipse.x1 = -1000;
-                                redRook1Ellipse.x2 = -1000;
-                            }
-                            
-                            if(redRook2Rectangle1.posY == greyBishop2Square.posY &&
-                               redRook2Rectangle1.posX == greyBishop2Square.posX) {
-                                redRook2Rectangle1.posX = -1000;
-                                redRook2Rectangle1.x1 = -1000;
-                                redRook2Rectangle1.x2 = -1000;
-                                redRook2Rectangle2.x1 = -1000;
-                                redRook2Rectangle2.x2 = -1000;
-                                redRook2Base.x1 = -1000;
-                                redRook2Base.x2 = -1000;
-                                redRook2Ellipse.x1 = -1000;
-                                redRook2Ellipse.x2 = -1000;
+                                for(int z=0; z<8; z++) {
+                                    if(redQueenSquareK[z].posY == greyBishop2Square.posY &&
+                                       redQueenSquareK[z].posX == greyBishop2Square.posX) {
+                                        redQueenSquareK[z].posX = -1000;
+                                        redQueenSquareK[z].x1 = -1000;
+                                        redQueenSquareK[z].x2 = -1000;
+                                        redQueenBaseK[z].x1 = -1000;
+                                        redQueenBaseK[z].x2 = -1000;
+                                        redQueenEllipseK[z].x1 = -1000;
+                                        redQueenEllipseK[z].x2 = -1000;
+                                        redQueenRectangle1K[z].x1 = -1000;
+                                        redQueenRectangle1K[z].x2 = -1000;
+                                        redQueenRectangle2K[z].x1 = -1000;
+                                        redQueenRectangle2K[z].x2 = -1000;
+                                        redQueenRectangle3K[z].x1 = -1000;
+                                        redQueenRectangle3K[z].x2 = -1000;
+                                    }
+                                }
+                                if(redQueenSquare.posY == greyBishop2Square.posY &&
+                                   redQueenSquare.posX == greyBishop2Square.posX) {
+                                    redQueenSquare.posX = -1000;
+                                    redQueenSquare.x1 = -1000;
+                                    redQueenSquare.x2 = -1000;
+                                    redQueenBase.x1 = -1000;
+                                    redQueenBase.x2 = -1000;
+                                    redQueenEllipse.x1 = -1000;
+                                    redQueenEllipse.x2 = -1000;
+                                    redQueenRectangle1.x1 = -1000;
+                                    redQueenRectangle1.x2 = -1000;
+                                    redQueenRectangle2.x1 = -1000;
+                                    redQueenRectangle2.x2 = -1000;
+                                    redQueenRectangle3.x1 = -1000;
+                                    redQueenRectangle3.x2 = -1000;
+                                }
+                                if(redKnight1Rectangle1.posY == greyBishop2Square.posY &&
+                                   redKnight1Rectangle1.posX == greyBishop2Square.posX) {
+                                    redKnight1Rectangle1.posX = -1000;
+                                    redKnight1Rectangle1.x1 = -1000;
+                                    redKnight1Rectangle1.x2 = -1000;
+                                    redKnight1Rectangle2.x1 = -1000;
+                                    redKnight1Rectangle2.x2 = -1000;
+                                    redKnight1Base.x1 = -1000;
+                                    redKnight1Base.x2 = -1000;
+                                    redKnight1Ellipse.x1 = -1000;
+                                    redKnight1Ellipse.x2 = -1000;
+                                }
+                                if(redKnight2Rectangle1.posY == greyBishop2Square.posY &&
+                                   redKnight2Rectangle1.posX == greyBishop2Square.posX) {
+                                    redKnight2Rectangle1.posX = -1000;
+                                    redKnight2Rectangle1.x1 = -1000;
+                                    redKnight2Rectangle1.x2 = -1000;
+                                    redKnight2Rectangle2.x1 = -1000;
+                                    redKnight2Rectangle2.x2 = -1000;
+                                    redKnight2Base.x1 = -1000;
+                                    redKnight2Base.x2 = -1000;
+                                    redKnight2Ellipse.x1 = -1000;
+                                    redKnight2Ellipse.x2 = -1000;
+                                }
+                                if(redBishop2Square.posY == greyBishop2Square.posY &&
+                                   redBishop2Square.posX == greyBishop2Square.posX) {
+                                    redBishop2Square.posX = -1000;
+                                    redBishop2Square.x1 = -1000;
+                                    redBishop2Square.x2 = -1000;
+                                    redBishop2Rectangle.x1 = -1000;
+                                    redBishop2Rectangle.x2 = -1000;
+                                    redBishop2Base.x1 = -1000;
+                                    redBishop2Base.x2 = -1000;
+                                    redBishop2Ellipse.x1 = -1000;
+                                    redBishop2Ellipse.x2 = -1000;
+                                }
+                                if(redRook1Rectangle1.posY == greyBishop2Square.posY &&
+                                   redRook1Rectangle1.posX == greyBishop2Square.posX) {
+                                    redRook1Rectangle1.posX = -1000;
+                                    redRook1Rectangle1.x1 = -1000;
+                                    redRook1Rectangle1.x2 = -1000;
+                                    redRook1Rectangle2.x1 = -1000;
+                                    redRook1Rectangle2.x2 = -1000;
+                                    redRook1Base.x1 = -1000;
+                                    redRook1Base.x2 = -1000;
+                                    redRook1Ellipse.x1 = -1000;
+                                    redRook1Ellipse.x2 = -1000;
+                                }
+                                if(redRook2Rectangle1.posY == greyBishop2Square.posY &&
+                                   redRook2Rectangle1.posX == greyBishop2Square.posX) {
+                                    redRook2Rectangle1.posX = -1000;
+                                    redRook2Rectangle1.x1 = -1000;
+                                    redRook2Rectangle1.x2 = -1000;
+                                    redRook2Rectangle2.x1 = -1000;
+                                    redRook2Rectangle2.x2 = -1000;
+                                    redRook2Base.x1 = -1000;
+                                    redRook2Base.x2 = -1000;
+                                    redRook2Ellipse.x1 = -1000;
+                                    redRook2Ellipse.x2 = -1000;
+                                }
                             }
                         }
                     }
@@ -14920,6 +14897,11 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
                             greyBishop2Square.failedpath = TRUE;
                             flag = TRUE;
                         }
+                    }
+                    if(redQueenSquare.posY == greyBishop2Square.posY + 100 &&
+                       redQueenSquare.posX == greyBishop2Square.posX - 100) {
+                        greyBishop2Square.failedpath = TRUE;
+                        flag = TRUE;
                     }
                     if(redBishop1Square.posY == greyBishop2Square.posY + 100 &&
                        redBishop1Square.posX == greyBishop2Square.posX - 100) {
@@ -14979,22 +14961,22 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
 
                     if(!flag) {
                         greyBishop2Square.posY = greyBishop2Square.posY + 100;
-                        greyBishop2Square.y1 = greyBishop2Square.y1 + 100;
-                        greyBishop2Square.y2 = greyBishop2Square.y2 + 100;
-                        greyBishop2Rectangle.y1 = greyBishop2Rectangle.y1 + 100;
-                        greyBishop2Rectangle.y2 = greyBishop2Rectangle.y2 + 100;
-                        greyBishop2Ellipse.y1 = greyBishop2Ellipse.y1 + 100;
-                        greyBishop2Ellipse.y2 = greyBishop2Ellipse.y2 + 100;
-                        greyBishop2Base.y1 = greyBishop2Base.y1 + 100;
-                        greyBishop2Base.y2 = greyBishop2Base.y2 + 100;
                         greyBishop2Square.posX = greyBishop2Square.posX - 100;
+                        greyBishop2Square.y1 = greyBishop2Square.y1 + 100;
                         greyBishop2Square.x1 = greyBishop2Square.x1 - 100;
+                        greyBishop2Square.y2 = greyBishop2Square.y2 + 100;
                         greyBishop2Square.x2 = greyBishop2Square.x2 - 100;
+                        greyBishop2Rectangle.y1 = greyBishop2Rectangle.y1 + 100;
                         greyBishop2Rectangle.x1 = greyBishop2Rectangle.x1 - 100;
+                        greyBishop2Rectangle.y2 = greyBishop2Rectangle.y2 + 100;
                         greyBishop2Rectangle.x2 = greyBishop2Rectangle.x2 - 100;
+                        greyBishop2Ellipse.y1 = greyBishop2Ellipse.y1 + 100;
                         greyBishop2Ellipse.x1 = greyBishop2Ellipse.x1 - 100;
+                        greyBishop2Ellipse.y2 = greyBishop2Ellipse.y2 + 100;
                         greyBishop2Ellipse.x2 = greyBishop2Ellipse.x2 - 100;
+                        greyBishop2Base.y1 = greyBishop2Base.y1 + 100;
                         greyBishop2Base.x1 = greyBishop2Base.x1 - 100;
+                        greyBishop2Base.y2 = greyBishop2Base.y2 + 100;
                         greyBishop2Base.x2 = greyBishop2Base.x2 - 100;
                     }
 
@@ -15008,7 +14990,7 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
                 return TRUE;
             }
         }
-        else if(ps1 > 0) {
+        if(ps1 > 0) {
             boolean f = FALSE;
             if(pos1 > 100 && ps1 > 100) {
                 f = moveGreyBishop2(msg, j, i, pos1 - 100, ps1 - 100, pos2, ps2);
@@ -15044,7 +15026,6 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
                                 greyBishop2Square.failedpath = TRUE;
                                 return TRUE;
                             }
-
                             if(greyBishop1Square.posY == greyBishop2Square.posY &&
                                greyBishop1Square.posX == greyBishop2Square.posX) {
                                 greyBishop2Square.failedpath = TRUE;
@@ -15075,119 +15056,109 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
                                 greyBishop2Square.failedpath = TRUE;
                                 return TRUE;
                             }
-
-                            if(redPawnsBase[s].posY == greyBishop2Square.posY &&
-                               redPawnsBase[s].posX == greyBishop2Square.posX) {
-                                redPawnsBase[s].posX = -1000;
-                                redPawnsBase[s].x1 = -1000;
-                                redPawnsBase[s].x2 = -1000;
-                                redPawnsEllipse[s].x1 = -1000;
-                                redPawnsEllipse[s].x2 = -1000;
-                            }
-                            
-                            if(redQueenSquare.posY == greyBishop2Square.posY &&
-                               redQueenSquare.posX == greyBishop2Square.posX) {
-                                redQueenSquare.posX = -1000;
-                                redQueenSquare.x1 = -1000;
-                                redQueenSquare.x2 = -1000;
-                                redQueenBase.x1 = -1000;
-                                redQueenBase.x2 = -1000;
-                                redQueenEllipse.x1 = -1000;
-                                redQueenEllipse.x2 = -1000;
-                                redQueenRectangle1.x1 = -1000;
-                                redQueenRectangle1.x2 = -1000;
-                                redQueenRectangle2.x1 = -1000;
-                                redQueenRectangle2.x2 = -1000;
-                                redQueenRectangle3.x1 = -1000;
-                                redQueenRectangle3.x2 = -1000;
-                            }
-                            
-                            for(int z=0; z<8; z++) {
-                                if(redQueenSquareK[z].posY == greyBishop2Square.posY &&
-                                   redQueenSquareK[z].posX == greyBishop2Square.posX) {
-                                    redQueenSquareK[z].posX = -1000;
-                                    redQueenSquareK[z].x1 = -1000;
-                                    redQueenSquareK[z].x2 = -1000;
-                                    redQueenBaseK[z].x1 = -1000;
-                                    redQueenBaseK[z].x2 = -1000;
-                                    redQueenEllipseK[z].x1 = -1000;
-                                    redQueenEllipseK[z].x2 = -1000;
-                                    redQueenRectangle1K[z].x1 = -1000;
-                                    redQueenRectangle1K[z].x2 = -1000;
-                                    redQueenRectangle2K[z].x1 = -1000;
-                                    redQueenRectangle2K[z].x2 = -1000;
-                                    redQueenRectangle3K[z].x1 = -1000;
-                                    redQueenRectangle3K[z].x2 = -1000;
+                            if(j != -666) {
+                                if(redPawnsBase[s].posY == greyBishop2Square.posY &&
+                                   redPawnsBase[s].posX == greyBishop2Square.posX) {
+                                    redPawnsBase[s].posX = -1000;
+                                    redPawnsBase[s].x1 = -1000;
+                                    redPawnsBase[s].x2 = -1000;
+                                    redPawnsEllipse[s].x1 = -1000;
+                                    redPawnsEllipse[s].x2 = -1000;
                                 }
-                            }
-
-                            if(redKnight1Rectangle1.posY == greyBishop2Square.posY &&
-                               redKnight1Rectangle1.posX == greyBishop2Square.posX) {
-                                redKnight1Rectangle1.posX = -1000;
-                                redKnight1Rectangle1.x1 = -1000;
-                                redKnight1Rectangle1.x2 = -1000;
-                                redKnight1Rectangle2.x1 = -1000;
-                                redKnight1Rectangle2.x2 = -1000;
-                                redKnight1Base.x1 = -1000;
-                                redKnight1Base.x2 = -1000;
-                                redKnight1Ellipse.x1 = -1000;
-                                redKnight1Ellipse.x2 = -1000;
-                            }
-                            
-                            if(redKnight2Rectangle1.posY == greyBishop2Square.posY &&
-                               redKnight2Rectangle1.posX == greyBishop2Square.posX) {
-                                redKnight2Rectangle1.posX = -1000;
-                                redKnight2Rectangle1.x1 = -1000;
-                                redKnight2Rectangle1.x2 = -1000;
-                                redKnight2Rectangle2.x1 = -1000;
-                                redKnight2Rectangle2.x2 = -1000;
-                                redKnight2Base.x1 = -1000;
-                                redKnight2Base.x2 = -1000;
-                                redKnight2Ellipse.x1 = -1000;
-                                redKnight2Ellipse.x2 = -1000;
-                            }
-                            
-                            if(redQueenSquare.posY == greyBishop2Square.posY &&
-                               redQueenSquare.posX == greyBishop2Square.posX) {
-                                redQueenSquare.posX = -1000;
-                                redQueenSquare.x1 = -1000;
-                                redQueenSquare.x2 = -1000;
-                                redQueenRectangle1.x1 = -1000;
-                                redQueenRectangle1.x2 = -1000;
-                                redQueenRectangle2.x1 = -1000;
-                                redQueenRectangle2.x2 = -1000;
-                                redQueenRectangle3.x1 = -1000;
-                                redQueenRectangle3.x2 = -1000;
-                                redQueenBase.x1 = -1000;
-                                redQueenBase.x2 = -1000;
-                                redQueenEllipse.x1 = -1000;
-                                redQueenEllipse.x2 = -1000;
-                            }
-                            
-                            if(redRook1Rectangle1.posY == greyBishop2Square.posY &&
-                               redRook1Rectangle1.posX == greyBishop2Square.posX) {
-                                redRook1Rectangle1.posX = -1000;
-                                redRook1Rectangle1.x1 = -1000;
-                                redRook1Rectangle1.x2 = -1000;
-                                redRook1Rectangle2.x1 = -1000;
-                                redRook1Rectangle2.x2 = -1000;
-                                redRook1Base.x1 = -1000;
-                                redRook1Base.x2 = -1000;
-                                redRook1Ellipse.x1 = -1000;
-                                redRook1Ellipse.x2 = -1000;
-                            }
-                            
-                            if(redRook2Rectangle1.posY == greyBishop2Square.posY &&
-                               redRook2Rectangle1.posX == greyBishop2Square.posX) {
-                                redRook2Rectangle1.posX = -1000;
-                                redRook2Rectangle1.x1 = -1000;
-                                redRook2Rectangle1.x2 = -1000;
-                                redRook2Rectangle2.x1 = -1000;
-                                redRook2Rectangle2.x2 = -1000;
-                                redRook2Base.x1 = -1000;
-                                redRook2Base.x2 = -1000;
-                                redRook2Ellipse.x1 = -1000;
-                                redRook2Ellipse.x2 = -1000;
+                                for(int z=0; z<8; z++) {
+                                    if(redQueenSquareK[z].posY == greyBishop2Square.posY &&
+                                       redQueenSquareK[z].posX == greyBishop2Square.posX) {
+                                        redQueenSquareK[z].posX = -1000;
+                                        redQueenSquareK[z].x1 = -1000;
+                                        redQueenSquareK[z].x2 = -1000;
+                                        redQueenBaseK[z].x1 = -1000;
+                                        redQueenBaseK[z].x2 = -1000;
+                                        redQueenEllipseK[z].x1 = -1000;
+                                        redQueenEllipseK[z].x2 = -1000;
+                                        redQueenRectangle1K[z].x1 = -1000;
+                                        redQueenRectangle1K[z].x2 = -1000;
+                                        redQueenRectangle2K[z].x1 = -1000;
+                                        redQueenRectangle2K[z].x2 = -1000;
+                                        redQueenRectangle3K[z].x1 = -1000;
+                                        redQueenRectangle3K[z].x2 = -1000;
+                                    }
+                                }
+                                if(redQueenSquare.posY == greyBishop2Square.posY &&
+                                   redQueenSquare.posX == greyBishop2Square.posX) {
+                                    redQueenSquare.posX = -1000;
+                                    redQueenSquare.x1 = -1000;
+                                    redQueenSquare.x2 = -1000;
+                                    redQueenBase.x1 = -1000;
+                                    redQueenBase.x2 = -1000;
+                                    redQueenEllipse.x1 = -1000;
+                                    redQueenEllipse.x2 = -1000;
+                                    redQueenRectangle1.x1 = -1000;
+                                    redQueenRectangle1.x2 = -1000;
+                                    redQueenRectangle2.x1 = -1000;
+                                    redQueenRectangle2.x2 = -1000;
+                                    redQueenRectangle3.x1 = -1000;
+                                    redQueenRectangle3.x2 = -1000;
+                                }
+                                if(redKnight1Rectangle1.posY == greyBishop2Square.posY &&
+                                   redKnight1Rectangle1.posX == greyBishop2Square.posX) {
+                                    redKnight1Rectangle1.posX = -1000;
+                                    redKnight1Rectangle1.x1 = -1000;
+                                    redKnight1Rectangle1.x2 = -1000;
+                                    redKnight1Rectangle2.x1 = -1000;
+                                    redKnight1Rectangle2.x2 = -1000;
+                                    redKnight1Base.x1 = -1000;
+                                    redKnight1Base.x2 = -1000;
+                                    redKnight1Ellipse.x1 = -1000;
+                                    redKnight1Ellipse.x2 = -1000;
+                                }
+                                if(redKnight2Rectangle1.posY == greyBishop2Square.posY &&
+                                   redKnight2Rectangle1.posX == greyBishop2Square.posX) {
+                                    redKnight2Rectangle1.posX = -1000;
+                                    redKnight2Rectangle1.x1 = -1000;
+                                    redKnight2Rectangle1.x2 = -1000;
+                                    redKnight2Rectangle2.x1 = -1000;
+                                    redKnight2Rectangle2.x2 = -1000;
+                                    redKnight2Base.x1 = -1000;
+                                    redKnight2Base.x2 = -1000;
+                                    redKnight2Ellipse.x1 = -1000;
+                                    redKnight2Ellipse.x2 = -1000;
+                                }
+                                if(redBishop2Square.posY == greyBishop2Square.posY &&
+                                   redBishop2Square.posX == greyBishop2Square.posX) {
+                                    redBishop2Square.posX = -1000;
+                                    redBishop2Square.x1 = -1000;
+                                    redBishop2Square.x2 = -1000;
+                                    redBishop2Rectangle.x1 = -1000;
+                                    redBishop2Rectangle.x2 = -1000;
+                                    redBishop2Base.x1 = -1000;
+                                    redBishop2Base.x2 = -1000;
+                                    redBishop2Ellipse.x1 = -1000;
+                                    redBishop2Ellipse.x2 = -1000;
+                                }
+                                if(redRook1Rectangle1.posY == greyBishop2Square.posY &&
+                                   redRook1Rectangle1.posX == greyBishop2Square.posX) {
+                                    redRook1Rectangle1.posX = -1000;
+                                    redRook1Rectangle1.x1 = -1000;
+                                    redRook1Rectangle1.x2 = -1000;
+                                    redRook1Rectangle2.x1 = -1000;
+                                    redRook1Rectangle2.x2 = -1000;
+                                    redRook1Base.x1 = -1000;
+                                    redRook1Base.x2 = -1000;
+                                    redRook1Ellipse.x1 = -1000;
+                                    redRook1Ellipse.x2 = -1000;
+                                }
+                                if(redRook2Rectangle1.posY == greyBishop2Square.posY &&
+                                   redRook2Rectangle1.posX == greyBishop2Square.posX) {
+                                    redRook2Rectangle1.posX = -1000;
+                                    redRook2Rectangle1.x1 = -1000;
+                                    redRook2Rectangle1.x2 = -1000;
+                                    redRook2Rectangle2.x1 = -1000;
+                                    redRook2Rectangle2.x2 = -1000;
+                                    redRook2Base.x1 = -1000;
+                                    redRook2Base.x2 = -1000;
+                                    redRook2Ellipse.x1 = -1000;
+                                    redRook2Ellipse.x2 = -1000;
+                                }
                             }
                         }
                     }
@@ -15199,8 +15170,8 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(greyPawnsBase[s].posY == greyBishop2Square.posY + 100 &&
-                           greyPawnsBase[s].posX == greyBishop2Square.posX + 100) {
+                        if(redPawnsBase[s].posY == greyBishop2Square.posY + 100 &&
+                           redPawnsBase[s].posX == greyBishop2Square.posX + 100) {
                             greyBishop2Square.failedpath = TRUE;
                             flag = TRUE;
                         }
@@ -15268,22 +15239,22 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
 
                     if(!flag) {
                         greyBishop2Square.posY = greyBishop2Square.posY + 100;
-                        greyBishop2Square.y1 = greyBishop2Square.y1 + 100;
-                        greyBishop2Square.y2 = greyBishop2Square.y2 + 100;
-                        greyBishop2Rectangle.y1 = greyBishop2Rectangle.y1 + 100;
-                        greyBishop2Rectangle.y2 = greyBishop2Rectangle.y2 + 100;
-                        greyBishop2Ellipse.y1 = greyBishop2Ellipse.y1 + 100;
-                        greyBishop2Ellipse.y2 = greyBishop2Ellipse.y2 + 100;
-                        greyBishop2Base.y1 = greyBishop2Base.y1 + 100;
-                        greyBishop2Base.y2 = greyBishop2Base.y2 + 100;
                         greyBishop2Square.posX = greyBishop2Square.posX + 100;
+                        greyBishop2Square.y1 = greyBishop2Square.y1 + 100;
                         greyBishop2Square.x1 = greyBishop2Square.x1 + 100;
+                        greyBishop2Square.y2 = greyBishop2Square.y2 + 100;
                         greyBishop2Square.x2 = greyBishop2Square.x2 + 100;
+                        greyBishop2Rectangle.y1 = greyBishop2Rectangle.y1 + 100;
                         greyBishop2Rectangle.x1 = greyBishop2Rectangle.x1 + 100;
+                        greyBishop2Rectangle.y2 = greyBishop2Rectangle.y2 + 100;
                         greyBishop2Rectangle.x2 = greyBishop2Rectangle.x2 + 100;
+                        greyBishop2Ellipse.y1 = greyBishop2Ellipse.y1 + 100;
                         greyBishop2Ellipse.x1 = greyBishop2Ellipse.x1 + 100;
+                        greyBishop2Ellipse.y2 = greyBishop2Ellipse.y2 + 100;
                         greyBishop2Ellipse.x2 = greyBishop2Ellipse.x2 + 100;
+                        greyBishop2Base.y1 = greyBishop2Base.y1 + 100;
                         greyBishop2Base.x1 = greyBishop2Base.x1 + 100;
+                        greyBishop2Base.y2 = greyBishop2Base.y2 + 100;
                         greyBishop2Base.x2 = greyBishop2Base.x2 + 100;
                     }
 
@@ -15297,8 +15268,6 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
                 return TRUE;
             }
         }
-    }
-    
     }
 }
 
@@ -15424,99 +15393,101 @@ boolean moveRedBishop1(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
                                 return TRUE;
                             }
 
-                            if(greyPawnsBase[s].posY == redBishop1Square.posY &&
-                               greyPawnsBase[s].posX == redBishop1Square.posX) {
-                                greyPawnsBase[s].posX = -1000;
-                                greyPawnsBase[s].x1 = -1000;
-                                greyPawnsBase[s].x2 = -1000;
-                                greyPawnsEllipse[s].x1 = -1000;
-                                greyPawnsEllipse[s].x2 = -1000;
-                            }
-                            
-                            if(greyQueenSquare.posY == redBishop1Square.posY &&
-                               greyQueenSquare.posX == redBishop1Square.posX) {
-                                greyQueenSquare.posX = -1000;
-                                greyQueenSquare.x1 = -1000;
-                                greyQueenSquare.x2 = -1000;
-                                greyQueenBase.x1 = -1000;
-                                greyQueenBase.x2 = -1000;
-                                greyQueenEllipse.x1 = -1000;
-                                greyQueenEllipse.x2 = -1000;
-                                greyQueenRectangle1.x1 = -1000;
-                                greyQueenRectangle1.x2 = -1000;
-                                greyQueenRectangle2.x1 = -1000;
-                                greyQueenRectangle2.x2 = -1000;
-                                greyQueenRectangle3.x1 = -1000;
-                                greyQueenRectangle3.x2 = -1000;
-                            }
-                            
-                            if(greyKnight1Rectangle1.posY == redBishop1Square.posY &&
-                               greyKnight1Rectangle1.posX == redBishop1Square.posX) {
-                                greyKnight1Rectangle1.posX = -1000;
-                                greyKnight1Rectangle1.x1 = -1000;
-                                greyKnight1Rectangle1.x2 = -1000;
-                                greyKnight1Rectangle2.x1 = -1000;
-                                greyKnight1Rectangle2.x2 = -1000;
-                                greyKnight1Base.x1 = -1000;
-                                greyKnight1Base.x2 = -1000;
-                                greyKnight1Ellipse.x1 = -1000;
-                                greyKnight1Ellipse.x2 = -1000;
-                            }
-                            
-                            if(greyKnight2Rectangle1.posY == redBishop1Square.posY &&
-                               greyKnight2Rectangle1.posX == redBishop1Square.posX) {
-                                greyKnight2Rectangle1.posX = -1000;
-                                greyKnight2Rectangle1.x1 = -1000;
-                                greyKnight2Rectangle1.x2 = -1000;
-                                greyKnight2Rectangle2.x1 = -1000;
-                                greyKnight2Rectangle2.x2 = -1000;
-                                greyKnight2Base.x1 = -1000;
-                                greyKnight2Base.x2 = -1000;
-                                greyKnight2Ellipse.x1 = -1000;
-                                greyKnight2Ellipse.x2 = -1000;
-                            }
-                            
-                            if(greyQueenSquare.posY == redBishop1Square.posY &&
-                               greyQueenSquare.posX == redBishop1Square.posX) {
-                                greyQueenSquare.posX = -1000;
-                                greyQueenSquare.x1 = -1000;
-                                greyQueenSquare.x2 = -1000;
-                                greyQueenRectangle1.x1 = -1000;
-                                greyQueenRectangle1.x2 = -1000;
-                                greyQueenRectangle2.x1 = -1000;
-                                greyQueenRectangle2.x2 = -1000;
-                                greyQueenRectangle3.x1 = -1000;
-                                greyQueenRectangle3.x2 = -1000;
-                                greyQueenBase.x1 = -1000;
-                                greyQueenBase.x2 = -1000;
-                                greyQueenEllipse.x1 = -1000;
-                                greyQueenEllipse.x2 = -1000;
-                            }
-                            
-                            if(greyRook1Rectangle1.posY == redBishop1Square.posY &&
-                               greyRook1Rectangle1.posX == redBishop1Square.posX) {
-                                greyRook1Rectangle1.posX = -1000;
-                                greyRook1Rectangle1.x1 = -1000;
-                                greyRook1Rectangle1.x2 = -1000;
-                                greyRook1Rectangle2.x1 = -1000;
-                                greyRook1Rectangle2.x2 = -1000;
-                                greyRook1Base.x1 = -1000;
-                                greyRook1Base.x2 = -1000;
-                                greyRook1Ellipse.x1 = -1000;
-                                greyRook1Ellipse.x2 = -1000;
-                            }
-                            
-                            if(greyRook2Rectangle1.posY == greyBishop2Square.posY &&
-                               greyRook2Rectangle1.posX == greyBishop2Square.posX) {
-                                greyRook2Rectangle1.posX = -1000;
-                                greyRook2Rectangle1.x1 = -1000;
-                                greyRook2Rectangle1.x2 = -1000;
-                                greyRook2Rectangle2.x1 = -1000;
-                                greyRook2Rectangle2.x2 = -1000;
-                                greyRook2Base.x1 = -1000;
-                                greyRook2Base.x2 = -1000;
-                                greyRook2Ellipse.x1 = -1000;
-                                greyRook2Ellipse.x2 = -1000;
+                            if(j != -666) {
+                                if(greyPawnsBase[s].posY == redBishop1Square.posY &&
+                                   greyPawnsBase[s].posX == redBishop1Square.posX) {
+                                    greyPawnsBase[s].posX = -1000;
+                                    greyPawnsBase[s].x1 = -1000;
+                                    greyPawnsBase[s].x2 = -1000;
+                                    greyPawnsEllipse[s].x1 = -1000;
+                                    greyPawnsEllipse[s].x2 = -1000;
+                                }
+
+                                if(greyQueenSquare.posY == redBishop1Square.posY &&
+                                   greyQueenSquare.posX == redBishop1Square.posX) {
+                                    greyQueenSquare.posX = -1000;
+                                    greyQueenSquare.x1 = -1000;
+                                    greyQueenSquare.x2 = -1000;
+                                    greyQueenBase.x1 = -1000;
+                                    greyQueenBase.x2 = -1000;
+                                    greyQueenEllipse.x1 = -1000;
+                                    greyQueenEllipse.x2 = -1000;
+                                    greyQueenRectangle1.x1 = -1000;
+                                    greyQueenRectangle1.x2 = -1000;
+                                    greyQueenRectangle2.x1 = -1000;
+                                    greyQueenRectangle2.x2 = -1000;
+                                    greyQueenRectangle3.x1 = -1000;
+                                    greyQueenRectangle3.x2 = -1000;
+                                }
+
+                                if(greyKnight1Rectangle1.posY == redBishop1Square.posY &&
+                                   greyKnight1Rectangle1.posX == redBishop1Square.posX) {
+                                    greyKnight1Rectangle1.posX = -1000;
+                                    greyKnight1Rectangle1.x1 = -1000;
+                                    greyKnight1Rectangle1.x2 = -1000;
+                                    greyKnight1Rectangle2.x1 = -1000;
+                                    greyKnight1Rectangle2.x2 = -1000;
+                                    greyKnight1Base.x1 = -1000;
+                                    greyKnight1Base.x2 = -1000;
+                                    greyKnight1Ellipse.x1 = -1000;
+                                    greyKnight1Ellipse.x2 = -1000;
+                                }
+
+                                if(greyKnight2Rectangle1.posY == redBishop1Square.posY &&
+                                   greyKnight2Rectangle1.posX == redBishop1Square.posX) {
+                                    greyKnight2Rectangle1.posX = -1000;
+                                    greyKnight2Rectangle1.x1 = -1000;
+                                    greyKnight2Rectangle1.x2 = -1000;
+                                    greyKnight2Rectangle2.x1 = -1000;
+                                    greyKnight2Rectangle2.x2 = -1000;
+                                    greyKnight2Base.x1 = -1000;
+                                    greyKnight2Base.x2 = -1000;
+                                    greyKnight2Ellipse.x1 = -1000;
+                                    greyKnight2Ellipse.x2 = -1000;
+                                }
+
+                                if(greyQueenSquare.posY == redBishop1Square.posY &&
+                                   greyQueenSquare.posX == redBishop1Square.posX) {
+                                    greyQueenSquare.posX = -1000;
+                                    greyQueenSquare.x1 = -1000;
+                                    greyQueenSquare.x2 = -1000;
+                                    greyQueenRectangle1.x1 = -1000;
+                                    greyQueenRectangle1.x2 = -1000;
+                                    greyQueenRectangle2.x1 = -1000;
+                                    greyQueenRectangle2.x2 = -1000;
+                                    greyQueenRectangle3.x1 = -1000;
+                                    greyQueenRectangle3.x2 = -1000;
+                                    greyQueenBase.x1 = -1000;
+                                    greyQueenBase.x2 = -1000;
+                                    greyQueenEllipse.x1 = -1000;
+                                    greyQueenEllipse.x2 = -1000;
+                                }
+
+                                if(greyRook1Rectangle1.posY == redBishop1Square.posY &&
+                                   greyRook1Rectangle1.posX == redBishop1Square.posX) {
+                                    greyRook1Rectangle1.posX = -1000;
+                                    greyRook1Rectangle1.x1 = -1000;
+                                    greyRook1Rectangle1.x2 = -1000;
+                                    greyRook1Rectangle2.x1 = -1000;
+                                    greyRook1Rectangle2.x2 = -1000;
+                                    greyRook1Base.x1 = -1000;
+                                    greyRook1Base.x2 = -1000;
+                                    greyRook1Ellipse.x1 = -1000;
+                                    greyRook1Ellipse.x2 = -1000;
+                                }
+
+                                if(greyRook2Rectangle1.posY == greyBishop2Square.posY &&
+                                   greyRook2Rectangle1.posX == greyBishop2Square.posX) {
+                                    greyRook2Rectangle1.posX = -1000;
+                                    greyRook2Rectangle1.x1 = -1000;
+                                    greyRook2Rectangle1.x2 = -1000;
+                                    greyRook2Rectangle2.x1 = -1000;
+                                    greyRook2Rectangle2.x2 = -1000;
+                                    greyRook2Base.x1 = -1000;
+                                    greyRook2Base.x2 = -1000;
+                                    greyRook2Ellipse.x1 = -1000;
+                                    greyRook2Ellipse.x2 = -1000;
+                                }
                             }
                         }
                     }
@@ -15702,99 +15673,102 @@ boolean moveRedBishop1(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
                                 redBishop1Square.failedpath = TRUE;
                                 return TRUE;
                             }
-                            if(greyPawnsBase[s].posY == redBishop1Square.posY &&
-                               greyPawnsBase[s].posX == redBishop1Square.posX) {
-                                greyPawnsBase[s].posX = -1000;
-                                greyPawnsBase[s].x1 = -1000;
-                                greyPawnsBase[s].x2 = -1000;
-                                greyPawnsEllipse[s].x1 = -1000;
-                                greyPawnsEllipse[s].x2 = -1000;
-                            }
-                            
-                            if(greyQueenSquare.posY == redBishop1Square.posY &&
-                               greyQueenSquare.posX == redBishop1Square.posX) {
-                                greyQueenSquare.posX = -1000;
-                                greyQueenSquare.x1 = -1000;
-                                greyQueenSquare.x2 = -1000;
-                                greyQueenBase.x1 = -1000;
-                                greyQueenBase.x2 = -1000;
-                                greyQueenEllipse.x1 = -1000;
-                                greyQueenEllipse.x2 = -1000;
-                                greyQueenRectangle1.x1 = -1000;
-                                greyQueenRectangle1.x2 = -1000;
-                                greyQueenRectangle2.x1 = -1000;
-                                greyQueenRectangle2.x2 = -1000;
-                                greyQueenRectangle3.x1 = -1000;
-                                greyQueenRectangle3.x2 = -1000;
-                            }
-                            
-                            if(greyKnight1Rectangle1.posY == redBishop1Square.posY &&
-                               greyKnight1Rectangle1.posX == redBishop1Square.posX) {
-                                greyKnight1Rectangle1.posX = -1000;
-                                greyKnight1Rectangle1.x1 = -1000;
-                                greyKnight1Rectangle1.x2 = -1000;
-                                greyKnight1Rectangle2.x1 = -1000;
-                                greyKnight1Rectangle2.x2 = -1000;
-                                greyKnight1Base.x1 = -1000;
-                                greyKnight1Base.x2 = -1000;
-                                greyKnight1Ellipse.x1 = -1000;
-                                greyKnight1Ellipse.x2 = -1000;
-                            }
-                            
-                            if(greyKnight2Rectangle1.posY == redBishop1Square.posY &&
-                               greyKnight2Rectangle1.posX == redBishop1Square.posX) {
-                                greyKnight2Rectangle1.posX = -1000;
-                                greyKnight2Rectangle1.x1 = -1000;
-                                greyKnight2Rectangle1.x2 = -1000;
-                                greyKnight2Rectangle2.x1 = -1000;
-                                greyKnight2Rectangle2.x2 = -1000;
-                                greyKnight2Base.x1 = -1000;
-                                greyKnight2Base.x2 = -1000;
-                                greyKnight2Ellipse.x1 = -1000;
-                                greyKnight2Ellipse.x2 = -1000;
-                            }
-                            
-                            if(greyQueenSquare.posY == redBishop1Square.posY &&
-                               greyQueenSquare.posX == redBishop1Square.posX) {
-                                greyQueenSquare.posX = -1000;
-                                greyQueenSquare.x1 = -1000;
-                                greyQueenSquare.x2 = -1000;
-                                greyQueenRectangle1.x1 = -1000;
-                                greyQueenRectangle1.x2 = -1000;
-                                greyQueenRectangle2.x1 = -1000;
-                                greyQueenRectangle2.x2 = -1000;
-                                greyQueenRectangle3.x1 = -1000;
-                                greyQueenRectangle3.x2 = -1000;
-                                greyQueenBase.x1 = -1000;
-                                greyQueenBase.x2 = -1000;
-                                greyQueenEllipse.x1 = -1000;
-                                greyQueenEllipse.x2 = -1000;
-                            }
-                            
-                            if(greyRook1Rectangle1.posY == redBishop1Square.posY &&
-                               greyRook1Rectangle1.posX == redBishop1Square.posX) {
-                                greyRook1Rectangle1.posX = -1000;
-                                greyRook1Rectangle1.x1 = -1000;
-                                greyRook1Rectangle1.x2 = -1000;
-                                greyRook1Rectangle2.x1 = -1000;
-                                greyRook1Rectangle2.x2 = -1000;
-                                greyRook1Base.x1 = -1000;
-                                greyRook1Base.x2 = -1000;
-                                greyRook1Ellipse.x1 = -1000;
-                                greyRook1Ellipse.x2 = -1000;
-                            }
-                            
-                            if(greyRook2Rectangle1.posY == greyBishop2Square.posY &&
-                               greyRook2Rectangle1.posX == greyBishop2Square.posX) {
-                                greyRook2Rectangle1.posX = -1000;
-                                greyRook2Rectangle1.x1 = -1000;
-                                greyRook2Rectangle1.x2 = -1000;
-                                greyRook2Rectangle2.x1 = -1000;
-                                greyRook2Rectangle2.x2 = -1000;
-                                greyRook2Base.x1 = -1000;
-                                greyRook2Base.x2 = -1000;
-                                greyRook2Ellipse.x1 = -1000;
-                                greyRook2Ellipse.x2 = -1000;
+
+                            if(j != -666) {
+                                if(greyPawnsBase[s].posY == redBishop1Square.posY &&
+                                   greyPawnsBase[s].posX == redBishop1Square.posX) {
+                                    greyPawnsBase[s].posX = -1000;
+                                    greyPawnsBase[s].x1 = -1000;
+                                    greyPawnsBase[s].x2 = -1000;
+                                    greyPawnsEllipse[s].x1 = -1000;
+                                    greyPawnsEllipse[s].x2 = -1000;
+                                }
+
+                                if(greyQueenSquare.posY == redBishop1Square.posY &&
+                                   greyQueenSquare.posX == redBishop1Square.posX) {
+                                    greyQueenSquare.posX = -1000;
+                                    greyQueenSquare.x1 = -1000;
+                                    greyQueenSquare.x2 = -1000;
+                                    greyQueenBase.x1 = -1000;
+                                    greyQueenBase.x2 = -1000;
+                                    greyQueenEllipse.x1 = -1000;
+                                    greyQueenEllipse.x2 = -1000;
+                                    greyQueenRectangle1.x1 = -1000;
+                                    greyQueenRectangle1.x2 = -1000;
+                                    greyQueenRectangle2.x1 = -1000;
+                                    greyQueenRectangle2.x2 = -1000;
+                                    greyQueenRectangle3.x1 = -1000;
+                                    greyQueenRectangle3.x2 = -1000;
+                                }
+
+                                if(greyKnight1Rectangle1.posY == redBishop1Square.posY &&
+                                   greyKnight1Rectangle1.posX == redBishop1Square.posX) {
+                                    greyKnight1Rectangle1.posX = -1000;
+                                    greyKnight1Rectangle1.x1 = -1000;
+                                    greyKnight1Rectangle1.x2 = -1000;
+                                    greyKnight1Rectangle2.x1 = -1000;
+                                    greyKnight1Rectangle2.x2 = -1000;
+                                    greyKnight1Base.x1 = -1000;
+                                    greyKnight1Base.x2 = -1000;
+                                    greyKnight1Ellipse.x1 = -1000;
+                                    greyKnight1Ellipse.x2 = -1000;
+                                }
+
+                                if(greyKnight2Rectangle1.posY == redBishop1Square.posY &&
+                                   greyKnight2Rectangle1.posX == redBishop1Square.posX) {
+                                    greyKnight2Rectangle1.posX = -1000;
+                                    greyKnight2Rectangle1.x1 = -1000;
+                                    greyKnight2Rectangle1.x2 = -1000;
+                                    greyKnight2Rectangle2.x1 = -1000;
+                                    greyKnight2Rectangle2.x2 = -1000;
+                                    greyKnight2Base.x1 = -1000;
+                                    greyKnight2Base.x2 = -1000;
+                                    greyKnight2Ellipse.x1 = -1000;
+                                    greyKnight2Ellipse.x2 = -1000;
+                                }
+
+                                if(greyQueenSquare.posY == redBishop1Square.posY &&
+                                   greyQueenSquare.posX == redBishop1Square.posX) {
+                                    greyQueenSquare.posX = -1000;
+                                    greyQueenSquare.x1 = -1000;
+                                    greyQueenSquare.x2 = -1000;
+                                    greyQueenRectangle1.x1 = -1000;
+                                    greyQueenRectangle1.x2 = -1000;
+                                    greyQueenRectangle2.x1 = -1000;
+                                    greyQueenRectangle2.x2 = -1000;
+                                    greyQueenRectangle3.x1 = -1000;
+                                    greyQueenRectangle3.x2 = -1000;
+                                    greyQueenBase.x1 = -1000;
+                                    greyQueenBase.x2 = -1000;
+                                    greyQueenEllipse.x1 = -1000;
+                                    greyQueenEllipse.x2 = -1000;
+                                }
+
+                                if(greyRook1Rectangle1.posY == redBishop1Square.posY &&
+                                   greyRook1Rectangle1.posX == redBishop1Square.posX) {
+                                    greyRook1Rectangle1.posX = -1000;
+                                    greyRook1Rectangle1.x1 = -1000;
+                                    greyRook1Rectangle1.x2 = -1000;
+                                    greyRook1Rectangle2.x1 = -1000;
+                                    greyRook1Rectangle2.x2 = -1000;
+                                    greyRook1Base.x1 = -1000;
+                                    greyRook1Base.x2 = -1000;
+                                    greyRook1Ellipse.x1 = -1000;
+                                    greyRook1Ellipse.x2 = -1000;
+                                }
+
+                                if(greyRook2Rectangle1.posY == greyBishop2Square.posY &&
+                                   greyRook2Rectangle1.posX == greyBishop2Square.posX) {
+                                    greyRook2Rectangle1.posX = -1000;
+                                    greyRook2Rectangle1.x1 = -1000;
+                                    greyRook2Rectangle1.x2 = -1000;
+                                    greyRook2Rectangle2.x1 = -1000;
+                                    greyRook2Rectangle2.x2 = -1000;
+                                    greyRook2Base.x1 = -1000;
+                                    greyRook2Base.x2 = -1000;
+                                    greyRook2Ellipse.x1 = -1000;
+                                    greyRook2Ellipse.x2 = -1000;
+                                }
                             }
                         }
                     }
@@ -15976,99 +15950,102 @@ boolean moveRedBishop1(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
                                 redBishop1Square.failedpath = TRUE;
                                 return TRUE;
                             }
-                            if(greyPawnsBase[s].posY == redBishop1Square.posY &&
-                               greyPawnsBase[s].posX == redBishop1Square.posX) {
-                                greyPawnsBase[s].posX = -1000;
-                                greyPawnsBase[s].x1 = -1000;
-                                greyPawnsBase[s].x2 = -1000;
-                                greyPawnsEllipse[s].x1 = -1000;
-                                greyPawnsEllipse[s].x2 = -1000;
-                            }
-                            
-                            if(greyQueenSquare.posY == redBishop1Square.posY &&
-                               greyQueenSquare.posX == redBishop1Square.posX) {
-                                greyQueenSquare.posX = -1000;
-                                greyQueenSquare.x1 = -1000;
-                                greyQueenSquare.x2 = -1000;
-                                greyQueenBase.x1 = -1000;
-                                greyQueenBase.x2 = -1000;
-                                greyQueenEllipse.x1 = -1000;
-                                greyQueenEllipse.x2 = -1000;
-                                greyQueenRectangle1.x1 = -1000;
-                                greyQueenRectangle1.x2 = -1000;
-                                greyQueenRectangle2.x1 = -1000;
-                                greyQueenRectangle2.x2 = -1000;
-                                greyQueenRectangle3.x1 = -1000;
-                                greyQueenRectangle3.x2 = -1000;
-                            }
-                            
-                            if(greyKnight1Rectangle1.posY == redBishop1Square.posY &&
-                               greyKnight1Rectangle1.posX == redBishop1Square.posX) {
-                                greyKnight1Rectangle1.posX = -1000;
-                                greyKnight1Rectangle1.x1 = -1000;
-                                greyKnight1Rectangle1.x2 = -1000;
-                                greyKnight1Rectangle2.x1 = -1000;
-                                greyKnight1Rectangle2.x2 = -1000;
-                                greyKnight1Base.x1 = -1000;
-                                greyKnight1Base.x2 = -1000;
-                                greyKnight1Ellipse.x1 = -1000;
-                                greyKnight1Ellipse.x2 = -1000;
-                            }
-                            
-                            if(greyKnight2Rectangle1.posY == redBishop1Square.posY &&
-                               greyKnight2Rectangle1.posX == redBishop1Square.posX) {
-                                greyKnight2Rectangle1.posX = -1000;
-                                greyKnight2Rectangle1.x1 = -1000;
-                                greyKnight2Rectangle1.x2 = -1000;
-                                greyKnight2Rectangle2.x1 = -1000;
-                                greyKnight2Rectangle2.x2 = -1000;
-                                greyKnight2Base.x1 = -1000;
-                                greyKnight2Base.x2 = -1000;
-                                greyKnight2Ellipse.x1 = -1000;
-                                greyKnight2Ellipse.x2 = -1000;
-                            }
-                            
-                            if(greyQueenSquare.posY == redBishop1Square.posY &&
-                               greyQueenSquare.posX == redBishop1Square.posX) {
-                                greyQueenSquare.posX = -1000;
-                                greyQueenSquare.x1 = -1000;
-                                greyQueenSquare.x2 = -1000;
-                                greyQueenRectangle1.x1 = -1000;
-                                greyQueenRectangle1.x2 = -1000;
-                                greyQueenRectangle2.x1 = -1000;
-                                greyQueenRectangle2.x2 = -1000;
-                                greyQueenRectangle3.x1 = -1000;
-                                greyQueenRectangle3.x2 = -1000;
-                                greyQueenBase.x1 = -1000;
-                                greyQueenBase.x2 = -1000;
-                                greyQueenEllipse.x1 = -1000;
-                                greyQueenEllipse.x2 = -1000;
-                            }
-                            
-                            if(greyRook1Rectangle1.posY == redBishop1Square.posY &&
-                               greyRook1Rectangle1.posX == redBishop1Square.posX) {
-                                greyRook1Rectangle1.posX = -1000;
-                                greyRook1Rectangle1.x1 = -1000;
-                                greyRook1Rectangle1.x2 = -1000;
-                                greyRook1Rectangle2.x1 = -1000;
-                                greyRook1Rectangle2.x2 = -1000;
-                                greyRook1Base.x1 = -1000;
-                                greyRook1Base.x2 = -1000;
-                                greyRook1Ellipse.x1 = -1000;
-                                greyRook1Ellipse.x2 = -1000;
-                            }
-                            
-                            if(greyRook2Rectangle1.posY == greyBishop2Square.posY &&
-                               greyRook2Rectangle1.posX == greyBishop2Square.posX) {
-                                greyRook2Rectangle1.posX = -1000;
-                                greyRook2Rectangle1.x1 = -1000;
-                                greyRook2Rectangle1.x2 = -1000;
-                                greyRook2Rectangle2.x1 = -1000;
-                                greyRook2Rectangle2.x2 = -1000;
-                                greyRook2Base.x1 = -1000;
-                                greyRook2Base.x2 = -1000;
-                                greyRook2Ellipse.x1 = -1000;
-                                greyRook2Ellipse.x2 = -1000;
+
+                            if(j != -666) {
+                                if(greyPawnsBase[s].posY == redBishop1Square.posY &&
+                                   greyPawnsBase[s].posX == redBishop1Square.posX) {
+                                    greyPawnsBase[s].posX = -1000;
+                                    greyPawnsBase[s].x1 = -1000;
+                                    greyPawnsBase[s].x2 = -1000;
+                                    greyPawnsEllipse[s].x1 = -1000;
+                                    greyPawnsEllipse[s].x2 = -1000;
+                                }
+
+                                if(greyQueenSquare.posY == redBishop1Square.posY &&
+                                   greyQueenSquare.posX == redBishop1Square.posX) {
+                                    greyQueenSquare.posX = -1000;
+                                    greyQueenSquare.x1 = -1000;
+                                    greyQueenSquare.x2 = -1000;
+                                    greyQueenBase.x1 = -1000;
+                                    greyQueenBase.x2 = -1000;
+                                    greyQueenEllipse.x1 = -1000;
+                                    greyQueenEllipse.x2 = -1000;
+                                    greyQueenRectangle1.x1 = -1000;
+                                    greyQueenRectangle1.x2 = -1000;
+                                    greyQueenRectangle2.x1 = -1000;
+                                    greyQueenRectangle2.x2 = -1000;
+                                    greyQueenRectangle3.x1 = -1000;
+                                    greyQueenRectangle3.x2 = -1000;
+                                }
+
+                                if(greyKnight1Rectangle1.posY == redBishop1Square.posY &&
+                                   greyKnight1Rectangle1.posX == redBishop1Square.posX) {
+                                    greyKnight1Rectangle1.posX = -1000;
+                                    greyKnight1Rectangle1.x1 = -1000;
+                                    greyKnight1Rectangle1.x2 = -1000;
+                                    greyKnight1Rectangle2.x1 = -1000;
+                                    greyKnight1Rectangle2.x2 = -1000;
+                                    greyKnight1Base.x1 = -1000;
+                                    greyKnight1Base.x2 = -1000;
+                                    greyKnight1Ellipse.x1 = -1000;
+                                    greyKnight1Ellipse.x2 = -1000;
+                                }
+
+                                if(greyKnight2Rectangle1.posY == redBishop1Square.posY &&
+                                   greyKnight2Rectangle1.posX == redBishop1Square.posX) {
+                                    greyKnight2Rectangle1.posX = -1000;
+                                    greyKnight2Rectangle1.x1 = -1000;
+                                    greyKnight2Rectangle1.x2 = -1000;
+                                    greyKnight2Rectangle2.x1 = -1000;
+                                    greyKnight2Rectangle2.x2 = -1000;
+                                    greyKnight2Base.x1 = -1000;
+                                    greyKnight2Base.x2 = -1000;
+                                    greyKnight2Ellipse.x1 = -1000;
+                                    greyKnight2Ellipse.x2 = -1000;
+                                }
+
+                                if(greyQueenSquare.posY == redBishop1Square.posY &&
+                                   greyQueenSquare.posX == redBishop1Square.posX) {
+                                    greyQueenSquare.posX = -1000;
+                                    greyQueenSquare.x1 = -1000;
+                                    greyQueenSquare.x2 = -1000;
+                                    greyQueenRectangle1.x1 = -1000;
+                                    greyQueenRectangle1.x2 = -1000;
+                                    greyQueenRectangle2.x1 = -1000;
+                                    greyQueenRectangle2.x2 = -1000;
+                                    greyQueenRectangle3.x1 = -1000;
+                                    greyQueenRectangle3.x2 = -1000;
+                                    greyQueenBase.x1 = -1000;
+                                    greyQueenBase.x2 = -1000;
+                                    greyQueenEllipse.x1 = -1000;
+                                    greyQueenEllipse.x2 = -1000;
+                                }
+
+                                if(greyRook1Rectangle1.posY == redBishop1Square.posY &&
+                                   greyRook1Rectangle1.posX == redBishop1Square.posX) {
+                                    greyRook1Rectangle1.posX = -1000;
+                                    greyRook1Rectangle1.x1 = -1000;
+                                    greyRook1Rectangle1.x2 = -1000;
+                                    greyRook1Rectangle2.x1 = -1000;
+                                    greyRook1Rectangle2.x2 = -1000;
+                                    greyRook1Base.x1 = -1000;
+                                    greyRook1Base.x2 = -1000;
+                                    greyRook1Ellipse.x1 = -1000;
+                                    greyRook1Ellipse.x2 = -1000;
+                                }
+
+                                if(greyRook2Rectangle1.posY == greyBishop2Square.posY &&
+                                   greyRook2Rectangle1.posX == greyBishop2Square.posX) {
+                                    greyRook2Rectangle1.posX = -1000;
+                                    greyRook2Rectangle1.x1 = -1000;
+                                    greyRook2Rectangle1.x2 = -1000;
+                                    greyRook2Rectangle2.x1 = -1000;
+                                    greyRook2Rectangle2.x2 = -1000;
+                                    greyRook2Base.x1 = -1000;
+                                    greyRook2Base.x2 = -1000;
+                                    greyRook2Ellipse.x1 = -1000;
+                                    greyRook2Ellipse.x2 = -1000;
+                                }
                             }
                         }
                     }
@@ -16254,99 +16231,101 @@ boolean moveRedBishop1(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
                                 redBishop1Square.failedpath = TRUE;
                                 return TRUE;
                             }
-                            if(greyPawnsBase[s].posY == redBishop1Square.posY &&
-                               greyPawnsBase[s].posX == redBishop1Square.posX) {
-                                greyPawnsBase[s].posX = -1000;
-                                greyPawnsBase[s].x1 = -1000;
-                                greyPawnsBase[s].x2 = -1000;
-                                greyPawnsEllipse[s].x1 = -1000;
-                                greyPawnsEllipse[s].x2 = -1000;
-                            }
-                            
-                            if(greyQueenSquare.posY == redBishop1Square.posY &&
-                               greyQueenSquare.posX == redBishop1Square.posX) {
-                                greyQueenSquare.posX = -1000;
-                                greyQueenSquare.x1 = -1000;
-                                greyQueenSquare.x2 = -1000;
-                                greyQueenBase.x1 = -1000;
-                                greyQueenBase.x2 = -1000;
-                                greyQueenEllipse.x1 = -1000;
-                                greyQueenEllipse.x2 = -1000;
-                                greyQueenRectangle1.x1 = -1000;
-                                greyQueenRectangle1.x2 = -1000;
-                                greyQueenRectangle2.x1 = -1000;
-                                greyQueenRectangle2.x2 = -1000;
-                                greyQueenRectangle3.x1 = -1000;
-                                greyQueenRectangle3.x2 = -1000;
-                            }
-                            
-                            if(greyKnight1Rectangle1.posY == redBishop1Square.posY &&
-                               greyKnight1Rectangle1.posX == redBishop1Square.posX) {
-                                greyKnight1Rectangle1.posX = -1000;
-                                greyKnight1Rectangle1.x1 = -1000;
-                                greyKnight1Rectangle1.x2 = -1000;
-                                greyKnight1Rectangle2.x1 = -1000;
-                                greyKnight1Rectangle2.x2 = -1000;
-                                greyKnight1Base.x1 = -1000;
-                                greyKnight1Base.x2 = -1000;
-                                greyKnight1Ellipse.x1 = -1000;
-                                greyKnight1Ellipse.x2 = -1000;
-                            }
-                            
-                            if(greyKnight2Rectangle1.posY == redBishop1Square.posY &&
-                               greyKnight2Rectangle1.posX == redBishop1Square.posX) {
-                                greyKnight2Rectangle1.posX = -1000;
-                                greyKnight2Rectangle1.x1 = -1000;
-                                greyKnight2Rectangle1.x2 = -1000;
-                                greyKnight2Rectangle2.x1 = -1000;
-                                greyKnight2Rectangle2.x2 = -1000;
-                                greyKnight2Base.x1 = -1000;
-                                greyKnight2Base.x2 = -1000;
-                                greyKnight2Ellipse.x1 = -1000;
-                                greyKnight2Ellipse.x2 = -1000;
-                            }
-                            
-                            if(greyQueenSquare.posY == redBishop1Square.posY &&
-                               greyQueenSquare.posX == redBishop1Square.posX) {
-                                greyQueenSquare.posX = -1000;
-                                greyQueenSquare.x1 = -1000;
-                                greyQueenSquare.x2 = -1000;
-                                greyQueenRectangle1.x1 = -1000;
-                                greyQueenRectangle1.x2 = -1000;
-                                greyQueenRectangle2.x1 = -1000;
-                                greyQueenRectangle2.x2 = -1000;
-                                greyQueenRectangle3.x1 = -1000;
-                                greyQueenRectangle3.x2 = -1000;
-                                greyQueenBase.x1 = -1000;
-                                greyQueenBase.x2 = -1000;
-                                greyQueenEllipse.x1 = -1000;
-                                greyQueenEllipse.x2 = -1000;
-                            }
-                            
-                            if(greyRook1Rectangle1.posY == redBishop1Square.posY &&
-                               greyRook1Rectangle1.posX == redBishop1Square.posX) {
-                                greyRook1Rectangle1.posX = -1000;
-                                greyRook1Rectangle1.x1 = -1000;
-                                greyRook1Rectangle1.x2 = -1000;
-                                greyRook1Rectangle2.x1 = -1000;
-                                greyRook1Rectangle2.x2 = -1000;
-                                greyRook1Base.x1 = -1000;
-                                greyRook1Base.x2 = -1000;
-                                greyRook1Ellipse.x1 = -1000;
-                                greyRook1Ellipse.x2 = -1000;
-                            }
-                            
-                            if(greyRook2Rectangle1.posY == greyBishop2Square.posY &&
-                               greyRook2Rectangle1.posX == greyBishop2Square.posX) {
-                                greyRook2Rectangle1.posX = -1000;
-                                greyRook2Rectangle1.x1 = -1000;
-                                greyRook2Rectangle1.x2 = -1000;
-                                greyRook2Rectangle2.x1 = -1000;
-                                greyRook2Rectangle2.x2 = -1000;
-                                greyRook2Base.x1 = -1000;
-                                greyRook2Base.x2 = -1000;
-                                greyRook2Ellipse.x1 = -1000;
-                                greyRook2Ellipse.x2 = -1000;
+                            if(j != -666) {
+                                if(greyPawnsBase[s].posY == redBishop1Square.posY &&
+                                   greyPawnsBase[s].posX == redBishop1Square.posX) {
+                                    greyPawnsBase[s].posX = -1000;
+                                    greyPawnsBase[s].x1 = -1000;
+                                    greyPawnsBase[s].x2 = -1000;
+                                    greyPawnsEllipse[s].x1 = -1000;
+                                    greyPawnsEllipse[s].x2 = -1000;
+                                }
+
+                                if(greyQueenSquare.posY == redBishop1Square.posY &&
+                                   greyQueenSquare.posX == redBishop1Square.posX) {
+                                    greyQueenSquare.posX = -1000;
+                                    greyQueenSquare.x1 = -1000;
+                                    greyQueenSquare.x2 = -1000;
+                                    greyQueenBase.x1 = -1000;
+                                    greyQueenBase.x2 = -1000;
+                                    greyQueenEllipse.x1 = -1000;
+                                    greyQueenEllipse.x2 = -1000;
+                                    greyQueenRectangle1.x1 = -1000;
+                                    greyQueenRectangle1.x2 = -1000;
+                                    greyQueenRectangle2.x1 = -1000;
+                                    greyQueenRectangle2.x2 = -1000;
+                                    greyQueenRectangle3.x1 = -1000;
+                                    greyQueenRectangle3.x2 = -1000;
+                                }
+
+                                if(greyKnight1Rectangle1.posY == redBishop1Square.posY &&
+                                   greyKnight1Rectangle1.posX == redBishop1Square.posX) {
+                                    greyKnight1Rectangle1.posX = -1000;
+                                    greyKnight1Rectangle1.x1 = -1000;
+                                    greyKnight1Rectangle1.x2 = -1000;
+                                    greyKnight1Rectangle2.x1 = -1000;
+                                    greyKnight1Rectangle2.x2 = -1000;
+                                    greyKnight1Base.x1 = -1000;
+                                    greyKnight1Base.x2 = -1000;
+                                    greyKnight1Ellipse.x1 = -1000;
+                                    greyKnight1Ellipse.x2 = -1000;
+                                }
+
+                                if(greyKnight2Rectangle1.posY == redBishop1Square.posY &&
+                                   greyKnight2Rectangle1.posX == redBishop1Square.posX) {
+                                    greyKnight2Rectangle1.posX = -1000;
+                                    greyKnight2Rectangle1.x1 = -1000;
+                                    greyKnight2Rectangle1.x2 = -1000;
+                                    greyKnight2Rectangle2.x1 = -1000;
+                                    greyKnight2Rectangle2.x2 = -1000;
+                                    greyKnight2Base.x1 = -1000;
+                                    greyKnight2Base.x2 = -1000;
+                                    greyKnight2Ellipse.x1 = -1000;
+                                    greyKnight2Ellipse.x2 = -1000;
+                                }
+
+                                if(greyQueenSquare.posY == redBishop1Square.posY &&
+                                   greyQueenSquare.posX == redBishop1Square.posX) {
+                                    greyQueenSquare.posX = -1000;
+                                    greyQueenSquare.x1 = -1000;
+                                    greyQueenSquare.x2 = -1000;
+                                    greyQueenRectangle1.x1 = -1000;
+                                    greyQueenRectangle1.x2 = -1000;
+                                    greyQueenRectangle2.x1 = -1000;
+                                    greyQueenRectangle2.x2 = -1000;
+                                    greyQueenRectangle3.x1 = -1000;
+                                    greyQueenRectangle3.x2 = -1000;
+                                    greyQueenBase.x1 = -1000;
+                                    greyQueenBase.x2 = -1000;
+                                    greyQueenEllipse.x1 = -1000;
+                                    greyQueenEllipse.x2 = -1000;
+                                }
+
+                                if(greyRook1Rectangle1.posY == redBishop1Square.posY &&
+                                   greyRook1Rectangle1.posX == redBishop1Square.posX) {
+                                    greyRook1Rectangle1.posX = -1000;
+                                    greyRook1Rectangle1.x1 = -1000;
+                                    greyRook1Rectangle1.x2 = -1000;
+                                    greyRook1Rectangle2.x1 = -1000;
+                                    greyRook1Rectangle2.x2 = -1000;
+                                    greyRook1Base.x1 = -1000;
+                                    greyRook1Base.x2 = -1000;
+                                    greyRook1Ellipse.x1 = -1000;
+                                    greyRook1Ellipse.x2 = -1000;
+                                }
+
+                                if(greyRook2Rectangle1.posY == greyBishop2Square.posY &&
+                                   greyRook2Rectangle1.posX == greyBishop2Square.posX) {
+                                    greyRook2Rectangle1.posX = -1000;
+                                    greyRook2Rectangle1.x1 = -1000;
+                                    greyRook2Rectangle1.x2 = -1000;
+                                    greyRook2Rectangle2.x1 = -1000;
+                                    greyRook2Rectangle2.x2 = -1000;
+                                    greyRook2Base.x1 = -1000;
+                                    greyRook2Base.x2 = -1000;
+                                    greyRook2Ellipse.x1 = -1000;
+                                    greyRook2Ellipse.x2 = -1000;
+                                }
                             }
                         }
                     }
@@ -16589,99 +16568,101 @@ boolean moveRedBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
                                 redBishop2Square.failedpath = TRUE;
                                 return TRUE;
                             }
-                            if(greyPawnsBase[s].posY == redBishop2Square.posY &&
-                               greyPawnsBase[s].posX == redBishop2Square.posX) {
-                                greyPawnsBase[s].posX = -1000;
-                                greyPawnsBase[s].x1 = -1000;
-                                greyPawnsBase[s].x2 = -1000;
-                                greyPawnsEllipse[s].x1 = -1000;
-                                greyPawnsEllipse[s].x2 = -1000;
-                            }
-                            
-                            if(greyQueenSquare.posY == redBishop2Square.posY &&
-                               greyQueenSquare.posX == redBishop2Square.posX) {
-                                greyQueenSquare.posX = -1000;
-                                greyQueenSquare.x1 = -1000;
-                                greyQueenSquare.x2 = -1000;
-                                greyQueenBase.x1 = -1000;
-                                greyQueenBase.x2 = -1000;
-                                greyQueenEllipse.x1 = -1000;
-                                greyQueenEllipse.x2 = -1000;
-                                greyQueenRectangle1.x1 = -1000;
-                                greyQueenRectangle1.x2 = -1000;
-                                greyQueenRectangle2.x1 = -1000;
-                                greyQueenRectangle2.x2 = -1000;
-                                greyQueenRectangle3.x1 = -1000;
-                                greyQueenRectangle3.x2 = -1000;
-                            }
-                            
-                            if(greyKnight1Rectangle1.posY == redBishop2Square.posY &&
-                               greyKnight1Rectangle1.posX == redBishop2Square.posX) {
-                                greyKnight1Rectangle1.posX = -1000;
-                                greyKnight1Rectangle1.x1 = -1000;
-                                greyKnight1Rectangle1.x2 = -1000;
-                                greyKnight1Rectangle2.x1 = -1000;
-                                greyKnight1Rectangle2.x2 = -1000;
-                                greyKnight1Base.x1 = -1000;
-                                greyKnight1Base.x2 = -1000;
-                                greyKnight1Ellipse.x1 = -1000;
-                                greyKnight1Ellipse.x2 = -1000;
-                            }
-                            
-                            if(greyKnight2Rectangle1.posY == redBishop2Square.posY &&
-                               greyKnight2Rectangle1.posX == redBishop2Square.posX) {
-                                greyKnight2Rectangle1.posX = -1000;
-                                greyKnight2Rectangle1.x1 = -1000;
-                                greyKnight2Rectangle1.x2 = -1000;
-                                greyKnight2Rectangle2.x1 = -1000;
-                                greyKnight2Rectangle2.x2 = -1000;
-                                greyKnight2Base.x1 = -1000;
-                                greyKnight2Base.x2 = -1000;
-                                greyKnight2Ellipse.x1 = -1000;
-                                greyKnight2Ellipse.x2 = -1000;
-                            }
-                            
-                            if(greyQueenSquare.posY == redBishop2Square.posY &&
-                               greyQueenSquare.posX == redBishop2Square.posX) {
-                                greyQueenSquare.posX = -1000;
-                                greyQueenSquare.x1 = -1000;
-                                greyQueenSquare.x2 = -1000;
-                                greyQueenRectangle1.x1 = -1000;
-                                greyQueenRectangle1.x2 = -1000;
-                                greyQueenRectangle2.x1 = -1000;
-                                greyQueenRectangle2.x2 = -1000;
-                                greyQueenRectangle3.x1 = -1000;
-                                greyQueenRectangle3.x2 = -1000;
-                                greyQueenBase.x1 = -1000;
-                                greyQueenBase.x2 = -1000;
-                                greyQueenEllipse.x1 = -1000;
-                                greyQueenEllipse.x2 = -1000;
-                            }
-                            
-                            if(greyRook1Rectangle1.posY == redBishop2Square.posY &&
-                               greyRook1Rectangle1.posX == redBishop2Square.posX) {
-                                greyRook1Rectangle1.posX = -1000;
-                                greyRook1Rectangle1.x1 = -1000;
-                                greyRook1Rectangle1.x2 = -1000;
-                                greyRook1Rectangle2.x1 = -1000;
-                                greyRook1Rectangle2.x2 = -1000;
-                                greyRook1Base.x1 = -1000;
-                                greyRook1Base.x2 = -1000;
-                                greyRook1Ellipse.x1 = -1000;
-                                greyRook1Ellipse.x2 = -1000;
-                            }
-                            
-                            if(greyRook2Rectangle1.posY == greyBishop2Square.posY &&
-                               greyRook2Rectangle1.posX == greyBishop2Square.posX) {
-                                greyRook2Rectangle1.posX = -1000;
-                                greyRook2Rectangle1.x1 = -1000;
-                                greyRook2Rectangle1.x2 = -1000;
-                                greyRook2Rectangle2.x1 = -1000;
-                                greyRook2Rectangle2.x2 = -1000;
-                                greyRook2Base.x1 = -1000;
-                                greyRook2Base.x2 = -1000;
-                                greyRook2Ellipse.x1 = -1000;
-                                greyRook2Ellipse.x2 = -1000;
+                            if(j != -666) {
+                                if(greyPawnsBase[s].posY == redBishop2Square.posY &&
+                                   greyPawnsBase[s].posX == redBishop2Square.posX) {
+                                    greyPawnsBase[s].posX = -1000;
+                                    greyPawnsBase[s].x1 = -1000;
+                                    greyPawnsBase[s].x2 = -1000;
+                                    greyPawnsEllipse[s].x1 = -1000;
+                                    greyPawnsEllipse[s].x2 = -1000;
+                                }
+
+                                if(greyQueenSquare.posY == redBishop2Square.posY &&
+                                   greyQueenSquare.posX == redBishop2Square.posX) {
+                                    greyQueenSquare.posX = -1000;
+                                    greyQueenSquare.x1 = -1000;
+                                    greyQueenSquare.x2 = -1000;
+                                    greyQueenBase.x1 = -1000;
+                                    greyQueenBase.x2 = -1000;
+                                    greyQueenEllipse.x1 = -1000;
+                                    greyQueenEllipse.x2 = -1000;
+                                    greyQueenRectangle1.x1 = -1000;
+                                    greyQueenRectangle1.x2 = -1000;
+                                    greyQueenRectangle2.x1 = -1000;
+                                    greyQueenRectangle2.x2 = -1000;
+                                    greyQueenRectangle3.x1 = -1000;
+                                    greyQueenRectangle3.x2 = -1000;
+                                }
+
+                                if(greyKnight1Rectangle1.posY == redBishop2Square.posY &&
+                                   greyKnight1Rectangle1.posX == redBishop2Square.posX) {
+                                    greyKnight1Rectangle1.posX = -1000;
+                                    greyKnight1Rectangle1.x1 = -1000;
+                                    greyKnight1Rectangle1.x2 = -1000;
+                                    greyKnight1Rectangle2.x1 = -1000;
+                                    greyKnight1Rectangle2.x2 = -1000;
+                                    greyKnight1Base.x1 = -1000;
+                                    greyKnight1Base.x2 = -1000;
+                                    greyKnight1Ellipse.x1 = -1000;
+                                    greyKnight1Ellipse.x2 = -1000;
+                                }
+
+                                if(greyKnight2Rectangle1.posY == redBishop2Square.posY &&
+                                   greyKnight2Rectangle1.posX == redBishop2Square.posX) {
+                                    greyKnight2Rectangle1.posX = -1000;
+                                    greyKnight2Rectangle1.x1 = -1000;
+                                    greyKnight2Rectangle1.x2 = -1000;
+                                    greyKnight2Rectangle2.x1 = -1000;
+                                    greyKnight2Rectangle2.x2 = -1000;
+                                    greyKnight2Base.x1 = -1000;
+                                    greyKnight2Base.x2 = -1000;
+                                    greyKnight2Ellipse.x1 = -1000;
+                                    greyKnight2Ellipse.x2 = -1000;
+                                }
+
+                                if(greyQueenSquare.posY == redBishop2Square.posY &&
+                                   greyQueenSquare.posX == redBishop2Square.posX) {
+                                    greyQueenSquare.posX = -1000;
+                                    greyQueenSquare.x1 = -1000;
+                                    greyQueenSquare.x2 = -1000;
+                                    greyQueenRectangle1.x1 = -1000;
+                                    greyQueenRectangle1.x2 = -1000;
+                                    greyQueenRectangle2.x1 = -1000;
+                                    greyQueenRectangle2.x2 = -1000;
+                                    greyQueenRectangle3.x1 = -1000;
+                                    greyQueenRectangle3.x2 = -1000;
+                                    greyQueenBase.x1 = -1000;
+                                    greyQueenBase.x2 = -1000;
+                                    greyQueenEllipse.x1 = -1000;
+                                    greyQueenEllipse.x2 = -1000;
+                                }
+
+                                if(greyRook1Rectangle1.posY == redBishop2Square.posY &&
+                                   greyRook1Rectangle1.posX == redBishop2Square.posX) {
+                                    greyRook1Rectangle1.posX = -1000;
+                                    greyRook1Rectangle1.x1 = -1000;
+                                    greyRook1Rectangle1.x2 = -1000;
+                                    greyRook1Rectangle2.x1 = -1000;
+                                    greyRook1Rectangle2.x2 = -1000;
+                                    greyRook1Base.x1 = -1000;
+                                    greyRook1Base.x2 = -1000;
+                                    greyRook1Ellipse.x1 = -1000;
+                                    greyRook1Ellipse.x2 = -1000;
+                                }
+
+                                if(greyRook2Rectangle1.posY == greyBishop2Square.posY &&
+                                   greyRook2Rectangle1.posX == greyBishop2Square.posX) {
+                                    greyRook2Rectangle1.posX = -1000;
+                                    greyRook2Rectangle1.x1 = -1000;
+                                    greyRook2Rectangle1.x2 = -1000;
+                                    greyRook2Rectangle2.x1 = -1000;
+                                    greyRook2Rectangle2.x2 = -1000;
+                                    greyRook2Base.x1 = -1000;
+                                    greyRook2Base.x2 = -1000;
+                                    greyRook2Ellipse.x1 = -1000;
+                                    greyRook2Ellipse.x2 = -1000;
+                                }
                             }
                         }
                     }
@@ -16862,99 +16843,101 @@ boolean moveRedBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
                                 redBishop2Square.failedpath = TRUE;
                                 return TRUE;
                             }
-                            if(greyPawnsBase[s].posY == redBishop2Square.posY &&
-                               greyPawnsBase[s].posX == redBishop2Square.posX) {
-                                greyPawnsBase[s].posX = -1000;
-                                greyPawnsBase[s].x1 = -1000;
-                                greyPawnsBase[s].x2 = -1000;
-                                greyPawnsEllipse[s].x1 = -1000;
-                                greyPawnsEllipse[s].x2 = -1000;
-                            }
-                            
-                            if(greyQueenSquare.posY == redBishop2Square.posY &&
-                               greyQueenSquare.posX == redBishop2Square.posX) {
-                                greyQueenSquare.posX = -1000;
-                                greyQueenSquare.x1 = -1000;
-                                greyQueenSquare.x2 = -1000;
-                                greyQueenBase.x1 = -1000;
-                                greyQueenBase.x2 = -1000;
-                                greyQueenEllipse.x1 = -1000;
-                                greyQueenEllipse.x2 = -1000;
-                                greyQueenRectangle1.x1 = -1000;
-                                greyQueenRectangle1.x2 = -1000;
-                                greyQueenRectangle2.x1 = -1000;
-                                greyQueenRectangle2.x2 = -1000;
-                                greyQueenRectangle3.x1 = -1000;
-                                greyQueenRectangle3.x2 = -1000;
-                            }
-                            
-                            if(greyKnight1Rectangle1.posY == redBishop2Square.posY &&
-                               greyKnight1Rectangle1.posX == redBishop2Square.posX) {
-                                greyKnight1Rectangle1.posX = -1000;
-                                greyKnight1Rectangle1.x1 = -1000;
-                                greyKnight1Rectangle1.x2 = -1000;
-                                greyKnight1Rectangle2.x1 = -1000;
-                                greyKnight1Rectangle2.x2 = -1000;
-                                greyKnight1Base.x1 = -1000;
-                                greyKnight1Base.x2 = -1000;
-                                greyKnight1Ellipse.x1 = -1000;
-                                greyKnight1Ellipse.x2 = -1000;
-                            }
-                            
-                            if(greyKnight2Rectangle1.posY == redBishop2Square.posY &&
-                               greyKnight2Rectangle1.posX == redBishop2Square.posX) {
-                                greyKnight2Rectangle1.posX = -1000;
-                                greyKnight2Rectangle1.x1 = -1000;
-                                greyKnight2Rectangle1.x2 = -1000;
-                                greyKnight2Rectangle2.x1 = -1000;
-                                greyKnight2Rectangle2.x2 = -1000;
-                                greyKnight2Base.x1 = -1000;
-                                greyKnight2Base.x2 = -1000;
-                                greyKnight2Ellipse.x1 = -1000;
-                                greyKnight2Ellipse.x2 = -1000;
-                            }
-                            
-                            if(greyQueenSquare.posY == redBishop2Square.posY &&
-                               greyQueenSquare.posX == redBishop2Square.posX) {
-                                greyQueenSquare.posX = -1000;
-                                greyQueenSquare.x1 = -1000;
-                                greyQueenSquare.x2 = -1000;
-                                greyQueenRectangle1.x1 = -1000;
-                                greyQueenRectangle1.x2 = -1000;
-                                greyQueenRectangle2.x1 = -1000;
-                                greyQueenRectangle2.x2 = -1000;
-                                greyQueenRectangle3.x1 = -1000;
-                                greyQueenRectangle3.x2 = -1000;
-                                greyQueenBase.x1 = -1000;
-                                greyQueenBase.x2 = -1000;
-                                greyQueenEllipse.x1 = -1000;
-                                greyQueenEllipse.x2 = -1000;
-                            }
-                            
-                            if(greyRook1Rectangle1.posY == redBishop2Square.posY &&
-                               greyRook1Rectangle1.posX == redBishop2Square.posX) {
-                                greyRook1Rectangle1.posX = -1000;
-                                greyRook1Rectangle1.x1 = -1000;
-                                greyRook1Rectangle1.x2 = -1000;
-                                greyRook1Rectangle2.x1 = -1000;
-                                greyRook1Rectangle2.x2 = -1000;
-                                greyRook1Base.x1 = -1000;
-                                greyRook1Base.x2 = -1000;
-                                greyRook1Ellipse.x1 = -1000;
-                                greyRook1Ellipse.x2 = -1000;
-                            }
-                            
-                            if(greyRook2Rectangle1.posY == greyBishop2Square.posY &&
-                               greyRook2Rectangle1.posX == greyBishop2Square.posX) {
-                                greyRook2Rectangle1.posX = -1000;
-                                greyRook2Rectangle1.x1 = -1000;
-                                greyRook2Rectangle1.x2 = -1000;
-                                greyRook2Rectangle2.x1 = -1000;
-                                greyRook2Rectangle2.x2 = -1000;
-                                greyRook2Base.x1 = -1000;
-                                greyRook2Base.x2 = -1000;
-                                greyRook2Ellipse.x1 = -1000;
-                                greyRook2Ellipse.x2 = -1000;
+                            if(j != -666) {
+                                if(greyPawnsBase[s].posY == redBishop2Square.posY &&
+                                   greyPawnsBase[s].posX == redBishop2Square.posX) {
+                                    greyPawnsBase[s].posX = -1000;
+                                    greyPawnsBase[s].x1 = -1000;
+                                    greyPawnsBase[s].x2 = -1000;
+                                    greyPawnsEllipse[s].x1 = -1000;
+                                    greyPawnsEllipse[s].x2 = -1000;
+                                }
+
+                                if(greyQueenSquare.posY == redBishop2Square.posY &&
+                                   greyQueenSquare.posX == redBishop2Square.posX) {
+                                    greyQueenSquare.posX = -1000;
+                                    greyQueenSquare.x1 = -1000;
+                                    greyQueenSquare.x2 = -1000;
+                                    greyQueenBase.x1 = -1000;
+                                    greyQueenBase.x2 = -1000;
+                                    greyQueenEllipse.x1 = -1000;
+                                    greyQueenEllipse.x2 = -1000;
+                                    greyQueenRectangle1.x1 = -1000;
+                                    greyQueenRectangle1.x2 = -1000;
+                                    greyQueenRectangle2.x1 = -1000;
+                                    greyQueenRectangle2.x2 = -1000;
+                                    greyQueenRectangle3.x1 = -1000;
+                                    greyQueenRectangle3.x2 = -1000;
+                                }
+
+                                if(greyKnight1Rectangle1.posY == redBishop2Square.posY &&
+                                   greyKnight1Rectangle1.posX == redBishop2Square.posX) {
+                                    greyKnight1Rectangle1.posX = -1000;
+                                    greyKnight1Rectangle1.x1 = -1000;
+                                    greyKnight1Rectangle1.x2 = -1000;
+                                    greyKnight1Rectangle2.x1 = -1000;
+                                    greyKnight1Rectangle2.x2 = -1000;
+                                    greyKnight1Base.x1 = -1000;
+                                    greyKnight1Base.x2 = -1000;
+                                    greyKnight1Ellipse.x1 = -1000;
+                                    greyKnight1Ellipse.x2 = -1000;
+                                }
+
+                                if(greyKnight2Rectangle1.posY == redBishop2Square.posY &&
+                                   greyKnight2Rectangle1.posX == redBishop2Square.posX) {
+                                    greyKnight2Rectangle1.posX = -1000;
+                                    greyKnight2Rectangle1.x1 = -1000;
+                                    greyKnight2Rectangle1.x2 = -1000;
+                                    greyKnight2Rectangle2.x1 = -1000;
+                                    greyKnight2Rectangle2.x2 = -1000;
+                                    greyKnight2Base.x1 = -1000;
+                                    greyKnight2Base.x2 = -1000;
+                                    greyKnight2Ellipse.x1 = -1000;
+                                    greyKnight2Ellipse.x2 = -1000;
+                                }
+
+                                if(greyQueenSquare.posY == redBishop2Square.posY &&
+                                   greyQueenSquare.posX == redBishop2Square.posX) {
+                                    greyQueenSquare.posX = -1000;
+                                    greyQueenSquare.x1 = -1000;
+                                    greyQueenSquare.x2 = -1000;
+                                    greyQueenRectangle1.x1 = -1000;
+                                    greyQueenRectangle1.x2 = -1000;
+                                    greyQueenRectangle2.x1 = -1000;
+                                    greyQueenRectangle2.x2 = -1000;
+                                    greyQueenRectangle3.x1 = -1000;
+                                    greyQueenRectangle3.x2 = -1000;
+                                    greyQueenBase.x1 = -1000;
+                                    greyQueenBase.x2 = -1000;
+                                    greyQueenEllipse.x1 = -1000;
+                                    greyQueenEllipse.x2 = -1000;
+                                }
+
+                                if(greyRook1Rectangle1.posY == redBishop2Square.posY &&
+                                   greyRook1Rectangle1.posX == redBishop2Square.posX) {
+                                    greyRook1Rectangle1.posX = -1000;
+                                    greyRook1Rectangle1.x1 = -1000;
+                                    greyRook1Rectangle1.x2 = -1000;
+                                    greyRook1Rectangle2.x1 = -1000;
+                                    greyRook1Rectangle2.x2 = -1000;
+                                    greyRook1Base.x1 = -1000;
+                                    greyRook1Base.x2 = -1000;
+                                    greyRook1Ellipse.x1 = -1000;
+                                    greyRook1Ellipse.x2 = -1000;
+                                }
+
+                                if(greyRook2Rectangle1.posY == greyBishop2Square.posY &&
+                                   greyRook2Rectangle1.posX == greyBishop2Square.posX) {
+                                    greyRook2Rectangle1.posX = -1000;
+                                    greyRook2Rectangle1.x1 = -1000;
+                                    greyRook2Rectangle1.x2 = -1000;
+                                    greyRook2Rectangle2.x1 = -1000;
+                                    greyRook2Rectangle2.x2 = -1000;
+                                    greyRook2Base.x1 = -1000;
+                                    greyRook2Base.x2 = -1000;
+                                    greyRook2Ellipse.x1 = -1000;
+                                    greyRook2Ellipse.x2 = -1000;
+                                }
                             }
                         }
                     }
@@ -17106,13 +17089,15 @@ boolean moveRedBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
                                 redBishop2Square.failedpath = TRUE;
                                 return TRUE;
                             }
-                            if(greyPawnsBase[s].posY == redBishop2Square.posY &&
-                               greyPawnsBase[s].posX == redBishop2Square.posX) {
-                                greyPawnsBase[s].posX = -1000;
-                                greyPawnsBase[s].x1 = -1000;
-                                greyPawnsBase[s].x2 = -1000;
-                                greyPawnsEllipse[s].x1 = -1000;
-                                greyPawnsEllipse[s].x2 = -1000;
+                            if(j != -666) {
+                                if(greyPawnsBase[s].posY == redBishop2Square.posY &&
+                                   greyPawnsBase[s].posX == redBishop2Square.posX) {
+                                    greyPawnsBase[s].posX = -1000;
+                                    greyPawnsBase[s].x1 = -1000;
+                                    greyPawnsBase[s].x2 = -1000;
+                                    greyPawnsEllipse[s].x1 = -1000;
+                                    greyPawnsEllipse[s].x2 = -1000;
+                                }
                             }
                         }
 
@@ -17147,90 +17132,92 @@ boolean moveRedBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
                             redBishop2Square.failedpath = TRUE;
                             return TRUE;
                         }
-                        if(greyQueenSquare.posY == redBishop2Square.posY &&
-                           greyQueenSquare.posX == redBishop2Square.posX) {
-                            greyQueenSquare.posX = -1000;
-                            greyQueenSquare.x1 = -1000;
-                            greyQueenSquare.x2 = -1000;
-                            greyQueenBase.x1 = -1000;
-                            greyQueenBase.x2 = -1000;
-                            greyQueenEllipse.x1 = -1000;
-                            greyQueenEllipse.x2 = -1000;
-                            greyQueenRectangle1.x1 = -1000;
-                            greyQueenRectangle1.x2 = -1000;
-                            greyQueenRectangle2.x1 = -1000;
-                            greyQueenRectangle2.x2 = -1000;
-                            greyQueenRectangle3.x1 = -1000;
-                            greyQueenRectangle3.x2 = -1000;
-                        }
+                        if(j != -666) {
+                            if(greyQueenSquare.posY == redBishop2Square.posY &&
+                               greyQueenSquare.posX == redBishop2Square.posX) {
+                                greyQueenSquare.posX = -1000;
+                                greyQueenSquare.x1 = -1000;
+                                greyQueenSquare.x2 = -1000;
+                                greyQueenBase.x1 = -1000;
+                                greyQueenBase.x2 = -1000;
+                                greyQueenEllipse.x1 = -1000;
+                                greyQueenEllipse.x2 = -1000;
+                                greyQueenRectangle1.x1 = -1000;
+                                greyQueenRectangle1.x2 = -1000;
+                                greyQueenRectangle2.x1 = -1000;
+                                greyQueenRectangle2.x2 = -1000;
+                                greyQueenRectangle3.x1 = -1000;
+                                greyQueenRectangle3.x2 = -1000;
+                            }
 
-                        if(greyKnight1Rectangle1.posY == redBishop2Square.posY &&
-                           greyKnight1Rectangle1.posX == redBishop2Square.posX) {
-                            greyKnight1Rectangle1.posX = -1000;
-                            greyKnight1Rectangle1.x1 = -1000;
-                            greyKnight1Rectangle1.x2 = -1000;
-                            greyKnight1Rectangle2.x1 = -1000;
-                            greyKnight1Rectangle2.x2 = -1000;
-                            greyKnight1Base.x1 = -1000;
-                            greyKnight1Base.x2 = -1000;
-                            greyKnight1Ellipse.x1 = -1000;
-                            greyKnight1Ellipse.x2 = -1000;
-                        }
+                            if(greyKnight1Rectangle1.posY == redBishop2Square.posY &&
+                               greyKnight1Rectangle1.posX == redBishop2Square.posX) {
+                                greyKnight1Rectangle1.posX = -1000;
+                                greyKnight1Rectangle1.x1 = -1000;
+                                greyKnight1Rectangle1.x2 = -1000;
+                                greyKnight1Rectangle2.x1 = -1000;
+                                greyKnight1Rectangle2.x2 = -1000;
+                                greyKnight1Base.x1 = -1000;
+                                greyKnight1Base.x2 = -1000;
+                                greyKnight1Ellipse.x1 = -1000;
+                                greyKnight1Ellipse.x2 = -1000;
+                            }
 
-                        if(greyKnight2Rectangle1.posY == redBishop2Square.posY &&
-                           greyKnight2Rectangle1.posX == redBishop2Square.posX) {
-                            greyKnight2Rectangle1.posX = -1000;
-                            greyKnight2Rectangle1.x1 = -1000;
-                            greyKnight2Rectangle1.x2 = -1000;
-                            greyKnight2Rectangle2.x1 = -1000;
-                            greyKnight2Rectangle2.x2 = -1000;
-                            greyKnight2Base.x1 = -1000;
-                            greyKnight2Base.x2 = -1000;
-                            greyKnight2Ellipse.x1 = -1000;
-                            greyKnight2Ellipse.x2 = -1000;
-                        }
+                            if(greyKnight2Rectangle1.posY == redBishop2Square.posY &&
+                               greyKnight2Rectangle1.posX == redBishop2Square.posX) {
+                                greyKnight2Rectangle1.posX = -1000;
+                                greyKnight2Rectangle1.x1 = -1000;
+                                greyKnight2Rectangle1.x2 = -1000;
+                                greyKnight2Rectangle2.x1 = -1000;
+                                greyKnight2Rectangle2.x2 = -1000;
+                                greyKnight2Base.x1 = -1000;
+                                greyKnight2Base.x2 = -1000;
+                                greyKnight2Ellipse.x1 = -1000;
+                                greyKnight2Ellipse.x2 = -1000;
+                            }
 
-                        if(greyQueenSquare.posY == redBishop2Square.posY &&
-                           greyQueenSquare.posX == redBishop2Square.posX) {
-                            greyQueenSquare.posX = -1000;
-                            greyQueenSquare.x1 = -1000;
-                            greyQueenSquare.x2 = -1000;
-                            greyQueenRectangle1.x1 = -1000;
-                            greyQueenRectangle1.x2 = -1000;
-                            greyQueenRectangle2.x1 = -1000;
-                            greyQueenRectangle2.x2 = -1000;
-                            greyQueenRectangle3.x1 = -1000;
-                            greyQueenRectangle3.x2 = -1000;
-                            greyQueenBase.x1 = -1000;
-                            greyQueenBase.x2 = -1000;
-                            greyQueenEllipse.x1 = -1000;
-                            greyQueenEllipse.x2 = -1000;
-                        }
+                            if(greyQueenSquare.posY == redBishop2Square.posY &&
+                               greyQueenSquare.posX == redBishop2Square.posX) {
+                                greyQueenSquare.posX = -1000;
+                                greyQueenSquare.x1 = -1000;
+                                greyQueenSquare.x2 = -1000;
+                                greyQueenRectangle1.x1 = -1000;
+                                greyQueenRectangle1.x2 = -1000;
+                                greyQueenRectangle2.x1 = -1000;
+                                greyQueenRectangle2.x2 = -1000;
+                                greyQueenRectangle3.x1 = -1000;
+                                greyQueenRectangle3.x2 = -1000;
+                                greyQueenBase.x1 = -1000;
+                                greyQueenBase.x2 = -1000;
+                                greyQueenEllipse.x1 = -1000;
+                                greyQueenEllipse.x2 = -1000;
+                            }
 
-                        if(greyRook1Rectangle1.posY == redBishop2Square.posY &&
-                           greyRook1Rectangle1.posX == redBishop2Square.posX) {
-                            greyRook1Rectangle1.posX = -1000;
-                            greyRook1Rectangle1.x1 = -1000;
-                            greyRook1Rectangle1.x2 = -1000;
-                            greyRook1Rectangle2.x1 = -1000;
-                            greyRook1Rectangle2.x2 = -1000;
-                            greyRook1Base.x1 = -1000;
-                            greyRook1Base.x2 = -1000;
-                            greyRook1Ellipse.x1 = -1000;
-                            greyRook1Ellipse.x2 = -1000;
-                        }
+                            if(greyRook1Rectangle1.posY == redBishop2Square.posY &&
+                               greyRook1Rectangle1.posX == redBishop2Square.posX) {
+                                greyRook1Rectangle1.posX = -1000;
+                                greyRook1Rectangle1.x1 = -1000;
+                                greyRook1Rectangle1.x2 = -1000;
+                                greyRook1Rectangle2.x1 = -1000;
+                                greyRook1Rectangle2.x2 = -1000;
+                                greyRook1Base.x1 = -1000;
+                                greyRook1Base.x2 = -1000;
+                                greyRook1Ellipse.x1 = -1000;
+                                greyRook1Ellipse.x2 = -1000;
+                            }
 
-                        if(greyRook2Rectangle1.posY == greyBishop2Square.posY &&
-                           greyRook2Rectangle1.posX == greyBishop2Square.posX) {
-                            greyRook2Rectangle1.posX = -1000;
-                            greyRook2Rectangle1.x1 = -1000;
-                            greyRook2Rectangle1.x2 = -1000;
-                            greyRook2Rectangle2.x1 = -1000;
-                            greyRook2Rectangle2.x2 = -1000;
-                            greyRook2Base.x1 = -1000;
-                            greyRook2Base.x2 = -1000;
-                            greyRook2Ellipse.x1 = -1000;
-                            greyRook2Ellipse.x2 = -1000;
+                            if(greyRook2Rectangle1.posY == greyBishop2Square.posY &&
+                               greyRook2Rectangle1.posX == greyBishop2Square.posX) {
+                                greyRook2Rectangle1.posX = -1000;
+                                greyRook2Rectangle1.x1 = -1000;
+                                greyRook2Rectangle1.x2 = -1000;
+                                greyRook2Rectangle2.x1 = -1000;
+                                greyRook2Rectangle2.x2 = -1000;
+                                greyRook2Base.x1 = -1000;
+                                greyRook2Base.x2 = -1000;
+                                greyRook2Ellipse.x1 = -1000;
+                                greyRook2Ellipse.x2 = -1000;
+                            }
                         }
                     }
 
@@ -17410,99 +17397,101 @@ boolean moveRedBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
                                 redBishop2Square.failedpath = TRUE;
                                 return TRUE;
                             }
-                            if(greyPawnsBase[s].posY == redBishop2Square.posY &&
-                               greyPawnsBase[s].posX == redBishop2Square.posX) {
-                                greyPawnsBase[s].posX = -1000;
-                                greyPawnsBase[s].x1 = -1000;
-                                greyPawnsBase[s].x2 = -1000;
-                                greyPawnsEllipse[s].x1 = -1000;
-                                greyPawnsEllipse[s].x2 = -1000;
-                            }
-                            
-                            if(greyQueenSquare.posY == redBishop2Square.posY &&
-                               greyQueenSquare.posX == redBishop2Square.posX) {
-                                greyQueenSquare.posX = -1000;
-                                greyQueenSquare.x1 = -1000;
-                                greyQueenSquare.x2 = -1000;
-                                greyQueenBase.x1 = -1000;
-                                greyQueenBase.x2 = -1000;
-                                greyQueenEllipse.x1 = -1000;
-                                greyQueenEllipse.x2 = -1000;
-                                greyQueenRectangle1.x1 = -1000;
-                                greyQueenRectangle1.x2 = -1000;
-                                greyQueenRectangle2.x1 = -1000;
-                                greyQueenRectangle2.x2 = -1000;
-                                greyQueenRectangle3.x1 = -1000;
-                                greyQueenRectangle3.x2 = -1000;
-                            }
-                            
-                            if(greyKnight1Rectangle1.posY == redBishop2Square.posY &&
-                               greyKnight1Rectangle1.posX == redBishop2Square.posX) {
-                                greyKnight1Rectangle1.posX = -1000;
-                                greyKnight1Rectangle1.x1 = -1000;
-                                greyKnight1Rectangle1.x2 = -1000;
-                                greyKnight1Rectangle2.x1 = -1000;
-                                greyKnight1Rectangle2.x2 = -1000;
-                                greyKnight1Base.x1 = -1000;
-                                greyKnight1Base.x2 = -1000;
-                                greyKnight1Ellipse.x1 = -1000;
-                                greyKnight1Ellipse.x2 = -1000;
-                            }
-                            
-                            if(greyKnight2Rectangle1.posY == redBishop2Square.posY &&
-                               greyKnight2Rectangle1.posX == redBishop2Square.posX) {
-                                greyKnight2Rectangle1.posX = -1000;
-                                greyKnight2Rectangle1.x1 = -1000;
-                                greyKnight2Rectangle1.x2 = -1000;
-                                greyKnight2Rectangle2.x1 = -1000;
-                                greyKnight2Rectangle2.x2 = -1000;
-                                greyKnight2Base.x1 = -1000;
-                                greyKnight2Base.x2 = -1000;
-                                greyKnight2Ellipse.x1 = -1000;
-                                greyKnight2Ellipse.x2 = -1000;
-                            }
-                            
-                            if(greyQueenSquare.posY == redBishop2Square.posY &&
-                               greyQueenSquare.posX == redBishop2Square.posX) {
-                                greyQueenSquare.posX = -1000;
-                                greyQueenSquare.x1 = -1000;
-                                greyQueenSquare.x2 = -1000;
-                                greyQueenRectangle1.x1 = -1000;
-                                greyQueenRectangle1.x2 = -1000;
-                                greyQueenRectangle2.x1 = -1000;
-                                greyQueenRectangle2.x2 = -1000;
-                                greyQueenRectangle3.x1 = -1000;
-                                greyQueenRectangle3.x2 = -1000;
-                                greyQueenBase.x1 = -1000;
-                                greyQueenBase.x2 = -1000;
-                                greyQueenEllipse.x1 = -1000;
-                                greyQueenEllipse.x2 = -1000;
-                            }
-                            
-                            if(greyRook1Rectangle1.posY == redBishop2Square.posY &&
-                               greyRook1Rectangle1.posX == redBishop2Square.posX) {
-                                greyRook1Rectangle1.posX = -1000;
-                                greyRook1Rectangle1.x1 = -1000;
-                                greyRook1Rectangle1.x2 = -1000;
-                                greyRook1Rectangle2.x1 = -1000;
-                                greyRook1Rectangle2.x2 = -1000;
-                                greyRook1Base.x1 = -1000;
-                                greyRook1Base.x2 = -1000;
-                                greyRook1Ellipse.x1 = -1000;
-                                greyRook1Ellipse.x2 = -1000;
-                            }
-                            
-                            if(greyRook2Rectangle1.posY == redBishop2Square.posY &&
-                               greyRook2Rectangle1.posX == redBishop2Square.posX) {
-                                greyRook2Rectangle1.posX = -1000;
-                                greyRook2Rectangle1.x1 = -1000;
-                                greyRook2Rectangle1.x2 = -1000;
-                                greyRook2Rectangle2.x1 = -1000;
-                                greyRook2Rectangle2.x2 = -1000;
-                                greyRook2Base.x1 = -1000;
-                                greyRook2Base.x2 = -1000;
-                                greyRook2Ellipse.x1 = -1000;
-                                greyRook2Ellipse.x2 = -1000;
+                            if(j != -666) {
+                                if(greyPawnsBase[s].posY == redBishop2Square.posY &&
+                                   greyPawnsBase[s].posX == redBishop2Square.posX) {
+                                    greyPawnsBase[s].posX = -1000;
+                                    greyPawnsBase[s].x1 = -1000;
+                                    greyPawnsBase[s].x2 = -1000;
+                                    greyPawnsEllipse[s].x1 = -1000;
+                                    greyPawnsEllipse[s].x2 = -1000;
+                                }
+
+                                if(greyQueenSquare.posY == redBishop2Square.posY &&
+                                   greyQueenSquare.posX == redBishop2Square.posX) {
+                                    greyQueenSquare.posX = -1000;
+                                    greyQueenSquare.x1 = -1000;
+                                    greyQueenSquare.x2 = -1000;
+                                    greyQueenBase.x1 = -1000;
+                                    greyQueenBase.x2 = -1000;
+                                    greyQueenEllipse.x1 = -1000;
+                                    greyQueenEllipse.x2 = -1000;
+                                    greyQueenRectangle1.x1 = -1000;
+                                    greyQueenRectangle1.x2 = -1000;
+                                    greyQueenRectangle2.x1 = -1000;
+                                    greyQueenRectangle2.x2 = -1000;
+                                    greyQueenRectangle3.x1 = -1000;
+                                    greyQueenRectangle3.x2 = -1000;
+                                }
+
+                                if(greyKnight1Rectangle1.posY == redBishop2Square.posY &&
+                                   greyKnight1Rectangle1.posX == redBishop2Square.posX) {
+                                    greyKnight1Rectangle1.posX = -1000;
+                                    greyKnight1Rectangle1.x1 = -1000;
+                                    greyKnight1Rectangle1.x2 = -1000;
+                                    greyKnight1Rectangle2.x1 = -1000;
+                                    greyKnight1Rectangle2.x2 = -1000;
+                                    greyKnight1Base.x1 = -1000;
+                                    greyKnight1Base.x2 = -1000;
+                                    greyKnight1Ellipse.x1 = -1000;
+                                    greyKnight1Ellipse.x2 = -1000;
+                                }
+
+                                if(greyKnight2Rectangle1.posY == redBishop2Square.posY &&
+                                   greyKnight2Rectangle1.posX == redBishop2Square.posX) {
+                                    greyKnight2Rectangle1.posX = -1000;
+                                    greyKnight2Rectangle1.x1 = -1000;
+                                    greyKnight2Rectangle1.x2 = -1000;
+                                    greyKnight2Rectangle2.x1 = -1000;
+                                    greyKnight2Rectangle2.x2 = -1000;
+                                    greyKnight2Base.x1 = -1000;
+                                    greyKnight2Base.x2 = -1000;
+                                    greyKnight2Ellipse.x1 = -1000;
+                                    greyKnight2Ellipse.x2 = -1000;
+                                }
+
+                                if(greyQueenSquare.posY == redBishop2Square.posY &&
+                                   greyQueenSquare.posX == redBishop2Square.posX) {
+                                    greyQueenSquare.posX = -1000;
+                                    greyQueenSquare.x1 = -1000;
+                                    greyQueenSquare.x2 = -1000;
+                                    greyQueenRectangle1.x1 = -1000;
+                                    greyQueenRectangle1.x2 = -1000;
+                                    greyQueenRectangle2.x1 = -1000;
+                                    greyQueenRectangle2.x2 = -1000;
+                                    greyQueenRectangle3.x1 = -1000;
+                                    greyQueenRectangle3.x2 = -1000;
+                                    greyQueenBase.x1 = -1000;
+                                    greyQueenBase.x2 = -1000;
+                                    greyQueenEllipse.x1 = -1000;
+                                    greyQueenEllipse.x2 = -1000;
+                                }
+
+                                if(greyRook1Rectangle1.posY == redBishop2Square.posY &&
+                                   greyRook1Rectangle1.posX == redBishop2Square.posX) {
+                                    greyRook1Rectangle1.posX = -1000;
+                                    greyRook1Rectangle1.x1 = -1000;
+                                    greyRook1Rectangle1.x2 = -1000;
+                                    greyRook1Rectangle2.x1 = -1000;
+                                    greyRook1Rectangle2.x2 = -1000;
+                                    greyRook1Base.x1 = -1000;
+                                    greyRook1Base.x2 = -1000;
+                                    greyRook1Ellipse.x1 = -1000;
+                                    greyRook1Ellipse.x2 = -1000;
+                                }
+
+                                if(greyRook2Rectangle1.posY == redBishop2Square.posY &&
+                                   greyRook2Rectangle1.posX == redBishop2Square.posX) {
+                                    greyRook2Rectangle1.posX = -1000;
+                                    greyRook2Rectangle1.x1 = -1000;
+                                    greyRook2Rectangle1.x2 = -1000;
+                                    greyRook2Rectangle2.x1 = -1000;
+                                    greyRook2Rectangle2.x2 = -1000;
+                                    greyRook2Base.x1 = -1000;
+                                    greyRook2Base.x2 = -1000;
+                                    greyRook2Ellipse.x1 = -1000;
+                                    greyRook2Ellipse.x2 = -1000;
+                                }
                             }
                         }
                     }
