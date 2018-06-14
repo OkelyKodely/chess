@@ -466,7 +466,22 @@ struct RedPawnEllipse {
 
 } redPawnsEllipse[8];
 
+HBITMAP hBitmap;
+HINSTANCE hInst;
+
 void DrawChessBoard() {
+    BITMAP          bitmap;
+    HDC             hdcMem;
+    HGDIOBJ         oldBitmap;
+
+    hBitmap = (HBITMAP)LoadImage(hInst, "bitmap3.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+
+    hdcMem = CreateCompatibleDC(hdc);
+    oldBitmap = SelectObject(hdcMem, hBitmap);
+
+    GetObject(hBitmap, sizeof(bitmap), &bitmap);
+    BitBlt(hdc, 20, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
+
     firstTime = FALSE;
     MoveToEx(hdc, 0, 0, NULL);
     HBRUSH brush;
@@ -487,7 +502,7 @@ void DrawChessBoard() {
                 } else
                     x = 255;
             }
-            brush = CreateSolidBrush(RGB(255,165,0));
+            brush = CreateSolidBrush(RGB(55,55,55));
             if(x == 255) {
                 brush = CreateSolidBrush(RGB(255,255,255));
             }
@@ -1774,7 +1789,7 @@ boolean moveRedQueen(UINT msg, int j, int i, int pos, int o) {
                             redQueenSquare.failedpath = TRUE;
                             return TRUE;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyPawnsBase[s].posY == redQueenSquare.posY &&
                            greyPawnsBase[s].posX == redQueenSquare.posX) {
                             greyPawnsBase[s].posX = -1000;
@@ -1783,7 +1798,7 @@ boolean moveRedQueen(UINT msg, int j, int i, int pos, int o) {
                             greyPawnsEllipse[s].x1 = -1000;
                             greyPawnsEllipse[s].x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyQueenSquare.posY == redQueenSquare.posY &&
                            greyQueenSquare.posX == redQueenSquare.posX) {
                             greyQueenSquare.posX = -1000;
@@ -1800,7 +1815,7 @@ boolean moveRedQueen(UINT msg, int j, int i, int pos, int o) {
                             greyQueenRectangle3.x1 = -1000;
                             greyQueenRectangle3.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook1Rectangle1.posY == redQueenSquare.posY &&
                            greyRook1Rectangle1.posX == redQueenSquare.posX) {
                             greyRook1Rectangle1.posX = -1000;
@@ -1813,7 +1828,7 @@ boolean moveRedQueen(UINT msg, int j, int i, int pos, int o) {
                             greyRook1Ellipse.x1 = -1000;
                             greyRook1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook2Rectangle1.posY == redQueenSquare.posY &&
                            greyRook2Rectangle1.posX == redQueenSquare.posX) {
                             greyRook2Rectangle1.posX = -1000;
@@ -1826,7 +1841,7 @@ boolean moveRedQueen(UINT msg, int j, int i, int pos, int o) {
                             greyRook2Ellipse.x1 = -1000;
                             greyRook2Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyBishop1Square.posY == redQueenSquare.posY &&
                            greyBishop1Square.posX == redQueenSquare.posX) {
                             greyBishop1Square.posX = -1000;
@@ -1839,7 +1854,7 @@ boolean moveRedQueen(UINT msg, int j, int i, int pos, int o) {
                             greyBishop1Ellipse.x1 = -1000;
                             greyBishop1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyBishop2Square.posY == redQueenSquare.posY &&
                            greyBishop2Square.posX == redQueenSquare.posX) {
                             greyBishop2Square.posX = -1000;
@@ -1852,7 +1867,7 @@ boolean moveRedQueen(UINT msg, int j, int i, int pos, int o) {
                             greyBishop2Ellipse.x1 = -1000;
                             greyBishop2Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyKnight1Rectangle1.posY == redQueenSquare.posY &&
                            greyKnight1Rectangle1.posX == redQueenSquare.posX) {
                             greyKnight1Rectangle1.posX = -1000;
@@ -1865,7 +1880,7 @@ boolean moveRedQueen(UINT msg, int j, int i, int pos, int o) {
                             greyKnight1Ellipse.x1 = -1000;
                             greyKnight1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyKnight2Rectangle1.posY == redQueenSquare.posY &&
                            greyKnight2Rectangle1.posX == redQueenSquare.posX) {
                             greyKnight2Rectangle1.posX = -1000;
@@ -2100,7 +2115,7 @@ boolean moveRedQueen(UINT msg, int j, int i, int pos, int o) {
                             redQueenSquare.failedpath = TRUE;
                             return TRUE;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyPawnsBase[s].posY == redQueenSquare.posY &&
                            greyPawnsBase[s].posX == redQueenSquare.posX) {
                             greyPawnsBase[s].posX = -1000;
@@ -2109,7 +2124,7 @@ boolean moveRedQueen(UINT msg, int j, int i, int pos, int o) {
                             greyPawnsEllipse[s].x1 = -1000;
                             greyPawnsEllipse[s].x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyQueenSquare.posY == redQueenSquare.posY &&
                            greyQueenSquare.posX == redQueenSquare.posX) {
                             greyQueenSquare.posX = -1000;
@@ -2126,7 +2141,7 @@ boolean moveRedQueen(UINT msg, int j, int i, int pos, int o) {
                             greyQueenRectangle3.x1 = -1000;
                             greyQueenRectangle3.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook1Rectangle1.posY == redQueenSquare.posY &&
                            greyRook1Rectangle1.posX == redQueenSquare.posX) {
                             greyRook1Rectangle1.posX = -1000;
@@ -2139,7 +2154,7 @@ boolean moveRedQueen(UINT msg, int j, int i, int pos, int o) {
                             greyRook1Ellipse.x1 = -1000;
                             greyRook1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook2Rectangle1.posY == redQueenSquare.posY &&
                            greyRook2Rectangle1.posX == redQueenSquare.posX) {
                             greyRook2Rectangle1.posX = -1000;
@@ -2152,7 +2167,7 @@ boolean moveRedQueen(UINT msg, int j, int i, int pos, int o) {
                             greyRook2Ellipse.x1 = -1000;
                             greyRook2Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyBishop1Square.posY == redQueenSquare.posY &&
                            greyBishop1Square.posX == redQueenSquare.posX) {
                             greyBishop1Square.posX = -1000;
@@ -2165,7 +2180,7 @@ boolean moveRedQueen(UINT msg, int j, int i, int pos, int o) {
                             greyBishop1Ellipse.x1 = -1000;
                             greyBishop1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyBishop2Square.posY == redQueenSquare.posY &&
                            greyBishop2Square.posX == redQueenSquare.posX) {
                             greyBishop2Square.posX = -1000;
@@ -2178,7 +2193,7 @@ boolean moveRedQueen(UINT msg, int j, int i, int pos, int o) {
                             greyBishop2Ellipse.x1 = -1000;
                             greyBishop2Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyKnight1Rectangle1.posY == redQueenSquare.posY &&
                            greyKnight1Rectangle1.posX == redQueenSquare.posX) {
                             greyKnight1Rectangle1.posX = -1000;
@@ -2191,7 +2206,7 @@ boolean moveRedQueen(UINT msg, int j, int i, int pos, int o) {
                             greyKnight1Ellipse.x1 = -1000;
                             greyKnight1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyKnight2Rectangle1.posY == redQueenSquare.posY &&
                            greyKnight2Rectangle1.posX == redQueenSquare.posX) {
                             greyKnight2Rectangle1.posX = -1000;
@@ -2488,7 +2503,7 @@ boolean moveRedQueenSide(UINT msg, int j, int i, int pos, int o) {
                             redQueenSquare.failedpath = TRUE;
                             return TRUE;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyPawnsBase[s].posY == redQueenSquare.posY &&
                            greyPawnsBase[s].posX == redQueenSquare.posX) {
                             greyPawnsBase[s].posX = -1000;
@@ -2497,7 +2512,7 @@ boolean moveRedQueenSide(UINT msg, int j, int i, int pos, int o) {
                             greyPawnsEllipse[s].x1 = -1000;
                             greyPawnsEllipse[s].x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyQueenSquare.posY == redQueenSquare.posY &&
                            greyQueenSquare.posX == redQueenSquare.posX) {
                             greyQueenSquare.posX = -1000;
@@ -2514,7 +2529,7 @@ boolean moveRedQueenSide(UINT msg, int j, int i, int pos, int o) {
                             greyQueenRectangle3.x1 = -1000;
                             greyQueenRectangle3.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook1Rectangle1.posY == redQueenSquare.posY &&
                            greyRook1Rectangle1.posX == redQueenSquare.posX) {
                             greyRook1Rectangle1.posX = -1000;
@@ -2527,7 +2542,7 @@ boolean moveRedQueenSide(UINT msg, int j, int i, int pos, int o) {
                             greyRook1Ellipse.x1 = -1000;
                             greyRook1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook2Rectangle1.posY == redQueenSquare.posY &&
                            greyRook2Rectangle1.posX == redQueenSquare.posX) {
                             greyRook2Rectangle1.posX = -1000;
@@ -2540,7 +2555,7 @@ boolean moveRedQueenSide(UINT msg, int j, int i, int pos, int o) {
                             greyRook2Ellipse.x1 = -1000;
                             greyRook2Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyBishop1Square.posY == redQueenSquare.posY &&
                            greyBishop1Square.posX == redQueenSquare.posX) {
                             greyBishop1Square.posX = -1000;
@@ -2553,7 +2568,7 @@ boolean moveRedQueenSide(UINT msg, int j, int i, int pos, int o) {
                             greyBishop1Ellipse.x1 = -1000;
                             greyBishop1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyBishop2Square.posY == redQueenSquare.posY &&
                            greyBishop2Square.posX == redQueenSquare.posX) {
                             greyBishop2Square.posX = -1000;
@@ -2566,7 +2581,7 @@ boolean moveRedQueenSide(UINT msg, int j, int i, int pos, int o) {
                             greyBishop2Ellipse.x1 = -1000;
                             greyBishop2Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyKnight1Rectangle1.posY == redQueenSquare.posY &&
                            greyKnight1Rectangle1.posX == redQueenSquare.posX) {
                             greyKnight1Rectangle1.posX = -1000;
@@ -2579,7 +2594,7 @@ boolean moveRedQueenSide(UINT msg, int j, int i, int pos, int o) {
                             greyKnight1Ellipse.x1 = -1000;
                             greyKnight1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyKnight2Rectangle1.posY == redQueenSquare.posY &&
                            greyKnight2Rectangle1.posX == redQueenSquare.posX) {
                             greyKnight2Rectangle1.posX = -1000;
@@ -2829,7 +2844,7 @@ boolean moveRedQueenSide(UINT msg, int j, int i, int pos, int o) {
                             redQueenSquare.failedpath = TRUE;
                             return TRUE;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyPawnsBase[s].posY == redQueenSquare.posY &&
                            greyPawnsBase[s].posX == redQueenSquare.posX) {
                             greyPawnsBase[s].posX = -1000;
@@ -2838,7 +2853,7 @@ boolean moveRedQueenSide(UINT msg, int j, int i, int pos, int o) {
                             greyPawnsEllipse[s].x1 = -1000;
                             greyPawnsEllipse[s].x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyQueenSquare.posY == redQueenSquare.posY &&
                            greyQueenSquare.posX == redQueenSquare.posX) {
                             greyQueenSquare.posX = -1000;
@@ -2855,7 +2870,7 @@ boolean moveRedQueenSide(UINT msg, int j, int i, int pos, int o) {
                             greyQueenRectangle3.x1 = -1000;
                             greyQueenRectangle3.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook1Rectangle1.posY == redQueenSquare.posY &&
                            greyRook1Rectangle1.posX == redQueenSquare.posX) {
                             greyRook1Rectangle1.posX = -1000;
@@ -2868,7 +2883,7 @@ boolean moveRedQueenSide(UINT msg, int j, int i, int pos, int o) {
                             greyRook1Ellipse.x1 = -1000;
                             greyRook1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook2Rectangle1.posY == redQueenSquare.posY &&
                            greyRook2Rectangle1.posX == redQueenSquare.posX) {
                             greyRook2Rectangle1.posX = -1000;
@@ -2881,7 +2896,7 @@ boolean moveRedQueenSide(UINT msg, int j, int i, int pos, int o) {
                             greyRook2Ellipse.x1 = -1000;
                             greyRook2Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyBishop1Square.posY == redQueenSquare.posY &&
                            greyBishop1Square.posX == redQueenSquare.posX) {
                             greyBishop1Square.posX = -1000;
@@ -2894,7 +2909,7 @@ boolean moveRedQueenSide(UINT msg, int j, int i, int pos, int o) {
                             greyBishop1Ellipse.x1 = -1000;
                             greyBishop1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyBishop2Square.posY == redQueenSquare.posY &&
                            greyBishop2Square.posX == redQueenSquare.posX) {
                             greyBishop2Square.posX = -1000;
@@ -2907,7 +2922,7 @@ boolean moveRedQueenSide(UINT msg, int j, int i, int pos, int o) {
                             greyBishop2Ellipse.x1 = -1000;
                             greyBishop2Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyKnight1Rectangle1.posY == redQueenSquare.posY &&
                            greyKnight1Rectangle1.posX == redQueenSquare.posX) {
                             greyKnight1Rectangle1.posX = -1000;
@@ -2920,7 +2935,7 @@ boolean moveRedQueenSide(UINT msg, int j, int i, int pos, int o) {
                             greyKnight1Ellipse.x1 = -1000;
                             greyKnight1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyKnight2Rectangle1.posY == redQueenSquare.posY &&
                            greyKnight2Rectangle1.posX == redQueenSquare.posX) {
                             greyKnight2Rectangle1.posX = -1000;
@@ -3231,7 +3246,7 @@ boolean moveRedQueenSideK(UINT msg, int j, int i, int pos, int o, int k) {
                             return TRUE;
                         }
                         for(int b=0; b<8; b++) {
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyQueenSquareK[b].posY == redQueenSquareK[k].posY &&
                                greyQueenSquareK[b].posX == redQueenSquareK[k].posX) {
                                 greyQueenSquareK[b].posX = -1000;
@@ -3249,7 +3264,7 @@ boolean moveRedQueenSideK(UINT msg, int j, int i, int pos, int o, int k) {
                                 greyQueenRectangle3K[b].x2 = -1000;
                             }
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyPawnsBase[s].posY == redQueenSquareK[k].posY &&
                            greyPawnsBase[s].posX == redQueenSquareK[k].posX) {
                             greyPawnsBase[s].posX = -1000;
@@ -3258,7 +3273,7 @@ boolean moveRedQueenSideK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyPawnsEllipse[s].x1 = -1000;
                             greyPawnsEllipse[s].x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyQueenSquare.posY == redQueenSquareK[k].posY &&
                            greyQueenSquare.posX == redQueenSquareK[k].posX) {
                             greyQueenSquare.posX = -1000;
@@ -3275,7 +3290,7 @@ boolean moveRedQueenSideK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyQueenRectangle3.x1 = -1000;
                             greyQueenRectangle3.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook1Rectangle1.posY == redQueenSquareK[k].posY &&
                            greyRook1Rectangle1.posX == redQueenSquareK[k].posX) {
                             greyRook1Rectangle1.posX = -1000;
@@ -3288,7 +3303,7 @@ boolean moveRedQueenSideK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyRook1Ellipse.x1 = -1000;
                             greyRook1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook2Rectangle1.posY == redQueenSquareK[k].posY &&
                            greyRook2Rectangle1.posX == redQueenSquareK[k].posX) {
                             greyRook2Rectangle1.posX = -1000;
@@ -3301,7 +3316,7 @@ boolean moveRedQueenSideK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyRook2Ellipse.x1 = -1000;
                             greyRook2Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyBishop1Square.posY == redQueenSquareK[k].posY &&
                            greyBishop1Square.posX == redQueenSquareK[k].posX) {
                             greyBishop1Square.posX = -1000;
@@ -3314,7 +3329,7 @@ boolean moveRedQueenSideK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyBishop1Ellipse.x1 = -1000;
                             greyBishop1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyBishop2Square.posY == redQueenSquareK[k].posY &&
                            greyBishop2Square.posX == redQueenSquareK[k].posX) {
                             greyBishop2Square.posX = -1000;
@@ -3327,7 +3342,7 @@ boolean moveRedQueenSideK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyBishop2Ellipse.x1 = -1000;
                             greyBishop2Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyKnight1Rectangle1.posY == redQueenSquareK[k].posY &&
                            greyKnight1Rectangle1.posX == redQueenSquareK[k].posX) {
                             greyKnight1Rectangle1.posX = -1000;
@@ -3340,7 +3355,7 @@ boolean moveRedQueenSideK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyKnight1Ellipse.x1 = -1000;
                             greyKnight1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyKnight2Rectangle1.posY == redQueenSquareK[k].posY &&
                            greyKnight2Rectangle1.posX == redQueenSquareK[k].posX) {
                             greyKnight2Rectangle1.posX = -1000;
@@ -3620,7 +3635,7 @@ boolean moveRedQueenSideK(UINT msg, int j, int i, int pos, int o, int k) {
                             redQueenSquareK[k].failedpath = TRUE;
                             return TRUE;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyPawnsBase[s].posY == redQueenSquareK[k].posY &&
                            greyPawnsBase[s].posX == redQueenSquareK[k].posX) {
                             greyPawnsBase[s].posX = -1000;
@@ -3630,7 +3645,7 @@ boolean moveRedQueenSideK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyPawnsEllipse[s].x2 = -1000;
                         }
                         for(int c=0; c<8; c++) {
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyQueenSquareK[c].posY == redQueenSquareK[k].posY &&
                                greyQueenSquareK[c].posX == redQueenSquareK[k].posX) {
                                 greyQueenSquareK[c].posX = -1000;
@@ -3648,7 +3663,7 @@ boolean moveRedQueenSideK(UINT msg, int j, int i, int pos, int o, int k) {
                                 greyQueenRectangle3K[c].x2 = -1000;
                             }
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyQueenSquare.posY == redQueenSquareK[k].posY &&
                            greyQueenSquare.posX == redQueenSquareK[k].posX) {
                             greyQueenSquare.posX = -1000;
@@ -3665,7 +3680,7 @@ boolean moveRedQueenSideK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyQueenRectangle3.x1 = -1000;
                             greyQueenRectangle3.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook1Rectangle1.posY == redQueenSquareK[k].posY &&
                            greyRook1Rectangle1.posX == redQueenSquareK[k].posX) {
                             greyRook1Rectangle1.posX = -1000;
@@ -3678,7 +3693,7 @@ boolean moveRedQueenSideK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyRook1Ellipse.x1 = -1000;
                             greyRook1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook2Rectangle1.posY == redQueenSquareK[k].posY &&
                            greyRook2Rectangle1.posX == redQueenSquareK[k].posX) {
                             greyRook2Rectangle1.posX = -1000;
@@ -3691,7 +3706,7 @@ boolean moveRedQueenSideK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyRook2Ellipse.x1 = -1000;
                             greyRook2Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyBishop1Square.posY == redQueenSquareK[k].posY &&
                            greyBishop1Square.posX == redQueenSquareK[k].posX) {
                             greyBishop1Square.posX = -1000;
@@ -3704,7 +3719,7 @@ boolean moveRedQueenSideK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyBishop1Ellipse.x1 = -1000;
                             greyBishop1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyBishop2Square.posY == redQueenSquareK[k].posY &&
                            greyBishop2Square.posX == redQueenSquareK[k].posX) {
                             greyBishop2Square.posX = -1000;
@@ -3717,7 +3732,7 @@ boolean moveRedQueenSideK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyBishop2Ellipse.x1 = -1000;
                             greyBishop2Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyKnight1Rectangle1.posY == redQueenSquareK[k].posY &&
                            greyKnight1Rectangle1.posX == redQueenSquareK[k].posX) {
                             greyKnight1Rectangle1.posX = -1000;
@@ -3730,7 +3745,7 @@ boolean moveRedQueenSideK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyKnight1Ellipse.x1 = -1000;
                             greyKnight1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyKnight2Rectangle1.posY == redQueenSquareK[k].posY &&
                            greyKnight2Rectangle1.posX == redQueenSquareK[k].posX) {
                             greyKnight2Rectangle1.posX = -1000;
@@ -4895,7 +4910,7 @@ boolean moveRedQueenK(UINT msg, int j, int i, int pos, int o, int k) {
                             return TRUE;
                         }
                         for(int r=0; r<8; r++) {
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyQueenSquareK[r].posY == redQueenSquareK[k].posY &&
                                greyQueenSquareK[r].posX == redQueenSquareK[k].posX) {
                                 greyQueenSquareK[r].posX = -1000;
@@ -4913,7 +4928,7 @@ boolean moveRedQueenK(UINT msg, int j, int i, int pos, int o, int k) {
                                 greyQueenRectangle3K[r].x2 = -1000;
                             }
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyPawnsBase[s].posY == redQueenSquareK[k].posY &&
                            greyPawnsBase[s].posX == redQueenSquareK[k].posX) {
                             greyPawnsBase[s].posX = -1000;
@@ -4922,7 +4937,7 @@ boolean moveRedQueenK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyPawnsEllipse[s].x1 = -1000;
                             greyPawnsEllipse[s].x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyQueenSquare.posY == redQueenSquareK[k].posY &&
                            greyQueenSquare.posX == redQueenSquareK[k].posX) {
                             greyQueenSquare.posX = -1000;
@@ -4939,7 +4954,7 @@ boolean moveRedQueenK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyQueenRectangle3.x1 = -1000;
                             greyQueenRectangle3.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook1Rectangle1.posY == redQueenSquareK[k].posY &&
                            greyRook1Rectangle1.posX == redQueenSquareK[k].posX) {
                             greyRook1Rectangle1.posX = -1000;
@@ -4952,7 +4967,7 @@ boolean moveRedQueenK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyRook1Ellipse.x1 = -1000;
                             greyRook1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook2Rectangle1.posY == redQueenSquareK[k].posY &&
                            greyRook2Rectangle1.posX == redQueenSquareK[k].posX) {
                             greyRook2Rectangle1.posX = -1000;
@@ -4965,7 +4980,7 @@ boolean moveRedQueenK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyRook2Ellipse.x1 = -1000;
                             greyRook2Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyBishop1Square.posY == redQueenSquareK[k].posY &&
                            greyBishop1Square.posX == redQueenSquareK[k].posX) {
                             greyBishop1Square.posX = -1000;
@@ -4978,7 +4993,7 @@ boolean moveRedQueenK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyBishop1Ellipse.x1 = -1000;
                             greyBishop1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyBishop2Square.posY == redQueenSquareK[k].posY &&
                            greyBishop2Square.posX == redQueenSquareK[k].posX) {
                             greyBishop2Square.posX = -1000;
@@ -4991,7 +5006,7 @@ boolean moveRedQueenK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyBishop2Ellipse.x1 = -1000;
                             greyBishop2Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyKnight1Rectangle1.posY == redQueenSquareK[k].posY &&
                            greyKnight1Rectangle1.posX == redQueenSquareK[k].posX) {
                             greyKnight1Rectangle1.posX = -1000;
@@ -5004,7 +5019,7 @@ boolean moveRedQueenK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyKnight1Ellipse.x1 = -1000;
                             greyKnight1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyKnight2Rectangle1.posY == redQueenSquareK[k].posY &&
                            greyKnight2Rectangle1.posX == redQueenSquareK[k].posX) {
                             greyKnight2Rectangle1.posX = -1000;
@@ -5273,7 +5288,7 @@ boolean moveRedQueenK(UINT msg, int j, int i, int pos, int o, int k) {
                             return TRUE;
                         }
                         for(int a=0; a<8; a++) {
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyQueenSquareK[a].posY == redQueenSquareK[k].posY &&
                                greyQueenSquareK[a].posX == redQueenSquareK[k].posX) {
                                 greyQueenSquareK[a].posX = -1000;
@@ -5291,7 +5306,7 @@ boolean moveRedQueenK(UINT msg, int j, int i, int pos, int o, int k) {
                                 greyQueenRectangle3K[a].x2 = -1000;
                             }
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyPawnsBase[s].posY == redQueenSquareK[k].posY &&
                            greyPawnsBase[s].posX == redQueenSquareK[k].posX) {
                             greyPawnsBase[s].posX = -1000;
@@ -5300,7 +5315,7 @@ boolean moveRedQueenK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyPawnsEllipse[s].x1 = -1000;
                             greyPawnsEllipse[s].x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyQueenSquare.posY == redQueenSquareK[k].posY &&
                            greyQueenSquare.posX == redQueenSquareK[k].posX) {
                             greyQueenSquare.posX = -1000;
@@ -5317,7 +5332,7 @@ boolean moveRedQueenK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyQueenRectangle3.x1 = -1000;
                             greyQueenRectangle3.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook1Rectangle1.posY == redQueenSquareK[k].posY &&
                            greyRook1Rectangle1.posX == redQueenSquareK[k].posX) {
                             greyRook1Rectangle1.posX = -1000;
@@ -5330,7 +5345,7 @@ boolean moveRedQueenK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyRook1Ellipse.x1 = -1000;
                             greyRook1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook2Rectangle1.posY == redQueenSquareK[k].posY &&
                            greyRook2Rectangle1.posX == redQueenSquareK[k].posX) {
                             greyRook2Rectangle1.posX = -1000;
@@ -5343,7 +5358,7 @@ boolean moveRedQueenK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyRook2Ellipse.x1 = -1000;
                             greyRook2Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyBishop1Square.posY == redQueenSquareK[k].posY &&
                            greyBishop1Square.posX == redQueenSquareK[k].posX) {
                             greyBishop1Square.posX = -1000;
@@ -5356,7 +5371,7 @@ boolean moveRedQueenK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyBishop1Ellipse.x1 = -1000;
                             greyBishop1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyBishop2Square.posY == redQueenSquareK[k].posY &&
                            greyBishop2Square.posX == redQueenSquareK[k].posX) {
                             greyBishop2Square.posX = -1000;
@@ -5369,7 +5384,7 @@ boolean moveRedQueenK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyBishop2Ellipse.x1 = -1000;
                             greyBishop2Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyKnight1Rectangle1.posY == redQueenSquareK[k].posY &&
                            greyKnight1Rectangle1.posX == redQueenSquareK[k].posX) {
                             greyKnight1Rectangle1.posX = -1000;
@@ -5382,7 +5397,7 @@ boolean moveRedQueenK(UINT msg, int j, int i, int pos, int o, int k) {
                             greyKnight1Ellipse.x1 = -1000;
                             greyKnight1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyKnight2Rectangle1.posY == redQueenSquareK[k].posY &&
                            greyKnight2Rectangle1.posX == redQueenSquareK[k].posX) {
                             greyKnight2Rectangle1.posX = -1000;
@@ -7979,7 +7994,7 @@ boolean moveRedQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int po
                                 greyRook2Ellipse.x1 = -1000;
                                 greyRook2Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyBishop1Square.posY == redQueenSquare.posY &&
                                greyBishop1Square.posX == redQueenSquare.posX) {
                                 greyBishop1Square.posX = -1000;
@@ -7992,7 +8007,7 @@ boolean moveRedQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int po
                                 greyBishop1Ellipse.x1 = -1000;
                                 greyBishop1Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyBishop2Square.posY == redQueenSquare.posY &&
                                greyBishop2Square.posX == redQueenSquare.posX) {
                                 greyBishop2Square.posX = -1000;
@@ -8005,7 +8020,7 @@ boolean moveRedQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int po
                                 greyBishop2Ellipse.x1 = -1000;
                                 greyBishop2Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyKnight1Rectangle1.posY == redQueenSquare.posY &&
                                greyKnight1Rectangle1.posX == redQueenSquare.posX) {
                                 greyKnight1Rectangle1.posX = -1000;
@@ -8018,7 +8033,7 @@ boolean moveRedQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int po
                                 greyKnight1Ellipse.x1 = -1000;
                                 greyKnight1Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyKnight2Rectangle1.posY == redQueenSquare.posY &&
                                greyKnight2Rectangle1.posX == redQueenSquare.posX) {
                                 greyKnight2Rectangle1.posX = -1000;
@@ -8387,7 +8402,7 @@ boolean moveRedQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int po
                                 greyRook2Ellipse.x1 = -1000;
                                 greyRook2Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyBishop1Square.posY == redQueenSquare.posY &&
                                greyBishop1Square.posX == redQueenSquare.posX) {
                                 greyBishop1Square.posX = -1000;
@@ -8400,7 +8415,7 @@ boolean moveRedQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int po
                                 greyBishop1Ellipse.x1 = -1000;
                                 greyBishop1Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyBishop2Square.posY == redQueenSquare.posY &&
                                greyBishop2Square.posX == redQueenSquare.posX) {
                                 greyBishop2Square.posX = -1000;
@@ -8413,7 +8428,7 @@ boolean moveRedQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int po
                                 greyBishop2Ellipse.x1 = -1000;
                                 greyBishop2Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyKnight1Rectangle1.posY == redQueenSquare.posY &&
                                greyKnight1Rectangle1.posX == redQueenSquare.posX) {
                                 greyKnight1Rectangle1.posX = -1000;
@@ -8426,7 +8441,7 @@ boolean moveRedQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int po
                                 greyKnight1Ellipse.x1 = -1000;
                                 greyKnight1Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyKnight2Rectangle1.posY == redQueenSquare.posY &&
                                greyKnight2Rectangle1.posX == redQueenSquare.posX) {
                                 greyKnight2Rectangle1.posX = -1000;
@@ -8735,7 +8750,7 @@ boolean moveRedQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int po
                                 greyRook2Ellipse.x1 = -1000;
                                 greyRook2Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyBishop1Square.posY == redQueenSquare.posY &&
                                greyBishop1Square.posX == redQueenSquare.posX) {
                                 greyBishop1Square.posX = -1000;
@@ -8748,7 +8763,7 @@ boolean moveRedQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int po
                                 greyBishop1Ellipse.x1 = -1000;
                                 greyBishop1Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyBishop2Square.posY == redQueenSquare.posY &&
                                greyBishop2Square.posX == redQueenSquare.posX) {
                                 greyBishop2Square.posX = -1000;
@@ -8761,7 +8776,7 @@ boolean moveRedQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int po
                                 greyBishop2Ellipse.x1 = -1000;
                                 greyBishop2Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyKnight1Rectangle1.posY == redQueenSquare.posY &&
                                greyKnight1Rectangle1.posX == redQueenSquare.posX) {
                                 greyKnight1Rectangle1.posX = -1000;
@@ -8774,7 +8789,7 @@ boolean moveRedQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int po
                                 greyKnight1Ellipse.x1 = -1000;
                                 greyKnight1Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyKnight2Rectangle1.posY == redQueenSquare.posY &&
                                greyKnight2Rectangle1.posX == redQueenSquare.posX) {
                                 greyKnight2Rectangle1.posX = -1000;
@@ -9082,7 +9097,7 @@ boolean moveRedQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int po
                                 greyRook2Ellipse.x1 = -1000;
                                 greyRook2Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyBishop1Square.posY == redQueenSquare.posY &&
                                greyBishop1Square.posX == redQueenSquare.posX) {
                                 greyBishop1Square.posX = -1000;
@@ -9095,7 +9110,7 @@ boolean moveRedQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int po
                                 greyBishop1Ellipse.x1 = -1000;
                                 greyBishop1Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyBishop2Square.posY == redQueenSquare.posY &&
                                greyBishop2Square.posX == redQueenSquare.posX) {
                                 greyBishop2Square.posX = -1000;
@@ -9108,7 +9123,7 @@ boolean moveRedQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int po
                                 greyBishop2Ellipse.x1 = -1000;
                                 greyBishop2Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyKnight1Rectangle1.posY == redQueenSquare.posY &&
                                greyKnight1Rectangle1.posX == redQueenSquare.posX) {
                                 greyKnight1Rectangle1.posX = -1000;
@@ -9121,7 +9136,7 @@ boolean moveRedQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int po
                                 greyKnight1Ellipse.x1 = -1000;
                                 greyKnight1Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyKnight2Rectangle1.posY == redQueenSquare.posY &&
                                greyKnight2Rectangle1.posX == redQueenSquare.posX) {
                                 greyKnight2Rectangle1.posX = -1000;
@@ -9444,7 +9459,7 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                                 return TRUE;
                             }
                             for(int r=0; r<8; r++) {
-                                if(WM_RBUTTONDOWN == msg)
+                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                 if(greyQueenSquareK[r].posY == redQueenSquareK[k].posY &&
                                    greyQueenSquareK[r].posX == redQueenSquareK[k].posX) {
                                     greyQueenSquareK[r].posX = -1000;
@@ -9462,7 +9477,7 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                                     greyQueenRectangle3K[r].x2 = -1000;
                                 }
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyQueenSquare.posY == redQueenSquareK[k].posY &&
                                greyQueenSquare.posX == redQueenSquareK[k].posX) {
                                 greyQueenSquare.posX = -1000;
@@ -9559,7 +9574,7 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                                 greyRook2Ellipse.x1 = -1000;
                                 greyRook2Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyBishop1Square.posY == redQueenSquareK[k].posY &&
                                greyBishop1Square.posX == redQueenSquareK[k].posX) {
                                 greyBishop1Square.posX = -1000;
@@ -9572,7 +9587,7 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                                 greyBishop1Ellipse.x1 = -1000;
                                 greyBishop1Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyBishop2Square.posY == redQueenSquareK[k].posY &&
                                greyBishop2Square.posX == redQueenSquareK[k].posX) {
                                 greyBishop2Square.posX = -1000;
@@ -9585,7 +9600,7 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                                 greyBishop2Ellipse.x1 = -1000;
                                 greyBishop2Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyKnight1Rectangle1.posY == redQueenSquareK[k].posY &&
                                greyKnight1Rectangle1.posX == redQueenSquareK[k].posX) {
                                 greyKnight1Rectangle1.posX = -1000;
@@ -9598,7 +9613,7 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                                 greyKnight1Ellipse.x1 = -1000;
                                 greyKnight1Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyKnight2Rectangle1.posY == redQueenSquareK[k].posY &&
                                greyKnight2Rectangle1.posX == redQueenSquareK[k].posX) {
                                 greyKnight2Rectangle1.posX = -1000;
@@ -9924,7 +9939,7 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                                 return TRUE;
                             }
                             for(int r=0; r<8; r++) {
-                                if(WM_RBUTTONDOWN == msg)
+                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                 if(greyQueenSquareK[r].posY == redQueenSquareK[k].posY &&
                                    greyQueenSquareK[r].posX == redQueenSquareK[k].posX) {
                                     greyQueenSquareK[r].posX = -1000;
@@ -9942,7 +9957,7 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                                     greyQueenRectangle3K[r].x2 = -1000;
                                 }
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyQueenSquare.posY == redQueenSquareK[k].posY &&
                                greyQueenSquare.posX == redQueenSquareK[k].posX) {
                                 greyQueenSquare.posX = -1000;
@@ -10039,7 +10054,7 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                                 greyRook2Ellipse.x1 = -1000;
                                 greyRook2Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyBishop1Square.posY == redQueenSquareK[k].posY &&
                                greyBishop1Square.posX == redQueenSquareK[k].posX) {
                                 greyBishop1Square.posX = -1000;
@@ -10052,7 +10067,7 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                                 greyBishop1Ellipse.x1 = -1000;
                                 greyBishop1Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyBishop2Square.posY == redQueenSquareK[k].posY &&
                                greyBishop2Square.posX == redQueenSquareK[k].posX) {
                                 greyBishop2Square.posX = -1000;
@@ -10065,7 +10080,7 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                                 greyBishop2Ellipse.x1 = -1000;
                                 greyBishop2Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyKnight1Rectangle1.posY == redQueenSquareK[k].posY &&
                                greyKnight1Rectangle1.posX == redQueenSquareK[k].posX) {
                                 greyKnight1Rectangle1.posX = -1000;
@@ -10078,7 +10093,7 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                                 greyKnight1Ellipse.x1 = -1000;
                                 greyKnight1Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyKnight2Rectangle1.posY == redQueenSquareK[k].posY &&
                                greyKnight2Rectangle1.posX == redQueenSquareK[k].posX) {
                                 greyKnight2Rectangle1.posX = -1000;
@@ -10349,7 +10364,7 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                                 return TRUE;
                             }
                             for(int r=0; r<8; r++) {
-                                if(WM_RBUTTONDOWN == msg)
+                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                 if(greyQueenSquareK[r].posY == redQueenSquareK[k].posY &&
                                    greyQueenSquareK[r].posX == redQueenSquareK[k].posX) {
                                     greyQueenSquareK[r].posX = -1000;
@@ -10367,7 +10382,7 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                                     greyQueenRectangle3K[r].x2 = -1000;
                                 }
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyQueenSquare.posY == redQueenSquareK[k].posY &&
                                greyQueenSquare.posX == redQueenSquareK[k].posX) {
                                 greyQueenSquare.posX = -1000;
@@ -10464,7 +10479,7 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                                 greyRook2Ellipse.x1 = -1000;
                                 greyRook2Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyBishop1Square.posY == redQueenSquareK[k].posY &&
                                greyBishop1Square.posX == redQueenSquareK[k].posX) {
                                 greyBishop1Square.posX = -1000;
@@ -10477,7 +10492,7 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                                 greyBishop1Ellipse.x1 = -1000;
                                 greyBishop1Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyBishop2Square.posY == redQueenSquareK[k].posY &&
                                greyBishop2Square.posX == redQueenSquareK[k].posX) {
                                 greyBishop2Square.posX = -1000;
@@ -10490,7 +10505,7 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                                 greyBishop2Ellipse.x1 = -1000;
                                 greyBishop2Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyKnight1Rectangle1.posY == redQueenSquareK[k].posY &&
                                greyKnight1Rectangle1.posX == redQueenSquareK[k].posX) {
                                 greyKnight1Rectangle1.posX = -1000;
@@ -10503,7 +10518,7 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                                 greyKnight1Ellipse.x1 = -1000;
                                 greyKnight1Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyKnight2Rectangle1.posY == redQueenSquareK[k].posY &&
                                greyKnight2Rectangle1.posX == redQueenSquareK[k].posX) {
                                 greyKnight2Rectangle1.posX = -1000;
@@ -10775,7 +10790,7 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                                 return TRUE;
                             }
                             for(int r=0; r<8; r++) {
-                                if(WM_RBUTTONDOWN == msg)
+                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                 if(greyQueenSquareK[r].posY == redQueenSquareK[k].posY &&
                                    greyQueenSquareK[r].posX == redQueenSquareK[k].posX) {
                                     greyQueenSquareK[r].posX = -1000;
@@ -10793,7 +10808,7 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                                     greyQueenRectangle3K[r].x2 = -1000;
                                 }
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyQueenSquare.posY == redQueenSquareK[k].posY &&
                                greyQueenSquare.posX == redQueenSquareK[k].posX) {
                                 greyQueenSquare.posX = -1000;
@@ -10890,7 +10905,7 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                                 greyRook2Ellipse.x1 = -1000;
                                 greyRook2Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyBishop1Square.posY == redQueenSquareK[k].posY &&
                                greyBishop1Square.posX == redQueenSquareK[k].posX) {
                                 greyBishop1Square.posX = -1000;
@@ -10903,7 +10918,7 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                                 greyBishop1Ellipse.x1 = -1000;
                                 greyBishop1Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyBishop2Square.posY == redQueenSquareK[k].posY &&
                                greyBishop2Square.posX == redQueenSquareK[k].posX) {
                                 greyBishop2Square.posX = -1000;
@@ -10916,7 +10931,7 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                                 greyBishop2Ellipse.x1 = -1000;
                                 greyBishop2Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyKnight1Rectangle1.posY == redQueenSquareK[k].posY &&
                                greyKnight1Rectangle1.posX == redQueenSquareK[k].posX) {
                                 greyKnight1Rectangle1.posX = -1000;
@@ -10929,7 +10944,7 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                                 greyKnight1Ellipse.x1 = -1000;
                                 greyKnight1Ellipse.x2 = -1000;
                             }
-                            if(WM_RBUTTONDOWN == msg)
+                            if(WM_RBUTTONDOWN == msg || 1 == 1)
                             if(greyKnight2Rectangle1.posY == redQueenSquareK[k].posY &&
                                greyKnight2Rectangle1.posX == redQueenSquareK[k].posX) {
                                 greyKnight2Rectangle1.posX = -1000;
@@ -13996,6 +14011,11 @@ boolean moveGreyBishop1(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
                             flag = TRUE;
                         }
                     }
+                    if(redQueenSquare.posY == greyBishop1Square.posY + 100 &&
+                       redQueenSquare.posX == greyBishop1Square.posX + 100) {
+                        greyBishop1Square.failedpath = TRUE;
+                        flag = TRUE;
+                    }
                     if(redBishop1Square.posY == greyBishop1Square.posY + 100 &&
                        redBishop1Square.posX == greyBishop1Square.posX + 100) {
                         greyBishop1Square.failedpath = TRUE;
@@ -15181,6 +15201,11 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
                             flag = TRUE;
                         }
                     }
+                    if(redQueenSquare.posY == greyBishop2Square.posY + 100 &&
+                       redQueenSquare.posX == greyBishop2Square.posX + 100) {
+                        greyBishop2Square.failedpath = TRUE;
+                        flag = TRUE;
+                    }
                     if(redBishop1Square.posY == greyBishop2Square.posY + 100 &&
                        redBishop1Square.posX == greyBishop2Square.posX + 100) {
                         greyBishop2Square.failedpath = TRUE;
@@ -15565,6 +15590,11 @@ boolean moveRedBishop1(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
+                    if(greyQueenSquare.posY == redBishop1Square.posY - 100 &&
+                       greyQueenSquare.posX == redBishop1Square.posX - 100) {
+                        redBishop1Square.failedpath = TRUE;
+                        flag = TRUE;
+                    }
                     if(greyBishop1Square.posY == redBishop1Square.posY - 100 &&
                        greyBishop1Square.posX == redBishop1Square.posX - 100) {
                         redBishop1Square.failedpath = TRUE;
@@ -15838,6 +15868,11 @@ boolean moveRedBishop1(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
                     }
                     if(greyKnight2Rectangle1.posY == redBishop1Square.posY - 100 &&
                        greyKnight2Rectangle1.posX == redBishop1Square.posX + 100) {
+                        redBishop1Square.failedpath = TRUE;
+                        flag = TRUE;
+                    }
+                    if(greyQueenSquare.posY == redBishop1Square.posY - 100 &&
+                       greyQueenSquare.posX == redBishop1Square.posX + 100) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
@@ -16123,6 +16158,11 @@ boolean moveRedBishop1(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
+                    if(greyQueenSquare.posY == redBishop1Square.posY + 100 &&
+                       greyQueenSquare.posX == redBishop1Square.posX - 100) {
+                        redBishop1Square.failedpath = TRUE;
+                        flag = TRUE;
+                    }
                     if(greyBishop1Square.posY == redBishop1Square.posY + 100 &&
                        greyBishop1Square.posX == redBishop1Square.posX - 100) {
                         redBishop1Square.failedpath = TRUE;
@@ -16400,6 +16440,11 @@ boolean moveRedBishop1(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
                     }
                     if(greyKnight2Rectangle1.posY == redBishop1Square.posY + 100 &&
                        greyKnight2Rectangle1.posX == redBishop1Square.posX + 100) {
+                        redBishop1Square.failedpath = TRUE;
+                        flag = TRUE;
+                    }
+                    if(greyQueenSquare.posY == redBishop1Square.posY + 100 &&
+                       greyQueenSquare.posX == redBishop1Square.posX + 100) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
@@ -16735,6 +16780,11 @@ boolean moveRedBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
+                    if(greyQueenSquare.posY == redBishop2Square.posY - 100 &&
+                       greyQueenSquare.posX == redBishop2Square.posX - 100) {
+                        redBishop2Square.failedpath = TRUE;
+                        flag = TRUE;
+                    }
                     if(greyBishop1Square.posY == redBishop2Square.posY - 100 &&
                        greyBishop1Square.posX == redBishop2Square.posX - 100) {
                         redBishop2Square.failedpath = TRUE;
@@ -17007,6 +17057,11 @@ boolean moveRedBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
                     }
                     if(greyKnight2Rectangle1.posY == redBishop2Square.posY - 100 &&
                        greyKnight2Rectangle1.posX == redBishop2Square.posX + 100) {
+                        redBishop2Square.failedpath = TRUE;
+                        flag = TRUE;
+                    }
+                    if(greyQueenSquare.posY == redBishop2Square.posY - 100 &&
+                       greyQueenSquare.posX == redBishop2Square.posX + 100) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
@@ -17289,6 +17344,11 @@ boolean moveRedBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
+                    if(greyQueenSquare.posY == redBishop2Square.posY + 100 &&
+                       greyQueenSquare.posX == redBishop2Square.posX - 100) {
+                        redBishop2Square.failedpath = TRUE;
+                        flag = TRUE;
+                    }
                     if(greyBishop1Square.posY == redBishop2Square.posY + 100 &&
                        greyBishop1Square.posX == redBishop2Square.posX - 100) {
                         redBishop2Square.failedpath = TRUE;
@@ -17561,6 +17621,11 @@ boolean moveRedBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
                     }
                     if(greyKnight2Rectangle1.posY == redBishop2Square.posY + 100 &&
                        greyKnight2Rectangle1.posX == redBishop2Square.posX + 100) {
+                        redBishop2Square.failedpath = TRUE;
+                        flag = TRUE;
+                    }
+                    if(greyQueenSquare.posY == redBishop2Square.posY + 100 &&
+                       greyQueenSquare.posX == redBishop2Square.posX + 100) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
@@ -18611,7 +18676,7 @@ boolean moveRedRook1(UINT msg, int j, int i, int pos, int o) {
                             redRook1Rectangle1.failedpath = TRUE;
                             return TRUE;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyPawnsBase[s].posY == redRook1Rectangle1.posY &&
                            greyPawnsBase[s].posX == redRook1Rectangle1.posX) {
                             greyPawnsBase[s].posX = -1000;
@@ -18620,7 +18685,7 @@ boolean moveRedRook1(UINT msg, int j, int i, int pos, int o) {
                             greyPawnsEllipse[s].x1 = -1000;
                             greyPawnsEllipse[s].x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook1Rectangle1.posY == redRook1Rectangle1.posY &&
                            greyRook1Rectangle1.posX == redRook1Rectangle1.posX) {
                             greyRook1Rectangle1.posX = -1000;
@@ -18633,7 +18698,7 @@ boolean moveRedRook1(UINT msg, int j, int i, int pos, int o) {
                             greyRook1Ellipse.x1 = -1000;
                             greyRook1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook2Rectangle1.posY == redRook1Rectangle1.posY &&
                            greyRook2Rectangle1.posX == redRook1Rectangle1.posX) {
                             greyRook2Rectangle1.posX = -1000;
@@ -18646,7 +18711,7 @@ boolean moveRedRook1(UINT msg, int j, int i, int pos, int o) {
                             greyRook2Ellipse.x1 = -1000;
                             greyRook2Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyQueenSquare.posY == redRook1Rectangle1.posY &&
                            greyQueenSquare.posX == redRook1Rectangle1.posX) {
                             greyQueenSquare.posX = -1000;
@@ -18815,7 +18880,7 @@ boolean moveRedRook1(UINT msg, int j, int i, int pos, int o) {
                             redRook1Rectangle1.failedpath = TRUE;
                             return TRUE;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyPawnsBase[s].posY == redRook1Rectangle1.posY &&
                            greyPawnsBase[s].posX == redRook1Rectangle1.posX) {
                             greyPawnsBase[s].posX = -1000;
@@ -18824,7 +18889,7 @@ boolean moveRedRook1(UINT msg, int j, int i, int pos, int o) {
                             greyPawnsEllipse[s].x1 = -1000;
                             greyPawnsEllipse[s].x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook1Rectangle1.posY == redRook1Rectangle1.posY &&
                            greyRook1Rectangle1.posX == redRook1Rectangle1.posX) {
                             greyRook1Rectangle1.posX = -1000;
@@ -18837,7 +18902,7 @@ boolean moveRedRook1(UINT msg, int j, int i, int pos, int o) {
                             greyRook1Ellipse.x1 = -1000;
                             greyRook1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook2Rectangle1.posY == redRook1Rectangle1.posY &&
                            greyRook2Rectangle1.posX == redRook1Rectangle1.posX) {
                             greyRook2Rectangle1.posX = -1000;
@@ -18850,7 +18915,7 @@ boolean moveRedRook1(UINT msg, int j, int i, int pos, int o) {
                             greyRook2Ellipse.x1 = -1000;
                             greyRook2Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyQueenSquare.posY == redRook1Rectangle1.posY &&
                            greyQueenSquare.posX == redRook1Rectangle1.posX) {
                             greyQueenSquare.posX = -1000;
@@ -19074,7 +19139,7 @@ boolean moveRedRook1Side(UINT msg, int j, int i, int pos, int o) {
                             redRook1Rectangle1.failedpath = TRUE;
                             return TRUE;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyPawnsBase[s].posY == redRook1Rectangle1.posY &&
                            greyPawnsBase[s].posX == redRook1Rectangle1.posX) {
                             greyPawnsBase[s].posX = -1000;
@@ -19083,7 +19148,7 @@ boolean moveRedRook1Side(UINT msg, int j, int i, int pos, int o) {
                             greyPawnsEllipse[s].x1 = -1000;
                             greyPawnsEllipse[s].x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook1Rectangle1.posY == redRook1Rectangle1.posY &&
                            greyRook1Rectangle1.posX == redRook1Rectangle1.posX) {
                             greyRook1Rectangle1.posX = -1000;
@@ -19096,7 +19161,7 @@ boolean moveRedRook1Side(UINT msg, int j, int i, int pos, int o) {
                             greyRook1Ellipse.x1 = -1000;
                             greyRook1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook2Rectangle1.posY == redRook1Rectangle1.posY &&
                            greyRook2Rectangle1.posX == redRook1Rectangle1.posX) {
                             greyRook2Rectangle1.posX = -1000;
@@ -19109,7 +19174,7 @@ boolean moveRedRook1Side(UINT msg, int j, int i, int pos, int o) {
                             greyRook2Ellipse.x1 = -1000;
                             greyRook2Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyQueenSquare.posY == redRook1Rectangle1.posY &&
                            greyQueenSquare.posX == redRook1Rectangle1.posX) {
                             greyQueenSquare.posX = -1000;
@@ -19279,7 +19344,7 @@ boolean moveRedRook1Side(UINT msg, int j, int i, int pos, int o) {
                             redRook1Rectangle1.failedpath = TRUE;
                             return TRUE;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyPawnsBase[s].posY == redRook1Rectangle1.posY &&
                            greyPawnsBase[s].posX == redRook1Rectangle1.posX) {
                             greyPawnsBase[s].posX = -1000;
@@ -19288,7 +19353,7 @@ boolean moveRedRook1Side(UINT msg, int j, int i, int pos, int o) {
                             greyPawnsEllipse[s].x1 = -1000;
                             greyPawnsEllipse[s].x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook1Rectangle1.posY == redRook1Rectangle1.posY &&
                            greyRook1Rectangle1.posX == redRook1Rectangle1.posX) {
                             greyRook1Rectangle1.posX = -1000;
@@ -19301,7 +19366,7 @@ boolean moveRedRook1Side(UINT msg, int j, int i, int pos, int o) {
                             greyRook1Ellipse.x1 = -1000;
                             greyRook1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook2Rectangle1.posY == redRook1Rectangle1.posY &&
                            greyRook2Rectangle1.posX == redRook1Rectangle1.posX) {
                             greyRook2Rectangle1.posX = -1000;
@@ -19314,7 +19379,7 @@ boolean moveRedRook1Side(UINT msg, int j, int i, int pos, int o) {
                             greyRook2Ellipse.x1 = -1000;
                             greyRook2Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyQueenSquare.posY == redRook1Rectangle1.posY &&
                            greyQueenSquare.posX == redRook1Rectangle1.posX) {
                             greyQueenSquare.posX = -1000;
@@ -20446,7 +20511,7 @@ boolean moveRedRook2(UINT msg, int j, int i, int pos, int o) {
                             redRook2Rectangle1.failedpath = TRUE;
                             return TRUE;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyPawnsBase[s].posY == redRook2Rectangle1.posY &&
                            greyPawnsBase[s].posX == redRook2Rectangle1.posX) {
                             greyPawnsBase[s].posX = -1000;
@@ -20455,7 +20520,7 @@ boolean moveRedRook2(UINT msg, int j, int i, int pos, int o) {
                             greyPawnsEllipse[s].x1 = -1000;
                             greyPawnsEllipse[s].x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook1Rectangle1.posY == redRook2Rectangle1.posY &&
                            greyRook1Rectangle1.posX == redRook2Rectangle1.posX) {
                             greyRook1Rectangle1.posX = -1000;
@@ -20468,7 +20533,7 @@ boolean moveRedRook2(UINT msg, int j, int i, int pos, int o) {
                             greyRook1Ellipse.x1 = -1000;
                             greyRook1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook2Rectangle1.posY == redRook2Rectangle1.posY &&
                            greyRook2Rectangle1.posX == redRook2Rectangle1.posX) {
                             greyRook2Rectangle1.posX = -1000;
@@ -20481,7 +20546,7 @@ boolean moveRedRook2(UINT msg, int j, int i, int pos, int o) {
                             greyRook2Ellipse.x1 = -1000;
                             greyRook2Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook2Rectangle1.posY == redRook2Rectangle1.posY &&
                            greyRook2Rectangle1.posX == redRook2Rectangle1.posX) {
                             greyRook2Rectangle1.posX = -1000;
@@ -20494,7 +20559,7 @@ boolean moveRedRook2(UINT msg, int j, int i, int pos, int o) {
                             greyRook2Ellipse.x1 = -1000;
                             greyRook2Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyQueenSquare.posY == redRook2Rectangle1.posY &&
                            greyQueenSquare.posX == redRook2Rectangle1.posX) {
                             greyQueenSquare.posX = -1000;
@@ -20658,7 +20723,7 @@ boolean moveRedRook2(UINT msg, int j, int i, int pos, int o) {
                             redRook2Rectangle1.failedpath = TRUE;
                             return TRUE;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyPawnsBase[s].posY == redRook2Rectangle1.posY &&
                            greyPawnsBase[s].posX == redRook2Rectangle1.posX) {
                             greyPawnsBase[s].posX = -1000;
@@ -20667,7 +20732,7 @@ boolean moveRedRook2(UINT msg, int j, int i, int pos, int o) {
                             greyPawnsEllipse[s].x1 = -1000;
                             greyPawnsEllipse[s].x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook1Rectangle1.posY == redRook2Rectangle1.posY &&
                            greyRook1Rectangle1.posX == redRook2Rectangle1.posX) {
                             greyRook1Rectangle1.posX = -1000;
@@ -20680,7 +20745,7 @@ boolean moveRedRook2(UINT msg, int j, int i, int pos, int o) {
                             greyRook1Ellipse.x1 = -1000;
                             greyRook1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook2Rectangle1.posY == redRook2Rectangle1.posY &&
                            greyRook2Rectangle1.posX == redRook2Rectangle1.posX) {
                             greyRook2Rectangle1.posX = -1000;
@@ -20693,7 +20758,7 @@ boolean moveRedRook2(UINT msg, int j, int i, int pos, int o) {
                             greyRook2Ellipse.x1 = -1000;
                             greyRook2Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyQueenSquare.posY == redRook2Rectangle1.posY &&
                            greyQueenSquare.posX == redRook2Rectangle1.posX) {
                             greyQueenSquare.posX = -1000;
@@ -20911,7 +20976,7 @@ boolean moveRedRook2Side(UINT msg, int j, int i, int pos, int o) {
                             redRook2Rectangle1.failedpath = TRUE;
                             return TRUE;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyPawnsBase[s].posY == redRook2Rectangle1.posY &&
                            greyPawnsBase[s].posX == redRook2Rectangle1.posX) {
                             greyPawnsBase[s].posX = -1000;
@@ -20920,7 +20985,7 @@ boolean moveRedRook2Side(UINT msg, int j, int i, int pos, int o) {
                             greyPawnsEllipse[s].x1 = -1000;
                             greyPawnsEllipse[s].x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook1Rectangle1.posY == redRook2Rectangle1.posY &&
                            greyRook1Rectangle1.posX == redRook2Rectangle1.posX) {
                             greyRook1Rectangle1.posX = -1000;
@@ -20933,7 +20998,7 @@ boolean moveRedRook2Side(UINT msg, int j, int i, int pos, int o) {
                             greyRook1Ellipse.x1 = -1000;
                             greyRook1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook2Rectangle1.posY == redRook2Rectangle1.posY &&
                            greyRook2Rectangle1.posX == redRook2Rectangle1.posX) {
                             greyRook2Rectangle1.posX = -1000;
@@ -20946,7 +21011,7 @@ boolean moveRedRook2Side(UINT msg, int j, int i, int pos, int o) {
                             greyRook2Ellipse.x1 = -1000;
                             greyRook2Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyQueenSquare.posY == redRook2Rectangle1.posY &&
                            greyQueenSquare.posX == redRook2Rectangle1.posX) {
                             greyQueenSquare.posX = -1000;
@@ -21111,7 +21176,7 @@ boolean moveRedRook2Side(UINT msg, int j, int i, int pos, int o) {
                             redRook2Rectangle1.failedpath = TRUE;
                             return TRUE;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyPawnsBase[s].posY == redRook2Rectangle1.posY &&
                            greyPawnsBase[s].posX == redRook2Rectangle1.posX) {
                             greyPawnsBase[s].posX = -1000;
@@ -21120,7 +21185,7 @@ boolean moveRedRook2Side(UINT msg, int j, int i, int pos, int o) {
                             greyPawnsEllipse[s].x1 = -1000;
                             greyPawnsEllipse[s].x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook1Rectangle1.posY == redRook2Rectangle1.posY &&
                            greyRook1Rectangle1.posX == redRook2Rectangle1.posX) {
                             greyRook1Rectangle1.posX = -1000;
@@ -21133,7 +21198,7 @@ boolean moveRedRook2Side(UINT msg, int j, int i, int pos, int o) {
                             greyRook1Ellipse.x1 = -1000;
                             greyRook1Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyRook2Rectangle1.posY == redRook2Rectangle1.posY &&
                            greyRook2Rectangle1.posX == redRook2Rectangle1.posX) {
                             greyRook2Rectangle1.posX = -1000;
@@ -21146,7 +21211,7 @@ boolean moveRedRook2Side(UINT msg, int j, int i, int pos, int o) {
                             greyRook2Ellipse.x1 = -1000;
                             greyRook2Ellipse.x2 = -1000;
                         }
-                        if(WM_RBUTTONDOWN == msg)
+                        if(WM_RBUTTONDOWN == msg || 1 == 1)
                         if(greyQueenSquare.posY == redRook2Rectangle1.posY &&
                            greyQueenSquare.posX == redRook2Rectangle1.posX) {
                             greyQueenSquare.posX = -1000;
