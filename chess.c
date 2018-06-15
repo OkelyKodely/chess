@@ -2187,7 +2187,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 kingWhite = (HBITMAP)LoadImage(hInst, "kingwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 
                 int xq = 0;
-                
+
+                hdcMem = CreateCompatibleDC(hdc);
+
                 if(chosenPiece[0] == 'p' && chosenPiece[1] == 'r') {
                     hBitmapSq = pawnBlack;
                     xq = 65;
@@ -2195,6 +2197,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 if(chosenPiece[0] == 'p' && chosenPiece[1] == 'w') {
                     hBitmapSq = pawnWhite;
+                    hBitmapSq = ReplaceColor(hBitmapSq, 0x000000, 0xff00ff, hdcMem);
                     xq = 65;
                 }
 
@@ -2248,12 +2251,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     xq = 65;
                 }
 
-                hdcMem = CreateCompatibleDC(hdc);
-
-                hBitmapSq = ReplaceColor(hBitmapSq, 0x000000, 0x484848, hdcMem);
-                hBitmapSq = ReplaceColor(hBitmapSq, 0xff0000, 0x484848, hdcMem);
-                hBitmapSq = ReplaceColor(hBitmapSq, 0x4cb122, 0x484848, hdcMem);
-                hBitmapSq = ReplaceColor(hBitmapSq, 0x00ff00, 0x484848, hdcMem);
+                hBitmapSq = ReplaceColor(hBitmapSq, 0xff0000, 0xff00ff, hdcMem);
+                hBitmapSq = ReplaceColor(hBitmapSq, 0x4cb122, 0xff00ff, hdcMem);
+                hBitmapSq = ReplaceColor(hBitmapSq, 0x00ff00, 0xff00ff, hdcMem);
 
                 oldBitmap = SelectObject(hdcMem, hBitmapSq);
 
@@ -2266,8 +2266,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 oldBitmap = SelectObject(hdcMem, hBitmapSq);
 
-                //GetObject(hBitmapSq, sizeof(bitmap), &bitmap);
-                //BitBlt(hdc, i__PosX, i__PosY+xq, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
+                GetObject(hBitmapSq, sizeof(bitmap), &bitmap);
+                BitBlt(hdc, i__PosX, i__PosY+xq, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
 
                 //SelectObject(hdcMem, oldBitmap);
                 //DeleteDC(hdcMem);
@@ -2298,7 +2298,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey rook1
                 hdcMem = CreateCompatibleDC(hdc);
-                HBITMAP hBmp = ReplaceColor(rookWhite,0xff0000,0x373737,hdcMem); // replace red by beige
+                HBITMAP hBmp = ReplaceColor(rookWhite,0xff0000,0x0000ff,hdcMem); // replace red by beige
                 if(((greyRook1Rectangle1.posX/100)+(greyRook1Rectangle1.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(rookWhite,0xff0000,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2309,7 +2309,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey rook2
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(rook2White,0xff0000,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(rook2White,0xff0000,0x0000ff,hdcMem); // replace red by beige
                 if(((greyRook2Rectangle1.posX/100)+(greyRook2Rectangle1.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(rook2White,0xff0000,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2320,7 +2320,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey knight1
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(knightWhite,0x00ff00,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(knightWhite,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                 if(((greyKnight1Rectangle1.posX/100)+(greyKnight1Rectangle1.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(knightWhite,0x00ff00,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2331,7 +2331,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey knight2
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(knight2White,0x00ff00,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(knight2White,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                 if(((greyKnight2Rectangle1.posX/100)+(greyKnight2Rectangle1.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(knight2White,0x00ff00,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2342,7 +2342,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey bishop1
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(bishopWhite,0x4cb122,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(bishopWhite,0x4cb122,0x0000ff,hdcMem); // replace red by beige
                 if(((greyBishop1Square.posX/100)+(greyBishop1Square.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(bishopWhite,0x4cb122,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2353,7 +2353,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey bishop2
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(bishop2White,0x4cb122,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(bishop2White,0x4cb122,0x0000ff,hdcMem); // replace red by beige
                 if(((greyBishop2Square.posX/100)+(greyBishop2Square.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(bishop2White,0x4cb122,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2364,7 +2364,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey queen
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(queenWhite,0xff0000,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(queenWhite,0xff0000,0x0000ff,hdcMem); // replace red by beige
                 if(((greyQueenSquare.posX/100)+(greyQueenSquare.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(queenWhite,0xff0000,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2376,7 +2376,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey king
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(kingWhite,0x00ff00,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(kingWhite,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                 if(((greyKingSquare.posX/100)+(greyKingSquare.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(kingWhite,0x00ff00,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2388,7 +2388,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 //draw grey pawns
                 hdcMem = CreateCompatibleDC(hdc);
                 for(int o=0; o<8; o++) {
-                    hBmp = ReplaceColor(pawnWhite,0x000000,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(pawnWhite,0x000000,0x0000ff,hdcMem); // replace red by beige
                     if(((greyPawnsBase[o].posX/100)+(greyPawnsBase[o].posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(pawnWhite,0x000000,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2401,7 +2401,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw red rook1
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(rookBlack,0x00ff00,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(rookBlack,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                 if(((redRook1Rectangle1.posX/100)+(redRook1Rectangle1.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(rookBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2412,7 +2412,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw red rook2
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(rook2Black,0x00ff00,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(rook2Black,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                 if(((redRook2Rectangle1.posX/100)+(redRook2Rectangle1.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(rook2Black,0x00ff00,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2423,7 +2423,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey knight1
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(knightBlack,0x00ff00,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(knightBlack,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                 if(((redKnight1Rectangle1.posX/100)+(redKnight1Rectangle1.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(knightBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2434,7 +2434,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey knight2
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(knight2Black,0x00ff00,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(knight2Black,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                 if(((redKnight2Rectangle1.posX/100)+(redKnight2Rectangle1.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(knight2Black,0x00ff00,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2445,7 +2445,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey bishop1
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(bishopBlack,0xff0000,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(bishopBlack,0xff0000,0x0000ff,hdcMem); // replace red by beige
                 if(((redBishop1Square.posX/100)+(redBishop1Square.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(bishopBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2456,7 +2456,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey bishop2
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(bishop2Black,0xff0000,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(bishop2Black,0xff0000,0x0000ff,hdcMem); // replace red by beige
                 if(((redBishop2Square.posX/100)+(redBishop2Square.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(bishop2Black,0xff0000,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2467,7 +2467,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey queen
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(queenBlack,0x00ff00,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(queenBlack,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                 if(((redQueenSquare.posX/100)+(redQueenSquare.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(queenBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2479,7 +2479,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey king
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(kingBlack,0xff0000,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(kingBlack,0xff0000,0x0000ff,hdcMem); // replace red by beige
                 if(((redKingSquare.posX/100)+(redKingSquare.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(kingBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2491,7 +2491,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 //draw grey pawns
                 hdcMem = CreateCompatibleDC(hdc);
                 for(int o=0; o<8; o++) {
-                    hBmp = ReplaceColor(pawnBlack,0xff0000,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(pawnBlack,0xff0000,0x0000ff,hdcMem); // replace red by beige
                     if(((redPawnsBase[o].posX/100)+(redPawnsBase[o].posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(pawnBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2504,7 +2504,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 //draw grey queen
                 hdcMem = CreateCompatibleDC(hdc);
                 for(int m=0; m<8; m++) {
-                    hBmp = ReplaceColor(queenWhite,0xff0000,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(queenWhite,0xff0000,0x0000ff,hdcMem); // replace red by beige
                     if(((greyQueenSquareK[m].posX/100)+(greyQueenSquareK[m].posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(queenWhite,0xff0000,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2518,7 +2518,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 //draw grey queen
                 hdcMem = CreateCompatibleDC(hdc);
                 for(int m=0; m<8; m++) {
-                    hBmp = ReplaceColor(queenBlack,0x00ff00,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(queenBlack,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                     if(((redQueenSquareK[m].posX/100)+(redQueenSquareK[m].posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(queenBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2559,7 +2559,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey rook1
                 hdcMem = CreateCompatibleDC(hdc);
-                HBITMAP hBmp = ReplaceColor(rookWhite,0xff0000,0x373737,hdcMem); // replace red by beige
+                HBITMAP hBmp = ReplaceColor(rookWhite,0xff0000,0x0000ff,hdcMem); // replace red by beige
                 if(((greyRook1Rectangle1.posX/100)+(greyRook1Rectangle1.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(rookWhite,0xff0000,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2570,7 +2570,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey rook2
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(rook2White,0xff0000,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(rook2White,0xff0000,0x0000ff,hdcMem); // replace red by beige
                 if(((greyRook2Rectangle1.posX/100)+(greyRook2Rectangle1.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(rook2White,0xff0000,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2581,7 +2581,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey knight1
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(knightWhite,0x00ff00,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(knightWhite,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                 if(((greyKnight1Rectangle1.posX/100)+(greyKnight1Rectangle1.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(knightWhite,0x00ff00,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2592,7 +2592,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey knight2
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(knight2White,0x00ff00,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(knight2White,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                 if(((greyKnight2Rectangle1.posX/100)+(greyKnight2Rectangle1.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(knight2White,0x00ff00,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2603,7 +2603,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey bishop1
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(bishopWhite,0x4cb122,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(bishopWhite,0x4cb122,0x0000ff,hdcMem); // replace red by beige
                 if(((greyBishop1Square.posX/100)+(greyBishop1Square.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(bishopWhite,0x4cb122,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2614,7 +2614,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey bishop2
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(bishop2White,0x4cb122,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(bishop2White,0x4cb122,0x0000ff,hdcMem); // replace red by beige
                 if(((greyBishop2Square.posX/100)+(greyBishop2Square.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(bishop2White,0x4cb122,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2625,7 +2625,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey queen
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(queenWhite,0xff0000,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(queenWhite,0xff0000,0x0000ff,hdcMem); // replace red by beige
                 if(((greyQueenSquare.posX/100)+(greyQueenSquare.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(queenWhite,0xff0000,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2637,7 +2637,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey king
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(kingWhite,0x00ff00,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(kingWhite,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                 if(((greyKingSquare.posX/100)+(greyKingSquare.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(kingWhite,0x00ff00,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2649,7 +2649,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 //draw grey pawns
                 hdcMem = CreateCompatibleDC(hdc);
                 for(int o=0; o<8; o++) {
-                    hBmp = ReplaceColor(pawnWhite,0x000000,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(pawnWhite,0x000000,0x0000ff,hdcMem); // replace red by beige
                     if(((greyPawnsBase[o].posX/100)+(greyPawnsBase[o].posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(pawnWhite,0x000000,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2662,7 +2662,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw red rook1
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(rookBlack,0x00ff00,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(rookBlack,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                 if(((redRook1Rectangle1.posX/100)+(redRook1Rectangle1.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(rookBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2673,7 +2673,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw red rook2
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(rook2Black,0x00ff00,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(rook2Black,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                 if(((redRook2Rectangle1.posX/100)+(redRook2Rectangle1.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(rook2Black,0x00ff00,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2684,7 +2684,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey knight1
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(knightBlack,0x00ff00,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(knightBlack,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                 if(((redKnight1Rectangle1.posX/100)+(redKnight1Rectangle1.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(knightBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2695,7 +2695,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey knight2
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(knight2Black,0x00ff00,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(knight2Black,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                 if(((redKnight2Rectangle1.posX/100)+(redKnight2Rectangle1.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(knight2Black,0x00ff00,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2706,7 +2706,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey bishop1
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(bishopBlack,0xff0000,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(bishopBlack,0xff0000,0x0000ff,hdcMem); // replace red by beige
                 if(((redBishop1Square.posX/100)+(redBishop1Square.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(bishopBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2717,7 +2717,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey bishop2
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(bishop2Black,0xff0000,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(bishop2Black,0xff0000,0x0000ff,hdcMem); // replace red by beige
                 if(((redBishop2Square.posX/100)+(redBishop2Square.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(bishop2Black,0xff0000,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2728,7 +2728,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey queen
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(queenBlack,0x00ff00,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(queenBlack,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                 if(((redQueenSquare.posX/100)+(redQueenSquare.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(queenBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2740,7 +2740,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey king
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(kingBlack,0xff0000,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(kingBlack,0xff0000,0x0000ff,hdcMem); // replace red by beige
                 if(((redKingSquare.posX/100)+(redKingSquare.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(kingBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2752,7 +2752,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 //draw grey pawns
                 hdcMem = CreateCompatibleDC(hdc);
                 for(int o=0; o<8; o++) {
-                    hBmp = ReplaceColor(pawnBlack,0xff0000,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(pawnBlack,0xff0000,0x0000ff,hdcMem); // replace red by beige
                     if(((redPawnsBase[o].posX/100)+(redPawnsBase[o].posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(pawnBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2765,7 +2765,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 //draw grey queen
                 hdcMem = CreateCompatibleDC(hdc);
                 for(int m=0; m<8; m++) {
-                    hBmp = ReplaceColor(queenWhite,0xff0000,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(queenWhite,0xff0000,0x0000ff,hdcMem); // replace red by beige
                     if(((greyQueenSquareK[m].posX/100)+(greyQueenSquareK[m].posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(queenWhite,0xff0000,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -2779,7 +2779,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 //draw grey queen
                 hdcMem = CreateCompatibleDC(hdc);
                 for(int m=0; m<8; m++) {
-                    hBmp = ReplaceColor(queenBlack,0x00ff00,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(queenBlack,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                     if(((redQueenSquareK[m].posX/100)+(redQueenSquareK[m].posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(queenBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -11563,7 +11563,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey rook1
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(rookWhite,0xff0000,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(rookWhite,0xff0000,0x0000ff,hdcMem); // replace red by beige
                 if(((greyRook1Rectangle1.posX/100)+(greyRook1Rectangle1.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(rookWhite,0xff0000,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -11574,7 +11574,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey rook2
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(rook2White,0xff0000,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(rook2White,0xff0000,0x0000ff,hdcMem); // replace red by beige
                 if(((greyRook2Rectangle1.posX/100)+(greyRook2Rectangle1.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(rook2White,0xff0000,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -11585,7 +11585,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey knight1
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(knightWhite,0x00ff00,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(knightWhite,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                 if(((greyKnight1Rectangle1.posX/100)+(greyKnight1Rectangle1.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(knightWhite,0x00ff00,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -11596,7 +11596,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey knight2
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(knight2White,0x00ff00,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(knight2White,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                 if(((greyKnight2Rectangle1.posX/100)+(greyKnight2Rectangle1.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(knight2White,0x00ff00,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -11607,7 +11607,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey bishop1
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(bishopWhite,0x4cb122,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(bishopWhite,0x4cb122,0x0000ff,hdcMem); // replace red by beige
                 if(((greyBishop1Square.posX/100)+(greyBishop1Square.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(bishopWhite,0x4cb122,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -11618,7 +11618,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey bishop2
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(bishop2White,0x4cb122,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(bishop2White,0x4cb122,0x0000ff,hdcMem); // replace red by beige
                 if(((greyBishop2Square.posX/100)+(greyBishop2Square.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(bishop2White,0x4cb122,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -11629,7 +11629,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey queen
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(queenWhite,0xff0000,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(queenWhite,0xff0000,0x0000ff,hdcMem); // replace red by beige
                 if(((greyQueenSquare.posX/100)+(greyQueenSquare.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(queenWhite,0xff0000,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -11641,7 +11641,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey king
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(kingWhite,0x00ff00,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(kingWhite,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                 if(((greyKingSquare.posX/100)+(greyKingSquare.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(kingWhite,0x00ff00,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -11653,7 +11653,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 //draw grey pawns
                 hdcMem = CreateCompatibleDC(hdc);
                 for(int o=0; o<8; o++) {
-                    hBmp = ReplaceColor(pawnWhite,0x000000,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(pawnWhite,0x000000,0x0000ff,hdcMem); // replace red by beige
                     if(((greyPawnsBase[o].posX/100)+(greyPawnsBase[o].posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(pawnWhite,0x000000,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -11666,7 +11666,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw red rook1
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(rookBlack,0x00ff00,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(rookBlack,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                 if(((redRook1Rectangle1.posX/100)+(redRook1Rectangle1.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(rookBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -11677,7 +11677,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw red rook2
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(rook2Black,0x00ff00,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(rook2Black,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                 if(((redRook2Rectangle1.posX/100)+(redRook2Rectangle1.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(rook2Black,0x00ff00,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -11688,7 +11688,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey knight1
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(knightBlack,0x00ff00,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(knightBlack,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                 if(((redKnight1Rectangle1.posX/100)+(redKnight1Rectangle1.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(knightBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -11699,7 +11699,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey knight2
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(knight2Black,0x00ff00,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(knight2Black,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                 if(((redKnight2Rectangle1.posX/100)+(redKnight2Rectangle1.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(knight2Black,0x00ff00,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -11710,7 +11710,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey bishop1
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(bishopBlack,0xff0000,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(bishopBlack,0xff0000,0x0000ff,hdcMem); // replace red by beige
                 if(((redBishop1Square.posX/100)+(redBishop1Square.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(bishopBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -11721,7 +11721,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey bishop2
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(bishop2Black,0xff0000,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(bishop2Black,0xff0000,0x0000ff,hdcMem); // replace red by beige
                 if(((redBishop2Square.posX/100)+(redBishop2Square.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(bishop2Black,0xff0000,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -11732,7 +11732,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey queen
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(queenBlack,0x00ff00,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(queenBlack,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                 if(((redQueenSquare.posX/100)+(redQueenSquare.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(queenBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -11744,7 +11744,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 //draw grey king
                 hdcMem = CreateCompatibleDC(hdc);
-                hBmp = ReplaceColor(kingBlack,0xff0000,0x373737,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(kingBlack,0xff0000,0x0000ff,hdcMem); // replace red by beige
                 if(((redKingSquare.posX/100)+(redKingSquare.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(kingBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                 oldBitmap = SelectObject(hdcMem, hBmp);
@@ -11756,7 +11756,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 //draw grey pawns
                 hdcMem = CreateCompatibleDC(hdc);
                 for(int o=0; o<8; o++) {
-                    hBmp = ReplaceColor(pawnBlack,0xff0000,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(pawnBlack,0xff0000,0x0000ff,hdcMem); // replace red by beige
                     if(((redPawnsBase[o].posX/100)+(redPawnsBase[o].posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(pawnBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -11769,7 +11769,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 //draw grey queen
                 hdcMem = CreateCompatibleDC(hdc);
                 for(int m=0; m<8; m++) {
-                    hBmp = ReplaceColor(queenWhite,0xff0000,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(queenWhite,0xff0000,0x0000ff,hdcMem); // replace red by beige
                     if(((greyQueenSquareK[m].posX/100)+(greyQueenSquareK[m].posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(queenWhite,0xff0000,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -11783,7 +11783,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 //draw grey queen
                 hdcMem = CreateCompatibleDC(hdc);
                 for(int m=0; m<8; m++) {
-                    hBmp = ReplaceColor(queenBlack,0x00ff00,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(queenBlack,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                     if(((redQueenSquareK[m].posX/100)+(redQueenSquareK[m].posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(queenBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20791,7 +20791,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey rook1
                         hdcMem = CreateCompatibleDC(hdc);
-                        HBITMAP hBmp = ReplaceColor(rookWhite,0xff0000,0x373737,hdcMem); // replace red by beige
+                        HBITMAP hBmp = ReplaceColor(rookWhite,0xff0000,0x0000ff,hdcMem); // replace red by beige
                         if(((greyRook1Rectangle1.posX/100)+(greyRook1Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(rookWhite,0xff0000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20802,7 +20802,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey rook2
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(rook2White,0xff0000,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(rook2White,0xff0000,0x0000ff,hdcMem); // replace red by beige
                         if(((greyRook2Rectangle1.posX/100)+(greyRook2Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(rook2White,0xff0000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20813,7 +20813,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey knight1
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(knightWhite,0x00ff00,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(knightWhite,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                         if(((greyKnight1Rectangle1.posX/100)+(greyKnight1Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(knightWhite,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20824,7 +20824,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey knight2
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(knight2White,0x00ff00,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(knight2White,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                         if(((greyKnight2Rectangle1.posX/100)+(greyKnight2Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(knight2White,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20835,7 +20835,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey bishop1
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(bishopWhite,0x4cb122,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(bishopWhite,0x4cb122,0x0000ff,hdcMem); // replace red by beige
                         if(((greyBishop1Square.posX/100)+(greyBishop1Square.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(bishopWhite,0x4cb122,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20846,7 +20846,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey bishop2
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(bishop2White,0x4cb122,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(bishop2White,0x4cb122,0x0000ff,hdcMem); // replace red by beige
                         if(((greyBishop2Square.posX/100)+(greyBishop2Square.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(bishop2White,0x4cb122,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20857,7 +20857,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey queen
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(queenWhite,0xff0000,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(queenWhite,0xff0000,0x0000ff,hdcMem); // replace red by beige
                         if(((greyQueenSquare.posX/100)+(greyQueenSquare.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(queenWhite,0xff0000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20869,7 +20869,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey king
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(kingWhite,0x00ff00,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(kingWhite,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                         if(((greyKingSquare.posX/100)+(greyKingSquare.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(kingWhite,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20881,7 +20881,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                         //draw grey pawns
                         hdcMem = CreateCompatibleDC(hdc);
                         for(int o=0; o<8; o++) {
-                            hBmp = ReplaceColor(pawnWhite,0x000000,0x373737,hdcMem); // replace red by beige
+                            hBmp = ReplaceColor(pawnWhite,0x000000,0x0000ff,hdcMem); // replace red by beige
                             if(((greyPawnsBase[o].posX/100)+(greyPawnsBase[o].posY/100)) % 2 == 0)
                                 hBmp = ReplaceColor(pawnWhite,0x000000,0xffffff,hdcMem); // replace red by white
                             oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20894,7 +20894,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw red rook1
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(rookBlack,0x00ff00,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(rookBlack,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                         if(((redRook1Rectangle1.posX/100)+(redRook1Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(rookBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20905,7 +20905,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw red rook2
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(rook2Black,0x00ff00,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(rook2Black,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                         if(((redRook2Rectangle1.posX/100)+(redRook2Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(rook2Black,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20916,7 +20916,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey knight1
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(knightBlack,0x00ff00,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(knightBlack,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                         if(((redKnight1Rectangle1.posX/100)+(redKnight1Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(knightBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20927,7 +20927,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey knight2
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(knight2Black,0x00ff00,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(knight2Black,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                         if(((redKnight2Rectangle1.posX/100)+(redKnight2Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(knight2Black,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20938,7 +20938,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey bishop1
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(bishopBlack,0xff0000,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(bishopBlack,0xff0000,0x0000ff,hdcMem); // replace red by beige
                         if(((redBishop1Square.posX/100)+(redBishop1Square.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(bishopBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20949,7 +20949,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey bishop2
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(bishop2Black,0xff0000,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(bishop2Black,0xff0000,0x0000ff,hdcMem); // replace red by beige
                         if(((redBishop2Square.posX/100)+(redBishop2Square.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(bishop2Black,0xff0000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20960,7 +20960,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey queen
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(queenBlack,0x00ff00,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(queenBlack,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                         if(((redQueenSquare.posX/100)+(redQueenSquare.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(queenBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20972,7 +20972,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey king
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(kingBlack,0xff0000,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(kingBlack,0xff0000,0x0000ff,hdcMem); // replace red by beige
                         if(((redKingSquare.posX/100)+(redKingSquare.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(kingBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -20984,7 +20984,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                         //draw grey pawns
                         hdcMem = CreateCompatibleDC(hdc);
                         for(int o=0; o<8; o++) {
-                            hBmp = ReplaceColor(pawnBlack,0xff0000,0x373737,hdcMem); // replace red by beige
+                            hBmp = ReplaceColor(pawnBlack,0xff0000,0x0000ff,hdcMem); // replace red by beige
                             if(((redPawnsBase[o].posX/100)+(redPawnsBase[o].posY/100)) % 2 == 0)
                                 hBmp = ReplaceColor(pawnBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                             oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21022,7 +21022,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey rook1
                         hdcMem = CreateCompatibleDC(hdc);
-                        HBITMAP hBmp = ReplaceColor(rookWhite,0xff0000,0x373737,hdcMem); // replace red by beige
+                        HBITMAP hBmp = ReplaceColor(rookWhite,0xff0000,0x0000ff,hdcMem); // replace red by beige
                         if(((greyRook1Rectangle1.posX/100)+(greyRook1Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(rookWhite,0xff0000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21033,7 +21033,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey rook2
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(rook2White,0xff0000,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(rook2White,0xff0000,0x0000ff,hdcMem); // replace red by beige
                         if(((greyRook2Rectangle1.posX/100)+(greyRook2Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(rook2White,0xff0000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21044,7 +21044,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey knight1
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(knightWhite,0x00ff00,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(knightWhite,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                         if(((greyKnight1Rectangle1.posX/100)+(greyKnight1Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(knightWhite,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21055,7 +21055,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey knight2
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(knight2White,0x00ff00,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(knight2White,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                         if(((greyKnight2Rectangle1.posX/100)+(greyKnight2Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(knight2White,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21066,7 +21066,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey bishop1
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(bishopWhite,0x4cb122,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(bishopWhite,0x4cb122,0x0000ff,hdcMem); // replace red by beige
                         if(((greyBishop1Square.posX/100)+(greyBishop1Square.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(bishopWhite,0x4cb122,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21077,7 +21077,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey bishop2
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(bishop2White,0x4cb122,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(bishop2White,0x4cb122,0x0000ff,hdcMem); // replace red by beige
                         if(((greyBishop2Square.posX/100)+(greyBishop2Square.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(bishop2White,0x4cb122,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21089,7 +21089,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                         //draw grey queen
                         hdcMem = CreateCompatibleDC(hdc);
                         for(int m=0; m<8; m++) {
-                            hBmp = ReplaceColor(queenWhite,0xff0000,0x373737,hdcMem); // replace red by beige
+                            hBmp = ReplaceColor(queenWhite,0xff0000,0x0000ff,hdcMem); // replace red by beige
                             if(((greyQueenSquareK[m].posX/100)+(greyQueenSquareK[m].posY/100)) % 2 == 0)
                                 hBmp = ReplaceColor(queenWhite,0xff0000,0xffffff,hdcMem); // replace red by white
                             oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21102,7 +21102,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey queen
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(queenWhite,0xff0000,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(queenWhite,0xff0000,0x0000ff,hdcMem); // replace red by beige
                         if(((greyQueenSquare.posX/100)+(greyQueenSquare.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(queenWhite,0xff0000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21114,7 +21114,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey king
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(kingWhite,0x00ff00,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(kingWhite,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                         if(((greyKingSquare.posX/100)+(greyKingSquare.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(kingWhite,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21126,7 +21126,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                         //draw grey pawns
                         hdcMem = CreateCompatibleDC(hdc);
                         for(int o=0; o<8; o++) {
-                            hBmp = ReplaceColor(pawnWhite,0x000000,0x373737,hdcMem); // replace red by beige
+                            hBmp = ReplaceColor(pawnWhite,0x000000,0x0000ff,hdcMem); // replace red by beige
                             if(((greyPawnsBase[o].posX/100)+(greyPawnsBase[o].posY/100)) % 2 == 0)
                                 hBmp = ReplaceColor(pawnWhite,0x000000,0xffffff,hdcMem); // replace red by white
                             oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21139,7 +21139,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw red rook1
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(rookBlack,0x00ff00,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(rookBlack,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                         if(((redRook1Rectangle1.posX/100)+(redRook1Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(rookBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21150,7 +21150,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw red rook2
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(rook2Black,0x00ff00,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(rook2Black,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                         if(((redRook2Rectangle1.posX/100)+(redRook2Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(rook2Black,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21161,7 +21161,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey knight1
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(knightBlack,0x00ff00,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(knightBlack,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                         if(((redKnight1Rectangle1.posX/100)+(redKnight1Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(knightBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21172,7 +21172,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey knight2
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(knight2Black,0x00ff00,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(knight2Black,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                         if(((redKnight2Rectangle1.posX/100)+(redKnight2Rectangle1.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(knight2Black,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21183,7 +21183,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey bishop1
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(bishopBlack,0xff0000,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(bishopBlack,0xff0000,0x0000ff,hdcMem); // replace red by beige
                         if(((redBishop1Square.posX/100)+(redBishop1Square.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(bishopBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21194,7 +21194,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey bishop2
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(bishop2Black,0xff0000,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(bishop2Black,0xff0000,0x0000ff,hdcMem); // replace red by beige
                         if(((redBishop2Square.posX/100)+(redBishop2Square.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(bishop2Black,0xff0000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21206,7 +21206,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                         //draw grey queen
                         hdcMem = CreateCompatibleDC(hdc);
                         for(int m=0; m<8; m++) {
-                            hBmp = ReplaceColor(queenBlack,0x00ff00,0x373737,hdcMem); // replace red by beige
+                            hBmp = ReplaceColor(queenBlack,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                             if(((redQueenSquareK[m].posX/100)+(redQueenSquareK[m].posY/100)) % 2 == 0)
                                 hBmp = ReplaceColor(queenBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                             oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21219,7 +21219,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey queen
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(queenBlack,0x00ff00,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(queenBlack,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                         if(((redQueenSquare.posX/100)+(redQueenSquare.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(queenBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21231,7 +21231,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                         //draw grey king
                         hdcMem = CreateCompatibleDC(hdc);
-                        hBmp = ReplaceColor(kingBlack,0xff0000,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(kingBlack,0xff0000,0x0000ff,hdcMem); // replace red by beige
                         if(((redKingSquare.posX/100)+(redKingSquare.posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(kingBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21243,7 +21243,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                         //draw grey pawns
                         hdcMem = CreateCompatibleDC(hdc);
                         for(int o=0; o<8; o++) {
-                            hBmp = ReplaceColor(pawnBlack,0xff0000,0x373737,hdcMem); // replace red by beige
+                            hBmp = ReplaceColor(pawnBlack,0xff0000,0x0000ff,hdcMem); // replace red by beige
                             if(((redPawnsBase[o].posX/100)+(redPawnsBase[o].posY/100)) % 2 == 0)
                                 hBmp = ReplaceColor(pawnBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                             oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21336,7 +21336,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey rook1
                     hdcMem = CreateCompatibleDC(hdc);
-                    HBITMAP hBmp = ReplaceColor(rookWhite,0xff0000,0x373737,hdcMem); // replace red by beige
+                    HBITMAP hBmp = ReplaceColor(rookWhite,0xff0000,0x0000ff,hdcMem); // replace red by beige
                     if(((greyRook1Rectangle1.posX/100)+(greyRook1Rectangle1.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(rookWhite,0xff0000,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21347,7 +21347,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey rook2
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(rook2White,0xff0000,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(rook2White,0xff0000,0x0000ff,hdcMem); // replace red by beige
                     if(((greyRook2Rectangle1.posX/100)+(greyRook2Rectangle1.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(rook2White,0xff0000,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21358,7 +21358,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey knight1
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(knightWhite,0x00ff00,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(knightWhite,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                     if(((greyKnight1Rectangle1.posX/100)+(greyKnight1Rectangle1.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(knightWhite,0x00ff00,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21369,7 +21369,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey knight2
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(knight2White,0x00ff00,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(knight2White,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                     if(((greyKnight2Rectangle1.posX/100)+(greyKnight2Rectangle1.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(knight2White,0x00ff00,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21380,7 +21380,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey bishop1
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(bishopWhite,0x4cb122,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(bishopWhite,0x4cb122,0x0000ff,hdcMem); // replace red by beige
                     if(((greyBishop1Square.posX/100)+(greyBishop1Square.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(bishopWhite,0x4cb122,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21391,7 +21391,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey bishop2
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(bishop2White,0x4cb122,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(bishop2White,0x4cb122,0x0000ff,hdcMem); // replace red by beige
                     if(((greyBishop2Square.posX/100)+(greyBishop2Square.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(bishop2White,0x4cb122,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21402,7 +21402,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey queen
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(queenWhite,0xff0000,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(queenWhite,0xff0000,0x0000ff,hdcMem); // replace red by beige
                     if(((greyQueenSquare.posX/100)+(greyQueenSquare.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(queenWhite,0xff0000,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21414,7 +21414,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey king
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(kingWhite,0x00ff00,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(kingWhite,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                     if(((greyKingSquare.posX/100)+(greyKingSquare.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(kingWhite,0x00ff00,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21426,7 +21426,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     //draw grey pawns
                     hdcMem = CreateCompatibleDC(hdc);
                     for(int o=0; o<8; o++) {
-                        hBmp = ReplaceColor(pawnWhite,0x000000,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(pawnWhite,0x000000,0x0000ff,hdcMem); // replace red by beige
                         if(((greyPawnsBase[o].posX/100)+(greyPawnsBase[o].posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(pawnWhite,0x000000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21439,7 +21439,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw red rook1
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(rookBlack,0x00ff00,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(rookBlack,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                     if(((redRook1Rectangle1.posX/100)+(redRook1Rectangle1.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(rookBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21450,7 +21450,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw red rook2
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(rook2Black,0x00ff00,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(rook2Black,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                     if(((redRook2Rectangle1.posX/100)+(redRook2Rectangle1.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(rook2Black,0x00ff00,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21461,7 +21461,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey knight1
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(knightBlack,0x00ff00,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(knightBlack,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                     if(((redKnight1Rectangle1.posX/100)+(redKnight1Rectangle1.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(knightBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21472,7 +21472,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey knight2
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(knight2Black,0x00ff00,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(knight2Black,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                     if(((redKnight2Rectangle1.posX/100)+(redKnight2Rectangle1.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(knight2Black,0x00ff00,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21483,7 +21483,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey bishop1
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(bishopBlack,0xff0000,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(bishopBlack,0xff0000,0x0000ff,hdcMem); // replace red by beige
                     if(((redBishop1Square.posX/100)+(redBishop1Square.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(bishopBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21494,7 +21494,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey bishop2
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(bishop2Black,0xff0000,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(bishop2Black,0xff0000,0x0000ff,hdcMem); // replace red by beige
                     if(((redBishop2Square.posX/100)+(redBishop2Square.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(bishop2Black,0xff0000,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21505,7 +21505,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey queen
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(queenBlack,0x00ff00,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(queenBlack,0x00ff00,0x0000ff,hdcMem); // replace red by beige
                     if(((redQueenSquare.posX/100)+(redQueenSquare.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(queenBlack,0x00ff00,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21517,7 +21517,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     //draw grey king
                     hdcMem = CreateCompatibleDC(hdc);
-                    hBmp = ReplaceColor(kingBlack,0xff0000,0x373737,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(kingBlack,0xff0000,0x0000ff,hdcMem); // replace red by beige
                     if(((redKingSquare.posX/100)+(redKingSquare.posY/100)) % 2 == 0)
                         hBmp = ReplaceColor(kingBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                     oldBitmap = SelectObject(hdcMem, hBmp);
@@ -21529,7 +21529,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     //draw grey pawns
                     hdcMem = CreateCompatibleDC(hdc);
                     for(int o=0; o<8; o++) {
-                        hBmp = ReplaceColor(pawnBlack,0xff0000,0x373737,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(pawnBlack,0xff0000,0x0000ff,hdcMem); // replace red by beige
                         if(((redPawnsBase[o].posX/100)+(redPawnsBase[o].posY/100)) % 2 == 0)
                             hBmp = ReplaceColor(pawnBlack,0xff0000,0xffffff,hdcMem); // replace red by white
                         oldBitmap = SelectObject(hdcMem, hBmp);

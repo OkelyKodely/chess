@@ -502,7 +502,7 @@ void DrawChessBoard() {
                 } else
                     x = 255;
             }
-            brush = CreateSolidBrush(RGB(55,55,55));
+            brush = CreateSolidBrush(RGB(255,0,0));
             if(x == 255) {
                 brush = CreateSolidBrush(RGB(255,255,255));
             }
