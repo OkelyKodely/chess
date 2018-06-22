@@ -1,9 +1,8 @@
-/* 
- * File:   chess.h
- * Author: dhcho
- */
-#define ID_FILE_EXIT 9001
-#define ID_FILE_PLAY 9002
+/*!#@%*(@#$*(@#$)(*@#(*$*/
+#define ID_CLICK_ME_NEW_GAME 9001
+#define ID_CLICK_ME_QUIT 9002
+
+#define ID_TIMER_0MIN 8001
 #define ID_TIMER_5MIN 9003
 #define ID_TIMER_10MIN 9004
 #define ID_TIMER_15MIN 9005
@@ -469,7 +468,33 @@ struct RedPawnEllipse {
 HBITMAP hBitmap;
 HINSTANCE hInst;
 
+PAINTSTRUCT     ps;
+BITMAP          bitmap;
+HDC             hdcMem;
+HGDIOBJ         oldBitmap;
+HBITMAP         hhbb;
+
 void DrawChessBoard() {
+
+    HBRUSH brush;
+    brush = CreateSolidBrush(RGB(255,255,0));
+    RECT rect = {0, 0, 820, 820};
+    FillRect(hdc, &rect, brush);
+    DeleteObject(brush);
+
+    hhbb = (HBITMAP)LoadImage(hInst, "chessboard.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+
+    hdcMem = CreateCompatibleDC(hdc);
+
+    oldBitmap = SelectObject(hdcMem, hhbb);
+
+    GetObject(hhbb, sizeof(bitmap), &bitmap);
+    BitBlt(hdc, 10, 10, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
+
+    SelectObject(hdcMem, oldBitmap);
+    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hhbb); DeleteObject(oldBitmap);
+
+/*
     MoveToEx(hdc, 0, 0, NULL);
     HBRUSH brush;
     brush = CreateSolidBrush(RGB(225,255,225));
@@ -500,6 +525,7 @@ void DrawChessBoard() {
             DeleteObject(brush);
         }
     }
+*/
 }
 
 int GetTextSize(LPSTR a0) {
