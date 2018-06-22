@@ -19,7 +19,7 @@
 boolean firstTime = TRUE;
 char clickedOne = 'g';
 char turn;
-const char g_szClassName[] = "Chess";
+const char g_szClassName[] = "m y  c h e s s  1.0";
 
 WNDCLASSEX wc;
 HWND hwnd;

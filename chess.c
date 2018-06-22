@@ -2216,7 +2216,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBitmap);
 
                 GetObject(hBitmap, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, 20, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, 0, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
 
                 SelectObject(hdcMem, oldBitmap);
                 DeleteDC(hdcMem); DeleteObject(hBitmap);
@@ -21420,7 +21420,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     hwnd = CreateWindowEx(
         WS_EX_CLIENTEDGE,
         g_szClassName,
-        "                                                                                                        my chess",
+        "free download of the source code from https://github.com/OkelyKodely/chess/archive/master.zip",
         WS_OVERLAPPEDWINDOW,
         rect.left, rect.top, 1100, 950,
         NULL, NULL, hInstance, NULL);
@@ -21448,8 +21448,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     int yPos = (GetSystemMetrics(SM_CYSCREEN) - rc.bottom)/2;
 
     SetWindowPos( hwnd, NULL, xPos, yPos, 0, 0, SWP_NOZORDER | SWP_NOSIZE );
-
-    //InitCommonControls();
 
     while(GetMessage(&Msg, NULL, 0, 0) > 0)
     {
