@@ -15,6 +15,12 @@
 #define ID_TIMER_50MIN 9012
 #define ID_TIMER_55MIN 9013
 #define ID_TIMER_60MIN 9014
+#define ID_TIMER_65MIN 9015
+#define ID_TIMER_70MIN 9016
+#define ID_TIMER_75MIN 9017
+#define ID_TIMER_80MIN 9018
+#define ID_TIMER_85MIN 9019
+#define ID_TIMER_90MIN 9020
     
 boolean firstTime = TRUE;
 char clickedOne = 'g';
@@ -29,6 +35,8 @@ HDC hdc;
 struct GreyPawnBase {
     int x1, y1, x2, y2;
     int posX, posY;
+    char *from;
+    char *to;
     boolean clicked;
     boolean firstTimeMove;
 
@@ -37,6 +45,8 @@ struct GreyPawnBase {
 struct RedPawnBase {
     int x1, y1, x2, y2;
     int posX, posY;
+    char *from;
+    char *to;
     boolean clicked;
     boolean firstTimeMove;
 
@@ -56,6 +66,8 @@ struct RedRook2Ellipse {
 
 struct RedRook2Rectangle1 {
     int posX, posY;
+    char *from;
+    char *to;
     boolean clicked;
     boolean failedpath;
     int x1, y1, x2, y2;
@@ -79,6 +91,8 @@ struct RedRook1Ellipse {
 
 struct RedRook1Rectangle1 {
     int posX, posY;
+    char *from;
+    char *to;
     boolean clicked;
     boolean failedpath;
     int x1, y1, x2, y2;
@@ -102,6 +116,8 @@ struct GreyRook2Ellipse {
 
 struct GreyRook2Rectangle1 {
     int posX, posY;
+    char *from;
+    char *to;
     boolean clicked;
     boolean failedpath;
     int x1, y1, x2, y2;
@@ -125,6 +141,8 @@ struct GreyRook1Ellipse {
 
 struct GreyRook1Rectangle1 {
     int posX, posY;
+    char *from;
+    char *to;
     boolean clicked;
     boolean failedpath;
     int x1, y1, x2, y2;
@@ -153,6 +171,8 @@ struct GreyKnight1Ellipse {
 
 struct GreyKnight1Rectangle1 {
     int posX, posY;
+    char *from;
+    char *to;
     boolean clicked;
     int x1, y1, x2, y2;
 
@@ -175,6 +195,8 @@ struct GreyKnight2Ellipse {
 
 struct GreyKnight2Rectangle1 {
     int posX, posY;
+    char *from;
+    char *to;
     boolean clicked;
     int x1, y1, x2, y2;
 
@@ -197,6 +219,8 @@ struct RedKnight2Ellipse {
 
 struct RedKnight2Rectangle1 {
     int posX, posY;
+    char *from;
+    char *to;
     boolean clicked;
     int x1, y1, x2, y2;
 
@@ -219,6 +243,8 @@ struct RedKnight1Ellipse {
 
 struct RedKnight1Rectangle1 {
     int posX, posY;
+    char *from;
+    char *to;
     boolean clicked;
     int x1, y1, x2, y2;
 
@@ -236,6 +262,8 @@ struct GreyKingRectangle {
 
 struct GreyKingSquare {
     int posX, posY;
+    char *from;
+    char *to;
     int x1, y1, x2, y2;
     boolean clicked;
 
@@ -258,6 +286,8 @@ struct RedKingRectangle {
 
 struct RedKingSquare {
     int posX, posY;
+    char *from;
+    char *to;
     int x1, y1, x2, y2;
     boolean clicked;
 
@@ -280,6 +310,8 @@ struct GreyQueenRectangle {
 
 struct GreyQueenSquare {
     int posX, posY;
+    char *from;
+    char *to;
     int x1, y1, x2, y2;
     boolean clicked;
     boolean failedpath;
@@ -302,6 +334,8 @@ struct GreyQueenRectangleK {
 
 struct GreyQueenSquareK {
     int posX, posY;
+    char *from;
+    char *to;
     int x1, y1, x2, y2;
     boolean clicked;
     boolean failedpath;
@@ -324,6 +358,8 @@ struct RedQueenRectangle {
 
 struct RedQueenSquare {
     int posX, posY;
+    char *from;
+    char *to;
     int x1, y1, x2, y2;
     boolean clicked;
     boolean failedpath;
@@ -347,6 +383,8 @@ struct RedQueenRectangleK {
 
 struct RedQueenSquareK {
     int posX, posY;
+    char *from;
+    char *to;
     int x1, y1, x2, y2;
     boolean clicked;
     boolean failedpath;
@@ -370,6 +408,8 @@ struct RedBishop1Rectangle {
 
 struct RedBishop1Square {
     int posX, posY;
+    char *from;
+    char *to;
     int x1, y1, x2, y2;
     boolean clicked;
     boolean failedpath;
@@ -393,6 +433,8 @@ struct RedBishop2Rectangle {
 
 struct RedBishop2Square {
     int posX, posY;
+    char *from;
+    char *to;
     int x1, y1, x2, y2;
     boolean clicked;
     boolean failedpath;
@@ -416,6 +458,8 @@ struct GreyBishop1Rectangle {
 
 struct GreyBishop1Square {
     int posX, posY;
+    char *from;
+    char *to;
     int x1, y1, x2, y2;
     boolean clicked;
     boolean failedpath;
@@ -439,6 +483,8 @@ struct GreyBishop2Rectangle {
 
 struct GreyBishop2Square {
     int posX, posY;
+    char *from;
+    char *to;
     int x1, y1, x2, y2;
     boolean clicked;
     boolean failedpath;
@@ -474,6 +520,75 @@ HDC             hdcMem;
 HGDIOBJ         oldBitmap;
 HBITMAP         hhbb;
 
+char myboard[8][8][2];
+
+char *map(int j, int i) {
+
+    if(1 == 1) {
+
+        char be[2];
+
+        for(int y = 0; y < 8; y++) {
+            int bee = 8 - y;
+            sprintf(be, "a%d", bee);
+            myboard[y][0][0] = be[0];
+            myboard[y][0][1] = be[1];
+        }
+
+        for(int y = 0; y < 8; y++) {
+            int bee = 8 - y;
+            sprintf(be, "b%d", bee);
+            myboard[y][1][0] = be[0];
+            myboard[y][1][1] = be[1];
+        }
+
+        for(int y = 0; y < 8; y++) {
+            int bee = 8 - y;
+            sprintf(be, "c%d", bee);
+            myboard[y][2][0] = be[0];
+            myboard[y][2][1] = be[1];
+        }
+
+        for(int y = 0; y < 8; y++) {
+            int bee = 8 - y;
+            sprintf(be, "d%d", bee);
+            myboard[y][3][0] = be[0];
+            myboard[y][3][1] = be[1];
+        }
+
+        for(int y = 0; y < 8; y++) {
+            int bee = 8 - y;
+            sprintf(be, "e%d", bee);
+            myboard[y][4][0] = be[0];
+            myboard[y][4][1] = be[1];
+        }
+
+        for(int y = 0; y < 8; y++) {
+            int bee = 8 - y;
+            sprintf(be, "f%d", bee);
+            myboard[y][5][0] = be[0];
+            myboard[y][5][1] = be[1];
+        }
+
+        for(int y = 0; y < 8; y++) {
+            int bee = 8 - y;
+            sprintf(be, "g%d", bee);
+            myboard[y][6][0] = be[0];
+            myboard[y][6][1] = be[1];
+        }
+
+        for(int y = 0; y < 8; y++) {
+            int bee = 8 - y;
+            sprintf(be, "h%d", bee);
+            myboard[y][7][0] = be[0];
+            myboard[y][7][1] = be[1];
+        }
+    }
+
+    return myboard[j][i];
+
+}
+
 void DrawChessBoard() {
 
     HBRUSH brush;
@@ -494,50 +609,22 @@ void DrawChessBoard() {
     SelectObject(hdcMem, oldBitmap);
     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hhbb); DeleteObject(oldBitmap);
 
-/*
-    MoveToEx(hdc, 0, 0, NULL);
-    HBRUSH brush;
-    brush = CreateSolidBrush(RGB(225,255,225));
-    RECT rect = {0, 0, 820, 820};
-    FillRect(hdc, &rect, brush);
-    DeleteObject(brush);
-    int x;
-    for(int j=0; j<8; j++) {
-        for(int i=0; i<8; ++i) {
-            if(i == 1 || i == 3 || i == 5 || i == 7) {
-                if(j == 1 || j == 3 || j == 5 || j == 7) {
-                    x = 255;
-                } else
-                    x = 0;
-            } else {
-                if(j == 1 || j == 3 || j == 5 || j == 7) {
-                    x = 0;
-                } else
-                    x = 255;
-            }
-            if(x == 255) {
-                brush = CreateSolidBrush(RGB(0,255,0));
-            } else {
-                brush = CreateSolidBrush(RGB(255,0,0));
-            }
-            RECT rect = {i*100+10, j*100+10, i*100+100+10, j*100+100+10};
-            FillRect(hdc, &rect, brush);
-            DeleteObject(brush);
-        }
-    }
-*/
 }
 
 int GetTextSize(LPSTR a0) {
+
     for(int iLoopCounter = 0;;iLoopCounter++) {
         if(a0[iLoopCounter] == '\0') {
             return iLoopCounter;
         }
     }
+
 }
 
 void DisableMaximizeButton(HWND hwnd) {
+
     SetWindowLong(hwnd, GWL_STYLE, GetWindowLong(hwnd, GWL_STYLE) & ~WS_MAXIMIZEBOX);
+
 }
 
 boolean moveGreyQueen(UINT msg, int j, int i, int pos, int o) {
