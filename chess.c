@@ -4,7 +4,9 @@
  *
  */
 
-#include <winsock.h>
+#include <winsock2.h>
+#include <stdbool.h>
+#include <pthread.h>
 #include <windows.h>
 #include <commctrl.h>
 #include <mmsystem.h>
@@ -16,15 +18,32 @@
 #include <unistd.h>
 #include <string.h>
 
+char filename[FILENAME_MAX];
+char buff[FILENAME_MAX];
+
+#ifdef WINDOWS
+#include <direct.h>
+#define GetCurrentDir _getcwd
+#else
+#include <unistd.h>
+#define GetCurrentDir getcwd
+#endif
+
+int begin = 1;
+
+pthread_t thread_id_api;
+pthread_t thread_id_threadFunc;
+        
 int iResult = -10;
 int iresult = -10;
+
 char *from;
 char *to;
 
 char *gt = "GET /game?fen=";
 char *initfn = "rnbqkbnr%2Fpppppppp%2F8%2F8%2F8%2F8%2FPPPPPPPP%2FRNBQKBNR+w+KQkq+-+0+1";
 char *hstt = "&format=json HTTP/1.1\r\nHost: api.underwaterchess.com\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n";
-char *fen = "rnbqkbnr%2Fpppppppp%2F8%2F8%2F8%2F8%2FPPPPPPPP%2FRNBQKBNR+w+KQkq+-+0+1";
+char *fen = "rnbqkbnr%2Fpppppppp%2F8%2F8%2F8%2F8%2FPPPPPPPP%2FRNBQKBNR+w+KQkq+-+0+1\253\255\253";
 
 boolean pcgame = FALSE;
 
@@ -32,7 +51,7 @@ HINSTANCE hInsta_nce;
 
 HBITMAP hbit;
 
-boolean INTRODUCTION = TRUE; //Change this to TRUE to open program with "logo screen".
+boolean INTRODUCTION = FALSE; //Change this to TRUE to open program with "logo screen".
 
 #define ID_CAPTURE_SCREEN 16001
 
@@ -123,44 +142,97 @@ LPSTR TextArray [] = {
 boolean gettingit = FALSE;
 
 char *replaceWord(const char *s, const char *oldW,
-                                 const char *newW)
-{
+                                 const char *newW) {
     char *result;
     int i, cnt = 0;
     int newWlen = strlen(newW);
     int oldWlen = strlen(oldW);
  
-    // Counting the number of times old word
-    // occur in the string
-    for (i = 0; s[i] != '\0'; i++)
-    {
-        if (strstr(&s[i], oldW) == &s[i])
-        {
+    for(i=0; s[i] != '\0'; i++) {
+        if (strstr(&s[i], oldW) == &s[i]) {
             cnt++;
- 
-            // Jumping to index after the old word.
             i += oldWlen - 1;
         }
     }
  
-    // Making new string of enough length
-    result = (char *)malloc(i + cnt * (newWlen - oldWlen) + 1);
+    result = (char*) malloc(i + cnt * (newWlen - oldWlen) + 1);
  
     i = 0;
-    while (*s)
-    {
-        // compare the substring with the result
-        if (strstr(s, oldW) == s)
-        {
+    while (*s) {
+        if (strstr(s, oldW) == s) {
             strcpy(&result[i], newW);
             i += newWlen;
             s += oldWlen;
         }
-        else
+        else {
             result[i++] = *s++;
+        }
     }
  
     result[i] = '\0';
+    return result;
+}
+
+int indexOf_shift (char* base, char* str, int startIndex) {
+    int result;
+    int baselen = strlen(base);
+    // str should not longer than base
+    if (strlen(str) > baselen || startIndex > baselen) {
+        result = -1;
+    } else {
+        if (startIndex < 0 ) {
+            startIndex = 0;
+        }
+        char* pos = strstr(base+startIndex, str);
+        if (pos == NULL) {
+            result = -1;
+        } else {
+            result = pos - base;
+        }
+    }
+    return result;
+}
+
+int lastIndexOf (char* base, char* str) {
+    int result;
+    // str should not longer than base
+    if (strlen(str) > strlen(base)) {
+        result = -1;
+    } else {
+        int start = 0;
+        int endinit = strlen(base) - strlen(str);
+        int end = endinit;
+        int endtmp = endinit;
+        while(start != end) {
+            start = indexOf_shift(base, str, start);
+            end = indexOf_shift(base, str, end);
+
+            // not found from start
+            if (start == -1) {
+                end = -1; // then break;
+            } else if (end == -1) {
+                // found from start
+                // but not found from end
+                // move end to middle
+                if (endtmp == (start+1)) {
+                    end = start; // then break;
+                } else {
+                    end = endtmp - (endtmp - start) / 2;
+                    if (end <= start) {
+                        end = start+1;
+                    }
+                    endtmp = end;
+                }
+            } else {
+                // found from both start and end
+                // move start to end and
+                // move end to base - strlen(str)
+                start = end;
+                end = endinit;
+            }
+        }
+        result = start;
+    }
     return result;
 }
 
@@ -173,24 +245,28 @@ void getApiUnderwaterChessDotComMove(char *frm, char *too) {
     wVersionRequested = MAKEWORD( 2, 2 );
 
     err = WSAStartup( wVersionRequested, &wsaData );
-    if ( err != 0 ) {
-        /* Tell the user that we could not find a usable */
-        /* WinSock DLL.                                  */
+    if(err != 0) {
         error("no winsock.");
+        return;
     }
 
-    /* first what are we going to send and where are we going to send it? */
-    int portno =        80;
-    char *host =        "api.underwaterchess.com";
+    int portno = 80;
+    char *host = "api.underwaterchess.com";
 
-    char * str_2 = (char *) malloc(1 + strlen(gt)+ strlen(fen)+ strlen("&move=")+ strlen(frm)+ strlen(too)+ strlen(hstt) );
+    int vx = lastIndexOf(fen, "+") + 1;
+    char *feeen = (char*) malloc(vx+2);
+    strncpy(feeen, fen, vx+1);
+    feeen[vx+1] = '\0';
+    fen = feeen;
+
+    char *str_2 = (char*) malloc(1 + strlen(gt)+ strlen(fen)+ strlen("&move=")+ strlen(frm)+ strlen(too)+ strlen(hstt) );
     strcpy(str_2, gt);
     strcat(str_2, fen);
     strcat(str_2, "&move=");
     strcat(str_2, frm);
     strcat(str_2, too);
     strcat(str_2, hstt);
-    char * str = (char *) malloc(1 + strlen(str_2) );
+    char *str = (char *) malloc(1 + strlen(str_2) );
     strcpy(str, str_2);
 
     struct hostent *server;
@@ -198,23 +274,24 @@ void getApiUnderwaterChessDotComMove(char *frm, char *too) {
     int sockfd, bytes, sent, received, total;
     char message[1024],response[8192];
     
-    /* create the socket */
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (sockfd < 0) error("ERROR opening socket");
+    if(sockfd < 0) {
+        error("ERROR opening socket");
+    }
 
-    /* lookup the ip address */
     server = gethostbyname(host);
-    if (server == NULL) error("ERROR, no such host");
+    if(server == NULL) {
+        error("ERROR, no such host");
+    }
 
-    /* fill in the structure */
     memset(&serv_addr,0,sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(portno);
     memcpy(&serv_addr.sin_addr.s_addr,server->h_addr,server->h_length);
 
-    /* connect the socket */
-    if (connect(sockfd,(struct sockaddr *)&serv_addr,sizeof(serv_addr)) < 0)
+    if (connect(sockfd,(struct sockaddr *)&serv_addr,sizeof(serv_addr)) < 0) {
         error("ERROR connecting");
+    }
 
     int length = strlen(str);
     int x = send(sockfd, str, length, 0);
@@ -222,20 +299,20 @@ void getApiUnderwaterChessDotComMove(char *frm, char *too) {
         error("socket error");
     }
     
-    // Receive until the peer closes the connection
     do {
         iResult = recv(sockfd, response, 8192, 0);
     } while(iResult > 0);
 
     char *a = strstr(response, "fen\": \"");
-    char *fee = (char*) malloc(75);
-    strncpy(fee, a+7, 68);
+    char *fee = (char*) malloc(100);
+    strncpy(fee, a+7, 93);
 
     int i = 0;
     i = strcspn(fee,",");
     
-    fen = (char*) malloc(75);
+    fen = (char*) malloc(i);
     strncpy(fen, fee, i-1);
+    fen[i-1] = '\0';
 
     char *aaa = NULL;
     aaa = replaceWord(fen, "/", "%2F");
@@ -243,20 +320,17 @@ void getApiUnderwaterChessDotComMove(char *frm, char *too) {
     aaa = replaceWord(fen, " ", "+");
     fen = aaa;
 
-    printf("\n\n");
-    printf(fen);
-
     char *b = strstr(response, "bestMove\": \"");
 
     strncpy(bestMove, b+12, 4);
 
     /* close the socket */
     close(sockfd);
+    
+    WSACleanup();
 }
 
-DWORD WINAPI callApi(void* data) {
-
-    iresult = 0;
+void *callApi(void* data) {
 
     gettingit = TRUE;
 
@@ -1020,7 +1094,6 @@ DWORD WINAPI callApi(void* data) {
     if(refreshme) {
 
         hdcMem = CreateCompatibleDC(hdc);
-
         oldBitmap = SelectObject(hdcMem, hBitmap);
 
         GetObject(hBitmap, sizeof(bitmap), &bitmap);
@@ -1068,7 +1141,6 @@ DWORD WINAPI callApi(void* data) {
         Sleep(1);
         kingWhite = (HBITMAP)LoadImage(hInst, "kingwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 
-        //draw grey rook1
         hdcMem = CreateCompatibleDC(hdc);
         HBITMAP hBmp;
         if(((greyRook1Rectangle1.posX/100)+(greyRook1Rectangle1.posY/100)) % 2 == 0)
@@ -1079,9 +1151,8 @@ DWORD WINAPI callApi(void* data) {
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, greyRook1Rectangle1.posX+25+7, greyRook1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
-        /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-        //draw grey rook2
         hdcMem = CreateCompatibleDC(hdc);
         if(((greyRook2Rectangle1.posX/100)+(greyRook2Rectangle1.posY/100)) % 2 == 0)
             hBmp = ReplaceColor(rook2White,0xff0000,0xafafaf,hdcMem);
@@ -1091,232 +1162,212 @@ DWORD WINAPI callApi(void* data) {
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, greyRook2Rectangle1.posX+25+7, greyRook2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
-        /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-        //draw grey knight1
         hdcMem = CreateCompatibleDC(hdc);
         if(((greyKnight1Rectangle1.posX/100)+(greyKnight1Rectangle1.posY/100)) % 2 == 0)
-            hBmp = ReplaceColor(knightWhite,0x00ff00,0xafafaf,hdcMem); // replace red by white
+            hBmp = ReplaceColor(knightWhite,0x00ff00,0xafafaf,hdcMem);
         else
-            hBmp = ReplaceColor(knightWhite,0x00ff00,0x138738,hdcMem); // replace red by beige
+            hBmp = ReplaceColor(knightWhite,0x00ff00,0x138738,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, greyKnight1Rectangle1.posX+25+7, greyKnight1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
-        /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-        //draw grey knight2
         hdcMem = CreateCompatibleDC(hdc);
         if(((greyKnight2Rectangle1.posX/100)+(greyKnight2Rectangle1.posY/100)) % 2 == 0)
-            hBmp = ReplaceColor(knight2White,0x00ff00,0xafafaf,hdcMem); // replace red by white
+            hBmp = ReplaceColor(knight2White,0x00ff00,0xafafaf,hdcMem);
         else
-            hBmp = ReplaceColor(knight2White,0x00ff00,0x138738,hdcMem); // replace red by beige
+            hBmp = ReplaceColor(knight2White,0x00ff00,0x138738,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, greyKnight2Rectangle1.posX+25+7, greyKnight2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
-        /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-        //draw grey bishop1
         hdcMem = CreateCompatibleDC(hdc);
         if(((greyBishop1Square.posX/100)+(greyBishop1Square.posY/100)) % 2 == 0)
-            hBmp = ReplaceColor(bishopWhite,0x4cb122,0xafafaf,hdcMem); // replace red by white
+            hBmp = ReplaceColor(bishopWhite,0x4cb122,0xafafaf,hdcMem);
         else
-            hBmp = ReplaceColor(bishopWhite,0x4cb122,0x138738,hdcMem); // replace red by beige
+            hBmp = ReplaceColor(bishopWhite,0x4cb122,0x138738,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, greyBishop1Square.posX+25+7, greyBishop1Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
-        /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-        //draw grey bishop2
         hdcMem = CreateCompatibleDC(hdc);
         if(((greyBishop2Square.posX/100)+(greyBishop2Square.posY/100)) % 2 == 0)
-            hBmp = ReplaceColor(bishop2White,0x4cb122,0xafafaf,hdcMem); // replace red by white
+            hBmp = ReplaceColor(bishop2White,0x4cb122,0xafafaf,hdcMem);
         else
-            hBmp = ReplaceColor(bishop2White,0x4cb122,0x138738,hdcMem); // replace red by beige
+            hBmp = ReplaceColor(bishop2White,0x4cb122,0x138738,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, greyBishop2Square.posX+25+7, greyBishop2Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
-        /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-        //draw grey queen
         hdcMem = CreateCompatibleDC(hdc);
         if(((greyQueenSquare.posX/100)+(greyQueenSquare.posY/100)) % 2 == 0)
-            hBmp = ReplaceColor(queenWhite,0xff0000,0xafafaf,hdcMem); // replace red by white
+            hBmp = ReplaceColor(queenWhite,0xff0000,0xafafaf,hdcMem);
         else
-            hBmp = ReplaceColor(queenWhite,0xff0000,0x138738,hdcMem); // replace red by beige
+            hBmp = ReplaceColor(queenWhite,0xff0000,0x138738,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, greyQueenSquare.posX+25+7, greyQueenSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
-        /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
-        //draw grey queen
-
-        //draw grey king
+        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+        
         hdcMem = CreateCompatibleDC(hdc);
         if(((greyKingSquare.posX/100)+(greyKingSquare.posY/100)) % 2 == 0)
-            hBmp = ReplaceColor(kingWhite,0x00ff00,0xafafaf,hdcMem); // replace red by white
+            hBmp = ReplaceColor(kingWhite,0x00ff00,0xafafaf,hdcMem);
         else
-            hBmp = ReplaceColor(kingWhite,0x00ff00,0x138738,hdcMem); // replace red by beige
+            hBmp = ReplaceColor(kingWhite,0x00ff00,0x138738,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, greyKingSquare.posX+25+7, greyKingSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
-        /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-        //draw grey pawns
         for(int o=0; o<8; o++) {
             hdcMem = CreateCompatibleDC(hdc);
             if(((greyPawnsBase[o].posX/100)+(greyPawnsBase[o].posY/100)) % 2 == 0)
-                hBmp = ReplaceColor(pawnWhite,0x000000,0xafafaf,hdcMem); // replace red by white
+                hBmp = ReplaceColor(pawnWhite,0x000000,0xafafaf,hdcMem);
             else
-                hBmp = ReplaceColor(pawnWhite,0x000000,0x138738,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(pawnWhite,0x000000,0x138738,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, greyPawnsBase[o].posX+25+7, greyPawnsBase[o].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
         }
-        //isnt this great?!
 
-        //draw red rook1
         hdcMem = CreateCompatibleDC(hdc);
         if(((redRook1Rectangle1.posX/100)+(redRook1Rectangle1.posY/100)) % 2 == 0)
-            hBmp = ReplaceColor(rookBlack,0x00ff00,0xafafaf,hdcMem); // replace red by white
+            hBmp = ReplaceColor(rookBlack,0x00ff00,0xafafaf,hdcMem);
         else
-            hBmp = ReplaceColor(rookBlack,0x00ff00,0x138738,hdcMem); // replace red by beige
+            hBmp = ReplaceColor(rookBlack,0x00ff00,0x138738,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, redRook1Rectangle1.posX+25+7, redRook1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
-        /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-        //draw red rook2
         hdcMem = CreateCompatibleDC(hdc);
         if(((redRook2Rectangle1.posX/100)+(redRook2Rectangle1.posY/100)) % 2 == 0)
-            hBmp = ReplaceColor(rook2Black,0x00ff00,0xafafaf,hdcMem); // replace red by white
+            hBmp = ReplaceColor(rook2Black,0x00ff00,0xafafaf,hdcMem);
         else
-            hBmp = ReplaceColor(rookBlack,0x00ff00,0x138738,hdcMem); // replace red by beige
+            hBmp = ReplaceColor(rookBlack,0x00ff00,0x138738,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, redRook2Rectangle1.posX+25+7, redRook2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
-        /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-        //draw grey knight1
         hdcMem = CreateCompatibleDC(hdc);
         if(((redKnight1Rectangle1.posX/100)+(redKnight1Rectangle1.posY/100)) % 2 == 0)
-            hBmp = ReplaceColor(knightBlack,0x00ff00,0xafafaf,hdcMem); // replace red by white
+            hBmp = ReplaceColor(knightBlack,0x00ff00,0xafafaf,hdcMem);
         else
-            hBmp = ReplaceColor(knightBlack,0x00ff00,0x138738,hdcMem); // replace red by beige
+            hBmp = ReplaceColor(knightBlack,0x00ff00,0x138738,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, redKnight1Rectangle1.posX+25+7, redKnight1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
-        /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-        //draw grey knight2
         hdcMem = CreateCompatibleDC(hdc);
         if(((redKnight2Rectangle1.posX/100)+(redKnight2Rectangle1.posY/100)) % 2 == 0)
-            hBmp = ReplaceColor(knight2Black,0x00ff00,0xafafaf,hdcMem); // replace red by white
+            hBmp = ReplaceColor(knight2Black,0x00ff00,0xafafaf,hdcMem);
         else
-            hBmp = ReplaceColor(knight2Black,0x00ff00,0x138738,hdcMem); // replace red by beige
+            hBmp = ReplaceColor(knight2Black,0x00ff00,0x138738,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, redKnight2Rectangle1.posX+25+7, redKnight2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
-        /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-        //draw grey bishop1
         hdcMem = CreateCompatibleDC(hdc);
         if(((redBishop1Square.posX/100)+(redBishop1Square.posY/100)) % 2 == 0)
-            hBmp = ReplaceColor(bishopBlack,0xff0000,0xafafaf,hdcMem); // replace red by white
+            hBmp = ReplaceColor(bishopBlack,0xff0000,0xafafaf,hdcMem);
         else
-            hBmp = ReplaceColor(bishopBlack,0xff0000,0x138738,hdcMem); // replace red by beige
+            hBmp = ReplaceColor(bishopBlack,0xff0000,0x138738,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, redBishop1Square.posX+25+7, redBishop1Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
-        /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-        //draw grey bishop2
         hdcMem = CreateCompatibleDC(hdc);
         if(((redBishop2Square.posX/100)+(redBishop2Square.posY/100)) % 2 == 0)
-            hBmp = ReplaceColor(bishop2Black,0xff0000,0xafafaf,hdcMem); // replace red by white
+            hBmp = ReplaceColor(bishop2Black,0xff0000,0xafafaf,hdcMem);
         else
-            hBmp = ReplaceColor(bishop2Black,0xff0000,0x138738,hdcMem); // replace red by beige
+            hBmp = ReplaceColor(bishop2Black,0xff0000,0x138738,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, redBishop2Square.posX+25+7, redBishop2Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
-        /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-        //draw grey queen
         hdcMem = CreateCompatibleDC(hdc);
         if(((redQueenSquare.posX/100)+(redQueenSquare.posY/100)) % 2 == 0)
-            hBmp = ReplaceColor(queenBlack,0x00ff00,0xafafaf,hdcMem); // replace red by white
+            hBmp = ReplaceColor(queenBlack,0x00ff00,0xafafaf,hdcMem);
         else
-            hBmp = ReplaceColor(queenBlack,0x00ff00,0x138738,hdcMem); // replace red by beige
+            hBmp = ReplaceColor(queenBlack,0x00ff00,0x138738,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, redQueenSquare.posX+25+7, redQueenSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
-        /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-        //draw grey king
         hdcMem = CreateCompatibleDC(hdc);
         if(((redKingSquare.posX/100)+(redKingSquare.posY/100)) % 2 == 0)
-            hBmp = ReplaceColor(kingBlack,0xff0000,0xafafaf,hdcMem); // replace red by white
+            hBmp = ReplaceColor(kingBlack,0xff0000,0xafafaf,hdcMem);
         else
-            hBmp = ReplaceColor(kingBlack,0xff0000,0x138738,hdcMem); // replace red by beige
+            hBmp = ReplaceColor(kingBlack,0xff0000,0x138738,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, redKingSquare.posX+25+7, redKingSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
-        /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-        //draw grey pawns
         for(int o=0; o<8; o++) {
             hdcMem = CreateCompatibleDC(hdc);
             if(((redPawnsBase[o].posX/100)+(redPawnsBase[o].posY/100)) % 2 == 0)
-                hBmp = ReplaceColor(pawnBlack,0xff0000,0xafafaf,hdcMem); // replace red by white
+                hBmp = ReplaceColor(pawnBlack,0xff0000,0xafafaf,hdcMem);
             else
-                hBmp = ReplaceColor(pawnBlack,0xff0000,0x138738,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(pawnBlack,0xff0000,0x138738,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, redPawnsBase[o].posX+25+7, redPawnsBase[o].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
         }
 
-        //draw grey queen
         for(int m=0; m<8; m++) {
             hdcMem = CreateCompatibleDC(hdc);
             if(((greyQueenSquareK[m].posX/100)+(greyQueenSquareK[m].posY/100)) % 2 == 0)
-                hBmp = ReplaceColor(queenWhite,0xff0000,0xafafaf,hdcMem); // replace red by white
+                hBmp = ReplaceColor(queenWhite,0xff0000,0xafafaf,hdcMem);
             else
-                hBmp = ReplaceColor(queenWhite,0xff0000,0x138738,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(queenWhite,0xff0000,0x138738,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, greyQueenSquareK[m].posX+25+7, greyQueenSquareK[m].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
         }
 
-        //draw grey queen
         for(int m=0; m<8; m++) {
             hdcMem = CreateCompatibleDC(hdc);
             if(((redQueenSquareK[m].posX/100)+(redQueenSquareK[m].posY/100)) % 2 == 0)
-                hBmp = ReplaceColor(queenBlack,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                hBmp = ReplaceColor(queenBlack,0x00ff00,0xafafaf,hdcMem);
             else
-                hBmp = ReplaceColor(queenBlack,0x00ff00,0x138738,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(queenBlack,0x00ff00,0x138738,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, redQueenSquareK[m].posX+25+7, redQueenSquareK[m].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
         }
 
         DeleteObject(pawnBlack);
@@ -1382,7 +1433,6 @@ DWORD WINAPI callApi(void* data) {
         FillRect(hdc, &rrect, white_brush);
         DeleteObject(white_brush);
 
-        //draw grey rook1
         if(greyRook1Rectangle1.posX == 1100) {
             hdcMem = CreateCompatibleDC(hdc);
             HBITMAP hBmp = ReplaceColor(rookWhite_s,0xff0000,0x00ffff,hdcMem);
@@ -1399,11 +1449,10 @@ DWORD WINAPI callApi(void* data) {
                 }
             }
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
 
-        //draw grey rook2
         if(greyRook2Rectangle1.posX == 1100) {
             hdcMem = CreateCompatibleDC(hdc);
             HBITMAP hBmp = ReplaceColor(rook2White_s,0xff0000,0x00ffff,hdcMem);
@@ -1420,11 +1469,10 @@ DWORD WINAPI callApi(void* data) {
                 }
             }
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
 
-        //draw grey knight1
         if(greyKnight1Rectangle1.posX == 1100) {
             hdcMem = CreateCompatibleDC(hdc);
             HBITMAP hBmp = ReplaceColor(knightWhite_s,0x00ff00,0x00ffff,hdcMem);
@@ -1441,11 +1489,10 @@ DWORD WINAPI callApi(void* data) {
                 }
             }
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
 
-        //draw grey knight2
         if(greyKnight2Rectangle1.posX == 1100) {
             hdcMem = CreateCompatibleDC(hdc);
             HBITMAP hBmp = ReplaceColor(knight2White_s,0x00ff00,0x00ffff,hdcMem);
@@ -1462,11 +1509,10 @@ DWORD WINAPI callApi(void* data) {
                 }
             }
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
 
-        //draw grey bishop1
         if(greyBishop1Square.posX == 1100) {
             hdcMem = CreateCompatibleDC(hdc);
             HBITMAP hBmp = ReplaceColor(bishopWhite_s,0x4cb122,0x00ffff,hdcMem);
@@ -1483,11 +1529,10 @@ DWORD WINAPI callApi(void* data) {
                 }
             }
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
 
-        //draw grey bishop2
         if(greyBishop2Square.posX == 1100) {
             hdcMem = CreateCompatibleDC(hdc);
             HBITMAP hBmp = ReplaceColor(bishop2White_s,0x4cb122,0x00ffff,hdcMem);
@@ -1504,11 +1549,10 @@ DWORD WINAPI callApi(void* data) {
                 }
             }
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
 
-        //draw grey queen
         if(greyQueenSquare.posX == 1100) {
             hdcMem = CreateCompatibleDC(hdc);
             HBITMAP hBmp = ReplaceColor(queenWhite_s,0xff0000,0x00ffff,hdcMem);
@@ -1525,11 +1569,10 @@ DWORD WINAPI callApi(void* data) {
                 }
             }
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
 
-        //draw grey king
         if(greyKingSquare.posX == 1100) {
             hdcMem = CreateCompatibleDC(hdc);
             HBITMAP hBmp = ReplaceColor(kingWhite_s,0x00ff00,0x00ffff,hdcMem);
@@ -1537,11 +1580,10 @@ DWORD WINAPI callApi(void* data) {
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, 825, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
 
-        //draw grey pawns
         for(int o=0; o<8; o++) {
             if(greyPawnsBase[o].posX == 1100) {
                 hdcMem = CreateCompatibleDC(hdc);
@@ -1559,13 +1601,11 @@ DWORD WINAPI callApi(void* data) {
                     }
                 }
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
         }
-        //isnt this great?!
 
-        //draw grey queen
         for(int m=0; m<8; m++) {
             if(greyQueenSquareK[m].posX == 1100) {
                 hdcMem = CreateCompatibleDC(hdc);
@@ -1583,14 +1623,13 @@ DWORD WINAPI callApi(void* data) {
                     }
                 }
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
         }
 
         _y_ = 20;
 
-        //draw red rook1
         if(redRook1Rectangle1.posX == 1100) {
             hdcMem = CreateCompatibleDC(hdc);
             HBITMAP hBmp = ReplaceColor(rookBlack_s,0x00ff00,0x00ffff,hdcMem);
@@ -1607,11 +1646,10 @@ DWORD WINAPI callApi(void* data) {
                 }
             }
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
 
-        //draw red rook2
         if(redRook2Rectangle1.posX == 1100) {
             hdcMem = CreateCompatibleDC(hdc);
             HBITMAP hBmp = ReplaceColor(rook2Black_s,0x00ff00,0x00ffff,hdcMem);
@@ -1628,11 +1666,10 @@ DWORD WINAPI callApi(void* data) {
                 }
             }
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
 
-        //draw grey knight1
         if(redKnight1Rectangle1.posX == 1100) {
             hdcMem = CreateCompatibleDC(hdc);
             HBITMAP hBmp = ReplaceColor(knightBlack_s,0x00ff00,0x00ffff,hdcMem);
@@ -1649,11 +1686,10 @@ DWORD WINAPI callApi(void* data) {
                 }
             }
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
 
-        //draw grey knight2
         if(redKnight2Rectangle1.posX == 1100) {
             hdcMem = CreateCompatibleDC(hdc);
             HBITMAP hBmp = ReplaceColor(knight2Black_s,0x00ff00,0x00ffff,hdcMem);
@@ -1670,11 +1706,10 @@ DWORD WINAPI callApi(void* data) {
                 }
             }
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
 
-        //draw grey bishop1
         if(redBishop1Square.posX == 1100) {
             hdcMem = CreateCompatibleDC(hdc);
             HBITMAP hBmp = ReplaceColor(bishopBlack_s,0xff0000,0x00ffff,hdcMem);
@@ -1691,11 +1726,10 @@ DWORD WINAPI callApi(void* data) {
                 }
             }
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
 
-        //draw grey bishop2
         if(redBishop2Square.posX == 1100) {
             hdcMem = CreateCompatibleDC(hdc);
             HBITMAP hBmp = ReplaceColor(bishop2Black_s,0xff0000,0x00ffff,hdcMem);
@@ -1712,11 +1746,10 @@ DWORD WINAPI callApi(void* data) {
                 }
             }
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
 
-        //draw grey queen
         if(redQueenSquare.posX == 1100) {
             hdcMem = CreateCompatibleDC(hdc);
             HBITMAP hBmp = ReplaceColor(queenBlack_s,0x00ff00,0x00ffff,hdcMem);
@@ -1733,11 +1766,10 @@ DWORD WINAPI callApi(void* data) {
                 }
             }
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
 
-        //draw grey king
         if(redKingSquare.posX == 1100) {
             hdcMem = CreateCompatibleDC(hdc);
             HBITMAP hBmp = ReplaceColor(kingBlack_s,0xff0000,0x00ffff,hdcMem);
@@ -1745,11 +1777,10 @@ DWORD WINAPI callApi(void* data) {
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, 900, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
 
-        //draw red pawns
         for(int o=0; o<8; o++) {
             if(redPawnsBase[o].posX == 1100) {
                 hdcMem = CreateCompatibleDC(hdc);
@@ -1767,12 +1798,11 @@ DWORD WINAPI callApi(void* data) {
                     }
                 }
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
         }
 
-        //draw grey queen
         for(int m=0; m<8; m++) {
             if(redQueenSquareK[m].posX == 1100) {
                 hdcMem = CreateCompatibleDC(hdc);
@@ -1790,7 +1820,7 @@ DWORD WINAPI callApi(void* data) {
                     }
                 }
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
         }
@@ -1903,7 +1933,8 @@ HBITMAP ReplaceColor(HBITMAP hBmp,COLORREF cOldColor,COLORREF cNewColor,HDC hBmp
     return RetBmp;
 }
 
-DWORD WINAPI ThreadFunc(void* data) {
+void *ThreadFunc(void* data) {
+
     char b[91];
     SYSTEMTIME st;
     GetLocalTime(&st);
@@ -1954,9 +1985,12 @@ DWORD WINAPI ThreadFunc(void* data) {
         }
         if(ls != cs) {
             SetWindowText(hwnd_timer, b);
-        }
-        if(gettingit) {
-            SetWindowText(hwnd_timer, "computer is thinking...");
+            if(gettingit) {
+                SetWindowText(hwnd_timer, "computer is thinking ...");
+            } else {
+                if(pcgame)
+                    pthread_join(thread_id_api, NULL);
+            }
         }
         if(!notimelimit) {
             if(total >= timeToWait || turnChanged) {
@@ -1977,7 +2011,6 @@ DWORD WINAPI ThreadFunc(void* data) {
             }
         }
     }
-    return 0;
 }
 
 int center_window(HWND parent_window, int width, int height) {
@@ -2528,11 +2561,11 @@ boolean checkQueenCheckRed(int j, int i) {
 
     if(!f) {
         greyQueenSquare.failedpath = FALSE;
-        TextOut (hdc,
-                 greyQueenSquare.posX,
-                 greyQueenSquare.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 greyQueenSquare.posX,
+//                 greyQueenSquare.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     }
     
@@ -2681,19 +2714,19 @@ boolean checkRookCheckGrey(int j, int i) {
     if(!f || !f2) {
         redRook1Rectangle1.failedpath = FALSE;
         redRook2Rectangle1.failedpath = FALSE;
-        if(!f)
-        TextOut (hdc,
-                 redRook1Rectangle1.posX,
-                 redRook1Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
-
-        if(!f2)
-        TextOut (hdc,
-                 redRook2Rectangle1.posX,
-                 redRook2Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        if(!f)
+//        TextOut (hdc,
+//                 redRook1Rectangle1.posX,
+//                 redRook1Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
+//
+//        if(!f2)
+//        TextOut (hdc,
+//                 redRook2Rectangle1.posX,
+//                 redRook2Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     }
     
@@ -2843,19 +2876,19 @@ boolean checkRookCheckRed(int j, int i) {
     if(!f || !f2) {
         greyRook1Rectangle1.failedpath = FALSE;
         greyRook2Rectangle1.failedpath = FALSE;
-        if(!f)
-        TextOut (hdc,
-                 greyRook1Rectangle1.posX,
-                 greyRook1Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
-
-        if(!f2)
-        TextOut (hdc,
-                 greyRook2Rectangle1.posX,
-                 greyRook2Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        if(!f)
+//        TextOut (hdc,
+//                 greyRook1Rectangle1.posX,
+//                 greyRook1Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
+//
+//        if(!f2)
+//        TextOut (hdc,
+//                 greyRook2Rectangle1.posX,
+//                 greyRook2Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     }
     
@@ -2972,11 +3005,11 @@ boolean checkQueenCheckGrey(int j, int i) {
 
     if(!f) {
         redQueenSquare.failedpath = FALSE;
-        TextOut (hdc,
-                 redQueenSquare.posX,
-                 redQueenSquare.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 redQueenSquare.posX,
+//                 redQueenSquare.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     }
     
@@ -3094,11 +3127,11 @@ boolean checkQueenCheckGreyK(int j, int i) {
 
         if(!f) {
             redQueenSquareK[z].failedpath = FALSE;
-            TextOut (hdc,
-                     redQueenSquareK[z].posX,
-                     redQueenSquareK[z].posY,
-                     TextArray [0],
-                     GetTextSize (TextArray [0]));
+//            TextOut (hdc,
+//                     redQueenSquareK[z].posX,
+//                     redQueenSquareK[z].posY,
+//                     TextArray [0],
+//                     GetTextSize (TextArray [0]));
             return TRUE;
         }
 
@@ -3218,11 +3251,11 @@ boolean checkQueenCheckRedK(int j, int i) {
 
         if(!f) {
             greyQueenSquareK[z].failedpath = FALSE;
-            TextOut (hdc,
-                     greyQueenSquareK[z].posX,
-                     greyQueenSquareK[z].posY,
-                     TextArray [0],
-                     GetTextSize (TextArray [0]));
+//            TextOut (hdc,
+//                     greyQueenSquareK[z].posX,
+//                     greyQueenSquareK[z].posY,
+//                     TextArray [0],
+//                     GetTextSize (TextArray [0]));
             return TRUE;
         }
 
@@ -3369,19 +3402,19 @@ boolean checkBishopCheckRed(int j, int i) {
     if(!f || !f2) {
         greyBishop1Square.failedpath = FALSE;
         greyBishop2Square.failedpath = FALSE;
-        if(!f)
-        TextOut (hdc,
-                 greyBishop1Square.posX,
-                 greyBishop1Square.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
-
-        if(!f2)
-        TextOut (hdc,
-                 greyBishop2Square.posX,
-                 greyBishop2Square.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        if(!f)
+//        TextOut (hdc,
+//                 greyBishop1Square.posX,
+//                 greyBishop1Square.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
+//
+//        if(!f2)
+//        TextOut (hdc,
+//                 greyBishop2Square.posX,
+//                 greyBishop2Square.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     }
     
@@ -3527,19 +3560,19 @@ boolean checkBishopCheckGrey(int j, int i) {
     if(!f || !f2) {
         redBishop1Square.failedpath = FALSE;
         redBishop2Square.failedpath = FALSE;
-        if(!f)
-        TextOut (hdc,
-                 redBishop1Square.posX,
-                 redBishop1Square.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
-
-        if(!f2)
-        TextOut (hdc,
-                 redBishop2Square.posX,
-                 redBishop2Square.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        if(!f)
+//        TextOut (hdc,
+//                 redBishop1Square.posX,
+//                 redBishop1Square.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
+//
+//        if(!f2)
+//        TextOut (hdc,
+//                 redBishop2Square.posX,
+//                 redBishop2Square.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     }
     
@@ -3568,132 +3601,132 @@ boolean checkKnightCheckGrey(int j, int i) {
     }
     if(redKnight1Rectangle1.posX - 100 == greyKingSquare.posX &&
        redKnight1Rectangle1.posY - 200 == greyKingSquare.posY) {
-        TextOut (hdc,
-                 redKnight1Rectangle1.posX,
-                 redKnight1Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 redKnight1Rectangle1.posX,
+//                 redKnight1Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(redKnight1Rectangle1.posX - 200 == greyKingSquare.posX &&
               redKnight1Rectangle1.posY - 100 == greyKingSquare.posY) {
-        TextOut (hdc,
-                 redKnight1Rectangle1.posX,
-                 redKnight1Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 redKnight1Rectangle1.posX,
+//                 redKnight1Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(redKnight1Rectangle1.posX - 200 == greyKingSquare.posX &&
               redKnight1Rectangle1.posY + 100 == greyKingSquare.posY) {
-        TextOut (hdc,
-                 redKnight1Rectangle1.posX,
-                 redKnight1Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 redKnight1Rectangle1.posX,
+//                 redKnight1Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(redKnight1Rectangle1.posX - 100 == greyKingSquare.posX &&
               redKnight1Rectangle1.posY + 200 == greyKingSquare.posY) {
-        TextOut (hdc,
-                 redKnight1Rectangle1.posX,
-                 redKnight1Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 redKnight1Rectangle1.posX,
+//                 redKnight1Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(redKnight1Rectangle1.posX + 100 == greyKingSquare.posX &&
               redKnight1Rectangle1.posY + 200 == greyKingSquare.posY) {
-        TextOut (hdc,
-                 redKnight1Rectangle1.posX,
-                 redKnight1Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 redKnight1Rectangle1.posX,
+//                 redKnight1Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(redKnight1Rectangle1.posX + 200 == greyKingSquare.posX &&
               redKnight1Rectangle1.posY + 100 == greyKingSquare.posY) {
-        TextOut (hdc,
-                 redKnight1Rectangle1.posX,
-                 redKnight1Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 redKnight1Rectangle1.posX,
+//                 redKnight1Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(redKnight1Rectangle1.posX + 200 == greyKingSquare.posX &&
               redKnight1Rectangle1.posY - 100 == greyKingSquare.posY) {
-        TextOut (hdc,
-                 redKnight1Rectangle1.posX,
-                 redKnight1Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 redKnight1Rectangle1.posX,
+//                 redKnight1Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(redKnight1Rectangle1.posX + 100 == greyKingSquare.posX &&
               redKnight1Rectangle1.posY - 200 == greyKingSquare.posY) {
-        TextOut (hdc,
-                 redKnight1Rectangle1.posX,
-                 redKnight1Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 redKnight1Rectangle1.posX,
+//                 redKnight1Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     }
     if(redKnight2Rectangle1.posX - 100 == greyKingSquare.posX &&
        redKnight2Rectangle1.posY - 200 == greyKingSquare.posY) {
-        TextOut (hdc,
-                 redKnight2Rectangle1.posX,
-                 redKnight2Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 redKnight2Rectangle1.posX,
+//                 redKnight2Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(redKnight2Rectangle1.posX - 200 == greyKingSquare.posX &&
               redKnight2Rectangle1.posY - 100 == greyKingSquare.posY) {
-        TextOut (hdc,
-                 redKnight2Rectangle1.posX,
-                 redKnight2Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 redKnight2Rectangle1.posX,
+//                 redKnight2Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(redKnight2Rectangle1.posX - 200 == greyKingSquare.posX &&
               redKnight2Rectangle1.posY + 100 == greyKingSquare.posY) {
-        TextOut (hdc,
-                 redKnight2Rectangle1.posX,
-                 redKnight2Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 redKnight2Rectangle1.posX,
+//                 redKnight2Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(redKnight2Rectangle1.posX - 100 == greyKingSquare.posX &&
               redKnight2Rectangle1.posY + 200 == greyKingSquare.posY) {
-        TextOut (hdc,
-                 redKnight2Rectangle1.posX,
-                 redKnight2Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 redKnight2Rectangle1.posX,
+//                 redKnight2Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(redKnight2Rectangle1.posX + 100 == greyKingSquare.posX &&
               redKnight2Rectangle1.posY + 200 == greyKingSquare.posY) {
-        TextOut (hdc,
-                 redKnight2Rectangle1.posX,
-                 redKnight2Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 redKnight2Rectangle1.posX,
+//                 redKnight2Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(redKnight2Rectangle1.posX + 200 == greyKingSquare.posX &&
               redKnight2Rectangle1.posY + 100 == greyKingSquare.posY) {
-        TextOut (hdc,
-                 redKnight2Rectangle1.posX,
-                 redKnight2Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 redKnight2Rectangle1.posX,
+//                 redKnight2Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(redKnight2Rectangle1.posX + 200 == greyKingSquare.posX &&
               redKnight2Rectangle1.posY - 100 == greyKingSquare.posY) {
-        TextOut (hdc,
-                 redKnight2Rectangle1.posX,
-                 redKnight2Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 redKnight2Rectangle1.posX,
+//                 redKnight2Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(redKnight2Rectangle1.posX + 100 == greyKingSquare.posX &&
               redKnight2Rectangle1.posY - 200 == greyKingSquare.posY) {
-        TextOut (hdc,
-                 redKnight2Rectangle1.posX,
-                 redKnight2Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 redKnight2Rectangle1.posX,
+//                 redKnight2Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     }
     return FALSE;
@@ -3704,21 +3737,21 @@ boolean checkPawnsCheckGrey(int j, int i) {
     for(int t=0; t<8; t++) {
         if(redPawnsBase[t].posX + 100 == greyKingSquare.posX &&
            redPawnsBase[t].posY + 100 == greyKingSquare.posY) {
-            TextOut (hdc,
-                     redPawnsBase[t].posX,
-                     redPawnsBase[t].posY,
-                     TextArray [0],
-                     GetTextSize (TextArray [0]));
+//            TextOut (hdc,
+//                     redPawnsBase[t].posX,
+//                     redPawnsBase[t].posY,
+//                     TextArray [0],
+//                     GetTextSize (TextArray [0]));
             return TRUE;
         }
 
         if(redPawnsBase[t].posX - 100 == greyKingSquare.posX &&
            redPawnsBase[t].posY + 100 == greyKingSquare.posY) {
-            TextOut (hdc,
-                     redPawnsBase[t].posX,
-                     redPawnsBase[t].posY,
-                     TextArray [0],
-                     GetTextSize (TextArray [0]));
+//            TextOut (hdc,
+//                     redPawnsBase[t].posX,
+//                     redPawnsBase[t].posY,
+//                     TextArray [0],
+//                     GetTextSize (TextArray [0]));
             return TRUE;
         }
     }
@@ -3730,20 +3763,20 @@ boolean checkPawnsCheckRed(int j, int i) {
     for(int t=0; t<8; t++) {
         if(greyPawnsBase[t].posX + 100 == redKingSquare.posX &&
            greyPawnsBase[t].posY - 100 == redKingSquare.posY) {
-            TextOut (hdc,
-                     greyPawnsBase[t].posX,
-                     greyPawnsBase[t].posY,
-                     TextArray [0],
-                     GetTextSize (TextArray [0]));
+//            TextOut (hdc,
+//                     greyPawnsBase[t].posX,
+//                     greyPawnsBase[t].posY,
+//                     TextArray [0],
+//                     GetTextSize (TextArray [0]));
             return TRUE;
         }
         if(greyPawnsBase[t].posX - 100 == redKingSquare.posX &&
            greyPawnsBase[t].posY - 100 == redKingSquare.posY) {
-            TextOut (hdc,
-                     greyPawnsBase[t].posX,
-                     greyPawnsBase[t].posY,
-                     TextArray [0],
-                     GetTextSize (TextArray [0]));
+//            TextOut (hdc,
+//                     greyPawnsBase[t].posX,
+//                     greyPawnsBase[t].posY,
+//                     TextArray [0],
+//                     GetTextSize (TextArray [0]));
             return TRUE;
         }
     }
@@ -3770,132 +3803,132 @@ boolean checkKnightCheckRed(int j, int i) {
     }
     if(greyKnight1Rectangle1.posX - 100 == redKingSquare.posX &&
        greyKnight1Rectangle1.posY - 200 == redKingSquare.posY) {
-        TextOut (hdc,
-                 greyKnight1Rectangle1.posX,
-                 greyKnight1Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 greyKnight1Rectangle1.posX,
+//                 greyKnight1Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(greyKnight1Rectangle1.posX - 200 == redKingSquare.posX &&
               greyKnight1Rectangle1.posY - 100 == redKingSquare.posY) {
-        TextOut (hdc,
-                 greyKnight1Rectangle1.posX,
-                 greyKnight1Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 greyKnight1Rectangle1.posX,
+//                 greyKnight1Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(greyKnight1Rectangle1.posX - 200 == redKingSquare.posX &&
               greyKnight1Rectangle1.posY + 100 == redKingSquare.posY) {
-        TextOut (hdc,
-                 greyKnight1Rectangle1.posX,
-                 greyKnight1Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 greyKnight1Rectangle1.posX,
+//                 greyKnight1Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(greyKnight1Rectangle1.posX - 100 == redKingSquare.posX &&
               greyKnight1Rectangle1.posY + 200 == redKingSquare.posY) {
-        TextOut (hdc,
-                 greyKnight1Rectangle1.posX,
-                 greyKnight1Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 greyKnight1Rectangle1.posX,
+//                 greyKnight1Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(greyKnight1Rectangle1.posX + 100 == redKingSquare.posX &&
               greyKnight1Rectangle1.posY + 200 == redKingSquare.posY) {
-        TextOut (hdc,
-                 greyKnight1Rectangle1.posX,
-                 greyKnight1Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 greyKnight1Rectangle1.posX,
+//                 greyKnight1Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(greyKnight1Rectangle1.posX + 200 == redKingSquare.posX &&
               greyKnight1Rectangle1.posY + 100 == redKingSquare.posY) {
-        TextOut (hdc,
-                 greyKnight1Rectangle1.posX,
-                 greyKnight1Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 greyKnight1Rectangle1.posX,
+//                 greyKnight1Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(greyKnight1Rectangle1.posX + 200 == redKingSquare.posX &&
               greyKnight1Rectangle1.posY - 100 == redKingSquare.posY) {
-        TextOut (hdc,
-                 greyKnight1Rectangle1.posX,
-                 greyKnight1Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 greyKnight1Rectangle1.posX,
+//                 greyKnight1Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(greyKnight1Rectangle1.posX + 100 == redKingSquare.posX &&
               greyKnight1Rectangle1.posY - 200 == redKingSquare.posY) {
-        TextOut (hdc,
-                 greyKnight1Rectangle1.posX,
-                 greyKnight1Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 greyKnight1Rectangle1.posX,
+//                 greyKnight1Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     }
     if(greyKnight2Rectangle1.posX - 100 == redKingSquare.posX &&
        greyKnight2Rectangle1.posY - 200 == redKingSquare.posY) {
-        TextOut (hdc,
-                 greyKnight2Rectangle1.posX,
-                 greyKnight2Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 greyKnight2Rectangle1.posX,
+//                 greyKnight2Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(greyKnight2Rectangle1.posX - 200 == redKingSquare.posX &&
               greyKnight2Rectangle1.posY - 100 == redKingSquare.posY) {
-        TextOut (hdc,
-                 greyKnight2Rectangle1.posX,
-                 greyKnight2Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 greyKnight2Rectangle1.posX,
+//                 greyKnight2Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(greyKnight2Rectangle1.posX - 200 == redKingSquare.posX &&
               greyKnight2Rectangle1.posY + 100 == redKingSquare.posY) {
-        TextOut (hdc,
-                 greyKnight2Rectangle1.posX,
-                 greyKnight2Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 greyKnight2Rectangle1.posX,
+//                 greyKnight2Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(greyKnight2Rectangle1.posX - 100 == redKingSquare.posX &&
               greyKnight2Rectangle1.posY + 200 == redKingSquare.posY) {
-        TextOut (hdc,
-                 greyKnight2Rectangle1.posX,
-                 greyKnight2Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 greyKnight2Rectangle1.posX,
+//                 greyKnight2Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(greyKnight2Rectangle1.posX + 100 == redKingSquare.posX &&
               greyKnight2Rectangle1.posY + 200 == redKingSquare.posY) {
-        TextOut (hdc,
-                 greyKnight2Rectangle1.posX,
-                 greyKnight2Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 greyKnight2Rectangle1.posX,
+//                 greyKnight2Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(greyKnight2Rectangle1.posX + 200 == redKingSquare.posX &&
               greyKnight2Rectangle1.posY + 100 == redKingSquare.posY) {
-        TextOut (hdc,
-                 greyKnight2Rectangle1.posX,
-                 greyKnight2Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 greyKnight2Rectangle1.posX,
+//                 greyKnight2Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(greyKnight2Rectangle1.posX + 200 == redKingSquare.posX &&
               greyKnight2Rectangle1.posY - 100 == redKingSquare.posY) {
-        TextOut (hdc,
-                 greyKnight2Rectangle1.posX,
-                 greyKnight2Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 greyKnight2Rectangle1.posX,
+//                 greyKnight2Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     } else if(greyKnight2Rectangle1.posX + 100 == redKingSquare.posX &&
               greyKnight2Rectangle1.posY - 200 == redKingSquare.posY) {
-        TextOut (hdc,
-                 greyKnight2Rectangle1.posX,
-                 greyKnight2Rectangle1.posY,
-                 TextArray [0],
-                 GetTextSize (TextArray [0]));
+//        TextOut (hdc,
+//                 greyKnight2Rectangle1.posX,
+//                 greyKnight2Rectangle1.posY,
+//                 TextArray [0],
+//                 GetTextSize (TextArray [0]));
         return TRUE;
     }
     return FALSE;
@@ -3925,6 +3958,19 @@ boolean checkCheckRed(int j, int i) {
     return FALSE;
 }
 
+int GetTextSize(LPSTR a0) {
+    for(int iLoopCounter = 0;;iLoopCounter++) {
+        if(a0[iLoopCounter] == '\0') {
+            return iLoopCounter;
+        }
+    }
+}
+
+void DisableMaximizeMinimizeButton(HWND hwnd) {
+    SetWindowLong(hwnd, GWL_STYLE, GetWindowLong(hwnd, GWL_STYLE) & ~WS_MAXIMIZEBOX);
+    SetWindowLong(hwnd, GWL_STYLE, GetWindowLong(hwnd, GWL_STYLE) & ~WS_MINIMIZEBOX);
+}
+
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     switch(msg)
@@ -3934,7 +3980,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             if(deathed == -1) {
 
                 hdc = BeginPaint(hwnd, &ps);
-                
                 hdcMem = CreateCompatibleDC(hdc);
                 
                 oldBitmap = SelectObject(hdcMem, hBitmap);
@@ -4101,7 +4146,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             } else {
 
                 hdcMem = CreateCompatibleDC(hdc);
-                
                 oldBitmap = SelectObject(hdcMem, hBitmap);
 
                 GetObject(hBitmap, sizeof(bitmap), &bitmap);
@@ -4149,7 +4193,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 Sleep(1);
                 kingWhite = (HBITMAP)LoadImage(hInst, "kingwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 
-                //draw grey rook1
                 hdcMem = CreateCompatibleDC(hdc);
                 HBITMAP hBmp;
                 if(((greyRook1Rectangle1.posX/100)+(greyRook1Rectangle1.posY/100)) % 2 == 0)
@@ -4160,9 +4203,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, greyRook1Rectangle1.posX+25+7, greyRook1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                //draw grey rook2
                 hdcMem = CreateCompatibleDC(hdc);
                 if(((greyRook2Rectangle1.posX/100)+(greyRook2Rectangle1.posY/100)) % 2 == 0)
                     hBmp = ReplaceColor(rook2White,0xff0000,0xafafaf,hdcMem);
@@ -4172,232 +4214,212 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, greyRook2Rectangle1.posX+25+7, greyRook2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                //draw grey knight1
                 hdcMem = CreateCompatibleDC(hdc);
                 if(((greyKnight1Rectangle1.posX/100)+(greyKnight1Rectangle1.posY/100)) % 2 == 0)
-                    hBmp = ReplaceColor(knightWhite,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                    hBmp = ReplaceColor(knightWhite,0x00ff00,0xafafaf,hdcMem);
                 else
-                    hBmp = ReplaceColor(knightWhite,0x00ff00,0x138738,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(knightWhite,0x00ff00,0x138738,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, greyKnight1Rectangle1.posX+25+7, greyKnight1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                //draw grey knight2
                 hdcMem = CreateCompatibleDC(hdc);
                 if(((greyKnight2Rectangle1.posX/100)+(greyKnight2Rectangle1.posY/100)) % 2 == 0)
-                    hBmp = ReplaceColor(knight2White,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                    hBmp = ReplaceColor(knight2White,0x00ff00,0xafafaf,hdcMem);
                 else
-                    hBmp = ReplaceColor(knight2White,0x00ff00,0x138738,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(knight2White,0x00ff00,0x138738,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, greyKnight2Rectangle1.posX+25+7, greyKnight2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                //draw grey bishop1
                 hdcMem = CreateCompatibleDC(hdc);
                 if(((greyBishop1Square.posX/100)+(greyBishop1Square.posY/100)) % 2 == 0)
-                    hBmp = ReplaceColor(bishopWhite,0x4cb122,0xafafaf,hdcMem); // replace red by white
+                    hBmp = ReplaceColor(bishopWhite,0x4cb122,0xafafaf,hdcMem);
                 else
-                    hBmp = ReplaceColor(bishopWhite,0x4cb122,0x138738,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(bishopWhite,0x4cb122,0x138738,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, greyBishop1Square.posX+25+7, greyBishop1Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                //draw grey bishop2
                 hdcMem = CreateCompatibleDC(hdc);
                 if(((greyBishop2Square.posX/100)+(greyBishop2Square.posY/100)) % 2 == 0)
-                    hBmp = ReplaceColor(bishop2White,0x4cb122,0xafafaf,hdcMem); // replace red by white
+                    hBmp = ReplaceColor(bishop2White,0x4cb122,0xafafaf,hdcMem);
                 else
-                    hBmp = ReplaceColor(bishop2White,0x4cb122,0x138738,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(bishop2White,0x4cb122,0x138738,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, greyBishop2Square.posX+25+7, greyBishop2Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                //draw grey queen
                 hdcMem = CreateCompatibleDC(hdc);
                 if(((greyQueenSquare.posX/100)+(greyQueenSquare.posY/100)) % 2 == 0)
-                    hBmp = ReplaceColor(queenWhite,0xff0000,0xafafaf,hdcMem); // replace red by white
+                    hBmp = ReplaceColor(queenWhite,0xff0000,0xafafaf,hdcMem);
                 else
-                    hBmp = ReplaceColor(queenWhite,0xff0000,0x138738,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(queenWhite,0xff0000,0x138738,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, greyQueenSquare.posX+25+7, greyQueenSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
-                //draw grey queen
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                //draw grey king
                 hdcMem = CreateCompatibleDC(hdc);
                 if(((greyKingSquare.posX/100)+(greyKingSquare.posY/100)) % 2 == 0)
-                    hBmp = ReplaceColor(kingWhite,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                    hBmp = ReplaceColor(kingWhite,0x00ff00,0xafafaf,hdcMem);
                 else
-                    hBmp = ReplaceColor(kingWhite,0x00ff00,0x138738,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(kingWhite,0x00ff00,0x138738,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, greyKingSquare.posX+25+7, greyKingSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                //draw grey pawns
                 for(int o=0; o<8; o++) {
                     hdcMem = CreateCompatibleDC(hdc);
                     if(((greyPawnsBase[o].posX/100)+(greyPawnsBase[o].posY/100)) % 2 == 0)
-                        hBmp = ReplaceColor(pawnWhite,0x000000,0xafafaf,hdcMem); // replace red by white
+                        hBmp = ReplaceColor(pawnWhite,0x000000,0xafafaf,hdcMem);
                     else
-                        hBmp = ReplaceColor(pawnWhite,0x000000,0x138738,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(pawnWhite,0x000000,0x138738,hdcMem);
                     oldBitmap = SelectObject(hdcMem, hBmp);
                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                     BitBlt(hdc, greyPawnsBase[o].posX+25+7, greyPawnsBase[o].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                     SelectObject(hdcMem, oldBitmap);
-                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 }
-                //isnt this great?!
 
-                //draw red rook1
                 hdcMem = CreateCompatibleDC(hdc);
                 if(((redRook1Rectangle1.posX/100)+(redRook1Rectangle1.posY/100)) % 2 == 0)
-                    hBmp = ReplaceColor(rookBlack,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                    hBmp = ReplaceColor(rookBlack,0x00ff00,0xafafaf,hdcMem);
                 else
-                    hBmp = ReplaceColor(rookBlack,0x00ff00,0x138738,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(rookBlack,0x00ff00,0x138738,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, redRook1Rectangle1.posX+25+7, redRook1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                //draw red rook2
                 hdcMem = CreateCompatibleDC(hdc);
                 if(((redRook2Rectangle1.posX/100)+(redRook2Rectangle1.posY/100)) % 2 == 0)
-                    hBmp = ReplaceColor(rook2Black,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                    hBmp = ReplaceColor(rook2Black,0x00ff00,0xafafaf,hdcMem);
                 else
-                    hBmp = ReplaceColor(rookBlack,0x00ff00,0x138738,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(rookBlack,0x00ff00,0x138738,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, redRook2Rectangle1.posX+25+7, redRook2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                //draw grey knight1
                 hdcMem = CreateCompatibleDC(hdc);
                 if(((redKnight1Rectangle1.posX/100)+(redKnight1Rectangle1.posY/100)) % 2 == 0)
-                    hBmp = ReplaceColor(knightBlack,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                    hBmp = ReplaceColor(knightBlack,0x00ff00,0xafafaf,hdcMem);
                 else
-                    hBmp = ReplaceColor(knightBlack,0x00ff00,0x138738,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(knightBlack,0x00ff00,0x138738,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, redKnight1Rectangle1.posX+25+7, redKnight1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                //draw grey knight2
                 hdcMem = CreateCompatibleDC(hdc);
                 if(((redKnight2Rectangle1.posX/100)+(redKnight2Rectangle1.posY/100)) % 2 == 0)
-                    hBmp = ReplaceColor(knight2Black,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                    hBmp = ReplaceColor(knight2Black,0x00ff00,0xafafaf,hdcMem);
                 else
-                    hBmp = ReplaceColor(knight2Black,0x00ff00,0x138738,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(knight2Black,0x00ff00,0x138738,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, redKnight2Rectangle1.posX+25+7, redKnight2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                //draw grey bishop1
                 hdcMem = CreateCompatibleDC(hdc);
                 if(((redBishop1Square.posX/100)+(redBishop1Square.posY/100)) % 2 == 0)
-                    hBmp = ReplaceColor(bishopBlack,0xff0000,0xafafaf,hdcMem); // replace red by white
+                    hBmp = ReplaceColor(bishopBlack,0xff0000,0xafafaf,hdcMem);
                 else
-                    hBmp = ReplaceColor(bishopBlack,0xff0000,0x138738,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(bishopBlack,0xff0000,0x138738,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, redBishop1Square.posX+25+7, redBishop1Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                //draw grey bishop2
                 hdcMem = CreateCompatibleDC(hdc);
                 if(((redBishop2Square.posX/100)+(redBishop2Square.posY/100)) % 2 == 0)
-                    hBmp = ReplaceColor(bishop2Black,0xff0000,0xafafaf,hdcMem); // replace red by white
+                    hBmp = ReplaceColor(bishop2Black,0xff0000,0xafafaf,hdcMem);
                 else
-                    hBmp = ReplaceColor(bishop2Black,0xff0000,0x138738,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(bishop2Black,0xff0000,0x138738,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, redBishop2Square.posX+25+7, redBishop2Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                //draw grey queen
                 hdcMem = CreateCompatibleDC(hdc);
                 if(((redQueenSquare.posX/100)+(redQueenSquare.posY/100)) % 2 == 0)
-                    hBmp = ReplaceColor(queenBlack,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                    hBmp = ReplaceColor(queenBlack,0x00ff00,0xafafaf,hdcMem);
                 else
-                    hBmp = ReplaceColor(queenBlack,0x00ff00,0x138738,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(queenBlack,0x00ff00,0x138738,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, redQueenSquare.posX+25+7, redQueenSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                //draw grey king
                 hdcMem = CreateCompatibleDC(hdc);
                 if(((redKingSquare.posX/100)+(redKingSquare.posY/100)) % 2 == 0)
-                    hBmp = ReplaceColor(kingBlack,0xff0000,0xafafaf,hdcMem); // replace red by white
+                    hBmp = ReplaceColor(kingBlack,0xff0000,0xafafaf,hdcMem);
                 else
-                    hBmp = ReplaceColor(kingBlack,0xff0000,0x138738,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(kingBlack,0xff0000,0x138738,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, redKingSquare.posX+25+7, redKingSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                //draw grey pawns
                 for(int o=0; o<8; o++) {
                     hdcMem = CreateCompatibleDC(hdc);
                     if(((redPawnsBase[o].posX/100)+(redPawnsBase[o].posY/100)) % 2 == 0)
-                        hBmp = ReplaceColor(pawnBlack,0xff0000,0xafafaf,hdcMem); // replace red by white
+                        hBmp = ReplaceColor(pawnBlack,0xff0000,0xafafaf,hdcMem);
                     else
-                        hBmp = ReplaceColor(pawnBlack,0xff0000,0x138738,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(pawnBlack,0xff0000,0x138738,hdcMem);
                     oldBitmap = SelectObject(hdcMem, hBmp);
                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                     BitBlt(hdc, redPawnsBase[o].posX+25+7, redPawnsBase[o].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                     SelectObject(hdcMem, oldBitmap);
-                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 }
 
-                //draw grey queen
                 for(int m=0; m<8; m++) {
                     hdcMem = CreateCompatibleDC(hdc);
                     if(((greyQueenSquareK[m].posX/100)+(greyQueenSquareK[m].posY/100)) % 2 == 0)
-                        hBmp = ReplaceColor(queenWhite,0xff0000,0xafafaf,hdcMem); // replace red by white
+                        hBmp = ReplaceColor(queenWhite,0xff0000,0xafafaf,hdcMem);
                     else
-                        hBmp = ReplaceColor(queenWhite,0xff0000,0x138738,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(queenWhite,0xff0000,0x138738,hdcMem);
                     oldBitmap = SelectObject(hdcMem, hBmp);
                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                     BitBlt(hdc, greyQueenSquareK[m].posX+25+7, greyQueenSquareK[m].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                     SelectObject(hdcMem, oldBitmap);
-                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 }
 
-                //draw grey queen
                 for(int m=0; m<8; m++) {
                     hdcMem = CreateCompatibleDC(hdc);
                     if(((redQueenSquareK[m].posX/100)+(redQueenSquareK[m].posY/100)) % 2 == 0)
-                        hBmp = ReplaceColor(queenBlack,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                        hBmp = ReplaceColor(queenBlack,0x00ff00,0xafafaf,hdcMem);
                     else
-                        hBmp = ReplaceColor(queenBlack,0x00ff00,0x138738,hdcMem); // replace red by beige
+                        hBmp = ReplaceColor(queenBlack,0x00ff00,0x138738,hdcMem);
                     oldBitmap = SelectObject(hdcMem, hBmp);
                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                     BitBlt(hdc, redQueenSquareK[m].posX+25+7, redQueenSquareK[m].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                     SelectObject(hdcMem, oldBitmap);
-                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 }
                 
                 DeleteObject(pawnBlack);
@@ -4466,7 +4488,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             FillRect(hdc, &rrect, white_brush);
             DeleteObject(white_brush);
 
-            //draw grey rook1
             if(greyRook1Rectangle1.posX == 1100) {
                 hdcMem = CreateCompatibleDC(hdc);
                 HBITMAP hBmp = ReplaceColor(rookWhite_s,0xff0000,0x00ffff,hdcMem);
@@ -4483,11 +4504,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     }
                 }
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
 
-            //draw grey rook2
             if(greyRook2Rectangle1.posX == 1100) {
                 hdcMem = CreateCompatibleDC(hdc);
                 HBITMAP hBmp = ReplaceColor(rook2White_s,0xff0000,0x00ffff,hdcMem);
@@ -4504,11 +4524,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     }
                 }
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
 
-            //draw grey knight1
             if(greyKnight1Rectangle1.posX == 1100) {
                 hdcMem = CreateCompatibleDC(hdc);
                 HBITMAP hBmp = ReplaceColor(knightWhite_s,0x00ff00,0x00ffff,hdcMem);
@@ -4525,11 +4544,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     }
                 }
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
 
-            //draw grey knight2
             if(greyKnight2Rectangle1.posX == 1100) {
                 hdcMem = CreateCompatibleDC(hdc);
                 HBITMAP hBmp = ReplaceColor(knight2White_s,0x00ff00,0x00ffff,hdcMem);
@@ -4546,11 +4564,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     }
                 }
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
 
-            //draw grey bishop1
             if(greyBishop1Square.posX == 1100) {
                 hdcMem = CreateCompatibleDC(hdc);
                 HBITMAP hBmp = ReplaceColor(bishopWhite_s,0x4cb122,0x00ffff,hdcMem);
@@ -4567,11 +4584,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     }
                 }
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
 
-            //draw grey bishop2
             if(greyBishop2Square.posX == 1100) {
                 hdcMem = CreateCompatibleDC(hdc);
                 HBITMAP hBmp = ReplaceColor(bishop2White_s,0x4cb122,0x00ffff,hdcMem);
@@ -4588,11 +4604,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     }
                 }
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
 
-            //draw grey queen
             if(greyQueenSquare.posX == 1100) {
                 hdcMem = CreateCompatibleDC(hdc);
                 HBITMAP hBmp = ReplaceColor(queenWhite_s,0xff0000,0x00ffff,hdcMem);
@@ -4609,11 +4624,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     }
                 }
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
 
-            //draw grey king
             if(greyKingSquare.posX == 1100) {
                 hdcMem = CreateCompatibleDC(hdc);
                 HBITMAP hBmp = ReplaceColor(kingWhite_s,0x00ff00,0x00ffff,hdcMem);
@@ -4621,11 +4635,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 825, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
 
-            //draw grey pawns
             for(int o=0; o<8; o++) {
                 if(greyPawnsBase[o].posX == 1100) {
                     hdcMem = CreateCompatibleDC(hdc);
@@ -4643,13 +4656,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                         }
                     }
                     SelectObject(hdcMem, oldBitmap);
-                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                     _y_ += 31;
                 }
             }
-            //isnt this great?!
 
-            //draw grey queen
             for(int m=0; m<8; m++) {
                 if(greyQueenSquareK[m].posX == 1100) {
                     hdcMem = CreateCompatibleDC(hdc);
@@ -4667,14 +4678,13 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                         }
                     }
                     SelectObject(hdcMem, oldBitmap);
-                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                     _y_ += 31;
                 }
             }
 
             _y_ = 20;
 
-            //draw red rook1
             if(redRook1Rectangle1.posX == 1100) {
                 hdcMem = CreateCompatibleDC(hdc);
                 HBITMAP hBmp = ReplaceColor(rookBlack_s,0x00ff00,0x00ffff,hdcMem);
@@ -4691,11 +4701,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     }
                 }
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
 
-            //draw red rook2
             if(redRook2Rectangle1.posX == 1100) {
                 hdcMem = CreateCompatibleDC(hdc);
                 HBITMAP hBmp = ReplaceColor(rook2Black_s,0x00ff00,0x00ffff,hdcMem);
@@ -4712,11 +4721,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     }
                 }
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
 
-            //draw grey knight1
             if(redKnight1Rectangle1.posX == 1100) {
                 hdcMem = CreateCompatibleDC(hdc);
                 HBITMAP hBmp = ReplaceColor(knightBlack_s,0x00ff00,0x00ffff,hdcMem);
@@ -4733,11 +4741,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     }
                 }
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
 
-            //draw grey knight2
             if(redKnight2Rectangle1.posX == 1100) {
                 hdcMem = CreateCompatibleDC(hdc);
                 HBITMAP hBmp = ReplaceColor(knight2Black_s,0x00ff00,0x00ffff,hdcMem);
@@ -4754,11 +4761,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     }
                 }
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
 
-            //draw grey bishop1
             if(redBishop1Square.posX == 1100) {
                 hdcMem = CreateCompatibleDC(hdc);
                 HBITMAP hBmp = ReplaceColor(bishopBlack_s,0xff0000,0x00ffff,hdcMem);
@@ -4775,11 +4781,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     }
                 }
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
 
-            //draw grey bishop2
             if(redBishop2Square.posX == 1100) {
                 hdcMem = CreateCompatibleDC(hdc);
                 HBITMAP hBmp = ReplaceColor(bishop2Black_s,0xff0000,0x00ffff,hdcMem);
@@ -4796,11 +4801,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     }
                 }
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
 
-            //draw grey queen
             if(redQueenSquare.posX == 1100) {
                 hdcMem = CreateCompatibleDC(hdc);
                 HBITMAP hBmp = ReplaceColor(queenBlack_s,0x00ff00,0x00ffff,hdcMem);
@@ -4817,11 +4821,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     }
                 }
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
 
-            //draw grey king
             if(redKingSquare.posX == 1100) {
                 hdcMem = CreateCompatibleDC(hdc);
                 HBITMAP hBmp = ReplaceColor(kingBlack_s,0xff0000,0x00ffff,hdcMem);
@@ -4829,11 +4832,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 900, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
 
-            //draw red pawns
             for(int o=0; o<8; o++) {
                 if(redPawnsBase[o].posX == 1100) {
                     hdcMem = CreateCompatibleDC(hdc);
@@ -4851,12 +4853,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                         }
                     }
                     SelectObject(hdcMem, oldBitmap);
-                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                     _y_ += 31;
                 }
             }
 
-            //draw grey queen
             for(int m=0; m<8; m++) {
                 if(redQueenSquareK[m].posX == 1100) {
                     hdcMem = CreateCompatibleDC(hdc);
@@ -4874,7 +4875,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                         }
                     }
                     SelectObject(hdcMem, oldBitmap);
-                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                     _y_ += 31;
                 }
             }
@@ -4943,256 +4944,234 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             Sleep(1);
             kingWhite = (HBITMAP)LoadImage(hInst, "kingwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 
-            //draw grey rook1
             hdcMem = CreateCompatibleDC(hdc);
             HBITMAP hBmp;
             if(((greyRook1Rectangle1.posX/100)+(greyRook1Rectangle1.posY/100)) % 2 == 0)
-                hBmp = ReplaceColor(rookWhite,0xff0000,0xafafaf,hdcMem); // replace red by white
+                hBmp = ReplaceColor(rookWhite,0xff0000,0xafafaf,hdcMem);
             else
-                hBmp = ReplaceColor(rookWhite,0xff0000,0x138738,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(rookWhite,0xff0000,0x138738,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, greyRook1Rectangle1.posX+25+7, greyRook1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-            //draw grey rook2
             hdcMem = CreateCompatibleDC(hdc);
             if(((greyRook2Rectangle1.posX/100)+(greyRook2Rectangle1.posY/100)) % 2 == 0)
-                hBmp = ReplaceColor(rook2White,0xff0000,0xafafaf,hdcMem); // replace red by white
+                hBmp = ReplaceColor(rook2White,0xff0000,0xafafaf,hdcMem);
             else
-                hBmp = ReplaceColor(rook2White,0xff0000,0x138738,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(rook2White,0xff0000,0x138738,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, greyRook2Rectangle1.posX+25+7, greyRook2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-            //draw grey knight1
             hdcMem = CreateCompatibleDC(hdc);
             if(((greyKnight1Rectangle1.posX/100)+(greyKnight1Rectangle1.posY/100)) % 2 == 0)
-                hBmp = ReplaceColor(knightWhite,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                hBmp = ReplaceColor(knightWhite,0x00ff00,0xafafaf,hdcMem);
             else
-                hBmp = ReplaceColor(knightWhite,0x00ff00,0x138738,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(knightWhite,0x00ff00,0x138738,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, greyKnight1Rectangle1.posX+25+7, greyKnight1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-            //draw grey knight2
             hdcMem = CreateCompatibleDC(hdc);
             if(((greyKnight2Rectangle1.posX/100)+(greyKnight2Rectangle1.posY/100)) % 2 == 0)
-                hBmp = ReplaceColor(knight2White,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                hBmp = ReplaceColor(knight2White,0x00ff00,0xafafaf,hdcMem);
             else
-                hBmp = ReplaceColor(knight2White,0x00ff00,0x138738,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(knight2White,0x00ff00,0x138738,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, greyKnight2Rectangle1.posX+25+7, greyKnight2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-            //draw grey bishop1
             hdcMem = CreateCompatibleDC(hdc);
             if(((greyBishop1Square.posX/100)+(greyBishop1Square.posY/100)) % 2 == 0)
-                hBmp = ReplaceColor(bishopWhite,0x4cb122,0xafafaf,hdcMem); // replace red by white
+                hBmp = ReplaceColor(bishopWhite,0x4cb122,0xafafaf,hdcMem);
             else
-                hBmp = ReplaceColor(bishopWhite,0x4cb122,0x138738,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(bishopWhite,0x4cb122,0x138738,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, greyBishop1Square.posX+25+7, greyBishop1Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-            //draw grey bishop2
             hdcMem = CreateCompatibleDC(hdc);
             if(((greyBishop2Square.posX/100)+(greyBishop2Square.posY/100)) % 2 == 0)
-                hBmp = ReplaceColor(bishop2White,0x4cb122,0xafafaf,hdcMem); // replace red by white
+                hBmp = ReplaceColor(bishop2White,0x4cb122,0xafafaf,hdcMem);
             else
-                hBmp = ReplaceColor(bishop2White,0x4cb122,0x138738,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(bishop2White,0x4cb122,0x138738,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, greyBishop2Square.posX+25+7, greyBishop2Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-            //draw grey queen
             hdcMem = CreateCompatibleDC(hdc);
             if(((greyQueenSquare.posX/100)+(greyQueenSquare.posY/100)) % 2 == 0)
-                hBmp = ReplaceColor(queenWhite,0xff0000,0xafafaf,hdcMem); // replace red by white
+                hBmp = ReplaceColor(queenWhite,0xff0000,0xafafaf,hdcMem);
             else
-                hBmp = ReplaceColor(queenWhite,0xff0000,0x138738,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(queenWhite,0xff0000,0x138738,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, greyQueenSquare.posX+25+7, greyQueenSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
-            //draw grey queen
-
-            //draw grey king
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            
             hdcMem = CreateCompatibleDC(hdc);
             if(((greyKingSquare.posX/100)+(greyKingSquare.posY/100)) % 2 == 0)
-                hBmp = ReplaceColor(kingWhite,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                hBmp = ReplaceColor(kingWhite,0x00ff00,0xafafaf,hdcMem);
             else
-                hBmp = ReplaceColor(kingWhite,0x00ff00,0x138738,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(kingWhite,0x00ff00,0x138738,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, greyKingSquare.posX+25+7, greyKingSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-            //draw grey pawns
             for(int o=0; o<8; o++) {
                 hdcMem = CreateCompatibleDC(hdc);
                 if(((greyPawnsBase[o].posX/100)+(greyPawnsBase[o].posY/100)) % 2 == 0)
-                    hBmp = ReplaceColor(pawnWhite,0x000000,0xafafaf,hdcMem); // replace red by white
+                    hBmp = ReplaceColor(pawnWhite,0x000000,0xafafaf,hdcMem);
                 else
-                    hBmp = ReplaceColor(pawnWhite,0x000000,0x138738,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(pawnWhite,0x000000,0x138738,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, greyPawnsBase[o].posX+25+7, greyPawnsBase[o].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             }
-            //isnt this great?!
 
-            //draw red rook1
             hdcMem = CreateCompatibleDC(hdc);
             if(((redRook1Rectangle1.posX/100)+(redRook1Rectangle1.posY/100)) % 2 == 0)
-                hBmp = ReplaceColor(rookBlack,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                hBmp = ReplaceColor(rookBlack,0x00ff00,0xafafaf,hdcMem);
             else
-                hBmp = ReplaceColor(rookBlack,0x00ff00,0x138738,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(rookBlack,0x00ff00,0x138738,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, redRook1Rectangle1.posX+25+7, redRook1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-            //draw red rook2
             hdcMem = CreateCompatibleDC(hdc);
             if(((redRook2Rectangle1.posX/100)+(redRook2Rectangle1.posY/100)) % 2 == 0)
-                hBmp = ReplaceColor(rook2Black,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                hBmp = ReplaceColor(rook2Black,0x00ff00,0xafafaf,hdcMem);
             else
-                hBmp = ReplaceColor(rook2Black,0x00ff00,0x138738,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(rook2Black,0x00ff00,0x138738,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, redRook2Rectangle1.posX+25+7, redRook2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-            //draw grey knight1
             hdcMem = CreateCompatibleDC(hdc);
             if(((redKnight1Rectangle1.posX/100)+(redKnight1Rectangle1.posY/100)) % 2 == 0)
-                hBmp = ReplaceColor(knightBlack,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                hBmp = ReplaceColor(knightBlack,0x00ff00,0xafafaf,hdcMem);
             else
-                hBmp = ReplaceColor(knightBlack,0x00ff00,0x138738,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(knightBlack,0x00ff00,0x138738,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, redKnight1Rectangle1.posX+25+7, redKnight1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-            //draw grey knight2
             hdcMem = CreateCompatibleDC(hdc);
             if(((redKnight2Rectangle1.posX/100)+(redKnight2Rectangle1.posY/100)) % 2 == 0)
-                hBmp = ReplaceColor(knight2Black,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                hBmp = ReplaceColor(knight2Black,0x00ff00,0xafafaf,hdcMem);
             else
-                hBmp = ReplaceColor(knight2Black,0x00ff00,0x138738,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(knight2Black,0x00ff00,0x138738,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, redKnight2Rectangle1.posX+25+7, redKnight2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-            //draw grey bishop1
             hdcMem = CreateCompatibleDC(hdc);
             if(((redBishop1Square.posX/100)+(redBishop1Square.posY/100)) % 2 == 0)
-                hBmp = ReplaceColor(bishopBlack,0xff0000,0xafafaf,hdcMem); // replace red by white
+                hBmp = ReplaceColor(bishopBlack,0xff0000,0xafafaf,hdcMem);
             else
-                hBmp = ReplaceColor(bishopBlack,0xff0000,0x138738,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(bishopBlack,0xff0000,0x138738,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, redBishop1Square.posX+25+7, redBishop1Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-            //draw grey bishop2
             hdcMem = CreateCompatibleDC(hdc);
             if(((redBishop2Square.posX/100)+(redBishop2Square.posY/100)) % 2 == 0)
-                hBmp = ReplaceColor(bishop2Black,0xff0000,0xafafaf,hdcMem); // replace red by white
+                hBmp = ReplaceColor(bishop2Black,0xff0000,0xafafaf,hdcMem);
             else
-                hBmp = ReplaceColor(bishop2Black,0xff0000,0x138738,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(bishop2Black,0xff0000,0x138738,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, redBishop2Square.posX+25+7, redBishop2Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-            //draw grey queen
             hdcMem = CreateCompatibleDC(hdc);
             if(((redQueenSquare.posX/100)+(redQueenSquare.posY/100)) % 2 == 0)
-                hBmp = ReplaceColor(queenBlack,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                hBmp = ReplaceColor(queenBlack,0x00ff00,0xafafaf,hdcMem);
             else
-                hBmp = ReplaceColor(queenBlack,0x00ff00,0x138738,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(queenBlack,0x00ff00,0x138738,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, redQueenSquare.posX+25+7, redQueenSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
-            //draw grey queen
-
-            //draw grey king
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            
             hdcMem = CreateCompatibleDC(hdc);
             if(((redKingSquare.posX/100)+(redKingSquare.posY/100)) % 2 == 0)
-                hBmp = ReplaceColor(kingBlack,0xff0000,0xafafaf,hdcMem); // replace red by white
+                hBmp = ReplaceColor(kingBlack,0xff0000,0xafafaf,hdcMem);
             else
-                hBmp = ReplaceColor(kingBlack,0xff0000,0x138738,hdcMem); // replace red by beige
+                hBmp = ReplaceColor(kingBlack,0xff0000,0x138738,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, redKingSquare.posX+25+7, redKingSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
-            /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-            //draw grey pawns
             for(int o=0; o<8; o++) {
                 hdcMem = CreateCompatibleDC(hdc);
                 if(((redPawnsBase[o].posX/100)+(redPawnsBase[o].posY/100)) % 2 == 0)
-                    hBmp = ReplaceColor(pawnBlack,0xff0000,0xafafaf,hdcMem); // replace red by white
+                    hBmp = ReplaceColor(pawnBlack,0xff0000,0xafafaf,hdcMem);
                 else
-                    hBmp = ReplaceColor(pawnBlack,0xff0000,0x138738,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(pawnBlack,0xff0000,0x138738,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, redPawnsBase[o].posX+25+7, redPawnsBase[o].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             }
 
-            //draw grey queen
             for(int m=0; m<8; m++) {
                 hdcMem = CreateCompatibleDC(hdc);
                 if(((greyQueenSquareK[m].posX/100)+(greyQueenSquareK[m].posY/100)) % 2 == 0)
-                    hBmp = ReplaceColor(queenWhite,0xff0000,0xafafaf,hdcMem); // replace red by white
+                    hBmp = ReplaceColor(queenWhite,0xff0000,0xafafaf,hdcMem);
                 else
-                    hBmp = ReplaceColor(queenWhite,0xff0000,0x138738,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(queenWhite,0xff0000,0x138738,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, greyQueenSquareK[m].posX+25+7, greyQueenSquareK[m].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             }
 
             //draw grey queen
             for(int m=0; m<8; m++) {
                 hdcMem = CreateCompatibleDC(hdc);
                 if(((redQueenSquareK[m].posX/100)+(redQueenSquareK[m].posY/100)) % 2 == 0)
-                    hBmp = ReplaceColor(queenBlack,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                    hBmp = ReplaceColor(queenBlack,0x00ff00,0xafafaf,hdcMem);
                 else
-                    hBmp = ReplaceColor(queenBlack,0x00ff00,0x138738,hdcMem); // replace red by beige
+                    hBmp = ReplaceColor(queenBlack,0x00ff00,0x138738,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, redQueenSquareK[m].posX+25+7, redQueenSquareK[m].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
-                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             }
             
             DeleteObject(pawnBlack);
@@ -5241,8 +5220,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                         boxes[j][i].clicked = TRUE;
 
                         if(turn == 'h') {
-                            
-                            if(1==2) SetWindowText(hwnd, "Grey move");
                             
                             for(int k=0; k<8; k++) {
                             
@@ -5354,48 +5331,221 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                             boolean ate = FALSE;
                                             
-                                            if(1 == 1) {
+                                            int a0 = greyPawnsBase[k].posX;
+                                            int a1 = greyPawnsBase[k].posY;
 
-                                                int a0 = greyPawnsBase[k].posX;
-                                                int a1 = greyPawnsBase[k].posY;
-                                                
-                                                int a2 = greyPawnsBase[k].x1;
-                                                int a3 = greyPawnsBase[k].y1;
-                                                
-                                                int a4 = greyPawnsBase[k].x2;
-                                                int a5 = greyPawnsBase[k].y2;
-                                                
-                                                int a6 = greyPawnsEllipse[k].x1;
-                                                int a7 = greyPawnsEllipse[k].y1;
-                                                
-                                                int a8 = greyPawnsEllipse[k].x2;
-                                                int a9 = greyPawnsEllipse[k].y2;
+                                            int a2 = greyPawnsBase[k].x1;
+                                            int a3 = greyPawnsBase[k].y1;
 
-                                                boxes[j][i].clear = FALSE;
-                                                boxes[greyPawnsBase[k].posY/100][greyPawnsBase[k].posX/100].clear = TRUE;
-                                                greyPawnsBase[k].posY = j*100;
-                                                greyPawnsBase[k].posX = i*100;
+                                            int a4 = greyPawnsBase[k].x2;
+                                            int a5 = greyPawnsBase[k].y2;
 
-                                                greyPawnsEllipse[k].x1 = i*100 + 40;
-                                                greyPawnsEllipse[k].y1 = j*100 + 40;
-                                                greyPawnsEllipse[k].x2 = i*100 + 40 + 20;
-                                                greyPawnsEllipse[k].y2 = j*100 + 40 + 20;
+                                            int a6 = greyPawnsEllipse[k].x1;
+                                            int a7 = greyPawnsEllipse[k].y1;
 
-                                                greyPawnsBase[k].x1 = i*100 + 40;
-                                                greyPawnsBase[k].y1 = j*100 + 60;
-                                                greyPawnsBase[k].x2 = i*100 + 40 + 20;
-                                                greyPawnsBase[k].y2 = j*100 + 60 + 20;
+                                            int a8 = greyPawnsEllipse[k].x2;
+                                            int a9 = greyPawnsEllipse[k].y2;
 
-                                                boolean fff = TRUE;
-                                                
-                                                if(greyPawnsBase[k].posX == redQueenSquare.posX &&
-                                                   greyPawnsBase[k].posY == redQueenSquare.posY) {
-                                                    fff = FALSE;
+                                            boxes[j][i].clear = FALSE;
+                                            boxes[greyPawnsBase[k].posY/100][greyPawnsBase[k].posX/100].clear = TRUE;
+                                            greyPawnsBase[k].posY = j*100;
+                                            greyPawnsBase[k].posX = i*100;
+
+                                            greyPawnsEllipse[k].x1 = i*100 + 40;
+                                            greyPawnsEllipse[k].y1 = j*100 + 40;
+                                            greyPawnsEllipse[k].x2 = i*100 + 40 + 20;
+                                            greyPawnsEllipse[k].y2 = j*100 + 40 + 20;
+
+                                            greyPawnsBase[k].x1 = i*100 + 40;
+                                            greyPawnsBase[k].y1 = j*100 + 60;
+                                            greyPawnsBase[k].x2 = i*100 + 40 + 20;
+                                            greyPawnsBase[k].y2 = j*100 + 60 + 20;
+
+                                            boolean fff = TRUE;
+
+                                            if(greyPawnsBase[k].posX == redQueenSquare.posX &&
+                                               greyPawnsBase[k].posY == redQueenSquare.posY) {
+                                                fff = FALSE;
+                                            }
+
+                                            boolean ffff = checkCheckGrey(j, i);
+
+                                            if(ffff) {
+                                                greyPawnsBase[k].posX = a0;
+                                                greyPawnsBase[k].posY = a1;
+
+                                                greyPawnsBase[k].x1 = a2;
+                                                greyPawnsBase[k].y1 = a3;
+
+                                                greyPawnsBase[k].x2 = a4;
+                                                greyPawnsBase[k].y2 = a5;
+
+                                                greyPawnsEllipse[k].x1 = a6;
+                                                greyPawnsEllipse[k].y1 = a7;
+
+                                                greyPawnsEllipse[k].x2 = a8;
+                                                greyPawnsEllipse[k].y2 = a9;
+
+                                                turn = 'h';
+
+                                            } else {
+
+                                                for(int l=0; l<8; l++) {
+                                                    if(redPawnsBase[l].posX == i*100 &&
+                                                       redPawnsBase[l].posY == j*100) {
+                                                        redPawnsBase[l].posX = 1100;
+                                                        redPawnsBase[l].posY = -1000;
+                                                        redPawnsBase[l].x1 = -1000;
+                                                        redPawnsBase[l].x2 = -1000;
+                                                        redPawnsEllipse[l].x1 = -1000;
+                                                        redPawnsEllipse[l].x2 = -1000;
+                                                        ate = TRUE;
+                                                        break;
+                                                    }
                                                 }
-                                                
-                                                boolean ffff = checkCheckGrey(j, i);
-                                                
-                                                if(ffff) {
+                                                for(int z=0; z<8; z++) {
+                                                    if(redQueenSquareK[z].posX == i*100 &&
+                                                       redQueenSquareK[z].posY == j*100) {
+                                                        redQueenSquareK[z].posX = 1100;
+                                                        redQueenSquareK[z].x1 = -1000;
+                                                        redQueenSquareK[z].x2 = -1000;
+                                                        redQueenBaseK[z].x1 = -1000;
+                                                        redQueenBaseK[z].x2 = -1000;
+                                                        redQueenEllipseK[z].x1 = -1000;
+                                                        redQueenEllipseK[z].x2 = -1000;
+                                                        redQueenRectangle1K[z].x1 = -1000;
+                                                        redQueenRectangle1K[z].x2 = -1000;
+                                                        redQueenRectangle2K[z].x1 = -1000;
+                                                        redQueenRectangle2K[z].x2 = -1000;
+                                                        redQueenRectangle3K[z].x1 = -1000;
+                                                        redQueenRectangle3K[z].x2 = -1000;
+                                                        ate = TRUE;
+                                                    }
+                                                }
+                                                if(redQueenSquare.posX == i*100 &&
+                                                   redQueenSquare.posY == j*100) {
+                                                    redQueenSquare.posX = 1100;
+                                                    redQueenSquare.posY = -1000;
+                                                    redQueenSquare.x1 = -1000;
+                                                    redQueenSquare.x2 = -1000;
+                                                    redQueenBase.x1 = -1000;
+                                                    redQueenBase.x2 = -1000;
+                                                    redQueenEllipse.x1 = -1000;
+                                                    redQueenEllipse.x2 = -1000;
+                                                    redQueenRectangle1.x1 = -1000;
+                                                    redQueenRectangle1.x2 = -1000;
+                                                    redQueenRectangle2.x1 = -1000;
+                                                    redQueenRectangle2.x2 = -1000;
+                                                    redQueenRectangle3.x1 = -1000;
+                                                    redQueenRectangle3.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+                                                if(redBishop1Square.posX == i*100 &&
+                                                   redBishop1Square.posY == j*100) {
+                                                    redBishop1Square.posX = 1100;
+                                                    redBishop1Square.posY = -1000;
+                                                    redBishop1Square.x1 = -1000;
+                                                    redBishop1Square.x2 = -1000;
+                                                    redBishop1Base.x1 = -1000;
+                                                    redBishop1Base.x2 = -1000;
+                                                    redBishop1Ellipse.x1 = -1000;
+                                                    redBishop1Ellipse.x2 = -1000;
+                                                    redBishop1Rectangle.x1 = -1000;
+                                                    redBishop1Rectangle.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+                                                if(redBishop2Square.posX == i*100 &&
+                                                   redBishop2Square.posY == j*100) {
+                                                    redBishop2Square.posX = 1100;
+                                                    redBishop2Square.posY = -1000;
+                                                    redBishop2Square.x1 = -1000;
+                                                    redBishop2Square.x2 = -1000;
+                                                    redBishop2Base.x1 = -1000;
+                                                    redBishop2Base.x2 = -1000;
+                                                    redBishop2Ellipse.x1 = -1000;
+                                                    redBishop2Ellipse.x2 = -1000;
+                                                    redBishop2Rectangle.x1 = -1000;
+                                                    redBishop2Rectangle.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+                                                if(redKnight1Rectangle1.posX == i*100 &&
+                                                   redKnight1Rectangle1.posY == j*100) {
+                                                    redKnight1Rectangle1.posX = 1100;
+                                                    redKnight1Rectangle1.posY = -1000;
+                                                    redKnight1Base.x1 = -1000;
+                                                    redKnight1Base.x2 = -1000;
+                                                    redKnight1Ellipse.x1 = -1000;
+                                                    redKnight1Ellipse.x2 = -1000;
+                                                    redKnight1Rectangle1.x1 = -1000;
+                                                    redKnight1Rectangle1.x2 = -1000;
+                                                    redKnight1Rectangle2.x1 = -1000;
+                                                    redKnight1Rectangle2.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+                                                if(redKnight2Rectangle1.posX == i*100 &&
+                                                   redKnight2Rectangle1.posY == j*100) {
+                                                    redKnight2Rectangle1.posX = 1100;
+                                                    redKnight2Rectangle1.posY = -1000;
+                                                    redKnight2Base.x1 = -1000;
+                                                    redKnight2Base.x2 = -1000;
+                                                    redKnight2Ellipse.x1 = -1000;
+                                                    redKnight2Ellipse.x2 = -1000;
+                                                    redKnight2Rectangle1.x1 = -1000;
+                                                    redKnight2Rectangle1.x2 = -1000;
+                                                    redKnight2Rectangle2.x1 = -1000;
+                                                    redKnight2Rectangle2.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+                                                if(redRook1Rectangle1.posX == i*100 &&
+                                                   redRook1Rectangle1.posY == j*100) {
+                                                    redRook1Rectangle1.posX = 1100;
+                                                    redRook1Rectangle1.posY = -1000;
+                                                    redRook1Base.x1 = -1000;
+                                                    redRook1Base.x2 = -1000;
+                                                    redRook1Ellipse.x1 = -1000;
+                                                    redRook1Ellipse.x2 = -1000;
+                                                    redRook1Rectangle1.x1 = -1000;
+                                                    redRook1Rectangle1.x2 = -1000;
+                                                    redRook1Rectangle2.x1 = -1000;
+                                                    redRook1Rectangle2.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+                                                if(redRook2Rectangle1.posX == i*100 &&
+                                                   redRook2Rectangle1.posY == j*100) {
+                                                    redRook2Rectangle1.posX = 1100;
+                                                    redRook2Rectangle1.posY = -1000;
+                                                    redRook2Base.x1 = -1000;
+                                                    redRook2Base.x2 = -1000;
+                                                    redRook2Ellipse.x1 = -1000;
+                                                    redRook2Ellipse.x2 = -1000;
+                                                    redRook2Rectangle1.x1 = -1000;
+                                                    redRook2Rectangle1.x2 = -1000;
+                                                    redRook2Rectangle2.x1 = -1000;
+                                                    redRook2Rectangle2.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+
+                                                for(int u=0; u<8; u++) {
+                                                    if(redPawnsBase[u].posX == greyPawnsBase[k].posX &&
+                                                       redPawnsBase[u].posY == greyPawnsBase[k].posY) {
+                                                        redPawnsBase[u].posX = 1100;
+                                                        redPawnsBase[u].posY = -1000;
+                                                        redPawnsBase[u].x1 = -1000;
+                                                        redPawnsBase[u].x2 = -1000;
+                                                        redPawnsEllipse[u].x1 = -1000;
+                                                        redPawnsEllipse[u].x2 = -1000;
+                                                        ate = TRUE;
+                                                        break;
+                                                    }
+                                                }
+
+                                                if(ate) {
+                                                    greyPawnsBase[k].firstTimeMove = FALSE;
+
+                                                    greyPawnsBase[k].clicked = FALSE;
+                                                    turnChanged = TRUE;
+                                                    done = TRUE;
+                                                } else {
                                                     greyPawnsBase[k].posX = a0;
                                                     greyPawnsBase[k].posY = a1;
 
@@ -5410,187 +5560,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                                     greyPawnsEllipse[k].x2 = a8;
                                                     greyPawnsEllipse[k].y2 = a9;
-                                                    
+
                                                     turn = 'h';
-                                                } else {
-                                                    
-                                                    for(int l=0; l<8; l++) {
-                                                        if(redPawnsBase[l].posX == i*100 &&
-                                                           redPawnsBase[l].posY == j*100) {
-                                                            redPawnsBase[l].posX = 1100;
-                                                            redPawnsBase[l].posY = -1000;
-                                                            redPawnsBase[l].x1 = -1000;
-                                                            redPawnsBase[l].x2 = -1000;
-                                                            redPawnsEllipse[l].x1 = -1000;
-                                                            redPawnsEllipse[l].x2 = -1000;
-                                                            ate = TRUE;
-                                                            break;
-                                                        }
-                                                    }
-                                                    for(int z=0; z<8; z++) {
-                                                        if(redQueenSquareK[z].posX == i*100 &&
-                                                           redQueenSquareK[z].posY == j*100) {
-                                                            redQueenSquareK[z].posX = 1100;
-                                                            redQueenSquareK[z].x1 = -1000;
-                                                            redQueenSquareK[z].x2 = -1000;
-                                                            redQueenBaseK[z].x1 = -1000;
-                                                            redQueenBaseK[z].x2 = -1000;
-                                                            redQueenEllipseK[z].x1 = -1000;
-                                                            redQueenEllipseK[z].x2 = -1000;
-                                                            redQueenRectangle1K[z].x1 = -1000;
-                                                            redQueenRectangle1K[z].x2 = -1000;
-                                                            redQueenRectangle2K[z].x1 = -1000;
-                                                            redQueenRectangle2K[z].x2 = -1000;
-                                                            redQueenRectangle3K[z].x1 = -1000;
-                                                            redQueenRectangle3K[z].x2 = -1000;
-                                                            ate = TRUE;
-                                                        }
-                                                    }
-                                                    if(redQueenSquare.posX == i*100 &&
-                                                       redQueenSquare.posY == j*100) {
-                                                        redQueenSquare.posX = 1100;
-                                                        redQueenSquare.posY = -1000;
-                                                        redQueenSquare.x1 = -1000;
-                                                        redQueenSquare.x2 = -1000;
-                                                        redQueenBase.x1 = -1000;
-                                                        redQueenBase.x2 = -1000;
-                                                        redQueenEllipse.x1 = -1000;
-                                                        redQueenEllipse.x2 = -1000;
-                                                        redQueenRectangle1.x1 = -1000;
-                                                        redQueenRectangle1.x2 = -1000;
-                                                        redQueenRectangle2.x1 = -1000;
-                                                        redQueenRectangle2.x2 = -1000;
-                                                        redQueenRectangle3.x1 = -1000;
-                                                        redQueenRectangle3.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-                                                    if(redBishop1Square.posX == i*100 &&
-                                                       redBishop1Square.posY == j*100) {
-                                                        redBishop1Square.posX = 1100;
-                                                        redBishop1Square.posY = -1000;
-                                                        redBishop1Square.x1 = -1000;
-                                                        redBishop1Square.x2 = -1000;
-                                                        redBishop1Base.x1 = -1000;
-                                                        redBishop1Base.x2 = -1000;
-                                                        redBishop1Ellipse.x1 = -1000;
-                                                        redBishop1Ellipse.x2 = -1000;
-                                                        redBishop1Rectangle.x1 = -1000;
-                                                        redBishop1Rectangle.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-                                                    if(redBishop2Square.posX == i*100 &&
-                                                       redBishop2Square.posY == j*100) {
-                                                        redBishop2Square.posX = 1100;
-                                                        redBishop2Square.posY = -1000;
-                                                        redBishop2Square.x1 = -1000;
-                                                        redBishop2Square.x2 = -1000;
-                                                        redBishop2Base.x1 = -1000;
-                                                        redBishop2Base.x2 = -1000;
-                                                        redBishop2Ellipse.x1 = -1000;
-                                                        redBishop2Ellipse.x2 = -1000;
-                                                        redBishop2Rectangle.x1 = -1000;
-                                                        redBishop2Rectangle.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-                                                    if(redKnight1Rectangle1.posX == i*100 &&
-                                                       redKnight1Rectangle1.posY == j*100) {
-                                                        redKnight1Rectangle1.posX = 1100;
-                                                        redKnight1Rectangle1.posY = -1000;
-                                                        redKnight1Base.x1 = -1000;
-                                                        redKnight1Base.x2 = -1000;
-                                                        redKnight1Ellipse.x1 = -1000;
-                                                        redKnight1Ellipse.x2 = -1000;
-                                                        redKnight1Rectangle1.x1 = -1000;
-                                                        redKnight1Rectangle1.x2 = -1000;
-                                                        redKnight1Rectangle2.x1 = -1000;
-                                                        redKnight1Rectangle2.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-                                                    if(redKnight2Rectangle1.posX == i*100 &&
-                                                       redKnight2Rectangle1.posY == j*100) {
-                                                        redKnight2Rectangle1.posX = 1100;
-                                                        redKnight2Rectangle1.posY = -1000;
-                                                        redKnight2Base.x1 = -1000;
-                                                        redKnight2Base.x2 = -1000;
-                                                        redKnight2Ellipse.x1 = -1000;
-                                                        redKnight2Ellipse.x2 = -1000;
-                                                        redKnight2Rectangle1.x1 = -1000;
-                                                        redKnight2Rectangle1.x2 = -1000;
-                                                        redKnight2Rectangle2.x1 = -1000;
-                                                        redKnight2Rectangle2.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-                                                    if(redRook1Rectangle1.posX == i*100 &&
-                                                       redRook1Rectangle1.posY == j*100) {
-                                                        redRook1Rectangle1.posX = 1100;
-                                                        redRook1Rectangle1.posY = -1000;
-                                                        redRook1Base.x1 = -1000;
-                                                        redRook1Base.x2 = -1000;
-                                                        redRook1Ellipse.x1 = -1000;
-                                                        redRook1Ellipse.x2 = -1000;
-                                                        redRook1Rectangle1.x1 = -1000;
-                                                        redRook1Rectangle1.x2 = -1000;
-                                                        redRook1Rectangle2.x1 = -1000;
-                                                        redRook1Rectangle2.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-                                                    if(redRook2Rectangle1.posX == i*100 &&
-                                                       redRook2Rectangle1.posY == j*100) {
-                                                        redRook2Rectangle1.posX = 1100;
-                                                        redRook2Rectangle1.posY = -1000;
-                                                        redRook2Base.x1 = -1000;
-                                                        redRook2Base.x2 = -1000;
-                                                        redRook2Ellipse.x1 = -1000;
-                                                        redRook2Ellipse.x2 = -1000;
-                                                        redRook2Rectangle1.x1 = -1000;
-                                                        redRook2Rectangle1.x2 = -1000;
-                                                        redRook2Rectangle2.x1 = -1000;
-                                                        redRook2Rectangle2.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-
-                                                    for(int u=0; u<8; u++) {
-                                                        if(redPawnsBase[u].posX == greyPawnsBase[k].posX &&
-                                                           redPawnsBase[u].posY == greyPawnsBase[k].posY) {
-                                                            redPawnsBase[u].posX = 1100;
-                                                            redPawnsBase[u].posY = -1000;
-                                                            redPawnsBase[u].x1 = -1000;
-                                                            redPawnsBase[u].x2 = -1000;
-                                                            redPawnsEllipse[u].x1 = -1000;
-                                                            redPawnsEllipse[u].x2 = -1000;
-                                                            ate = TRUE;
-                                                            break;
-                                                        }
-                                                    }
-
-                                                    if(ate) {
-                                                        greyPawnsBase[k].firstTimeMove = FALSE;
-
-                                                        greyPawnsBase[k].clicked = FALSE;
-                                                        if(1==2) SetWindowText(hwnd, "Red move");
-                                                        turnChanged = TRUE;
-                                                        done = TRUE;
-                                                    } else {
-                                                        greyPawnsBase[k].posX = a0;
-                                                        greyPawnsBase[k].posY = a1;
-
-                                                        greyPawnsBase[k].x1 = a2;
-                                                        greyPawnsBase[k].y1 = a3;
-
-                                                        greyPawnsBase[k].x2 = a4;
-                                                        greyPawnsBase[k].y2 = a5;
-
-                                                        greyPawnsEllipse[k].x1 = a6;
-                                                        greyPawnsEllipse[k].y1 = a7;
-
-                                                        greyPawnsEllipse[k].x2 = a8;
-                                                        greyPawnsEllipse[k].y2 = a9;
-
-                                                        turn = 'h';
-                                                    }
                                                 }
-                                            } else {
-                                                turn = 'h';
                                             }
                                         }
 
@@ -5666,7 +5638,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyPawnsBase[k].firstTimeMove = FALSE;
 
                                                     greyPawnsBase[k].clicked = FALSE;
-                                                    if(1==2) SetWindowText(hwnd, "Red move");
                                                     turnChanged = TRUE;
                                                     done = TRUE;
                                                 }
@@ -5770,7 +5741,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyPawnsBase[k].firstTimeMove = FALSE;
 
                                                     greyPawnsBase[k].clicked = FALSE;
-                                                    if(1==2) SetWindowText(hwnd, "Red move");
                                                     turnChanged = TRUE;
                                                     done = TRUE;
                                                 }                       
@@ -5857,41 +5827,215 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                             boolean ate = FALSE;
 
-                                            if(1 == 1) {
-                                                int a0 = greyPawnsBase[k].posX;
-                                                int a1 = greyPawnsBase[k].posY;
-                                                
-                                                int a2 = greyPawnsBase[k].x1;
-                                                int a3 = greyPawnsBase[k].y1;
-                                                
-                                                int a4 = greyPawnsBase[k].x2;
-                                                int a5 = greyPawnsBase[k].y2;
-                                                
-                                                int a6 = greyPawnsEllipse[k].x1;
-                                                int a7 = greyPawnsEllipse[k].y1;
-                                                
-                                                int a8 = greyPawnsEllipse[k].x2;
-                                                int a9 = greyPawnsEllipse[k].y2;
-                                                
-                                                boxes[j][i].clear = FALSE;
-                                                boxes[greyPawnsBase[k].posY/100][greyPawnsBase[k].posX/100].clear = TRUE;
+                                            int a0 = greyPawnsBase[k].posX;
+                                            int a1 = greyPawnsBase[k].posY;
 
-                                                greyPawnsBase[k].posY = j*100;
-                                                greyPawnsBase[k].posX = i*100;
+                                            int a2 = greyPawnsBase[k].x1;
+                                            int a3 = greyPawnsBase[k].y1;
 
-                                                greyPawnsEllipse[k].x1 = i*100 + 40;
-                                                greyPawnsEllipse[k].y1 = j*100 + 40;
-                                                greyPawnsEllipse[k].x2 = i*100 + 40 + 20;
-                                                greyPawnsEllipse[k].y2 = j*100 + 40 + 20;
+                                            int a4 = greyPawnsBase[k].x2;
+                                            int a5 = greyPawnsBase[k].y2;
 
-                                                greyPawnsBase[k].x1 = i*100 + 40;
-                                                greyPawnsBase[k].y1 = j*100 + 60;
-                                                greyPawnsBase[k].x2 = i*100 + 40 + 20;
-                                                greyPawnsBase[k].y2 = j*100 + 60 + 20;
+                                            int a6 = greyPawnsEllipse[k].x1;
+                                            int a7 = greyPawnsEllipse[k].y1;
 
-                                                boolean ffff = checkCheckGrey(j, i);
-                                                
-                                                if(ffff) {
+                                            int a8 = greyPawnsEllipse[k].x2;
+                                            int a9 = greyPawnsEllipse[k].y2;
+
+                                            boxes[j][i].clear = FALSE;
+                                            boxes[greyPawnsBase[k].posY/100][greyPawnsBase[k].posX/100].clear = TRUE;
+
+                                            greyPawnsBase[k].posY = j*100;
+                                            greyPawnsBase[k].posX = i*100;
+
+                                            greyPawnsEllipse[k].x1 = i*100 + 40;
+                                            greyPawnsEllipse[k].y1 = j*100 + 40;
+                                            greyPawnsEllipse[k].x2 = i*100 + 40 + 20;
+                                            greyPawnsEllipse[k].y2 = j*100 + 40 + 20;
+
+                                            greyPawnsBase[k].x1 = i*100 + 40;
+                                            greyPawnsBase[k].y1 = j*100 + 60;
+                                            greyPawnsBase[k].x2 = i*100 + 40 + 20;
+                                            greyPawnsBase[k].y2 = j*100 + 60 + 20;
+
+                                            boolean ffff = checkCheckGrey(j, i);
+
+                                            if(ffff) {
+                                                greyPawnsBase[k].posX = a0;
+                                                greyPawnsBase[k].posY = a1;
+
+                                                greyPawnsBase[k].x1 = a2;
+                                                greyPawnsBase[k].y1 = a3;
+
+                                                greyPawnsBase[k].x2 = a4;
+                                                greyPawnsBase[k].y2 = a5;
+
+                                                greyPawnsEllipse[k].x1 = a6;
+                                                greyPawnsEllipse[k].y1 = a7;
+
+                                                greyPawnsEllipse[k].x2 = a8;
+                                                greyPawnsEllipse[k].y2 = a9;
+
+                                                turn = 'h';
+                                            
+                                            } else {
+
+                                                for(int l=0; l<8; l++) {
+                                                    if((redPawnsBase[l].posX == greyPawnsBase[k].posX ||
+                                                        redPawnsBase[l].posX == greyPawnsBase[k].posX) && 
+                                                        redPawnsBase[l].posY == j*100) {
+                                                        redPawnsBase[l].posX = 1100;
+                                                        redPawnsBase[l].posY = -1000;
+                                                        redPawnsBase[l].x1 = -1000;
+                                                        redPawnsBase[l].x2 = -1000;
+                                                        redPawnsEllipse[l].x1 = -1000;
+                                                        redPawnsEllipse[l].x2 = -1000;
+                                                        ate = TRUE;
+                                                        break;
+                                                    }
+                                                }
+                                                if(redQueenSquare.posX == i*100 &&
+                                                   redQueenSquare.posY == j*100) {
+                                                    redQueenSquare.posX = 1100;
+                                                    redQueenSquare.posY = -1000;
+                                                    redQueenSquare.x1 = -1000;
+                                                    redQueenSquare.x2 = -1000;
+                                                    redQueenBase.x1 = -1000;
+                                                    redQueenBase.x2 = -1000;
+                                                    redQueenEllipse.x1 = -1000;
+                                                    redQueenEllipse.x2 = -1000;
+                                                    redQueenRectangle1.x1 = -1000;
+                                                    redQueenRectangle1.x2 = -1000;
+                                                    redQueenRectangle2.x1 = -1000;
+                                                    redQueenRectangle2.x2 = -1000;
+                                                    redQueenRectangle3.x1 = -1000;
+                                                    redQueenRectangle3.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+                                                for(int z=0; z<8; z++) {
+                                                    if(redQueenSquareK[z].posX == i*100 &&
+                                                       redQueenSquareK[z].posY == j*100) {
+                                                        redQueenSquareK[z].posX = 1100;
+                                                        redQueenSquareK[z].x1 = -1000;
+                                                        redQueenSquareK[z].x2 = -1000;
+                                                        redQueenBaseK[z].x1 = -1000;
+                                                        redQueenBaseK[z].x2 = -1000;
+                                                        redQueenEllipseK[z].x1 = -1000;
+                                                        redQueenEllipseK[z].x2 = -1000;
+                                                        redQueenRectangle1K[z].x1 = -1000;
+                                                        redQueenRectangle1K[z].x2 = -1000;
+                                                        redQueenRectangle2K[z].x1 = -1000;
+                                                        redQueenRectangle2K[z].x2 = -1000;
+                                                        redQueenRectangle3K[z].x1 = -1000;
+                                                        redQueenRectangle3K[z].x2 = -1000;
+                                                        ate = TRUE;
+                                                    }
+                                                }
+                                                if(redBishop1Square.posX == i*100 &&
+                                                   redBishop1Square.posY == j*100) {
+                                                    redBishop1Square.posX = 1100;
+                                                    redBishop1Square.posY = -1000;
+                                                    redBishop1Square.x1 = -1000;
+                                                    redBishop1Square.x2 = -1000;
+                                                    redBishop1Base.x1 = -1000;
+                                                    redBishop1Base.x2 = -1000;
+                                                    redBishop1Ellipse.x1 = -1000;
+                                                    redBishop1Ellipse.x2 = -1000;
+                                                    redBishop1Rectangle.x1 = -1000;
+                                                    redBishop1Rectangle.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+                                                if(redBishop2Square.posX == i*100 &&
+                                                   redBishop2Square.posY == j*100) {
+                                                    redBishop2Square.posX = 1100;
+                                                    redBishop2Square.posY = -1000;
+                                                    redBishop2Square.x1 = -1000;
+                                                    redBishop2Square.x2 = -1000;
+                                                    redBishop2Base.x1 = -1000;
+                                                    redBishop2Base.x2 = -1000;
+                                                    redBishop2Ellipse.x1 = -1000;
+                                                    redBishop2Ellipse.x2 = -1000;
+                                                    redBishop2Rectangle.x1 = -1000;
+                                                    redBishop2Rectangle.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+                                                if(redKnight1Rectangle1.posX == i*100 &&
+                                                   redKnight1Rectangle1.posY == j*100) {
+                                                    redKnight1Rectangle1.posX = 1100;
+                                                    redKnight1Rectangle1.posY = -1000;
+                                                    redKnight1Base.x1 = -1000;
+                                                    redKnight1Base.x2 = -1000;
+                                                    redKnight1Ellipse.x1 = -1000;
+                                                    redKnight1Ellipse.x2 = -1000;
+                                                    redKnight1Rectangle1.x1 = -1000;
+                                                    redKnight1Rectangle1.x2 = -1000;
+                                                    redKnight1Rectangle2.x1 = -1000;
+                                                    redKnight1Rectangle2.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+                                                if(redKnight2Rectangle1.posX == i*100 &&
+                                                   redKnight2Rectangle1.posY == j*100) {
+                                                    redKnight2Rectangle1.posX = 1100;
+                                                    redKnight2Rectangle1.posY = -1000;
+                                                    redKnight2Base.x1 = -1000;
+                                                    redKnight2Base.x2 = -1000;
+                                                    redKnight2Ellipse.x1 = -1000;
+                                                    redKnight2Ellipse.x2 = -1000;
+                                                    redKnight2Rectangle1.x1 = -1000;
+                                                    redKnight2Rectangle1.x2 = -1000;
+                                                    redKnight2Rectangle2.x1 = -1000;
+                                                    redKnight2Rectangle2.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+                                                if(redRook1Rectangle1.posX == i*100 &&
+                                                   redRook1Rectangle1.posY == j*100) {
+                                                    redRook1Rectangle1.posX = 1100;
+                                                    redRook1Rectangle1.posY = -1000;
+                                                    redRook1Base.x1 = -1000;
+                                                    redRook1Base.x2 = -1000;
+                                                    redRook1Ellipse.x1 = -1000;
+                                                    redRook1Ellipse.x2 = -1000;
+                                                    redRook1Rectangle1.x1 = -1000;
+                                                    redRook1Rectangle1.x2 = -1000;
+                                                    redRook1Rectangle2.x1 = -1000;
+                                                    redRook1Rectangle2.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+                                                if(redRook2Rectangle1.posX == i*100 &&
+                                                   redRook2Rectangle1.posY == j*100) {
+                                                    redRook2Rectangle1.posX = 1100;
+                                                    redRook2Rectangle1.posY = -1000;
+                                                    redRook2Base.x1 = -1000;
+                                                    redRook2Base.x2 = -1000;
+                                                    redRook2Ellipse.x1 = -1000;
+                                                    redRook2Ellipse.x2 = -1000;
+                                                    redRook2Rectangle1.x1 = -1000;
+                                                    redRook2Rectangle1.x2 = -1000;
+                                                    redRook2Rectangle2.x1 = -1000;
+                                                    redRook2Rectangle2.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+
+                                                for(int u=0; u<8; u++) {
+                                                    if(redPawnsBase[u].posX == greyPawnsBase[k].posX &&
+                                                       redPawnsBase[u].posY == greyPawnsBase[k].posY) {
+                                                        redPawnsBase[u].posX = 1100;
+                                                        redPawnsBase[u].posY = -1000;
+                                                        redPawnsBase[u].x1 = -1000;
+                                                        redPawnsBase[u].x2 = -1000;
+                                                        redPawnsEllipse[u].x1 = -1000;
+                                                        redPawnsEllipse[u].x2 = -1000;
+                                                        ate = TRUE;
+                                                        break;
+                                                    }
+                                                }
+
+                                                if(ate) {
+                                                    greyPawnsBase[k].firstTimeMove = FALSE;
+                                                    greyPawnsBase[k].clicked = FALSE;
+                                                    turnChanged = TRUE;
+                                                    done = TRUE;
+                                                } else {
                                                     greyPawnsBase[k].posX = a0;
                                                     greyPawnsBase[k].posY = a1;
 
@@ -5906,187 +6050,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                                     greyPawnsEllipse[k].x2 = a8;
                                                     greyPawnsEllipse[k].y2 = a9;
-                                                    
+
                                                     turn = 'h';
-                                                } else {
-
-                                                    for(int l=0; l<8; l++) {
-                                                        if((redPawnsBase[l].posX == greyPawnsBase[k].posX ||
-                                                            redPawnsBase[l].posX == greyPawnsBase[k].posX) && 
-                                                            redPawnsBase[l].posY == j*100) {
-                                                            redPawnsBase[l].posX = 1100;
-                                                            redPawnsBase[l].posY = -1000;
-                                                            redPawnsBase[l].x1 = -1000;
-                                                            redPawnsBase[l].x2 = -1000;
-                                                            redPawnsEllipse[l].x1 = -1000;
-                                                            redPawnsEllipse[l].x2 = -1000;
-                                                            ate = TRUE;
-                                                            break;
-                                                        }
-                                                    }
-                                                    if(redQueenSquare.posX == i*100 &&
-                                                       redQueenSquare.posY == j*100) {
-                                                        redQueenSquare.posX = 1100;
-                                                        redQueenSquare.posY = -1000;
-                                                        redQueenSquare.x1 = -1000;
-                                                        redQueenSquare.x2 = -1000;
-                                                        redQueenBase.x1 = -1000;
-                                                        redQueenBase.x2 = -1000;
-                                                        redQueenEllipse.x1 = -1000;
-                                                        redQueenEllipse.x2 = -1000;
-                                                        redQueenRectangle1.x1 = -1000;
-                                                        redQueenRectangle1.x2 = -1000;
-                                                        redQueenRectangle2.x1 = -1000;
-                                                        redQueenRectangle2.x2 = -1000;
-                                                        redQueenRectangle3.x1 = -1000;
-                                                        redQueenRectangle3.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-                                                    for(int z=0; z<8; z++) {
-                                                        if(redQueenSquareK[z].posX == i*100 &&
-                                                           redQueenSquareK[z].posY == j*100) {
-                                                            redQueenSquareK[z].posX = 1100;
-                                                            redQueenSquareK[z].x1 = -1000;
-                                                            redQueenSquareK[z].x2 = -1000;
-                                                            redQueenBaseK[z].x1 = -1000;
-                                                            redQueenBaseK[z].x2 = -1000;
-                                                            redQueenEllipseK[z].x1 = -1000;
-                                                            redQueenEllipseK[z].x2 = -1000;
-                                                            redQueenRectangle1K[z].x1 = -1000;
-                                                            redQueenRectangle1K[z].x2 = -1000;
-                                                            redQueenRectangle2K[z].x1 = -1000;
-                                                            redQueenRectangle2K[z].x2 = -1000;
-                                                            redQueenRectangle3K[z].x1 = -1000;
-                                                            redQueenRectangle3K[z].x2 = -1000;
-                                                            ate = TRUE;
-                                                        }
-                                                    }
-                                                    if(redBishop1Square.posX == i*100 &&
-                                                       redBishop1Square.posY == j*100) {
-                                                        redBishop1Square.posX = 1100;
-                                                        redBishop1Square.posY = -1000;
-                                                        redBishop1Square.x1 = -1000;
-                                                        redBishop1Square.x2 = -1000;
-                                                        redBishop1Base.x1 = -1000;
-                                                        redBishop1Base.x2 = -1000;
-                                                        redBishop1Ellipse.x1 = -1000;
-                                                        redBishop1Ellipse.x2 = -1000;
-                                                        redBishop1Rectangle.x1 = -1000;
-                                                        redBishop1Rectangle.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-                                                    if(redBishop2Square.posX == i*100 &&
-                                                       redBishop2Square.posY == j*100) {
-                                                        redBishop2Square.posX = 1100;
-                                                        redBishop2Square.posY = -1000;
-                                                        redBishop2Square.x1 = -1000;
-                                                        redBishop2Square.x2 = -1000;
-                                                        redBishop2Base.x1 = -1000;
-                                                        redBishop2Base.x2 = -1000;
-                                                        redBishop2Ellipse.x1 = -1000;
-                                                        redBishop2Ellipse.x2 = -1000;
-                                                        redBishop2Rectangle.x1 = -1000;
-                                                        redBishop2Rectangle.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-                                                    if(redKnight1Rectangle1.posX == i*100 &&
-                                                       redKnight1Rectangle1.posY == j*100) {
-                                                        redKnight1Rectangle1.posX = 1100;
-                                                        redKnight1Rectangle1.posY = -1000;
-                                                        redKnight1Base.x1 = -1000;
-                                                        redKnight1Base.x2 = -1000;
-                                                        redKnight1Ellipse.x1 = -1000;
-                                                        redKnight1Ellipse.x2 = -1000;
-                                                        redKnight1Rectangle1.x1 = -1000;
-                                                        redKnight1Rectangle1.x2 = -1000;
-                                                        redKnight1Rectangle2.x1 = -1000;
-                                                        redKnight1Rectangle2.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-                                                    if(redKnight2Rectangle1.posX == i*100 &&
-                                                       redKnight2Rectangle1.posY == j*100) {
-                                                        redKnight2Rectangle1.posX = 1100;
-                                                        redKnight2Rectangle1.posY = -1000;
-                                                        redKnight2Base.x1 = -1000;
-                                                        redKnight2Base.x2 = -1000;
-                                                        redKnight2Ellipse.x1 = -1000;
-                                                        redKnight2Ellipse.x2 = -1000;
-                                                        redKnight2Rectangle1.x1 = -1000;
-                                                        redKnight2Rectangle1.x2 = -1000;
-                                                        redKnight2Rectangle2.x1 = -1000;
-                                                        redKnight2Rectangle2.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-                                                    if(redRook1Rectangle1.posX == i*100 &&
-                                                       redRook1Rectangle1.posY == j*100) {
-                                                        redRook1Rectangle1.posX = 1100;
-                                                        redRook1Rectangle1.posY = -1000;
-                                                        redRook1Base.x1 = -1000;
-                                                        redRook1Base.x2 = -1000;
-                                                        redRook1Ellipse.x1 = -1000;
-                                                        redRook1Ellipse.x2 = -1000;
-                                                        redRook1Rectangle1.x1 = -1000;
-                                                        redRook1Rectangle1.x2 = -1000;
-                                                        redRook1Rectangle2.x1 = -1000;
-                                                        redRook1Rectangle2.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-                                                    if(redRook2Rectangle1.posX == i*100 &&
-                                                       redRook2Rectangle1.posY == j*100) {
-                                                        redRook2Rectangle1.posX = 1100;
-                                                        redRook2Rectangle1.posY = -1000;
-                                                        redRook2Base.x1 = -1000;
-                                                        redRook2Base.x2 = -1000;
-                                                        redRook2Ellipse.x1 = -1000;
-                                                        redRook2Ellipse.x2 = -1000;
-                                                        redRook2Rectangle1.x1 = -1000;
-                                                        redRook2Rectangle1.x2 = -1000;
-                                                        redRook2Rectangle2.x1 = -1000;
-                                                        redRook2Rectangle2.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-                                                    
-                                                    for(int u=0; u<8; u++) {
-                                                        if(redPawnsBase[u].posX == greyPawnsBase[k].posX &&
-                                                           redPawnsBase[u].posY == greyPawnsBase[k].posY) {
-                                                            redPawnsBase[u].posX = 1100;
-                                                            redPawnsBase[u].posY = -1000;
-                                                            redPawnsBase[u].x1 = -1000;
-                                                            redPawnsBase[u].x2 = -1000;
-                                                            redPawnsEllipse[u].x1 = -1000;
-                                                            redPawnsEllipse[u].x2 = -1000;
-                                                            ate = TRUE;
-                                                            break;
-                                                        }
-                                                    }
-
-                                                    if(ate) {
-                                                        greyPawnsBase[k].firstTimeMove = FALSE;
-                                                        greyPawnsBase[k].clicked = FALSE;
-                                                        if(1==2) SetWindowText(hwnd, "Red move");
-                                                        turnChanged = TRUE;
-                                                        done = TRUE;
-                                                    } else {
-                                                        greyPawnsBase[k].posX = a0;
-                                                        greyPawnsBase[k].posY = a1;
-
-                                                        greyPawnsBase[k].x1 = a2;
-                                                        greyPawnsBase[k].y1 = a3;
-
-                                                        greyPawnsBase[k].x2 = a4;
-                                                        greyPawnsBase[k].y2 = a5;
-
-                                                        greyPawnsEllipse[k].x1 = a6;
-                                                        greyPawnsEllipse[k].y1 = a7;
-
-                                                        greyPawnsEllipse[k].x2 = a8;
-                                                        greyPawnsEllipse[k].y2 = a9;
-
-                                                        turn = 'h';
-                                                    }
                                                 }
-                                            } else {
-                                                turn = 'h';
                                             }
                                         }
 
@@ -6160,7 +6126,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     turn = 'h';
                                                 } else {
                                                     greyPawnsBase[k].clicked = FALSE;
-                                                    if(1==2) SetWindowText(hwnd, "Red move");
                                                     turnChanged = TRUE;
                                                     done = TRUE;
                                                 }
@@ -6462,7 +6427,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     redRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Red move");
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -6732,7 +6696,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     redRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Red move");
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -6984,7 +6947,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     redRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Red move");
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -7236,7 +7198,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     redRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Red move");
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -7488,7 +7449,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     redRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Red move");
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -7740,7 +7700,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     redRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Red move");
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -7992,7 +7951,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     redRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Red move");
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -8244,7 +8202,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     redRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Red move");
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -8530,7 +8487,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     redRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Red move");
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -8782,7 +8738,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     redRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Red move");
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -9036,7 +8991,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     redRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Red move");
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -9290,7 +9244,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     redRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Red move");
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -9544,7 +9497,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     redRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Red move");
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -9798,7 +9750,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     redRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Red move");
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -10052,7 +10003,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     redRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Red move");
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -10306,7 +10256,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     redRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Red move");
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -10936,7 +10885,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     }
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Red move");
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 greyKingMoved = TRUE;
@@ -11206,7 +11154,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     }
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Red move");
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 greyKingMoved = TRUE;
@@ -11467,7 +11414,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     }
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Red move");
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 greyKingMoved = TRUE;
@@ -11741,7 +11687,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     }
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Red move");
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 greyKingMoved = TRUE;
@@ -12004,7 +11949,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     }
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Red move");
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 greyKingMoved = TRUE;
@@ -12276,7 +12220,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     }
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Red move");
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 greyKingMoved = TRUE;
@@ -12539,7 +12482,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     }
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Red move");
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 greyKingMoved = TRUE;
@@ -12815,7 +12757,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     }
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Red move");
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 greyKingMoved = TRUE;
@@ -12874,7 +12815,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     greyPawnsEllipse[z].x2 = -1000;
                                     
                                     turn = 'r';
-                                    SetWindowText(hwnd, "Red move");
                                 }
                             }
 
@@ -13016,7 +12956,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
                                         boxes[j][i].clear = FALSE;
                                         turn = 'r';
-                                        if(1==2) SetWindowText(hwnd, "Red move");
                                         turnChanged = TRUE;
                                         done = TRUE;
                                     }
@@ -13175,7 +13114,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             }
                                             boxes[j][i].clear = FALSE;
                                             turn = 'r';
-                                            if(1==2) SetWindowText(hwnd, "Red move");
                                             turnChanged = TRUE;
                                             done = TRUE;
                                         }
@@ -13301,7 +13239,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
                                         boxes[j][i].clear = FALSE;
                                         turn = 'r';
-                                        if(1==2) SetWindowText(hwnd, "Red move");
                                         turnChanged = TRUE;
                                         done = TRUE;
                                     }
@@ -13426,7 +13363,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
                                         boxes[j][i].clear = FALSE;
                                         turn = 'r';
-                                        if(1==2) SetWindowText(hwnd, "Red move");
                                         turnChanged = TRUE;
                                         done = TRUE;
                                     }
@@ -13557,7 +13493,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         greyRook2Rectangle1.clicked = FALSE;
                                         boxes[j][i].clear = FALSE;
                                         turn = 'r';
-                                        if(1==2) SetWindowText(hwnd, "Red move");
                                         greyRook1Moved = TRUE;
                                         turnChanged = TRUE;
                                         done = TRUE;
@@ -13691,7 +13626,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         greyRook1Rectangle1.clicked = FALSE;
                                         boxes[j][i].clear = FALSE;
                                         turn = 'r';
-                                        if(1==2) SetWindowText(hwnd, "Red move");
                                         greyRook2Moved = TRUE;
                                         turnChanged = TRUE;
                                         done = TRUE;
@@ -13799,11 +13733,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                                 checked = TRUE;
                                                                 greyKingSquare.posY -= 100;
                                                                 greyKingSquare.posX += 100;
-    //                                                            TextOut(hdc,
-    //                                                                    400,
-    //                                                                    400,
-    //                                                                    "stale mate",
-    //                                                                    GetTextSize("stale mate"));
                                                             }
                                                         }
                                                     }
@@ -13894,11 +13823,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                                 checked = TRUE;
                                                                 greyKingSquare.posY -= 100;
                                                                 greyKingSquare.posX += 100;
-    //                                                            TextOut(hdc,
-    //                                                                    400,
-    //                                                                    400,
-    //                                                                    "check mate",
-    //                                                                    GetTextSize("check mate"));
                                                             }
                                                         }
                                                     }
@@ -13926,8 +13850,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         int l2_y2 = j*100;
                                         PAINTSTRUCT pntS;
                                         HPEN pen, oldPen;
-
-
                                         pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
                                         oldPen = (HPEN)SelectObject(hdc, pen);				
                                         MoveToEx(hdc, l1_x1, l1_y1, NULL);
@@ -13936,7 +13858,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         LineTo(hdc, l2_x2, l2_y2);
                                         SelectObject(hdc, oldPen); 
                                         DeleteObject(pen);
-
                                     }
                                 }
                             }
@@ -13959,8 +13880,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     int l2_y2 = j*100;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-
-
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
@@ -13969,7 +13888,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     LineTo(hdc, l2_x2, l2_y2);
                                     SelectObject(hdc, oldPen); 
                                     DeleteObject(pen);
-
                                 }
                             }
                             if(turn == 'h' && greyKingSquare.posX == i*100 &&
@@ -13989,8 +13907,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     int l2_y2 = j*100;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-
-
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
@@ -13999,7 +13915,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     LineTo(hdc, l2_x2, l2_y2);
                                     SelectObject(hdc, oldPen); 
                                     DeleteObject(pen);
-
                                 }
                             }
                             if(turn == 'h' && greyQueenSquare.posX == i*100 &&
@@ -14019,8 +13934,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     int l2_y2 = j*100;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-
-
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
@@ -14029,7 +13942,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     LineTo(hdc, l2_x2, l2_y2);
                                     SelectObject(hdc, oldPen); 
                                     DeleteObject(pen);
-
                                 }
                             }
                             if(turn == 'h' && greyKnight1Rectangle1.posX == i*100 &&
@@ -14049,8 +13961,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     int l2_y2 = j*100;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-
-
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
@@ -14059,7 +13969,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     LineTo(hdc, l2_x2, l2_y2);
                                     SelectObject(hdc, oldPen); 
                                     DeleteObject(pen);
-
                                 }
                             }
                             if(turn == 'h' && greyKnight2Rectangle1.posX == i*100 &&
@@ -14079,8 +13988,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     int l2_y2 = j*100;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-
-
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
@@ -14089,7 +13996,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     LineTo(hdc, l2_x2, l2_y2);
                                     SelectObject(hdc, oldPen); 
                                     DeleteObject(pen);
-
                                 }
                             }
                             if(turn == 'h' && greyBishop1Square.posX == i*100 &&
@@ -14109,8 +14015,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     int l2_y2 = j*100;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-
-
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
@@ -14119,7 +14023,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     LineTo(hdc, l2_x2, l2_y2);
                                     SelectObject(hdc, oldPen); 
                                     DeleteObject(pen);
-
                                 }
                             }
                             if(turn == 'h' && greyBishop2Square.posX == i*100 &&
@@ -14139,8 +14042,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     int l2_y2 = j*100;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-
-
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
@@ -14149,7 +14050,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     LineTo(hdc, l2_x2, l2_y2);
                                     SelectObject(hdc, oldPen); 
                                     DeleteObject(pen);
-
                                 }
                             }
                             if(turn == 'h' && greyRook1Rectangle1.posX == i*100 &&
@@ -14169,8 +14069,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     int l2_y2 = j*100;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-
-
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
@@ -14179,7 +14077,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     LineTo(hdc, l2_x2, l2_y2);
                                     SelectObject(hdc, oldPen); 
                                     DeleteObject(pen);
-
                                 }
                             }
                             if(turn == 'h' && greyRook2Rectangle1.posX == i*100 &&
@@ -14191,7 +14088,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             if(done) {
 
                                 hdcMem = CreateCompatibleDC(hdc);
-
                                 oldBitmap = SelectObject(hdcMem, hBitmap);
 
                                 GetObject(hBitmap, sizeof(bitmap), &bitmap);
@@ -14239,7 +14135,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 Sleep(1);
                                 kingWhite = (HBITMAP)LoadImage(hInst, "kingwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 
-                                //draw grey rook1
                                 hdcMem = CreateCompatibleDC(hdc);
                                 HBITMAP hBmp;
                                 if(((greyRook1Rectangle1.posX/100)+(greyRook1Rectangle1.posY/100)) % 2 == 0)
@@ -14250,9 +14145,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, greyRook1Rectangle1.posX+25+7, greyRook1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
-                                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                                //draw grey rook2
                                 hdcMem = CreateCompatibleDC(hdc);
                                 if(((greyRook2Rectangle1.posX/100)+(greyRook2Rectangle1.posY/100)) % 2 == 0)
                                     hBmp = ReplaceColor(rook2White,0xff0000,0xafafaf,hdcMem);
@@ -14262,232 +14156,212 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, greyRook2Rectangle1.posX+25+7, greyRook2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
-                                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                                //draw grey knight1
                                 hdcMem = CreateCompatibleDC(hdc);
                                 if(((greyKnight1Rectangle1.posX/100)+(greyKnight1Rectangle1.posY/100)) % 2 == 0)
-                                    hBmp = ReplaceColor(knightWhite,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                                    hBmp = ReplaceColor(knightWhite,0x00ff00,0xafafaf,hdcMem);
                                 else
-                                    hBmp = ReplaceColor(knightWhite,0x00ff00,0x138738,hdcMem); // replace red by beige
+                                    hBmp = ReplaceColor(knightWhite,0x00ff00,0x138738,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, greyKnight1Rectangle1.posX+25+7, greyKnight1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
-                                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                                //draw grey knight2
                                 hdcMem = CreateCompatibleDC(hdc);
                                 if(((greyKnight2Rectangle1.posX/100)+(greyKnight2Rectangle1.posY/100)) % 2 == 0)
-                                    hBmp = ReplaceColor(knight2White,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                                    hBmp = ReplaceColor(knight2White,0x00ff00,0xafafaf,hdcMem);
                                 else
-                                    hBmp = ReplaceColor(knight2White,0x00ff00,0x138738,hdcMem); // replace red by beige
+                                    hBmp = ReplaceColor(knight2White,0x00ff00,0x138738,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, greyKnight2Rectangle1.posX+25+7, greyKnight2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
-                                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                                //draw grey bishop1
                                 hdcMem = CreateCompatibleDC(hdc);
                                 if(((greyBishop1Square.posX/100)+(greyBishop1Square.posY/100)) % 2 == 0)
-                                    hBmp = ReplaceColor(bishopWhite,0x4cb122,0xafafaf,hdcMem); // replace red by white
+                                    hBmp = ReplaceColor(bishopWhite,0x4cb122,0xafafaf,hdcMem);
                                 else
-                                    hBmp = ReplaceColor(bishopWhite,0x4cb122,0x138738,hdcMem); // replace red by beige
+                                    hBmp = ReplaceColor(bishopWhite,0x4cb122,0x138738,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, greyBishop1Square.posX+25+7, greyBishop1Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
-                                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                                //draw grey bishop2
                                 hdcMem = CreateCompatibleDC(hdc);
                                 if(((greyBishop2Square.posX/100)+(greyBishop2Square.posY/100)) % 2 == 0)
-                                    hBmp = ReplaceColor(bishop2White,0x4cb122,0xafafaf,hdcMem); // replace red by white
+                                    hBmp = ReplaceColor(bishop2White,0x4cb122,0xafafaf,hdcMem);
                                 else
-                                    hBmp = ReplaceColor(bishop2White,0x4cb122,0x138738,hdcMem); // replace red by beige
+                                    hBmp = ReplaceColor(bishop2White,0x4cb122,0x138738,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, greyBishop2Square.posX+25+7, greyBishop2Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
-                                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                                //draw grey queen
                                 hdcMem = CreateCompatibleDC(hdc);
                                 if(((greyQueenSquare.posX/100)+(greyQueenSquare.posY/100)) % 2 == 0)
-                                    hBmp = ReplaceColor(queenWhite,0xff0000,0xafafaf,hdcMem); // replace red by white
+                                    hBmp = ReplaceColor(queenWhite,0xff0000,0xafafaf,hdcMem);
                                 else
-                                    hBmp = ReplaceColor(queenWhite,0xff0000,0x138738,hdcMem); // replace red by beige
+                                    hBmp = ReplaceColor(queenWhite,0xff0000,0x138738,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, greyQueenSquare.posX+25+7, greyQueenSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
-                                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
-                                //draw grey queen
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                                //draw grey king
                                 hdcMem = CreateCompatibleDC(hdc);
                                 if(((greyKingSquare.posX/100)+(greyKingSquare.posY/100)) % 2 == 0)
-                                    hBmp = ReplaceColor(kingWhite,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                                    hBmp = ReplaceColor(kingWhite,0x00ff00,0xafafaf,hdcMem);
                                 else
-                                    hBmp = ReplaceColor(kingWhite,0x00ff00,0x138738,hdcMem); // replace red by beige
+                                    hBmp = ReplaceColor(kingWhite,0x00ff00,0x138738,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, greyKingSquare.posX+25+7, greyKingSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
-                                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                                //draw grey pawns
                                 for(int o=0; o<8; o++) {
                                     hdcMem = CreateCompatibleDC(hdc);
                                     if(((greyPawnsBase[o].posX/100)+(greyPawnsBase[o].posY/100)) % 2 == 0)
-                                        hBmp = ReplaceColor(pawnWhite,0x000000,0xafafaf,hdcMem); // replace red by white
+                                        hBmp = ReplaceColor(pawnWhite,0x000000,0xafafaf,hdcMem);
                                     else
-                                        hBmp = ReplaceColor(pawnWhite,0x000000,0x138738,hdcMem); // replace red by beige
+                                        hBmp = ReplaceColor(pawnWhite,0x000000,0x138738,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, greyPawnsBase[o].posX+25+7, greyPawnsBase[o].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                                     SelectObject(hdcMem, oldBitmap);
-                                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                 }
-                                //isnt this great?!
 
-                                //draw red rook1
                                 hdcMem = CreateCompatibleDC(hdc);
                                 if(((redRook1Rectangle1.posX/100)+(redRook1Rectangle1.posY/100)) % 2 == 0)
-                                    hBmp = ReplaceColor(rookBlack,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                                    hBmp = ReplaceColor(rookBlack,0x00ff00,0xafafaf,hdcMem);
                                 else
-                                    hBmp = ReplaceColor(rookBlack,0x00ff00,0x138738,hdcMem); // replace red by beige
+                                    hBmp = ReplaceColor(rookBlack,0x00ff00,0x138738,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, redRook1Rectangle1.posX+25+7, redRook1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
-                                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                                //draw red rook2
                                 hdcMem = CreateCompatibleDC(hdc);
                                 if(((redRook2Rectangle1.posX/100)+(redRook2Rectangle1.posY/100)) % 2 == 0)
-                                    hBmp = ReplaceColor(rook2Black,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                                    hBmp = ReplaceColor(rook2Black,0x00ff00,0xafafaf,hdcMem);
                                 else
-                                    hBmp = ReplaceColor(rookBlack,0x00ff00,0x138738,hdcMem); // replace red by beige
+                                    hBmp = ReplaceColor(rookBlack,0x00ff00,0x138738,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, redRook2Rectangle1.posX+25+7, redRook2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
-                                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                                //draw grey knight1
                                 hdcMem = CreateCompatibleDC(hdc);
                                 if(((redKnight1Rectangle1.posX/100)+(redKnight1Rectangle1.posY/100)) % 2 == 0)
-                                    hBmp = ReplaceColor(knightBlack,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                                    hBmp = ReplaceColor(knightBlack,0x00ff00,0xafafaf,hdcMem);
                                 else
-                                    hBmp = ReplaceColor(knightBlack,0x00ff00,0x138738,hdcMem); // replace red by beige
+                                    hBmp = ReplaceColor(knightBlack,0x00ff00,0x138738,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, redKnight1Rectangle1.posX+25+7, redKnight1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
-                                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                                //draw grey knight2
                                 hdcMem = CreateCompatibleDC(hdc);
                                 if(((redKnight2Rectangle1.posX/100)+(redKnight2Rectangle1.posY/100)) % 2 == 0)
-                                    hBmp = ReplaceColor(knight2Black,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                                    hBmp = ReplaceColor(knight2Black,0x00ff00,0xafafaf,hdcMem);
                                 else
-                                    hBmp = ReplaceColor(knight2Black,0x00ff00,0x138738,hdcMem); // replace red by beige
+                                    hBmp = ReplaceColor(knight2Black,0x00ff00,0x138738,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, redKnight2Rectangle1.posX+25+7, redKnight2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
-                                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                                //draw grey bishop1
                                 hdcMem = CreateCompatibleDC(hdc);
                                 if(((redBishop1Square.posX/100)+(redBishop1Square.posY/100)) % 2 == 0)
-                                    hBmp = ReplaceColor(bishopBlack,0xff0000,0xafafaf,hdcMem); // replace red by white
+                                    hBmp = ReplaceColor(bishopBlack,0xff0000,0xafafaf,hdcMem);
                                 else
-                                    hBmp = ReplaceColor(bishopBlack,0xff0000,0x138738,hdcMem); // replace red by beige
+                                    hBmp = ReplaceColor(bishopBlack,0xff0000,0x138738,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, redBishop1Square.posX+25+7, redBishop1Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
-                                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                                //draw grey bishop2
                                 hdcMem = CreateCompatibleDC(hdc);
                                 if(((redBishop2Square.posX/100)+(redBishop2Square.posY/100)) % 2 == 0)
-                                    hBmp = ReplaceColor(bishop2Black,0xff0000,0xafafaf,hdcMem); // replace red by white
+                                    hBmp = ReplaceColor(bishop2Black,0xff0000,0xafafaf,hdcMem);
                                 else
-                                    hBmp = ReplaceColor(bishop2Black,0xff0000,0x138738,hdcMem); // replace red by beige
+                                    hBmp = ReplaceColor(bishop2Black,0xff0000,0x138738,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, redBishop2Square.posX+25+7, redBishop2Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
-                                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                                //draw grey queen
                                 hdcMem = CreateCompatibleDC(hdc);
                                 if(((redQueenSquare.posX/100)+(redQueenSquare.posY/100)) % 2 == 0)
-                                    hBmp = ReplaceColor(queenBlack,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                                    hBmp = ReplaceColor(queenBlack,0x00ff00,0xafafaf,hdcMem);
                                 else
-                                    hBmp = ReplaceColor(queenBlack,0x00ff00,0x138738,hdcMem); // replace red by beige
+                                    hBmp = ReplaceColor(queenBlack,0x00ff00,0x138738,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, redQueenSquare.posX+25+7, redQueenSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
-                                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                                //draw grey king
                                 hdcMem = CreateCompatibleDC(hdc);
                                 if(((redKingSquare.posX/100)+(redKingSquare.posY/100)) % 2 == 0)
-                                    hBmp = ReplaceColor(kingBlack,0xff0000,0xafafaf,hdcMem); // replace red by white
+                                    hBmp = ReplaceColor(kingBlack,0xff0000,0xafafaf,hdcMem);
                                 else
-                                    hBmp = ReplaceColor(kingBlack,0xff0000,0x138738,hdcMem); // replace red by beige
+                                    hBmp = ReplaceColor(kingBlack,0xff0000,0x138738,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, redKingSquare.posX+25+7, redKingSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
-                                /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
-                                //draw grey pawns
                                 for(int o=0; o<8; o++) {
                                     hdcMem = CreateCompatibleDC(hdc);
                                     if(((redPawnsBase[o].posX/100)+(redPawnsBase[o].posY/100)) % 2 == 0)
-                                        hBmp = ReplaceColor(pawnBlack,0xff0000,0xafafaf,hdcMem); // replace red by white
+                                        hBmp = ReplaceColor(pawnBlack,0xff0000,0xafafaf,hdcMem);
                                     else
-                                        hBmp = ReplaceColor(pawnBlack,0xff0000,0x138738,hdcMem); // replace red by beige
+                                        hBmp = ReplaceColor(pawnBlack,0xff0000,0x138738,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, redPawnsBase[o].posX+25+7, redPawnsBase[o].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                                     SelectObject(hdcMem, oldBitmap);
-                                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                 }
 
-                                //draw grey queen
                                 for(int m=0; m<8; m++) {
                                     hdcMem = CreateCompatibleDC(hdc);
                                     if(((greyQueenSquareK[m].posX/100)+(greyQueenSquareK[m].posY/100)) % 2 == 0)
-                                        hBmp = ReplaceColor(queenWhite,0xff0000,0xafafaf,hdcMem); // replace red by white
+                                        hBmp = ReplaceColor(queenWhite,0xff0000,0xafafaf,hdcMem);
                                     else
-                                        hBmp = ReplaceColor(queenWhite,0xff0000,0x138738,hdcMem); // replace red by beige
+                                        hBmp = ReplaceColor(queenWhite,0xff0000,0x138738,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, greyQueenSquareK[m].posX+25+7, greyQueenSquareK[m].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                                     SelectObject(hdcMem, oldBitmap);
-                                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                 }
 
-                                //draw grey queen
                                 for(int m=0; m<8; m++) {
                                     hdcMem = CreateCompatibleDC(hdc);
                                     if(((redQueenSquareK[m].posX/100)+(redQueenSquareK[m].posY/100)) % 2 == 0)
-                                        hBmp = ReplaceColor(queenBlack,0x00ff00,0xafafaf,hdcMem); // replace red by white
+                                        hBmp = ReplaceColor(queenBlack,0x00ff00,0xafafaf,hdcMem);
                                     else
-                                        hBmp = ReplaceColor(queenBlack,0x00ff00,0x138738,hdcMem); // replace red by beige
+                                        hBmp = ReplaceColor(queenBlack,0x00ff00,0x138738,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, redQueenSquareK[m].posX+25+7, redQueenSquareK[m].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
                                     SelectObject(hdcMem, oldBitmap);
-                                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                 }
 
                                 DeleteObject(pawnBlack);
@@ -14553,7 +14427,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 FillRect(hdc, &rrect, white_brush);
                                 DeleteObject(white_brush);
 
-                                //draw grey rook1
                                 if(greyRook1Rectangle1.posX == 1100) {
                                     hdcMem = CreateCompatibleDC(hdc);
                                     HBITMAP hBmp = ReplaceColor(rookWhite_s,0xff0000,0x00ffff,hdcMem);
@@ -14570,11 +14443,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
                                     }
                                     SelectObject(hdcMem, oldBitmap);
-                                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
 
-                                //draw grey rook2
                                 if(greyRook2Rectangle1.posX == 1100) {
                                     hdcMem = CreateCompatibleDC(hdc);
                                     HBITMAP hBmp = ReplaceColor(rook2White_s,0xff0000,0x00ffff,hdcMem);
@@ -14591,11 +14463,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
                                     }
                                     SelectObject(hdcMem, oldBitmap);
-                                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
 
-                                //draw grey knight1
                                 if(greyKnight1Rectangle1.posX == 1100) {
                                     hdcMem = CreateCompatibleDC(hdc);
                                     HBITMAP hBmp = ReplaceColor(knightWhite_s,0x00ff00,0x00ffff,hdcMem);
@@ -14612,11 +14483,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
                                     }
                                     SelectObject(hdcMem, oldBitmap);
-                                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
 
-                                //draw grey knight2
                                 if(greyKnight2Rectangle1.posX == 1100) {
                                     hdcMem = CreateCompatibleDC(hdc);
                                     HBITMAP hBmp = ReplaceColor(knight2White_s,0x00ff00,0x00ffff,hdcMem);
@@ -14633,11 +14503,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
                                     }
                                     SelectObject(hdcMem, oldBitmap);
-                                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
 
-                                //draw grey bishop1
                                 if(greyBishop1Square.posX == 1100) {
                                     hdcMem = CreateCompatibleDC(hdc);
                                     HBITMAP hBmp = ReplaceColor(bishopWhite_s,0x4cb122,0x00ffff,hdcMem);
@@ -14654,11 +14523,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
                                     }
                                     SelectObject(hdcMem, oldBitmap);
-                                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
 
-                                //draw grey bishop2
                                 if(greyBishop2Square.posX == 1100) {
                                     hdcMem = CreateCompatibleDC(hdc);
                                     HBITMAP hBmp = ReplaceColor(bishop2White_s,0x4cb122,0x00ffff,hdcMem);
@@ -14675,11 +14543,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
                                     }
                                     SelectObject(hdcMem, oldBitmap);
-                                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
 
-                                //draw grey queen
                                 if(greyQueenSquare.posX == 1100) {
                                     hdcMem = CreateCompatibleDC(hdc);
                                     HBITMAP hBmp = ReplaceColor(queenWhite_s,0xff0000,0x00ffff,hdcMem);
@@ -14696,11 +14563,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
                                     }
                                     SelectObject(hdcMem, oldBitmap);
-                                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
 
-                                //draw grey king
                                 if(greyKingSquare.posX == 1100) {
                                     hdcMem = CreateCompatibleDC(hdc);
                                     HBITMAP hBmp = ReplaceColor(kingWhite_s,0x00ff00,0x00ffff,hdcMem);
@@ -14708,11 +14574,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, 825, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     SelectObject(hdcMem, oldBitmap);
-                                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
 
-                                //draw grey pawns
                                 for(int o=0; o<8; o++) {
                                     if(greyPawnsBase[o].posX == 1100) {
                                         hdcMem = CreateCompatibleDC(hdc);
@@ -14730,13 +14595,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             }
                                         }
                                         SelectObject(hdcMem, oldBitmap);
-                                        /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                         _y_ += 31;
                                     }
                                 }
-                                //isnt this great?!
 
-                                //draw grey queen
                                 for(int m=0; m<8; m++) {
                                     if(greyQueenSquareK[m].posX == 1100) {
                                         hdcMem = CreateCompatibleDC(hdc);
@@ -14754,14 +14617,13 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             }
                                         }
                                         SelectObject(hdcMem, oldBitmap);
-                                        /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                         _y_ += 31;
                                     }
                                 }
 
                                 _y_ = 20;
 
-                                //draw red rook1
                                 if(redRook1Rectangle1.posX == 1100) {
                                     hdcMem = CreateCompatibleDC(hdc);
                                     HBITMAP hBmp = ReplaceColor(rookBlack_s,0x00ff00,0x00ffff,hdcMem);
@@ -14778,11 +14640,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
                                     }
                                     SelectObject(hdcMem, oldBitmap);
-                                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
 
-                                //draw red rook2
                                 if(redRook2Rectangle1.posX == 1100) {
                                     hdcMem = CreateCompatibleDC(hdc);
                                     HBITMAP hBmp = ReplaceColor(rook2Black_s,0x00ff00,0x00ffff,hdcMem);
@@ -14799,11 +14660,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
                                     }
                                     SelectObject(hdcMem, oldBitmap);
-                                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
 
-                                //draw grey knight1
                                 if(redKnight1Rectangle1.posX == 1100) {
                                     hdcMem = CreateCompatibleDC(hdc);
                                     HBITMAP hBmp = ReplaceColor(knightBlack_s,0x00ff00,0x00ffff,hdcMem);
@@ -14820,11 +14680,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
                                     }
                                     SelectObject(hdcMem, oldBitmap);
-                                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
 
-                                //draw grey knight2
                                 if(redKnight2Rectangle1.posX == 1100) {
                                     hdcMem = CreateCompatibleDC(hdc);
                                     HBITMAP hBmp = ReplaceColor(knight2Black_s,0x00ff00,0x00ffff,hdcMem);
@@ -14841,11 +14700,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
                                     }
                                     SelectObject(hdcMem, oldBitmap);
-                                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
 
-                                //draw grey bishop1
                                 if(redBishop1Square.posX == 1100) {
                                     hdcMem = CreateCompatibleDC(hdc);
                                     HBITMAP hBmp = ReplaceColor(bishopBlack_s,0xff0000,0x00ffff,hdcMem);
@@ -14862,11 +14720,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
                                     }
                                     SelectObject(hdcMem, oldBitmap);
-                                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
 
-                                //draw grey bishop2
                                 if(redBishop2Square.posX == 1100) {
                                     hdcMem = CreateCompatibleDC(hdc);
                                     HBITMAP hBmp = ReplaceColor(bishop2Black_s,0xff0000,0x00ffff,hdcMem);
@@ -14883,11 +14740,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
                                     }
                                     SelectObject(hdcMem, oldBitmap);
-                                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
 
-                                //draw grey queen
                                 if(redQueenSquare.posX == 1100) {
                                     hdcMem = CreateCompatibleDC(hdc);
                                     HBITMAP hBmp = ReplaceColor(queenBlack_s,0x00ff00,0x00ffff,hdcMem);
@@ -14904,11 +14760,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
                                     }
                                     SelectObject(hdcMem, oldBitmap);
-                                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
 
-                                //draw grey king
                                 if(redKingSquare.posX == 1100) {
                                     hdcMem = CreateCompatibleDC(hdc);
                                     HBITMAP hBmp = ReplaceColor(kingBlack_s,0xff0000,0x00ffff,hdcMem);
@@ -14916,11 +14771,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, 900, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     SelectObject(hdcMem, oldBitmap);
-                                    /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
 
-                                //draw red pawns
                                 for(int o=0; o<8; o++) {
                                     if(redPawnsBase[o].posX == 1100) {
                                         hdcMem = CreateCompatibleDC(hdc);
@@ -14938,12 +14792,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             }
                                         }
                                         SelectObject(hdcMem, oldBitmap);
-                                        /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                         _y_ += 31;
                                     }
                                 }
 
-                                //draw grey queen
                                 for(int m=0; m<8; m++) {
                                     if(redQueenSquareK[m].posX == 1100) {
                                         hdcMem = CreateCompatibleDC(hdc);
@@ -14961,7 +14814,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             }
                                         }
                                         SelectObject(hdcMem, oldBitmap);
-                                        /*ReleaseDC(hwnd, hdc);*/ ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                         _y_ += 31;
                                     }
                                 }
@@ -14990,7 +14843,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         if(from != NULL && to != NULL) {
                                             SetWindowText(hwnd_timer, "computer is thinking ...");
                                             gettingit = TRUE;
-                                            thread_1 = CreateThread(NULL, 0, callApi, NULL, 0, NULL);
+                                            pthread_create(&thread_id_api, NULL, callApi, NULL);
                                         }
                                         break;
                                     }
@@ -15102,42 +14955,215 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                             boolean ate = FALSE;
 
-                                            if(1 == 1) {
+                                            int a0 = redPawnsBase[k].posX;
+                                            int a1 = redPawnsBase[k].posY;
 
-                                                int a0 = redPawnsBase[k].posX;
-                                                int a1 = redPawnsBase[k].posY;
+                                            int a2 = redPawnsBase[k].x1;
+                                            int a3 = redPawnsBase[k].y1;
 
-                                                int a2 = redPawnsBase[k].x1;
-                                                int a3 = redPawnsBase[k].y1;
+                                            int a4 = redPawnsBase[k].x2;
+                                            int a5 = redPawnsBase[k].y2;
 
-                                                int a4 = redPawnsBase[k].x2;
-                                                int a5 = redPawnsBase[k].y2;
+                                            int a6 = redPawnsEllipse[k].x1;
+                                            int a7 = redPawnsEllipse[k].y1;
 
-                                                int a6 = redPawnsEllipse[k].x1;
-                                                int a7 = redPawnsEllipse[k].y1;
+                                            int a8 = redPawnsEllipse[k].x2;
+                                            int a9 = redPawnsEllipse[k].y2;
 
-                                                int a8 = redPawnsEllipse[k].x2;
-                                                int a9 = redPawnsEllipse[k].y2;
+                                            boxes[j][i].clear = FALSE;
+                                            boxes[redPawnsBase[k].posY/100][redPawnsBase[k].posX/100].clear = TRUE;
+                                            redPawnsBase[k].posY = j*100;
+                                            redPawnsBase[k].posX = i*100;
 
-                                                boxes[j][i].clear = FALSE;
-                                                boxes[redPawnsBase[k].posY/100][redPawnsBase[k].posX/100].clear = TRUE;
-                                                redPawnsBase[k].posY = j*100;
-                                                redPawnsBase[k].posX = i*100;
+                                            redPawnsEllipse[k].x1 = i*100 + 40;
+                                            redPawnsEllipse[k].y1 = j*100 + 40;
+                                            redPawnsEllipse[k].x2 = i*100 + 40 + 20;
+                                            redPawnsEllipse[k].y2 = j*100 + 40 + 20;
 
-                                                redPawnsEllipse[k].x1 = i*100 + 40;
-                                                redPawnsEllipse[k].y1 = j*100 + 40;
-                                                redPawnsEllipse[k].x2 = i*100 + 40 + 20;
-                                                redPawnsEllipse[k].y2 = j*100 + 40 + 20;
+                                            redPawnsBase[k].x1 = i*100 + 40;
+                                            redPawnsBase[k].y1 = j*100 + 60;
+                                            redPawnsBase[k].x2 = i*100 + 40 + 20;
+                                            redPawnsBase[k].y2 = j*100 + 60 + 20;
 
-                                                redPawnsBase[k].x1 = i*100 + 40;
-                                                redPawnsBase[k].y1 = j*100 + 60;
-                                                redPawnsBase[k].x2 = i*100 + 40 + 20;
-                                                redPawnsBase[k].y2 = j*100 + 60 + 20;
+                                            boolean ffff = checkCheckRed(j, i);
 
-                                                boolean ffff = checkCheckRed(j, i);
+                                            if(ffff) {
 
-                                                if(ffff) {
+                                                redPawnsBase[k].posX = a0;
+                                                redPawnsBase[k].posY = a1;
 
+                                                redPawnsBase[k].x1 = a2;
+                                                redPawnsBase[k].y1 = a3;
+
+                                                redPawnsBase[k].x2 = a4;
+                                                redPawnsBase[k].y2 = a5;
+
+                                                redPawnsEllipse[k].x1 = a6;
+                                                redPawnsEllipse[k].y1 = a7;
+
+                                                redPawnsEllipse[k].x2 = a8;
+                                                redPawnsEllipse[k].y2 = a9;
+
+                                                turn = 'r';
+                                            } else {
+
+                                                for(int l=0; l<8; l++) {
+                                                    if((greyPawnsBase[l].posX == redPawnsBase[k].posX ||
+                                                        greyPawnsBase[l].posX == redPawnsBase[k].posX) &&
+                                                        greyPawnsBase[l].posY == j*100) {
+                                                        greyPawnsBase[l].posX = 1100;
+                                                        greyPawnsBase[l].posY = -1000;
+                                                        greyPawnsBase[l].x1 = -1000;
+                                                        greyPawnsBase[l].x2 = -1000;
+                                                        greyPawnsEllipse[l].x1 = -1000;
+                                                        greyPawnsEllipse[l].x2 = -1000;
+                                                        ate = TRUE;
+                                                        break;
+                                                    }
+                                                }
+                                                for(int z=0; z<8; z++) {
+                                                    if(greyQueenSquareK[z].posX == i*100 &&
+                                                       greyQueenSquareK[z].posY == j*100) {
+                                                        greyQueenSquareK[z].posX = 1100;
+                                                        greyQueenSquareK[z].posY = -1000;
+                                                        greyQueenSquareK[z].x1 = -1000;
+                                                        greyQueenSquareK[z].x2 = -1000;
+                                                        greyQueenBaseK[z].x1 = -1000;
+                                                        greyQueenBaseK[z].x2 = -1000;
+                                                        greyQueenEllipseK[z].x1 = -1000;
+                                                        greyQueenEllipseK[z].x2 = -1000;
+                                                        greyQueenRectangle1K[z].x1 = -1000;
+                                                        greyQueenRectangle1K[z].x2 = -1000;
+                                                        greyQueenRectangle2K[z].x1 = -1000;
+                                                        greyQueenRectangle2K[z].x2 = -1000;
+                                                        greyQueenRectangle3K[z].x1 = -1000;
+                                                        greyQueenRectangle3K[z].x2 = -1000;
+                                                        ate = TRUE;
+                                                    }
+                                                }
+                                                if(greyQueenSquare.posX == i*100 &&
+                                                   greyQueenSquare.posY == j*100) {
+                                                    greyQueenSquare.posX = 1100;
+                                                    greyQueenSquare.posY = -1000;
+                                                    greyQueenSquare.x1 = -1000;
+                                                    greyQueenSquare.x2 = -1000;
+                                                    greyQueenBase.x1 = -1000;
+                                                    greyQueenBase.x2 = -1000;
+                                                    greyQueenEllipse.x1 = -1000;
+                                                    greyQueenEllipse.x2 = -1000;
+                                                    greyQueenRectangle1.x1 = -1000;
+                                                    greyQueenRectangle1.x2 = -1000;
+                                                    greyQueenRectangle2.x1 = -1000;
+                                                    greyQueenRectangle2.x2 = -1000;
+                                                    greyQueenRectangle3.x1 = -1000;
+                                                    greyQueenRectangle3.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+                                                if(greyBishop1Square.posX == i*100 &&
+                                                   greyBishop1Square.posY == j*100) {
+                                                    greyBishop1Square.posX = 1100;
+                                                    greyBishop1Square.posY = -1000;
+                                                    greyBishop1Square.x1 = -1000;
+                                                    greyBishop1Square.x2 = -1000;
+                                                    greyBishop1Base.x1 = -1000;
+                                                    greyBishop1Base.x2 = -1000;
+                                                    greyBishop1Ellipse.x1 = -1000;
+                                                    greyBishop1Ellipse.x2 = -1000;
+                                                    greyBishop1Rectangle.x1 = -1000;
+                                                    greyBishop1Rectangle.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+                                                if(greyBishop2Square.posX == i*100 &&
+                                                   greyBishop2Square.posY == j*100) {
+                                                    greyBishop2Square.posX = 1100;
+                                                    greyBishop2Square.posY = -1000;
+                                                    greyBishop2Square.x1 = -1000;
+                                                    greyBishop2Square.x2 = -1000;
+                                                    greyBishop2Base.x1 = -1000;
+                                                    greyBishop2Base.x2 = -1000;
+                                                    greyBishop2Ellipse.x1 = -1000;
+                                                    greyBishop2Ellipse.x2 = -1000;
+                                                    greyBishop2Rectangle.x1 = -1000;
+                                                    greyBishop2Rectangle.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+                                                if(greyKnight1Rectangle1.posX == i*100 &&
+                                                   greyKnight1Rectangle1.posY == j*100) {
+                                                    greyKnight1Rectangle1.posX = 1100;
+                                                    greyKnight1Rectangle1.posY = -1000;
+                                                    greyKnight1Base.x1 = -1000;
+                                                    greyKnight1Base.x2 = -1000;
+                                                    greyKnight1Ellipse.x1 = -1000;
+                                                    greyKnight1Ellipse.x2 = -1000;
+                                                    greyKnight1Rectangle1.x1 = -1000;
+                                                    greyKnight1Rectangle1.x2 = -1000;
+                                                    greyKnight1Rectangle2.x1 = -1000;
+                                                    greyKnight1Rectangle2.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+                                                if(greyKnight2Rectangle1.posX == i*100 &&
+                                                   greyKnight2Rectangle1.posY == j*100) {
+                                                    greyKnight2Rectangle1.posX = 1100;
+                                                    greyKnight2Rectangle1.posY = -1000;
+                                                    greyKnight2Base.x1 = -1000;
+                                                    greyKnight2Base.x2 = -1000;
+                                                    greyKnight2Ellipse.x1 = -1000;
+                                                    greyKnight2Ellipse.x2 = -1000;
+                                                    greyKnight2Rectangle1.x1 = -1000;
+                                                    greyKnight2Rectangle1.x2 = -1000;
+                                                    greyKnight2Rectangle2.x1 = -1000;
+                                                    greyKnight2Rectangle2.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+                                                if(greyRook1Rectangle1.posX == i*100 &&
+                                                   greyRook1Rectangle1.posY == j*100) {
+                                                    greyRook1Rectangle1.posX = 1100;
+                                                    greyRook1Rectangle1.posY = -1000;
+                                                    greyRook1Base.x1 = -1000;
+                                                    greyRook1Base.x2 = -1000;
+                                                    greyRook1Ellipse.x1 = -1000;
+                                                    greyRook1Ellipse.x2 = -1000;
+                                                    greyRook1Rectangle1.x1 = -1000;
+                                                    greyRook1Rectangle1.x2 = -1000;
+                                                    greyRook1Rectangle2.x1 = -1000;
+                                                    greyRook1Rectangle2.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+                                                if(greyRook2Rectangle1.posX == i*100 &&
+                                                   greyRook2Rectangle1.posY == j*100) {
+                                                    greyRook2Rectangle1.posX = 1100;
+                                                    greyRook2Rectangle1.posY = -1000;
+                                                    greyRook2Base.x1 = -1000;
+                                                    greyRook2Base.x2 = -1000;
+                                                    greyRook2Ellipse.x1 = -1000;
+                                                    greyRook2Ellipse.x2 = -1000;
+                                                    greyRook2Rectangle1.x1 = -1000;
+                                                    greyRook2Rectangle1.x2 = -1000;
+                                                    greyRook2Rectangle2.x1 = -1000;
+                                                    greyRook2Rectangle2.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+
+                                                for(int u=0; u<8; u++) {
+                                                    if(greyPawnsBase[u].posX == redPawnsBase[k].posX &&
+                                                       greyPawnsBase[u].posY == redPawnsBase[k].posY) {
+                                                        greyPawnsBase[u].posX = 1100;
+                                                        greyPawnsBase[u].posY = -1000;
+                                                        greyPawnsBase[u].x1 = -1000;
+                                                        greyPawnsBase[u].x2 = -1000;
+                                                        greyPawnsEllipse[u].x1 = -1000;
+                                                        greyPawnsEllipse[u].x2 = -1000;
+                                                        ate = TRUE;
+                                                        break;
+                                                    }
+                                                }
+
+                                                if(ate) {
+                                                    redPawnsBase[k].firstTimeMove = FALSE;
+                                                    redPawnsBase[k].clicked = FALSE;
+                                                    turnChanged = TRUE;
+                                                    done = TRUE;
+                                                } else {
                                                     redPawnsBase[k].posX = a0;
                                                     redPawnsBase[k].posY = a1;
 
@@ -15154,195 +15180,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     redPawnsEllipse[k].y2 = a9;
 
                                                     turn = 'r';
-                                                } else {
-
-                                                    for(int l=0; l<8; l++) {
-                                                        if(WM_RBUTTONDOWN == msg || 1 == 1)
-                                                        if((greyPawnsBase[l].posX == redPawnsBase[k].posX ||
-                                                            greyPawnsBase[l].posX == redPawnsBase[k].posX) &&
-                                                            greyPawnsBase[l].posY == j*100) {
-                                                            greyPawnsBase[l].posX = 1100;
-                                                            greyPawnsBase[l].posY = -1000;
-                                                            greyPawnsBase[l].x1 = -1000;
-                                                            greyPawnsBase[l].x2 = -1000;
-                                                            greyPawnsEllipse[l].x1 = -1000;
-                                                            greyPawnsEllipse[l].x2 = -1000;
-                                                            ate = TRUE;
-                                                            break;
-                                                        }
-                                                    }
-                                                    for(int z=0; z<8; z++) {
-                                                        if(WM_RBUTTONDOWN == msg || 1 == 1)
-                                                        if(greyQueenSquareK[z].posX == i*100 &&
-                                                           greyQueenSquareK[z].posY == j*100) {
-                                                            greyQueenSquareK[z].posX = 1100;
-                                                            greyQueenSquareK[z].posY = -1000;
-                                                            greyQueenSquareK[z].x1 = -1000;
-                                                            greyQueenSquareK[z].x2 = -1000;
-                                                            greyQueenBaseK[z].x1 = -1000;
-                                                            greyQueenBaseK[z].x2 = -1000;
-                                                            greyQueenEllipseK[z].x1 = -1000;
-                                                            greyQueenEllipseK[z].x2 = -1000;
-                                                            greyQueenRectangle1K[z].x1 = -1000;
-                                                            greyQueenRectangle1K[z].x2 = -1000;
-                                                            greyQueenRectangle2K[z].x1 = -1000;
-                                                            greyQueenRectangle2K[z].x2 = -1000;
-                                                            greyQueenRectangle3K[z].x1 = -1000;
-                                                            greyQueenRectangle3K[z].x2 = -1000;
-                                                            ate = TRUE;
-                                                        }
-                                                    }
-                                                    if(WM_RBUTTONDOWN == msg || 1 == 1)
-                                                    if(greyQueenSquare.posX == i*100 &&
-                                                       greyQueenSquare.posY == j*100) {
-                                                        greyQueenSquare.posX = 1100;
-                                                        greyQueenSquare.posY = -1000;
-                                                        greyQueenSquare.x1 = -1000;
-                                                        greyQueenSquare.x2 = -1000;
-                                                        greyQueenBase.x1 = -1000;
-                                                        greyQueenBase.x2 = -1000;
-                                                        greyQueenEllipse.x1 = -1000;
-                                                        greyQueenEllipse.x2 = -1000;
-                                                        greyQueenRectangle1.x1 = -1000;
-                                                        greyQueenRectangle1.x2 = -1000;
-                                                        greyQueenRectangle2.x1 = -1000;
-                                                        greyQueenRectangle2.x2 = -1000;
-                                                        greyQueenRectangle3.x1 = -1000;
-                                                        greyQueenRectangle3.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-                                                    if(WM_RBUTTONDOWN == msg || 1 == 1)
-                                                    if(greyBishop1Square.posX == i*100 &&
-                                                       greyBishop1Square.posY == j*100) {
-                                                        greyBishop1Square.posX = 1100;
-                                                        greyBishop1Square.posY = -1000;
-                                                        greyBishop1Square.x1 = -1000;
-                                                        greyBishop1Square.x2 = -1000;
-                                                        greyBishop1Base.x1 = -1000;
-                                                        greyBishop1Base.x2 = -1000;
-                                                        greyBishop1Ellipse.x1 = -1000;
-                                                        greyBishop1Ellipse.x2 = -1000;
-                                                        greyBishop1Rectangle.x1 = -1000;
-                                                        greyBishop1Rectangle.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-                                                    if(WM_RBUTTONDOWN == msg || 1 == 1)
-                                                    if(greyBishop2Square.posX == i*100 &&
-                                                       greyBishop2Square.posY == j*100) {
-                                                        greyBishop2Square.posX = 1100;
-                                                        greyBishop2Square.posY = -1000;
-                                                        greyBishop2Square.x1 = -1000;
-                                                        greyBishop2Square.x2 = -1000;
-                                                        greyBishop2Base.x1 = -1000;
-                                                        greyBishop2Base.x2 = -1000;
-                                                        greyBishop2Ellipse.x1 = -1000;
-                                                        greyBishop2Ellipse.x2 = -1000;
-                                                        greyBishop2Rectangle.x1 = -1000;
-                                                        greyBishop2Rectangle.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-                                                    if(WM_RBUTTONDOWN == msg || 1 == 1)
-                                                    if(greyKnight1Rectangle1.posX == i*100 &&
-                                                       greyKnight1Rectangle1.posY == j*100) {
-                                                        greyKnight1Rectangle1.posX = 1100;
-                                                        greyKnight1Rectangle1.posY = -1000;
-                                                        greyKnight1Base.x1 = -1000;
-                                                        greyKnight1Base.x2 = -1000;
-                                                        greyKnight1Ellipse.x1 = -1000;
-                                                        greyKnight1Ellipse.x2 = -1000;
-                                                        greyKnight1Rectangle1.x1 = -1000;
-                                                        greyKnight1Rectangle1.x2 = -1000;
-                                                        greyKnight1Rectangle2.x1 = -1000;
-                                                        greyKnight1Rectangle2.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-                                                    if(WM_RBUTTONDOWN == msg || 1 == 1)
-                                                    if(greyKnight2Rectangle1.posX == i*100 &&
-                                                       greyKnight2Rectangle1.posY == j*100) {
-                                                        greyKnight2Rectangle1.posX = 1100;
-                                                        greyKnight2Rectangle1.posY = -1000;
-                                                        greyKnight2Base.x1 = -1000;
-                                                        greyKnight2Base.x2 = -1000;
-                                                        greyKnight2Ellipse.x1 = -1000;
-                                                        greyKnight2Ellipse.x2 = -1000;
-                                                        greyKnight2Rectangle1.x1 = -1000;
-                                                        greyKnight2Rectangle1.x2 = -1000;
-                                                        greyKnight2Rectangle2.x1 = -1000;
-                                                        greyKnight2Rectangle2.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-                                                    if(WM_RBUTTONDOWN == msg || 1 == 1)
-                                                    if(greyRook1Rectangle1.posX == i*100 &&
-                                                       greyRook1Rectangle1.posY == j*100) {
-                                                        greyRook1Rectangle1.posX = 1100;
-                                                        greyRook1Rectangle1.posY = -1000;
-                                                        greyRook1Base.x1 = -1000;
-                                                        greyRook1Base.x2 = -1000;
-                                                        greyRook1Ellipse.x1 = -1000;
-                                                        greyRook1Ellipse.x2 = -1000;
-                                                        greyRook1Rectangle1.x1 = -1000;
-                                                        greyRook1Rectangle1.x2 = -1000;
-                                                        greyRook1Rectangle2.x1 = -1000;
-                                                        greyRook1Rectangle2.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-                                                    if(WM_RBUTTONDOWN == msg || 1 == 1)
-                                                    if(greyRook2Rectangle1.posX == i*100 &&
-                                                       greyRook2Rectangle1.posY == j*100) {
-                                                        greyRook2Rectangle1.posX = 1100;
-                                                        greyRook2Rectangle1.posY = -1000;
-                                                        greyRook2Base.x1 = -1000;
-                                                        greyRook2Base.x2 = -1000;
-                                                        greyRook2Ellipse.x1 = -1000;
-                                                        greyRook2Ellipse.x2 = -1000;
-                                                        greyRook2Rectangle1.x1 = -1000;
-                                                        greyRook2Rectangle1.x2 = -1000;
-                                                        greyRook2Rectangle2.x1 = -1000;
-                                                        greyRook2Rectangle2.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-
-                                                    for(int u=0; u<8; u++) {
-                                                        if(greyPawnsBase[u].posX == redPawnsBase[k].posX &&
-                                                           greyPawnsBase[u].posY == redPawnsBase[k].posY) {
-                                                            greyPawnsBase[u].posX = 1100;
-                                                            greyPawnsBase[u].posY = -1000;
-                                                            greyPawnsBase[u].x1 = -1000;
-                                                            greyPawnsBase[u].x2 = -1000;
-                                                            greyPawnsEllipse[u].x1 = -1000;
-                                                            greyPawnsEllipse[u].x2 = -1000;
-                                                            ate = TRUE;
-                                                            break;
-                                                        }
-                                                    }
-
-                                                    if(ate) {
-                                                        redPawnsBase[k].firstTimeMove = FALSE;
-                                                        redPawnsBase[k].clicked = FALSE;
-                                                        if(1==2) SetWindowText(hwnd, "Grey move");
-                                                        turnChanged = TRUE;
-                                                        done = TRUE;
-                                                    } else {
-                                                        redPawnsBase[k].posX = a0;
-                                                        redPawnsBase[k].posY = a1;
-
-                                                        redPawnsBase[k].x1 = a2;
-                                                        redPawnsBase[k].y1 = a3;
-
-                                                        redPawnsBase[k].x2 = a4;
-                                                        redPawnsBase[k].y2 = a5;
-
-                                                        redPawnsEllipse[k].x1 = a6;
-                                                        redPawnsEllipse[k].y1 = a7;
-
-                                                        redPawnsEllipse[k].x2 = a8;
-                                                        redPawnsEllipse[k].y2 = a9;
-
-                                                        turn = 'r';
-                                                    }
                                                 }
-                                            } else {
-                                                turn = 'r';
                                             }
                                         }
 
@@ -15419,7 +15257,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     redPawnsBase[k].firstTimeMove = FALSE;
 
                                                     redPawnsBase[k].clicked = FALSE;
-                                                    if(1==2) SetWindowText(hwnd, "Grey move");
                                                     turnChanged = TRUE;
                                                     done = TRUE;
                                                 }
@@ -15501,7 +15338,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     redPawnsBase[k].firstTimeMove = FALSE;
 
                                                     redPawnsBase[k].clicked = FALSE;
-                                                    if(1==2) SetWindowText(hwnd, "Grey move");
                                                     turnChanged = TRUE;
                                                     done = TRUE;
                                                 }
@@ -15582,41 +15418,214 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                             boolean ate = FALSE;
 
-                                            if(1 == 1) {
+                                            int a0 = redPawnsBase[k].posX;
+                                            int a1 = redPawnsBase[k].posY;
 
-                                                int a0 = redPawnsBase[k].posX;
-                                                int a1 = redPawnsBase[k].posY;
+                                            int a2 = redPawnsBase[k].x1;
+                                            int a3 = redPawnsBase[k].y1;
 
-                                                int a2 = redPawnsBase[k].x1;
-                                                int a3 = redPawnsBase[k].y1;
+                                            int a4 = redPawnsBase[k].x2;
+                                            int a5 = redPawnsBase[k].y2;
 
-                                                int a4 = redPawnsBase[k].x2;
-                                                int a5 = redPawnsBase[k].y2;
+                                            int a6 = redPawnsEllipse[k].x1;
+                                            int a7 = redPawnsEllipse[k].y1;
 
-                                                int a6 = redPawnsEllipse[k].x1;
-                                                int a7 = redPawnsEllipse[k].y1;
+                                            int a8 = redPawnsEllipse[k].x2;
+                                            int a9 = redPawnsEllipse[k].y2;
 
-                                                int a8 = redPawnsEllipse[k].x2;
-                                                int a9 = redPawnsEllipse[k].y2;
+                                            boxes[redPawnsBase[k].posY/100][redPawnsBase[k].posX/100].clear = TRUE;
+                                            boxes[j][i].clear = FALSE;
+                                            redPawnsBase[k].posY = j*100;
+                                            redPawnsBase[k].posX = i*100;
 
-                                                boxes[redPawnsBase[k].posY/100][redPawnsBase[k].posX/100].clear = TRUE;
-                                                boxes[j][i].clear = FALSE;
-                                                redPawnsBase[k].posY = j*100;
-                                                redPawnsBase[k].posX = i*100;
+                                            redPawnsEllipse[k].x1 = i*100 + 40;
+                                            redPawnsEllipse[k].y1 = j*100 + 40;
+                                            redPawnsEllipse[k].x2 = i*100 + 40 + 20;
+                                            redPawnsEllipse[k].y2 = j*100 + 40 + 20;
 
-                                                redPawnsEllipse[k].x1 = i*100 + 40;
-                                                redPawnsEllipse[k].y1 = j*100 + 40;
-                                                redPawnsEllipse[k].x2 = i*100 + 40 + 20;
-                                                redPawnsEllipse[k].y2 = j*100 + 40 + 20;
+                                            redPawnsBase[k].x1 = i*100 + 40;
+                                            redPawnsBase[k].y1 = j*100 + 60;
+                                            redPawnsBase[k].x2 = i*100 + 40 + 20;
+                                            redPawnsBase[k].y2 = j*100 + 60 + 20;
 
-                                                redPawnsBase[k].x1 = i*100 + 40;
-                                                redPawnsBase[k].y1 = j*100 + 60;
-                                                redPawnsBase[k].x2 = i*100 + 40 + 20;
-                                                redPawnsBase[k].y2 = j*100 + 60 + 20;
+                                            boolean ffff = checkCheckRed(j, i);
 
-                                                boolean ffff = checkCheckRed(j, i);
+                                            if(ffff) {
 
-                                                if(ffff) {
+                                                redPawnsBase[k].posX = a0;
+                                                redPawnsBase[k].posY = a1;
+
+                                                redPawnsBase[k].x1 = a2;
+                                                redPawnsBase[k].y1 = a3;
+
+                                                redPawnsBase[k].x2 = a4;
+                                                redPawnsBase[k].y2 = a5;
+
+                                                redPawnsEllipse[k].x1 = a6;
+                                                redPawnsEllipse[k].y1 = a7;
+
+                                                redPawnsEllipse[k].x2 = a8;
+                                                redPawnsEllipse[k].y2 = a9;
+
+                                                turn = 'r';
+                                            } else {
+
+                                                for(int l=0; l<8; l++) {
+                                                    if(greyPawnsBase[l].posX == i*100 &&
+                                                       greyPawnsBase[l].posY == j*100) {
+                                                        greyPawnsBase[l].posX = 1100;
+                                                        greyPawnsBase[l].posY = -1000;
+                                                        greyPawnsBase[l].x1 = -1000;
+                                                        greyPawnsBase[l].x2 = -1000;
+                                                        greyPawnsEllipse[l].x1 = -1000;
+                                                        greyPawnsEllipse[l].x2 = -1000;
+                                                        ate = TRUE;
+                                                        break;
+                                                    }
+                                                }
+                                                if(greyQueenSquare.posX == i*100 &&
+                                                   greyQueenSquare.posY == j*100) {
+                                                    greyQueenSquare.posX = 1100;
+                                                    greyQueenSquare.posY = -1000;
+                                                    greyQueenSquare.x1 = -1000;
+                                                    greyQueenSquare.x2 = -1000;
+                                                    greyQueenBase.x1 = -1000;
+                                                    greyQueenBase.x2 = -1000;
+                                                    greyQueenEllipse.x1 = -1000;
+                                                    greyQueenEllipse.x2 = -1000;
+                                                    greyQueenRectangle1.x1 = -1000;
+                                                    greyQueenRectangle1.x2 = -1000;
+                                                    greyQueenRectangle2.x1 = -1000;
+                                                    greyQueenRectangle2.x2 = -1000;
+                                                    greyQueenRectangle3.x1 = -1000;
+                                                    greyQueenRectangle3.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+                                                for(int z=0; z<8; z++) {
+                                                    if(greyQueenSquareK[z].posX == i*100 &&
+                                                       greyQueenSquareK[z].posY == j*100) {
+                                                        greyQueenSquareK[z].posX = 1100;
+                                                        greyQueenSquareK[z].posY = -1000;
+                                                        greyQueenSquareK[z].x1 = -1000;
+                                                        greyQueenSquareK[z].x2 = -1000;
+                                                        greyQueenBaseK[z].x1 = -1000;
+                                                        greyQueenBaseK[z].x2 = -1000;
+                                                        greyQueenEllipseK[z].x1 = -1000;
+                                                        greyQueenEllipseK[z].x2 = -1000;
+                                                        greyQueenRectangle1K[z].x1 = -1000;
+                                                        greyQueenRectangle1K[z].x2 = -1000;
+                                                        greyQueenRectangle2K[z].x1 = -1000;
+                                                        greyQueenRectangle2K[z].x2 = -1000;
+                                                        greyQueenRectangle3K[z].x1 = -1000;
+                                                        greyQueenRectangle3K[z].x2 = -1000;
+                                                        ate = TRUE;
+                                                    }
+                                                }
+                                                if(greyBishop1Square.posX == i*100 &&
+                                                   greyBishop1Square.posY == j*100) {
+                                                    greyBishop1Square.posX = 1100;
+                                                    greyBishop1Square.posY = -1000;
+                                                    greyBishop1Square.x1 = -1000;
+                                                    greyBishop1Square.x2 = -1000;
+                                                    greyBishop1Base.x1 = -1000;
+                                                    greyBishop1Base.x2 = -1000;
+                                                    greyBishop1Ellipse.x1 = -1000;
+                                                    greyBishop1Ellipse.x2 = -1000;
+                                                    greyBishop1Rectangle.x1 = -1000;
+                                                    greyBishop1Rectangle.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+                                                if(greyBishop2Square.posX == i*100 &&
+                                                   greyBishop2Square.posY == j*100) {
+                                                    greyBishop2Square.posX = 1100;
+                                                    greyBishop2Square.posY = -1000;
+                                                    greyBishop2Square.x1 = -1000;
+                                                    greyBishop2Square.x2 = -1000;
+                                                    greyBishop2Base.x1 = -1000;
+                                                    greyBishop2Base.x2 = -1000;
+                                                    greyBishop2Ellipse.x1 = -1000;
+                                                    greyBishop2Ellipse.x2 = -1000;
+                                                    greyBishop2Rectangle.x1 = -1000;
+                                                    greyBishop2Rectangle.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+                                                if(greyKnight1Rectangle1.posX == i*100 &&
+                                                   greyKnight1Rectangle1.posY == j*100) {
+                                                    greyKnight1Rectangle1.posX = 1100;
+                                                    greyKnight1Rectangle1.posY = -1000;
+                                                    greyKnight1Base.x1 = -1000;
+                                                    greyKnight1Base.x2 = -1000;
+                                                    greyKnight1Ellipse.x1 = -1000;
+                                                    greyKnight1Ellipse.x2 = -1000;
+                                                    greyKnight1Rectangle1.x1 = -1000;
+                                                    greyKnight1Rectangle1.x2 = -1000;
+                                                    greyKnight1Rectangle2.x1 = -1000;
+                                                    greyKnight1Rectangle2.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+                                                if(greyKnight2Rectangle1.posX == i*100 &&
+                                                   greyKnight2Rectangle1.posY == j*100) {
+                                                    greyKnight2Rectangle1.posX = 1100;
+                                                    greyKnight2Rectangle1.posY = -1000;
+                                                    greyKnight2Base.x1 = -1000;
+                                                    greyKnight2Base.x2 = -1000;
+                                                    greyKnight2Ellipse.x1 = -1000;
+                                                    greyKnight2Ellipse.x2 = -1000;
+                                                    greyKnight2Rectangle1.x1 = -1000;
+                                                    greyKnight2Rectangle1.x2 = -1000;
+                                                    greyKnight2Rectangle2.x1 = -1000;
+                                                    greyKnight2Rectangle2.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+                                                if(greyRook1Rectangle1.posX == i*100 &&
+                                                   greyRook1Rectangle1.posY == j*100) {
+                                                    greyRook1Rectangle1.posX = 1100;
+                                                    greyRook1Rectangle1.posY = -1000;
+                                                    greyRook1Base.x1 = -1000;
+                                                    greyRook1Base.x2 = -1000;
+                                                    greyRook1Ellipse.x1 = -1000;
+                                                    greyRook1Ellipse.x2 = -1000;
+                                                    greyRook1Rectangle1.x1 = -1000;
+                                                    greyRook1Rectangle1.x2 = -1000;
+                                                    greyRook1Rectangle2.x1 = -1000;
+                                                    greyRook1Rectangle2.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+
+                                                if(greyRook2Rectangle1.posX == i*100 &&
+                                                   greyRook2Rectangle1.posY == j*100) {
+                                                    greyRook2Rectangle1.posX = 1100;
+                                                    greyRook2Rectangle1.posY = -1000;
+                                                    greyRook2Base.x1 = -1000;
+                                                    greyRook2Base.x2 = -1000;
+                                                    greyRook2Ellipse.x1 = -1000;
+                                                    greyRook2Ellipse.x2 = -1000;
+                                                    greyRook2Rectangle1.x1 = -1000;
+                                                    greyRook2Rectangle1.x2 = -1000;
+                                                    greyRook2Rectangle2.x1 = -1000;
+                                                    greyRook2Rectangle2.x2 = -1000;
+                                                    ate = TRUE;
+                                                }
+
+                                                for(int u=0; u<8; u++) {
+                                                    if(greyPawnsBase[u].posX == redPawnsBase[k].posX &&
+                                                       greyPawnsBase[u].posY == redPawnsBase[k].posY) {
+                                                        greyPawnsBase[u].posX = 1100;
+                                                        greyPawnsBase[u].posY = -1000;
+                                                        greyPawnsBase[u].x1 = -1000;
+                                                        greyPawnsBase[u].x2 = -1000;
+                                                        greyPawnsEllipse[u].x1 = -1000;
+                                                        greyPawnsEllipse[u].x2 = -1000;
+                                                        ate = TRUE;
+                                                        break;
+                                                    }
+                                                }
+
+                                                if(ate) {
+                                                    redPawnsBase[k].clicked = FALSE;
+                                                    turnChanged = TRUE;
+                                                    done = TRUE;
+                                                } else {
 
                                                     redPawnsBase[k].posX = a0;
                                                     redPawnsBase[k].posY = a1;
@@ -15634,186 +15643,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     redPawnsEllipse[k].y2 = a9;
 
                                                     turn = 'r';
-                                                } else {
-
-                                                    for(int l=0; l<8; l++) {
-                                                        if(greyPawnsBase[l].posX == i*100 &&
-                                                           greyPawnsBase[l].posY == j*100) {
-                                                            greyPawnsBase[l].posX = 1100;
-                                                            greyPawnsBase[l].posY = -1000;
-                                                            greyPawnsBase[l].x1 = -1000;
-                                                            greyPawnsBase[l].x2 = -1000;
-                                                            greyPawnsEllipse[l].x1 = -1000;
-                                                            greyPawnsEllipse[l].x2 = -1000;
-                                                            ate = TRUE;
-                                                            break;
-                                                        }
-                                                    }
-                                                    if(greyQueenSquare.posX == i*100 &&
-                                                       greyQueenSquare.posY == j*100) {
-                                                        greyQueenSquare.posX = 1100;
-                                                        greyQueenSquare.posY = -1000;
-                                                        greyQueenSquare.x1 = -1000;
-                                                        greyQueenSquare.x2 = -1000;
-                                                        greyQueenBase.x1 = -1000;
-                                                        greyQueenBase.x2 = -1000;
-                                                        greyQueenEllipse.x1 = -1000;
-                                                        greyQueenEllipse.x2 = -1000;
-                                                        greyQueenRectangle1.x1 = -1000;
-                                                        greyQueenRectangle1.x2 = -1000;
-                                                        greyQueenRectangle2.x1 = -1000;
-                                                        greyQueenRectangle2.x2 = -1000;
-                                                        greyQueenRectangle3.x1 = -1000;
-                                                        greyQueenRectangle3.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-                                                    for(int z=0; z<8; z++) {
-                                                        if(greyQueenSquareK[z].posX == i*100 &&
-                                                           greyQueenSquareK[z].posY == j*100) {
-                                                            greyQueenSquareK[z].posX = 1100;
-                                                            greyQueenSquareK[z].posY = -1000;
-                                                            greyQueenSquareK[z].x1 = -1000;
-                                                            greyQueenSquareK[z].x2 = -1000;
-                                                            greyQueenBaseK[z].x1 = -1000;
-                                                            greyQueenBaseK[z].x2 = -1000;
-                                                            greyQueenEllipseK[z].x1 = -1000;
-                                                            greyQueenEllipseK[z].x2 = -1000;
-                                                            greyQueenRectangle1K[z].x1 = -1000;
-                                                            greyQueenRectangle1K[z].x2 = -1000;
-                                                            greyQueenRectangle2K[z].x1 = -1000;
-                                                            greyQueenRectangle2K[z].x2 = -1000;
-                                                            greyQueenRectangle3K[z].x1 = -1000;
-                                                            greyQueenRectangle3K[z].x2 = -1000;
-                                                            ate = TRUE;
-                                                        }
-                                                    }
-                                                    if(greyBishop1Square.posX == i*100 &&
-                                                       greyBishop1Square.posY == j*100) {
-                                                        greyBishop1Square.posX = 1100;
-                                                        greyBishop1Square.posY = -1000;
-                                                        greyBishop1Square.x1 = -1000;
-                                                        greyBishop1Square.x2 = -1000;
-                                                        greyBishop1Base.x1 = -1000;
-                                                        greyBishop1Base.x2 = -1000;
-                                                        greyBishop1Ellipse.x1 = -1000;
-                                                        greyBishop1Ellipse.x2 = -1000;
-                                                        greyBishop1Rectangle.x1 = -1000;
-                                                        greyBishop1Rectangle.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-                                                    if(greyBishop2Square.posX == i*100 &&
-                                                       greyBishop2Square.posY == j*100) {
-                                                        greyBishop2Square.posX = 1100;
-                                                        greyBishop2Square.posY = -1000;
-                                                        greyBishop2Square.x1 = -1000;
-                                                        greyBishop2Square.x2 = -1000;
-                                                        greyBishop2Base.x1 = -1000;
-                                                        greyBishop2Base.x2 = -1000;
-                                                        greyBishop2Ellipse.x1 = -1000;
-                                                        greyBishop2Ellipse.x2 = -1000;
-                                                        greyBishop2Rectangle.x1 = -1000;
-                                                        greyBishop2Rectangle.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-                                                    if(greyKnight1Rectangle1.posX == i*100 &&
-                                                       greyKnight1Rectangle1.posY == j*100) {
-                                                        greyKnight1Rectangle1.posX = 1100;
-                                                        greyKnight1Rectangle1.posY = -1000;
-                                                        greyKnight1Base.x1 = -1000;
-                                                        greyKnight1Base.x2 = -1000;
-                                                        greyKnight1Ellipse.x1 = -1000;
-                                                        greyKnight1Ellipse.x2 = -1000;
-                                                        greyKnight1Rectangle1.x1 = -1000;
-                                                        greyKnight1Rectangle1.x2 = -1000;
-                                                        greyKnight1Rectangle2.x1 = -1000;
-                                                        greyKnight1Rectangle2.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-                                                    if(greyKnight2Rectangle1.posX == i*100 &&
-                                                       greyKnight2Rectangle1.posY == j*100) {
-                                                        greyKnight2Rectangle1.posX = 1100;
-                                                        greyKnight2Rectangle1.posY = -1000;
-                                                        greyKnight2Base.x1 = -1000;
-                                                        greyKnight2Base.x2 = -1000;
-                                                        greyKnight2Ellipse.x1 = -1000;
-                                                        greyKnight2Ellipse.x2 = -1000;
-                                                        greyKnight2Rectangle1.x1 = -1000;
-                                                        greyKnight2Rectangle1.x2 = -1000;
-                                                        greyKnight2Rectangle2.x1 = -1000;
-                                                        greyKnight2Rectangle2.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-                                                    if(greyRook1Rectangle1.posX == i*100 &&
-                                                       greyRook1Rectangle1.posY == j*100) {
-                                                        greyRook1Rectangle1.posX = 1100;
-                                                        greyRook1Rectangle1.posY = -1000;
-                                                        greyRook1Base.x1 = -1000;
-                                                        greyRook1Base.x2 = -1000;
-                                                        greyRook1Ellipse.x1 = -1000;
-                                                        greyRook1Ellipse.x2 = -1000;
-                                                        greyRook1Rectangle1.x1 = -1000;
-                                                        greyRook1Rectangle1.x2 = -1000;
-                                                        greyRook1Rectangle2.x1 = -1000;
-                                                        greyRook1Rectangle2.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-
-                                                    if(greyRook2Rectangle1.posX == i*100 &&
-                                                       greyRook2Rectangle1.posY == j*100) {
-                                                        greyRook2Rectangle1.posX = 1100;
-                                                        greyRook2Rectangle1.posY = -1000;
-                                                        greyRook2Base.x1 = -1000;
-                                                        greyRook2Base.x2 = -1000;
-                                                        greyRook2Ellipse.x1 = -1000;
-                                                        greyRook2Ellipse.x2 = -1000;
-                                                        greyRook2Rectangle1.x1 = -1000;
-                                                        greyRook2Rectangle1.x2 = -1000;
-                                                        greyRook2Rectangle2.x1 = -1000;
-                                                        greyRook2Rectangle2.x2 = -1000;
-                                                        ate = TRUE;
-                                                    }
-
-                                                    for(int u=0; u<8; u++) {
-                                                        if(greyPawnsBase[u].posX == redPawnsBase[k].posX &&
-                                                           greyPawnsBase[u].posY == redPawnsBase[k].posY) {
-                                                            greyPawnsBase[u].posX = 1100;
-                                                            greyPawnsBase[u].posY = -1000;
-                                                            greyPawnsBase[u].x1 = -1000;
-                                                            greyPawnsBase[u].x2 = -1000;
-                                                            greyPawnsEllipse[u].x1 = -1000;
-                                                            greyPawnsEllipse[u].x2 = -1000;
-                                                            ate = TRUE;
-                                                            break;
-                                                        }
-                                                    }
-
-                                                    if(ate) {
-                                                        redPawnsBase[k].clicked = FALSE;
-                                                        if(1==2) SetWindowText(hwnd, "Grey move");
-                                                        turnChanged = TRUE;
-                                                        done = TRUE;
-                                                    } else {
-
-                                                        redPawnsBase[k].posX = a0;
-                                                        redPawnsBase[k].posY = a1;
-
-                                                        redPawnsBase[k].x1 = a2;
-                                                        redPawnsBase[k].y1 = a3;
-
-                                                        redPawnsBase[k].x2 = a4;
-                                                        redPawnsBase[k].y2 = a5;
-
-                                                        redPawnsEllipse[k].x1 = a6;
-                                                        redPawnsEllipse[k].y1 = a7;
-
-                                                        redPawnsEllipse[k].x2 = a8;
-                                                        redPawnsEllipse[k].y2 = a9;
-
-                                                        turn = 'r';
-                                                    }
                                                 }
-                                            } else {
-                                                turn = 'r';
                                             }
                                         }
 
@@ -15889,7 +15719,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 } else {
 
                                                     redPawnsBase[k].clicked = FALSE;
-                                                    if(1==2) SetWindowText(hwnd, "Grey move");
                                                     turnChanged = TRUE;
                                                     done = TRUE;
                                                 }
@@ -16176,7 +16005,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Grey move");
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -16429,7 +16257,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Grey move");
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -16682,7 +16509,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Grey move");
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -16937,7 +16763,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Grey move");
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -17190,7 +17015,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Grey move");
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -17443,7 +17267,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Grey move");
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -17696,7 +17519,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Grey move");
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -17949,7 +17771,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Grey move");
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -18234,7 +18055,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Grey move");
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -18487,7 +18307,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Grey move");
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -18740,7 +18559,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Grey move");
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -18993,7 +18811,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Grey move");
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -19246,7 +19063,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Grey move");
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -19499,7 +19315,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Grey move");
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -19752,7 +19567,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Grey move");
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -20005,7 +19819,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyRook2Ellipse.x2 = -1000;
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Grey move");
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
@@ -20507,7 +20320,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int l=0; l<8; l++) {
-                                                    if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                     if((greyPawnsBase[l].posX == redKingSquare.posX ||
                                                         greyPawnsBase[l].posX == redKingSquare.posX) &&
                                                         greyPawnsBase[l].posY == j*100) {
@@ -20520,7 +20332,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                         break;
                                                     }
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyQueenSquare.posX == i*100 &&
                                                    greyQueenSquare.posY == j*100) {
                                                     greyQueenSquare.posX = 1100;
@@ -20557,7 +20368,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                         greyQueenRectangle3K[z].x2 = -1000;
                                                     }
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyBishop1Square.posX == i*100 &&
                                                    greyBishop1Square.posY == j*100) {
                                                     greyBishop1Square.posX = 1100;
@@ -20571,7 +20381,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyBishop1Rectangle.x1 = -1000;
                                                     greyBishop1Rectangle.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyBishop2Square.posX == i*100 &&
                                                    greyBishop2Square.posY == j*100) {
                                                     greyBishop2Square.posX = 1100;
@@ -20585,7 +20394,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyBishop2Rectangle.x1 = -1000;
                                                     greyBishop2Rectangle.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyKnight1Rectangle1.posX == i*100 &&
                                                    greyKnight1Rectangle1.posY == j*100) {
                                                     greyKnight1Rectangle1.posX = 1100;
@@ -20599,7 +20407,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyKnight1Rectangle2.x1 = -1000;
                                                     greyKnight1Rectangle2.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyKnight2Rectangle1.posX == i*100 &&
                                                    greyKnight2Rectangle1.posY == j*100) {
                                                     greyKnight2Rectangle1.posX = 1100;
@@ -20613,7 +20420,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyKnight2Rectangle2.x1 = -1000;
                                                     greyKnight2Rectangle2.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyRook1Rectangle1.posX == i*100 &&
                                                    greyRook1Rectangle1.posY == j*100) {
                                                     greyRook1Rectangle1.posX = 1100;
@@ -20627,7 +20433,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyRook1Rectangle2.x1 = -1000;
                                                     greyRook1Rectangle2.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyRook2Rectangle1.posX == i*100 &&
                                                    greyRook2Rectangle1.posY == j*100) {
                                                     greyRook2Rectangle1.posX = 1100;
@@ -20655,7 +20460,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     }
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Grey move");
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 redKingMoved = TRUE;
@@ -20787,7 +20591,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int l=0; l<8; l++) {
-                                                    if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                     if((greyPawnsBase[l].posX == redKingSquare.posX ||
                                                         greyPawnsBase[l].posX == redKingSquare.posX) &&
                                                         greyPawnsBase[l].posY == j*100) {
@@ -20800,7 +20603,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                         break;
                                                     }
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyQueenSquare.posX == i*100 &&
                                                    greyQueenSquare.posY == j*100) {
                                                     greyQueenSquare.posX = 1100;
@@ -20837,7 +20639,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                         greyQueenRectangle3K[z].x2 = -1000;
                                                     }
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyBishop1Square.posX == i*100 &&
                                                    greyBishop1Square.posY == j*100) {
                                                     greyBishop1Square.posX = 1100;
@@ -20851,7 +20652,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyBishop1Rectangle.x1 = -1000;
                                                     greyBishop1Rectangle.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyBishop2Square.posX == i*100 &&
                                                    greyBishop2Square.posY == j*100) {
                                                     greyBishop2Square.posX = 1100;
@@ -20865,7 +20665,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyBishop2Rectangle.x1 = -1000;
                                                     greyBishop2Rectangle.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyKnight1Rectangle1.posX == i*100 &&
                                                    greyKnight1Rectangle1.posY == j*100) {
                                                     greyKnight1Rectangle1.posX = 1100;
@@ -20879,7 +20678,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyKnight1Rectangle2.x1 = -1000;
                                                     greyKnight1Rectangle2.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyKnight2Rectangle1.posX == i*100 &&
                                                    greyKnight2Rectangle1.posY == j*100) {
                                                     greyKnight2Rectangle1.posX = 1100;
@@ -20893,7 +20691,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyKnight2Rectangle2.x1 = -1000;
                                                     greyKnight2Rectangle2.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyRook1Rectangle1.posX == i*100 &&
                                                    greyRook1Rectangle1.posY == j*100) {
                                                     greyRook1Rectangle1.posX = 1100;
@@ -20907,7 +20704,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyRook1Rectangle2.x1 = -1000;
                                                     greyRook1Rectangle2.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyRook2Rectangle1.posX == i*100 &&
                                                    greyRook2Rectangle1.posY == j*100) {
                                                     greyRook2Rectangle1.posX = 1100;
@@ -20935,7 +20731,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     }
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Grey move");
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 redKingMoved = TRUE;
@@ -21058,7 +20853,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int l=0; l<8; l++) {
-                                                    if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                     if((greyPawnsBase[l].posX == redKingSquare.posX ||
                                                         greyPawnsBase[l].posX == redKingSquare.posX) &&
                                                         greyPawnsBase[l].posY == j*100) {
@@ -21071,7 +20865,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                         break;
                                                     }
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyQueenSquare.posX == i*100 &&
                                                    greyQueenSquare.posY == j*100) {
                                                     greyQueenSquare.posX = 1100;
@@ -21108,7 +20901,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                         greyQueenRectangle3K[z].x2 = -1000;
                                                     }
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyBishop1Square.posX == i*100 &&
                                                    greyBishop1Square.posY == j*100) {
                                                     greyBishop1Square.posX = 1100;
@@ -21122,7 +20914,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyBishop1Rectangle.x1 = -1000;
                                                     greyBishop1Rectangle.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyBishop2Square.posX == i*100 &&
                                                    greyBishop2Square.posY == j*100) {
                                                     greyBishop2Square.posX = 1100;
@@ -21136,7 +20927,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyBishop2Rectangle.x1 = -1000;
                                                     greyBishop2Rectangle.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyKnight1Rectangle1.posX == i*100 &&
                                                    greyKnight1Rectangle1.posY == j*100) {
                                                     greyKnight1Rectangle1.posX = 1100;
@@ -21150,7 +20940,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyKnight1Rectangle2.x1 = -1000;
                                                     greyKnight1Rectangle2.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyKnight2Rectangle1.posX == i*100 &&
                                                    greyKnight2Rectangle1.posY == j*100) {
                                                     greyKnight2Rectangle1.posX = 1100;
@@ -21164,7 +20953,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyKnight2Rectangle2.x1 = -1000;
                                                     greyKnight2Rectangle2.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyRook1Rectangle1.posX == i*100 &&
                                                    greyRook1Rectangle1.posY == j*100) {
                                                     greyRook1Rectangle1.posX = 1100;
@@ -21178,7 +20966,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyRook1Rectangle2.x1 = -1000;
                                                     greyRook1Rectangle2.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyRook2Rectangle1.posX == i*100 &&
                                                    greyRook2Rectangle1.posY == j*100) {
                                                     greyRook2Rectangle1.posX = 1100;
@@ -21206,7 +20993,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     }
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Grey move");
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 redKingMoved = TRUE;
@@ -21342,7 +21128,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int l=0; l<8; l++) {
-                                                    if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                     if((greyPawnsBase[l].posX == redKingSquare.posX ||
                                                         greyPawnsBase[l].posX == redKingSquare.posX) &&
                                                         greyPawnsBase[l].posY == j*100) {
@@ -21355,7 +21140,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                         break;
                                                     }
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyQueenSquare.posX == i*100 &&
                                                    greyQueenSquare.posY == j*100) {
                                                     greyQueenSquare.posX = 1100;
@@ -21392,7 +21176,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                         greyQueenRectangle3K[z].x2 = -1000;
                                                     }
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyBishop1Square.posX == i*100 &&
                                                    greyBishop1Square.posY == j*100) {
                                                     greyBishop1Square.posX = 1100;
@@ -21406,7 +21189,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyBishop1Rectangle.x1 = -1000;
                                                     greyBishop1Rectangle.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyBishop2Square.posX == i*100 &&
                                                    greyBishop2Square.posY == j*100) {
                                                     greyBishop2Square.posX = 1100;
@@ -21420,7 +21202,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyBishop2Rectangle.x1 = -1000;
                                                     greyBishop2Rectangle.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyKnight1Rectangle1.posX == i*100 &&
                                                    greyKnight1Rectangle1.posY == j*100) {
                                                     greyKnight1Rectangle1.posX = 1100;
@@ -21434,7 +21215,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyKnight1Rectangle2.x1 = -1000;
                                                     greyKnight1Rectangle2.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyKnight2Rectangle1.posX == i*100 &&
                                                    greyKnight2Rectangle1.posY == j*100) {
                                                     greyKnight2Rectangle1.posX = 1100;
@@ -21448,7 +21228,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyKnight2Rectangle2.x1 = -1000;
                                                     greyKnight2Rectangle2.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyRook1Rectangle1.posX == i*100 &&
                                                    greyRook1Rectangle1.posY == j*100) {
                                                     greyRook1Rectangle1.posX = 1100;
@@ -21462,7 +21241,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyRook1Rectangle2.x1 = -1000;
                                                     greyRook1Rectangle2.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyRook2Rectangle1.posX == i*100 &&
                                                    greyRook2Rectangle1.posY == j*100) {
                                                     greyRook2Rectangle1.posX = 1100;
@@ -21490,7 +21268,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     }
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Grey move");
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 redKingMoved = TRUE;
@@ -21613,7 +21390,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int l=0; l<8; l++) {
-                                                    if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                     if((greyPawnsBase[l].posX == redKingSquare.posX ||
                                                         greyPawnsBase[l].posX == redKingSquare.posX) &&
                                                         greyPawnsBase[l].posY == j*100) {
@@ -21626,7 +21402,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                         break;
                                                     }
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyQueenSquare.posX == i*100 &&
                                                    greyQueenSquare.posY == j*100) {
                                                     greyQueenSquare.posX = 1100;
@@ -21663,7 +21438,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                         greyQueenRectangle3K[z].x2 = -1000;
                                                     }
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyBishop1Square.posX == i*100 &&
                                                    greyBishop1Square.posY == j*100) {
                                                     greyBishop1Square.posX = 1100;
@@ -21677,7 +21451,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyBishop1Rectangle.x1 = -1000;
                                                     greyBishop1Rectangle.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyBishop2Square.posX == i*100 &&
                                                    greyBishop2Square.posY == j*100) {
                                                     greyBishop2Square.posX = 1100;
@@ -21691,7 +21464,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyBishop2Rectangle.x1 = -1000;
                                                     greyBishop2Rectangle.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyKnight1Rectangle1.posX == i*100 &&
                                                    greyKnight1Rectangle1.posY == j*100) {
                                                     greyKnight1Rectangle1.posX = 1100;
@@ -21705,7 +21477,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyKnight1Rectangle2.x1 = -1000;
                                                     greyKnight1Rectangle2.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyKnight2Rectangle1.posX == i*100 &&
                                                    greyKnight2Rectangle1.posY == j*100) {
                                                     greyKnight2Rectangle1.posX = 1100;
@@ -21719,7 +21490,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyKnight2Rectangle2.x1 = -1000;
                                                     greyKnight2Rectangle2.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyRook1Rectangle1.posX == i*100 &&
                                                    greyRook1Rectangle1.posY == j*100) {
                                                     greyRook1Rectangle1.posX = 1100;
@@ -21733,7 +21503,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyRook1Rectangle2.x1 = -1000;
                                                     greyRook1Rectangle2.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyRook2Rectangle1.posX == i*100 &&
                                                    greyRook2Rectangle1.posY == j*100) {
                                                     greyRook2Rectangle1.posX = 1100;
@@ -21761,7 +21530,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     }
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Grey move");
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 redKingMoved = TRUE;
@@ -21893,7 +21661,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int l=0; l<8; l++) {
-                                                    if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                     if((greyPawnsBase[l].posX == redKingSquare.posX ||
                                                         greyPawnsBase[l].posX == redKingSquare.posX) &&
                                                         greyPawnsBase[l].posY == j*100) {
@@ -21906,7 +21673,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                         break;
                                                     }
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyQueenSquare.posX == i*100 &&
                                                    greyQueenSquare.posY == j*100) {
                                                     greyQueenSquare.posX = 1100;
@@ -21943,7 +21709,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                         greyQueenRectangle3K[z].x2 = -1000;
                                                     }
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyBishop1Square.posX == i*100 &&
                                                    greyBishop1Square.posY == j*100) {
                                                     greyBishop1Square.posX = 1100;
@@ -21957,7 +21722,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyBishop1Rectangle.x1 = -1000;
                                                     greyBishop1Rectangle.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyBishop2Square.posX == i*100 &&
                                                    greyBishop2Square.posY == j*100) {
                                                     greyBishop2Square.posX = 1100;
@@ -21971,7 +21735,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyBishop2Rectangle.x1 = -1000;
                                                     greyBishop2Rectangle.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyKnight1Rectangle1.posX == i*100 &&
                                                    greyKnight1Rectangle1.posY == j*100) {
                                                     greyKnight1Rectangle1.posX = 1100;
@@ -21985,7 +21748,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyKnight1Rectangle2.x1 = -1000;
                                                     greyKnight1Rectangle2.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyKnight2Rectangle1.posX == i*100 &&
                                                    greyKnight2Rectangle1.posY == j*100) {
                                                     greyKnight2Rectangle1.posX = 1100;
@@ -21999,7 +21761,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyKnight2Rectangle2.x1 = -1000;
                                                     greyKnight2Rectangle2.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyRook1Rectangle1.posX == i*100 &&
                                                    greyRook1Rectangle1.posY == j*100) {
                                                     greyRook1Rectangle1.posX = 1100;
@@ -22013,7 +21774,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyRook1Rectangle2.x1 = -1000;
                                                     greyRook1Rectangle2.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyRook2Rectangle1.posX == i*100 &&
                                                    greyRook2Rectangle1.posY == j*100) {
                                                     greyRook2Rectangle1.posX = 1100;
@@ -22041,7 +21801,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     }
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Grey move");
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 redKingMoved = TRUE;
@@ -22164,7 +21923,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int l=0; l<8; l++) {
-                                                    if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                     if((greyPawnsBase[l].posX == redKingSquare.posX ||
                                                         greyPawnsBase[l].posX == redKingSquare.posX) &&
                                                         greyPawnsBase[l].posY == j*100) {
@@ -22177,7 +21935,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                         break;
                                                     }
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyQueenSquare.posX == i*100 &&
                                                    greyQueenSquare.posY == j*100) {
                                                     greyQueenSquare.posX = 1100;
@@ -22214,7 +21971,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                         greyQueenRectangle3K[z].x2 = -1000;
                                                     }
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyBishop1Square.posX == i*100 &&
                                                    greyBishop1Square.posY == j*100) {
                                                     greyBishop1Square.posX = 1100;
@@ -22228,7 +21984,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyBishop1Rectangle.x1 = -1000;
                                                     greyBishop1Rectangle.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyBishop2Square.posX == i*100 &&
                                                    greyBishop2Square.posY == j*100) {
                                                     greyBishop2Square.posX = 1100;
@@ -22242,7 +21997,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyBishop2Rectangle.x1 = -1000;
                                                     greyBishop2Rectangle.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyKnight1Rectangle1.posX == i*100 &&
                                                    greyKnight1Rectangle1.posY == j*100) {
                                                     greyKnight1Rectangle1.posX = 1100;
@@ -22256,7 +22010,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyKnight1Rectangle2.x1 = -1000;
                                                     greyKnight1Rectangle2.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyKnight2Rectangle1.posX == i*100 &&
                                                    greyKnight2Rectangle1.posY == j*100) {
                                                     greyKnight2Rectangle1.posX = 1100;
@@ -22270,7 +22023,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyKnight2Rectangle2.x1 = -1000;
                                                     greyKnight2Rectangle2.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyRook1Rectangle1.posX == i*100 &&
                                                    greyRook1Rectangle1.posY == j*100) {
                                                     greyRook1Rectangle1.posX = 1100;
@@ -22284,7 +22036,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyRook1Rectangle2.x1 = -1000;
                                                     greyRook1Rectangle2.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyRook2Rectangle1.posX == i*100 &&
                                                    greyRook2Rectangle1.posY == j*100) {
                                                     greyRook2Rectangle1.posX = 1100;
@@ -22312,7 +22063,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     }
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Grey move");
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 redKingMoved = TRUE;
@@ -22447,7 +22197,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int l=0; l<8; l++) {
-                                                    if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                     if((greyPawnsBase[l].posX == redKingSquare.posX ||
                                                         greyPawnsBase[l].posX == redKingSquare.posX) &&
                                                         greyPawnsBase[l].posY == j*100) {
@@ -22460,7 +22209,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                         break;
                                                     }
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyQueenSquare.posX == i*100 &&
                                                    greyQueenSquare.posY == j*100) {
                                                     greyQueenSquare.posX = 1100;
@@ -22497,7 +22245,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                         greyQueenRectangle3K[z].x2 = -1000;
                                                     }
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyBishop1Square.posX == i*100 &&
                                                    greyBishop1Square.posY == j*100) {
                                                     greyBishop1Square.posX = 1100;
@@ -22511,7 +22258,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyBishop1Rectangle.x1 = -1000;
                                                     greyBishop1Rectangle.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyBishop2Square.posX == i*100 &&
                                                    greyBishop2Square.posY == j*100) {
                                                     greyBishop2Square.posX = 1100;
@@ -22525,7 +22271,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyBishop2Rectangle.x1 = -1000;
                                                     greyBishop2Rectangle.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyKnight1Rectangle1.posX == i*100 &&
                                                    greyKnight1Rectangle1.posY == j*100) {
                                                     greyKnight1Rectangle1.posX = 1100;
@@ -22539,7 +22284,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyKnight1Rectangle2.x1 = -1000;
                                                     greyKnight1Rectangle2.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyKnight2Rectangle1.posX == i*100 &&
                                                    greyKnight2Rectangle1.posY == j*100) {
                                                     greyKnight2Rectangle1.posX = 1100;
@@ -22553,7 +22297,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyKnight2Rectangle2.x1 = -1000;
                                                     greyKnight2Rectangle2.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyRook1Rectangle1.posX == i*100 &&
                                                    greyRook1Rectangle1.posY == j*100) {
                                                     greyRook1Rectangle1.posX = 1100;
@@ -22567,7 +22310,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     greyRook1Rectangle2.x1 = -1000;
                                                     greyRook1Rectangle2.x2 = -1000;
                                                 }
-                                                if(WM_RBUTTONDOWN == msg || 1 == 1)
                                                 if(greyRook2Rectangle1.posX == i*100 &&
                                                    greyRook2Rectangle1.posY == j*100) {
                                                     greyRook2Rectangle1.posX = 1100;
@@ -22595,7 +22337,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     }
                                                 }
 
-                                                if(1==2) SetWindowText(hwnd, "Grey move");
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 redKingMoved = TRUE;
@@ -22654,7 +22395,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     redPawnsEllipse[z].x2 = -1000;
 
                                     turn = 'h';
-                                    SetWindowText(hwnd, "Grey move");
                                 }
                             }
 
@@ -22795,7 +22535,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
                                         boxes[j][i].clear = FALSE;
                                         turn = 'h';
-                                        if(1==2) SetWindowText(hwnd, "Grey move");
                                         turnChanged = TRUE;
                                         done = TRUE;
                                     }
@@ -22945,7 +22684,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             }
                                             boxes[j][i].clear = FALSE;
                                             turn = 'h';
-                                            if(1==2) SetWindowText(hwnd, "Grey move");
                                             turnChanged = TRUE;
                                             done = TRUE;
                                         }
@@ -23069,7 +22807,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
                                         boxes[j][i].clear = FALSE;
                                         turn = 'h';
-                                        if(1==2) SetWindowText(hwnd, "Grey move");
                                         turnChanged = TRUE;
                                         done = TRUE;
                                     }
@@ -23322,7 +23059,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         greyQueenSquare.clicked = FALSE;
                                         boxes[j][i].clear = FALSE;
                                         turn = 'h';
-                                        if(1==2) SetWindowText(hwnd, "Grey move");
                                         turnChanged = TRUE;
                                         redRook1Moved = TRUE;
                                         done = TRUE;
@@ -23456,7 +23192,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         greyQueenSquare.clicked = FALSE;
                                         boxes[j][i].clear = FALSE;
                                         turn = 'h';
-                                        if(1==2) SetWindowText(hwnd, "Grey move");
                                         turnChanged = TRUE;
                                         redRook2Moved = TRUE;
                                         done = TRUE;
@@ -23565,11 +23300,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                                 checked = TRUE;
                                                                 redKingSquare.posY -= 100;
                                                                 redKingSquare.posX += 100;
-        //                                                            TextOut(hdc,
-        //                                                                    400,
-        //                                                                    400,
-        //                                                                    "stale mate",
-        //                                                                    GetTextSize("stale mate"));
                                                             }
                                                         }
                                                     }
@@ -23660,11 +23390,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                                 checked = TRUE;
                                                                 redKingSquare.posY -= 100;
                                                                 redKingSquare.posX += 100;
-        //                                                            TextOut(hdc,
-        //                                                                    400,
-        //                                                                    400,
-        //                                                                    "check mate",
-        //                                                                    GetTextSize("check mate"));
                                                             }
                                                         }
                                                     }
@@ -23692,8 +23417,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         int l2_y2 = j*100;
                                         PAINTSTRUCT pntS;
                                         HPEN pen, oldPen;
-
-
                                         pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));
                                         oldPen = (HPEN)SelectObject(hdc, pen);				
                                         MoveToEx(hdc, l1_x1, l1_y1, NULL);
@@ -23702,7 +23425,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         LineTo(hdc, l2_x2, l2_y2);
                                         SelectObject(hdc, oldPen); 
                                         DeleteObject(pen);
-
                                     }
                                 }
                             }
@@ -23725,8 +23447,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     int l2_y2 = j*100;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-
-
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
@@ -23735,7 +23455,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     LineTo(hdc, l2_x2, l2_y2);
                                     SelectObject(hdc, oldPen); 
                                     DeleteObject(pen);
-
                                 }
                             }
                             if(turn == 'r' && redKingSquare.posX == i*100 &&
@@ -23755,8 +23474,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     int l2_y2 = j*100;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-
-
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
@@ -23765,7 +23482,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     LineTo(hdc, l2_x2, l2_y2);
                                     SelectObject(hdc, oldPen); 
                                     DeleteObject(pen);
-
                                 }
                             }
                             if(turn == 'r' && redQueenSquare.posX == i*100 &&
@@ -23785,8 +23501,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     int l2_y2 = j*100;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-
-
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
@@ -23795,7 +23509,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     LineTo(hdc, l2_x2, l2_y2);
                                     SelectObject(hdc, oldPen); 
                                     DeleteObject(pen);
-
                                 }
                             }
                             if(turn == 'r' && redKnight1Rectangle1.posX == i*100 &&
@@ -23815,8 +23528,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     int l2_y2 = j*100;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-
-
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
@@ -23825,7 +23536,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     LineTo(hdc, l2_x2, l2_y2);
                                     SelectObject(hdc, oldPen); 
                                     DeleteObject(pen);
-
                                 }
                             }
                             if(turn == 'r' && redKnight2Rectangle1.posX == i*100 &&
@@ -23845,8 +23555,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     int l2_y2 = j*100;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-
-
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
@@ -23855,7 +23563,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     LineTo(hdc, l2_x2, l2_y2);
                                     SelectObject(hdc, oldPen); 
                                     DeleteObject(pen);
-
                                 }
                             }
                             if(turn == 'r' && redBishop1Square.posX == i*100 &&
@@ -23876,8 +23583,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     int l2_y2 = j*100;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-
-
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
@@ -23886,7 +23591,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     LineTo(hdc, l2_x2, l2_y2);
                                     SelectObject(hdc, oldPen); 
                                     DeleteObject(pen);
-
                                 }
                             }
                             if(turn == 'h' && redBishop2Square.posX == i*100 &&
@@ -23902,8 +23606,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     int l2_y2 = j*100;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-
-
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
@@ -23912,7 +23614,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     LineTo(hdc, l2_x2, l2_y2);
                                     SelectObject(hdc, oldPen); 
                                     DeleteObject(pen);
-
                                 }
                             }
                             if(turn == 'r' && redBishop2Square.posX == i*100 &&
@@ -23932,8 +23633,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     int l2_y2 = j*100;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-
-
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
@@ -23942,7 +23641,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     LineTo(hdc, l2_x2, l2_y2);
                                     SelectObject(hdc, oldPen); 
                                     DeleteObject(pen);
-
                                 }
                             }
                             if(turn == 'r' && redRook1Rectangle1.posX == i*100 &&
@@ -23963,8 +23661,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     int l2_y2 = j*100;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-
-
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
@@ -23973,7 +23669,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     LineTo(hdc, l2_x2, l2_y2);
                                     SelectObject(hdc, oldPen); 
                                     DeleteObject(pen);
-
                                 }
                             }
                             if(turn == 'h' && redRook2Rectangle1.posX == i*100 &&
@@ -23989,8 +23684,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     int l2_y2 = j*100;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-
-
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
@@ -24032,8 +23725,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "click me");
 
             hSubMenu = CreatePopupMenu();
+            AppendMenu(hSubMenu, MF_STRING, ID_PC_GAME, "versus computer {http://api.underwaterchess.com}");
             AppendMenu(hSubMenu, MF_STRING, ID_HUMAN_GAME, "versus human");
-            AppendMenu(hSubMenu, MF_STRING, ID_PC_GAME, "versus computer");
             AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "option");
 
             hSubMenu = CreatePopupMenu();
@@ -24120,13 +23813,13 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             hBitmap = (HBITMAP)LoadImage(hInst, "logo.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 
             if(!INTRODUCTION) {
-                if(thread != NULL) {
-                    TerminateThread(thread, 0);
-                }
-                thread = CreateThread(NULL, 0, ThreadFunc, NULL, 0, NULL);
+                pthread_create(&thread_id_threadFunc, NULL, ThreadFunc, NULL);
                 Play();
                 PostMessage(hwnd, WM_NOTIFY, 0, 0);
             }
+            
+            pcgame = TRUE;
+            
             break;
         }
         break;
@@ -24161,17 +23854,27 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 break;
                 case IDC_NEW_GAME_BUTTON:
                     if (HIWORD(wParam) == BN_CLICKED) {
-                            if(thread != NULL) {
-                                TerminateThread(thread, 0);
-                            }
-                            thread = CreateThread(NULL, 0, ThreadFunc, NULL, 0, NULL);
-
-                            fen = initfn;
-                            
-                            Play();
-
-                            PostMessage(hwnd, WM_NOTIFY, 0, 0);
+                        GetCurrentDir( buff, FILENAME_MAX );
+                        buff[strlen(buff)] = '\0';
+                        strcpy(filename,buff);
+                        strcat(filename,"\\chess.exe");
+                        filename[strlen(filename)] = '\0';
+                        STARTUPINFO startUpInfo = { 0 };
+                        PROCESS_INFORMATION procInfo = { 0 };
+                        startUpInfo.cb = sizeof( startUpInfo );
+                        CreateProcess( filename, NULL, NULL, NULL, FALSE, 0, NULL, NULL, &startUpInfo, &procInfo );
+                        exit(0);
                         
+                        if(begin == 1) {
+                            pthread_create(&thread_id_threadFunc, NULL, ThreadFunc, NULL);
+                            begin = 0;
+                        }
+
+                        fen = initfn;
+
+                        Play();
+
+                        PostMessage(hwnd, WM_NOTIFY, 0, 0);
                     }
                 break;
                 case IDC_QUIT_BUTTON:
@@ -24256,17 +23959,27 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     timeToWait = 60*90;
                 break;
                 case ID_CLICK_ME_NEW_GAME:
-                        if(thread != NULL) {
-                            TerminateThread(thread, 0);
-                        }
-                        thread = CreateThread(NULL, 0, ThreadFunc, NULL, 0, NULL);
+                    GetCurrentDir( buff, FILENAME_MAX );
+                    buff[strlen(buff)] = '\0';
+                    strcpy(filename,buff);
+                    strcat(filename,"\\chess.exe");
+                    filename[strlen(filename)] = '\0';
+                    STARTUPINFO startUpInfo = { 0 };
+                    PROCESS_INFORMATION procInfo = { 0 };
+                    startUpInfo.cb = sizeof( startUpInfo );
+                    CreateProcess( filename, NULL, NULL, NULL, FALSE, 0, NULL, NULL, &startUpInfo, &procInfo );
+                    exit(0);
 
-                        fen = initfn;
+                    if(begin == 1) {
+                        pthread_create(&thread_id_threadFunc, NULL, ThreadFunc, NULL);
+                        begin = 0;
+                    }
 
-                        Play();
+                    fen = initfn;
 
-                        PostMessage(hwnd, WM_NOTIFY, 0, 0);
-                    
+                    Play();
+
+                    PostMessage(hwnd, WM_NOTIFY, 0, 0);
                 break;
                 case ID_CLICK_ME_QUIT:
                     PostMessage(hwnd, WM_CLOSE, 0, 0);
@@ -24274,9 +23987,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             }
         break;
         case WM_CLOSE:
-            if(thread_1 != NULL) {
-                TerminateThread(thread_1, 0);
-            }
             DestroyWindow(hwnd);
         break;
         case WM_DESTROY:
@@ -24311,18 +24021,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
     hwnd = CreateWindowEx(WS_EX_CLIENTEDGE,
                         g_szClassName,
-                        "My chess" /*"free download of the source code from https://github.com/OkelyKodely/chess/archive/master.zip"*/,
+                        "My Chess {http://api.underwaterchess.com}",
                         WS_OVERLAPPEDWINDOW,
                         rect.left, rect.top, 1100, 950,
                         NULL, NULL, hInstance, NULL);
-    
-    SetWindowLong(hwnd, GWL_STYLE, 0);
     
     if(hwnd == NULL) {
         return 0;
     }
     
-    DisableMaximizeButton(hwnd);
+    SetWindowLong(hwnd, GWL_STYLE, 0);
+    
+    DisableMaximizeMinimizeButton(hwnd);
 
     ShowWindow(hwnd, nCmdShow);
     UpdateWindow(hwnd);
