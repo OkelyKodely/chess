@@ -9,7 +9,6 @@
 
 #include <winsock2.h>
 #include <stdbool.h>
-#include <pthread.h>
 #include <windows.h>
 #include <commctrl.h>
 #include <mmsystem.h>
@@ -20,6 +19,8 @@
 #include <unistd.h>
 #include <string.h>
 #include "chess.h"
+
+#define IDC_HAND MAKEINTRESOURCE(32649)
 
 boolean fart = FALSE;
 
@@ -36,9 +37,6 @@ char buff[FILENAME_MAX];
 
 int begin = 1;
 
-pthread_t thread_id_api;
-pthread_t thread_id_threadFunc;
-        
 int iResult = -10;
 int iresult = -10;
 
@@ -257,12 +255,6 @@ void getApiUnderwaterChessDotComMove(char *frm, char *too) {
 
     int portno = 80;
     char *host = "api.underwaterchess.com";
-
-//    int vx = lastIndexOf(fen, "+") + 1;
-//    char *feeen = (char*) malloc(vx+2);
-//    strncpy(feeen, fen, vx+1);
-//    feeen[vx+1] = '\0';
-//    fen = feeen;
 
     char *str_2 = (char*) malloc(1 + strlen(gt)+ strlen(fen)+ strlen("&move=")+ strlen(frm)+ strlen(too)+ strlen(hstt) );
     strcpy(str_2, gt);
@@ -1991,22 +1983,39 @@ DWORD WINAPI ThreadFunc(void *data) {
                 sprintf(b, "black to move - out of %d mins %d mins and %d secs elapsed",ttw, min, sec);
             }
         } else {
-            if(turn == 'h') {
+            
+            if(!pcgame) {
+                
+                if(turn == 'h') {
 
-                sprintf(b, "white to move - no time");
+                    sprintf(b, "white to move - no time");
+
+                } else {
+
+                    sprintf(b, "black to move - no time");
+                }
+                
             } else {
+                
+                if(turn == 'h') {
 
-                sprintf(b, "black to move - no time");
+                    sprintf(b, "white to move");
+                
+                } else {
+
+                    sprintf(b, "black to move");
+                }
+                
             }
+            
         }
         if(ls != cs) {
             SetWindowText(hwnd_timer, b);
             if(gettingit) {
-                SetWindowText(hwnd_timer, "i'm thinking ...");
+                SetWindowText(hwnd_timer, "black expert thinking ...");
             } else {
                 if(pcgame && fart) {
                     TerminateThread(callApi, 0);
-//                    pthread_join(thread_id_api, NULL);
                     fart = FALSE;
                 }
             }
@@ -6442,177 +6451,177 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                     if(j*100+20 == greyKingSquare.posY &&
                                        i*100+20 == greyKingSquare.posX - 200) {
-                                        if(greyRook1Rectangle1.posY == 700 &&
-                                           greyRook1Rectangle1.posX == 0) {
-                                            if(greyKingSquare.posY == 700 &&
-                                               greyKingSquare.posX == 400) {
+                                        if(greyRook1Rectangle1.posY == 700+20 &&
+                                           greyRook1Rectangle1.posX == 0+20) {
+                                            if(greyKingSquare.posY == 700+20 &&
+                                               greyKingSquare.posX == 400+20) {
                                                 boolean isthere = FALSE;
-                                                if(greyRook1Rectangle1.posX == 300 &&
-                                                   greyRook1Rectangle1.posY == 700) {
+                                                if(greyRook1Rectangle1.posX == 300+20 &&
+                                                   greyRook1Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyRook1Rectangle1.posX == 200 &&
-                                                   greyRook1Rectangle1.posY == 700) {
+                                                if(greyRook1Rectangle1.posX == 200+20 &&
+                                                   greyRook1Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyRook1Rectangle1.posX == 100 &&
-                                                   greyRook1Rectangle1.posY == 700) {
+                                                if(greyRook1Rectangle1.posX == 100+20 &&
+                                                   greyRook1Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyRook2Rectangle1.posX == 300 &&
-                                                   greyRook2Rectangle1.posY == 700) {
+                                                if(greyRook2Rectangle1.posX == 300+20 &&
+                                                   greyRook2Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyRook2Rectangle1.posX == 200 &&
-                                                   greyRook2Rectangle1.posY == 700) {
+                                                if(greyRook2Rectangle1.posX == 200+20 &&
+                                                   greyRook2Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyRook2Rectangle1.posX == 100 &&
-                                                   greyRook2Rectangle1.posY == 700) {
+                                                if(greyRook2Rectangle1.posX == 100+20 &&
+                                                   greyRook2Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook1Rectangle1.posX == 300 &&
-                                                   redRook1Rectangle1.posY == 700) {
+                                                if(redRook1Rectangle1.posX == 300+20 &&
+                                                   redRook1Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook1Rectangle1.posX == 200 &&
-                                                   redRook1Rectangle1.posY == 700) {
+                                                if(redRook1Rectangle1.posX == 200+20 &&
+                                                   redRook1Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook1Rectangle1.posX == 100 &&
-                                                   redRook1Rectangle1.posY == 700) {
+                                                if(redRook1Rectangle1.posX == 100+20 &&
+                                                   redRook1Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook2Rectangle1.posX == 300 &&
-                                                   redRook2Rectangle1.posY == 700) {
+                                                if(redRook2Rectangle1.posX == 300+20 &&
+                                                   redRook2Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook2Rectangle1.posX == 200 &&
-                                                   redRook2Rectangle1.posY == 700) {
+                                                if(redRook2Rectangle1.posX == 200+20 &&
+                                                   redRook2Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook2Rectangle1.posX == 100 &&
-                                                   redRook2Rectangle1.posY == 700) {
+                                                if(redRook2Rectangle1.posX == 100+20 &&
+                                                   redRook2Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop1Square.posX == 300 &&
-                                                   greyBishop1Square.posY == 700) {
+                                                if(greyBishop1Square.posX == 300+20 &&
+                                                   greyBishop1Square.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop1Square.posX == 200 &&
-                                                   greyBishop1Square.posY == 700) {
+                                                if(greyBishop1Square.posX == 200+20 &&
+                                                   greyBishop1Square.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop1Square.posX == 100 &&
-                                                   greyBishop1Square.posY == 700) {
+                                                if(greyBishop1Square.posX == 100+20 &&
+                                                   greyBishop1Square.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop2Square.posX == 300 &&
-                                                   greyBishop2Square.posY == 700) {
+                                                if(greyBishop2Square.posX == 300+20 &&
+                                                   greyBishop2Square.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop2Square.posX == 200 &&
-                                                   greyBishop2Square.posY == 700) {
+                                                if(greyBishop2Square.posX == 200+20 &&
+                                                   greyBishop2Square.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop2Square.posX == 100 &&
-                                                   greyBishop2Square.posY == 700) {
+                                                if(greyBishop2Square.posX == 100+20 &&
+                                                   greyBishop2Square.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop1Square.posX == 300 &&
-                                                   redBishop1Square.posY == 700) {
+                                                if(redBishop1Square.posX == 300+20 &&
+                                                   redBishop1Square.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop1Square.posX == 200 &&
-                                                   redBishop1Square.posY == 700) {
+                                                if(redBishop1Square.posX == 200+20 &&
+                                                   redBishop1Square.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop1Square.posX == 100 &&
-                                                   redBishop1Square.posY == 700) {
+                                                if(redBishop1Square.posX == 100+20 &&
+                                                   redBishop1Square.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop2Square.posX == 300 &&
-                                                   redBishop2Square.posY == 700) {
+                                                if(redBishop2Square.posX == 300+20 &&
+                                                   redBishop2Square.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop2Square.posX == 200 &&
-                                                   redBishop2Square.posY == 700) {
+                                                if(redBishop2Square.posX == 200+20 &&
+                                                   redBishop2Square.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop2Square.posX == 100 &&
-                                                   redBishop2Square.posY == 700) {
+                                                if(redBishop2Square.posX == 100+20 &&
+                                                   redBishop2Square.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == 300 &&
-                                                   greyKnight1Rectangle1.posY == 700) {
+                                                if(greyKnight1Rectangle1.posX == 300+20 &&
+                                                   greyKnight1Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == 200 &&
-                                                   greyKnight1Rectangle1.posY == 700) {
+                                                if(greyKnight1Rectangle1.posX == 200+20 &&
+                                                   greyKnight1Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == 100 &&
-                                                   greyKnight1Rectangle1.posY == 700) {
+                                                if(greyKnight1Rectangle1.posX == 100+20 &&
+                                                   greyKnight1Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == 300 &&
-                                                   greyKnight2Rectangle1.posY == 700) {
+                                                if(greyKnight2Rectangle1.posX == 300+20 &&
+                                                   greyKnight2Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == 200 &&
-                                                   greyKnight2Rectangle1.posY == 700) {
+                                                if(greyKnight2Rectangle1.posX == 200+20 &&
+                                                   greyKnight2Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == 100 &&
-                                                   greyKnight2Rectangle1.posY == 700) {
+                                                if(greyKnight2Rectangle1.posX == 100+20 &&
+                                                   greyKnight2Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight1Rectangle1.posX == 300 &&
-                                                   redKnight1Rectangle1.posY == 700) {
+                                                if(redKnight1Rectangle1.posX == 300+20 &&
+                                                   redKnight1Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight1Rectangle1.posX == 200 &&
-                                                   redKnight1Rectangle1.posY == 700) {
+                                                if(redKnight1Rectangle1.posX == 200+20 &&
+                                                   redKnight1Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight1Rectangle1.posX == 100 &&
-                                                   redKnight1Rectangle1.posY == 700) {
+                                                if(redKnight1Rectangle1.posX == 100+20 &&
+                                                   redKnight1Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight2Rectangle1.posX == 300 &&
-                                                   redKnight2Rectangle1.posY == 700) {
+                                                if(redKnight2Rectangle1.posX == 300+20 &&
+                                                   redKnight2Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight2Rectangle1.posX == 200 &&
-                                                   redKnight2Rectangle1.posY == 700) {
+                                                if(redKnight2Rectangle1.posX == 200+20 &&
+                                                   redKnight2Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight2Rectangle1.posX == 100 &&
-                                                   redKnight2Rectangle1.posY == 700) {
+                                                if(redKnight2Rectangle1.posX == 100+20 &&
+                                                   redKnight2Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyQueenSquare.posX == 300 &&
-                                                   greyQueenSquare.posY == 700) {
+                                                if(greyQueenSquare.posX == 300+20 &&
+                                                   greyQueenSquare.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyQueenSquare.posX == 200 &&
-                                                   greyQueenSquare.posY == 700) {
+                                                if(greyQueenSquare.posX == 200+20 &&
+                                                   greyQueenSquare.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyQueenSquare.posX == 100 &&
-                                                   greyQueenSquare.posY == 700) {
+                                                if(greyQueenSquare.posX == 100+20 &&
+                                                   greyQueenSquare.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redQueenSquare.posX == 300 &&
-                                                   redQueenSquare.posY == 700) {
+                                                if(redQueenSquare.posX == 300+20 &&
+                                                   redQueenSquare.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redQueenSquare.posX == 200 &&
-                                                   redQueenSquare.posY == 700) {
+                                                if(redQueenSquare.posX == 200+20 &&
+                                                   redQueenSquare.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redQueenSquare.posX == 100 &&
-                                                   redQueenSquare.posY == 700) {
+                                                if(redQueenSquare.posX == 100+20 &&
+                                                   redQueenSquare.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
                                                 if(!isthere && !greyKingMoved && !greyRook1Moved) {
@@ -6630,121 +6639,121 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                     if(j*100+20 == greyKingSquare.posY &&
                                        i*100+20 == greyKingSquare.posX + 200) {
-                                        if(greyRook2Rectangle1.posY == 700 &&
-                                           greyRook2Rectangle1.posX == 700) {
-                                            if(greyKingSquare.posY == 700 &&
-                                               greyKingSquare.posX == 400) {
+                                        if(greyRook2Rectangle1.posY == 700+20 &&
+                                           greyRook2Rectangle1.posX == 700+20) {
+                                            if(greyKingSquare.posY == 700+20 &&
+                                               greyKingSquare.posX == 400+20) {
                                                 boolean isthere = FALSE;
-                                                if(greyRook1Rectangle1.posX == 500 &&
-                                                   greyRook1Rectangle1.posY == 700) {
+                                                if(greyRook1Rectangle1.posX == 500+20 &&
+                                                   greyRook1Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyRook1Rectangle1.posX == 600 &&
-                                                   greyRook1Rectangle1.posY == 700) {
+                                                if(greyRook1Rectangle1.posX == 600+20 &&
+                                                   greyRook1Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyRook2Rectangle1.posX == 500 &&
-                                                   greyRook2Rectangle1.posY == 700) {
+                                                if(greyRook2Rectangle1.posX == 500+20 &&
+                                                   greyRook2Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyRook2Rectangle1.posX == 600 &&
-                                                   greyRook2Rectangle1.posY == 700) {
+                                                if(greyRook2Rectangle1.posX == 600+20 &&
+                                                   greyRook2Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook1Rectangle1.posX == 500 &&
-                                                   redRook1Rectangle1.posY == 700) {
+                                                if(redRook1Rectangle1.posX == 500+20 &&
+                                                   redRook1Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook1Rectangle1.posX == 600 &&
-                                                   redRook1Rectangle1.posY == 700) {
+                                                if(redRook1Rectangle1.posX == 600+20 &&
+                                                   redRook1Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook2Rectangle1.posX == 500 &&
-                                                   redRook2Rectangle1.posY == 700) {
+                                                if(redRook2Rectangle1.posX == 500+20 &&
+                                                   redRook2Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook2Rectangle1.posX == 600 &&
-                                                   redRook2Rectangle1.posY == 700) {
+                                                if(redRook2Rectangle1.posX == 600+20 &&
+                                                   redRook2Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop1Square.posX == 500 &&
-                                                   greyBishop1Square.posY == 700) {
+                                                if(greyBishop1Square.posX == 500+20 &&
+                                                   greyBishop1Square.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop1Square.posX == 600 &&
-                                                   greyBishop1Square.posY == 700) {
+                                                if(greyBishop1Square.posX == 600+20 &&
+                                                   greyBishop1Square.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop2Square.posX == 500 &&
-                                                   greyBishop2Square.posY == 700) {
+                                                if(greyBishop2Square.posX == 500+20 &&
+                                                   greyBishop2Square.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop2Square.posX == 600 &&
-                                                   greyBishop2Square.posY == 700) {
+                                                if(greyBishop2Square.posX == 600+20 &&
+                                                   greyBishop2Square.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop1Square.posX == 500 &&
-                                                   redBishop1Square.posY == 700) {
+                                                if(redBishop1Square.posX == 500+20 &&
+                                                   redBishop1Square.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop1Square.posX == 600 &&
-                                                   redBishop1Square.posY == 700) {
+                                                if(redBishop1Square.posX == 600+20 &&
+                                                   redBishop1Square.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop2Square.posX == 500 &&
-                                                   redBishop2Square.posY == 700) {
+                                                if(redBishop2Square.posX == 500+20 &&
+                                                   redBishop2Square.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop2Square.posX == 600 &&
-                                                   redBishop2Square.posY == 700) {
+                                                if(redBishop2Square.posX == 600+20 &&
+                                                   redBishop2Square.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == 500 &&
-                                                   greyKnight1Rectangle1.posY == 700) {
+                                                if(greyKnight1Rectangle1.posX == 500+20 &&
+                                                   greyKnight1Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == 600 &&
-                                                   greyKnight1Rectangle1.posY == 700) {
+                                                if(greyKnight1Rectangle1.posX == 600+20 &&
+                                                   greyKnight1Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == 500 &&
-                                                   greyKnight2Rectangle1.posY == 700) {
+                                                if(greyKnight2Rectangle1.posX == 500+20 &&
+                                                   greyKnight2Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == 600 &&
-                                                   greyKnight2Rectangle1.posY == 700) {
+                                                if(greyKnight2Rectangle1.posX == 600+20 &&
+                                                   greyKnight2Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight1Rectangle1.posX == 500 &&
-                                                   redKnight1Rectangle1.posY == 700) {
+                                                if(redKnight1Rectangle1.posX == 500+20 &&
+                                                   redKnight1Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight1Rectangle1.posX == 600 &&
-                                                   redKnight1Rectangle1.posY == 700) {
+                                                if(redKnight1Rectangle1.posX == 600+20 &&
+                                                   redKnight1Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight2Rectangle1.posX == 500 &&
-                                                   redKnight2Rectangle1.posY == 700) {
+                                                if(redKnight2Rectangle1.posX == 500+20 &&
+                                                   redKnight2Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight2Rectangle1.posX == 600 &&
-                                                   redKnight2Rectangle1.posY == 700) {
+                                                if(redKnight2Rectangle1.posX == 600+20 &&
+                                                   redKnight2Rectangle1.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyQueenSquare.posX == 500 &&
-                                                   greyQueenSquare.posY == 700) {
+                                                if(greyQueenSquare.posX == 500+20 &&
+                                                   greyQueenSquare.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyQueenSquare.posX == 600 &&
-                                                   greyQueenSquare.posY == 700) {
+                                                if(greyQueenSquare.posX == 600+20 &&
+                                                   greyQueenSquare.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redQueenSquare.posX == 500 &&
-                                                   redQueenSquare.posY == 700) {
+                                                if(redQueenSquare.posX == 500+20 &&
+                                                   redQueenSquare.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redQueenSquare.posX == 600 &&
-                                                   redQueenSquare.posY == 700) {
+                                                if(redQueenSquare.posX == 600+20 &&
+                                                   redQueenSquare.posY == 700+20) {
                                                     isthere = TRUE;
                                                 }
                                                 if(!isthere && !greyKingMoved && !greyRook2Moved) {
@@ -9374,9 +9383,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 if(pcgame) {
                                     if(turn == 'r') {
                                         if(from != NULL && to != NULL) {
-                                            SetWindowText(hwnd_timer, "i'm thinking ...");
+                                            SetWindowText(hwnd_timer, "black expert thinking ...");
                                             thread_1 = CreateThread(NULL, 0, callApi, NULL, 0, NULL);
-//                                            pthread_create(&thread_id_api, NULL, callApi, NULL);
                                         }
                                         break;
                                     }
@@ -14035,12 +14043,12 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             AppendMenu(hSubMenu, MF_STRING, ID_FILE_DOWNLOAD, "get mine");
             AppendMenu(hSubMenu, MF_STRING, ID_CAPTURE_SCREEN, "snapshot");
             AppendMenu(hSubMenu, MF_STRING, ID_CLICK_ME_QUIT, "exit game");
-            AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "do !");
+            AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "Chess");
 
             hSubMenu = CreatePopupMenu();
-            AppendMenu(hSubMenu, MF_STRING, ID_PC_GAME, "1 player");
-            AppendMenu(hSubMenu, MF_STRING, ID_HUMAN_GAME, "2 players");
-            AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "options");
+            AppendMenu(hSubMenu, MF_STRING, ID_PC_GAME, "1 player (versus black expert level)");
+            AppendMenu(hSubMenu, MF_STRING, ID_HUMAN_GAME, "2 players (versus eachother)");
+            AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "Options");
 
             hSubMenu = CreatePopupMenu();
             AppendMenu(hSubMenu, MF_STRING, ID_TIMER_0MIN, "no time");
@@ -14062,7 +14070,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             AppendMenu(hSubMenu, MF_STRING, ID_TIMER_80MIN, "80 mins");
             AppendMenu(hSubMenu, MF_STRING, ID_TIMER_85MIN, "85 mins");
             AppendMenu(hSubMenu, MF_STRING, ID_TIMER_90MIN, "90 mins");
-            AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "timer");
+            AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "Timer (2 player menu)");
 
             SetMenu(hwnd, hMenu);
 
@@ -14127,7 +14135,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
             if(!INTRODUCTION) {
                 thread = CreateThread(NULL, 0, ThreadFunc, NULL, 0, NULL);
-//                pthread_create(&thread_id_threadFunc, NULL, ThreadFunc, NULL);
                 Play();
                 PostMessage(hwnd, WM_NOTIFY, 0, 0);
             }
@@ -14156,18 +14163,163 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                   pcgame = TRUE;
                 break;
                 case ID_FILE_DOWNLOAD:
-                    ShellExecute(NULL, "open", "https://github.com/OkelyKodely/chess/", NULL, NULL, SW_SHOWNORMAL);
+                    if(MessageBox(hwnd,"Would you like to download a copy of this source code?", "Get Mine", MB_YESNO) == IDYES) {
+                        ShellExecute(NULL, "open", "https://github.com/OkelyKodely/chess/", NULL, NULL, SW_SHOWNORMAL);
+                    }
                 break;
                 case ID_CAPTURE_SCREEN:
-                    CaptureWindow(hwnd);
+                    if(MessageBox(hwnd,"Would you like to take a screen shot of the game?", "Screenshot", MB_YESNO) == IDYES) {
+                        CaptureWindow(hwnd);
+                    }
                 break;
                 case IDC_DOWNLOAD_BUTTON:
-                    if (HIWORD(wParam) == BN_CLICKED) {
-                        ShellExecute(NULL, "open", "https://github.com/OkelyKodely/chess/", NULL, NULL, SW_SHOWNORMAL);
+                    if(HIWORD(wParam) == BN_CLICKED) {
+                        if(MessageBox(hwnd,"Would you like to download a copy of this source code?", "Get Mine", MB_YESNO) == IDYES) {
+                            ShellExecute(NULL, "open", "https://github.com/OkelyKodely/chess/", NULL, NULL, SW_SHOWNORMAL);
+                        }
                     }
                 break;
                 case IDC_NEW_GAME_BUTTON:
                     if (HIWORD(wParam) == BN_CLICKED) {
+                        if(MessageBox(hwnd,"Would you like to play a new game?", "New Game", MB_YESNO) == IDYES) {
+                            GetCurrentDir( buff, FILENAME_MAX );
+                            buff[strlen(buff)] = '\0';
+                            strcpy(filename,buff);
+                            strcat(filename,"\\chess.exe");
+                            filename[strlen(filename)] = '\0';
+                            STARTUPINFO startUpInfo = { 0 };
+                            PROCESS_INFORMATION procInfo = { 0 };
+                            startUpInfo.cb = sizeof( startUpInfo );
+                            CreateProcess( filename, NULL, NULL, NULL, FALSE, 0, NULL, NULL, &startUpInfo, &procInfo );
+                            if(gettingit) {
+                                TerminateThread(callApi, 0);    
+                            }
+                            TerminateThread(ThreadFunc, 0);
+                            exit(0);
+                        }
+                    }
+                break;
+                case IDC_QUIT_BUTTON:
+                    if(HIWORD(wParam) == BN_CLICKED) {
+                        if(MessageBox(hwnd,"Would you like to quit?", "Exit Game", MB_YESNO) == IDYES) {
+                            PostMessage(hwnd, WM_CLOSE, 0, 0);
+                        }
+                    }
+                break;
+                case ID_TIMER_0MIN:
+                    ttw = 0;
+                    timeToWait = 0;
+                break;
+                case ID_TIMER_5MIN:
+                    if(!pcgame) {
+                        ttw = 5;
+                        timeToWait = 60*5;
+                    }
+                break;
+                case ID_TIMER_10MIN:
+                    if(!pcgame) {
+                        ttw = 10;
+                        timeToWait = 60*10;
+                    }
+                break;
+                case ID_TIMER_15MIN:
+                    if(!pcgame) {
+                        ttw = 15;
+                        timeToWait = 60*15;
+                    }
+                break;
+                case ID_TIMER_20MIN:
+                    if(!pcgame) {
+                        ttw = 20;
+                        timeToWait = 60*20;
+                    }
+                break;
+                case ID_TIMER_25MIN:
+                    if(!pcgame) {
+                        ttw = 25;
+                        timeToWait = 60*25;
+                    }
+                break;
+                case ID_TIMER_30MIN:
+                    if(!pcgame) {
+                        ttw = 30;
+                        timeToWait = 60*30;
+                    }
+                break;
+                case ID_TIMER_35MIN:
+                    if(!pcgame) {
+                        ttw = 35;
+                        timeToWait = 60*35;
+                    }
+                break;
+                case ID_TIMER_40MIN:
+                    if(!pcgame) {
+                        ttw = 40;
+                        timeToWait = 60*40;
+                    }
+                break;
+                case ID_TIMER_45MIN:
+                    if(!pcgame) {
+                        ttw = 45;
+                        timeToWait = 60*45;
+                    }
+                break;
+                case ID_TIMER_50MIN:
+                    if(!pcgame) {
+                        ttw = 50;
+                        timeToWait = 60*50;
+                    }
+                break;
+                case ID_TIMER_55MIN:
+                    if(!pcgame) {
+                        ttw = 55;
+                        timeToWait = 60*55;
+                    }
+                break;
+                case ID_TIMER_60MIN:
+                    if(!pcgame) {
+                        ttw = 60;
+                        timeToWait = 60*60;
+                    }
+                break;
+                case ID_TIMER_65MIN:
+                    if(!pcgame) {
+                        ttw = 65;
+                        timeToWait = 60*65;
+                    }
+                break;
+                case ID_TIMER_70MIN:
+                    if(!pcgame) {
+                        ttw = 70;
+                        timeToWait = 60*70;
+                    }
+                break;
+                case ID_TIMER_75MIN:
+                    if(!pcgame) {
+                        ttw = 75;
+                        timeToWait = 60*75;
+                    }
+                break;
+                case ID_TIMER_80MIN:
+                    if(!pcgame) {
+                        ttw = 80;
+                        timeToWait = 60*80;
+                    }
+                break;
+                case ID_TIMER_85MIN:
+                    if(!pcgame) {
+                        ttw = 85;
+                        timeToWait = 60*85;
+                    }
+                break;
+                case ID_TIMER_90MIN:
+                    if(!pcgame) {
+                        ttw = 90;
+                        timeToWait = 60*90;
+                    }
+                break;
+                case ID_CLICK_ME_NEW_GAME:
+                    if(MessageBox(hwnd,"Would you like to play a new game?", "New Game", MB_YESNO) == IDYES) {
                         GetCurrentDir( buff, FILENAME_MAX );
                         buff[strlen(buff)] = '\0';
                         strcpy(filename,buff);
@@ -14183,106 +14335,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                         TerminateThread(ThreadFunc, 0);
                         exit(0);
                     }
-                break;
-                case IDC_QUIT_BUTTON:
-                    if (HIWORD(wParam) == BN_CLICKED) {
-                        PostMessage(hwnd, WM_CLOSE, 0, 0);
-                    }
-                break;
-                case ID_TIMER_0MIN:
-                    ttw = 0;
-                    timeToWait = 0;
-                break;
-                case ID_TIMER_5MIN:
-                    ttw = 5;
-                    timeToWait = 60*5;
-                break;
-                case ID_TIMER_10MIN:
-                    ttw = 10;
-                    timeToWait = 60*10;
-                break;
-                case ID_TIMER_15MIN:
-                    ttw = 15;
-                    timeToWait = 60*15;
-                break;
-                case ID_TIMER_20MIN:
-                    ttw = 20;
-                    timeToWait = 60*20;
-                break;
-                case ID_TIMER_25MIN:
-                    ttw = 25;
-                    timeToWait = 60*25;
-                break;
-                case ID_TIMER_30MIN:
-                    ttw = 30;
-                    timeToWait = 60*30;
-                break;
-                case ID_TIMER_35MIN:
-                    ttw = 35;
-                    timeToWait = 60*35;
-                break;
-                case ID_TIMER_40MIN:
-                    ttw = 40;
-                    timeToWait = 60*40;
-                break;
-                case ID_TIMER_45MIN:
-                    ttw = 45;
-                    timeToWait = 60*45;
-                break;
-                case ID_TIMER_50MIN:
-                    ttw = 50;
-                    timeToWait = 60*50;
-                break;
-                case ID_TIMER_55MIN:
-                    ttw = 55;
-                    timeToWait = 60*55;
-                break;
-                case ID_TIMER_60MIN:
-                    ttw = 60;
-                    timeToWait = 60*60;
-                break;
-                case ID_TIMER_65MIN:
-                    ttw = 65;
-                    timeToWait = 60*65;
-                break;
-                case ID_TIMER_70MIN:
-                    ttw = 70;
-                    timeToWait = 60*70;
-                break;
-                case ID_TIMER_75MIN:
-                    ttw = 75;
-                    timeToWait = 60*75;
-                break;
-                case ID_TIMER_80MIN:
-                    ttw = 80;
-                    timeToWait = 60*80;
-                break;
-                case ID_TIMER_85MIN:
-                    ttw = 85;
-                    timeToWait = 60*85;
-                break;
-                case ID_TIMER_90MIN:
-                    ttw = 90;
-                    timeToWait = 60*90;
-                break;
-                case ID_CLICK_ME_NEW_GAME:
-                    GetCurrentDir( buff, FILENAME_MAX );
-                    buff[strlen(buff)] = '\0';
-                    strcpy(filename,buff);
-                    strcat(filename,"\\chess.exe");
-                    filename[strlen(filename)] = '\0';
-                    STARTUPINFO startUpInfo = { 0 };
-                    PROCESS_INFORMATION procInfo = { 0 };
-                    startUpInfo.cb = sizeof( startUpInfo );
-                    CreateProcess( filename, NULL, NULL, NULL, FALSE, 0, NULL, NULL, &startUpInfo, &procInfo );
-                    if(gettingit) {
-                        TerminateThread(callApi, 0);    
-                    }
-                    TerminateThread(ThreadFunc, 0);
-                    exit(0);
                     break;
                 case ID_CLICK_ME_QUIT:
-                    PostMessage(hwnd, WM_CLOSE, 0, 0);
+                    if(MessageBox(hwnd,"Would you like to quit?", "Exit Game", MB_YESNO) == IDYES) {
+                        PostMessage(hwnd, WM_CLOSE, 0, 0);
+                    }
                 break;
             }
         break;
@@ -14304,14 +14361,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     LPSTR lpCmdLine, int nCmdShow) {
 
     wc.cbSize        = sizeof(WNDCLASSEX);
-    wc.style         = 0;
+    wc.style         = CS_NOCLOSE;
     wc.lpfnWndProc   = WndProc;
     wc.cbClsExtra    = 0;
     wc.cbWndExtra    = 0;
     wc.hInstance     = hInstance;
     wc.hIcon         = LoadIcon(NULL, IDI_APPLICATION);
     wc.hCursor       = LoadCursor(NULL, IDC_ARROW);
-    wc.hbrBackground = (HBRUSH)(COLOR_WINDOW+1);
+    wc.hbrBackground = (HBRUSH)(COLOR_WINDOW);
     wc.lpszMenuName  = NULL;
     wc.lpszClassName = g_szClassName;
     wc.hIconSm       = LoadIcon(NULL, IDI_APPLICATION);
@@ -14320,19 +14377,26 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
         return 0;
     }
 
-    hwnd = CreateWindowEx(WS_EX_CLIENTEDGE,
-                        g_szClassName,
-                        "chess",
-                        WS_TILEDWINDOW,
-                        rect.left, rect.top, 1200, 1000,
-                        NULL, NULL, hInstance, NULL);
+//    hwnd = CreateWindowEx(WS_EX_CLIENTEDGE,
+//                        g_szClassName,
+//                        "Chess",
+//                        WS_TILEDWINDOW,
+//                        rect.left, rect.top, 1200, 1000,
+//                        NULL, NULL, hInstance, NULL);
     
+    hwnd = CreateWindowEx(WS_EX_LAYERED, 
+            g_szClassName, "Chess", 
+            WS_OVERLAPPEDWINDOW,
+            rect.left, rect.top, 1200, 1000, 
+            NULL, NULL, hInstance, NULL);
+
     if(hwnd == NULL) {
         return 0;
     }
     
-    SetWindowLong(hwnd, GWL_STYLE, 0);
-    
+    SetLayeredWindowAttributes(hwnd,  0,  
+				(255 * 75) / 100, LWA_ALPHA);
+
     DisableMaximizeMinimizeButton(hwnd);
 
     ShowWindow(hwnd, nCmdShow);
