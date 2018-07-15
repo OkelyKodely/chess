@@ -20,6 +20,8 @@
 #include <string.h>
 #include "chess.h"
 
+boolean checkmate = FALSE;
+
 #define IDC_HAND MAKEINTRESOURCE(32649)
 
 boolean fart = FALSE;
@@ -317,9 +319,23 @@ void getApiUnderwaterChessDotComMove(char *frm, char *too) {
     aaa = replaceWord(fen, " ", "+");
     fen = aaa;
 
-    char *b = strstr(response, "bestMove\": \"");
+    char *ab = strstr(response, "isCheckmate\": ");
 
-    strncpy(bestMove, b+12, 4);
+    char *tf = malloc(4);
+    strncpy(tf, ab+14, 4);
+    
+    if(tf[0]=='f' &&
+       tf[1]=='a' &&
+       tf[2]=='l' &&
+       tf[3]=='s') {
+
+        char *b = strstr(response, "bestMove\": \"");
+        strncpy(bestMove, b+12, 4);
+    }
+    else {
+        checkmate = TRUE;
+        MessageBox(hwnd,"Checkmate!","Game Over",MB_OK);
+    }
 
     /* close the socket */
     close(sockfd);
@@ -3975,7 +3991,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 klicked = TRUE;
             
             done = FALSE;
-            
+
+            if(checkmate)
+                break;
+
             int iPosX = LOWORD(lParam);
             int iPosY = HIWORD(lParam);
 
@@ -9380,14 +9399,18 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 DeleteObject(kingBlack_s);
                                 DeleteObject(kingWhite_s);
 
-                                if(pcgame) {
-                                    if(turn == 'r') {
-                                        if(from != NULL && to != NULL) {
-                                            SetWindowText(hwnd_timer, "black expert thinking ...");
-                                            thread_1 = CreateThread(NULL, 0, callApi, NULL, 0, NULL);
+                                if(checkmate == FALSE) {
+                                    if(pcgame) {
+                                        if(turn == 'r') {
+                                            if(from != NULL && to != NULL) {
+                                                SetWindowText(hwnd_timer, "black expert thinking ...");
+                                                thread_1 = CreateThread(NULL, 0, callApi, NULL, 0, NULL);
+                                            }
+                                            break;
                                         }
-                                        break;
                                     }
+                                } else {
+                                    MessageBox(hwnd,"Checkmate!","Game Over",MB_OK);
                                 }
                             }
                         } else if(turn == 'r') {
