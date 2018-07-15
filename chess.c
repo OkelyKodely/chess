@@ -319,6 +319,11 @@ void getApiUnderwaterChessDotComMove(char *frm, char *too) {
     aaa = replaceWord(fen, " ", "+");
     fen = aaa;
 
+    char *aab = strstr(response, "color\": \"");
+
+    char *taf = malloc(5);
+    strncpy(taf, aab+9, 5);
+
     char *ab = strstr(response, "isCheckmate\": ");
 
     char *tf = malloc(4);
@@ -334,7 +339,10 @@ void getApiUnderwaterChessDotComMove(char *frm, char *too) {
     }
     else {
         checkmate = TRUE;
-        MessageBox(hwnd,"Checkmate!","Game Over",MB_OK);
+        if(taf[0]=='w')
+            MessageBox(hwnd,"Checkmate!","Black Wins",MB_OK);
+        else if(taf[0]=='b')
+            MessageBox(hwnd,"Checkmate!","White Wins",MB_OK);
     }
 
     /* close the socket */
@@ -2028,7 +2036,7 @@ DWORD WINAPI ThreadFunc(void *data) {
         if(ls != cs) {
             SetWindowText(hwnd_timer, b);
             if(gettingit) {
-                SetWindowText(hwnd_timer, "black expert thinking ...");
+                SetWindowText(hwnd_timer, "black player thinking ...");
             } else {
                 if(pcgame && fart) {
                     TerminateThread(callApi, 0);
@@ -9399,18 +9407,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 DeleteObject(kingBlack_s);
                                 DeleteObject(kingWhite_s);
 
-                                if(checkmate == FALSE) {
-                                    if(pcgame) {
-                                        if(turn == 'r') {
-                                            if(from != NULL && to != NULL) {
-                                                SetWindowText(hwnd_timer, "black expert thinking ...");
-                                                thread_1 = CreateThread(NULL, 0, callApi, NULL, 0, NULL);
-                                            }
-                                            break;
+                                if(pcgame) {
+                                    if(turn == 'r') {
+                                        if(from != NULL && to != NULL) {
+                                            SetWindowText(hwnd_timer, "black player thinking ...");
+                                            thread_1 = CreateThread(NULL, 0, callApi, NULL, 0, NULL);
                                         }
+                                        break;
                                     }
-                                } else {
-                                    MessageBox(hwnd,"Checkmate!","Game Over",MB_OK);
                                 }
                             }
                         } else if(turn == 'r') {
@@ -14069,7 +14073,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "Chess");
 
             hSubMenu = CreatePopupMenu();
-            AppendMenu(hSubMenu, MF_STRING, ID_PC_GAME, "1 player (versus black expert level)");
+            AppendMenu(hSubMenu, MF_STRING, ID_PC_GAME, "1 player (versus expert)");
             AppendMenu(hSubMenu, MF_STRING, ID_HUMAN_GAME, "2 players (versus eachother)");
             AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "Options");
 
@@ -14418,7 +14422,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     }
     
     SetLayeredWindowAttributes(hwnd,  0,  
-				(255 * 75) / 100, LWA_ALPHA);
+				(255 * 83) / 100, LWA_ALPHA);
 
     DisableMaximizeMinimizeButton(hwnd);
 
