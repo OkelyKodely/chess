@@ -99,6 +99,7 @@ RECT rect;
 HINSTANCE hInst;
 HINSTANCE g_hinstance;
 HBITMAP hBitmap;
+HBITMAP hBitmapSideLogo;
 HBITMAP hBitmapAbout;
 HBITMAP hBitmapSq;
 HBITMAP pawnBlack, pawnWhite, knightBlack, knight2Black, knightWhite, knight2White, rookBlack, rook2Black, rookWhite, rook2White, bishopBlack, bishop2Black, bishopWhite, bishop2White, queenBlack, queenWhite, kingBlack, kingWhite;
@@ -1207,7 +1208,7 @@ void getApiUnderwaterChessDotComMove2(char *frm, char *too) {
         checkmate = TRUE;
         if(taf[0]=='w') {
             MessageBox(hwnd,"Black wins! Checkmate!","Black Wins",MB_OK);
-            PlaySound(TEXT("ding.wav"), NULL, SND_FILENAME);
+            PlaySound(TEXT("a-team_plan.wav"), NULL, SND_FILENAME);
         } else if(taf[0]=='b') {
             MessageBox(hwnd,"White wins! Checkmate!","White Wins",MB_OK);
             PlaySound(TEXT("a-team_plan.wav"), NULL, SND_FILENAME);
@@ -3751,10 +3752,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 SelectObject(hdcMem, oldBitmap);
                 DeleteDC(hdcMem); DeleteObject(hBitmap);
 
-                EndPaint(hwnd, &ps);
-
-                hdc = GetDC(hwnd);
-                
                 finished = 0;
                 
                 PlaySound(TEXT("a-team_plan.wav"), NULL, SND_FILENAME);
@@ -3765,6 +3762,20 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 RECT rrect = {0, 0, 1200, 1000};
                 FillRect(hdc, &rrect, brush);
                 DeleteObject(brush);
+
+                hdcMem = CreateCompatibleDC(hdc);
+                
+                oldBitmap = SelectObject(hdcMem, hBitmapSideLogo);
+
+                GetObject(hBitmapSideLogo, sizeof(bitmap), &bitmap);
+                BitBlt(hdc, 1120, 0, 1170, 1000, hdcMem, 0, 0, SRCCOPY);
+
+                SelectObject(hdcMem, oldBitmap);
+                DeleteDC(hdcMem); DeleteObject(hBitmapSideLogo);
+
+                EndPaint(hwnd, &ps);
+
+                hdc = GetDC(hwnd);
 
                 wLMSize = 20;
                 wLM[0] = "b1a3";
@@ -15779,6 +15790,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 								x, y, w, h, hwnd, (HMENU) IDC_QUIT_BUTTON, GetModuleHandle(NULL), NULL);
 
             hBitmap = (HBITMAP)LoadImage(hInst, "logo.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+
+            hBitmapSideLogo = (HBITMAP)LoadImage(hInst, "sidelogo.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 
             pcgame = TRUE;
         }
