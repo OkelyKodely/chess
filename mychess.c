@@ -23,6 +23,9 @@
 
 int nCmdShow2 = 123;
 HDC hdc2;
+int wLMSize;
+char *wLM[1000];
+char *wLgalMoves;
 
 #ifdef WINDOWS
 #include <direct.h>
@@ -54,6 +57,8 @@ char *gt = "GET /game?fen=";
 char *initfn = "rnbqkbnr%2Fpppppppp%2F8%2F8%2F8%2F8%2FPPPPPPPP%2FRNBQKBNR+w+KQkq+-+0+1";
 char *hstt = "&format=json HTTP/1.0\r\nHost: api.underwaterchess.com\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n";
 char *fen = "rnbqkbnr%2Fpppppppp%2F8%2F8%2F8%2F8%2FPPPPPPPP%2FRNBQKBNR+w+KQkq+-+0+1";
+
+char *fen2 = "rnbqkbnr%2Fpppppppp%2F8%2F8%2F8%2F8%2FPPPPPPPP%2FRNBQKBNR+w+KQkq+-+0+1";
 
 HINSTANCE hInsta_nce;
 HBITMAP hbit;
@@ -631,7 +636,7 @@ void SetMyMenu(int option) {
         ninetyMin = "90 mins (2 players)";
     }
 
-    if(option == 24) {
+    if(option == 25) {
         zeroMin = "no time (2 players)";
         fiveMin = "5 mins (2 players)";
         tenMin = "10 mins (2 players)";
@@ -815,6 +820,19 @@ int lastIndexOf (char* base, char* str) {
     return result;
 }
 
+void removeChar( char * string, char letter ) {
+  int i1 = 0;
+  for( unsigned int i = 0; i < strlen( string ); i++ )
+    if( string[i] == letter ) {
+      if(letter == ' ') {
+        i1++;
+      }
+      strcpy( string + i, string + i + 1 );
+    }
+  if(letter == ' ')
+    wLMSize = ++i1;
+}
+
 void getApiUnderwaterChessDotComMove(char *frm, char *too) {
 
     WORD wVersionRequested;
@@ -896,6 +914,35 @@ void getApiUnderwaterChessDotComMove(char *frm, char *too) {
         isin = strstr(response, "isInCheck\": ");
         strncpy(c, isin+12, 1);
     }
+    
+    char *wLegalMoves;
+    char *l1 = (char *) malloc(1000);
+    if(tf[0]=='f' &&
+       tf[1]=='a' &&
+       tf[2]=='l' &&
+       tf[3]=='s') {
+        if(taf[0] == 'w') {
+            l1 = strstr(response, "[");
+            int iii = strcspn(l1,"]");
+            wLegalMoves = malloc(iii);
+            strncpy(wLegalMoves,l1+1,iii-1);
+            wLegalMoves[iii-1] = '\0';
+            removeChar(wLegalMoves, '\"');
+            removeChar(wLegalMoves, ' ');
+            printf("Size of wLMSize: %d", wLMSize);
+            char *token = strtok(wLegalMoves, ",");
+            wLM[0] = token;
+            printf(wLM[0]);
+            printf("\n\n");
+            int qq = 1;
+            while (token != NULL) {
+                printf("%s\n", token);
+                token = strtok(NULL, ",");
+                wLM[qq] = token;
+                qq++;
+            }
+        }
+    }
 
     char *legalMoves;
     char *l = (char *) malloc(1000);
@@ -910,7 +957,7 @@ void getApiUnderwaterChessDotComMove(char *frm, char *too) {
             int yte = iii - 2;
             ert = yte - 6;
             ert = (int)round((double)ert / 8.0) + 1;
-            legalMoves = malloc(iii);
+            legalMoves = (char *) malloc(iii);
             strncpy(legalMoves,l+1,iii-1);
             legalMoves[iii-1] = '\0';
             printf(legalMoves);
@@ -970,6 +1017,193 @@ void getApiUnderwaterChessDotComMove(char *frm, char *too) {
             printf("\r\n\r\n");
         }
     } else {
+        checkmate = TRUE;
+        if(taf[0]=='w') {
+            MessageBox(hwnd,"Black wins! Checkmate!","Black Wins",MB_OK);
+            PlaySound(TEXT("ding.wav"), NULL, SND_FILENAME);
+        } else if(taf[0]=='b') {
+            MessageBox(hwnd,"White wins! Checkmate!","White Wins",MB_OK);
+            PlaySound(TEXT("a-team_plan.wav"), NULL, SND_FILENAME);
+        }
+    }
+
+    /* close the socket */
+    close(sockfd);
+    
+    WSACleanup();
+}
+
+void getApiUnderwaterChessDotComMove2(char *frm, char *too) {
+
+    WORD wVersionRequested;
+    WSADATA wsaData;
+    int err;
+
+    wVersionRequested = MAKEWORD( 2, 2 );
+
+    err = WSAStartup( wVersionRequested, &wsaData );
+    if(err != 0) {
+        printf("no winsock.");
+        return;
+    }
+
+    int portno = 80;
+    char *host = "api.underwaterchess.com";
+
+    struct hostent *server;
+    struct sockaddr_in serv_addr;
+    int sockfd, bytes, sent, received, total;
+    char message[1024],response[8192];
+    
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if(sockfd < 0) {
+        printf("ERROR opening socket");
+    }
+
+    server = gethostbyname(host);
+    if(server == NULL) {
+        printf("ERROR, no such host");
+    }
+
+    memset(&serv_addr,0,sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_port = htons(portno);
+    memcpy(&serv_addr.sin_addr.s_addr,server->h_addr,server->h_length);
+
+    if (connect(sockfd,(struct sockaddr *)&serv_addr,sizeof(serv_addr)) < 0) {
+        printf("ERROR connecting");
+    }
+
+    char *str_2 = (char*) malloc(1 + strlen(gt)+ strlen(fen2)+ strlen("&move=")+ strlen(frm)+ strlen(too)+ strlen(hstt));
+    strcpy(str_2, gt);
+    strcat(str_2, fen2);
+    strcat(str_2, "&move=");
+    strcat(str_2, frm);
+    strcat(str_2, too);
+    strcat(str_2, hstt);
+    char *str = (char *) malloc(1 + strlen(str_2));
+    strcpy(str, str_2);
+
+    int length = strlen(str);
+    int x = send(sockfd, str, length, 0);
+    if(x == SOCKET_ERROR) {
+        printf("socket error");
+    }
+    
+    do {
+        iResult = recv(sockfd, response, 8192, 0);
+    } while(iResult > 0);
+
+    printf(response);
+
+    char *aab = strstr(response, "color\": \"");
+    char *taf = (char *) malloc(5);
+    strncpy(taf, aab+9, 5);
+    
+    char *ab = (char *) malloc(100);
+    ab = strstr(response, "isCheckmate\": ");
+    char *tf = (char *) malloc(4);
+    strncpy(tf, ab+14, 4);
+
+    char *isin;
+    char *c = (char *) malloc(1);
+    if(tf[0]=='f' &&
+       tf[1]=='a' &&
+       tf[2]=='l' &&
+       tf[3]=='s') {
+        isin = strstr(response, "isInCheck\": ");
+        strncpy(c, isin+12, 1);
+    }
+    
+    char *LegalMoves;
+    char *l1 = (char *) malloc(1000);
+    if(tf[0]=='f' &&
+       tf[1]=='a' &&
+       tf[2]=='l' &&
+       tf[3]=='s') {
+        if(taf[0] == 'w' || taf[0] == 'b') {
+            l1 = strstr(response, "[");
+            int iii = strcspn(l1,"]");
+            LegalMoves = malloc(iii);
+            strncpy(LegalMoves,l1+1,iii-1);
+            LegalMoves[iii-1] = '\0';
+            removeChar(LegalMoves, '\"');
+            removeChar(LegalMoves, ' ');
+            printf("Size of wLMSize: %d", wLMSize);
+            char *token = strtok(LegalMoves, ",");
+            wLM[0] = token;
+            printf(wLM[0]);
+            printf("\n\n");
+            int qq = 1;
+            while (token != NULL) {
+                printf("%s\n", token);
+                token = strtok(NULL, ",");
+                wLM[qq] = token;
+                qq++;
+            }
+        }
+    }
+
+    char *legalMoves;
+    char *l = (char *) malloc(1000);
+    int ert;
+    if(tf[0]=='f' &&
+       tf[1]=='a' &&
+       tf[2]=='l' &&
+       tf[3]=='s') {
+        if(taf[0] == 'b' && c[0] == 'f') {
+            l = strstr(response, "[");
+            int iii = strcspn(l,"]");
+            int yte = iii - 2;
+            ert = yte - 6;
+            ert = (int)round((double)ert / 8.0) + 1;
+            legalMoves = (char *) malloc(iii);
+            strncpy(legalMoves,l+1,iii-1);
+            legalMoves[iii-1] = '\0';
+            printf(legalMoves);
+        }
+    }
+    
+    boolean useLegalMoves = FALSE;
+    int randomnumber;
+    if(tf[0]=='f' &&
+       tf[1]=='a' &&
+       tf[2]=='l' &&
+       tf[3]=='s') {
+        if(taf[0] == 'b' && c[0] == 'f') {
+            srand(time(NULL));
+            randomnumber = rand() % ert;
+            printf("%d\n", randomnumber);
+            int rad = (int)round((double)ert / difficulty);
+            if(ert != 1 && randomnumber != 1) {
+                if(randomnumber >= 0 && randomnumber <= rad) {
+                    useLegalMoves = TRUE;
+                    randomnumber = rand() % ert;
+                }
+            } else {
+                useLegalMoves = TRUE;
+            }
+        }
+    }
+    
+    char *a = strstr(response, "fen\": \"");
+    char *fee = (char*) malloc(200);
+    char *aaa = NULL;
+    int i = 0;
+    strncpy(fee, a+7, 93);
+    i = strcspn(fee,",");    
+    fen2 = (char*) malloc(i);
+    strncpy(fen2, fee, i-1);
+    fen2[i-1] = '\0';
+    aaa = replaceWord(fen2, "/", "%2F");
+    fen2 = aaa;
+    aaa = replaceWord(fen2, " ", "+");
+    fen2 = aaa;
+
+    if(tf[0]=='t' &&
+       tf[1]=='r' &&
+       tf[2]=='u' &&
+       tf[3]=='e') {
         checkmate = TRUE;
         if(taf[0]=='w') {
             MessageBox(hwnd,"Black wins! Checkmate!","Black Wins",MB_OK);
@@ -3476,6 +3710,28 @@ void DisableMaximizeMinimizeButton(HWND hwnd) {
     SetWindowLong(hwnd, GWL_STYLE, GetWindowLong(hwnd, GWL_STYLE) & ~WS_MINIMIZEBOX);
 }
 
+void highlightPossibleMoves(int j, int i) {
+
+    if(wLMSize == 0)
+        return;
+
+    for(int q=0; q<wLMSize; q++) {
+        char letter = wLM[q][0];
+        char number = wLM[q][1];
+        char *location = map(j, i);
+        if(location[0] == letter &&
+           location[1] == number) {
+            int y = re_Map(wLM[q], 1);
+            int x = re_Map(wLM[q], 0);
+            HBRUSH rBrush;
+            rBrush = CreateSolidBrush(RGB(200, 200, 255));
+            RECT r = {x+20+20, y+20+20, x+20+20 + 89, y+20+20-7 + 92};
+            FillRect(hdc, &r, rBrush);
+            DeleteObject(rBrush);
+        }
+    }
+}
+
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     switch(msg)
@@ -3509,6 +3765,28 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 RECT rrect = {0, 0, 1200, 1000};
                 FillRect(hdc, &rrect, brush);
                 DeleteObject(brush);
+
+                wLMSize = 20;
+                wLM[0] = "b1a3";
+                wLM[1] = "b1c3";
+                wLM[2] = "e2e3";
+                wLM[3] = "g1f3";
+                wLM[4] = "g1h3";
+                wLM[5] = "a2a3";
+                wLM[6] = "b2b3";
+                wLM[7] = "c2c3";
+                wLM[8] = "d2d3";
+                wLM[9] = "f2f3";
+                wLM[10] = "g2g3";
+                wLM[11] = "h2h3";
+                wLM[12] = "e2e4";
+                wLM[13] = "a2a4";
+                wLM[14] = "b2b4";
+                wLM[15] = "c2c4";
+                wLM[16] = "d2d4";
+                wLM[17] = "f2f4";
+                wLM[18] = "g2g4";
+                wLM[19] = "h2h4";
 
                 thread = CreateThread(NULL, 0, ThreadFunc, NULL, 0, NULL);
                 Play();
@@ -4754,7 +5032,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     turn = 'h';
                                     
                                     strncpy(chosenPiece, "pw", 2);
-
+                                    
                                     for(int l=0; l<8; l++) {
                                         redPawnsBase[l].clicked = FALSE;
                                     }
@@ -9063,23 +9341,23 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             }
 
                             HBRUSH rBrush;
-                            rBrush = CreateSolidBrush(RGB(155, 100, 100));
-                            RECT r = {i*100+20+20, j*100+20+20, i*100+20+20 + 16, j*100+20+20 + 16};
+                            rBrush = CreateSolidBrush(RGB(0, 255, 0));
+                            RECT r = {i*100+20+20, j*100+20+20-8, i*100+20+20 + 12, j*100+20+20-8 + 12};
                             for(int t=0; t<8; t++) {
                                 if(turn == 'r' && greyPawnsBase[t].posX == i*100+20 &&
                                    greyPawnsBase[t].posY == j*100+20) {
                                     if(TRUE==done) {
-                                        int l1_x1 = i*100+20;
+                                        int l1_x1 = i*100+20+20;
                                         int l1_y1 = j*100+20 + 8;
-                                        int l1_x2 = i*100+20 + 8;
+                                        int l1_x2 = i*100+20+20 + 8;
                                         int l1_y2 = j*100+20 + 16;
-                                        int l2_x1 = i*100+20 + 8;
+                                        int l2_x1 = i*100+20+20 + 8;
                                         int l2_y1 = j*100+20 + 16;
-                                        int l2_x2 = i*100+20 + 16;
+                                        int l2_x2 = i*100+20+20 + 16;
                                         int l2_y2 = j*100+20;
                                         PAINTSTRUCT pntS;
                                         HPEN pen, oldPen;
-                                        pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
+                                        pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
                                         oldPen = (HPEN)SelectObject(hdc, pen);				
                                         MoveToEx(hdc, l1_x1, l1_y1, NULL);
                                         LineTo(hdc, l1_x2, l1_y2);
@@ -9099,17 +9377,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             if(turn == 'r' && greyKingSquare.posX == i*100+20 &&
                                greyKingSquare.posY == j*100+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20;
+                                    int l1_x1 = i*100+20+20;
                                     int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20 + 8;
+                                    int l1_x2 = i*100+20+20 + 8;
                                     int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20 + 8;
+                                    int l2_x1 = i*100+20+20 + 8;
                                     int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20 + 16;
+                                    int l2_x2 = i*100+20+20 + 16;
                                     int l2_y2 = j*100+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
+                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
                                     LineTo(hdc, l1_x2, l1_y2);
@@ -9126,17 +9404,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             if(turn == 'r' && greyQueenSquare.posX == i*100+20 &&
                                greyQueenSquare.posY == j*100+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20;
+                                    int l1_x1 = i*100+20+20;
                                     int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20 + 8;
+                                    int l1_x2 = i*100+20+20 + 8;
                                     int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20 + 8;
+                                    int l2_x1 = i*100+20+20 + 8;
                                     int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20 + 16;
+                                    int l2_x2 = i*100+20+20 + 16;
                                     int l2_y2 = j*100+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
+                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
                                     LineTo(hdc, l1_x2, l1_y2);
@@ -9154,17 +9432,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 if(turn == 'r' && greyQueenSquareK[z].posX == i*100+20 &&
                                    greyQueenSquareK[z].posY == j*100+20) {
                                     if(TRUE==done) {
-                                        int l1_x1 = i*100+20;
+                                        int l1_x1 = i*100+20+20;
                                         int l1_y1 = j*100+20 + 8;
-                                        int l1_x2 = i*100+20 + 8;
+                                        int l1_x2 = i*100+20+20 + 8;
                                         int l1_y2 = j*100+20 + 16;
-                                        int l2_x1 = i*100+20 + 8;
+                                        int l2_x1 = i*100+20+20 + 8;
                                         int l2_y1 = j*100+20 + 16;
-                                        int l2_x2 = i*100+20 + 16;
+                                        int l2_x2 = i*100+20+20 + 16;
                                         int l2_y2 = j*100+20;
                                         PAINTSTRUCT pntS;
                                         HPEN pen, oldPen;
-                                        pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
+                                        pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
                                         oldPen = (HPEN)SelectObject(hdc, pen);				
                                         MoveToEx(hdc, l1_x1, l1_y1, NULL);
                                         LineTo(hdc, l1_x2, l1_y2);
@@ -9182,17 +9460,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             if(turn == 'r' && greyKnight1Rectangle1.posX == i*100+20 &&
                                greyKnight1Rectangle1.posY == j*100+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20;
+                                    int l1_x1 = i*100+20+20;
                                     int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20 + 8;
+                                    int l1_x2 = i*100+20+20 + 8;
                                     int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20 + 8;
+                                    int l2_x1 = i*100+20+20 + 8;
                                     int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20 + 16;
+                                    int l2_x2 = i*100+20+20 + 16;
                                     int l2_y2 = j*100+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
+                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
                                     LineTo(hdc, l1_x2, l1_y2);
@@ -9209,17 +9487,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             if(turn == 'r' && greyKnight2Rectangle1.posX == i*100+20 &&
                                greyKnight2Rectangle1.posY == j*100+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20;
+                                    int l1_x1 = i*100+20+20;
                                     int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20 + 8;
+                                    int l1_x2 = i*100+20+20 + 8;
                                     int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20 + 8;
+                                    int l2_x1 = i*100+20+20 + 8;
                                     int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20 + 16;
+                                    int l2_x2 = i*100+20+20 + 16;
                                     int l2_y2 = j*100+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
+                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
                                     LineTo(hdc, l1_x2, l1_y2);
@@ -9236,17 +9514,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             if(turn == 'r' && greyBishop1Square.posX == i*100+20 &&
                                greyBishop1Square.posY == j*100+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20;
+                                    int l1_x1 = i*100+20+20;
                                     int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20 + 8;
+                                    int l1_x2 = i*100+20+20 + 8;
                                     int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20 + 8;
+                                    int l2_x1 = i*100+20+20 + 8;
                                     int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20 + 16;
+                                    int l2_x2 = i*100+20+20 + 16;
                                     int l2_y2 = j*100+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
+                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
                                     LineTo(hdc, l1_x2, l1_y2);
@@ -9263,17 +9541,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             if(turn == 'r' && greyBishop2Square.posX == i*100+20 &&
                                greyBishop2Square.posY == j*100+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20;
+                                    int l1_x1 = i*100+20+20;
                                     int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20 + 8;
+                                    int l1_x2 = i*100+20+20 + 8;
                                     int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20 + 8;
+                                    int l2_x1 = i*100+20+20 + 8;
                                     int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20 + 16;
+                                    int l2_x2 = i*100+20+20 + 16;
                                     int l2_y2 = j*100+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
+                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
                                     LineTo(hdc, l1_x2, l1_y2);
@@ -9290,17 +9568,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             if(turn == 'r' && greyRook1Rectangle1.posX == i*100+20 &&
                                greyRook1Rectangle1.posY == j*100+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20;
+                                    int l1_x1 = i*100+20+20;
                                     int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20 + 8;
+                                    int l1_x2 = i*100+20+20 + 8;
                                     int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20 + 8;
+                                    int l2_x1 = i*100+20+20 + 8;
                                     int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20 + 16;
+                                    int l2_x2 = i*100+20+20 + 16;
                                     int l2_y2 = j*100+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
+                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
                                     LineTo(hdc, l1_x2, l1_y2);
@@ -9317,17 +9595,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             if(turn == 'r' && greyRook2Rectangle1.posX == i*100+20 &&
                                greyRook2Rectangle1.posY == j*100+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20;
+                                    int l1_x1 = i*100+20+20;
                                     int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20 + 8;
+                                    int l1_x2 = i*100+20+20 + 8;
                                     int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20 + 8;
+                                    int l2_x1 = i*100+20+20 + 8;
                                     int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20 + 16;
+                                    int l2_x2 = i*100+20+20 + 16;
                                     int l2_y2 = j*100+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
+                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
                                     LineTo(hdc, l1_x2, l1_y2);
@@ -9342,6 +9620,306 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 FillRect(hdc, &r, rBrush);
                             }
                             DeleteObject(rBrush);
+                            
+                            if(!pcgame && done) {
+                                getApiUnderwaterChessDotComMove2(from, to);
+                            }
+
+                            highlightPossibleMoves(j, i);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            oldBitmap = SelectObject(hdcMem, hBitmap);
+
+                            GetObject(hBitmap, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 0, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
+
+                            SelectObject(hdcMem, oldBitmap);
+                            DeleteDC(hdcMem); DeleteObject(hBitmap);
+
+                            Sleep(1);
+                            pawnBlack = (HBITMAP)LoadImage(hInst, "pawnblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            pawnWhite = (HBITMAP)LoadImage(hInst, "pawnwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            knightBlack = (HBITMAP)LoadImage(hInst, "knightblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            knightWhite = (HBITMAP)LoadImage(hInst, "knightwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            knight2Black = (HBITMAP)LoadImage(hInst, "knightblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            knight2White = (HBITMAP)LoadImage(hInst, "knightwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            rookBlack = (HBITMAP)LoadImage(hInst, "rookblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            rookWhite = (HBITMAP)LoadImage(hInst, "rookwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            rook2Black = (HBITMAP)LoadImage(hInst, "rookblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            rook2White = (HBITMAP)LoadImage(hInst, "rookwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            bishopBlack = (HBITMAP)LoadImage(hInst, "bishopblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            bishopWhite = (HBITMAP)LoadImage(hInst, "bishopwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            bishop2Black = (HBITMAP)LoadImage(hInst, "bishopblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            bishop2White = (HBITMAP)LoadImage(hInst, "bishopwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            queenBlack = (HBITMAP)LoadImage(hInst, "queenblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            queenWhite = (HBITMAP)LoadImage(hInst, "queenwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            kingBlack = (HBITMAP)LoadImage(hInst, "kingblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            kingWhite = (HBITMAP)LoadImage(hInst, "kingwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp;
+                            if(((greyRook1Rectangle1.posX/100)+(greyRook1Rectangle1.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(rookWhite,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(rookWhite,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, greyRook1Rectangle1.posX+25+7, greyRook1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((greyRook2Rectangle1.posX/100)+(greyRook2Rectangle1.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(rook2White,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(rook2White,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, greyRook2Rectangle1.posX+25+7, greyRook2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((greyKnight1Rectangle1.posX/100)+(greyKnight1Rectangle1.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(knightWhite,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(knightWhite,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, greyKnight1Rectangle1.posX+25+7, greyKnight1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((greyKnight2Rectangle1.posX/100)+(greyKnight2Rectangle1.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(knight2White,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(knight2White,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, greyKnight2Rectangle1.posX+25+7, greyKnight2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((greyBishop1Square.posX/100)+(greyBishop1Square.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(bishopWhite,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(bishopWhite,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, greyBishop1Square.posX+25+7, greyBishop1Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((greyBishop2Square.posX/100)+(greyBishop2Square.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(bishop2White,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(bishop2White,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, greyBishop2Square.posX+25+7, greyBishop2Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((greyQueenSquare.posX/100)+(greyQueenSquare.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(queenWhite,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(queenWhite,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, greyQueenSquare.posX+25+7, greyQueenSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((greyKingSquare.posX/100)+(greyKingSquare.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(kingWhite,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(kingWhite,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, greyKingSquare.posX+25+7, greyKingSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            for(int o=0; o<8; o++) {
+                                hdcMem = CreateCompatibleDC(hdc);
+                                if(((greyPawnsBase[o].posX/100)+(greyPawnsBase[o].posY/100)) % 2 == 0)
+                                    hBmp = ReplaceColor(pawnWhite,0x110000,0xffffff,hdcMem);
+                                else
+                                    hBmp = ReplaceColor(pawnWhite,0x110000,0x000000,hdcMem);
+                                oldBitmap = SelectObject(hdcMem, hBmp);
+                                GetObject(hBmp, sizeof(bitmap), &bitmap);
+                                BitBlt(hdc, greyPawnsBase[o].posX+25+7, greyPawnsBase[o].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                SelectObject(hdcMem, oldBitmap);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            }
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((redRook1Rectangle1.posX/100)+(redRook1Rectangle1.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(rookBlack,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(rookBlack,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, redRook1Rectangle1.posX+25+7, redRook1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((redRook2Rectangle1.posX/100)+(redRook2Rectangle1.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(rook2Black,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(rookBlack,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, redRook2Rectangle1.posX+25+7, redRook2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((redKnight1Rectangle1.posX/100)+(redKnight1Rectangle1.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(knightBlack,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(knightBlack,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, redKnight1Rectangle1.posX+25+7, redKnight1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((redKnight2Rectangle1.posX/100)+(redKnight2Rectangle1.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(knight2Black,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(knight2Black,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, redKnight2Rectangle1.posX+25+7, redKnight2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((redBishop1Square.posX/100)+(redBishop1Square.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(bishopBlack,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(bishopBlack,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, redBishop1Square.posX+25+7, redBishop1Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((redBishop2Square.posX/100)+(redBishop2Square.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(bishop2Black,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(bishop2Black,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, redBishop2Square.posX+25+7, redBishop2Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((redQueenSquare.posX/100)+(redQueenSquare.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(queenBlack,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(queenBlack,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, redQueenSquare.posX+25+7, redQueenSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((redKingSquare.posX/100)+(redKingSquare.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(kingBlack,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(kingBlack,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, redKingSquare.posX+25+7, redKingSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            for(int o=0; o<8; o++) {
+                                hdcMem = CreateCompatibleDC(hdc);
+                                if(((redPawnsBase[o].posX/100)+(redPawnsBase[o].posY/100)) % 2 == 0)
+                                    hBmp = ReplaceColor(pawnBlack,0x110000,0xffffff,hdcMem);
+                                else
+                                    hBmp = ReplaceColor(pawnBlack,0x110000,0x000000,hdcMem);
+                                oldBitmap = SelectObject(hdcMem, hBmp);
+                                GetObject(hBmp, sizeof(bitmap), &bitmap);
+                                BitBlt(hdc, redPawnsBase[o].posX+25+7, redPawnsBase[o].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                SelectObject(hdcMem, oldBitmap);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            }
+
+                            for(int m=0; m<8; m++) {
+                                hdcMem = CreateCompatibleDC(hdc);
+                                if(((greyQueenSquareK[m].posX/100)+(greyQueenSquareK[m].posY/100)) % 2 == 0)
+                                    hBmp = ReplaceColor(queenWhite,0x110000,0xffffff,hdcMem);
+                                else
+                                    hBmp = ReplaceColor(queenWhite,0x110000,0x000000,hdcMem);
+                                oldBitmap = SelectObject(hdcMem, hBmp);
+                                GetObject(hBmp, sizeof(bitmap), &bitmap);
+                                BitBlt(hdc, greyQueenSquareK[m].posX+25+7, greyQueenSquareK[m].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                SelectObject(hdcMem, oldBitmap);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            }
+
+                            for(int m=0; m<8; m++) {
+                                hdcMem = CreateCompatibleDC(hdc);
+                                if(((redQueenSquareK[m].posX/100)+(redQueenSquareK[m].posY/100)) % 2 == 0)
+                                    hBmp = ReplaceColor(queenBlack,0x110000,0xffffff,hdcMem);
+                                else
+                                    hBmp = ReplaceColor(queenBlack,0x110000,0x000000,hdcMem);
+                                oldBitmap = SelectObject(hdcMem, hBmp);
+                                GetObject(hBmp, sizeof(bitmap), &bitmap);
+                                BitBlt(hdc, redQueenSquareK[m].posX+25+7, redQueenSquareK[m].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                SelectObject(hdcMem, oldBitmap);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            }
+
+                            DeleteObject(pawnBlack);
+                            DeleteObject(pawnWhite);
+                            DeleteObject(knightBlack);
+                            DeleteObject(knightWhite);
+                            DeleteObject(knight2Black);
+                            DeleteObject(knight2White);
+                            DeleteObject(rookBlack);
+                            DeleteObject(rookWhite);
+                            DeleteObject(rook2Black);
+                            DeleteObject(rook2White);
+                            DeleteObject(bishopBlack);
+                            DeleteObject(bishopWhite);
+                            DeleteObject(bishop2Black);
+                            DeleteObject(bishop2White);
+                            DeleteObject(queenBlack);
+                            DeleteObject(queenWhite);
+                            DeleteObject(kingBlack);
+                            DeleteObject(kingWhite);
 
                             if(done) {
 
@@ -10116,6 +10694,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     clickedOne = 'r';
                                     redPawnsBase[k].clicked = TRUE;
                                     redPawnsBase[k].from = map(j, i);
+                                    from = map(j, i);
                                     turn = 'r';
 
                                     strncpy(chosenPiece, "pr", 2);
@@ -10132,6 +10711,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 } else {
                                     if(redPawnsBase[k].clicked == TRUE) {
                                         redPawnsBase[k].to = map(j, i);
+                                        to = map(j, i);
                                     }
                                 }
 
@@ -10723,6 +11303,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 clickedOne = 'r';
                                 redKnight1Rectangle1.clicked = TRUE;
                                 redKnight1Rectangle1.from = map(j, i);
+                                from = map(j, i);
                                 turn = 'r';
                                 strncpy(chosenPiece, "kr", 2);
                             } else if(clickedOne == 'r' &&
@@ -10730,6 +11311,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 itdid = TRUE;
                                 if(redKnight1Rectangle1.clicked == TRUE) {
                                     redKnight1Rectangle1.to = map(j, i);
+                                    to = map(j, i);
                                 }
                             }
 
@@ -11615,6 +12197,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 clickedOne = 'r';
                                 redKnight2Rectangle1.clicked = TRUE;
                                 redKnight2Rectangle1.from = map(j, i);
+                                from = map(j, i);
                                 turn = 'r';
                                 strncpy(chosenPiece, "kr", 2);
                             } else if(clickedOne == 'r' &&
@@ -11622,6 +12205,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 itdid = TRUE;
                                 if(redKnight2Rectangle1.clicked == TRUE) {
                                     redKnight2Rectangle1.to = map(j, i);
+                                    to = map(j, i);
                                 }
                             }
 
@@ -12503,10 +13087,12 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 clickedOne = 'r';
                                 redKingSquare.clicked = TRUE;
                                 turn = 'r';
+                                from = map(j, i);
                                 strncpy(chosenPiece, "cr", 2);
                             } else if(clickedOne == 'r' &&
                                       redKingSquare.clicked == TRUE) {
                                 itdid = TRUE;
+                                to = map(j, i);
                             }
 
                             if(boxes[j][i].clicked == TRUE) {
@@ -13763,7 +14349,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     redQueenSquareK[z].posY = y;
                                     redQueenSquareK[z].from = map(j, i);
                                     redQueenSquareK[z].to = map(j, i);
-
+                                    from = map(j, i);
+                                    to = map(j, i);
+                                    
                                     redPawnsBase[z].posX = 1300;
                                     redPawnsBase[z].posY = -1000;
 
@@ -13779,6 +14367,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 clickedOne = 'r';
                                 redQueenSquare.clicked = TRUE;
                                 redQueenSquare.from = map(j, i);
+                                from = map(j, i);
                                 turn = 'r';
                                 strncpy(chosenPiece, "qr", 2);
                             } else if(clickedOne == 'r' &&
@@ -13786,6 +14375,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 itdid = TRUE;
                                 if(redQueenSquare.clicked == TRUE) {
                                     redQueenSquare.to = map(j, i);
+                                    to = map(j, i);
                                 }
                             }
 
@@ -13862,10 +14452,12 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     clickedOne = 'r';
                                     redQueenSquareK[z].clicked = TRUE;
                                     turn = 'r';
+                                    from = map(j, i);
                                     strncpy(chosenPiece, "qr", 2);
                                 } else if(clickedOne == 'r' &&
                                           redQueenSquareK[z].clicked == TRUE) {
                                     itdid = TRUE;
+                                    to = map(j, i);
                                 }
 
                                 if(boxes[j][i].clicked == TRUE) {
@@ -13938,12 +14530,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 redBishop1Square.clicked = TRUE;
                                 redBishop1Square.from = map(j, i);
                                 turn = 'r';
+                                from = map(j, i);
                                 strncpy(chosenPiece, "br", 2);
                             } else if(clickedOne == 'r' &&
                                       redBishop1Square.clicked == TRUE) {
                                 itdid = TRUE;
                                 if(redBishop1Square.clicked == TRUE) {
                                     redBishop1Square.to = map(j, i);
+                                    to = map(j, i);
                                 }
                             }
 
@@ -14012,12 +14606,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 redBishop2Square.clicked = TRUE;
                                 redBishop2Square.from = map(j, i);
                                 turn = 'r';
+                                from = map(j, i);
                                 strncpy(chosenPiece, "br", 2);
                             } else if(clickedOne == 'r' &&
                                       redBishop2Square.clicked == TRUE) {
                                 itdid = TRUE;
                                 if(redBishop2Square.clicked == TRUE) {
                                     redBishop2Square.to = map(j, i);
+                                    to = map(j, i);
                                 }
                             }
 
@@ -14087,12 +14683,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 redRook1Rectangle1.clicked = TRUE;
                                 redRook1Rectangle1.from = map(j, i);
                                 turn = 'r';
+                                from = map(j, i);
                                 strncpy(chosenPiece, "rr", 2);
                             } else if(clickedOne == 'r' &&
                                       redRook1Rectangle1.clicked == TRUE) {
                                 itdid = TRUE;
                                 if(redRook1Rectangle1.clicked == TRUE) {
                                     redRook1Rectangle1.to = map(j, i);
+                                    to = map(j, i);
                                 }
                             }
 
@@ -14172,12 +14770,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 redRook2Rectangle1.clicked = TRUE;
                                 redRook2Rectangle1.from = map(j, i);
                                 turn = 'r';
+                                from = map(j, i);
                                 strncpy(chosenPiece, "rr", 2);
                             } else if(clickedOne == 'r' &&
                                       redRook2Rectangle1.clicked == TRUE) {
                                 itdid = TRUE;
                                 if(redRook2Rectangle1.clicked == TRUE) {
                                     redRook2Rectangle1.to = map(j, i);
+                                    to = map(j, i);
                                 }
                             }
 
@@ -14437,24 +15037,324 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 }
                             }
 
+                            if(!pcgame && done) {
+                                getApiUnderwaterChessDotComMove2(from, to);
+                            }
+
+                            highlightPossibleMoves(j, i);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            oldBitmap = SelectObject(hdcMem, hBitmap);
+
+                            GetObject(hBitmap, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 0, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
+
+                            SelectObject(hdcMem, oldBitmap);
+                            DeleteDC(hdcMem); DeleteObject(hBitmap);
+
+                            Sleep(1);
+                            pawnBlack = (HBITMAP)LoadImage(hInst, "pawnblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            pawnWhite = (HBITMAP)LoadImage(hInst, "pawnwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            knightBlack = (HBITMAP)LoadImage(hInst, "knightblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            knightWhite = (HBITMAP)LoadImage(hInst, "knightwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            knight2Black = (HBITMAP)LoadImage(hInst, "knightblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            knight2White = (HBITMAP)LoadImage(hInst, "knightwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            rookBlack = (HBITMAP)LoadImage(hInst, "rookblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            rookWhite = (HBITMAP)LoadImage(hInst, "rookwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            rook2Black = (HBITMAP)LoadImage(hInst, "rookblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            rook2White = (HBITMAP)LoadImage(hInst, "rookwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            bishopBlack = (HBITMAP)LoadImage(hInst, "bishopblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            bishopWhite = (HBITMAP)LoadImage(hInst, "bishopwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            bishop2Black = (HBITMAP)LoadImage(hInst, "bishopblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            bishop2White = (HBITMAP)LoadImage(hInst, "bishopwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            queenBlack = (HBITMAP)LoadImage(hInst, "queenblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            queenWhite = (HBITMAP)LoadImage(hInst, "queenwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            kingBlack = (HBITMAP)LoadImage(hInst, "kingblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                            Sleep(1);
+                            kingWhite = (HBITMAP)LoadImage(hInst, "kingwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp;
+                            if(((greyRook1Rectangle1.posX/100)+(greyRook1Rectangle1.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(rookWhite,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(rookWhite,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, greyRook1Rectangle1.posX+25+7, greyRook1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((greyRook2Rectangle1.posX/100)+(greyRook2Rectangle1.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(rook2White,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(rook2White,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, greyRook2Rectangle1.posX+25+7, greyRook2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((greyKnight1Rectangle1.posX/100)+(greyKnight1Rectangle1.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(knightWhite,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(knightWhite,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, greyKnight1Rectangle1.posX+25+7, greyKnight1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((greyKnight2Rectangle1.posX/100)+(greyKnight2Rectangle1.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(knight2White,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(knight2White,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, greyKnight2Rectangle1.posX+25+7, greyKnight2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((greyBishop1Square.posX/100)+(greyBishop1Square.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(bishopWhite,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(bishopWhite,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, greyBishop1Square.posX+25+7, greyBishop1Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((greyBishop2Square.posX/100)+(greyBishop2Square.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(bishop2White,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(bishop2White,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, greyBishop2Square.posX+25+7, greyBishop2Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((greyQueenSquare.posX/100)+(greyQueenSquare.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(queenWhite,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(queenWhite,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, greyQueenSquare.posX+25+7, greyQueenSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((greyKingSquare.posX/100)+(greyKingSquare.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(kingWhite,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(kingWhite,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, greyKingSquare.posX+25+7, greyKingSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            for(int o=0; o<8; o++) {
+                                hdcMem = CreateCompatibleDC(hdc);
+                                if(((greyPawnsBase[o].posX/100)+(greyPawnsBase[o].posY/100)) % 2 == 0)
+                                    hBmp = ReplaceColor(pawnWhite,0x110000,0xffffff,hdcMem);
+                                else
+                                    hBmp = ReplaceColor(pawnWhite,0x110000,0x000000,hdcMem);
+                                oldBitmap = SelectObject(hdcMem, hBmp);
+                                GetObject(hBmp, sizeof(bitmap), &bitmap);
+                                BitBlt(hdc, greyPawnsBase[o].posX+25+7, greyPawnsBase[o].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                SelectObject(hdcMem, oldBitmap);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            }
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((redRook1Rectangle1.posX/100)+(redRook1Rectangle1.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(rookBlack,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(rookBlack,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, redRook1Rectangle1.posX+25+7, redRook1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((redRook2Rectangle1.posX/100)+(redRook2Rectangle1.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(rook2Black,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(rookBlack,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, redRook2Rectangle1.posX+25+7, redRook2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((redKnight1Rectangle1.posX/100)+(redKnight1Rectangle1.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(knightBlack,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(knightBlack,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, redKnight1Rectangle1.posX+25+7, redKnight1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((redKnight2Rectangle1.posX/100)+(redKnight2Rectangle1.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(knight2Black,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(knight2Black,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, redKnight2Rectangle1.posX+25+7, redKnight2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((redBishop1Square.posX/100)+(redBishop1Square.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(bishopBlack,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(bishopBlack,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, redBishop1Square.posX+25+7, redBishop1Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((redBishop2Square.posX/100)+(redBishop2Square.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(bishop2Black,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(bishop2Black,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, redBishop2Square.posX+25+7, redBishop2Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((redQueenSquare.posX/100)+(redQueenSquare.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(queenBlack,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(queenBlack,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, redQueenSquare.posX+25+7, redQueenSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((redKingSquare.posX/100)+(redKingSquare.posY/100)) % 2 == 0)
+                                hBmp = ReplaceColor(kingBlack,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(kingBlack,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, redKingSquare.posX+25+7, redKingSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                            for(int o=0; o<8; o++) {
+                                hdcMem = CreateCompatibleDC(hdc);
+                                if(((redPawnsBase[o].posX/100)+(redPawnsBase[o].posY/100)) % 2 == 0)
+                                    hBmp = ReplaceColor(pawnBlack,0x110000,0xffffff,hdcMem);
+                                else
+                                    hBmp = ReplaceColor(pawnBlack,0x110000,0x000000,hdcMem);
+                                oldBitmap = SelectObject(hdcMem, hBmp);
+                                GetObject(hBmp, sizeof(bitmap), &bitmap);
+                                BitBlt(hdc, redPawnsBase[o].posX+25+7, redPawnsBase[o].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                SelectObject(hdcMem, oldBitmap);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            }
+
+                            for(int m=0; m<8; m++) {
+                                hdcMem = CreateCompatibleDC(hdc);
+                                if(((greyQueenSquareK[m].posX/100)+(greyQueenSquareK[m].posY/100)) % 2 == 0)
+                                    hBmp = ReplaceColor(queenWhite,0x110000,0xffffff,hdcMem);
+                                else
+                                    hBmp = ReplaceColor(queenWhite,0x110000,0x000000,hdcMem);
+                                oldBitmap = SelectObject(hdcMem, hBmp);
+                                GetObject(hBmp, sizeof(bitmap), &bitmap);
+                                BitBlt(hdc, greyQueenSquareK[m].posX+25+7, greyQueenSquareK[m].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                SelectObject(hdcMem, oldBitmap);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            }
+
+                            for(int m=0; m<8; m++) {
+                                hdcMem = CreateCompatibleDC(hdc);
+                                if(((redQueenSquareK[m].posX/100)+(redQueenSquareK[m].posY/100)) % 2 == 0)
+                                    hBmp = ReplaceColor(queenBlack,0x110000,0xffffff,hdcMem);
+                                else
+                                    hBmp = ReplaceColor(queenBlack,0x110000,0x000000,hdcMem);
+                                oldBitmap = SelectObject(hdcMem, hBmp);
+                                GetObject(hBmp, sizeof(bitmap), &bitmap);
+                                BitBlt(hdc, redQueenSquareK[m].posX+25+7, redQueenSquareK[m].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                SelectObject(hdcMem, oldBitmap);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            }
+
+                            DeleteObject(pawnBlack);
+                            DeleteObject(pawnWhite);
+                            DeleteObject(knightBlack);
+                            DeleteObject(knightWhite);
+                            DeleteObject(knight2Black);
+                            DeleteObject(knight2White);
+                            DeleteObject(rookBlack);
+                            DeleteObject(rookWhite);
+                            DeleteObject(rook2Black);
+                            DeleteObject(rook2White);
+                            DeleteObject(bishopBlack);
+                            DeleteObject(bishopWhite);
+                            DeleteObject(bishop2Black);
+                            DeleteObject(bishop2White);
+                            DeleteObject(queenBlack);
+                            DeleteObject(queenWhite);
+                            DeleteObject(kingBlack);
+                            DeleteObject(kingWhite);
+
                             HBRUSH rBrush;
-                            rBrush = CreateSolidBrush(RGB(155, 100, 100));
-                            RECT r = {i*100+20+20, j*100+20+20, i*100+20+20 + 16, j*100+20+20 + 16};
+                            rBrush = CreateSolidBrush(RGB(0, 255, 0));
+                            RECT r = {i*100+20+20, j*100+20+20-8, i*100+20+20 + 12, j*100+20+20-8 + 12};
                             for(int t=0; t<8; t++) {
                                 if(turn == 'h' && redPawnsBase[t].posX == i*100+20 &&
                                    redPawnsBase[t].posY == j*100+20) {
                                     if(TRUE==done) {
-                                        int l1_x1 = i*100+20;
+                                        int l1_x1 = i*100+20+20;
                                         int l1_y1 = j*100+20 + 8;
-                                        int l1_x2 = i*100+20 + 8;
+                                        int l1_x2 = i*100+20+20 + 8;
                                         int l1_y2 = j*100+20 + 16;
-                                        int l2_x1 = i*100+20 + 8;
+                                        int l2_x1 = i*100+20+20 + 8;
                                         int l2_y1 = j*100+20 + 16;
-                                        int l2_x2 = i*100+20 + 16;
+                                        int l2_x2 = i*100+20+20 + 16;
                                         int l2_y2 = j*100+20;
                                         PAINTSTRUCT pntS;
                                         HPEN pen, oldPen;
-                                        pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));
+                                        pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
                                         oldPen = (HPEN)SelectObject(hdc, pen);				
                                         MoveToEx(hdc, l1_x1, l1_y1, NULL);
                                         LineTo(hdc, l1_x2, l1_y2);
@@ -14474,17 +15374,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             if(turn == 'h' && redKingSquare.posX == i*100+20 &&
                                redKingSquare.posY == j*100+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20;
+                                    int l1_x1 = i*100+20+20;
                                     int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20 + 8;
+                                    int l1_x2 = i*100+20+20 + 8;
                                     int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20 + 8;
+                                    int l2_x1 = i*100+20+20 + 8;
                                     int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20 + 16;
+                                    int l2_x2 = i*100+20+20 + 16;
                                     int l2_y2 = j*100+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
+                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
                                     LineTo(hdc, l1_x2, l1_y2);
@@ -14501,17 +15401,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             if(turn == 'h' && redQueenSquare.posX == i*100+20 &&
                                redQueenSquare.posY == j*100+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20;
+                                    int l1_x1 = i*100+20+20;
                                     int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20 + 8;
+                                    int l1_x2 = i*100+20+20 + 8;
                                     int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20 + 8;
+                                    int l2_x1 = i*100+20+20 + 8;
                                     int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20 + 16;
+                                    int l2_x2 = i*100+20+20 + 16;
                                     int l2_y2 = j*100+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
+                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
                                     LineTo(hdc, l1_x2, l1_y2);
@@ -14529,17 +15429,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 if(turn == 'h' && redQueenSquareK[z].posX == i*100+20 &&
                                    redQueenSquareK[z].posY == j*100+20) {
                                     if(TRUE==done) {
-                                        int l1_x1 = i*100+20;
+                                        int l1_x1 = i*100+20+20;
                                         int l1_y1 = j*100+20 + 8;
-                                        int l1_x2 = i*100+20 + 8;
+                                        int l1_x2 = i*100+20+20 + 8;
                                         int l1_y2 = j*100+20 + 16;
-                                        int l2_x1 = i*100+20 + 8;
+                                        int l2_x1 = i*100+20+20 + 8;
                                         int l2_y1 = j*100+20 + 16;
-                                        int l2_x2 = i*100+20 + 16;
+                                        int l2_x2 = i*100+20+20 + 16;
                                         int l2_y2 = j*100+20;
                                         PAINTSTRUCT pntS;
                                         HPEN pen, oldPen;
-                                        pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
+                                        pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
                                         oldPen = (HPEN)SelectObject(hdc, pen);				
                                         MoveToEx(hdc, l1_x1, l1_y1, NULL);
                                         LineTo(hdc, l1_x2, l1_y2);
@@ -14557,17 +15457,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             if(turn == 'h' && redKnight1Rectangle1.posX == i*100+20 &&
                                redKnight1Rectangle1.posY == j*100+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20;
+                                    int l1_x1 = i*100+20+20;
                                     int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20 + 8;
+                                    int l1_x2 = i*100+20+20 + 8;
                                     int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20 + 8;
+                                    int l2_x1 = i*100+20+20 + 8;
                                     int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20 + 16;
+                                    int l2_x2 = i*100+20+20 + 16;
                                     int l2_y2 = j*100+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
+                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
                                     LineTo(hdc, l1_x2, l1_y2);
@@ -14584,17 +15484,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             if(turn == 'h' && redKnight2Rectangle1.posX == i*100+20 &&
                                redKnight2Rectangle1.posY == j*100+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20;
+                                    int l1_x1 = i*100+20+20;
                                     int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20 + 8;
+                                    int l1_x2 = i*100+20+20 + 8;
                                     int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20 + 8;
+                                    int l2_x1 = i*100+20+20 + 8;
                                     int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20 + 16;
+                                    int l2_x2 = i*100+20+20 + 16;
                                     int l2_y2 = j*100+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
+                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
                                     LineTo(hdc, l1_x2, l1_y2);
@@ -14611,17 +15511,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             if(turn == 'h' && redBishop1Square.posX == i*100+20 &&
                                redBishop1Square.posY == j*100+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20;
+                                    int l1_x1 = i*100+20+20;
                                     int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20 + 8;
+                                    int l1_x2 = i*100+20+20 + 8;
                                     int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20 + 8;
+                                    int l2_x1 = i*100+20+20 + 8;
                                     int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20 + 16;
+                                    int l2_x2 = i*100+20+20 + 16;
                                     int l2_y2 = j*100+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
+                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
                                     LineTo(hdc, l1_x2, l1_y2);
@@ -14639,17 +15539,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                redBishop2Square.posY == j*100+20) {
                                 FillRect(hdc, &r, rBrush);
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20;
+                                    int l1_x1 = i*100+20+20;
                                     int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20 + 8;
+                                    int l1_x2 = i*100+20+20 + 8;
                                     int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20 + 8;
+                                    int l2_x1 = i*100+20+20 + 8;
                                     int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20 + 16;
+                                    int l2_x2 = i*100+20+20 + 16;
                                     int l2_y2 = j*100+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
+                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
                                     LineTo(hdc, l1_x2, l1_y2);
@@ -14662,17 +15562,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             if(turn == 'h' && redBishop2Square.posX == i*100+20 &&
                                redBishop2Square.posY == j*100+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20;
+                                    int l1_x1 = i*100+20+20;
                                     int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20 + 8;
+                                    int l1_x2 = i*100+20+20 + 8;
                                     int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20 + 8;
+                                    int l2_x1 = i*100+20+20 + 8;
                                     int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20 + 16;
+                                    int l2_x2 = i*100+20+20 + 16;
                                     int l2_y2 = j*100+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
+                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
                                     LineTo(hdc, l1_x2, l1_y2);
@@ -14689,17 +15589,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             if(turn == 'h' && redRook1Rectangle1.posX == i*100+20 &&
                                redRook1Rectangle1.posY == j*100+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20;
+                                    int l1_x1 = i*100+20+20;
                                     int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20 + 8;
+                                    int l1_x2 = i*100+20+20 + 8;
                                     int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20 + 8;
+                                    int l2_x1 = i*100+20+20 + 8;
                                     int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20 + 16;
+                                    int l2_x2 = i*100+20+20 + 16;
                                     int l2_y2 = j*100+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
+                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
                                     LineTo(hdc, l1_x2, l1_y2);
@@ -14717,17 +15617,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                redRook2Rectangle1.posY == j*100+20) {
                                 FillRect(hdc, &r, rBrush);
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20;
+                                    int l1_x1 = i*100+20+20;
                                     int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20 + 8;
+                                    int l1_x2 = i*100+20+20 + 8;
                                     int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20 + 8;
+                                    int l2_x1 = i*100+20+20 + 8;
                                     int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20 + 16;
+                                    int l2_x2 = i*100+20+20 + 16;
                                     int l2_y2 = j*100+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
+                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
                                     LineTo(hdc, l1_x2, l1_y2);
@@ -14740,17 +15640,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             if(turn == 'h' && redRook2Rectangle1.posX == i*100+20 &&
                                redRook2Rectangle1.posY == j*100+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20;
+                                    int l1_x1 = i*100+20+20;
                                     int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20 + 8;
+                                    int l1_x2 = i*100+20+20 + 8;
                                     int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20 + 8;
+                                    int l2_x1 = i*100+20+20 + 8;
                                     int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20 + 16;
+                                    int l2_x2 = i*100+20+20 + 16;
                                     int l2_y2 = j*100+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 200, 200));	
+                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
                                     oldPen = (HPEN)SelectObject(hdc, pen);				
                                     MoveToEx(hdc, l1_x1, l1_y1, NULL);
                                     LineTo(hdc, l1_x2, l1_y2);
@@ -14916,18 +15816,28 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     }
                     
                     HWND h2=CreateWindowEx(NULL,
-                        wcfwabout.lpszClassName,
+                            wcfwabout.lpszClassName,
                             "About",
                             WS_OVERLAPPEDWINDOW,
                             200,
                             150,
-                            504,
-                            539,
+                            414,
+                            359,
                             NULL,
                             NULL,
                             hInst,
                             NULL);
 
+                    hIcon = LoadImage(NULL, "Icon.ico", IMAGE_ICON, 32, 32, LR_LOADFROMFILE);
+                    if(hIcon)
+                        SendMessage(h2, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
+
+                    hIconSm = LoadImage(NULL, "Icon.ico", IMAGE_ICON, 16, 16, LR_LOADFROMFILE);
+                    if(hIconSm)
+                        SendMessage(h2, WM_SETICON, ICON_SMALL, (LPARAM)hIconSm);
+                    
+                    DisableMaximizeMinimizeButton(h2);
+                    
                     ShowWindow(h2,nCmdShow2);
                 break;
                 case ID_EASY:
@@ -15199,7 +16109,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     }
 
     hwnd = CreateWindowEx(WS_EX_LAYERED, 
-            g_szClassName, "My Chess", 
+            g_szClassName, "My Chess by Daniel Cho", 
             WS_OVERLAPPEDWINDOW,
             rect.left, rect.top, 1200, 1000, 
             NULL, NULL, hInstance, NULL);

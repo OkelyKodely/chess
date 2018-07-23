@@ -258,70 +258,70 @@ int reMap(char b[], int typ) {
 
     if(typ == 0) {
 
-        if(bestMove[0] == 'a') {
+        if(b[0] == 'a') {
             return 0;
         }
 
-        if(bestMove[0] == 'b') {
+        if(b[0] == 'b') {
             return 100;
         }
 
-        if(bestMove[0] == 'c') {
+        if(b[0] == 'c') {
             return 200;
         }
 
-        if(bestMove[0] == 'd') {
+        if(b[0] == 'd') {
             return 300;
         }
 
-        if(bestMove[0] == 'e') {
+        if(b[0] == 'e') {
             return 400;
         }
 
-        if(bestMove[0] == 'f') {
+        if(b[0] == 'f') {
             return 500;
         }
 
-        if(bestMove[0] == 'g') {
+        if(b[0] == 'g') {
             return 600;
         }
 
-        if(bestMove[0] == 'h') {
+        if(b[0] == 'h') {
             return 700;
         }
     }
 
     else if(typ == 1) {
 
-        if(bestMove[1] == '1') {
+        if(b[1] == '1') {
             return 700;
         }
 
-        if(bestMove[1] == '2') {
+        if(b[1] == '2') {
             return 600;
         }
 
-        if(bestMove[1] == '3') {
+        if(b[1] == '3') {
             return 500;
         }
 
-        if(bestMove[1] == '4') {
+        if(b[1] == '4') {
             return 400;
         }
 
-        if(bestMove[1] == '5') {
+        if(b[1] == '5') {
             return 300;
         }
 
-        if(bestMove[1] == '6') {
+        if(b[1] == '6') {
             return 200;
         }
 
-        if(bestMove[1] == '7') {
+        if(b[1] == '7') {
             return 100;
         }
 
-        if(bestMove[1] == '8') {
+        if(b[1] == '8') {
             return 0;
         }
     }
@@ -333,70 +333,70 @@ int re_Map(char b[], int typ) {
 
     if(typ == 0) {
 
-        if(bestMove[2] == 'a') {
+        if(b[2] == 'a') {
             return 0;
         }
 
-        if(bestMove[2] == 'b') {
+        if(b[2] == 'b') {
             return 100;
         }
 
-        if(bestMove[2] == 'c') {
+        if(b[2] == 'c') {
             return 200;
         }
 
-        if(bestMove[2] == 'd') {
+        if(b[2] == 'd') {
             return 300;
         }
 
-        if(bestMove[2] == 'e') {
+        if(b[2] == 'e') {
             return 400;
         }
 
-        if(bestMove[2] == 'f') {
+        if(b[2] == 'f') {
             return 500;
         }
 
-        if(bestMove[2] == 'g') {
+        if(b[2] == 'g') {
             return 600;
         }
 
-        if(bestMove[2] == 'h') {
+        if(b[2] == 'h') {
             return 700;
         }
     }
 
     else if(typ == 1) {
 
-        if(bestMove[3] == '1') {
+        if(b[3] == '1') {
             return 700;
         }
 
-        if(bestMove[3] == '2') {
+        if(b[3] == '2') {
             return 600;
         }
 
-        if(bestMove[3] == '3') {
+        if(b[3] == '3') {
             return 500;
         }
 
-        if(bestMove[3] == '4') {
+        if(b[3] == '4') {
             return 400;
         }
 
-        if(bestMove[3] == '5') {
+        if(b[3] == '5') {
             return 300;
         }
 
-        if(bestMove[3] == '6') {
+        if(b[3] == '6') {
             return 200;
         }
 
-        if(bestMove[3] == '7') {
+        if(b[3] == '7') {
             return 100;
         }
 
-        if(bestMove[3] == '8') {
+        if(b[3] == '8') {
             return 0;
         }
     }
