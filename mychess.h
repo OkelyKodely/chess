@@ -499,10 +499,11 @@ void DrawChessBoard() {
     oldBitmap = SelectObject(hdcMem, hhbb);
 
     GetObject(hhbb, sizeof(bitmap), &bitmap);
-    BitBlt(hdc, 20, 20, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
+    BitBlt(hdc, 15, 12, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
 
     SelectObject(hdcMem, oldBitmap);
     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hhbb); DeleteObject(oldBitmap);
+    DeleteObject(hhbb);
 }
 
 boolean moveGreyQueen(UINT msg, int j, int i, int pos, int o) {

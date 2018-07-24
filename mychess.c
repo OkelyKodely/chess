@@ -2405,7 +2405,7 @@ DWORD WINAPI callApi(void *data) {
         _y_ = 20;
 
         HBRUSH yellow_brush = CreateSolidBrush(RGB(255,255,0));
-        RECT rrect = {610+0, 20, 910, 740};
+        RECT rrect = {635+0, 17, 910, 740};
         FillRect(hdc, &rrect, yellow_brush);
         DeleteObject(yellow_brush);
 
@@ -3768,7 +3768,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBitmapSideLogo);
 
                 GetObject(hBitmapSideLogo, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, 960, 0, 1010, 740, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, 963, 0, 1010, 740, hdcMem, 0, 0, SRCCOPY);
 
                 SelectObject(hdcMem, oldBitmap);
                 DeleteDC(hdcMem); DeleteObject(hBitmapSideLogo);
@@ -4291,7 +4291,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             _y_ = 20;
 
             HBRUSH yellow_brush = CreateSolidBrush(RGB(255,255,0));
-            RECT rrect = {610+0, 20, 910, 600};
+            RECT rrect = {635+0, 17, 910, 740};
             FillRect(hdc, &rrect, yellow_brush);
             DeleteObject(yellow_brush);
 
@@ -9161,195 +9161,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     itdid = FALSE;
                                 }
                             }
- 
-                            boolean efe = checkCheckRed(j, i);
-
-                            boolean checked = FALSE;
-
-                            int ppx = greyKingSquare.posX;
-                            int ppy = greyKingSquare.posY;
-
-                            if(!efe) {
-                                checked = FALSE;
-                                greyKingSquare.posX -= 100;
-                                efe = checkCheckRed(j, i);
-                                if(!efe) {
-                                    checked = FALSE;
-                                    greyKingSquare.posX += 100;
-                                } else {
-                                    checked = TRUE;
-                                    greyKingSquare.posX += 100;
-                                    greyKingSquare.posY -= 100;
-                                    greyKingSquare.posX -= 100;
-                                    efe = checkCheckRed(j, i);
-                                    if(!efe) {
-                                        checked = FALSE;
-                                        greyKingSquare.posY += 100;
-                                        greyKingSquare.posX += 100;
-                                    } else {
-                                        checked = TRUE;
-                                        greyKingSquare.posY += 100;
-                                        greyKingSquare.posX += 100;
-                                        greyKingSquare.posY -= 100;
-                                        efe = checkCheckRed(j, i);
-                                        if(!efe) {
-                                            checked = FALSE;
-                                            greyKingSquare.posY += 100;
-                                        } else {
-                                            checked = TRUE;
-                                            greyKingSquare.posY += 100;
-                                            greyKingSquare.posY -= 100;
-                                            greyKingSquare.posX += 100;
-                                            efe = checkCheckRed(j, i);
-                                            if(!efe) {
-                                                checked = FALSE;
-                                                greyKingSquare.posY += 100;
-                                                greyKingSquare.posX -= 100;
-                                            } else {
-                                                checked = TRUE;
-                                                greyKingSquare.posY += 100;
-                                                greyKingSquare.posX -= 100;
-                                                greyKingSquare.posX += 100;
-                                                efe = checkCheckRed(j, i);
-                                                if(!efe) {
-                                                    checked = FALSE;
-                                                    greyKingSquare.posX -= 100;
-                                                    greyKingSquare.posY += 100;
-                                                    greyKingSquare.posX += 100;
-                                                } else {
-                                                    checked = TRUE;
-                                                    greyKingSquare.posX -= 100;
-                                                    greyKingSquare.posY += 100;
-                                                    greyKingSquare.posX += 100;
-                                                    efe = checkCheckRed(j, i);
-                                                    if(!efe) {
-                                                        checked = FALSE;
-                                                        greyKingSquare.posY -= 100;
-                                                        greyKingSquare.posX -= 100;
-                                                    } else {
-                                                        checked = TRUE;
-                                                        greyKingSquare.posY -= 100;
-                                                        greyKingSquare.posX -= 100;
-                                                        greyKingSquare.posY += 100;
-                                                        efe = checkCheckRed(j, i);
-                                                        if(!efe) {
-                                                            checked = FALSE;
-                                                            greyKingSquare.posY -= 100;
-                                                            greyKingSquare.posY += 100;
-                                                            greyKingSquare.posX -= 100;
-                                                        } else {
-                                                            checked = TRUE;
-                                                            greyKingSquare.posY -= 100;
-                                                            greyKingSquare.posY += 100;
-                                                            greyKingSquare.posX -= 100;
-                                                            efe = checkCheckRed(j, i);
-                                                            if(!efe) {
-                                                                checked = FALSE;
-                                                                greyKingSquare.posY -= 100;
-                                                                greyKingSquare.posX += 100;
-                                                            } else {
-                                                                checked = TRUE;
-                                                                greyKingSquare.posY -= 100;
-                                                                greyKingSquare.posX += 100;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            } else {
-                                checked = TRUE;
-                                greyKingSquare.posX -= 100;
-                                efe = checkCheckRed(j, i);
-                                if(!efe) {
-                                    checked = FALSE;
-                                    greyKingSquare.posX += 100;
-                                } else {
-                                    checked = TRUE;
-                                    greyKingSquare.posX += 100;
-                                    greyKingSquare.posY -= 100;
-                                    greyKingSquare.posX -= 100;
-                                    efe = checkCheckRed(j, i);
-                                    if(!efe) {
-                                        checked = FALSE;
-                                        greyKingSquare.posY += 100;
-                                        greyKingSquare.posX += 100;
-                                    } else {
-                                        checked = TRUE;
-                                        greyKingSquare.posY += 100;
-                                        greyKingSquare.posX += 100;
-                                        greyKingSquare.posY -= 100;
-                                        efe = checkCheckRed(j, i);
-                                        if(!efe) {
-                                            checked = FALSE;
-                                            greyKingSquare.posY += 100;
-                                        } else {
-                                            checked = TRUE;
-                                            greyKingSquare.posY += 100;
-                                            greyKingSquare.posY -= 100;
-                                            greyKingSquare.posX += 100;
-                                            efe = checkCheckRed(j, i);
-                                            if(!efe) {
-                                                checked = FALSE;
-                                                greyKingSquare.posY += 100;
-                                                greyKingSquare.posX -= 100;
-                                            } else {
-                                                checked = TRUE;
-                                                greyKingSquare.posY += 100;
-                                                greyKingSquare.posX -= 100;
-                                                greyKingSquare.posX += 100;
-                                                efe = checkCheckRed(j, i);
-                                                if(!efe) {
-                                                    checked = FALSE;
-                                                    greyKingSquare.posX -= 100;
-                                                    greyKingSquare.posY += 100;
-                                                    greyKingSquare.posX += 100;
-                                                } else {
-                                                    checked = TRUE;
-                                                    greyKingSquare.posX -= 100;
-                                                    greyKingSquare.posY += 100;
-                                                    greyKingSquare.posX += 100;
-                                                    efe = checkCheckRed(j, i);
-                                                    if(!efe) {
-                                                        checked = FALSE;
-                                                        greyKingSquare.posY -= 100;
-                                                        greyKingSquare.posX -= 100;
-                                                    } else {
-                                                        checked = TRUE;
-                                                        greyKingSquare.posY -= 100;
-                                                        greyKingSquare.posX -= 100;
-                                                        greyKingSquare.posY += 100;
-                                                        efe = checkCheckRed(j, i);
-                                                        if(!efe) {
-                                                            checked = FALSE;
-                                                            greyKingSquare.posY -= 100;
-                                                            greyKingSquare.posY += 100;
-                                                            greyKingSquare.posX -= 100;
-                                                        } else {
-                                                            checked = TRUE;
-                                                            greyKingSquare.posY -= 100;
-                                                            greyKingSquare.posY += 100;
-                                                            greyKingSquare.posX -= 100;
-                                                            efe = checkCheckRed(j, i);
-                                                            if(!efe) {
-                                                                checked = FALSE;
-                                                                greyKingSquare.posY -= 100;
-                                                                greyKingSquare.posX += 100;
-                                                            } else {
-                                                                checked = TRUE;
-                                                                greyKingSquare.posY -= 100;
-                                                                greyKingSquare.posX += 100;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
 
                             HBRUSH rBrush;
                             rBrush = CreateSolidBrush(RGB(0, 255, 0));
@@ -10270,7 +10081,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 _y_ = 20;
 
                                 HBRUSH yellow_brush = CreateSolidBrush(RGB(255,255,0));
-                                RECT rrect = {610+0, 20, 910, 600};
+                                RECT rrect = {635+0, 17, 910, 740};
                                 FillRect(hdc, &rrect, yellow_brush);
                                 DeleteObject(yellow_brush);
 
@@ -14856,195 +14667,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     greyQueenSquare.clicked = FALSE;
 
                                     itdid = FALSE;
-                                }
-                            }
-
-                            boolean efe = checkCheckRed(j, i);
-
-                            boolean checked = FALSE;
-
-                            int ppx = redKingSquare.posX;
-                            int ppy = redKingSquare.posY;
-
-                            if(!efe) {
-                                checked = FALSE;
-                                redKingSquare.posX -= 100;
-                                efe = checkCheckRed(j, i);
-                                if(!efe) {
-                                    checked = FALSE;
-                                    redKingSquare.posX += 100;
-                                } else {
-                                    checked = TRUE;
-                                    redKingSquare.posX += 100;
-                                    redKingSquare.posY -= 100;
-                                    redKingSquare.posX -= 100;
-                                    efe = checkCheckRed(j, i);
-                                    if(!efe) {
-                                        checked = FALSE;
-                                        redKingSquare.posY += 100;
-                                        redKingSquare.posX += 100;
-                                    } else {
-                                        checked = TRUE;
-                                        redKingSquare.posY += 100;
-                                        redKingSquare.posX += 100;
-                                        redKingSquare.posY -= 100;
-                                        efe = checkCheckRed(j, i);
-                                        if(!efe) {
-                                            checked = FALSE;
-                                            redKingSquare.posY += 100;
-                                        } else {
-                                            checked = TRUE;
-                                            redKingSquare.posY += 100;
-                                            redKingSquare.posY -= 100;
-                                            redKingSquare.posX += 100;
-                                            efe = checkCheckRed(j, i);
-                                            if(!efe) {
-                                                checked = FALSE;
-                                                redKingSquare.posY += 100;
-                                                redKingSquare.posX -= 100;
-                                            } else {
-                                                checked = TRUE;
-                                                redKingSquare.posY += 100;
-                                                redKingSquare.posX -= 100;
-                                                redKingSquare.posX += 100;
-                                                efe = checkCheckRed(j, i);
-                                                if(!efe) {
-                                                    checked = FALSE;
-                                                    redKingSquare.posX -= 100;
-                                                    redKingSquare.posY += 100;
-                                                    redKingSquare.posX += 100;
-                                                } else {
-                                                    checked = TRUE;
-                                                    redKingSquare.posX -= 100;
-                                                    redKingSquare.posY += 100;
-                                                    redKingSquare.posX += 100;
-                                                    efe = checkCheckRed(j, i);
-                                                    if(!efe) {
-                                                        checked = FALSE;
-                                                        redKingSquare.posY -= 100;
-                                                        redKingSquare.posX -= 100;
-                                                    } else {
-                                                        checked = TRUE;
-                                                        redKingSquare.posY -= 100;
-                                                        redKingSquare.posX -= 100;
-                                                        redKingSquare.posY += 100;
-                                                        efe = checkCheckRed(j, i);
-                                                        if(!efe) {
-                                                            checked = FALSE;
-                                                            redKingSquare.posY -= 100;
-                                                            redKingSquare.posY += 100;
-                                                            redKingSquare.posX -= 100;
-                                                        } else {
-                                                            checked = TRUE;
-                                                            redKingSquare.posY -= 100;
-                                                            redKingSquare.posY += 100;
-                                                            redKingSquare.posX -= 100;
-                                                            efe = checkCheckRed(j, i);
-                                                            if(!efe) {
-                                                                checked = FALSE;
-                                                                redKingSquare.posY -= 100;
-                                                                redKingSquare.posX += 100;
-                                                            } else {
-                                                                checked = TRUE;
-                                                                redKingSquare.posY -= 100;
-                                                                redKingSquare.posX += 100;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            } else {
-                                checked = TRUE;
-                                redKingSquare.posX -= 100;
-                                efe = checkCheckRed(j, i);
-                                if(!efe) {
-                                    checked = FALSE;
-                                    redKingSquare.posX += 100;
-                                } else {
-                                    checked = TRUE;
-                                    redKingSquare.posX += 100;
-                                    redKingSquare.posY -= 100;
-                                    redKingSquare.posX -= 100;
-                                    efe = checkCheckRed(j, i);
-                                    if(!efe) {
-                                        checked = FALSE;
-                                        redKingSquare.posY += 100;
-                                        redKingSquare.posX += 100;
-                                    } else {
-                                        checked = TRUE;
-                                        redKingSquare.posY += 100;
-                                        redKingSquare.posX += 100;
-                                        redKingSquare.posY -= 100;
-                                        efe = checkCheckRed(j, i);
-                                        if(!efe) {
-                                            checked = FALSE;
-                                            redKingSquare.posY += 100;
-                                        } else {
-                                            checked = TRUE;
-                                            redKingSquare.posY += 100;
-                                            redKingSquare.posY -= 100;
-                                            redKingSquare.posX += 100;
-                                            efe = checkCheckRed(j, i);
-                                            if(!efe) {
-                                                checked = FALSE;
-                                                redKingSquare.posY += 100;
-                                                redKingSquare.posX -= 100;
-                                            } else {
-                                                checked = TRUE;
-                                                redKingSquare.posY += 100;
-                                                redKingSquare.posX -= 100;
-                                                redKingSquare.posX += 100;
-                                                efe = checkCheckRed(j, i);
-                                                if(!efe) {
-                                                    checked = FALSE;
-                                                    redKingSquare.posX -= 100;
-                                                    redKingSquare.posY += 100;
-                                                    redKingSquare.posX += 100;
-                                                } else {
-                                                    checked = TRUE;
-                                                    redKingSquare.posX -= 100;
-                                                    redKingSquare.posY += 100;
-                                                    redKingSquare.posX += 100;
-                                                    efe = checkCheckRed(j, i);
-                                                    if(!efe) {
-                                                        checked = FALSE;
-                                                        redKingSquare.posY -= 100;
-                                                        redKingSquare.posX -= 100;
-                                                    } else {
-                                                        checked = TRUE;
-                                                        redKingSquare.posY -= 100;
-                                                        redKingSquare.posX -= 100;
-                                                        redKingSquare.posY += 100;
-                                                        efe = checkCheckRed(j, i);
-                                                        if(!efe) {
-                                                            checked = FALSE;
-                                                            redKingSquare.posY -= 100;
-                                                            redKingSquare.posY += 100;
-                                                            redKingSquare.posX -= 100;
-                                                        } else {
-                                                            checked = TRUE;
-                                                            redKingSquare.posY -= 100;
-                                                            redKingSquare.posY += 100;
-                                                            redKingSquare.posX -= 100;
-                                                            efe = checkCheckRed(j, i);
-                                                            if(!efe) {
-                                                                checked = FALSE;
-                                                                redKingSquare.posY -= 100;
-                                                                redKingSquare.posX += 100;
-                                                            } else {
-                                                                checked = TRUE;
-                                                                redKingSquare.posY -= 100;
-                                                                redKingSquare.posX += 100;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
                                 }
                             }
 
