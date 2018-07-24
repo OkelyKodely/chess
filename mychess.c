@@ -1235,18 +1235,18 @@ DWORD WINAPI callApi(void *data) {
         boolean changeiii = FALSE;
         for(int z=0; z<8; z++) {
             if(redPawnsBase[z].posY == 20+reMap(bestMove,1) &&
-               600+20 == redPawnsBase[z].posY &&
+               420+20 == redPawnsBase[z].posY &&
                redPawnsBase[z].posX == 20+reMap(bestMove,0)) {
                 strncpy(chosenPiece, "qr", 2);
                 changeiii = TRUE;
-                redPawnsBase[z].from = map((redPawnsBase[z].posY-20)/100, (redPawnsBase[z].posX-20)/100);
+                redPawnsBase[z].from = map((redPawnsBase[z].posY-20)/70, (redPawnsBase[z].posX-20)/70);
                 int x = 20+re_Map(bestMove,0);
                 int y = 20+re_Map(bestMove,1);
                 redQueenSquareK[z].posX = x;
                 redQueenSquareK[z].posY = y;
-                redQueenSquareK[z].from = map((y-20)/100, (x-20)/100);
-                redQueenSquareK[z].to = map((y-20)/100, (x-20)/100);
-                redPawnsBase[z].to = map((y-20)/100, (x-20)/100);
+                redQueenSquareK[z].from = map((y-20)/70, (x-20)/70);
+                redQueenSquareK[z].to = map((y-20)/70, (x-20)/70);
+                redPawnsBase[z].to = map((y-20)/70, (x-20)/70);
                 strcat(redPawnsBase[z].to,"q");
                 getApiUnderwaterChessDotComMove(
                       redPawnsBase[z].from,
@@ -1260,7 +1260,7 @@ DWORD WINAPI callApi(void *data) {
     if(bestMove != NULL &&
        redKnight1Rectangle1.posX == 20+reMap(bestMove,0)) {
         if(redKnight1Rectangle1.posY == 20+reMap(bestMove,1)) {
-            redKnight1Rectangle1.from = map(redKnight1Rectangle1.posY/100, redKnight1Rectangle1.posX/100);
+            redKnight1Rectangle1.from = map(redKnight1Rectangle1.posY/70, redKnight1Rectangle1.posX/70);
             redKnight1Rectangle1.posY = 20+re_Map(bestMove,1);
             redKnight1Rectangle1.posX = 20+re_Map(bestMove,0);
             for(int z=0; z<8; z++) {
@@ -1297,7 +1297,7 @@ DWORD WINAPI callApi(void *data) {
                redKnight1Rectangle1.posY == greyQueenSquare.posY) {
                 greyQueenSquare.posX = 1300;
             }
-            redKnight1Rectangle1.to = map(redKnight1Rectangle1.posY/100, redKnight1Rectangle1.posX/100);
+            redKnight1Rectangle1.to = map(redKnight1Rectangle1.posY/70, redKnight1Rectangle1.posX/70);
             getApiUnderwaterChessDotComMove(
                   redKnight1Rectangle1.from,
                   redKnight1Rectangle1.to);
@@ -1307,7 +1307,7 @@ DWORD WINAPI callApi(void *data) {
     if(bestMove != NULL &&
        redKnight2Rectangle1.posX == 20+reMap(bestMove,0)) {
         if(redKnight2Rectangle1.posY == 20+reMap(bestMove,1)) {
-            redKnight2Rectangle1.from = map(redKnight2Rectangle1.posY/100, redKnight2Rectangle1.posX/100);
+            redKnight2Rectangle1.from = map(redKnight2Rectangle1.posY/70, redKnight2Rectangle1.posX/70);
             redKnight2Rectangle1.posY = 20+re_Map(bestMove,1);
             redKnight2Rectangle1.posX = 20+re_Map(bestMove,0);
             for(int z=0; z<8; z++) {
@@ -1344,7 +1344,7 @@ DWORD WINAPI callApi(void *data) {
                redKnight2Rectangle1.posY == greyQueenSquare.posY) {
                 greyQueenSquare.posX = 1300;
             }
-            redKnight2Rectangle1.to = map(redKnight2Rectangle1.posY/100, redKnight2Rectangle1.posX/100);
+            redKnight2Rectangle1.to = map(redKnight2Rectangle1.posY/70, redKnight2Rectangle1.posX/70);
             getApiUnderwaterChessDotComMove(
                   redKnight2Rectangle1.from,
                   redKnight2Rectangle1.to);
@@ -1354,7 +1354,7 @@ DWORD WINAPI callApi(void *data) {
     if(bestMove != NULL &&
        redBishop1Square.posX == 20+reMap(bestMove,0)) {
         if(redBishop1Square.posY == 20+reMap(bestMove,1)) {
-            redBishop1Square.from = map(redBishop1Square.posY/100, redBishop1Square.posX/100);
+            redBishop1Square.from = map(redBishop1Square.posY/70, redBishop1Square.posX/70);
             redBishop1Square.posY = 20+re_Map(bestMove,1);
             redBishop1Square.posX = 20+re_Map(bestMove,0);
             for(int z=0; z<8; z++) {
@@ -1391,7 +1391,7 @@ DWORD WINAPI callApi(void *data) {
                redBishop1Square.posY == greyQueenSquare.posY) {
                 greyQueenSquare.posX = 1300;
             }
-            redBishop1Square.to = map(redBishop1Square.posY/100, redBishop1Square.posX/100);
+            redBishop1Square.to = map(redBishop1Square.posY/70, redBishop1Square.posX/70);
             getApiUnderwaterChessDotComMove(
                   redBishop1Square.from,
                   redBishop1Square.to);
@@ -1401,7 +1401,7 @@ DWORD WINAPI callApi(void *data) {
     if(bestMove != NULL &&
        redBishop2Square.posX == 20+reMap(bestMove,0)) {
         if(redBishop2Square.posY == 20+reMap(bestMove,1)) {
-            redBishop2Square.from = map(redBishop2Square.posY/100, redBishop2Square.posX/100);
+            redBishop2Square.from = map(redBishop2Square.posY/70, redBishop2Square.posX/70);
             redBishop2Square.posY = 20+re_Map(bestMove,1);
             redBishop2Square.posX = 20+re_Map(bestMove,0);
                 for(int z=0; z<8; z++) {
@@ -1438,7 +1438,7 @@ DWORD WINAPI callApi(void *data) {
                    redBishop2Square.posY == greyQueenSquare.posY) {
                     greyQueenSquare.posX = 1300;
                 }
-            redBishop2Square.to = map(redBishop2Square.posY/100, redBishop2Square.posX/100);
+            redBishop2Square.to = map(redBishop2Square.posY/70, redBishop2Square.posX/70);
             getApiUnderwaterChessDotComMove(
                   redBishop2Square.from,
                   redBishop2Square.to);
@@ -1448,7 +1448,7 @@ DWORD WINAPI callApi(void *data) {
     if(bestMove != NULL &&
        redRook1Rectangle1.posX == 20+reMap(bestMove,0)) {
         if(redRook1Rectangle1.posY == 20+reMap(bestMove,1)) {
-            redRook1Rectangle1.from = map(redRook1Rectangle1.posY/100, redRook1Rectangle1.posX/100);
+            redRook1Rectangle1.from = map(redRook1Rectangle1.posY/70, redRook1Rectangle1.posX/70);
             redRook1Rectangle1.posY = 20+re_Map(bestMove,1);
             redRook1Rectangle1.posX = 20+re_Map(bestMove,0);
             for(int z=0; z<8; z++) {
@@ -1485,7 +1485,7 @@ DWORD WINAPI callApi(void *data) {
                redRook1Rectangle1.posY == greyQueenSquare.posY) {
                 greyQueenSquare.posX = 1300;
             }
-            redRook1Rectangle1.to = map(redRook1Rectangle1.posY/100, redRook1Rectangle1.posX/100);
+            redRook1Rectangle1.to = map(redRook1Rectangle1.posY/70, redRook1Rectangle1.posX/70);
             getApiUnderwaterChessDotComMove(
                   redRook1Rectangle1.from,
                   redRook1Rectangle1.to);
@@ -1495,7 +1495,7 @@ DWORD WINAPI callApi(void *data) {
     if(bestMove != NULL &&
        redRook2Rectangle1.posX == 20+reMap(bestMove,0)) {
         if(redRook2Rectangle1.posY == 20+reMap(bestMove,1)) {
-            redRook2Rectangle1.from = map(redRook2Rectangle1.posY/100, redRook2Rectangle1.posX/100);
+            redRook2Rectangle1.from = map(redRook2Rectangle1.posY/70, redRook2Rectangle1.posX/70);
             redRook2Rectangle1.posY = 20+re_Map(bestMove,1);
             redRook2Rectangle1.posX = 20+re_Map(bestMove,0);
             for(int z=0; z<8; z++) {
@@ -1532,7 +1532,7 @@ DWORD WINAPI callApi(void *data) {
                redRook2Rectangle1.posY == greyQueenSquare.posY) {
                 greyQueenSquare.posX = 1300;
             }
-            redRook2Rectangle1.to = map(redRook2Rectangle1.posY/100, redRook2Rectangle1.posX/100);
+            redRook2Rectangle1.to = map(redRook2Rectangle1.posY/70, redRook2Rectangle1.posX/70);
             getApiUnderwaterChessDotComMove(
                   redRook2Rectangle1.from,
                   redRook2Rectangle1.to);
@@ -1543,7 +1543,7 @@ DWORD WINAPI callApi(void *data) {
         if(bestMove != NULL &&
            redQueenSquareK[d].posX == 20+reMap(bestMove,0)) {
             if(redQueenSquareK[d].posY == 20+reMap(bestMove,1)) {
-                redQueenSquareK[d].from = map(redQueenSquareK[d].posY/100, redQueenSquareK[d].posX/100);
+                redQueenSquareK[d].from = map(redQueenSquareK[d].posY/70, redQueenSquareK[d].posX/70);
                 redQueenSquareK[d].posY = 20+re_Map(bestMove,1);
                 redQueenSquareK[d].posX = 20+re_Map(bestMove,0);
                 for(int z=0; z<8; z++) {
@@ -1580,7 +1580,7 @@ DWORD WINAPI callApi(void *data) {
                    redQueenSquareK[d].posY == greyQueenSquare.posY) {
                     greyQueenSquare.posX = 1300;
                 }
-                redQueenSquareK[d].to = map(redQueenSquareK[d].posY/100, redQueenSquareK[d].posX/100);
+                redQueenSquareK[d].to = map(redQueenSquareK[d].posY/70, redQueenSquareK[d].posX/70);
                 getApiUnderwaterChessDotComMove(
                       redQueenSquareK[d].from,
                       redQueenSquareK[d].to);
@@ -1591,7 +1591,7 @@ DWORD WINAPI callApi(void *data) {
     if(bestMove != NULL &&
        redQueenSquare.posX == 20+reMap(bestMove,0)) {
         if(redQueenSquare.posY == 20+reMap(bestMove,1)) {
-            redQueenSquare.from = map(redQueenSquare.posY/100, redQueenSquare.posX/100);
+            redQueenSquare.from = map(redQueenSquare.posY/70, redQueenSquare.posX/70);
             redQueenSquare.posY = 20+re_Map(bestMove,1);
             redQueenSquare.posX = 20+re_Map(bestMove,0);
             for(int z=0; z<8; z++) {
@@ -1628,7 +1628,7 @@ DWORD WINAPI callApi(void *data) {
                redQueenSquare.posY == greyQueenSquare.posY) {
                 greyQueenSquare.posX = 1300;
             }
-            redQueenSquare.to = map(redQueenSquare.posY/100, redQueenSquare.posX/100);
+            redQueenSquare.to = map(redQueenSquare.posY/70, redQueenSquare.posX/70);
             getApiUnderwaterChessDotComMove(
                   redQueenSquare.from,
                   redQueenSquare.to);
@@ -1638,7 +1638,7 @@ DWORD WINAPI callApi(void *data) {
     if(bestMove != NULL &&
        redKingSquare.posX == 20+reMap(bestMove,0)) {
         if(redKingSquare.posY == 20+reMap(bestMove,1)) {
-            redKingSquare.from = map(redKingSquare.posY/100, redKingSquare.posX/100);
+            redKingSquare.from = map(redKingSquare.posY/70, redKingSquare.posX/70);
             int xxxx = redKingSquare.posX;
             int yyyy = redKingSquare.posY;
             redKingSquare.posY = 20+re_Map(bestMove,1);
@@ -1683,7 +1683,7 @@ DWORD WINAPI callApi(void *data) {
                redKingSquare.posY == greyQueenSquare.posY) {
                 greyQueenSquare.posX = 1300;
             }
-            redKingSquare.to = map(redKingSquare.posY/100, redKingSquare.posX/100);
+            redKingSquare.to = map(redKingSquare.posY/70, redKingSquare.posX/70);
             getApiUnderwaterChessDotComMove(
                   redKingSquare.from,
                   redKingSquare.to);
@@ -1693,7 +1693,7 @@ DWORD WINAPI callApi(void *data) {
     if(bestMove != NULL &&
        redPawnsBase[0].posX == 20+reMap(bestMove,0)) {
         if(redPawnsBase[0].posY == 20+reMap(bestMove,1)) {
-            redPawnsBase[0].from = map(redPawnsBase[0].posY/100, redPawnsBase[0].posX/100);
+            redPawnsBase[0].from = map(redPawnsBase[0].posY/70, redPawnsBase[0].posX/70);
             redPawnsBase[0].posY = 20+re_Map(bestMove,1);
             redPawnsBase[0].posX = 20+re_Map(bestMove,0);
             for(int z=0; z<8; z++) {
@@ -1730,7 +1730,7 @@ DWORD WINAPI callApi(void *data) {
                redPawnsBase[0].posY == greyQueenSquare.posY) {
                 greyQueenSquare.posX = 1300;
             }
-            redPawnsBase[0].to = map(redPawnsBase[0].posY/100, redPawnsBase[0].posX/100);
+            redPawnsBase[0].to = map(redPawnsBase[0].posY/70, redPawnsBase[0].posX/70);
             getApiUnderwaterChessDotComMove(
                   redPawnsBase[0].from,
                   redPawnsBase[0].to);
@@ -1740,7 +1740,7 @@ DWORD WINAPI callApi(void *data) {
     if(bestMove != NULL &&
        redPawnsBase[1].posX == 20+reMap(bestMove,0)) {
         if(redPawnsBase[1].posY == 20+reMap(bestMove,1)) {
-            redPawnsBase[1].from = map(redPawnsBase[1].posY/100, redPawnsBase[1].posX/100);
+            redPawnsBase[1].from = map(redPawnsBase[1].posY/70, redPawnsBase[1].posX/70);
             redPawnsBase[1].posY = 20+re_Map(bestMove,1);
             redPawnsBase[1].posX = 20+re_Map(bestMove,0);
             for(int z=0; z<8; z++) {
@@ -1777,7 +1777,7 @@ DWORD WINAPI callApi(void *data) {
                redPawnsBase[1].posY == greyQueenSquare.posY) {
                 greyQueenSquare.posX = 1300;
             }
-            redPawnsBase[1].to = map(redPawnsBase[1].posY/100, redPawnsBase[1].posX/100);
+            redPawnsBase[1].to = map(redPawnsBase[1].posY/70, redPawnsBase[1].posX/70);
             getApiUnderwaterChessDotComMove(
                   redPawnsBase[1].from,
                   redPawnsBase[1].to);
@@ -1787,7 +1787,7 @@ DWORD WINAPI callApi(void *data) {
     if(bestMove != NULL &&
        redPawnsBase[2].posX == 20+reMap(bestMove,0)) {
         if(redPawnsBase[2].posY == 20+reMap(bestMove,1)) {
-            redPawnsBase[2].from = map(redPawnsBase[2].posY/100, redPawnsBase[2].posX/100);
+            redPawnsBase[2].from = map(redPawnsBase[2].posY/70, redPawnsBase[2].posX/70);
             redPawnsBase[2].posY = 20+re_Map(bestMove,1);
             redPawnsBase[2].posX = 20+re_Map(bestMove,0);
             for(int z=0; z<8; z++) {
@@ -1824,7 +1824,7 @@ DWORD WINAPI callApi(void *data) {
                redPawnsBase[2].posY == greyQueenSquare.posY) {
                 greyQueenSquare.posX = 1300;
             }
-            redPawnsBase[2].to = map(redPawnsBase[2].posY/100, redPawnsBase[2].posX/100);
+            redPawnsBase[2].to = map(redPawnsBase[2].posY/70, redPawnsBase[2].posX/70);
             getApiUnderwaterChessDotComMove(
                   redPawnsBase[2].from,
                   redPawnsBase[2].to);
@@ -1834,7 +1834,7 @@ DWORD WINAPI callApi(void *data) {
     if(bestMove != NULL &&
        redPawnsBase[3].posX == 20+reMap(bestMove,0)) {
         if(redPawnsBase[3].posY == 20+reMap(bestMove,1)) {
-            redPawnsBase[3].from = map(redPawnsBase[3].posY/100, redPawnsBase[3].posX/100);
+            redPawnsBase[3].from = map(redPawnsBase[3].posY/70, redPawnsBase[3].posX/70);
             redPawnsBase[3].posY = 20+re_Map(bestMove,1);
             redPawnsBase[3].posX = 20+re_Map(bestMove,0);
             for(int z=0; z<8; z++) {
@@ -1871,7 +1871,7 @@ DWORD WINAPI callApi(void *data) {
                redPawnsBase[3].posY == greyQueenSquare.posY) {
                 greyQueenSquare.posX = 1300;
             }
-            redPawnsBase[3].to = map(redPawnsBase[3].posY/100, redPawnsBase[3].posX/100);
+            redPawnsBase[3].to = map(redPawnsBase[3].posY/70, redPawnsBase[3].posX/70);
             getApiUnderwaterChessDotComMove(
                   redPawnsBase[3].from,
                   redPawnsBase[3].to);
@@ -1881,7 +1881,7 @@ DWORD WINAPI callApi(void *data) {
     if(bestMove != NULL &&
        redPawnsBase[4].posX == 20+reMap(bestMove,0)) {
         if(redPawnsBase[4].posY == 20+reMap(bestMove,1)) {
-            redPawnsBase[4].from = map(redPawnsBase[4].posY/100, redPawnsBase[4].posX/100);
+            redPawnsBase[4].from = map(redPawnsBase[4].posY/70, redPawnsBase[4].posX/70);
             redPawnsBase[4].posY = 20+re_Map(bestMove,1);
             redPawnsBase[4].posX = 20+re_Map(bestMove,0);
             for(int z=0; z<8; z++) {
@@ -1918,7 +1918,7 @@ DWORD WINAPI callApi(void *data) {
                redPawnsBase[4].posY == greyQueenSquare.posY) {
                 greyQueenSquare.posX = 1300;
             }
-            redPawnsBase[4].to = map(redPawnsBase[4].posY/100, redPawnsBase[4].posX/100);
+            redPawnsBase[4].to = map(redPawnsBase[4].posY/70, redPawnsBase[4].posX/70);
             getApiUnderwaterChessDotComMove(
                   redPawnsBase[4].from,
                   redPawnsBase[4].to);
@@ -1928,7 +1928,7 @@ DWORD WINAPI callApi(void *data) {
     if(bestMove != NULL &&
        redPawnsBase[5].posX == 20+reMap(bestMove,0)) {
         if(redPawnsBase[5].posY == 20+reMap(bestMove,1)) {
-            redPawnsBase[5].from = map(redPawnsBase[5].posY/100, redPawnsBase[5].posX/100);
+            redPawnsBase[5].from = map(redPawnsBase[5].posY/70, redPawnsBase[5].posX/70);
             redPawnsBase[5].posY = 20+re_Map(bestMove,1);
             redPawnsBase[5].posX = 20+re_Map(bestMove,0);
             for(int z=0; z<8; z++) {
@@ -1965,7 +1965,7 @@ DWORD WINAPI callApi(void *data) {
                redPawnsBase[5].posY == greyQueenSquare.posY) {
                 greyQueenSquare.posX = 1300;
             }
-            redPawnsBase[5].to = map(redPawnsBase[5].posY/100, redPawnsBase[5].posX/100);
+            redPawnsBase[5].to = map(redPawnsBase[5].posY/70, redPawnsBase[5].posX/70);
             getApiUnderwaterChessDotComMove(
                   redPawnsBase[5].from,
                   redPawnsBase[5].to);
@@ -1975,7 +1975,7 @@ DWORD WINAPI callApi(void *data) {
     if(bestMove != NULL &&
        redPawnsBase[6].posX == 20+reMap(bestMove,0)) {
         if(redPawnsBase[6].posY == 20+reMap(bestMove,1)) {
-            redPawnsBase[6].from = map(redPawnsBase[6].posY/100, redPawnsBase[6].posX/100);
+            redPawnsBase[6].from = map(redPawnsBase[6].posY/70, redPawnsBase[6].posX/70);
             redPawnsBase[6].posY = 20+re_Map(bestMove,1);
             redPawnsBase[6].posX = 20+re_Map(bestMove,0);
             for(int z=0; z<8; z++) {
@@ -2012,7 +2012,7 @@ DWORD WINAPI callApi(void *data) {
                redPawnsBase[6].posY == greyQueenSquare.posY) {
                 greyQueenSquare.posX = 1300;
             }
-            redPawnsBase[6].to = map(redPawnsBase[6].posY/100, redPawnsBase[6].posX/100);
+            redPawnsBase[6].to = map(redPawnsBase[6].posY/70, redPawnsBase[6].posX/70);
             getApiUnderwaterChessDotComMove(
                   redPawnsBase[6].from,
                   redPawnsBase[6].to);
@@ -2022,7 +2022,7 @@ DWORD WINAPI callApi(void *data) {
     if(bestMove != NULL &&
        redPawnsBase[7].posX == 20+reMap(bestMove,0)) {
         if(redPawnsBase[7].posY == 20+reMap(bestMove,1)) {
-            redPawnsBase[7].from = map(redPawnsBase[7].posY/100, redPawnsBase[7].posX/100);
+            redPawnsBase[7].from = map(redPawnsBase[7].posY/70, redPawnsBase[7].posX/70);
             redPawnsBase[7].posY = 20+re_Map(bestMove,1);
             redPawnsBase[7].posX = 20+re_Map(bestMove,0);
             for(int z=0; z<8; z++) {
@@ -2059,7 +2059,7 @@ DWORD WINAPI callApi(void *data) {
                redPawnsBase[7].posY == greyQueenSquare.posY) {
                 greyQueenSquare.posX = 1300;
             }
-            redPawnsBase[7].to = map(redPawnsBase[7].posY/100, redPawnsBase[7].posX/100);
+            redPawnsBase[7].to = map(redPawnsBase[7].posY/70, redPawnsBase[7].posX/70);
             getApiUnderwaterChessDotComMove(
                   redPawnsBase[7].from,
                   redPawnsBase[7].to);
@@ -2119,229 +2119,229 @@ DWORD WINAPI callApi(void *data) {
 
         hdcMem = CreateCompatibleDC(hdc);
         HBITMAP hBmp;
-        if(((greyRook1Rectangle1.posX/100)+(greyRook1Rectangle1.posY/100)) % 2 == 0)
+        if(((greyRook1Rectangle1.posX/70)+(greyRook1Rectangle1.posY/70)) % 2 == 0)
             hBmp = ReplaceColor(rookWhite,0x110000,0xffffff,hdcMem);
         else
             hBmp = ReplaceColor(rookWhite,0x110000,0x000000,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
-        BitBlt(hdc, greyRook1Rectangle1.posX+25+7, greyRook1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+        BitBlt(hdc, greyRook1Rectangle1.posX+25+7, greyRook1Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         hdcMem = CreateCompatibleDC(hdc);
-        if(((greyRook2Rectangle1.posX/100)+(greyRook2Rectangle1.posY/100)) % 2 == 0)
+        if(((greyRook2Rectangle1.posX/70)+(greyRook2Rectangle1.posY/70)) % 2 == 0)
             hBmp = ReplaceColor(rook2White,0x110000,0xffffff,hdcMem);
         else
             hBmp = ReplaceColor(rook2White,0x110000,0x000000,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
-        BitBlt(hdc, greyRook2Rectangle1.posX+25+7, greyRook2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+        BitBlt(hdc, greyRook2Rectangle1.posX+25+7, greyRook2Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         hdcMem = CreateCompatibleDC(hdc);
-        if(((greyKnight1Rectangle1.posX/100)+(greyKnight1Rectangle1.posY/100)) % 2 == 0)
+        if(((greyKnight1Rectangle1.posX/70)+(greyKnight1Rectangle1.posY/70)) % 2 == 0)
             hBmp = ReplaceColor(knightWhite,0x110000,0xffffff,hdcMem);
         else
             hBmp = ReplaceColor(knightWhite,0x110000,0x000000,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
-        BitBlt(hdc, greyKnight1Rectangle1.posX+25+7, greyKnight1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+        BitBlt(hdc, greyKnight1Rectangle1.posX+25+7, greyKnight1Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         hdcMem = CreateCompatibleDC(hdc);
-        if(((greyKnight2Rectangle1.posX/100)+(greyKnight2Rectangle1.posY/100)) % 2 == 0)
+        if(((greyKnight2Rectangle1.posX/70)+(greyKnight2Rectangle1.posY/70)) % 2 == 0)
             hBmp = ReplaceColor(knight2White,0x110000,0xffffff,hdcMem);
         else
             hBmp = ReplaceColor(knight2White,0x110000,0x000000,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
-        BitBlt(hdc, greyKnight2Rectangle1.posX+25+7, greyKnight2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+        BitBlt(hdc, greyKnight2Rectangle1.posX+25+7, greyKnight2Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         hdcMem = CreateCompatibleDC(hdc);
-        if(((greyBishop1Square.posX/100)+(greyBishop1Square.posY/100)) % 2 == 0)
+        if(((greyBishop1Square.posX/70)+(greyBishop1Square.posY/70)) % 2 == 0)
             hBmp = ReplaceColor(bishopWhite,0x110000,0xffffff,hdcMem);
         else
             hBmp = ReplaceColor(bishopWhite,0x110000,0x000000,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
-        BitBlt(hdc, greyBishop1Square.posX+25+7, greyBishop1Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+        BitBlt(hdc, greyBishop1Square.posX+25+7, greyBishop1Square.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         hdcMem = CreateCompatibleDC(hdc);
-        if(((greyBishop2Square.posX/100)+(greyBishop2Square.posY/100)) % 2 == 0)
+        if(((greyBishop2Square.posX/70)+(greyBishop2Square.posY/70)) % 2 == 0)
             hBmp = ReplaceColor(bishop2White,0x110000,0xffffff,hdcMem);
         else
             hBmp = ReplaceColor(bishop2White,0x110000,0x000000,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
-        BitBlt(hdc, greyBishop2Square.posX+25+7, greyBishop2Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+        BitBlt(hdc, greyBishop2Square.posX+25+7, greyBishop2Square.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         hdcMem = CreateCompatibleDC(hdc);
-        if(((greyQueenSquare.posX/100)+(greyQueenSquare.posY/100)) % 2 == 0)
+        if(((greyQueenSquare.posX/70)+(greyQueenSquare.posY/70)) % 2 == 0)
             hBmp = ReplaceColor(queenWhite,0x110000,0xffffff,hdcMem);
         else
             hBmp = ReplaceColor(queenWhite,0x110000,0x000000,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
-        BitBlt(hdc, greyQueenSquare.posX+25+7, greyQueenSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+        BitBlt(hdc, greyQueenSquare.posX+25+7, greyQueenSquare.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
         
         hdcMem = CreateCompatibleDC(hdc);
-        if(((greyKingSquare.posX/100)+(greyKingSquare.posY/100)) % 2 == 0)
+        if(((greyKingSquare.posX/70)+(greyKingSquare.posY/70)) % 2 == 0)
             hBmp = ReplaceColor(kingWhite,0x110000,0xffffff,hdcMem);
         else
             hBmp = ReplaceColor(kingWhite,0x110000,0x000000,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
-        BitBlt(hdc, greyKingSquare.posX+25+7, greyKingSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+        BitBlt(hdc, greyKingSquare.posX+25+7, greyKingSquare.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         for(int o=0; o<8; o++) {
             hdcMem = CreateCompatibleDC(hdc);
-            if(((greyPawnsBase[o].posX/100)+(greyPawnsBase[o].posY/100)) % 2 == 0)
+            if(((greyPawnsBase[o].posX/70)+(greyPawnsBase[o].posY/70)) % 2 == 0)
                 hBmp = ReplaceColor(pawnWhite,0x110000,0xffffff,hdcMem);
             else
                 hBmp = ReplaceColor(pawnWhite,0x110000,0x000000,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, greyPawnsBase[o].posX+25+7, greyPawnsBase[o].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, greyPawnsBase[o].posX+25+7, greyPawnsBase[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
         }
 
         hdcMem = CreateCompatibleDC(hdc);
-        if(((redRook1Rectangle1.posX/100)+(redRook1Rectangle1.posY/100)) % 2 == 0)
+        if(((redRook1Rectangle1.posX/70)+(redRook1Rectangle1.posY/70)) % 2 == 0)
             hBmp = ReplaceColor(rookBlack,0x110000,0xffffff,hdcMem);
         else
             hBmp = ReplaceColor(rookBlack,0x110000,0x000000,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
-        BitBlt(hdc, redRook1Rectangle1.posX+25+7, redRook1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+        BitBlt(hdc, redRook1Rectangle1.posX+25+7, redRook1Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         hdcMem = CreateCompatibleDC(hdc);
-        if(((redRook2Rectangle1.posX/100)+(redRook2Rectangle1.posY/100)) % 2 == 0)
+        if(((redRook2Rectangle1.posX/70)+(redRook2Rectangle1.posY/70)) % 2 == 0)
             hBmp = ReplaceColor(rook2Black,0x110000,0xffffff,hdcMem);
         else
             hBmp = ReplaceColor(rookBlack,0x110000,0x000000,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
-        BitBlt(hdc, redRook2Rectangle1.posX+25+7, redRook2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+        BitBlt(hdc, redRook2Rectangle1.posX+25+7, redRook2Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         hdcMem = CreateCompatibleDC(hdc);
-        if(((redKnight1Rectangle1.posX/100)+(redKnight1Rectangle1.posY/100)) % 2 == 0)
+        if(((redKnight1Rectangle1.posX/70)+(redKnight1Rectangle1.posY/70)) % 2 == 0)
             hBmp = ReplaceColor(knightBlack,0x110000,0xffffff,hdcMem);
         else
             hBmp = ReplaceColor(knightBlack,0x110000,0x000000,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
-        BitBlt(hdc, redKnight1Rectangle1.posX+25+7, redKnight1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+        BitBlt(hdc, redKnight1Rectangle1.posX+25+7, redKnight1Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         hdcMem = CreateCompatibleDC(hdc);
-        if(((redKnight2Rectangle1.posX/100)+(redKnight2Rectangle1.posY/100)) % 2 == 0)
+        if(((redKnight2Rectangle1.posX/70)+(redKnight2Rectangle1.posY/70)) % 2 == 0)
             hBmp = ReplaceColor(knight2Black,0x110000,0xffffff,hdcMem);
         else
             hBmp = ReplaceColor(knight2Black,0x110000,0x000000,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
-        BitBlt(hdc, redKnight2Rectangle1.posX+25+7, redKnight2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+        BitBlt(hdc, redKnight2Rectangle1.posX+25+7, redKnight2Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         hdcMem = CreateCompatibleDC(hdc);
-        if(((redBishop1Square.posX/100)+(redBishop1Square.posY/100)) % 2 == 0)
+        if(((redBishop1Square.posX/70)+(redBishop1Square.posY/70)) % 2 == 0)
             hBmp = ReplaceColor(bishopBlack,0x110000,0xffffff,hdcMem);
         else
             hBmp = ReplaceColor(bishopBlack,0x110000,0x000000,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
-        BitBlt(hdc, redBishop1Square.posX+25+7, redBishop1Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+        BitBlt(hdc, redBishop1Square.posX+25+7, redBishop1Square.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         hdcMem = CreateCompatibleDC(hdc);
-        if(((redBishop2Square.posX/100)+(redBishop2Square.posY/100)) % 2 == 0)
+        if(((redBishop2Square.posX/70)+(redBishop2Square.posY/70)) % 2 == 0)
             hBmp = ReplaceColor(bishop2Black,0x110000,0xffffff,hdcMem);
         else
             hBmp = ReplaceColor(bishop2Black,0x110000,0x000000,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
-        BitBlt(hdc, redBishop2Square.posX+25+7, redBishop2Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+        BitBlt(hdc, redBishop2Square.posX+25+7, redBishop2Square.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         hdcMem = CreateCompatibleDC(hdc);
-        if(((redQueenSquare.posX/100)+(redQueenSquare.posY/100)) % 2 == 0)
+        if(((redQueenSquare.posX/70)+(redQueenSquare.posY/70)) % 2 == 0)
             hBmp = ReplaceColor(queenBlack,0x110000,0xffffff,hdcMem);
         else
             hBmp = ReplaceColor(queenBlack,0x110000,0x000000,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
-        BitBlt(hdc, redQueenSquare.posX+25+7, redQueenSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+        BitBlt(hdc, redQueenSquare.posX+25+7, redQueenSquare.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         hdcMem = CreateCompatibleDC(hdc);
-        if(((redKingSquare.posX/100)+(redKingSquare.posY/100)) % 2 == 0)
+        if(((redKingSquare.posX/70)+(redKingSquare.posY/70)) % 2 == 0)
             hBmp = ReplaceColor(kingBlack,0x110000,0xffffff,hdcMem);
         else
             hBmp = ReplaceColor(kingBlack,0x110000,0x000000,hdcMem);
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
-        BitBlt(hdc, redKingSquare.posX+25+7, redKingSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+        BitBlt(hdc, redKingSquare.posX+25+7, redKingSquare.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
         SelectObject(hdcMem, oldBitmap);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         for(int o=0; o<8; o++) {
             hdcMem = CreateCompatibleDC(hdc);
-            if(((redPawnsBase[o].posX/100)+(redPawnsBase[o].posY/100)) % 2 == 0)
+            if(((redPawnsBase[o].posX/70)+(redPawnsBase[o].posY/70)) % 2 == 0)
                 hBmp = ReplaceColor(pawnBlack,0x110000,0xffffff,hdcMem);
             else
                 hBmp = ReplaceColor(pawnBlack,0x110000,0x000000,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, redPawnsBase[o].posX+25+7, redPawnsBase[o].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, redPawnsBase[o].posX+25+7, redPawnsBase[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
         }
 
         for(int m=0; m<8; m++) {
             hdcMem = CreateCompatibleDC(hdc);
-            if(((greyQueenSquareK[m].posX/100)+(greyQueenSquareK[m].posY/100)) % 2 == 0)
+            if(((greyQueenSquareK[m].posX/70)+(greyQueenSquareK[m].posY/70)) % 2 == 0)
                 hBmp = ReplaceColor(queenWhite,0x110000,0xffffff,hdcMem);
             else
                 hBmp = ReplaceColor(queenWhite,0x110000,0x000000,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, greyQueenSquareK[m].posX+25+7, greyQueenSquareK[m].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, greyQueenSquareK[m].posX+25+7, greyQueenSquareK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
         }
 
         for(int m=0; m<8; m++) {
             hdcMem = CreateCompatibleDC(hdc);
-            if(((redQueenSquareK[m].posX/100)+(redQueenSquareK[m].posY/100)) % 2 == 0)
+            if(((redQueenSquareK[m].posX/70)+(redQueenSquareK[m].posY/70)) % 2 == 0)
                 hBmp = ReplaceColor(queenBlack,0x110000,0xffffff,hdcMem);
             else
                 hBmp = ReplaceColor(queenBlack,0x110000,0x000000,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, redQueenSquareK[m].posX+25+7, redQueenSquareK[m].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, redQueenSquareK[m].posX+25+7, redQueenSquareK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
         }
@@ -2405,7 +2405,7 @@ DWORD WINAPI callApi(void *data) {
         _y_ = 20;
 
         HBRUSH yellow_brush = CreateSolidBrush(RGB(255,255,0));
-        RECT rrect = {821+50, 20, 1120, 810};
+        RECT rrect = {610+0, 20, 910, 740};
         FillRect(hdc, &rrect, yellow_brush);
         DeleteObject(yellow_brush);
 
@@ -2414,11 +2414,11 @@ DWORD WINAPI callApi(void *data) {
             HBITMAP hBmp = ReplaceColor(rookWhite_s,0xff0000,0xc8c8ff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(greyRook1Rectangle1.from != NULL && greyRook1Rectangle1.to != NULL) {
                 if(strlen(greyRook1Rectangle1.from) >= 2 && strlen(greyRook1Rectangle1.to) >= 2) {
                     TextOut(hdc,
-                            855+50,
+                            615+50,
                             _y_,
                             greyRook1Rectangle1.to,
                             GetTextSize("za"));
@@ -2434,11 +2434,11 @@ DWORD WINAPI callApi(void *data) {
             HBITMAP hBmp = ReplaceColor(rook2White_s,0xff0000,0xc8c8ff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(greyRook2Rectangle1.from != NULL && greyRook2Rectangle1.to != NULL) {
                 if(strlen(greyRook2Rectangle1.from) >= 2 && strlen(greyRook2Rectangle1.to) >= 2) {
                     TextOut(hdc,
-                            855+50,
+                            615+50,
                             _y_,
                             greyRook2Rectangle1.to,
                             GetTextSize("za"));
@@ -2454,11 +2454,11 @@ DWORD WINAPI callApi(void *data) {
             HBITMAP hBmp = ReplaceColor(knightWhite_s,0x00ff00,0xc8c8ff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(greyKnight1Rectangle1.from != NULL && greyKnight1Rectangle1.to != NULL) {
                 if(strlen(greyKnight1Rectangle1.from) >= 2 && strlen(greyKnight1Rectangle1.to) >= 2) {
                     TextOut(hdc,
-                            855+50,
+                            615+50,
                             _y_,
                             greyKnight1Rectangle1.to,
                             GetTextSize("za"));
@@ -2474,11 +2474,11 @@ DWORD WINAPI callApi(void *data) {
             HBITMAP hBmp = ReplaceColor(knight2White_s,0x00ff00,0xc8c8ff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(greyKnight2Rectangle1.from != NULL && greyKnight2Rectangle1.to != NULL) {
                 if(strlen(greyKnight2Rectangle1.from) >= 2 && strlen(greyKnight2Rectangle1.to) >= 2) {
                     TextOut(hdc,
-                            855+50,
+                            615+50,
                             _y_,
                             greyKnight2Rectangle1.to,
                             GetTextSize("za"));
@@ -2494,11 +2494,11 @@ DWORD WINAPI callApi(void *data) {
             HBITMAP hBmp = ReplaceColor(bishopWhite_s,0x4cb122,0xc8c8ff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(greyBishop1Square.from != NULL && greyBishop1Square.to != NULL) {
                 if(strlen(greyBishop1Square.from) >= 2 && strlen(greyBishop1Square.to) >= 2) {
                     TextOut(hdc,
-                            855+50,
+                            615+50,
                             _y_,
                             greyBishop1Square.to,
                             GetTextSize("za"));
@@ -2514,11 +2514,11 @@ DWORD WINAPI callApi(void *data) {
             HBITMAP hBmp = ReplaceColor(bishop2White_s,0x4cb122,0xc8c8ff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(greyBishop2Square.from != NULL && greyBishop2Square.to != NULL) {
                 if(strlen(greyBishop2Square.from) >= 2 && strlen(greyBishop2Square.to) >= 2) {
                     TextOut(hdc,
-                            855+50,
+                            615+50,
                             _y_,
                             greyBishop2Square.to,
                             GetTextSize("za"));
@@ -2534,11 +2534,11 @@ DWORD WINAPI callApi(void *data) {
             HBITMAP hBmp = ReplaceColor(queenWhite_s,0xff0000,0xc8c8ff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(greyQueenSquare.from != NULL && greyQueenSquare.to != NULL) {
                 if(strlen(greyQueenSquare.from) >= 2 && strlen(greyQueenSquare.to) >= 2) {
                     TextOut(hdc,
-                            855+50,
+                            615+50,
                             _y_,
                             greyQueenSquare.to,
                             GetTextSize("za"));
@@ -2554,7 +2554,7 @@ DWORD WINAPI callApi(void *data) {
             HBITMAP hBmp = ReplaceColor(kingWhite_s,0x00ff00,0xc8c8ff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
@@ -2566,11 +2566,11 @@ DWORD WINAPI callApi(void *data) {
                 HBITMAP hBmp = ReplaceColor(pawnWhite_s,0x000000,0xc8c8ff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(greyPawnsBase[o].from != NULL && greyPawnsBase[o].to != NULL) {
                     if(strlen(greyPawnsBase[o].from) >= 2 && strlen(greyPawnsBase[o].to) >= 2) {
                         TextOut(hdc,
-                                855+50,
+                                615+50,
                                 _y_,
                                 greyPawnsBase[o].to,
                                 GetTextSize("za"));
@@ -2588,11 +2588,11 @@ DWORD WINAPI callApi(void *data) {
                 HBITMAP hBmp = ReplaceColor(queenWhite_s,0xff0000,0xc8c8ff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(greyQueenSquareK[m].from != NULL && greyQueenSquareK[m].to != NULL) {
                     if(strlen(greyQueenSquareK[m].from) >= 2 && strlen(greyQueenSquareK[m].to) >= 2) {
                         TextOut(hdc,
-                                855+50,
+                                615+50,
                                 _y_,
                                 greyQueenSquareK[m].to,
                                 GetTextSize("za"));
@@ -2611,11 +2611,11 @@ DWORD WINAPI callApi(void *data) {
             HBITMAP hBmp = ReplaceColor(rookBlack_s,0x00ff00,0xc8c8ff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(redRook1Rectangle1.from != NULL && redRook1Rectangle1.to != NULL) {
                 if(strlen(redRook1Rectangle1.from) >= 2 && strlen(redRook1Rectangle1.to) >= 2) {
                     TextOut(hdc,
-                            930+50,
+                            690+50,
                             _y_,
                             redRook1Rectangle1.to,
                             GetTextSize("za"));
@@ -2631,11 +2631,11 @@ DWORD WINAPI callApi(void *data) {
             HBITMAP hBmp = ReplaceColor(rook2Black_s,0x00ff00,0xc8c8ff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(redRook2Rectangle1.from != NULL && redRook2Rectangle1.to != NULL) {
                 if(strlen(redRook2Rectangle1.from) >= 2 && strlen(redRook2Rectangle1.to) >= 2) {
                     TextOut(hdc,
-                            930+50,
+                            690+50,
                             _y_,
                             redRook2Rectangle1.to,
                             GetTextSize("za"));
@@ -2651,11 +2651,11 @@ DWORD WINAPI callApi(void *data) {
             HBITMAP hBmp = ReplaceColor(knightBlack_s,0x00ff00,0xc8c8ff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(redKnight1Rectangle1.from != NULL && redKnight1Rectangle1.to != NULL) {
                 if(strlen(redKnight1Rectangle1.from) >= 2 && strlen(redKnight1Rectangle1.to) >= 2) {
                     TextOut(hdc,
-                            930+50,
+                            690+50,
                             _y_,
                             redKnight1Rectangle1.to,
                             GetTextSize("za"));
@@ -2671,11 +2671,11 @@ DWORD WINAPI callApi(void *data) {
             HBITMAP hBmp = ReplaceColor(knight2Black_s,0x00ff00,0xc8c8ff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(redKnight2Rectangle1.from != NULL && redKnight2Rectangle1.to != NULL) {
                 if(strlen(redKnight2Rectangle1.from) >= 2 && strlen(redKnight2Rectangle1.to) >= 2) {
                     TextOut(hdc,
-                            930+50,
+                            690+50,
                             _y_,
                             redKnight2Rectangle1.to,
                             GetTextSize("za"));
@@ -2691,11 +2691,11 @@ DWORD WINAPI callApi(void *data) {
             HBITMAP hBmp = ReplaceColor(bishopBlack_s,0xff0000,0xc8c8ff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(redBishop1Square.from != NULL && redBishop1Square.to != NULL) {
                 if(strlen(redBishop1Square.from) >= 2 && strlen(redBishop1Square.to) >= 2) {
                     TextOut(hdc,
-                            930+50,
+                            690+50,
                             _y_,
                             redBishop1Square.to,
                             GetTextSize("za"));
@@ -2711,11 +2711,11 @@ DWORD WINAPI callApi(void *data) {
             HBITMAP hBmp = ReplaceColor(bishop2Black_s,0xff0000,0xc8c8ff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(redBishop2Square.from != NULL && redBishop2Square.to != NULL) {
                 if(strlen(redBishop2Square.from) >= 2 && strlen(redBishop2Square.to) >= 2) {
                     TextOut(hdc,
-                            930+50,
+                            690+50,
                             _y_,
                             redBishop2Square.to,
                             GetTextSize("za"));
@@ -2731,11 +2731,11 @@ DWORD WINAPI callApi(void *data) {
             HBITMAP hBmp = ReplaceColor(queenBlack_s,0x00ff00,0xc8c8ff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(redQueenSquare.from != NULL && redQueenSquare.to != NULL) {
                 if(strlen(redQueenSquare.from) >= 2 && strlen(redQueenSquare.to) >= 2) {
                     TextOut(hdc,
-                            930+50,
+                            690+50,
                             _y_,
                             redQueenSquare.to,
                             GetTextSize("za"));
@@ -2751,7 +2751,7 @@ DWORD WINAPI callApi(void *data) {
             HBITMAP hBmp = ReplaceColor(kingBlack_s,0xff0000,0xc8c8ff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
@@ -2763,11 +2763,11 @@ DWORD WINAPI callApi(void *data) {
                 HBITMAP hBmp = ReplaceColor(pawnBlack_s,0xff0000,0xc8c8ff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(redPawnsBase[o].from != NULL && redPawnsBase[o].to != NULL) {
                     if(strlen(redPawnsBase[o].from) >= 2 && strlen(redPawnsBase[o].to) >= 2) {
                         TextOut(hdc,
-                                930+50,
+                                690+50,
                                 _y_,
                                 redPawnsBase[o].to,
                                 GetTextSize("za"));
@@ -2785,11 +2785,11 @@ DWORD WINAPI callApi(void *data) {
                 HBITMAP hBmp = ReplaceColor(queenBlack_s,0x00ff00,0xc8c8ff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(redQueenSquareK[m].from != NULL && redQueenSquareK[m].to != NULL) {
                     if(strlen(redQueenSquareK[m].from) >= 2 && strlen(redQueenSquareK[m].to) >= 2) {
                         TextOut(hdc,
-                                930+50,
+                                690+50,
                                 _y_,
                                 redQueenSquareK[m].to,
                                 GetTextSize("za"));
@@ -2943,10 +2943,10 @@ DWORD WINAPI ThreadFunc(void *data) {
         if(!notimelimit) {
             if(turn == 'h') {
 
-                sprintf(b, "white player - out of %d mins %d mins and %d secs elapsed",ttw, min, sec);
+                sprintf(b, "white player - %d:%d/%d mins", min, sec, ttw);
             } else {
 
-                sprintf(b, "black player - out of %d mins %d mins and %d secs elapsed",ttw, min, sec);
+                sprintf(b, "black player - %d:%d/%d mins", min, sec, ttw);
             }
         } else {
             
@@ -3024,56 +3024,56 @@ void Play() {
     redRook1Moved = FALSE;
     greyRook2Moved = FALSE;
     redRook2Moved = FALSE;
-    greyKingSquare.posX = 4*100+20;
-    greyKingSquare.posY = 7*100+20;
-    redKingSquare.posX = 4*100+20;
-    redKingSquare.posY = 0*100+20;
-    greyQueenSquare.posX = 3*100+20;
-    greyQueenSquare.posY = 7*100+20;
+    greyKingSquare.posX = 4*70+20;
+    greyKingSquare.posY = 7*70+20;
+    redKingSquare.posX = 4*70+20;
+    redKingSquare.posY = 0*70+20;
+    greyQueenSquare.posX = 3*70+20;
+    greyQueenSquare.posY = 7*70+20;
     greyQueenSquare.from = map(7, 3);
     greyQueenSquare.to = map(7, 3);
-    greyBishop1Square.posX = 2*100+20;
-    greyBishop1Square.posY = 7*100+20;
+    greyBishop1Square.posX = 2*70+20;
+    greyBishop1Square.posY = 7*70+20;
     greyBishop1Square.from = map(7, 2);
     greyBishop1Square.to = map(7, 2);
-    greyBishop2Square.posX = 5*100+20;
-    greyBishop2Square.posY = 7*100+20;
+    greyBishop2Square.posX = 5*70+20;
+    greyBishop2Square.posY = 7*70+20;
     greyBishop2Square.from = map(7, 5);
     greyBishop2Square.to = map(7, 5);
-    redRook1Rectangle1.posX = 0*100+20;
-    redRook1Rectangle1.posY = 0*100+20;
+    redRook1Rectangle1.posX = 0*70+20;
+    redRook1Rectangle1.posY = 0*70+20;
     redRook1Rectangle1.from = map(0, 0);
     redRook1Rectangle1.to = map(0, 0);
-    redRook2Rectangle1.posX = 7*100+20;
-    redRook2Rectangle1.posY = 0*100+20;
+    redRook2Rectangle1.posX = 7*70+20;
+    redRook2Rectangle1.posY = 0*70+20;
     redRook2Rectangle1.from = map(0, 7);
     redRook2Rectangle1.to = map(0, 7);
-    greyRook1Rectangle1.posX = 0*100+20;
-    greyRook1Rectangle1.posY = 7*100+20;
+    greyRook1Rectangle1.posX = 0*70+20;
+    greyRook1Rectangle1.posY = 7*70+20;
     greyRook1Rectangle1.from = map(7, 0);
     greyRook1Rectangle1.to = map(7, 0);
-    greyRook2Rectangle1.posX = 7*100+20;
-    greyRook2Rectangle1.posY = 7*100+20;
+    greyRook2Rectangle1.posX = 7*70+20;
+    greyRook2Rectangle1.posY = 7*70+20;
     greyRook2Rectangle1.from = map(7, 7);
     greyRook2Rectangle1.to = map(7, 7);
-    greyKnight2Rectangle1.posX = 1*100+20;
-    greyKnight2Rectangle1.posY = 7*100+20;
+    greyKnight2Rectangle1.posX = 1*70+20;
+    greyKnight2Rectangle1.posY = 7*70+20;
     greyKnight2Rectangle1.from = map(7, 1);
     greyKnight2Rectangle1.to = map(7, 1);
-    greyKnight1Rectangle1.posX = 6*100+20;
-    greyKnight1Rectangle1.posY = 7*100+20;
+    greyKnight1Rectangle1.posX = 6*70+20;
+    greyKnight1Rectangle1.posY = 7*70+20;
     greyKnight1Rectangle1.from = map(7, 6);
     greyKnight1Rectangle1.to = map(7, 6);
-    redKnight2Rectangle1.posX = 1*100+20;
-    redKnight2Rectangle1.posY = 0*100+20;
+    redKnight2Rectangle1.posX = 1*70+20;
+    redKnight2Rectangle1.posY = 0*70+20;
     redKnight2Rectangle1.from = map(0, 1);
     redKnight2Rectangle1.to = map(0, 1);
-    redKnight1Rectangle1.posX = 6*100+20;
-    redKnight1Rectangle1.posY = 0*100+20;
+    redKnight1Rectangle1.posX = 6*70+20;
+    redKnight1Rectangle1.posY = 0*70+20;
     redKnight1Rectangle1.from = map(0, 6);
     redKnight1Rectangle1.to = map(0, 6);
-    redQueenSquare.posX = 3*100+20;
-    redQueenSquare.posY = 0*100+20;
+    redQueenSquare.posX = 3*70+20;
+    redQueenSquare.posY = 0*70+20;
     redQueenSquare.from = map(0, 3);
     redQueenSquare.to = map(0, 3);
     for(int p=0; p<8; p++) {
@@ -3082,25 +3082,25 @@ void Play() {
     for(int p=0; p<8; p++) {
         greyQueenSquareK[p].posX = 1200;
     }
-    redBishop1Square.posX = 2*100+20;
-    redBishop1Square.posY = 0*100+20;
+    redBishop1Square.posX = 2*70+20;
+    redBishop1Square.posY = 0*70+20;
     redBishop1Square.from = map(0, 2);
     redBishop1Square.to = map(0, 2);
-    redBishop2Square.posX = 5*100+20;
-    redBishop2Square.posY = 0*100+20;
+    redBishop2Square.posX = 5*70+20;
+    redBishop2Square.posY = 0*70+20;
     redBishop2Square.from = map(0, 5);
     redBishop2Square.to = map(0, 5);
-    redKingSquare.posX = 4*100+20;
-    redKingSquare.posY = 0*100+20;
+    redKingSquare.posX = 4*70+20;
+    redKingSquare.posY = 0*70+20;
     for(int i=0; i<8; i++) {
-        greyPawnsBase[i].posX = i*100+20;
-        greyPawnsBase[i].posY = 600+20;
+        greyPawnsBase[i].posX = i*70+20;
+        greyPawnsBase[i].posY = 420+20;
         greyPawnsBase[i].from = map(6, i);
         greyPawnsBase[i].to = map(6, i);
     }
     for(int i=0; i<8; i++) {
-        redPawnsBase[i].posX = i*100+20;
-        redPawnsBase[i].posY = 100+20;
+        redPawnsBase[i].posX = i*70+20;
+        redPawnsBase[i].posY = 70+20;
         redPawnsBase[i].from = map(1, i);
         redPawnsBase[i].to = map(1, i);
     }
@@ -3112,8 +3112,8 @@ void Play() {
     }
     for(int j=0; j<8; j++) {
         for(int i=0; i<8; i++) {
-            boxes[j][i].posX = i*100+20;
-            boxes[j][i].posY = j*100+20;
+            boxes[j][i].posX = i*70+20;
+            boxes[j][i].posY = j*70+20;
             boxes[j][i].clear = TRUE;
         }
     }
@@ -3527,54 +3527,54 @@ boolean checkKnightCheckGrey(int j, int i) {
        greyKnight2Rectangle1.posY == redKnight1Rectangle1.posY) {
         return FALSE;
     }
-    if(redKnight1Rectangle1.posX - 100 == greyKingSquare.posX &&
-       redKnight1Rectangle1.posY - 200 == greyKingSquare.posY) {
+    if(redKnight1Rectangle1.posX - 70 == greyKingSquare.posX &&
+       redKnight1Rectangle1.posY - 140 == greyKingSquare.posY) {
         return TRUE;
-    } else if(redKnight1Rectangle1.posX - 200 == greyKingSquare.posX &&
-              redKnight1Rectangle1.posY - 100 == greyKingSquare.posY) {
+    } else if(redKnight1Rectangle1.posX - 140 == greyKingSquare.posX &&
+              redKnight1Rectangle1.posY - 70 == greyKingSquare.posY) {
         return TRUE;
-    } else if(redKnight1Rectangle1.posX - 200 == greyKingSquare.posX &&
-              redKnight1Rectangle1.posY + 100 == greyKingSquare.posY) {
+    } else if(redKnight1Rectangle1.posX - 140 == greyKingSquare.posX &&
+              redKnight1Rectangle1.posY + 70 == greyKingSquare.posY) {
         return TRUE;
-    } else if(redKnight1Rectangle1.posX - 100 == greyKingSquare.posX &&
-              redKnight1Rectangle1.posY + 200 == greyKingSquare.posY) {
+    } else if(redKnight1Rectangle1.posX - 70 == greyKingSquare.posX &&
+              redKnight1Rectangle1.posY + 140 == greyKingSquare.posY) {
         return TRUE;
-    } else if(redKnight1Rectangle1.posX + 100 == greyKingSquare.posX &&
-              redKnight1Rectangle1.posY + 200 == greyKingSquare.posY) {
+    } else if(redKnight1Rectangle1.posX + 70 == greyKingSquare.posX &&
+              redKnight1Rectangle1.posY + 140 == greyKingSquare.posY) {
         return TRUE;
-    } else if(redKnight1Rectangle1.posX + 200 == greyKingSquare.posX &&
-              redKnight1Rectangle1.posY + 100 == greyKingSquare.posY) {
+    } else if(redKnight1Rectangle1.posX + 140 == greyKingSquare.posX &&
+              redKnight1Rectangle1.posY + 70 == greyKingSquare.posY) {
         return TRUE;
-    } else if(redKnight1Rectangle1.posX + 200 == greyKingSquare.posX &&
-              redKnight1Rectangle1.posY - 100 == greyKingSquare.posY) {
+    } else if(redKnight1Rectangle1.posX + 140 == greyKingSquare.posX &&
+              redKnight1Rectangle1.posY - 70 == greyKingSquare.posY) {
         return TRUE;
-    } else if(redKnight1Rectangle1.posX + 100 == greyKingSquare.posX &&
-              redKnight1Rectangle1.posY - 200 == greyKingSquare.posY) {
+    } else if(redKnight1Rectangle1.posX + 70 == greyKingSquare.posX &&
+              redKnight1Rectangle1.posY - 140 == greyKingSquare.posY) {
         return TRUE;
     }
-    if(redKnight2Rectangle1.posX - 100 == greyKingSquare.posX &&
-       redKnight2Rectangle1.posY - 200 == greyKingSquare.posY) {
+    if(redKnight2Rectangle1.posX - 70 == greyKingSquare.posX &&
+       redKnight2Rectangle1.posY - 140 == greyKingSquare.posY) {
         return TRUE;
-    } else if(redKnight2Rectangle1.posX - 200 == greyKingSquare.posX &&
-              redKnight2Rectangle1.posY - 100 == greyKingSquare.posY) {
+    } else if(redKnight2Rectangle1.posX - 140 == greyKingSquare.posX &&
+              redKnight2Rectangle1.posY - 70 == greyKingSquare.posY) {
         return TRUE;
-    } else if(redKnight2Rectangle1.posX - 200 == greyKingSquare.posX &&
-              redKnight2Rectangle1.posY + 100 == greyKingSquare.posY) {
+    } else if(redKnight2Rectangle1.posX - 140 == greyKingSquare.posX &&
+              redKnight2Rectangle1.posY + 70 == greyKingSquare.posY) {
         return TRUE;
-    } else if(redKnight2Rectangle1.posX - 100 == greyKingSquare.posX &&
-              redKnight2Rectangle1.posY + 200 == greyKingSquare.posY) {
+    } else if(redKnight2Rectangle1.posX - 70 == greyKingSquare.posX &&
+              redKnight2Rectangle1.posY + 140 == greyKingSquare.posY) {
         return TRUE;
-    } else if(redKnight2Rectangle1.posX + 100 == greyKingSquare.posX &&
-              redKnight2Rectangle1.posY + 200 == greyKingSquare.posY) {
+    } else if(redKnight2Rectangle1.posX + 70 == greyKingSquare.posX &&
+              redKnight2Rectangle1.posY + 140 == greyKingSquare.posY) {
         return TRUE;
-    } else if(redKnight2Rectangle1.posX + 200 == greyKingSquare.posX &&
-              redKnight2Rectangle1.posY + 100 == greyKingSquare.posY) {
+    } else if(redKnight2Rectangle1.posX + 140 == greyKingSquare.posX &&
+              redKnight2Rectangle1.posY + 70 == greyKingSquare.posY) {
         return TRUE;
-    } else if(redKnight2Rectangle1.posX + 200 == greyKingSquare.posX &&
-              redKnight2Rectangle1.posY - 100 == greyKingSquare.posY) {
+    } else if(redKnight2Rectangle1.posX + 140 == greyKingSquare.posX &&
+              redKnight2Rectangle1.posY - 70 == greyKingSquare.posY) {
         return TRUE;
-    } else if(redKnight2Rectangle1.posX + 100 == greyKingSquare.posX &&
-              redKnight2Rectangle1.posY - 200 == greyKingSquare.posY) {
+    } else if(redKnight2Rectangle1.posX + 70 == greyKingSquare.posX &&
+              redKnight2Rectangle1.posY - 140 == greyKingSquare.posY) {
         return TRUE;
     }
     return FALSE;
@@ -3583,13 +3583,13 @@ boolean checkKnightCheckGrey(int j, int i) {
 boolean checkPawnsCheckGrey(int j, int i) {
     
     for(int t=0; t<8; t++) {
-        if(redPawnsBase[t].posX + 100 == greyKingSquare.posX &&
-           redPawnsBase[t].posY + 100 == greyKingSquare.posY) {
+        if(redPawnsBase[t].posX + 70 == greyKingSquare.posX &&
+           redPawnsBase[t].posY + 70 == greyKingSquare.posY) {
             return TRUE;
         }
 
-        if(redPawnsBase[t].posX - 100 == greyKingSquare.posX &&
-           redPawnsBase[t].posY + 100 == greyKingSquare.posY) {
+        if(redPawnsBase[t].posX - 70 == greyKingSquare.posX &&
+           redPawnsBase[t].posY + 70 == greyKingSquare.posY) {
             return TRUE;
         }
     }
@@ -3599,12 +3599,12 @@ boolean checkPawnsCheckGrey(int j, int i) {
 boolean checkPawnsCheckRed(int j, int i) {
     
     for(int t=0; t<8; t++) {
-        if(greyPawnsBase[t].posX + 100 == redKingSquare.posX &&
-           greyPawnsBase[t].posY - 100 == redKingSquare.posY) {
+        if(greyPawnsBase[t].posX + 70 == redKingSquare.posX &&
+           greyPawnsBase[t].posY - 70 == redKingSquare.posY) {
             return TRUE;
         }
-        if(greyPawnsBase[t].posX - 100 == redKingSquare.posX &&
-           greyPawnsBase[t].posY - 100 == redKingSquare.posY) {
+        if(greyPawnsBase[t].posX - 70 == redKingSquare.posX &&
+           greyPawnsBase[t].posY - 70 == redKingSquare.posY) {
             return TRUE;
         }
     }
@@ -3629,54 +3629,54 @@ boolean checkKnightCheckRed(int j, int i) {
        greyKnight2Rectangle1.posY == redKnight1Rectangle1.posY) {
         return FALSE;
     }
-    if(greyKnight1Rectangle1.posX - 100 == redKingSquare.posX &&
-       greyKnight1Rectangle1.posY - 200 == redKingSquare.posY) {
+    if(greyKnight1Rectangle1.posX - 70 == redKingSquare.posX &&
+       greyKnight1Rectangle1.posY - 140 == redKingSquare.posY) {
         return TRUE;
-    } else if(greyKnight1Rectangle1.posX - 200 == redKingSquare.posX &&
-              greyKnight1Rectangle1.posY - 100 == redKingSquare.posY) {
+    } else if(greyKnight1Rectangle1.posX - 140 == redKingSquare.posX &&
+              greyKnight1Rectangle1.posY - 70 == redKingSquare.posY) {
         return TRUE;
-    } else if(greyKnight1Rectangle1.posX - 200 == redKingSquare.posX &&
-              greyKnight1Rectangle1.posY + 100 == redKingSquare.posY) {
+    } else if(greyKnight1Rectangle1.posX - 140 == redKingSquare.posX &&
+              greyKnight1Rectangle1.posY + 70 == redKingSquare.posY) {
         return TRUE;
-    } else if(greyKnight1Rectangle1.posX - 100 == redKingSquare.posX &&
-              greyKnight1Rectangle1.posY + 200 == redKingSquare.posY) {
+    } else if(greyKnight1Rectangle1.posX - 70 == redKingSquare.posX &&
+              greyKnight1Rectangle1.posY + 140 == redKingSquare.posY) {
         return TRUE;
-    } else if(greyKnight1Rectangle1.posX + 100 == redKingSquare.posX &&
-              greyKnight1Rectangle1.posY + 200 == redKingSquare.posY) {
+    } else if(greyKnight1Rectangle1.posX + 70 == redKingSquare.posX &&
+              greyKnight1Rectangle1.posY + 140 == redKingSquare.posY) {
         return TRUE;
-    } else if(greyKnight1Rectangle1.posX + 200 == redKingSquare.posX &&
-              greyKnight1Rectangle1.posY + 100 == redKingSquare.posY) {
+    } else if(greyKnight1Rectangle1.posX + 140 == redKingSquare.posX &&
+              greyKnight1Rectangle1.posY + 70 == redKingSquare.posY) {
         return TRUE;
-    } else if(greyKnight1Rectangle1.posX + 200 == redKingSquare.posX &&
-              greyKnight1Rectangle1.posY - 100 == redKingSquare.posY) {
+    } else if(greyKnight1Rectangle1.posX + 140 == redKingSquare.posX &&
+              greyKnight1Rectangle1.posY - 70 == redKingSquare.posY) {
         return TRUE;
-    } else if(greyKnight1Rectangle1.posX + 100 == redKingSquare.posX &&
-              greyKnight1Rectangle1.posY - 200 == redKingSquare.posY) {
+    } else if(greyKnight1Rectangle1.posX + 70 == redKingSquare.posX &&
+              greyKnight1Rectangle1.posY - 140 == redKingSquare.posY) {
         return TRUE;
     }
-    if(greyKnight2Rectangle1.posX - 100 == redKingSquare.posX &&
-       greyKnight2Rectangle1.posY - 200 == redKingSquare.posY) {
+    if(greyKnight2Rectangle1.posX - 70 == redKingSquare.posX &&
+       greyKnight2Rectangle1.posY - 140 == redKingSquare.posY) {
         return TRUE;
-    } else if(greyKnight2Rectangle1.posX - 200 == redKingSquare.posX &&
-              greyKnight2Rectangle1.posY - 100 == redKingSquare.posY) {
+    } else if(greyKnight2Rectangle1.posX - 140 == redKingSquare.posX &&
+              greyKnight2Rectangle1.posY - 70 == redKingSquare.posY) {
         return TRUE;
-    } else if(greyKnight2Rectangle1.posX - 200 == redKingSquare.posX &&
-              greyKnight2Rectangle1.posY + 100 == redKingSquare.posY) {
+    } else if(greyKnight2Rectangle1.posX - 140 == redKingSquare.posX &&
+              greyKnight2Rectangle1.posY + 70 == redKingSquare.posY) {
         return TRUE;
-    } else if(greyKnight2Rectangle1.posX - 100 == redKingSquare.posX &&
-              greyKnight2Rectangle1.posY + 200 == redKingSquare.posY) {
+    } else if(greyKnight2Rectangle1.posX - 70 == redKingSquare.posX &&
+              greyKnight2Rectangle1.posY + 140 == redKingSquare.posY) {
         return TRUE;
-    } else if(greyKnight2Rectangle1.posX + 100 == redKingSquare.posX &&
-              greyKnight2Rectangle1.posY + 200 == redKingSquare.posY) {
+    } else if(greyKnight2Rectangle1.posX + 70 == redKingSquare.posX &&
+              greyKnight2Rectangle1.posY + 140 == redKingSquare.posY) {
         return TRUE;
-    } else if(greyKnight2Rectangle1.posX + 200 == redKingSquare.posX &&
-              greyKnight2Rectangle1.posY + 100 == redKingSquare.posY) {
+    } else if(greyKnight2Rectangle1.posX + 140 == redKingSquare.posX &&
+              greyKnight2Rectangle1.posY + 70 == redKingSquare.posY) {
         return TRUE;
-    } else if(greyKnight2Rectangle1.posX + 200 == redKingSquare.posX &&
-              greyKnight2Rectangle1.posY - 100 == redKingSquare.posY) {
+    } else if(greyKnight2Rectangle1.posX + 140 == redKingSquare.posX &&
+              greyKnight2Rectangle1.posY - 70 == redKingSquare.posY) {
         return TRUE;
-    } else if(greyKnight2Rectangle1.posX + 100 == redKingSquare.posX &&
-              greyKnight2Rectangle1.posY - 200 == redKingSquare.posY) {
+    } else if(greyKnight2Rectangle1.posX + 70 == redKingSquare.posX &&
+              greyKnight2Rectangle1.posY - 140 == redKingSquare.posY) {
         return TRUE;
     }
     return FALSE;
@@ -3726,7 +3726,7 @@ void highlightPossibleMoves(int j, int i) {
             int x = re_Map(wLM[q], 0);
             HBRUSH rBrush;
             rBrush = CreateSolidBrush(RGB(200, 200, 255));
-            RECT r = {x+20+20, y+20+20, x+20+20 + 89, y+20+20-7 + 92};
+            RECT r = {x+20+20+5, y+20+31, x+20+20 + 63, y+20+20-7 + 68};
             FillRect(hdc, &r, rBrush);
             DeleteObject(rBrush);
         }
@@ -3747,7 +3747,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBitmap);
 
                 GetObject(hBitmap, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, 0, 0, 1170, 950, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, 0, 0, 1040, 740, hdcMem, 0, 0, SRCCOPY);
 
                 SelectObject(hdcMem, oldBitmap);
                 DeleteDC(hdcMem); DeleteObject(hBitmap);
@@ -3759,7 +3759,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 Sleep(1500);
 
                 HBRUSH brush = CreateSolidBrush(RGB(255,0,0));
-                RECT rrect = {0, 0, 1200, 1000};
+                RECT rrect = {0, 0, 1040, 740};
                 FillRect(hdc, &rrect, brush);
                 DeleteObject(brush);
 
@@ -3768,7 +3768,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBitmapSideLogo);
 
                 GetObject(hBitmapSideLogo, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, 1120, 0, 1170, 1000, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, 960, 0, 1010, 740, hdcMem, 0, 0, SRCCOPY);
 
                 SelectObject(hdcMem, oldBitmap);
                 DeleteDC(hdcMem); DeleteObject(hBitmapSideLogo);
@@ -4002,229 +4002,229 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                 hdcMem = CreateCompatibleDC(hdc);
                 HBITMAP hBmp;
-                if(((greyRook1Rectangle1.posX/100)+(greyRook1Rectangle1.posY/100)) % 2 == 0)
+                if(((greyRook1Rectangle1.posX/70)+(greyRook1Rectangle1.posY/70)) % 2 == 0)
                     hBmp = ReplaceColor(rookWhite,0x110000,0xffffff,hdcMem);
                 else
                     hBmp = ReplaceColor(rookWhite,0x110000,0x000000,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, greyRook1Rectangle1.posX+25+7, greyRook1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, greyRook1Rectangle1.posX+25+7, greyRook1Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
-                if(((greyRook2Rectangle1.posX/100)+(greyRook2Rectangle1.posY/100)) % 2 == 0)
+                if(((greyRook2Rectangle1.posX/70)+(greyRook2Rectangle1.posY/70)) % 2 == 0)
                     hBmp = ReplaceColor(rook2White,0x110000,0xffffff,hdcMem);
                 else
                     hBmp = ReplaceColor(rook2White,0x110000,0x000000,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, greyRook2Rectangle1.posX+25+7, greyRook2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, greyRook2Rectangle1.posX+25+7, greyRook2Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
-                if(((greyKnight1Rectangle1.posX/100)+(greyKnight1Rectangle1.posY/100)) % 2 == 0)
+                if(((greyKnight1Rectangle1.posX/70)+(greyKnight1Rectangle1.posY/70)) % 2 == 0)
                     hBmp = ReplaceColor(knightWhite,0x110000,0xffffff,hdcMem);
                 else
                     hBmp = ReplaceColor(knightWhite,0x110000,0x000000,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, greyKnight1Rectangle1.posX+25+7, greyKnight1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, greyKnight1Rectangle1.posX+25+7, greyKnight1Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
-                if(((greyKnight2Rectangle1.posX/100)+(greyKnight2Rectangle1.posY/100)) % 2 == 0)
+                if(((greyKnight2Rectangle1.posX/70)+(greyKnight2Rectangle1.posY/70)) % 2 == 0)
                     hBmp = ReplaceColor(knight2White,0x110000,0xffffff,hdcMem);
                 else
                     hBmp = ReplaceColor(knight2White,0x110000,0x000000,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, greyKnight2Rectangle1.posX+25+7, greyKnight2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, greyKnight2Rectangle1.posX+25+7, greyKnight2Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
-                if(((greyBishop1Square.posX/100)+(greyBishop1Square.posY/100)) % 2 == 0)
+                if(((greyBishop1Square.posX/70)+(greyBishop1Square.posY/70)) % 2 == 0)
                     hBmp = ReplaceColor(bishopWhite,0x110000,0xffffff,hdcMem);
                 else
                     hBmp = ReplaceColor(bishopWhite,0x110000,0x000000,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, greyBishop1Square.posX+25+7, greyBishop1Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, greyBishop1Square.posX+25+7, greyBishop1Square.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
-                if(((greyBishop2Square.posX/100)+(greyBishop2Square.posY/100)) % 2 == 0)
+                if(((greyBishop2Square.posX/70)+(greyBishop2Square.posY/70)) % 2 == 0)
                     hBmp = ReplaceColor(bishop2White,0x110000,0xffffff,hdcMem);
                 else
                     hBmp = ReplaceColor(bishop2White,0x110000,0x000000,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, greyBishop2Square.posX+25+7, greyBishop2Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, greyBishop2Square.posX+25+7, greyBishop2Square.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
-                if(((greyQueenSquare.posX/100)+(greyQueenSquare.posY/100)) % 2 == 0)
+                if(((greyQueenSquare.posX/70)+(greyQueenSquare.posY/70)) % 2 == 0)
                     hBmp = ReplaceColor(queenWhite,0x110000,0xffffff,hdcMem);
                 else
                     hBmp = ReplaceColor(queenWhite,0x110000,0x000000,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, greyQueenSquare.posX+25+7, greyQueenSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, greyQueenSquare.posX+25+7, greyQueenSquare.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
-                if(((greyKingSquare.posX/100)+(greyKingSquare.posY/100)) % 2 == 0)
+                if(((greyKingSquare.posX/70)+(greyKingSquare.posY/70)) % 2 == 0)
                     hBmp = ReplaceColor(kingWhite,0x110000,0xffffff,hdcMem);
                 else
                     hBmp = ReplaceColor(kingWhite,0x110000,0x000000,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, greyKingSquare.posX+25+7, greyKingSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, greyKingSquare.posX+25+7, greyKingSquare.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 for(int o=0; o<8; o++) {
                     hdcMem = CreateCompatibleDC(hdc);
-                    if(((greyPawnsBase[o].posX/100)+(greyPawnsBase[o].posY/100)) % 2 == 0)
+                    if(((greyPawnsBase[o].posX/70)+(greyPawnsBase[o].posY/70)) % 2 == 0)
                         hBmp = ReplaceColor(pawnWhite,0x110000,0xffffff,hdcMem);
                     else
                         hBmp = ReplaceColor(pawnWhite,0x110000,0x000000,hdcMem);
                     oldBitmap = SelectObject(hdcMem, hBmp);
                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                    BitBlt(hdc, greyPawnsBase[o].posX+25+7, greyPawnsBase[o].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                    BitBlt(hdc, greyPawnsBase[o].posX+25+7, greyPawnsBase[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                     SelectObject(hdcMem, oldBitmap);
                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 }
 
                 hdcMem = CreateCompatibleDC(hdc);
-                if(((redRook1Rectangle1.posX/100)+(redRook1Rectangle1.posY/100)) % 2 == 0)
+                if(((redRook1Rectangle1.posX/70)+(redRook1Rectangle1.posY/70)) % 2 == 0)
                     hBmp = ReplaceColor(rookBlack,0x110000,0xffffff,hdcMem);
                 else
                     hBmp = ReplaceColor(rookBlack,0x110000,0x000000,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, redRook1Rectangle1.posX+25+7, redRook1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, redRook1Rectangle1.posX+25+7, redRook1Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
-                if(((redRook2Rectangle1.posX/100)+(redRook2Rectangle1.posY/100)) % 2 == 0)
+                if(((redRook2Rectangle1.posX/70)+(redRook2Rectangle1.posY/70)) % 2 == 0)
                     hBmp = ReplaceColor(rook2Black,0x110000,0xffffff,hdcMem);
                 else
                     hBmp = ReplaceColor(rookBlack,0x110000,0x000000,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, redRook2Rectangle1.posX+25+7, redRook2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, redRook2Rectangle1.posX+25+7, redRook2Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
-                if(((redKnight1Rectangle1.posX/100)+(redKnight1Rectangle1.posY/100)) % 2 == 0)
+                if(((redKnight1Rectangle1.posX/70)+(redKnight1Rectangle1.posY/70)) % 2 == 0)
                     hBmp = ReplaceColor(knightBlack,0x110000,0xffffff,hdcMem);
                 else
                     hBmp = ReplaceColor(knightBlack,0x110000,0x000000,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, redKnight1Rectangle1.posX+25+7, redKnight1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, redKnight1Rectangle1.posX+25+7, redKnight1Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
-                if(((redKnight2Rectangle1.posX/100)+(redKnight2Rectangle1.posY/100)) % 2 == 0)
+                if(((redKnight2Rectangle1.posX/70)+(redKnight2Rectangle1.posY/70)) % 2 == 0)
                     hBmp = ReplaceColor(knight2Black,0x110000,0xffffff,hdcMem);
                 else
                     hBmp = ReplaceColor(knight2Black,0x110000,0x000000,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, redKnight2Rectangle1.posX+25+7, redKnight2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, redKnight2Rectangle1.posX+25+7, redKnight2Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
-                if(((redBishop1Square.posX/100)+(redBishop1Square.posY/100)) % 2 == 0)
+                if(((redBishop1Square.posX/70)+(redBishop1Square.posY/70)) % 2 == 0)
                     hBmp = ReplaceColor(bishopBlack,0x110000,0xffffff,hdcMem);
                 else
                     hBmp = ReplaceColor(bishopBlack,0x110000,0x000000,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, redBishop1Square.posX+25+7, redBishop1Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, redBishop1Square.posX+25+7, redBishop1Square.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
-                if(((redBishop2Square.posX/100)+(redBishop2Square.posY/100)) % 2 == 0)
+                if(((redBishop2Square.posX/70)+(redBishop2Square.posY/70)) % 2 == 0)
                     hBmp = ReplaceColor(bishop2Black,0x110000,0xffffff,hdcMem);
                 else
                     hBmp = ReplaceColor(bishop2Black,0x110000,0x000000,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, redBishop2Square.posX+25+7, redBishop2Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, redBishop2Square.posX+25+7, redBishop2Square.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
-                if(((redQueenSquare.posX/100)+(redQueenSquare.posY/100)) % 2 == 0)
+                if(((redQueenSquare.posX/70)+(redQueenSquare.posY/70)) % 2 == 0)
                     hBmp = ReplaceColor(queenBlack,0x110000,0xffffff,hdcMem);
                 else
                     hBmp = ReplaceColor(queenBlack,0x110000,0x000000,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, redQueenSquare.posX+25+7, redQueenSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, redQueenSquare.posX+25+7, redQueenSquare.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
-                if(((redKingSquare.posX/100)+(redKingSquare.posY/100)) % 2 == 0)
+                if(((redKingSquare.posX/70)+(redKingSquare.posY/70)) % 2 == 0)
                     hBmp = ReplaceColor(kingBlack,0x110000,0xffffff,hdcMem);
                 else
                     hBmp = ReplaceColor(kingBlack,0x110000,0x000000,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, redKingSquare.posX+25+7, redKingSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, redKingSquare.posX+25+7, redKingSquare.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 for(int o=0; o<8; o++) {
                     hdcMem = CreateCompatibleDC(hdc);
-                    if(((redPawnsBase[o].posX/100)+(redPawnsBase[o].posY/100)) % 2 == 0)
+                    if(((redPawnsBase[o].posX/70)+(redPawnsBase[o].posY/70)) % 2 == 0)
                         hBmp = ReplaceColor(pawnBlack,0x110000,0xffffff,hdcMem);
                     else
                         hBmp = ReplaceColor(pawnBlack,0x110000,0x000000,hdcMem);
                     oldBitmap = SelectObject(hdcMem, hBmp);
                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                    BitBlt(hdc, redPawnsBase[o].posX+25+7, redPawnsBase[o].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                    BitBlt(hdc, redPawnsBase[o].posX+25+7, redPawnsBase[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                     SelectObject(hdcMem, oldBitmap);
                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 }
 
                 for(int m=0; m<8; m++) {
                     hdcMem = CreateCompatibleDC(hdc);
-                    if(((greyQueenSquareK[m].posX/100)+(greyQueenSquareK[m].posY/100)) % 2 == 0)
+                    if(((greyQueenSquareK[m].posX/70)+(greyQueenSquareK[m].posY/70)) % 2 == 0)
                         hBmp = ReplaceColor(queenWhite,0x110000,0xffffff,hdcMem);
                     else
                         hBmp = ReplaceColor(queenWhite,0x110000,0x000000,hdcMem);
                     oldBitmap = SelectObject(hdcMem, hBmp);
                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                    BitBlt(hdc, greyQueenSquareK[m].posX+25+7, greyQueenSquareK[m].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                    BitBlt(hdc, greyQueenSquareK[m].posX+25+7, greyQueenSquareK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                     SelectObject(hdcMem, oldBitmap);
                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 }
 
                 for(int m=0; m<8; m++) {
                     hdcMem = CreateCompatibleDC(hdc);
-                    if(((redQueenSquareK[m].posX/100)+(redQueenSquareK[m].posY/100)) % 2 == 0)
+                    if(((redQueenSquareK[m].posX/70)+(redQueenSquareK[m].posY/70)) % 2 == 0)
                         hBmp = ReplaceColor(queenBlack,0x110000,0xffffff,hdcMem);
                     else
                         hBmp = ReplaceColor(queenBlack,0x110000,0x000000,hdcMem);
                     oldBitmap = SelectObject(hdcMem, hBmp);
                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                    BitBlt(hdc, redQueenSquareK[m].posX+25+7, redQueenSquareK[m].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                    BitBlt(hdc, redQueenSquareK[m].posX+25+7, redQueenSquareK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                     SelectObject(hdcMem, oldBitmap);
                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 }
@@ -4291,7 +4291,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             _y_ = 20;
 
             HBRUSH yellow_brush = CreateSolidBrush(RGB(255,255,0));
-            RECT rrect = {821+50, 20, 1120, 810};
+            RECT rrect = {610+0, 20, 910, 600};
             FillRect(hdc, &rrect, yellow_brush);
             DeleteObject(yellow_brush);
 
@@ -4300,11 +4300,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 HBITMAP hBmp = ReplaceColor(rookWhite_s,0xff0000,0xc8c8ff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(greyRook1Rectangle1.from != NULL && greyRook1Rectangle1.to != NULL) {
                     if(strlen(greyRook1Rectangle1.from) >= 2 && strlen(greyRook1Rectangle1.to) >= 2) {
                         TextOut(hdc,
-                                855+50,
+                                615+50,
                                 _y_,
                                 greyRook1Rectangle1.to,
                                 GetTextSize("za"));
@@ -4320,11 +4320,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 HBITMAP hBmp = ReplaceColor(rook2White_s,0xff0000,0xc8c8ff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(greyRook2Rectangle1.from != NULL && greyRook2Rectangle1.to != NULL) {
                     if(strlen(greyRook2Rectangle1.from) >= 2 && strlen(greyRook2Rectangle1.to) >= 2) {
                         TextOut(hdc,
-                                855+50,
+                                615+50,
                                 _y_,
                                 greyRook2Rectangle1.to,
                                 GetTextSize("za"));
@@ -4340,11 +4340,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 HBITMAP hBmp = ReplaceColor(knightWhite_s,0x00ff00,0xc8c8ff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(greyKnight1Rectangle1.from != NULL && greyKnight1Rectangle1.to != NULL) {
                     if(strlen(greyKnight1Rectangle1.from) >= 2 && strlen(greyKnight1Rectangle1.to) >= 2) {
                         TextOut(hdc,
-                                855+50,
+                                615+50,
                                 _y_,
                                 greyKnight1Rectangle1.to,
                                 GetTextSize("za"));
@@ -4360,11 +4360,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 HBITMAP hBmp = ReplaceColor(knight2White_s,0x00ff00,0xc8c8ff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(greyKnight2Rectangle1.from != NULL && greyKnight2Rectangle1.to != NULL) {
                     if(strlen(greyKnight2Rectangle1.from) >= 2 && strlen(greyKnight2Rectangle1.to) >= 2) {
                         TextOut(hdc,
-                                855+50,
+                                615+50,
                                 _y_,
                                 greyKnight2Rectangle1.to,
                                 GetTextSize("za"));
@@ -4380,11 +4380,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 HBITMAP hBmp = ReplaceColor(bishopWhite_s,0x4cb122,0xc8c8ff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(greyBishop1Square.from != NULL && greyBishop1Square.to != NULL) {
                     if(strlen(greyBishop1Square.from) >= 2 && strlen(greyBishop1Square.to) >= 2) {
                         TextOut(hdc,
-                                855+50,
+                                615+50,
                                 _y_,
                                 greyBishop1Square.to,
                                 GetTextSize("za"));
@@ -4400,11 +4400,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 HBITMAP hBmp = ReplaceColor(bishop2White_s,0x4cb122,0xc8c8ff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(greyBishop2Square.from != NULL && greyBishop2Square.to != NULL) {
                     if(strlen(greyBishop2Square.from) >= 2 && strlen(greyBishop2Square.to) >= 2) {
                         TextOut(hdc,
-                                855+50,
+                                615+50,
                                 _y_,
                                 greyBishop2Square.to,
                                 GetTextSize("za"));
@@ -4420,11 +4420,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 HBITMAP hBmp = ReplaceColor(queenWhite_s,0xff0000,0xc8c8ff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(greyQueenSquare.from != NULL && greyQueenSquare.to != NULL) {
                     if(strlen(greyQueenSquare.from) >= 2 && strlen(greyQueenSquare.to) >= 2) {
                         TextOut(hdc,
-                                855+50,
+                                615+50,
                                 _y_,
                                 greyQueenSquare.to,
                                 GetTextSize("za"));
@@ -4440,7 +4440,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 HBITMAP hBmp = ReplaceColor(kingWhite_s,0x00ff00,0xc8c8ff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
@@ -4452,11 +4452,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     HBITMAP hBmp = ReplaceColor(pawnWhite_s,0x000000,0xc8c8ff,hdcMem);
                     oldBitmap = SelectObject(hdcMem, hBmp);
                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                    BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                    BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                     if(greyPawnsBase[o].from != NULL && greyPawnsBase[o].to != NULL) {
                         if(strlen(greyPawnsBase[o].from) >= 2 && strlen(greyPawnsBase[o].to) >= 2) {
                             TextOut(hdc,
-                                    855+50,
+                                    615+50,
                                     _y_,
                                     greyPawnsBase[o].to,
                                     GetTextSize("za"));
@@ -4474,11 +4474,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     HBITMAP hBmp = ReplaceColor(queenWhite_s,0xff0000,0xc8c8ff,hdcMem);
                     oldBitmap = SelectObject(hdcMem, hBmp);
                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                    BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                    BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                     if(greyQueenSquareK[m].from != NULL && greyQueenSquareK[m].to != NULL) {
                         if(strlen(greyQueenSquareK[m].from) >= 2 && strlen(greyQueenSquareK[m].to) >= 2) {
                             TextOut(hdc,
-                                    855+50,
+                                    615+50,
                                     _y_,
                                     greyQueenSquareK[m].to,
                                     GetTextSize("za"));
@@ -4497,11 +4497,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 HBITMAP hBmp = ReplaceColor(rookBlack_s,0x00ff00,0xc8c8ff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(redRook1Rectangle1.from != NULL && redRook1Rectangle1.to != NULL) {
                     if(strlen(redRook1Rectangle1.from) >= 2 && strlen(redRook1Rectangle1.to) >= 2) {
                         TextOut(hdc,
-                                930+50,
+                                690+50,
                                 _y_,
                                 redRook1Rectangle1.to,
                                 GetTextSize("za"));
@@ -4517,11 +4517,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 HBITMAP hBmp = ReplaceColor(rook2Black_s,0x00ff00,0xc8c8ff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(redRook2Rectangle1.from != NULL && redRook2Rectangle1.to != NULL) {
                     if(strlen(redRook2Rectangle1.from) >= 2 && strlen(redRook2Rectangle1.to) >= 2) {
                         TextOut(hdc,
-                                930+50,
+                                690+50,
                                 _y_,
                                 redRook2Rectangle1.to,
                                 GetTextSize("za"));
@@ -4537,11 +4537,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 HBITMAP hBmp = ReplaceColor(knightBlack_s,0x00ff00,0xc8c8ff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(redKnight1Rectangle1.from != NULL && redKnight1Rectangle1.to != NULL) {
                     if(strlen(redKnight1Rectangle1.from) >= 2 && strlen(redKnight1Rectangle1.to) >= 2) {
                         TextOut(hdc,
-                                930+50,
+                                690+50,
                                 _y_,
                                 redKnight1Rectangle1.to,
                                 GetTextSize("za"));
@@ -4557,11 +4557,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 HBITMAP hBmp = ReplaceColor(knight2Black_s,0x00ff00,0xc8c8ff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(redKnight2Rectangle1.from != NULL && redKnight2Rectangle1.to != NULL) {
                     if(strlen(redKnight2Rectangle1.from) >= 2 && strlen(redKnight2Rectangle1.to) >= 2) {
                         TextOut(hdc,
-                                930+50,
+                                690+50,
                                 _y_,
                                 redKnight2Rectangle1.to,
                                 GetTextSize("za"));
@@ -4577,11 +4577,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 HBITMAP hBmp = ReplaceColor(bishopBlack_s,0xff0000,0xc8c8ff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(redBishop1Square.from != NULL && redBishop1Square.to != NULL) {
                     if(strlen(redBishop1Square.from) >= 2 && strlen(redBishop1Square.to) >= 2) {
                         TextOut(hdc,
-                                930+50,
+                                690+50,
                                 _y_,
                                 redBishop1Square.to,
                                 GetTextSize("za"));
@@ -4597,11 +4597,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 HBITMAP hBmp = ReplaceColor(bishop2Black_s,0xff0000,0xc8c8ff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(redBishop2Square.from != NULL && redBishop2Square.to != NULL) {
                     if(strlen(redBishop2Square.from) >= 2 && strlen(redBishop2Square.to) >= 2) {
                         TextOut(hdc,
-                                930+50,
+                                690+50,
                                 _y_,
                                 redBishop2Square.to,
                                 GetTextSize("za"));
@@ -4617,11 +4617,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 HBITMAP hBmp = ReplaceColor(queenBlack_s,0x00ff00,0xc8c8ff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(redQueenSquare.from != NULL && redQueenSquare.to != NULL) {
                     if(strlen(redQueenSquare.from) >= 2 && strlen(redQueenSquare.to) >= 2) {
                         TextOut(hdc,
-                                930+50,
+                                690+50,
                                 _y_,
                                 redQueenSquare.to,
                                 GetTextSize("za"));
@@ -4637,7 +4637,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 HBITMAP hBmp = ReplaceColor(kingBlack_s,0xff0000,0xc8c8ff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
@@ -4649,11 +4649,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     HBITMAP hBmp = ReplaceColor(pawnBlack_s,0xff0000,0xc8c8ff,hdcMem);
                     oldBitmap = SelectObject(hdcMem, hBmp);
                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                    BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                    BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                     if(redPawnsBase[o].from != NULL && redPawnsBase[o].to != NULL) {
                         if(strlen(redPawnsBase[o].from) >= 2 && strlen(redPawnsBase[o].to) >= 2) {
                             TextOut(hdc,
-                                    930+50,
+                                    690+50,
                                     _y_,
                                     redPawnsBase[o].to,
                                     GetTextSize("za"));
@@ -4671,11 +4671,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     HBITMAP hBmp = ReplaceColor(queenBlack_s,0x00ff00,0xc8c8ff,hdcMem);
                     oldBitmap = SelectObject(hdcMem, hBmp);
                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                    BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                    BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                     if(redQueenSquareK[m].from != NULL && redQueenSquareK[m].to != NULL) {
                         if(strlen(redQueenSquareK[m].from) >= 2 && strlen(redQueenSquareK[m].to) >= 2) {
                             TextOut(hdc,
-                                    930+50,
+                                    690+50,
                                     _y_,
                                     redQueenSquareK[m].to,
                                     GetTextSize("za"));
@@ -4753,216 +4753,216 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
             hdcMem = CreateCompatibleDC(hdc);
             HBITMAP hBmp;
-            if(((greyRook1Rectangle1.posX/100)+(greyRook1Rectangle1.posY/100)) % 2 == 0)
+            if(((greyRook1Rectangle1.posX/70)+(greyRook1Rectangle1.posY/70)) % 2 == 0)
                 hBmp = ReplaceColor(rookWhite,0x110000,0xffffff,hdcMem);
             else
                 hBmp = ReplaceColor(rookWhite,0x110000,0x000000,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, greyRook1Rectangle1.posX+25+7, greyRook1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, greyRook1Rectangle1.posX+25+7, greyRook1Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             hdcMem = CreateCompatibleDC(hdc);
-            if(((greyRook2Rectangle1.posX/100)+(greyRook2Rectangle1.posY/100)) % 2 == 0)
+            if(((greyRook2Rectangle1.posX/70)+(greyRook2Rectangle1.posY/70)) % 2 == 0)
                 hBmp = ReplaceColor(rook2White,0x110000,0xffffff,hdcMem);
             else
                 hBmp = ReplaceColor(rook2White,0x110000,0x000000,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, greyRook2Rectangle1.posX+25+7, greyRook2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, greyRook2Rectangle1.posX+25+7, greyRook2Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             hdcMem = CreateCompatibleDC(hdc);
-            if(((greyKnight1Rectangle1.posX/100)+(greyKnight1Rectangle1.posY/100)) % 2 == 0)
+            if(((greyKnight1Rectangle1.posX/70)+(greyKnight1Rectangle1.posY/70)) % 2 == 0)
                 hBmp = ReplaceColor(knightWhite,0x110000,0xffffff,hdcMem);
             else
                 hBmp = ReplaceColor(knightWhite,0x110000,0x000000,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, greyKnight1Rectangle1.posX+25+7, greyKnight1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, greyKnight1Rectangle1.posX+25+7, greyKnight1Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             hdcMem = CreateCompatibleDC(hdc);
-            if(((greyKnight2Rectangle1.posX/100)+(greyKnight2Rectangle1.posY/100)) % 2 == 0)
+            if(((greyKnight2Rectangle1.posX/70)+(greyKnight2Rectangle1.posY/70)) % 2 == 0)
                 hBmp = ReplaceColor(knight2White,0x110000,0xffffff,hdcMem);
             else
                 hBmp = ReplaceColor(knight2White,0x110000,0x000000,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, greyKnight2Rectangle1.posX+25+7, greyKnight2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, greyKnight2Rectangle1.posX+25+7, greyKnight2Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             hdcMem = CreateCompatibleDC(hdc);
-            if(((greyBishop1Square.posX/100)+(greyBishop1Square.posY/100)) % 2 == 0)
+            if(((greyBishop1Square.posX/70)+(greyBishop1Square.posY/70)) % 2 == 0)
                 hBmp = ReplaceColor(bishopWhite,0x110000,0xffffff,hdcMem);
             else
                 hBmp = ReplaceColor(bishopWhite,0x110000,0x000000,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, greyBishop1Square.posX+25+7, greyBishop1Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, greyBishop1Square.posX+25+7, greyBishop1Square.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             hdcMem = CreateCompatibleDC(hdc);
-            if(((greyBishop2Square.posX/100)+(greyBishop2Square.posY/100)) % 2 == 0)
+            if(((greyBishop2Square.posX/70)+(greyBishop2Square.posY/70)) % 2 == 0)
                 hBmp = ReplaceColor(bishop2White,0x110000,0xffffff,hdcMem);
             else
                 hBmp = ReplaceColor(bishop2White,0x110000,0x000000,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, greyBishop2Square.posX+25+7, greyBishop2Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, greyBishop2Square.posX+25+7, greyBishop2Square.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             hdcMem = CreateCompatibleDC(hdc);
-            if(((greyQueenSquare.posX/100)+(greyQueenSquare.posY/100)) % 2 == 0)
+            if(((greyQueenSquare.posX/70)+(greyQueenSquare.posY/70)) % 2 == 0)
                 hBmp = ReplaceColor(queenWhite,0x110000,0xffffff,hdcMem);
             else
                 hBmp = ReplaceColor(queenWhite,0x110000,0x000000,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, greyQueenSquare.posX+25+7, greyQueenSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, greyQueenSquare.posX+25+7, greyQueenSquare.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             
             hdcMem = CreateCompatibleDC(hdc);
-            if(((greyKingSquare.posX/100)+(greyKingSquare.posY/100)) % 2 == 0)
+            if(((greyKingSquare.posX/70)+(greyKingSquare.posY/70)) % 2 == 0)
                 hBmp = ReplaceColor(kingWhite,0x110000,0xffffff,hdcMem);
             else
                 hBmp = ReplaceColor(kingWhite,0x110000,0x000000,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, greyKingSquare.posX+25+7, greyKingSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, greyKingSquare.posX+25+7, greyKingSquare.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             for(int o=0; o<8; o++) {
                 hdcMem = CreateCompatibleDC(hdc);
-                if(((greyPawnsBase[o].posX/100)+(greyPawnsBase[o].posY/100)) % 2 == 0)
+                if(((greyPawnsBase[o].posX/70)+(greyPawnsBase[o].posY/70)) % 2 == 0)
                     hBmp = ReplaceColor(pawnWhite,0x110000,0xffffff,hdcMem);
                 else
                     hBmp = ReplaceColor(pawnWhite,0x110000,0x000000,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, greyPawnsBase[o].posX+25+7, greyPawnsBase[o].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, greyPawnsBase[o].posX+25+7, greyPawnsBase[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             }
 
             hdcMem = CreateCompatibleDC(hdc);
-            if(((redRook1Rectangle1.posX/100)+(redRook1Rectangle1.posY/100)) % 2 == 0)
+            if(((redRook1Rectangle1.posX/70)+(redRook1Rectangle1.posY/70)) % 2 == 0)
                 hBmp = ReplaceColor(rookBlack,0x110000,0xffffff,hdcMem);
             else
                 hBmp = ReplaceColor(rookBlack,0x110000,0x000000,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, redRook1Rectangle1.posX+25+7, redRook1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, redRook1Rectangle1.posX+25+7, redRook1Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             hdcMem = CreateCompatibleDC(hdc);
-            if(((redRook2Rectangle1.posX/100)+(redRook2Rectangle1.posY/100)) % 2 == 0)
+            if(((redRook2Rectangle1.posX/70)+(redRook2Rectangle1.posY/70)) % 2 == 0)
                 hBmp = ReplaceColor(rook2Black,0x110000,0xffffff,hdcMem);
             else
                 hBmp = ReplaceColor(rook2Black,0x110000,0x000000,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, redRook2Rectangle1.posX+25+7, redRook2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, redRook2Rectangle1.posX+25+7, redRook2Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             hdcMem = CreateCompatibleDC(hdc);
-            if(((redKnight1Rectangle1.posX/100)+(redKnight1Rectangle1.posY/100)) % 2 == 0)
+            if(((redKnight1Rectangle1.posX/70)+(redKnight1Rectangle1.posY/70)) % 2 == 0)
                 hBmp = ReplaceColor(knightBlack,0x110000,0xffffff,hdcMem);
             else
                 hBmp = ReplaceColor(knightBlack,0x110000,0x000000,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, redKnight1Rectangle1.posX+25+7, redKnight1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, redKnight1Rectangle1.posX+25+7, redKnight1Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             hdcMem = CreateCompatibleDC(hdc);
-            if(((redKnight2Rectangle1.posX/100)+(redKnight2Rectangle1.posY/100)) % 2 == 0)
+            if(((redKnight2Rectangle1.posX/70)+(redKnight2Rectangle1.posY/70)) % 2 == 0)
                 hBmp = ReplaceColor(knight2Black,0x110000,0xffffff,hdcMem);
             else
                 hBmp = ReplaceColor(knight2Black,0x110000,0x000000,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, redKnight2Rectangle1.posX+25+7, redKnight2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, redKnight2Rectangle1.posX+25+7, redKnight2Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             hdcMem = CreateCompatibleDC(hdc);
-            if(((redBishop1Square.posX/100)+(redBishop1Square.posY/100)) % 2 == 0)
+            if(((redBishop1Square.posX/70)+(redBishop1Square.posY/70)) % 2 == 0)
                 hBmp = ReplaceColor(bishopBlack,0x110000,0xffffff,hdcMem);
             else
                 hBmp = ReplaceColor(bishopBlack,0x110000,0x000000,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, redBishop1Square.posX+25+7, redBishop1Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, redBishop1Square.posX+25+7, redBishop1Square.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             hdcMem = CreateCompatibleDC(hdc);
-            if(((redBishop2Square.posX/100)+(redBishop2Square.posY/100)) % 2 == 0)
+            if(((redBishop2Square.posX/70)+(redBishop2Square.posY/70)) % 2 == 0)
                 hBmp = ReplaceColor(bishop2Black,0x110000,0xffffff,hdcMem);
             else
                 hBmp = ReplaceColor(bishop2Black,0x110000,0x000000,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, redBishop2Square.posX+25+7, redBishop2Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, redBishop2Square.posX+25+7, redBishop2Square.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             hdcMem = CreateCompatibleDC(hdc);
-            if(((redQueenSquare.posX/100)+(redQueenSquare.posY/100)) % 2 == 0)
+            if(((redQueenSquare.posX/70)+(redQueenSquare.posY/70)) % 2 == 0)
                 hBmp = ReplaceColor(queenBlack,0x110000,0xffffff,hdcMem);
             else
                 hBmp = ReplaceColor(queenBlack,0x110000,0x000000,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, redQueenSquare.posX+25+7, redQueenSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, redQueenSquare.posX+25+7, redQueenSquare.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             
             hdcMem = CreateCompatibleDC(hdc);
-            if(((redKingSquare.posX/100)+(redKingSquare.posY/100)) % 2 == 0)
+            if(((redKingSquare.posX/70)+(redKingSquare.posY/70)) % 2 == 0)
                 hBmp = ReplaceColor(kingBlack,0x110000,0xffffff,hdcMem);
             else
                 hBmp = ReplaceColor(kingBlack,0x110000,0x000000,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, redKingSquare.posX+25+7, redKingSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+            BitBlt(hdc, redKingSquare.posX+25+7, redKingSquare.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
             SelectObject(hdcMem, oldBitmap);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             for(int o=0; o<8; o++) {
                 hdcMem = CreateCompatibleDC(hdc);
-                if(((redPawnsBase[o].posX/100)+(redPawnsBase[o].posY/100)) % 2 == 0)
+                if(((redPawnsBase[o].posX/70)+(redPawnsBase[o].posY/70)) % 2 == 0)
                     hBmp = ReplaceColor(pawnBlack,0x110000,0xffffff,hdcMem);
                 else
                     hBmp = ReplaceColor(pawnBlack,0x110000,0x000000,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, redPawnsBase[o].posX+25+7, redPawnsBase[o].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, redPawnsBase[o].posX+25+7, redPawnsBase[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             }
 
             for(int m=0; m<8; m++) {
                 hdcMem = CreateCompatibleDC(hdc);
-                if(((greyQueenSquareK[m].posX/100)+(greyQueenSquareK[m].posY/100)) % 2 == 0)
+                if(((greyQueenSquareK[m].posX/70)+(greyQueenSquareK[m].posY/70)) % 2 == 0)
                     hBmp = ReplaceColor(queenWhite,0x110000,0xffffff,hdcMem);
                 else
                     hBmp = ReplaceColor(queenWhite,0x110000,0x000000,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, greyQueenSquareK[m].posX+25+7, greyQueenSquareK[m].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, greyQueenSquareK[m].posX+25+7, greyQueenSquareK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             }
@@ -4970,13 +4970,13 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             //draw grey queen
             for(int m=0; m<8; m++) {
                 hdcMem = CreateCompatibleDC(hdc);
-                if(((redQueenSquareK[m].posX/100)+(redQueenSquareK[m].posY/100)) % 2 == 0)
+                if(((redQueenSquareK[m].posX/70)+(redQueenSquareK[m].posY/70)) % 2 == 0)
                     hBmp = ReplaceColor(queenBlack,0x110000,0xffffff,hdcMem);
                 else
                     hBmp = ReplaceColor(queenBlack,0x110000,0x000000,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, redQueenSquareK[m].posX+25+7, redQueenSquareK[m].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, redQueenSquareK[m].posX+25+7, redQueenSquareK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                 SelectObject(hdcMem, oldBitmap);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             }
@@ -5017,10 +5017,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
             for(int j=0; j<8; j++) {
                 for(int i=0; i<8; i++) {
-                    if(iPosX >= i*100+20+20 &&
-                       iPosY >= j*100+20+20 &&
-                       iPosX < i*100+20+20+100 &&
-                       iPosY < j*100+20+20+100) {
+                    if(iPosX >= i*70+20+20 &&
+                       iPosY >= j*70+20+20 &&
+                       iPosX < i*70+20+20+70 &&
+                       iPosY < j*70+20+20+70) {
                         
                         for(int k=0; k<8; k++) {
                             for(int l=0; l<8; l++) {
@@ -5033,8 +5033,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             
                             for(int k=0; k<8; k++) {
                             
-                                if(greyPawnsBase[k].posX == i*100+20 &&
-                                   greyPawnsBase[k].posY == j*100+20) {
+                                if(greyPawnsBase[k].posX == i*70+20 &&
+                                   greyPawnsBase[k].posY == j*70+20) {
 
                                     clickedOne = 'g';
                                     greyPawnsBase[k].clicked = TRUE;
@@ -5070,72 +5070,72 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         boolean ff = FALSE;
 
 //                                        for(int m=0; m<8; m++) {
-//                                            if(greyPawnsBase[m].posY == greyPawnsBase[k].posY - 100 &&
-//                                               (greyPawnsBase[m].posX == greyPawnsBase[k].posX + 100 || greyPawnsBase[m].posX == greyPawnsBase[k].posX - 100)) {
+//                                            if(greyPawnsBase[m].posY == greyPawnsBase[k].posY - 70 &&
+//                                               (greyPawnsBase[m].posX == greyPawnsBase[k].posX + 70 || greyPawnsBase[m].posX == greyPawnsBase[k].posX - 70)) {
 //                                                ff = TRUE;
 //                                            }
-//                                            if(greyPawnsBase[m].posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyPawnsBase[m].posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyPawnsBase[m].posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyPawnsBase[m].posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyPawnsBase[m].posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyPawnsBase[m].posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyKnight1Rectangle1.posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyKnight1Rectangle1.posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyKnight1Rectangle1.posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyKnight2Rectangle1.posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyKnight2Rectangle1.posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyKnight2Rectangle1.posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyBishop1Square.posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyBishop1Square.posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyBishop1Square.posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyBishop2Square.posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyBishop2Square.posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyBishop2Square.posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyRook1Rectangle1.posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyRook1Rectangle1.posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyRook1Rectangle1.posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyRook2Rectangle1.posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyRook2Rectangle1.posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyRook2Rectangle1.posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyKnight1Rectangle1.posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyKnight1Rectangle1.posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyKnight1Rectangle1.posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyKnight2Rectangle1.posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyKnight2Rectangle1.posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyKnight2Rectangle1.posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyBishop1Square.posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyBishop1Square.posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyBishop1Square.posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyBishop2Square.posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyBishop2Square.posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyBishop2Square.posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyRook1Rectangle1.posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyRook1Rectangle1.posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyRook1Rectangle1.posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyRook2Rectangle1.posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyRook2Rectangle1.posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyRook2Rectangle1.posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
 //                                        }
                                         
                                         if(!ff &&
-                                           j*100+20 == greyPawnsBase[k].posY - 100 &&
-                                          (i*100+20 == greyPawnsBase[k].posX + 100 ||
-                                           i*100+20 == greyPawnsBase[k].posX - 100)) {
+                                           j*70+20 == greyPawnsBase[k].posY - 70 &&
+                                          (i*70+20 == greyPawnsBase[k].posX + 70 ||
+                                           i*70+20 == greyPawnsBase[k].posX - 70)) {
 
                                             turn = 'r';
 
@@ -5145,50 +5145,50 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = greyPawnsBase[k].posY;
 
                                             boxes[j][i].clear = FALSE;
-                                            boxes[greyPawnsBase[k].posY/100][greyPawnsBase[k].posX/100].clear = TRUE;
-                                            greyPawnsBase[k].posY = j*100+20;
-                                            greyPawnsBase[k].posX = i*100+20;
+                                            boxes[greyPawnsBase[k].posY/70][greyPawnsBase[k].posX/70].clear = TRUE;
+                                            greyPawnsBase[k].posY = j*70+20;
+                                            greyPawnsBase[k].posX = i*70+20;
 
                                             boolean fff = TRUE;
 
                                             for(int l=0; l<8; l++) {
-                                                if(redPawnsBase[l].posX == i*100+20 &&
-                                                   redPawnsBase[l].posY == j*100+20) {
+                                                if(redPawnsBase[l].posX == i*70+20 &&
+                                                   redPawnsBase[l].posY == j*70+20) {
                                                     fff = FALSE;
                                                 }
                                             }
                                             for(int z=0; z<8; z++) {
-                                                if(redQueenSquareK[z].posX == i*100+20 &&
-                                                   redQueenSquareK[z].posY == j*100+20) {
+                                                if(redQueenSquareK[z].posX == i*70+20 &&
+                                                   redQueenSquareK[z].posY == j*70+20) {
                                                     fff = FALSE;
                                                 }
                                             }
-                                            if(redQueenSquare.posX == i*100+20 &&
-                                               redQueenSquare.posY == j*100+20) {
+                                            if(redQueenSquare.posX == i*70+20 &&
+                                               redQueenSquare.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
-                                            if(redBishop1Square.posX == i*100+20 &&
-                                               redBishop1Square.posY == j*100+20) {
+                                            if(redBishop1Square.posX == i*70+20 &&
+                                               redBishop1Square.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
-                                            if(redBishop2Square.posX == i*100+20 &&
-                                               redBishop2Square.posY == j*100+20) {
+                                            if(redBishop2Square.posX == i*70+20 &&
+                                               redBishop2Square.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
-                                            if(redKnight1Rectangle1.posX == i*100+20 &&
-                                               redKnight1Rectangle1.posY == j*100+20) {
+                                            if(redKnight1Rectangle1.posX == i*70+20 &&
+                                               redKnight1Rectangle1.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
-                                            if(redKnight2Rectangle1.posX == i*100+20 &&
-                                               redKnight2Rectangle1.posY == j*100+20) {
+                                            if(redKnight2Rectangle1.posX == i*70+20 &&
+                                               redKnight2Rectangle1.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
-                                            if(redRook1Rectangle1.posX == i*100+20 &&
-                                               redRook1Rectangle1.posY == j*100+20) {
+                                            if(redRook1Rectangle1.posX == i*70+20 &&
+                                               redRook1Rectangle1.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
-                                            if(redRook2Rectangle1.posX == i*100+20 &&
-                                               redRook2Rectangle1.posY == j*100+20) {
+                                            if(redRook2Rectangle1.posX == i*70+20 &&
+                                               redRook2Rectangle1.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
 
@@ -5210,52 +5210,52 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int l=0; l<8; l++) {
-                                                    if(redPawnsBase[l].posX == i*100+20 &&
-                                                       redPawnsBase[l].posY == j*100+20) {
+                                                    if(redPawnsBase[l].posX == i*70+20 &&
+                                                       redPawnsBase[l].posY == j*70+20) {
                                                         redPawnsBase[l].posX = 1300;
                                                         ate = TRUE;
                                                         break;
                                                     }
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                         ate = TRUE;
                                                     }
                                                 }
-                                                if(redQueenSquare.posX == i*100+20 &&
-                                                   redQueenSquare.posY == j*100+20) {
+                                                if(redQueenSquare.posX == i*70+20 &&
+                                                   redQueenSquare.posY == j*70+20) {
                                                     redQueenSquare.posX = 1300;
                                                     ate = TRUE;
                                                 }
-                                                if(redBishop1Square.posX == i*100+20 &&
-                                                   redBishop1Square.posY == j*100+20) {
+                                                if(redBishop1Square.posX == i*70+20 &&
+                                                   redBishop1Square.posY == j*70+20) {
                                                     redBishop1Square.posX = 1300;
                                                     ate = TRUE;
                                                 }
-                                                if(redBishop2Square.posX == i*100+20 &&
-                                                   redBishop2Square.posY == j*100+20) {
+                                                if(redBishop2Square.posX == i*70+20 &&
+                                                   redBishop2Square.posY == j*70+20) {
                                                     redBishop2Square.posX = 1300;
                                                     ate = TRUE;
                                                 }
-                                                if(redKnight1Rectangle1.posX == i*100+20 &&
-                                                   redKnight1Rectangle1.posY == j*100+20) {
+                                                if(redKnight1Rectangle1.posX == i*70+20 &&
+                                                   redKnight1Rectangle1.posY == j*70+20) {
                                                     redKnight1Rectangle1.posX = 1300;
                                                     ate = TRUE;
                                                 }
-                                                if(redKnight2Rectangle1.posX == i*100+20 &&
-                                                   redKnight2Rectangle1.posY == j*100+20) {
+                                                if(redKnight2Rectangle1.posX == i*70+20 &&
+                                                   redKnight2Rectangle1.posY == j*70+20) {
                                                     redKnight2Rectangle1.posX = 1300;
                                                     ate = TRUE;
                                                 }
-                                                if(redRook1Rectangle1.posX == i*100+20 &&
-                                                   redRook1Rectangle1.posY == j*100+20) {
+                                                if(redRook1Rectangle1.posX == i*70+20 &&
+                                                   redRook1Rectangle1.posY == j*70+20) {
                                                     redRook1Rectangle1.posX = 1300;
                                                     ate = TRUE;
                                                 }
-                                                if(redRook2Rectangle1.posX == i*100+20 &&
-                                                   redRook2Rectangle1.posY == j*100+20) {
+                                                if(redRook2Rectangle1.posX == i*70+20 &&
+                                                   redRook2Rectangle1.posY == j*70+20) {
                                                     redRook2Rectangle1.posX = 1300;
                                                     ate = TRUE;
                                                 }
@@ -5285,19 +5285,19 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
 
                                         else if(!fail &&
-                                                j*100+20 == greyPawnsBase[k].posY - 100 &&
-                                                i*100+20 == greyPawnsBase[k].posX) {
+                                                j*70+20 == greyPawnsBase[k].posY - 70 &&
+                                                i*70+20 == greyPawnsBase[k].posX) {
 
                                             turn = 'r';
 
                                             boolean cant = FALSE;
                                             for(int s=0; s<8; s++) {
                                                 if(greyPawnsBase[s].posX == greyPawnsBase[k].posX &&
-                                                   greyPawnsBase[s].posY + 100 == greyPawnsBase[k].posY) {
+                                                   greyPawnsBase[s].posY + 70 == greyPawnsBase[k].posY) {
                                                     cant = TRUE;
                                                 }
                                                 if(redPawnsBase[s].posX == greyPawnsBase[k].posX &&
-                                                   redPawnsBase[s].posY + 100 == greyPawnsBase[k].posY) {
+                                                   redPawnsBase[s].posY + 70 == greyPawnsBase[k].posY) {
                                                     cant = TRUE;
                                                 }
                                             }
@@ -5307,9 +5307,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 int a1 = greyPawnsBase[k].posY;
                                                 
                                                 boxes[j][i].clear = FALSE;
-                                                boxes[greyPawnsBase[k].posY/100][greyPawnsBase[k].posX/100].clear = TRUE;
+                                                boxes[greyPawnsBase[k].posY/70][greyPawnsBase[k].posX/70].clear = TRUE;
 
-                                                greyPawnsBase[k].posY = j*100+20;
+                                                greyPawnsBase[k].posY = j*70+20;
 
                                                 boolean ffff = checkCheckGrey(j, i);
                                                 
@@ -5331,27 +5331,27 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
 
                                         else if(!fail &&
-                                                j*100+20 == greyPawnsBase[k].posY - 200 &&
-                                                i*100+20 == greyPawnsBase[k].posX) {
+                                                j*70+20 == greyPawnsBase[k].posY - 140 &&
+                                                i*70+20 == greyPawnsBase[k].posX) {
 
                                             turn = 'r';
 
                                             boolean cant = FALSE;
                                             for(int s=0; s<8; s++) {
                                                 if(greyPawnsBase[s].posX == greyPawnsBase[k].posX &&
-                                                   greyPawnsBase[s].posY + 100 == greyPawnsBase[k].posY) {
+                                                   greyPawnsBase[s].posY + 70 == greyPawnsBase[k].posY) {
                                                     cant = TRUE;
                                                 }
                                                 if(greyPawnsBase[s].posX == greyPawnsBase[k].posX &&
-                                                   greyPawnsBase[s].posY + 200 == greyPawnsBase[k].posY) {
+                                                   greyPawnsBase[s].posY + 140 == greyPawnsBase[k].posY) {
                                                     cant = TRUE;
                                                 }
                                                 if(redPawnsBase[s].posX == greyPawnsBase[k].posX &&
-                                                   redPawnsBase[s].posY + 100 == greyPawnsBase[k].posY) {
+                                                   redPawnsBase[s].posY + 70 == greyPawnsBase[k].posY) {
                                                     cant = TRUE;
                                                 }
                                                 if(redPawnsBase[s].posX == greyPawnsBase[k].posX &&
-                                                   redPawnsBase[s].posY + 200 == greyPawnsBase[k].posY) {
+                                                   redPawnsBase[s].posY + 140 == greyPawnsBase[k].posY) {
                                                     cant = TRUE;
                                                 }
                                             }
@@ -5364,9 +5364,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 greyPawnsBase[k].posY = a1;
 
                                                 boxes[j][i].clear = FALSE;
-                                                boxes[greyPawnsBase[k].posY/100][greyPawnsBase[k].posX/100].clear = TRUE;
+                                                boxes[greyPawnsBase[k].posY/70][greyPawnsBase[k].posX/70].clear = TRUE;
 
-                                                greyPawnsBase[k].posY = j*100+20;
+                                                greyPawnsBase[k].posY = j*70+20;
 
                                                 boolean ffff = checkCheckGrey(j, i);
                                                 
@@ -5395,72 +5395,72 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         boolean ff = FALSE;
 
 //                                        for(int m=0; m<8; m++) {
-//                                            if(greyPawnsBase[m].posY == greyPawnsBase[k].posY - 100 &&
-//                                               (greyPawnsBase[m].posX == greyPawnsBase[k].posX + 100 || greyPawnsBase[m].posX == greyPawnsBase[k].posX - 100)) {
+//                                            if(greyPawnsBase[m].posY == greyPawnsBase[k].posY - 70 &&
+//                                               (greyPawnsBase[m].posX == greyPawnsBase[k].posX + 70 || greyPawnsBase[m].posX == greyPawnsBase[k].posX - 70)) {
 //                                                ff = TRUE;
 //                                            }
-//                                            if(greyPawnsBase[m].posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyPawnsBase[m].posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyPawnsBase[m].posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyPawnsBase[m].posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyPawnsBase[m].posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyPawnsBase[m].posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyKnight1Rectangle1.posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyKnight1Rectangle1.posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyKnight1Rectangle1.posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyKnight2Rectangle1.posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyKnight2Rectangle1.posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyKnight2Rectangle1.posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyBishop1Square.posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyBishop1Square.posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyBishop1Square.posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyBishop2Square.posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyBishop2Square.posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyBishop2Square.posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyRook1Rectangle1.posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyRook1Rectangle1.posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyRook1Rectangle1.posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyRook2Rectangle1.posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyRook2Rectangle1.posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyRook2Rectangle1.posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyKnight1Rectangle1.posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyKnight1Rectangle1.posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyKnight1Rectangle1.posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyKnight2Rectangle1.posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyKnight2Rectangle1.posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyKnight2Rectangle1.posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyBishop1Square.posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyBishop1Square.posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyBishop1Square.posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyBishop2Square.posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyBishop2Square.posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyBishop2Square.posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyRook1Rectangle1.posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyRook1Rectangle1.posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyRook1Rectangle1.posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyRook2Rectangle1.posY == greyPawnsBase[k].posY - 100 &&
+//                                            if(greyRook2Rectangle1.posY == greyPawnsBase[k].posY - 70 &&
 //                                               greyRook2Rectangle1.posX == greyPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
 //                                        }
                                         
                                         if(!ff &&
-                                           j*100+20 == greyPawnsBase[k].posY - 100 &&
-                                          (i*100+20 == greyPawnsBase[k].posX - 100 ||
-                                           i*100+20 == greyPawnsBase[k].posX + 100)) {
+                                           j*70+20 == greyPawnsBase[k].posY - 70 &&
+                                          (i*70+20 == greyPawnsBase[k].posX - 70 ||
+                                           i*70+20 == greyPawnsBase[k].posX + 70)) {
 
                                             turn = 'r';
 
@@ -5470,51 +5470,51 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = greyPawnsBase[k].posY;
 
                                             boxes[j][i].clear = FALSE;
-                                            boxes[greyPawnsBase[k].posY/100][greyPawnsBase[k].posX/100].clear = TRUE;
+                                            boxes[greyPawnsBase[k].posY/70][greyPawnsBase[k].posX/70].clear = TRUE;
 
-                                            greyPawnsBase[k].posY = j*100+20;
-                                            greyPawnsBase[k].posX = i*100+20;
+                                            greyPawnsBase[k].posY = j*70+20;
+                                            greyPawnsBase[k].posX = i*70+20;
 
                                             boolean fff = TRUE;
 
                                             for(int l=0; l<8; l++) {
-                                                if(redPawnsBase[l].posX == i*100+20 &&
-                                                   redPawnsBase[l].posY == j*100+20) {
+                                                if(redPawnsBase[l].posX == i*70+20 &&
+                                                   redPawnsBase[l].posY == j*70+20) {
                                                     fff = FALSE;
                                                 }
                                             }
                                             for(int z=0; z<8; z++) {
-                                                if(redQueenSquareK[z].posX == i*100+20 &&
-                                                   redQueenSquareK[z].posY == j*100+20) {
+                                                if(redQueenSquareK[z].posX == i*70+20 &&
+                                                   redQueenSquareK[z].posY == j*70+20) {
                                                     fff = FALSE;
                                                 }
                                             }
-                                            if(redQueenSquare.posX == i*100+20 &&
-                                               redQueenSquare.posY == j*100+20) {
+                                            if(redQueenSquare.posX == i*70+20 &&
+                                               redQueenSquare.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
-                                            if(redBishop1Square.posX == i*100+20 &&
-                                               redBishop1Square.posY == j*100+20) {
+                                            if(redBishop1Square.posX == i*70+20 &&
+                                               redBishop1Square.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
-                                            if(redBishop2Square.posX == i*100+20 &&
-                                               redBishop2Square.posY == j*100+20) {
+                                            if(redBishop2Square.posX == i*70+20 &&
+                                               redBishop2Square.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
-                                            if(redKnight1Rectangle1.posX == i*100+20 &&
-                                               redKnight1Rectangle1.posY == j*100+20) {
+                                            if(redKnight1Rectangle1.posX == i*70+20 &&
+                                               redKnight1Rectangle1.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
-                                            if(redKnight2Rectangle1.posX == i*100+20 &&
-                                               redKnight2Rectangle1.posY == j*100+20) {
+                                            if(redKnight2Rectangle1.posX == i*70+20 &&
+                                               redKnight2Rectangle1.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
-                                            if(redRook1Rectangle1.posX == i*100+20 &&
-                                               redRook1Rectangle1.posY == j*100+20) {
+                                            if(redRook1Rectangle1.posX == i*70+20 &&
+                                               redRook1Rectangle1.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
-                                            if(redRook2Rectangle1.posX == i*100+20 &&
-                                               redRook2Rectangle1.posY == j*100+20) {
+                                            if(redRook2Rectangle1.posX == i*70+20 &&
+                                               redRook2Rectangle1.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
 
@@ -5538,51 +5538,51 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 for(int l=0; l<8; l++) {
                                                     if((redPawnsBase[l].posX == greyPawnsBase[k].posX ||
                                                         redPawnsBase[l].posX == greyPawnsBase[k].posX) && 
-                                                        redPawnsBase[l].posY == j*100+20) {
+                                                        redPawnsBase[l].posY == j*70+20) {
                                                         redPawnsBase[l].posX = 1300;
                                                         ate = TRUE;
                                                         break;
                                                     }
                                                 }
-                                                if(redQueenSquare.posX == i*100+20 &&
-                                                   redQueenSquare.posY == j*100+20) {
+                                                if(redQueenSquare.posX == i*70+20 &&
+                                                   redQueenSquare.posY == j*70+20) {
                                                     redQueenSquare.posX = 1300;
                                                     ate = TRUE;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                         ate = TRUE;
                                                     }
                                                 }
-                                                if(redBishop1Square.posX == i*100+20 &&
-                                                   redBishop1Square.posY == j*100+20) {
+                                                if(redBishop1Square.posX == i*70+20 &&
+                                                   redBishop1Square.posY == j*70+20) {
                                                     redBishop1Square.posX = 1300;
                                                     ate = TRUE;
                                                 }
-                                                if(redBishop2Square.posX == i*100+20 &&
-                                                   redBishop2Square.posY == j*100+20) {
+                                                if(redBishop2Square.posX == i*70+20 &&
+                                                   redBishop2Square.posY == j*70+20) {
                                                     redBishop2Square.posX = 1300;
                                                     ate = TRUE;
                                                 }
-                                                if(redKnight1Rectangle1.posX == i*100+20 &&
-                                                   redKnight1Rectangle1.posY == j*100+20) {
+                                                if(redKnight1Rectangle1.posX == i*70+20 &&
+                                                   redKnight1Rectangle1.posY == j*70+20) {
                                                     redKnight1Rectangle1.posX = 1300;
                                                     ate = TRUE;
                                                 }
-                                                if(redKnight2Rectangle1.posX == i*100+20 &&
-                                                   redKnight2Rectangle1.posY == j*100+20) {
+                                                if(redKnight2Rectangle1.posX == i*70+20 &&
+                                                   redKnight2Rectangle1.posY == j*70+20) {
                                                     redKnight2Rectangle1.posX = 1300;
                                                     ate = TRUE;
                                                 }
-                                                if(redRook1Rectangle1.posX == i*100+20 &&
-                                                   redRook1Rectangle1.posY == j*100+20) {
+                                                if(redRook1Rectangle1.posX == i*70+20 &&
+                                                   redRook1Rectangle1.posY == j*70+20) {
                                                     redRook1Rectangle1.posX = 1300;
                                                     ate = TRUE;
                                                 }
-                                                if(redRook2Rectangle1.posX == i*100+20 &&
-                                                   redRook2Rectangle1.posY == j*100+20) {
+                                                if(redRook2Rectangle1.posX == i*70+20 &&
+                                                   redRook2Rectangle1.posY == j*70+20) {
                                                     redRook2Rectangle1.posX = 1300;
                                                     ate = TRUE;
                                                 }
@@ -5611,19 +5611,19 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
 
                                         else if(!fail &&
-                                           j*100+20 == greyPawnsBase[k].posY - 100 &&
-                                           i*100+20 == greyPawnsBase[k].posX) {
+                                           j*70+20 == greyPawnsBase[k].posY - 70 &&
+                                           i*70+20 == greyPawnsBase[k].posX) {
 
                                             turn = 'r';
 
                                             boolean cant = FALSE;
                                             for(int s=0; s<8; s++) {
                                                 if(greyPawnsBase[s].posX == greyPawnsBase[k].posX &&
-                                                   greyPawnsBase[s].posY + 100 == greyPawnsBase[k].posY) {
+                                                   greyPawnsBase[s].posY + 70 == greyPawnsBase[k].posY) {
                                                     cant = TRUE;
                                                 }
                                                 if(redPawnsBase[s].posX == greyPawnsBase[k].posX &&
-                                                   redPawnsBase[s].posY + 100 == greyPawnsBase[k].posY) {
+                                                   redPawnsBase[s].posY + 70 == greyPawnsBase[k].posY) {
                                                     cant = TRUE;
                                                 }
                                             }
@@ -5633,9 +5633,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 int a1 = greyPawnsBase[k].posY;
                                                 
                                                 boxes[j][i].clear = FALSE;
-                                                boxes[greyPawnsBase[k].posY/100][greyPawnsBase[k].posX/100].clear = TRUE;
+                                                boxes[greyPawnsBase[k].posY/70][greyPawnsBase[k].posX/70].clear = TRUE;
 
-                                                greyPawnsBase[k].posY = j*100+20;
+                                                greyPawnsBase[k].posY = j*70+20;
 
                                                 boolean ffff = checkCheckGrey(j, i);
                                                 
@@ -5659,8 +5659,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                             boolean itdid = FALSE;
                             
-                            if(greyKnight2Rectangle1.posX == i*100+20 &&
-                               greyKnight2Rectangle1.posY == j*100+20) {
+                            if(greyKnight2Rectangle1.posX == i*70+20 &&
+                               greyKnight2Rectangle1.posY == j*70+20) {
                                 
                                 clickedOne = 'g';
                                 greyKnight2Rectangle1.clicked = TRUE;
@@ -5689,45 +5689,45 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                     greyKnight2Rectangle1.clicked = FALSE;
 
-                                    if(j*100+20 == greyKnight2Rectangle1.posY - 200 &&
-                                       i*100+20 == greyKnight2Rectangle1.posX - 100) {
+                                    if(j*70+20 == greyKnight2Rectangle1.posY - 140 &&
+                                       i*70+20 == greyKnight2Rectangle1.posX - 70) {
                                         
                                         for(int t=0; t<8; t++) {
-                                            if(greyPawnsBase[t].posX == i*100+20 &&
-                                               greyPawnsBase[t].posY == j*100+20) {
+                                            if(greyPawnsBase[t].posX == i*70+20 &&
+                                               greyPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(greyQueenSquare.posX == i*100+20 &&
-                                           greyQueenSquare.posY == j*100+20) {
+                                        if(greyQueenSquare.posX == i*70+20 &&
+                                           greyQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop1Square.posX == i*100+20 &&
-                                           greyBishop1Square.posY == j*100+20) {
+                                        if(greyBishop1Square.posX == i*70+20 &&
+                                           greyBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop2Square.posX == i*100+20 &&
-                                           greyBishop2Square.posY == j*100+20) {
+                                        if(greyBishop2Square.posX == i*70+20 &&
+                                           greyBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                           greyKnight1Rectangle1.posY == j*100+20) {
+                                        if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                           greyKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook1Rectangle1.posX == i*100+20 &&
-                                           greyRook1Rectangle1.posY == j*100+20) {
+                                        if(greyRook1Rectangle1.posX == i*70+20 &&
+                                           greyRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook2Rectangle1.posX == i*100+20 &&
-                                           greyRook2Rectangle1.posY == j*100+20) {
+                                        if(greyRook2Rectangle1.posX == i*70+20 &&
+                                           greyRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
                                         
                                         int a1 = greyKnight2Rectangle1.posY;
                                         int a0 = greyKnight2Rectangle1.posX;
 
-                                        greyKnight2Rectangle1.posX = i*100+20;
-                                        greyKnight2Rectangle1.posY = j*100+20;
+                                        greyKnight2Rectangle1.posX = i*70+20;
+                                        greyKnight2Rectangle1.posY = j*70+20;
 
                                         if(!failed) {
 
@@ -5741,49 +5741,49 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(redPawnsBase[t].posX == i*100+20 &&
-                                                       redPawnsBase[t].posY == j*100+20) {
+                                                    if(redPawnsBase[t].posX == i*70+20 &&
+                                                       redPawnsBase[t].posY == j*70+20) {
                                                         redPawnsBase[t].posX = 1300;
                                                     }
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(redQueenSquare.posX == i*100+20 &&
-                                                   redQueenSquare.posY == j*100+20) {
+                                                if(redQueenSquare.posX == i*70+20 &&
+                                                   redQueenSquare.posY == j*70+20) {
                                                     redQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(redBishop1Square.posX == i*100+20 &&
-                                                   redBishop1Square.posY == j*100+20) {
+                                                if(redBishop1Square.posX == i*70+20 &&
+                                                   redBishop1Square.posY == j*70+20) {
                                                     redBishop1Square.posX = 1300;
                                                 }
-                                                if(redBishop2Square.posX == i*100+20 &&
-                                                   redBishop2Square.posY == j*100+20) {
+                                                if(redBishop2Square.posX == i*70+20 &&
+                                                   redBishop2Square.posY == j*70+20) {
                                                     redBishop2Square.posX = 1300;
                                                 }
-                                                if(redKnight1Rectangle1.posX == i*100+20 &&
-                                                   redKnight1Rectangle1.posY == j*100+20) {
+                                                if(redKnight1Rectangle1.posX == i*70+20 &&
+                                                   redKnight1Rectangle1.posY == j*70+20) {
                                                     redKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(redKnight2Rectangle1.posX == i*100+20 &&
-                                                   redKnight2Rectangle1.posY == j*100+20) {
+                                                if(redKnight2Rectangle1.posX == i*70+20 &&
+                                                   redKnight2Rectangle1.posY == j*70+20) {
                                                     redKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook1Rectangle1.posX == i*100+20 &&
-                                                   redRook1Rectangle1.posY == j*100+20) {
+                                                if(redRook1Rectangle1.posX == i*70+20 &&
+                                                   redRook1Rectangle1.posY == j*70+20) {
                                                     redRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook2Rectangle1.posX == i*100+20 &&
-                                                   redRook2Rectangle1.posY == j*100+20) {
+                                                if(redRook2Rectangle1.posX == i*70+20 &&
+                                                   redRook2Rectangle1.posY == j*70+20) {
                                                     redRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -5794,41 +5794,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'h';
                                         }
-                                    } else if(j*100+20 == greyKnight2Rectangle1.posY - 200 &&
-                                              i*100+20 == greyKnight2Rectangle1.posX + 100) {
+                                    } else if(j*70+20 == greyKnight2Rectangle1.posY - 140 &&
+                                              i*70+20 == greyKnight2Rectangle1.posX + 70) {
                                         
                                         for(int t=0; t<8; t++) {
-                                            if(greyPawnsBase[t].posX == i*100+20 &&
-                                               greyPawnsBase[t].posY == j*100+20) {
+                                            if(greyPawnsBase[t].posX == i*70+20 &&
+                                               greyPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(greyQueenSquare.posX == i*100+20 &&
-                                           greyQueenSquare.posY == j*100+20) {
+                                        if(greyQueenSquare.posX == i*70+20 &&
+                                           greyQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop1Square.posX == i*100+20 &&
-                                           greyBishop1Square.posY == j*100+20) {
+                                        if(greyBishop1Square.posX == i*70+20 &&
+                                           greyBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop2Square.posX == i*100+20 &&
-                                           greyBishop2Square.posY == j*100+20) {
+                                        if(greyBishop2Square.posX == i*70+20 &&
+                                           greyBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook1Rectangle1.posX == i*100+20 &&
-                                           greyRook1Rectangle1.posY == j*100+20) {
+                                        if(greyRook1Rectangle1.posX == i*70+20 &&
+                                           greyRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook2Rectangle1.posX == i*100+20 &&
-                                           greyRook2Rectangle1.posY == j*100+20) {
+                                        if(greyRook2Rectangle1.posX == i*70+20 &&
+                                           greyRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
                                         
@@ -5837,8 +5837,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = greyKnight2Rectangle1.posY;
                                             int a0 = greyKnight2Rectangle1.posX;
 
-                                            greyKnight2Rectangle1.posX = i*100+20;
-                                            greyKnight2Rectangle1.posY = j*100+20;
+                                            greyKnight2Rectangle1.posX = i*70+20;
+                                            greyKnight2Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckGrey(j, i);
                                             
@@ -5850,49 +5850,49 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(redPawnsBase[t].posX == i*100+20 &&
-                                                       redPawnsBase[t].posY == j*100+20) {
+                                                    if(redPawnsBase[t].posX == i*70+20 &&
+                                                       redPawnsBase[t].posY == j*70+20) {
                                                         redPawnsBase[t].posX = 1300;
                                                     }
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(redQueenSquare.posX == i*100+20 &&
-                                                   redQueenSquare.posY == j*100+20) {
+                                                if(redQueenSquare.posX == i*70+20 &&
+                                                   redQueenSquare.posY == j*70+20) {
                                                     redQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(redBishop1Square.posX == i*100+20 &&
-                                                   redBishop1Square.posY == j*100+20) {
+                                                if(redBishop1Square.posX == i*70+20 &&
+                                                   redBishop1Square.posY == j*70+20) {
                                                     redBishop1Square.posX = 1300;
                                                 }
-                                                if(redBishop2Square.posX == i*100+20 &&
-                                                   redBishop2Square.posY == j*100+20) {
+                                                if(redBishop2Square.posX == i*70+20 &&
+                                                   redBishop2Square.posY == j*70+20) {
                                                     redBishop2Square.posX = 1300;
                                                 }
-                                                if(redKnight1Rectangle1.posX == i*100+20 &&
-                                                   redKnight1Rectangle1.posY == j*100+20) {
+                                                if(redKnight1Rectangle1.posX == i*70+20 &&
+                                                   redKnight1Rectangle1.posY == j*70+20) {
                                                     redKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(redKnight2Rectangle1.posX == i*100+20 &&
-                                                   redKnight2Rectangle1.posY == j*100+20) {
+                                                if(redKnight2Rectangle1.posX == i*70+20 &&
+                                                   redKnight2Rectangle1.posY == j*70+20) {
                                                     redKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook1Rectangle1.posX == i*100+20 &&
-                                                   redRook1Rectangle1.posY == j*100+20) {
+                                                if(redRook1Rectangle1.posX == i*70+20 &&
+                                                   redRook1Rectangle1.posY == j*70+20) {
                                                     redRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook2Rectangle1.posX == i*100+20 &&
-                                                   redRook2Rectangle1.posY == j*100+20) {
+                                                if(redRook2Rectangle1.posX == i*70+20 &&
+                                                   redRook2Rectangle1.posY == j*70+20) {
                                                     redRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -5903,41 +5903,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'h';
                                         }
-                                    } else if(j*100+20 == greyKnight2Rectangle1.posY - 100 &&
-                                              i*100+20 == greyKnight2Rectangle1.posX - 200) {
+                                    } else if(j*70+20 == greyKnight2Rectangle1.posY - 70 &&
+                                              i*70+20 == greyKnight2Rectangle1.posX - 140) {
                                         
                                         for(int t=0; t<8; t++) {
-                                            if(greyPawnsBase[t].posX == i*100+20 &&
-                                               greyPawnsBase[t].posY == j*100+20) {
+                                            if(greyPawnsBase[t].posX == i*70+20 &&
+                                               greyPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(greyQueenSquare.posX == i*100+20 &&
-                                           greyQueenSquare.posY == j*100+20) {
+                                        if(greyQueenSquare.posX == i*70+20 &&
+                                           greyQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop1Square.posX == i*100+20 &&
-                                           greyBishop1Square.posY == j*100+20) {
+                                        if(greyBishop1Square.posX == i*70+20 &&
+                                           greyBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop2Square.posX == i*100+20 &&
-                                           greyBishop2Square.posY == j*100+20) {
+                                        if(greyBishop2Square.posX == i*70+20 &&
+                                           greyBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook1Rectangle1.posX == i*100+20 &&
-                                           greyRook1Rectangle1.posY == j*100+20) {
+                                        if(greyRook1Rectangle1.posX == i*70+20 &&
+                                           greyRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook2Rectangle1.posX == i*100+20 &&
-                                           greyRook2Rectangle1.posY == j*100+20) {
+                                        if(greyRook2Rectangle1.posX == i*70+20 &&
+                                           greyRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
                                         
@@ -5946,8 +5946,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = greyKnight2Rectangle1.posY;
                                             int a0 = greyKnight2Rectangle1.posX;
 
-                                            greyKnight2Rectangle1.posX = i*100+20;
-                                            greyKnight2Rectangle1.posY = j*100+20;
+                                            greyKnight2Rectangle1.posX = i*70+20;
+                                            greyKnight2Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckGrey(j, i);
 
@@ -5959,43 +5959,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(redPawnsBase[t].posX == i*100+20 &&
-                                                       redPawnsBase[t].posY == j*100+20) {
+                                                    if(redPawnsBase[t].posX == i*70+20 &&
+                                                       redPawnsBase[t].posY == j*70+20) {
                                                         redPawnsBase[t].posX = 1300;
                                                     }
                                                 }
-                                                if(redQueenSquare.posX == i*100+20 &&
-                                                   redQueenSquare.posY == j*100+20) {
+                                                if(redQueenSquare.posX == i*70+20 &&
+                                                   redQueenSquare.posY == j*70+20) {
                                                     redQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(redBishop1Square.posX == i*100+20 &&
-                                                   redBishop1Square.posY == j*100+20) {
+                                                if(redBishop1Square.posX == i*70+20 &&
+                                                   redBishop1Square.posY == j*70+20) {
                                                     redBishop1Square.posX = 1300;
                                                 }
-                                                if(redBishop2Square.posX == i*100+20 &&
-                                                   redBishop2Square.posY == j*100+20) {
+                                                if(redBishop2Square.posX == i*70+20 &&
+                                                   redBishop2Square.posY == j*70+20) {
                                                     redBishop2Square.posX = 1300;
                                                 }
-                                                if(redKnight1Rectangle1.posX == i*100+20 &&
-                                                   redKnight1Rectangle1.posY == j*100+20) {
+                                                if(redKnight1Rectangle1.posX == i*70+20 &&
+                                                   redKnight1Rectangle1.posY == j*70+20) {
                                                     redKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(redKnight2Rectangle1.posX == i*100+20 &&
-                                                   redKnight2Rectangle1.posY == j*100+20) {
+                                                if(redKnight2Rectangle1.posX == i*70+20 &&
+                                                   redKnight2Rectangle1.posY == j*70+20) {
                                                     redKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook1Rectangle1.posX == i*100+20 &&
-                                                   redRook1Rectangle1.posY == j*100+20) {
+                                                if(redRook1Rectangle1.posX == i*70+20 &&
+                                                   redRook1Rectangle1.posY == j*70+20) {
                                                     redRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook2Rectangle1.posX == i*100+20 &&
-                                                   redRook2Rectangle1.posY == j*100+20) {
+                                                if(redRook2Rectangle1.posX == i*70+20 &&
+                                                   redRook2Rectangle1.posY == j*70+20) {
                                                     redRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -6006,41 +6006,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'h';
                                         }
-                                    } else if(j*100+20 == greyKnight2Rectangle1.posY + 100 &&
-                                              i*100+20 == greyKnight2Rectangle1.posX - 200) {
+                                    } else if(j*70+20 == greyKnight2Rectangle1.posY + 70 &&
+                                              i*70+20 == greyKnight2Rectangle1.posX - 140) {
                                         
                                         for(int t=0; t<8; t++) {
-                                            if(greyPawnsBase[t].posX == i*100+20 &&
-                                               greyPawnsBase[t].posY == j*100+20) {
+                                            if(greyPawnsBase[t].posX == i*70+20 &&
+                                               greyPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(greyQueenSquare.posX == i*100+20 &&
-                                           greyQueenSquare.posY == j*100+20) {
+                                        if(greyQueenSquare.posX == i*70+20 &&
+                                           greyQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop1Square.posX == i*100+20 &&
-                                           greyBishop1Square.posY == j*100+20) {
+                                        if(greyBishop1Square.posX == i*70+20 &&
+                                           greyBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop2Square.posX == i*100+20 &&
-                                           greyBishop2Square.posY == j*100+20) {
+                                        if(greyBishop2Square.posX == i*70+20 &&
+                                           greyBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook1Rectangle1.posX == i*100+20 &&
-                                           greyRook1Rectangle1.posY == j*100+20) {
+                                        if(greyRook1Rectangle1.posX == i*70+20 &&
+                                           greyRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook2Rectangle1.posX == i*100+20 &&
-                                           greyRook2Rectangle1.posY == j*100+20) {
+                                        if(greyRook2Rectangle1.posX == i*70+20 &&
+                                           greyRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
                                         
@@ -6049,8 +6049,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = greyKnight2Rectangle1.posY;
                                             int a0 = greyKnight2Rectangle1.posX;
 
-                                            greyKnight2Rectangle1.posX = i*100+20;
-                                            greyKnight2Rectangle1.posY = j*100+20;
+                                            greyKnight2Rectangle1.posX = i*70+20;
+                                            greyKnight2Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckGrey(j, i);
                                             
@@ -6062,43 +6062,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(redPawnsBase[t].posX == i*100+20 &&
-                                                       redPawnsBase[t].posY == j*100+20) {
+                                                    if(redPawnsBase[t].posX == i*70+20 &&
+                                                       redPawnsBase[t].posY == j*70+20) {
                                                         redPawnsBase[t].posX = 1300;
                                                     }
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(redQueenSquare.posX == i*100+20 &&
-                                                   redQueenSquare.posY == j*100+20) {
+                                                if(redQueenSquare.posX == i*70+20 &&
+                                                   redQueenSquare.posY == j*70+20) {
                                                     redQueenSquare.posX = 1300;
                                                 }
-                                                if(redBishop1Square.posX == i*100+20 &&
-                                                   redBishop1Square.posY == j*100+20) {
+                                                if(redBishop1Square.posX == i*70+20 &&
+                                                   redBishop1Square.posY == j*70+20) {
                                                     redBishop1Square.posX = 1300;
                                                 }
-                                                if(redBishop2Square.posX == i*100+20 &&
-                                                   redBishop2Square.posY == j*100+20) {
+                                                if(redBishop2Square.posX == i*70+20 &&
+                                                   redBishop2Square.posY == j*70+20) {
                                                     redBishop2Square.posX = 1300;
                                                 }
-                                                if(redKnight1Rectangle1.posX == i*100+20 &&
-                                                   redKnight1Rectangle1.posY == j*100+20) {
+                                                if(redKnight1Rectangle1.posX == i*70+20 &&
+                                                   redKnight1Rectangle1.posY == j*70+20) {
                                                     redKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(redKnight2Rectangle1.posX == i*100+20 &&
-                                                   redKnight2Rectangle1.posY == j*100+20) {
+                                                if(redKnight2Rectangle1.posX == i*70+20 &&
+                                                   redKnight2Rectangle1.posY == j*70+20) {
                                                     redKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook1Rectangle1.posX == i*100+20 &&
-                                                   redRook1Rectangle1.posY == j*100+20) {
+                                                if(redRook1Rectangle1.posX == i*70+20 &&
+                                                   redRook1Rectangle1.posY == j*70+20) {
                                                     redRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook2Rectangle1.posX == i*100+20 &&
-                                                   redRook2Rectangle1.posY == j*100+20) {
+                                                if(redRook2Rectangle1.posX == i*70+20 &&
+                                                   redRook2Rectangle1.posY == j*70+20) {
                                                     redRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -6109,41 +6109,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'h';
                                         }
-                                    } else if(j*100+20 == greyKnight2Rectangle1.posY + 200 &&
-                                              i*100+20 == greyKnight2Rectangle1.posX - 100) {
+                                    } else if(j*70+20 == greyKnight2Rectangle1.posY + 140 &&
+                                              i*70+20 == greyKnight2Rectangle1.posX - 70) {
                                         
                                         for(int t=0; t<8; t++) {
-                                            if(greyPawnsBase[t].posX == i*100+20 &&
-                                               greyPawnsBase[t].posY == j*100+20) {
+                                            if(greyPawnsBase[t].posX == i*70+20 &&
+                                               greyPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(greyQueenSquare.posX == i*100+20 &&
-                                           greyQueenSquare.posY == j*100+20) {
+                                        if(greyQueenSquare.posX == i*70+20 &&
+                                           greyQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop1Square.posX == i*100+20 &&
-                                           greyBishop1Square.posY == j*100+20) {
+                                        if(greyBishop1Square.posX == i*70+20 &&
+                                           greyBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop2Square.posX == i*100+20 &&
-                                           greyBishop2Square.posY == j*100+20) {
+                                        if(greyBishop2Square.posX == i*70+20 &&
+                                           greyBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook1Rectangle1.posX == i*100+20 &&
-                                           greyRook1Rectangle1.posY == j*100+20) {
+                                        if(greyRook1Rectangle1.posX == i*70+20 &&
+                                           greyRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook2Rectangle1.posX == i*100+20 &&
-                                           greyRook2Rectangle1.posY == j*100+20) {
+                                        if(greyRook2Rectangle1.posX == i*70+20 &&
+                                           greyRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
                                         
@@ -6152,8 +6152,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = greyKnight2Rectangle1.posY;
                                             int a0 = greyKnight2Rectangle1.posX;
 
-                                            greyKnight2Rectangle1.posX = i*100+20;
-                                            greyKnight2Rectangle1.posY = j*100+20;
+                                            greyKnight2Rectangle1.posX = i*70+20;
+                                            greyKnight2Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckGrey(j, i);
                                             
@@ -6165,43 +6165,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(redPawnsBase[t].posX == i*100+20 &&
-                                                       redPawnsBase[t].posY == j*100+20) {
+                                                    if(redPawnsBase[t].posX == i*70+20 &&
+                                                       redPawnsBase[t].posY == j*70+20) {
                                                         redPawnsBase[t].posX = 1300;
                                                     }
                                                 }
-                                                if(redQueenSquare.posX == i*100+20 &&
-                                                   redQueenSquare.posY == j*100+20) {
+                                                if(redQueenSquare.posX == i*70+20 &&
+                                                   redQueenSquare.posY == j*70+20) {
                                                     redQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(redBishop1Square.posX == i*100+20 &&
-                                                   redBishop1Square.posY == j*100+20) {
+                                                if(redBishop1Square.posX == i*70+20 &&
+                                                   redBishop1Square.posY == j*70+20) {
                                                     redBishop1Square.posX = 1300;
                                                 }
-                                                if(redBishop2Square.posX == i*100+20 &&
-                                                   redBishop2Square.posY == j*100+20) {
+                                                if(redBishop2Square.posX == i*70+20 &&
+                                                   redBishop2Square.posY == j*70+20) {
                                                     redBishop2Square.posX = 1300;
                                                 }
-                                                if(redKnight1Rectangle1.posX == i*100+20 &&
-                                                   redKnight1Rectangle1.posY == j*100+20) {
+                                                if(redKnight1Rectangle1.posX == i*70+20 &&
+                                                   redKnight1Rectangle1.posY == j*70+20) {
                                                     redKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(redKnight2Rectangle1.posX == i*100+20 &&
-                                                   redKnight2Rectangle1.posY == j*100+20) {
+                                                if(redKnight2Rectangle1.posX == i*70+20 &&
+                                                   redKnight2Rectangle1.posY == j*70+20) {
                                                     redKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook1Rectangle1.posX == i*100+20 &&
-                                                   redRook1Rectangle1.posY == j*100+20) {
+                                                if(redRook1Rectangle1.posX == i*70+20 &&
+                                                   redRook1Rectangle1.posY == j*70+20) {
                                                     redRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook2Rectangle1.posX == i*100+20 &&
-                                                   redRook2Rectangle1.posY == j*100+20) {
+                                                if(redRook2Rectangle1.posX == i*70+20 &&
+                                                   redRook2Rectangle1.posY == j*70+20) {
                                                     redRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -6212,41 +6212,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'h';
                                         }
-                                    } else if(j*100+20 == greyKnight2Rectangle1.posY + 200 &&
-                                              i*100+20 == greyKnight2Rectangle1.posX + 100) {
+                                    } else if(j*70+20 == greyKnight2Rectangle1.posY + 140 &&
+                                              i*70+20 == greyKnight2Rectangle1.posX + 70) {
                                         
                                         for(int t=0; t<8; t++) {
-                                            if(greyPawnsBase[t].posX == i*100+20 &&
-                                               greyPawnsBase[t].posY == j*100+20) {
+                                            if(greyPawnsBase[t].posX == i*70+20 &&
+                                               greyPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(greyQueenSquare.posX == i*100+20 &&
-                                           greyQueenSquare.posY == j*100+20) {
+                                        if(greyQueenSquare.posX == i*70+20 &&
+                                           greyQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop1Square.posX == i*100+20 &&
-                                           greyBishop1Square.posY == j*100+20) {
+                                        if(greyBishop1Square.posX == i*70+20 &&
+                                           greyBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop2Square.posX == i*100+20 &&
-                                           greyBishop2Square.posY == j*100+20) {
+                                        if(greyBishop2Square.posX == i*70+20 &&
+                                           greyBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook1Rectangle1.posX == i*100+20 &&
-                                           greyRook1Rectangle1.posY == j*100+20) {
+                                        if(greyRook1Rectangle1.posX == i*70+20 &&
+                                           greyRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook2Rectangle1.posX == i*100+20 &&
-                                           greyRook2Rectangle1.posY == j*100+20) {
+                                        if(greyRook2Rectangle1.posX == i*70+20 &&
+                                           greyRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
                                         
@@ -6255,8 +6255,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = greyKnight2Rectangle1.posY;
                                             int a0 = greyKnight2Rectangle1.posX;
 
-                                            greyKnight2Rectangle1.posX = i*100+20;
-                                            greyKnight2Rectangle1.posY = j*100+20;
+                                            greyKnight2Rectangle1.posX = i*70+20;
+                                            greyKnight2Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckGrey(j, i);
 
@@ -6268,43 +6268,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(redPawnsBase[t].posX == i*100+20 &&
-                                                       redPawnsBase[t].posY == j*100+20) {
+                                                    if(redPawnsBase[t].posX == i*70+20 &&
+                                                       redPawnsBase[t].posY == j*70+20) {
                                                         redPawnsBase[t].posX = 1300;
                                                     }
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(redQueenSquare.posX == i*100+20 &&
-                                                   redQueenSquare.posY == j*100+20) {
+                                                if(redQueenSquare.posX == i*70+20 &&
+                                                   redQueenSquare.posY == j*70+20) {
                                                     redQueenSquare.posX = 1300;
                                                 }
-                                                if(redBishop1Square.posX == i*100+20 &&
-                                                   redBishop1Square.posY == j*100+20) {
+                                                if(redBishop1Square.posX == i*70+20 &&
+                                                   redBishop1Square.posY == j*70+20) {
                                                     redBishop1Square.posX = 1300;
                                                 }
-                                                if(redBishop2Square.posX == i*100+20 &&
-                                                   redBishop2Square.posY == j*100+20) {
+                                                if(redBishop2Square.posX == i*70+20 &&
+                                                   redBishop2Square.posY == j*70+20) {
                                                     redBishop2Square.posX = 1300;
                                                 }
-                                                if(redKnight1Rectangle1.posX == i*100+20 &&
-                                                   redKnight1Rectangle1.posY == j*100+20) {
+                                                if(redKnight1Rectangle1.posX == i*70+20 &&
+                                                   redKnight1Rectangle1.posY == j*70+20) {
                                                     redKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(redKnight2Rectangle1.posX == i*100+20 &&
-                                                   redKnight2Rectangle1.posY == j*100+20) {
+                                                if(redKnight2Rectangle1.posX == i*70+20 &&
+                                                   redKnight2Rectangle1.posY == j*70+20) {
                                                     redKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook1Rectangle1.posX == i*100+20 &&
-                                                   redRook1Rectangle1.posY == j*100+20) {
+                                                if(redRook1Rectangle1.posX == i*70+20 &&
+                                                   redRook1Rectangle1.posY == j*70+20) {
                                                     redRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook2Rectangle1.posX == i*100+20 &&
-                                                   redRook2Rectangle1.posY == j*100+20) {
+                                                if(redRook2Rectangle1.posX == i*70+20 &&
+                                                   redRook2Rectangle1.posY == j*70+20) {
                                                     redRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -6315,41 +6315,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'h';
                                         }
-                                    } else if(j*100+20 == greyKnight2Rectangle1.posY - 100 &&
-                                              i*100+20 == greyKnight2Rectangle1.posX + 200) {
+                                    } else if(j*70+20 == greyKnight2Rectangle1.posY - 70 &&
+                                              i*70+20 == greyKnight2Rectangle1.posX + 140) {
                                         
                                         for(int t=0; t<8; t++) {
-                                            if(greyPawnsBase[t].posX == i*100+20 &&
-                                               greyPawnsBase[t].posY == j*100+20) {
+                                            if(greyPawnsBase[t].posX == i*70+20 &&
+                                               greyPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(greyQueenSquare.posX == i*100+20 &&
-                                           greyQueenSquare.posY == j*100+20) {
+                                        if(greyQueenSquare.posX == i*70+20 &&
+                                           greyQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop1Square.posX == i*100+20 &&
-                                           greyBishop1Square.posY == j*100+20) {
+                                        if(greyBishop1Square.posX == i*70+20 &&
+                                           greyBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop2Square.posX == i*100+20 &&
-                                           greyBishop2Square.posY == j*100+20) {
+                                        if(greyBishop2Square.posX == i*70+20 &&
+                                           greyBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook1Rectangle1.posX == i*100+20 &&
-                                           greyRook1Rectangle1.posY == j*100+20) {
+                                        if(greyRook1Rectangle1.posX == i*70+20 &&
+                                           greyRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook2Rectangle1.posX == i*100+20 &&
-                                           greyRook2Rectangle1.posY == j*100+20) {
+                                        if(greyRook2Rectangle1.posX == i*70+20 &&
+                                           greyRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -6358,8 +6358,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = greyKnight2Rectangle1.posY;
                                             int a0 = greyKnight2Rectangle1.posX;
 
-                                            greyKnight2Rectangle1.posX = i*100+20;
-                                            greyKnight2Rectangle1.posY = j*100+20;
+                                            greyKnight2Rectangle1.posX = i*70+20;
+                                            greyKnight2Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckGrey(j, i);
                                             
@@ -6371,43 +6371,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(redPawnsBase[t].posX == i*100+20 &&
-                                                       redPawnsBase[t].posY == j*100+20) {
+                                                    if(redPawnsBase[t].posX == i*70+20 &&
+                                                       redPawnsBase[t].posY == j*70+20) {
                                                         redPawnsBase[t].posX = 1300;
                                                     }
                                                 }
-                                                if(redQueenSquare.posX == i*100+20 &&
-                                                   redQueenSquare.posY == j*100+20) {
+                                                if(redQueenSquare.posX == i*70+20 &&
+                                                   redQueenSquare.posY == j*70+20) {
                                                     redQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(redBishop1Square.posX == i*100+20 &&
-                                                   redBishop1Square.posY == j*100+20) {
+                                                if(redBishop1Square.posX == i*70+20 &&
+                                                   redBishop1Square.posY == j*70+20) {
                                                     redBishop1Square.posX = 1300;
                                                 }
-                                                if(redBishop2Square.posX == i*100+20 &&
-                                                   redBishop2Square.posY == j*100+20) {
+                                                if(redBishop2Square.posX == i*70+20 &&
+                                                   redBishop2Square.posY == j*70+20) {
                                                     redBishop2Square.posX = 1300;
                                                 }
-                                                if(redKnight1Rectangle1.posX == i*100+20 &&
-                                                   redKnight1Rectangle1.posY == j*100+20) {
+                                                if(redKnight1Rectangle1.posX == i*70+20 &&
+                                                   redKnight1Rectangle1.posY == j*70+20) {
                                                     redKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(redKnight2Rectangle1.posX == i*100+20 &&
-                                                   redKnight2Rectangle1.posY == j*100+20) {
+                                                if(redKnight2Rectangle1.posX == i*70+20 &&
+                                                   redKnight2Rectangle1.posY == j*70+20) {
                                                     redKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook1Rectangle1.posX == i*100+20 &&
-                                                   redRook1Rectangle1.posY == j*100+20) {
+                                                if(redRook1Rectangle1.posX == i*70+20 &&
+                                                   redRook1Rectangle1.posY == j*70+20) {
                                                     redRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook2Rectangle1.posX == i*100+20 &&
-                                                   redRook2Rectangle1.posY == j*100+20) {
+                                                if(redRook2Rectangle1.posX == i*70+20 &&
+                                                   redRook2Rectangle1.posY == j*70+20) {
                                                     redRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -6418,41 +6418,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'h';
                                         }
-                                    } else if(j*100+20 == greyKnight2Rectangle1.posY + 100 &&
-                                              i*100+20 == greyKnight2Rectangle1.posX + 200) {
+                                    } else if(j*70+20 == greyKnight2Rectangle1.posY + 70 &&
+                                              i*70+20 == greyKnight2Rectangle1.posX + 140) {
                                         
                                         for(int t=0; t<8; t++) {
-                                            if(greyPawnsBase[t].posX == i*100+20 &&
-                                               greyPawnsBase[t].posY == j*100+20) {
+                                            if(greyPawnsBase[t].posX == i*70+20 &&
+                                               greyPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(greyQueenSquare.posX == i*100+20 &&
-                                           greyQueenSquare.posY == j*100+20) {
+                                        if(greyQueenSquare.posX == i*70+20 &&
+                                           greyQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop1Square.posX == i*100+20 &&
-                                           greyBishop1Square.posY == j*100+20) {
+                                        if(greyBishop1Square.posX == i*70+20 &&
+                                           greyBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop2Square.posX == i*100+20 &&
-                                           greyBishop2Square.posY == j*100+20) {
+                                        if(greyBishop2Square.posX == i*70+20 &&
+                                           greyBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook1Rectangle1.posX == i*100+20 &&
-                                           greyRook1Rectangle1.posY == j*100+20) {
+                                        if(greyRook1Rectangle1.posX == i*70+20 &&
+                                           greyRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook2Rectangle1.posX == i*100+20 &&
-                                           greyRook2Rectangle1.posY == j*100+20) {
+                                        if(greyRook2Rectangle1.posX == i*70+20 &&
+                                           greyRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
                                         
@@ -6461,8 +6461,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = greyKnight2Rectangle1.posY;
                                             int a0 = greyKnight2Rectangle1.posX;
 
-                                            greyKnight2Rectangle1.posX = i*100+20;
-                                            greyKnight2Rectangle1.posY = j*100+20;
+                                            greyKnight2Rectangle1.posX = i*70+20;
+                                            greyKnight2Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckGrey(j, i);
                                             
@@ -6474,43 +6474,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(redPawnsBase[t].posX == i*100+20 &&
-                                                       redPawnsBase[t].posY == j*100+20) {
+                                                    if(redPawnsBase[t].posX == i*70+20 &&
+                                                       redPawnsBase[t].posY == j*70+20) {
                                                         redPawnsBase[t].posX = 1300;
                                                     }
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(redQueenSquare.posX == i*100+20 &&
-                                                   redQueenSquare.posY == j*100+20) {
+                                                if(redQueenSquare.posX == i*70+20 &&
+                                                   redQueenSquare.posY == j*70+20) {
                                                     redQueenSquare.posX = 1300;
                                                 }
-                                                if(redBishop1Square.posX == i*100+20 &&
-                                                   redBishop1Square.posY == j*100+20) {
+                                                if(redBishop1Square.posX == i*70+20 &&
+                                                   redBishop1Square.posY == j*70+20) {
                                                     redBishop1Square.posX = 1300;
                                                 }
-                                                if(redBishop2Square.posX == i*100+20 &&
-                                                   redBishop2Square.posY == j*100+20) {
+                                                if(redBishop2Square.posX == i*70+20 &&
+                                                   redBishop2Square.posY == j*70+20) {
                                                     redBishop2Square.posX = 1300;
                                                 }
-                                                if(redKnight1Rectangle1.posX == i*100+20 &&
-                                                   redKnight1Rectangle1.posY == j*100+20) {
+                                                if(redKnight1Rectangle1.posX == i*70+20 &&
+                                                   redKnight1Rectangle1.posY == j*70+20) {
                                                     redKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(redKnight2Rectangle1.posX == i*100+20 &&
-                                                   redKnight2Rectangle1.posY == j*100+20) {
+                                                if(redKnight2Rectangle1.posX == i*70+20 &&
+                                                   redKnight2Rectangle1.posY == j*70+20) {
                                                     redKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook1Rectangle1.posX == i*100+20 &&
-                                                   redRook1Rectangle1.posY == j*100+20) {
+                                                if(redRook1Rectangle1.posX == i*70+20 &&
+                                                   redRook1Rectangle1.posY == j*70+20) {
                                                     redRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook2Rectangle1.posX == i*100+20 &&
-                                                   redRook2Rectangle1.posY == j*100+20) {
+                                                if(redRook2Rectangle1.posX == i*70+20 &&
+                                                   redRook2Rectangle1.posY == j*70+20) {
                                                     redRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -6527,8 +6527,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                             itdid = FALSE;
                             
-                            if(greyKnight1Rectangle1.posX == i*100+20 &&
-                               greyKnight1Rectangle1.posY == j*100+20) {
+                            if(greyKnight1Rectangle1.posX == i*70+20 &&
+                               greyKnight1Rectangle1.posY == j*70+20) {
                                 
                                 clickedOne = 'g';
                                 greyKnight1Rectangle1.clicked = TRUE;
@@ -6555,41 +6555,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                     greyKnight1Rectangle1.clicked = FALSE;
 
-                                    if(j*100+20 == greyKnight1Rectangle1.posY - 200 &&
-                                       i*100+20 == greyKnight1Rectangle1.posX - 100) {
+                                    if(j*70+20 == greyKnight1Rectangle1.posY - 140 &&
+                                       i*70+20 == greyKnight1Rectangle1.posX - 70) {
                                         
                                         for(int t=0; t<8; t++) {
-                                            if(greyPawnsBase[t].posX == i*100+20 &&
-                                               greyPawnsBase[t].posY == j*100+20) {
+                                            if(greyPawnsBase[t].posX == i*70+20 &&
+                                               greyPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(greyQueenSquare.posX == i*100+20 &&
-                                           greyQueenSquare.posY == j*100+20) {
+                                        if(greyQueenSquare.posX == i*70+20 &&
+                                           greyQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop1Square.posX == i*100+20 &&
-                                           greyBishop1Square.posY == j*100+20) {
+                                        if(greyBishop1Square.posX == i*70+20 &&
+                                           greyBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop2Square.posX == i*100+20 &&
-                                           greyBishop2Square.posY == j*100+20) {
+                                        if(greyBishop2Square.posX == i*70+20 &&
+                                           greyBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook1Rectangle1.posX == i*100+20 &&
-                                           greyRook1Rectangle1.posY == j*100+20) {
+                                        if(greyRook1Rectangle1.posX == i*70+20 &&
+                                           greyRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook2Rectangle1.posX == i*100+20 &&
-                                           greyRook2Rectangle1.posY == j*100+20) {
+                                        if(greyRook2Rectangle1.posX == i*70+20 &&
+                                           greyRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
                                         
@@ -6598,8 +6598,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = greyKnight1Rectangle1.posY;
                                             int a0 = greyKnight1Rectangle1.posX;
                                             
-                                            greyKnight1Rectangle1.posX = i*100+20;
-                                            greyKnight1Rectangle1.posY = j*100+20;
+                                            greyKnight1Rectangle1.posX = i*70+20;
+                                            greyKnight1Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckGrey(j, i);
                                             
@@ -6611,43 +6611,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(redPawnsBase[t].posX == i*100+20 &&
-                                                       redPawnsBase[t].posY == j*100+20) {
+                                                    if(redPawnsBase[t].posX == i*70+20 &&
+                                                       redPawnsBase[t].posY == j*70+20) {
                                                         redPawnsBase[t].posX = 1300;
                                                     }
                                                 }
-                                                if(redQueenSquare.posX == i*100+20 &&
-                                                   redQueenSquare.posY == j*100+20) {
+                                                if(redQueenSquare.posX == i*70+20 &&
+                                                   redQueenSquare.posY == j*70+20) {
                                                     redQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(redBishop1Square.posX == i*100+20 &&
-                                                   redBishop1Square.posY == j*100+20) {
+                                                if(redBishop1Square.posX == i*70+20 &&
+                                                   redBishop1Square.posY == j*70+20) {
                                                     redBishop1Square.posX = 1300;
                                                 }
-                                                if(redBishop2Square.posX == i*100+20 &&
-                                                   redBishop2Square.posY == j*100+20) {
+                                                if(redBishop2Square.posX == i*70+20 &&
+                                                   redBishop2Square.posY == j*70+20) {
                                                     redBishop2Square.posX = 1300;
                                                 }
-                                                if(redKnight1Rectangle1.posX == i*100+20 &&
-                                                   redKnight1Rectangle1.posY == j*100+20) {
+                                                if(redKnight1Rectangle1.posX == i*70+20 &&
+                                                   redKnight1Rectangle1.posY == j*70+20) {
                                                     redKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(redKnight2Rectangle1.posX == i*100+20 &&
-                                                   redKnight2Rectangle1.posY == j*100+20) {
+                                                if(redKnight2Rectangle1.posX == i*70+20 &&
+                                                   redKnight2Rectangle1.posY == j*70+20) {
                                                     redKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook1Rectangle1.posX == i*100+20 &&
-                                                   redRook1Rectangle1.posY == j*100+20) {
+                                                if(redRook1Rectangle1.posX == i*70+20 &&
+                                                   redRook1Rectangle1.posY == j*70+20) {
                                                     redRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook2Rectangle1.posX == i*100+20 &&
-                                                   redRook2Rectangle1.posY == j*100+20) {
+                                                if(redRook2Rectangle1.posX == i*70+20 &&
+                                                   redRook2Rectangle1.posY == j*70+20) {
                                                     redRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -6658,41 +6658,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'h';
                                         }
-                                    } else if(j*100+20 == greyKnight1Rectangle1.posY - 200 &&
-                                              i*100+20 == greyKnight1Rectangle1.posX + 100) {
+                                    } else if(j*70+20 == greyKnight1Rectangle1.posY - 140 &&
+                                              i*70+20 == greyKnight1Rectangle1.posX + 70) {
                                         
                                         for(int t=0; t<8; t++) {
-                                            if(greyPawnsBase[t].posX == i*100+20 &&
-                                               greyPawnsBase[t].posY == j*100+20) {
+                                            if(greyPawnsBase[t].posX == i*70+20 &&
+                                               greyPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(greyQueenSquare.posX == i*100+20 &&
-                                           greyQueenSquare.posY == j*100+20) {
+                                        if(greyQueenSquare.posX == i*70+20 &&
+                                           greyQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop1Square.posX == i*100+20 &&
-                                           greyBishop1Square.posY == j*100+20) {
+                                        if(greyBishop1Square.posX == i*70+20 &&
+                                           greyBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop2Square.posX == i*100+20 &&
-                                           greyBishop2Square.posY == j*100+20) {
+                                        if(greyBishop2Square.posX == i*70+20 &&
+                                           greyBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook1Rectangle1.posX == i*100+20 &&
-                                           greyRook1Rectangle1.posY == j*100+20) {
+                                        if(greyRook1Rectangle1.posX == i*70+20 &&
+                                           greyRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook2Rectangle1.posX == i*100+20 &&
-                                           greyRook2Rectangle1.posY == j*100+20) {
+                                        if(greyRook2Rectangle1.posX == i*70+20 &&
+                                           greyRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -6701,8 +6701,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = greyKnight1Rectangle1.posY;
                                             int a0 = greyKnight1Rectangle1.posX;
                                             
-                                            greyKnight1Rectangle1.posX = i*100+20;
-                                            greyKnight1Rectangle1.posY = j*100+20;
+                                            greyKnight1Rectangle1.posX = i*70+20;
+                                            greyKnight1Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckGrey(j, i);
                                             
@@ -6714,43 +6714,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(redPawnsBase[t].posX == i*100+20 &&
-                                                       redPawnsBase[t].posY == j*100+20) {
+                                                    if(redPawnsBase[t].posX == i*70+20 &&
+                                                       redPawnsBase[t].posY == j*70+20) {
                                                         redPawnsBase[t].posX = 1300;
                                                     }
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(redQueenSquare.posX == i*100+20 &&
-                                                   redQueenSquare.posY == j*100+20) {
+                                                if(redQueenSquare.posX == i*70+20 &&
+                                                   redQueenSquare.posY == j*70+20) {
                                                     redQueenSquare.posX = 1300;
                                                 }
-                                                if(redBishop1Square.posX == i*100+20 &&
-                                                   redBishop1Square.posY == j*100+20) {
+                                                if(redBishop1Square.posX == i*70+20 &&
+                                                   redBishop1Square.posY == j*70+20) {
                                                     redBishop1Square.posX = 1300;
                                                 }
-                                                if(redBishop2Square.posX == i*100+20 &&
-                                                   redBishop2Square.posY == j*100+20) {
+                                                if(redBishop2Square.posX == i*70+20 &&
+                                                   redBishop2Square.posY == j*70+20) {
                                                     redBishop2Square.posX = 1300;
                                                 }
-                                                if(redKnight1Rectangle1.posX == i*100+20 &&
-                                                   redKnight1Rectangle1.posY == j*100+20) {
+                                                if(redKnight1Rectangle1.posX == i*70+20 &&
+                                                   redKnight1Rectangle1.posY == j*70+20) {
                                                     redKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(redKnight2Rectangle1.posX == i*100+20 &&
-                                                   redKnight2Rectangle1.posY == j*100+20) {
+                                                if(redKnight2Rectangle1.posX == i*70+20 &&
+                                                   redKnight2Rectangle1.posY == j*70+20) {
                                                     redKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook1Rectangle1.posX == i*100+20 &&
-                                                   redRook1Rectangle1.posY == j*100+20) {
+                                                if(redRook1Rectangle1.posX == i*70+20 &&
+                                                   redRook1Rectangle1.posY == j*70+20) {
                                                     redRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook2Rectangle1.posX == i*100+20 &&
-                                                   redRook2Rectangle1.posY == j*100+20) {
+                                                if(redRook2Rectangle1.posX == i*70+20 &&
+                                                   redRook2Rectangle1.posY == j*70+20) {
                                                     redRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -6761,41 +6761,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'h';
                                         }
-                                    } else if(j*100+20 == greyKnight1Rectangle1.posY - 100 &&
-                                              i*100+20 == greyKnight1Rectangle1.posX - 200) {
+                                    } else if(j*70+20 == greyKnight1Rectangle1.posY - 70 &&
+                                              i*70+20 == greyKnight1Rectangle1.posX - 140) {
                                         
                                         for(int t=0; t<8; t++) {
-                                            if(greyPawnsBase[t].posX == i*100+20 &&
-                                               greyPawnsBase[t].posY == j*100+20) {
+                                            if(greyPawnsBase[t].posX == i*70+20 &&
+                                               greyPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(greyQueenSquare.posX == i*100+20 &&
-                                           greyQueenSquare.posY == j*100+20) {
+                                        if(greyQueenSquare.posX == i*70+20 &&
+                                           greyQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop1Square.posX == i*100+20 &&
-                                           greyBishop1Square.posY == j*100+20) {
+                                        if(greyBishop1Square.posX == i*70+20 &&
+                                           greyBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop2Square.posX == i*100+20 &&
-                                           greyBishop2Square.posY == j*100+20) {
+                                        if(greyBishop2Square.posX == i*70+20 &&
+                                           greyBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook1Rectangle1.posX == i*100+20 &&
-                                           greyRook1Rectangle1.posY == j*100+20) {
+                                        if(greyRook1Rectangle1.posX == i*70+20 &&
+                                           greyRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook2Rectangle1.posX == i*100+20 &&
-                                           greyRook2Rectangle1.posY == j*100+20) {
+                                        if(greyRook2Rectangle1.posX == i*70+20 &&
+                                           greyRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -6804,8 +6804,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = greyKnight1Rectangle1.posY;
                                             int a0 = greyKnight1Rectangle1.posX;
                                             
-                                            greyKnight1Rectangle1.posX = i*100+20;
-                                            greyKnight1Rectangle1.posY = j*100+20;
+                                            greyKnight1Rectangle1.posX = i*70+20;
+                                            greyKnight1Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckGrey(j, i);
                                             
@@ -6819,43 +6819,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 done = TRUE;
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(redPawnsBase[t].posX == i*100+20 &&
-                                                       redPawnsBase[t].posY == j*100+20) {
+                                                    if(redPawnsBase[t].posX == i*70+20 &&
+                                                       redPawnsBase[t].posY == j*70+20) {
                                                         redPawnsBase[t].posX = 1300;
                                                     }
                                                 }
-                                                if(redQueenSquare.posX == i*100+20 &&
-                                                   redQueenSquare.posY == j*100+20) {
+                                                if(redQueenSquare.posX == i*70+20 &&
+                                                   redQueenSquare.posY == j*70+20) {
                                                     redQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(redBishop1Square.posX == i*100+20 &&
-                                                   redBishop1Square.posY == j*100+20) {
+                                                if(redBishop1Square.posX == i*70+20 &&
+                                                   redBishop1Square.posY == j*70+20) {
                                                     redBishop1Square.posX = 1300;
                                                 }
-                                                if(redBishop2Square.posX == i*100+20 &&
-                                                   redBishop2Square.posY == j*100+20) {
+                                                if(redBishop2Square.posX == i*70+20 &&
+                                                   redBishop2Square.posY == j*70+20) {
                                                     redBishop2Square.posX = 1300;
                                                 }
-                                                if(redKnight1Rectangle1.posX == i*100+20 &&
-                                                   redKnight1Rectangle1.posY == j*100+20) {
+                                                if(redKnight1Rectangle1.posX == i*70+20 &&
+                                                   redKnight1Rectangle1.posY == j*70+20) {
                                                     redKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(redKnight2Rectangle1.posX == i*100+20 &&
-                                                   redKnight2Rectangle1.posY == j*100+20) {
+                                                if(redKnight2Rectangle1.posX == i*70+20 &&
+                                                   redKnight2Rectangle1.posY == j*70+20) {
                                                     redKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook1Rectangle1.posX == i*100+20 &&
-                                                   redRook1Rectangle1.posY == j*100+20) {
+                                                if(redRook1Rectangle1.posX == i*70+20 &&
+                                                   redRook1Rectangle1.posY == j*70+20) {
                                                     redRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook2Rectangle1.posX == i*100+20 &&
-                                                   redRook2Rectangle1.posY == j*100+20) {
+                                                if(redRook2Rectangle1.posX == i*70+20 &&
+                                                   redRook2Rectangle1.posY == j*70+20) {
                                                     redRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -6866,41 +6866,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'h';
                                         }
-                                    } else if(j*100+20 == greyKnight1Rectangle1.posY + 100 &&
-                                              i*100+20 == greyKnight1Rectangle1.posX - 200) {
+                                    } else if(j*70+20 == greyKnight1Rectangle1.posY + 70 &&
+                                              i*70+20 == greyKnight1Rectangle1.posX - 140) {
                                         
                                         for(int t=0; t<8; t++) {
-                                            if(greyPawnsBase[t].posX == i*100+20 &&
-                                               greyPawnsBase[t].posY == j*100+20) {
+                                            if(greyPawnsBase[t].posX == i*70+20 &&
+                                               greyPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(greyQueenSquare.posX == i*100+20 &&
-                                           greyQueenSquare.posY == j*100+20) {
+                                        if(greyQueenSquare.posX == i*70+20 &&
+                                           greyQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop1Square.posX == i*100+20 &&
-                                           greyBishop1Square.posY == j*100+20) {
+                                        if(greyBishop1Square.posX == i*70+20 &&
+                                           greyBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop2Square.posX == i*100+20 &&
-                                           greyBishop2Square.posY == j*100+20) {
+                                        if(greyBishop2Square.posX == i*70+20 &&
+                                           greyBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook1Rectangle1.posX == i*100+20 &&
-                                           greyRook1Rectangle1.posY == j*100+20) {
+                                        if(greyRook1Rectangle1.posX == i*70+20 &&
+                                           greyRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook2Rectangle1.posX == i*100+20 &&
-                                           greyRook2Rectangle1.posY == j*100+20) {
+                                        if(greyRook2Rectangle1.posX == i*70+20 &&
+                                           greyRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
                                         
@@ -6909,8 +6909,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = greyKnight1Rectangle1.posY;
                                             int a0 = greyKnight1Rectangle1.posX;
                                             
-                                            greyKnight1Rectangle1.posX = i*100+20;
-                                            greyKnight1Rectangle1.posY = j*100+20;
+                                            greyKnight1Rectangle1.posX = i*70+20;
+                                            greyKnight1Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckGrey(j, i);
                                             
@@ -6924,43 +6924,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 done = TRUE;
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(redPawnsBase[t].posX == i*100+20 &&
-                                                       redPawnsBase[t].posY == j*100+20) {
+                                                    if(redPawnsBase[t].posX == i*70+20 &&
+                                                       redPawnsBase[t].posY == j*70+20) {
                                                         redPawnsBase[t].posX = 1300;
                                                     }
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(redQueenSquare.posX == i*100+20 &&
-                                                   redQueenSquare.posY == j*100+20) {
+                                                if(redQueenSquare.posX == i*70+20 &&
+                                                   redQueenSquare.posY == j*70+20) {
                                                     redQueenSquare.posX = 1300;
                                                 }
-                                                if(redBishop1Square.posX == i*100+20 &&
-                                                   redBishop1Square.posY == j*100+20) {
+                                                if(redBishop1Square.posX == i*70+20 &&
+                                                   redBishop1Square.posY == j*70+20) {
                                                     redBishop1Square.posX = 1300;
                                                 }
-                                                if(redBishop2Square.posX == i*100+20 &&
-                                                   redBishop2Square.posY == j*100+20) {
+                                                if(redBishop2Square.posX == i*70+20 &&
+                                                   redBishop2Square.posY == j*70+20) {
                                                     redBishop2Square.posX = 1300;
                                                 }
-                                                if(redKnight1Rectangle1.posX == i*100+20 &&
-                                                   redKnight1Rectangle1.posY == j*100+20) {
+                                                if(redKnight1Rectangle1.posX == i*70+20 &&
+                                                   redKnight1Rectangle1.posY == j*70+20) {
                                                     redKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(redKnight2Rectangle1.posX == i*100+20 &&
-                                                   redKnight2Rectangle1.posY == j*100+20) {
+                                                if(redKnight2Rectangle1.posX == i*70+20 &&
+                                                   redKnight2Rectangle1.posY == j*70+20) {
                                                     redKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook1Rectangle1.posX == i*100+20 &&
-                                                   redRook1Rectangle1.posY == j*100+20) {
+                                                if(redRook1Rectangle1.posX == i*70+20 &&
+                                                   redRook1Rectangle1.posY == j*70+20) {
                                                     redRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook2Rectangle1.posX == i*100+20 &&
-                                                   redRook2Rectangle1.posY == j*100+20) {
+                                                if(redRook2Rectangle1.posX == i*70+20 &&
+                                                   redRook2Rectangle1.posY == j*70+20) {
                                                     redRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -6971,41 +6971,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'h';
                                         }
-                                    } else if(j*100+20 == greyKnight1Rectangle1.posY + 200 &&
-                                              i*100+20 == greyKnight1Rectangle1.posX - 100) {
+                                    } else if(j*70+20 == greyKnight1Rectangle1.posY + 140 &&
+                                              i*70+20 == greyKnight1Rectangle1.posX - 70) {
                                         
                                         for(int t=0; t<8; t++) {
-                                            if(greyPawnsBase[t].posX == i*100+20 &&
-                                               greyPawnsBase[t].posY == j*100+20) {
+                                            if(greyPawnsBase[t].posX == i*70+20 &&
+                                               greyPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(greyQueenSquare.posX == i*100+20 &&
-                                           greyQueenSquare.posY == j*100+20) {
+                                        if(greyQueenSquare.posX == i*70+20 &&
+                                           greyQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop1Square.posX == i*100+20 &&
-                                           greyBishop1Square.posY == j*100+20) {
+                                        if(greyBishop1Square.posX == i*70+20 &&
+                                           greyBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop2Square.posX == i*100+20 &&
-                                           greyBishop2Square.posY == j*100+20) {
+                                        if(greyBishop2Square.posX == i*70+20 &&
+                                           greyBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook1Rectangle1.posX == i*100+20 &&
-                                           greyRook1Rectangle1.posY == j*100+20) {
+                                        if(greyRook1Rectangle1.posX == i*70+20 &&
+                                           greyRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook2Rectangle1.posX == i*100+20 &&
-                                           greyRook2Rectangle1.posY == j*100+20) {
+                                        if(greyRook2Rectangle1.posX == i*70+20 &&
+                                           greyRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -7014,8 +7014,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = greyKnight1Rectangle1.posY;
                                             int a0 = greyKnight1Rectangle1.posX;
                                             
-                                            greyKnight1Rectangle1.posX = i*100+20;
-                                            greyKnight1Rectangle1.posY = j*100+20;
+                                            greyKnight1Rectangle1.posX = i*70+20;
+                                            greyKnight1Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckGrey(j, i);
                                             
@@ -7029,43 +7029,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 done = TRUE;
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(redPawnsBase[t].posX == i*100+20 &&
-                                                       redPawnsBase[t].posY == j*100+20) {
+                                                    if(redPawnsBase[t].posX == i*70+20 &&
+                                                       redPawnsBase[t].posY == j*70+20) {
                                                         redPawnsBase[t].posX = 1300;
                                                     }
                                                 }
-                                                if(redQueenSquare.posX == i*100+20 &&
-                                                   redQueenSquare.posY == j*100+20) {
+                                                if(redQueenSquare.posX == i*70+20 &&
+                                                   redQueenSquare.posY == j*70+20) {
                                                     redQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(redBishop1Square.posX == i*100+20 &&
-                                                   redBishop1Square.posY == j*100+20) {
+                                                if(redBishop1Square.posX == i*70+20 &&
+                                                   redBishop1Square.posY == j*70+20) {
                                                     redBishop1Square.posX = 1300;
                                                 }
-                                                if(redBishop2Square.posX == i*100+20 &&
-                                                   redBishop2Square.posY == j*100+20) {
+                                                if(redBishop2Square.posX == i*70+20 &&
+                                                   redBishop2Square.posY == j*70+20) {
                                                     redBishop2Square.posX = 1300;
                                                 }
-                                                if(redKnight1Rectangle1.posX == i*100+20 &&
-                                                   redKnight1Rectangle1.posY == j*100+20) {
+                                                if(redKnight1Rectangle1.posX == i*70+20 &&
+                                                   redKnight1Rectangle1.posY == j*70+20) {
                                                     redKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(redKnight2Rectangle1.posX == i*100+20 &&
-                                                   redKnight2Rectangle1.posY == j*100+20) {
+                                                if(redKnight2Rectangle1.posX == i*70+20 &&
+                                                   redKnight2Rectangle1.posY == j*70+20) {
                                                     redKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook1Rectangle1.posX == i*100+20 &&
-                                                   redRook1Rectangle1.posY == j*100+20) {
+                                                if(redRook1Rectangle1.posX == i*70+20 &&
+                                                   redRook1Rectangle1.posY == j*70+20) {
                                                     redRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook2Rectangle1.posX == i*100+20 &&
-                                                   redRook2Rectangle1.posY == j*100+20) {
+                                                if(redRook2Rectangle1.posX == i*70+20 &&
+                                                   redRook2Rectangle1.posY == j*70+20) {
                                                     redRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -7076,41 +7076,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'h';
                                         }
-                                    } else if(j*100+20 == greyKnight1Rectangle1.posY + 200 &&
-                                              i*100+20 == greyKnight1Rectangle1.posX + 100) {
+                                    } else if(j*70+20 == greyKnight1Rectangle1.posY + 140 &&
+                                              i*70+20 == greyKnight1Rectangle1.posX + 70) {
                                         
                                         for(int t=0; t<8; t++) {
-                                            if(greyPawnsBase[t].posX == i*100+20 &&
-                                               greyPawnsBase[t].posY == j*100+20) {
+                                            if(greyPawnsBase[t].posX == i*70+20 &&
+                                               greyPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(greyQueenSquare.posX == i*100+20 &&
-                                           greyQueenSquare.posY == j*100+20) {
+                                        if(greyQueenSquare.posX == i*70+20 &&
+                                           greyQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop1Square.posX == i*100+20 &&
-                                           greyBishop1Square.posY == j*100+20) {
+                                        if(greyBishop1Square.posX == i*70+20 &&
+                                           greyBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop2Square.posX == i*100+20 &&
-                                           greyBishop2Square.posY == j*100+20) {
+                                        if(greyBishop2Square.posX == i*70+20 &&
+                                           greyBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook1Rectangle1.posX == i*100+20 &&
-                                           greyRook1Rectangle1.posY == j*100+20) {
+                                        if(greyRook1Rectangle1.posX == i*70+20 &&
+                                           greyRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook2Rectangle1.posX == i*100+20 &&
-                                           greyRook2Rectangle1.posY == j*100+20) {
+                                        if(greyRook2Rectangle1.posX == i*70+20 &&
+                                           greyRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -7119,113 +7119,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = greyKnight1Rectangle1.posY;
                                             int a0 = greyKnight1Rectangle1.posX;
 
-                                            greyKnight1Rectangle1.posX = i*100+20;
-                                            greyKnight1Rectangle1.posY = j*100+20;
-
-                                            boolean ffff = checkCheckGrey(j, i);
-                                            
-                                            if(ffff) {
-                                                
-                                                greyKnight1Rectangle1.posY = a1;
-                                                greyKnight1Rectangle1.posX = a0;
-
-                                            } else {
-
-                                                done = TRUE;
-
-                                                for(int t=0; t<8; t++) {
-                                                    if(redPawnsBase[t].posX == i*100+20 &&
-                                                       redPawnsBase[t].posY == j*100+20) {
-                                                        redPawnsBase[t].posX = 1300;
-                                                    }
-                                                }
-                                                for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
-                                                        redQueenSquareK[z].posX = 1300;
-                                                    }
-                                                }
-                                                if(redQueenSquare.posX == i*100+20 &&
-                                                   redQueenSquare.posY == j*100+20) {
-                                                    redQueenSquare.posX = 1300;
-                                                }
-                                                if(redBishop1Square.posX == i*100+20 &&
-                                                   redBishop1Square.posY == j*100+20) {
-                                                    redBishop1Square.posX = 1300;
-                                                }
-                                                if(redBishop2Square.posX == i*100+20 &&
-                                                   redBishop2Square.posY == j*100+20) {
-                                                    redBishop2Square.posX = 1300;
-                                                }
-                                                if(redKnight1Rectangle1.posX == i*100+20 &&
-                                                   redKnight1Rectangle1.posY == j*100+20) {
-                                                    redKnight1Rectangle1.posX = 1300;
-                                                }
-                                                if(redKnight2Rectangle1.posX == i*100+20 &&
-                                                   redKnight2Rectangle1.posY == j*100+20) {
-                                                    redKnight2Rectangle1.posX = 1300;
-                                                }
-                                                if(redRook1Rectangle1.posX == i*100+20 &&
-                                                   redRook1Rectangle1.posY == j*100+20) {
-                                                    redRook1Rectangle1.posX = 1300;
-                                                }
-                                                if(redRook2Rectangle1.posX == i*100+20 &&
-                                                   redRook2Rectangle1.posY == j*100+20) {
-                                                    redRook2Rectangle1.posX = 1300;
-                                                }
-
-                                                turn = 'r';
-                                                turnChanged = TRUE;
-                                                done = TRUE;
-                                            }
-                                        } else {
-                                            turn = 'h';
-                                        }
-                                    } else if(j*100+20 == greyKnight1Rectangle1.posY - 100 &&
-                                              i*100+20 == greyKnight1Rectangle1.posX + 200) {
-                                        
-                                        for(int t=0; t<8; t++) {
-                                            if(greyPawnsBase[t].posX == i*100+20 &&
-                                               greyPawnsBase[t].posY == j*100+20) {
-                                                failed = TRUE;
-                                            }
-                                        }
-                                        if(greyQueenSquare.posX == i*100+20 &&
-                                           greyQueenSquare.posY == j*100+20) {
-                                            failed = TRUE;
-                                        }
-                                        if(greyBishop1Square.posX == i*100+20 &&
-                                           greyBishop1Square.posY == j*100+20) {
-                                            failed = TRUE;
-                                        }
-                                        if(greyBishop2Square.posX == i*100+20 &&
-                                           greyBishop2Square.posY == j*100+20) {
-                                            failed = TRUE;
-                                        }
-                                        if(greyRook1Rectangle1.posX == i*100+20 &&
-                                           greyRook1Rectangle1.posY == j*100+20) {
-                                            failed = TRUE;
-                                        }
-                                        if(greyRook2Rectangle1.posX == i*100+20 &&
-                                           greyRook2Rectangle1.posY == j*100+20) {
-                                            failed = TRUE;
-                                        }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
-                                            failed = TRUE;
-                                        }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
-                                            failed = TRUE;
-                                        }
-
-                                        if(!failed) {
-
-                                            int a1 = greyKnight1Rectangle1.posY;
-                                            int a0 = greyKnight1Rectangle1.posX;
-                                            
-                                            greyKnight1Rectangle1.posX = i*100+20;
-                                            greyKnight1Rectangle1.posY = j*100+20;
+                                            greyKnight1Rectangle1.posX = i*70+20;
+                                            greyKnight1Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckGrey(j, i);
                                             
@@ -7239,43 +7134,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 done = TRUE;
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(redPawnsBase[t].posX == i*100+20 &&
-                                                       redPawnsBase[t].posY == j*100+20) {
+                                                    if(redPawnsBase[t].posX == i*70+20 &&
+                                                       redPawnsBase[t].posY == j*70+20) {
                                                         redPawnsBase[t].posX = 1300;
                                                     }
                                                 }
-                                                if(redQueenSquare.posX == i*100+20 &&
-                                                   redQueenSquare.posY == j*100+20) {
-                                                    redQueenSquare.posX = 1300;
-                                                }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(redBishop1Square.posX == i*100+20 &&
-                                                   redBishop1Square.posY == j*100+20) {
+                                                if(redQueenSquare.posX == i*70+20 &&
+                                                   redQueenSquare.posY == j*70+20) {
+                                                    redQueenSquare.posX = 1300;
+                                                }
+                                                if(redBishop1Square.posX == i*70+20 &&
+                                                   redBishop1Square.posY == j*70+20) {
                                                     redBishop1Square.posX = 1300;
                                                 }
-                                                if(redBishop2Square.posX == i*100+20 &&
-                                                   redBishop2Square.posY == j*100+20) {
+                                                if(redBishop2Square.posX == i*70+20 &&
+                                                   redBishop2Square.posY == j*70+20) {
                                                     redBishop2Square.posX = 1300;
                                                 }
-                                                if(redKnight1Rectangle1.posX == i*100+20 &&
-                                                   redKnight1Rectangle1.posY == j*100+20) {
+                                                if(redKnight1Rectangle1.posX == i*70+20 &&
+                                                   redKnight1Rectangle1.posY == j*70+20) {
                                                     redKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(redKnight2Rectangle1.posX == i*100+20 &&
-                                                   redKnight2Rectangle1.posY == j*100+20) {
+                                                if(redKnight2Rectangle1.posX == i*70+20 &&
+                                                   redKnight2Rectangle1.posY == j*70+20) {
                                                     redKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook1Rectangle1.posX == i*100+20 &&
-                                                   redRook1Rectangle1.posY == j*100+20) {
+                                                if(redRook1Rectangle1.posX == i*70+20 &&
+                                                   redRook1Rectangle1.posY == j*70+20) {
                                                     redRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook2Rectangle1.posX == i*100+20 &&
-                                                   redRook2Rectangle1.posY == j*100+20) {
+                                                if(redRook2Rectangle1.posX == i*70+20 &&
+                                                   redRook2Rectangle1.posY == j*70+20) {
                                                     redRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -7286,41 +7181,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'h';
                                         }
-                                    } else if(j*100+20 == greyKnight1Rectangle1.posY + 100 &&
-                                              i*100+20 == greyKnight1Rectangle1.posX + 200) {
+                                    } else if(j*70+20 == greyKnight1Rectangle1.posY - 70 &&
+                                              i*70+20 == greyKnight1Rectangle1.posX + 140) {
                                         
                                         for(int t=0; t<8; t++) {
-                                            if(greyPawnsBase[t].posX == i*100+20 &&
-                                               greyPawnsBase[t].posY == j*100+20) {
+                                            if(greyPawnsBase[t].posX == i*70+20 &&
+                                               greyPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(greyQueenSquare.posX == i*100+20 &&
-                                           greyQueenSquare.posY == j*100+20) {
+                                        if(greyQueenSquare.posX == i*70+20 &&
+                                           greyQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop1Square.posX == i*100+20 &&
-                                           greyBishop1Square.posY == j*100+20) {
+                                        if(greyBishop1Square.posX == i*70+20 &&
+                                           greyBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop2Square.posX == i*100+20 &&
-                                           greyBishop2Square.posY == j*100+20) {
+                                        if(greyBishop2Square.posX == i*70+20 &&
+                                           greyBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook1Rectangle1.posX == i*100+20 &&
-                                           greyRook1Rectangle1.posY == j*100+20) {
+                                        if(greyRook1Rectangle1.posX == i*70+20 &&
+                                           greyRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook2Rectangle1.posX == i*100+20 &&
-                                           greyRook2Rectangle1.posY == j*100+20) {
+                                        if(greyRook2Rectangle1.posX == i*70+20 &&
+                                           greyRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -7329,8 +7224,113 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = greyKnight1Rectangle1.posY;
                                             int a0 = greyKnight1Rectangle1.posX;
                                             
-                                            greyKnight1Rectangle1.posX = i*100+20;
-                                            greyKnight1Rectangle1.posY = j*100+20;
+                                            greyKnight1Rectangle1.posX = i*70+20;
+                                            greyKnight1Rectangle1.posY = j*70+20;
+
+                                            boolean ffff = checkCheckGrey(j, i);
+                                            
+                                            if(ffff) {
+                                                
+                                                greyKnight1Rectangle1.posY = a1;
+                                                greyKnight1Rectangle1.posX = a0;
+
+                                            } else {
+
+                                                done = TRUE;
+
+                                                for(int t=0; t<8; t++) {
+                                                    if(redPawnsBase[t].posX == i*70+20 &&
+                                                       redPawnsBase[t].posY == j*70+20) {
+                                                        redPawnsBase[t].posX = 1300;
+                                                    }
+                                                }
+                                                if(redQueenSquare.posX == i*70+20 &&
+                                                   redQueenSquare.posY == j*70+20) {
+                                                    redQueenSquare.posX = 1300;
+                                                }
+                                                for(int z=0; z<8; z++) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
+                                                        redQueenSquareK[z].posX = 1300;
+                                                    }
+                                                }
+                                                if(redBishop1Square.posX == i*70+20 &&
+                                                   redBishop1Square.posY == j*70+20) {
+                                                    redBishop1Square.posX = 1300;
+                                                }
+                                                if(redBishop2Square.posX == i*70+20 &&
+                                                   redBishop2Square.posY == j*70+20) {
+                                                    redBishop2Square.posX = 1300;
+                                                }
+                                                if(redKnight1Rectangle1.posX == i*70+20 &&
+                                                   redKnight1Rectangle1.posY == j*70+20) {
+                                                    redKnight1Rectangle1.posX = 1300;
+                                                }
+                                                if(redKnight2Rectangle1.posX == i*70+20 &&
+                                                   redKnight2Rectangle1.posY == j*70+20) {
+                                                    redKnight2Rectangle1.posX = 1300;
+                                                }
+                                                if(redRook1Rectangle1.posX == i*70+20 &&
+                                                   redRook1Rectangle1.posY == j*70+20) {
+                                                    redRook1Rectangle1.posX = 1300;
+                                                }
+                                                if(redRook2Rectangle1.posX == i*70+20 &&
+                                                   redRook2Rectangle1.posY == j*70+20) {
+                                                    redRook2Rectangle1.posX = 1300;
+                                                }
+
+                                                turn = 'r';
+                                                turnChanged = TRUE;
+                                                done = TRUE;
+                                            }
+                                        } else {
+                                            turn = 'h';
+                                        }
+                                    } else if(j*70+20 == greyKnight1Rectangle1.posY + 70 &&
+                                              i*70+20 == greyKnight1Rectangle1.posX + 140) {
+                                        
+                                        for(int t=0; t<8; t++) {
+                                            if(greyPawnsBase[t].posX == i*70+20 &&
+                                               greyPawnsBase[t].posY == j*70+20) {
+                                                failed = TRUE;
+                                            }
+                                        }
+                                        if(greyQueenSquare.posX == i*70+20 &&
+                                           greyQueenSquare.posY == j*70+20) {
+                                            failed = TRUE;
+                                        }
+                                        if(greyBishop1Square.posX == i*70+20 &&
+                                           greyBishop1Square.posY == j*70+20) {
+                                            failed = TRUE;
+                                        }
+                                        if(greyBishop2Square.posX == i*70+20 &&
+                                           greyBishop2Square.posY == j*70+20) {
+                                            failed = TRUE;
+                                        }
+                                        if(greyRook1Rectangle1.posX == i*70+20 &&
+                                           greyRook1Rectangle1.posY == j*70+20) {
+                                            failed = TRUE;
+                                        }
+                                        if(greyRook2Rectangle1.posX == i*70+20 &&
+                                           greyRook2Rectangle1.posY == j*70+20) {
+                                            failed = TRUE;
+                                        }
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
+                                            failed = TRUE;
+                                        }
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
+                                            failed = TRUE;
+                                        }
+
+                                        if(!failed) {
+
+                                            int a1 = greyKnight1Rectangle1.posY;
+                                            int a0 = greyKnight1Rectangle1.posX;
+                                            
+                                            greyKnight1Rectangle1.posX = i*70+20;
+                                            greyKnight1Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckGrey(j, i);
 
@@ -7344,43 +7344,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 done = TRUE;
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(redPawnsBase[t].posX == i*100+20 &&
-                                                       redPawnsBase[t].posY == j*100+20) {
+                                                    if(redPawnsBase[t].posX == i*70+20 &&
+                                                       redPawnsBase[t].posY == j*70+20) {
                                                         redPawnsBase[t].posX = 1300;
                                                     }
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(redQueenSquare.posX == i*100+20 &&
-                                                   redQueenSquare.posY == j*100+20) {
+                                                if(redQueenSquare.posX == i*70+20 &&
+                                                   redQueenSquare.posY == j*70+20) {
                                                     redQueenSquare.posX = 1300;
                                                 }
-                                                if(redBishop1Square.posX == i*100+20 &&
-                                                   redBishop1Square.posY == j*100+20) {
+                                                if(redBishop1Square.posX == i*70+20 &&
+                                                   redBishop1Square.posY == j*70+20) {
                                                     redBishop1Square.posX = 1300;
                                                 }
-                                                if(redBishop2Square.posX == i*100+20 &&
-                                                   redBishop2Square.posY == j*100+20) {
+                                                if(redBishop2Square.posX == i*70+20 &&
+                                                   redBishop2Square.posY == j*70+20) {
                                                     redBishop2Square.posX = 1300;
                                                 }
-                                                if(redKnight1Rectangle1.posX == i*100+20 &&
-                                                   redKnight1Rectangle1.posY == j*100+20) {
+                                                if(redKnight1Rectangle1.posX == i*70+20 &&
+                                                   redKnight1Rectangle1.posY == j*70+20) {
                                                     redKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(redKnight2Rectangle1.posX == i*100+20 &&
-                                                   redKnight2Rectangle1.posY == j*100+20) {
+                                                if(redKnight2Rectangle1.posX == i*70+20 &&
+                                                   redKnight2Rectangle1.posY == j*70+20) {
                                                     redKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook1Rectangle1.posX == i*100+20 &&
-                                                   redRook1Rectangle1.posY == j*100+20) {
+                                                if(redRook1Rectangle1.posX == i*70+20 &&
+                                                   redRook1Rectangle1.posY == j*70+20) {
                                                     redRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook2Rectangle1.posX == i*100+20 &&
-                                                   redRook2Rectangle1.posY == j*100+20) {
+                                                if(redRook2Rectangle1.posX == i*70+20 &&
+                                                   redRook2Rectangle1.posY == j*70+20) {
                                                     redRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -7397,8 +7397,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             
                             itdid = FALSE;
                             
-                            if(greyKingSquare.posX == i*100+20 &&
-                               greyKingSquare.posY == j*100+20) {
+                            if(greyKingSquare.posX == i*70+20 &&
+                               greyKingSquare.posY == j*70+20) {
                                 
                                 clickedOne = 'g';
                                 greyKingSquare.clicked = TRUE;
@@ -7421,184 +7421,184 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                     greyKingSquare.clicked = FALSE;
 
-                                    if(j*100+20 == greyKingSquare.posY &&
-                                       i*100+20 == greyKingSquare.posX - 200) {
-                                        if(greyRook1Rectangle1.posY == 700+20 &&
+                                    if(j*70+20 == greyKingSquare.posY &&
+                                       i*70+20 == greyKingSquare.posX - 140) {
+                                        if(greyRook1Rectangle1.posY == 490+20 &&
                                            greyRook1Rectangle1.posX == 0+20) {
-                                            if(greyKingSquare.posY == 700+20 &&
-                                               greyKingSquare.posX == 400+20) {
+                                            if(greyKingSquare.posY == 490+20 &&
+                                               greyKingSquare.posX == 280+20) {
                                                 boolean isthere = FALSE;
-                                                if(greyRook1Rectangle1.posX == 300+20 &&
-                                                   greyRook1Rectangle1.posY == 700+20) {
+                                                if(greyRook1Rectangle1.posX == 210+20 &&
+                                                   greyRook1Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyRook1Rectangle1.posX == 200+20 &&
-                                                   greyRook1Rectangle1.posY == 700+20) {
+                                                if(greyRook1Rectangle1.posX == 140+20 &&
+                                                   greyRook1Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyRook1Rectangle1.posX == 100+20 &&
-                                                   greyRook1Rectangle1.posY == 700+20) {
+                                                if(greyRook1Rectangle1.posX == 70+20 &&
+                                                   greyRook1Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyRook2Rectangle1.posX == 300+20 &&
-                                                   greyRook2Rectangle1.posY == 700+20) {
+                                                if(greyRook2Rectangle1.posX == 210+20 &&
+                                                   greyRook2Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyRook2Rectangle1.posX == 200+20 &&
-                                                   greyRook2Rectangle1.posY == 700+20) {
+                                                if(greyRook2Rectangle1.posX == 140+20 &&
+                                                   greyRook2Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyRook2Rectangle1.posX == 100+20 &&
-                                                   greyRook2Rectangle1.posY == 700+20) {
+                                                if(greyRook2Rectangle1.posX == 70+20 &&
+                                                   greyRook2Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook1Rectangle1.posX == 300+20 &&
-                                                   redRook1Rectangle1.posY == 700+20) {
+                                                if(redRook1Rectangle1.posX == 210+20 &&
+                                                   redRook1Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook1Rectangle1.posX == 200+20 &&
-                                                   redRook1Rectangle1.posY == 700+20) {
+                                                if(redRook1Rectangle1.posX == 140+20 &&
+                                                   redRook1Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook1Rectangle1.posX == 100+20 &&
-                                                   redRook1Rectangle1.posY == 700+20) {
+                                                if(redRook1Rectangle1.posX == 70+20 &&
+                                                   redRook1Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook2Rectangle1.posX == 300+20 &&
-                                                   redRook2Rectangle1.posY == 700+20) {
+                                                if(redRook2Rectangle1.posX == 210+20 &&
+                                                   redRook2Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook2Rectangle1.posX == 200+20 &&
-                                                   redRook2Rectangle1.posY == 700+20) {
+                                                if(redRook2Rectangle1.posX == 140+20 &&
+                                                   redRook2Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook2Rectangle1.posX == 100+20 &&
-                                                   redRook2Rectangle1.posY == 700+20) {
+                                                if(redRook2Rectangle1.posX == 70+20 &&
+                                                   redRook2Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop1Square.posX == 300+20 &&
-                                                   greyBishop1Square.posY == 700+20) {
+                                                if(greyBishop1Square.posX == 210+20 &&
+                                                   greyBishop1Square.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop1Square.posX == 200+20 &&
-                                                   greyBishop1Square.posY == 700+20) {
+                                                if(greyBishop1Square.posX == 140+20 &&
+                                                   greyBishop1Square.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop1Square.posX == 100+20 &&
-                                                   greyBishop1Square.posY == 700+20) {
+                                                if(greyBishop1Square.posX == 70+20 &&
+                                                   greyBishop1Square.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop2Square.posX == 300+20 &&
-                                                   greyBishop2Square.posY == 700+20) {
+                                                if(greyBishop2Square.posX == 210+20 &&
+                                                   greyBishop2Square.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop2Square.posX == 200+20 &&
-                                                   greyBishop2Square.posY == 700+20) {
+                                                if(greyBishop2Square.posX == 140+20 &&
+                                                   greyBishop2Square.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop2Square.posX == 100+20 &&
-                                                   greyBishop2Square.posY == 700+20) {
+                                                if(greyBishop2Square.posX == 70+20 &&
+                                                   greyBishop2Square.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop1Square.posX == 300+20 &&
-                                                   redBishop1Square.posY == 700+20) {
+                                                if(redBishop1Square.posX == 210+20 &&
+                                                   redBishop1Square.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop1Square.posX == 200+20 &&
-                                                   redBishop1Square.posY == 700+20) {
+                                                if(redBishop1Square.posX == 140+20 &&
+                                                   redBishop1Square.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop1Square.posX == 100+20 &&
-                                                   redBishop1Square.posY == 700+20) {
+                                                if(redBishop1Square.posX == 70+20 &&
+                                                   redBishop1Square.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop2Square.posX == 300+20 &&
-                                                   redBishop2Square.posY == 700+20) {
+                                                if(redBishop2Square.posX == 210+20 &&
+                                                   redBishop2Square.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop2Square.posX == 200+20 &&
-                                                   redBishop2Square.posY == 700+20) {
+                                                if(redBishop2Square.posX == 140+20 &&
+                                                   redBishop2Square.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop2Square.posX == 100+20 &&
-                                                   redBishop2Square.posY == 700+20) {
+                                                if(redBishop2Square.posX == 70+20 &&
+                                                   redBishop2Square.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == 300+20 &&
-                                                   greyKnight1Rectangle1.posY == 700+20) {
+                                                if(greyKnight1Rectangle1.posX == 210+20 &&
+                                                   greyKnight1Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == 200+20 &&
-                                                   greyKnight1Rectangle1.posY == 700+20) {
+                                                if(greyKnight1Rectangle1.posX == 140+20 &&
+                                                   greyKnight1Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == 100+20 &&
-                                                   greyKnight1Rectangle1.posY == 700+20) {
+                                                if(greyKnight1Rectangle1.posX == 70+20 &&
+                                                   greyKnight1Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == 300+20 &&
-                                                   greyKnight2Rectangle1.posY == 700+20) {
+                                                if(greyKnight2Rectangle1.posX == 210+20 &&
+                                                   greyKnight2Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == 200+20 &&
-                                                   greyKnight2Rectangle1.posY == 700+20) {
+                                                if(greyKnight2Rectangle1.posX == 140+20 &&
+                                                   greyKnight2Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == 100+20 &&
-                                                   greyKnight2Rectangle1.posY == 700+20) {
+                                                if(greyKnight2Rectangle1.posX == 70+20 &&
+                                                   greyKnight2Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight1Rectangle1.posX == 300+20 &&
-                                                   redKnight1Rectangle1.posY == 700+20) {
+                                                if(redKnight1Rectangle1.posX == 210+20 &&
+                                                   redKnight1Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight1Rectangle1.posX == 200+20 &&
-                                                   redKnight1Rectangle1.posY == 700+20) {
+                                                if(redKnight1Rectangle1.posX == 140+20 &&
+                                                   redKnight1Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight1Rectangle1.posX == 100+20 &&
-                                                   redKnight1Rectangle1.posY == 700+20) {
+                                                if(redKnight1Rectangle1.posX == 70+20 &&
+                                                   redKnight1Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight2Rectangle1.posX == 300+20 &&
-                                                   redKnight2Rectangle1.posY == 700+20) {
+                                                if(redKnight2Rectangle1.posX == 210+20 &&
+                                                   redKnight2Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight2Rectangle1.posX == 200+20 &&
-                                                   redKnight2Rectangle1.posY == 700+20) {
+                                                if(redKnight2Rectangle1.posX == 140+20 &&
+                                                   redKnight2Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight2Rectangle1.posX == 100+20 &&
-                                                   redKnight2Rectangle1.posY == 700+20) {
+                                                if(redKnight2Rectangle1.posX == 70+20 &&
+                                                   redKnight2Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyQueenSquare.posX == 300+20 &&
-                                                   greyQueenSquare.posY == 700+20) {
+                                                if(greyQueenSquare.posX == 210+20 &&
+                                                   greyQueenSquare.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyQueenSquare.posX == 200+20 &&
-                                                   greyQueenSquare.posY == 700+20) {
+                                                if(greyQueenSquare.posX == 140+20 &&
+                                                   greyQueenSquare.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyQueenSquare.posX == 100+20 &&
-                                                   greyQueenSquare.posY == 700+20) {
+                                                if(greyQueenSquare.posX == 70+20 &&
+                                                   greyQueenSquare.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redQueenSquare.posX == 300+20 &&
-                                                   redQueenSquare.posY == 700+20) {
+                                                if(redQueenSquare.posX == 210+20 &&
+                                                   redQueenSquare.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redQueenSquare.posX == 200+20 &&
-                                                   redQueenSquare.posY == 700+20) {
+                                                if(redQueenSquare.posX == 140+20 &&
+                                                   redQueenSquare.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redQueenSquare.posX == 100+20 &&
-                                                   redQueenSquare.posY == 700+20) {
+                                                if(redQueenSquare.posX == 70+20 &&
+                                                   redQueenSquare.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
                                                 if(!isthere && !greyKingMoved && !greyRook1Moved) {
-                                                    greyKingSquare.posX -= 200;
-                                                    greyRook1Rectangle1.posX += 300;
+                                                    greyKingSquare.posX -= 140;
+                                                    greyRook1Rectangle1.posX += 210;
                                                     greyKingMoved = TRUE;
                                                     greyRook1Moved = TRUE;
                                                     turnChanged = TRUE;
@@ -7609,128 +7609,128 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
                                     }
 
-                                    if(j*100+20 == greyKingSquare.posY &&
-                                       i*100+20 == greyKingSquare.posX + 200) {
-                                        if(greyRook2Rectangle1.posY == 700+20 &&
-                                           greyRook2Rectangle1.posX == 700+20) {
-                                            if(greyKingSquare.posY == 700+20 &&
+                                    if(j*70+20 == greyKingSquare.posY &&
+                                       i*70+20 == greyKingSquare.posX + 140) {
+                                        if(greyRook2Rectangle1.posY == 490+20 &&
+                                           greyRook2Rectangle1.posX == 490+20) {
+                                            if(greyKingSquare.posY == 490+20 &&
                                                greyKingSquare.posX == 400+20) {
                                                 boolean isthere = FALSE;
-                                                if(greyRook1Rectangle1.posX == 500+20 &&
-                                                   greyRook1Rectangle1.posY == 700+20) {
+                                                if(greyRook1Rectangle1.posX == 350+20 &&
+                                                   greyRook1Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyRook1Rectangle1.posX == 600+20 &&
-                                                   greyRook1Rectangle1.posY == 700+20) {
+                                                if(greyRook1Rectangle1.posX == 420+20 &&
+                                                   greyRook1Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyRook2Rectangle1.posX == 500+20 &&
-                                                   greyRook2Rectangle1.posY == 700+20) {
+                                                if(greyRook2Rectangle1.posX == 350+20 &&
+                                                   greyRook2Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyRook2Rectangle1.posX == 600+20 &&
-                                                   greyRook2Rectangle1.posY == 700+20) {
+                                                if(greyRook2Rectangle1.posX == 420+20 &&
+                                                   greyRook2Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook1Rectangle1.posX == 500+20 &&
-                                                   redRook1Rectangle1.posY == 700+20) {
+                                                if(redRook1Rectangle1.posX == 350+20 &&
+                                                   redRook1Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook1Rectangle1.posX == 600+20 &&
-                                                   redRook1Rectangle1.posY == 700+20) {
+                                                if(redRook1Rectangle1.posX == 420+20 &&
+                                                   redRook1Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook2Rectangle1.posX == 500+20 &&
-                                                   redRook2Rectangle1.posY == 700+20) {
+                                                if(redRook2Rectangle1.posX == 350+20 &&
+                                                   redRook2Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook2Rectangle1.posX == 600+20 &&
-                                                   redRook2Rectangle1.posY == 700+20) {
+                                                if(redRook2Rectangle1.posX == 420+20 &&
+                                                   redRook2Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop1Square.posX == 500+20 &&
-                                                   greyBishop1Square.posY == 700+20) {
+                                                if(greyBishop1Square.posX == 350+20 &&
+                                                   greyBishop1Square.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop1Square.posX == 600+20 &&
-                                                   greyBishop1Square.posY == 700+20) {
+                                                if(greyBishop1Square.posX == 420+20 &&
+                                                   greyBishop1Square.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop2Square.posX == 500+20 &&
-                                                   greyBishop2Square.posY == 700+20) {
+                                                if(greyBishop2Square.posX == 350+20 &&
+                                                   greyBishop2Square.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop2Square.posX == 600+20 &&
-                                                   greyBishop2Square.posY == 700+20) {
+                                                if(greyBishop2Square.posX == 420+20 &&
+                                                   greyBishop2Square.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop1Square.posX == 500+20 &&
-                                                   redBishop1Square.posY == 700+20) {
+                                                if(redBishop1Square.posX == 350+20 &&
+                                                   redBishop1Square.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop1Square.posX == 600+20 &&
-                                                   redBishop1Square.posY == 700+20) {
+                                                if(redBishop1Square.posX == 420+20 &&
+                                                   redBishop1Square.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop2Square.posX == 500+20 &&
-                                                   redBishop2Square.posY == 700+20) {
+                                                if(redBishop2Square.posX == 350+20 &&
+                                                   redBishop2Square.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop2Square.posX == 600+20 &&
-                                                   redBishop2Square.posY == 700+20) {
+                                                if(redBishop2Square.posX == 420+20 &&
+                                                   redBishop2Square.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == 500+20 &&
-                                                   greyKnight1Rectangle1.posY == 700+20) {
+                                                if(greyKnight1Rectangle1.posX == 350+20 &&
+                                                   greyKnight1Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == 600+20 &&
-                                                   greyKnight1Rectangle1.posY == 700+20) {
+                                                if(greyKnight1Rectangle1.posX == 420+20 &&
+                                                   greyKnight1Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == 500+20 &&
-                                                   greyKnight2Rectangle1.posY == 700+20) {
+                                                if(greyKnight2Rectangle1.posX == 350+20 &&
+                                                   greyKnight2Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == 600+20 &&
-                                                   greyKnight2Rectangle1.posY == 700+20) {
+                                                if(greyKnight2Rectangle1.posX == 420+20 &&
+                                                   greyKnight2Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight1Rectangle1.posX == 500+20 &&
-                                                   redKnight1Rectangle1.posY == 700+20) {
+                                                if(redKnight1Rectangle1.posX == 350+20 &&
+                                                   redKnight1Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight1Rectangle1.posX == 600+20 &&
-                                                   redKnight1Rectangle1.posY == 700+20) {
+                                                if(redKnight1Rectangle1.posX == 420+20 &&
+                                                   redKnight1Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight2Rectangle1.posX == 500+20 &&
-                                                   redKnight2Rectangle1.posY == 700+20) {
+                                                if(redKnight2Rectangle1.posX == 350+20 &&
+                                                   redKnight2Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight2Rectangle1.posX == 600+20 &&
-                                                   redKnight2Rectangle1.posY == 700+20) {
+                                                if(redKnight2Rectangle1.posX == 420+20 &&
+                                                   redKnight2Rectangle1.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyQueenSquare.posX == 500+20 &&
-                                                   greyQueenSquare.posY == 700+20) {
+                                                if(greyQueenSquare.posX == 350+20 &&
+                                                   greyQueenSquare.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyQueenSquare.posX == 600+20 &&
-                                                   greyQueenSquare.posY == 700+20) {
+                                                if(greyQueenSquare.posX == 420+20 &&
+                                                   greyQueenSquare.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redQueenSquare.posX == 500+20 &&
-                                                   redQueenSquare.posY == 700+20) {
+                                                if(redQueenSquare.posX == 350+20 &&
+                                                   redQueenSquare.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redQueenSquare.posX == 600+20 &&
-                                                   redQueenSquare.posY == 700+20) {
+                                                if(redQueenSquare.posX == 420+20 &&
+                                                   redQueenSquare.posY == 490+20) {
                                                     isthere = TRUE;
                                                 }
                                                 if(!isthere && !greyKingMoved && !greyRook2Moved) {
-                                                    greyKingSquare.posX += 200;
-                                                    greyRook2Rectangle1.posX -= 200;
+                                                    greyKingSquare.posX += 140;
+                                                    greyRook2Rectangle1.posX -= 140;
                                                     greyKingMoved = TRUE;
                                                     greyRook2Moved = TRUE;
                                                     turnChanged = TRUE;
@@ -7741,41 +7741,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
                                     }
 
-                                    if(j*100+20 == greyKingSquare.posY - 100 &&
-                                       i*100+20 == greyKingSquare.posX) {
+                                    if(j*70+20 == greyKingSquare.posY - 70 &&
+                                       i*70+20 == greyKingSquare.posX) {
                                         
                                         for(int t=0; t<8; t++) {
-                                            if(greyPawnsBase[t].posX == i*100+20 &&
-                                               greyPawnsBase[t].posY == j*100+20) {
+                                            if(greyPawnsBase[t].posX == i*70+20 &&
+                                               greyPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(greyQueenSquare.posX == i*100+20 &&
-                                           greyQueenSquare.posY == j*100+20) {
+                                        if(greyQueenSquare.posX == i*70+20 &&
+                                           greyQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop1Square.posX == i*100+20 &&
-                                           greyBishop1Square.posY == j*100+20) {
+                                        if(greyBishop1Square.posX == i*70+20 &&
+                                           greyBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop2Square.posX == i*100+20 &&
-                                           greyBishop2Square.posY == j*100+20) {
+                                        if(greyBishop2Square.posX == i*70+20 &&
+                                           greyBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                           greyKnight1Rectangle1.posY == j*100+20) {
+                                        if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                           greyKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                           greyKnight2Rectangle1.posY == j*100+20) {
+                                        if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                           greyKnight2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook1Rectangle1.posX == i*100+20 &&
-                                           greyRook1Rectangle1.posY == j*100+20) {
+                                        if(greyRook1Rectangle1.posX == i*70+20 &&
+                                           greyRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook2Rectangle1.posX == i*100+20 &&
-                                           greyRook2Rectangle1.posY == j*100+20) {
+                                        if(greyRook2Rectangle1.posX == i*70+20 &&
+                                           greyRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
                                         
@@ -7783,7 +7783,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = greyKingSquare.posY;
                                             int a0 = greyKingSquare.posX;
 
-                                            greyKingSquare.posY -= 100;
+                                            greyKingSquare.posY -= 70;
                                             
                                             boolean ffff = checkCheckGrey(j, i);
                                             
@@ -7797,49 +7797,49 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 for(int l=0; l<8; l++) {
                                                     if((redPawnsBase[l].posX == greyKingSquare.posX ||
                                                         redPawnsBase[l].posX == greyKingSquare.posX) && 
-                                                        redPawnsBase[l].posY == j*100+20) {
+                                                        redPawnsBase[l].posY == j*70+20) {
                                                         redPawnsBase[l].posX = 1300;
                                                         break;
                                                     }
                                                 }
-                                                if(redQueenSquare.posX == i*100+20 &&
-                                                   redQueenSquare.posY == j*100+20) {
+                                                if(redQueenSquare.posX == i*70+20 &&
+                                                   redQueenSquare.posY == j*70+20) {
                                                     redQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(redBishop1Square.posX == i*100+20 &&
-                                                   redBishop1Square.posY == j*100+20) {
+                                                if(redBishop1Square.posX == i*70+20 &&
+                                                   redBishop1Square.posY == j*70+20) {
                                                     redBishop1Square.posX = 1300;
                                                 }
-                                                if(redBishop2Square.posX == i*100+20 &&
-                                                   redBishop2Square.posY == j*100+20) {
+                                                if(redBishop2Square.posX == i*70+20 &&
+                                                   redBishop2Square.posY == j*70+20) {
                                                     redBishop2Square.posX = 1300;
                                                 }
-                                                if(redKnight1Rectangle1.posX == i*100+20 &&
-                                                   redKnight1Rectangle1.posY == j*100+20) {
+                                                if(redKnight1Rectangle1.posX == i*70+20 &&
+                                                   redKnight1Rectangle1.posY == j*70+20) {
                                                     redKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(redKnight2Rectangle1.posX == i*100+20 &&
-                                                   redKnight2Rectangle1.posY == j*100+20) {
+                                                if(redKnight2Rectangle1.posX == i*70+20 &&
+                                                   redKnight2Rectangle1.posY == j*70+20) {
                                                     redKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook1Rectangle1.posX == i*100+20 &&
-                                                   redRook1Rectangle1.posY == j*100+20) {
+                                                if(redRook1Rectangle1.posX == i*70+20 &&
+                                                   redRook1Rectangle1.posY == j*70+20) {
                                                     redRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook2Rectangle1.posX == i*100+20 &&
-                                                   redRook2Rectangle1.posY == j*100+20) {
+                                                if(redRook2Rectangle1.posX == i*70+20 &&
+                                                   redRook2Rectangle1.posY == j*70+20) {
                                                     redRook2Rectangle1.posX = 1300;
                                                 }
 
                                                 for(int u=0; u<8; u++) {
                                                     if(redPawnsBase[u].posX == greyKingSquare.posX &&
-                                                       redPawnsBase[u].posY == greyKingSquare.posY + 100) {
+                                                       redPawnsBase[u].posY == greyKingSquare.posY + 70) {
                                                         redPawnsBase[u].posX = 1300;
                                                         break;
                                                     }
@@ -7853,41 +7853,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'h';
                                         }
-                                    } else if(j*100+20 == greyKingSquare.posY - 100 &&
-                                              i*100+20 == greyKingSquare.posX + 100) {
+                                    } else if(j*70+20 == greyKingSquare.posY - 70 &&
+                                              i*70+20 == greyKingSquare.posX + 70) {
                                         
                                         for(int t=0; t<8; t++) {
-                                            if(greyPawnsBase[t].posX == i*100+20 &&
-                                               greyPawnsBase[t].posY == j*100+20) {
+                                            if(greyPawnsBase[t].posX == i*70+20 &&
+                                               greyPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(greyQueenSquare.posX == i*100+20 &&
-                                           greyQueenSquare.posY == j*100+20) {
+                                        if(greyQueenSquare.posX == i*70+20 &&
+                                           greyQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop1Square.posX == i*100+20 &&
-                                           greyBishop1Square.posY == j*100+20) {
+                                        if(greyBishop1Square.posX == i*70+20 &&
+                                           greyBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop2Square.posX == i*100+20 &&
-                                           greyBishop2Square.posY == j*100+20) {
+                                        if(greyBishop2Square.posX == i*70+20 &&
+                                           greyBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                           greyKnight1Rectangle1.posY == j*100+20) {
+                                        if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                           greyKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                           greyKnight2Rectangle1.posY == j*100+20) {
+                                        if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                           greyKnight2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook1Rectangle1.posX == i*100+20 &&
-                                           greyRook1Rectangle1.posY == j*100+20) {
+                                        if(greyRook1Rectangle1.posX == i*70+20 &&
+                                           greyRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook2Rectangle1.posX == i*100+20 &&
-                                           greyRook2Rectangle1.posY == j*100+20) {
+                                        if(greyRook2Rectangle1.posX == i*70+20 &&
+                                           greyRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
                                         
@@ -7895,8 +7895,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = greyKingSquare.posY;
                                             int a0 = greyKingSquare.posX;
 
-                                            greyKingSquare.posY -= 100;
-                                            greyKingSquare.posX += 100;
+                                            greyKingSquare.posY -= 70;
+                                            greyKingSquare.posX += 70;
                                             
                                             boolean ffff = checkCheckGrey(j, i);
                                             
@@ -7909,49 +7909,49 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 for(int l=0; l<8; l++) {
                                                     if((redPawnsBase[l].posX == greyKingSquare.posX ||
                                                         redPawnsBase[l].posX == greyKingSquare.posX) && 
-                                                        redPawnsBase[l].posY == j*100+20) {
+                                                        redPawnsBase[l].posY == j*70+20) {
                                                         redPawnsBase[l].posX = 1300;
                                                         break;
                                                     }
                                                 }
-                                                if(redQueenSquare.posX == i*100+20 &&
-                                                   redQueenSquare.posY == j*100+20) {
+                                                if(redQueenSquare.posX == i*70+20 &&
+                                                   redQueenSquare.posY == j*70+20) {
                                                     redQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(redBishop1Square.posX == i*100+20 &&
-                                                   redBishop1Square.posY == j*100+20) {
+                                                if(redBishop1Square.posX == i*70+20 &&
+                                                   redBishop1Square.posY == j*70+20) {
                                                     redBishop1Square.posX = 1300;
                                                 }
-                                                if(redBishop2Square.posX == i*100+20 &&
-                                                   redBishop2Square.posY == j*100+20) {
+                                                if(redBishop2Square.posX == i*70+20 &&
+                                                   redBishop2Square.posY == j*70+20) {
                                                     redBishop2Square.posX = 1300;
                                                 }
-                                                if(redKnight1Rectangle1.posX == i*100+20 &&
-                                                   redKnight1Rectangle1.posY == j*100+20) {
+                                                if(redKnight1Rectangle1.posX == i*70+20 &&
+                                                   redKnight1Rectangle1.posY == j*70+20) {
                                                     redKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(redKnight2Rectangle1.posX == i*100+20 &&
-                                                   redKnight2Rectangle1.posY == j*100+20) {
+                                                if(redKnight2Rectangle1.posX == i*70+20 &&
+                                                   redKnight2Rectangle1.posY == j*70+20) {
                                                     redKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook1Rectangle1.posX == i*100+20 &&
-                                                   redRook1Rectangle1.posY == j*100+20) {
+                                                if(redRook1Rectangle1.posX == i*70+20 &&
+                                                   redRook1Rectangle1.posY == j*70+20) {
                                                     redRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook2Rectangle1.posX == i*100+20 &&
-                                                   redRook2Rectangle1.posY == j*100+20) {
+                                                if(redRook2Rectangle1.posX == i*70+20 &&
+                                                   redRook2Rectangle1.posY == j*70+20) {
                                                     redRook2Rectangle1.posX = 1300;
                                                 }
 
                                                 for(int u=0; u<8; u++) {
                                                     if(redPawnsBase[u].posX == greyKingSquare.posX &&
-                                                       redPawnsBase[u].posY == greyKingSquare.posY + 100) {
+                                                       redPawnsBase[u].posY == greyKingSquare.posY + 70) {
                                                         redPawnsBase[u].posX = 1300;
                                                         break;
                                                     }
@@ -7965,41 +7965,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'h';
                                         }
-                                    } else if(j*100+20 == greyKingSquare.posY &&
-                                              i*100+20 == greyKingSquare.posX + 100) {
+                                    } else if(j*70+20 == greyKingSquare.posY &&
+                                              i*70+20 == greyKingSquare.posX + 70) {
                                         
                                         for(int t=0; t<8; t++) {
-                                            if(greyPawnsBase[t].posX == i*100+20 &&
-                                               greyPawnsBase[t].posY == j*100+20) {
+                                            if(greyPawnsBase[t].posX == i*70+20 &&
+                                               greyPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(greyQueenSquare.posX == i*100+20 &&
-                                           greyQueenSquare.posY == j*100+20) {
+                                        if(greyQueenSquare.posX == i*70+20 &&
+                                           greyQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop1Square.posX == i*100+20 &&
-                                           greyBishop1Square.posY == j*100+20) {
+                                        if(greyBishop1Square.posX == i*70+20 &&
+                                           greyBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop2Square.posX == i*100+20 &&
-                                           greyBishop2Square.posY == j*100+20) {
+                                        if(greyBishop2Square.posX == i*70+20 &&
+                                           greyBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                           greyKnight1Rectangle1.posY == j*100+20) {
+                                        if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                           greyKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                           greyKnight2Rectangle1.posY == j*100+20) {
+                                        if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                           greyKnight2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook1Rectangle1.posX == i*100+20 &&
-                                           greyRook1Rectangle1.posY == j*100+20) {
+                                        if(greyRook1Rectangle1.posX == i*70+20 &&
+                                           greyRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook2Rectangle1.posX == i*100+20 &&
-                                           greyRook2Rectangle1.posY == j*100+20) {
+                                        if(greyRook2Rectangle1.posX == i*70+20 &&
+                                           greyRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
                                         
@@ -8007,7 +8007,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = greyKingSquare.posY;
                                             int a0 = greyKingSquare.posX;
 
-                                            greyKingSquare.posX += 100;
+                                            greyKingSquare.posX += 70;
                                             
                                             boolean ffff = checkCheckGrey(j, i);
                                             
@@ -8021,49 +8021,49 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 for(int l=0; l<8; l++) {
                                                     if((redPawnsBase[l].posX == greyKingSquare.posX ||
                                                         redPawnsBase[l].posX == greyKingSquare.posX) && 
-                                                        redPawnsBase[l].posY == j*100+20) {
+                                                        redPawnsBase[l].posY == j*70+20) {
                                                         redPawnsBase[l].posX = 1300;
                                                         break;
                                                     }
                                                 }
-                                                if(redQueenSquare.posX == i*100+20 &&
-                                                   redQueenSquare.posY == j*100+20) {
+                                                if(redQueenSquare.posX == i*70+20 &&
+                                                   redQueenSquare.posY == j*70+20) {
                                                     redQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(redBishop1Square.posX == i*100+20 &&
-                                                   redBishop1Square.posY == j*100+20) {
+                                                if(redBishop1Square.posX == i*70+20 &&
+                                                   redBishop1Square.posY == j*70+20) {
                                                     redBishop1Square.posX = 1300;
                                                 }
-                                                if(redBishop2Square.posX == i*100+20 &&
-                                                   redBishop2Square.posY == j*100+20) {
+                                                if(redBishop2Square.posX == i*70+20 &&
+                                                   redBishop2Square.posY == j*70+20) {
                                                     redBishop2Square.posX = 1300;
                                                 }
-                                                if(redKnight1Rectangle1.posX == i*100+20 &&
-                                                   redKnight1Rectangle1.posY == j*100+20) {
+                                                if(redKnight1Rectangle1.posX == i*70+20 &&
+                                                   redKnight1Rectangle1.posY == j*70+20) {
                                                     redKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(redKnight2Rectangle1.posX == i*100+20 &&
-                                                   redKnight2Rectangle1.posY == j*100+20) {
+                                                if(redKnight2Rectangle1.posX == i*70+20 &&
+                                                   redKnight2Rectangle1.posY == j*70+20) {
                                                     redKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook1Rectangle1.posX == i*100+20 &&
-                                                   redRook1Rectangle1.posY == j*100+20) {
+                                                if(redRook1Rectangle1.posX == i*70+20 &&
+                                                   redRook1Rectangle1.posY == j*70+20) {
                                                     redRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook2Rectangle1.posX == i*100+20 &&
-                                                   redRook2Rectangle1.posY == j*100+20) {
+                                                if(redRook2Rectangle1.posX == i*70+20 &&
+                                                   redRook2Rectangle1.posY == j*70+20) {
                                                     redRook2Rectangle1.posX = 1300;
                                                 }
 
                                                 for(int u=0; u<8; u++) {
                                                     if(redPawnsBase[u].posX == greyKingSquare.posX &&
-                                                       redPawnsBase[u].posY == greyKingSquare.posY + 100) {
+                                                       redPawnsBase[u].posY == greyKingSquare.posY + 70) {
                                                         redPawnsBase[u].posX = 1300;
                                                         break;
                                                     }
@@ -8077,41 +8077,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'h';
                                         }
-                                    } else if(j*100+20 == greyKingSquare.posY + 100 &&
-                                              i*100+20 == greyKingSquare.posX + 100) {
+                                    } else if(j*70+20 == greyKingSquare.posY + 70 &&
+                                              i*70+20 == greyKingSquare.posX + 70) {
                                         
                                         for(int t=0; t<8; t++) {
-                                            if(greyPawnsBase[t].posX == i*100+20 &&
-                                               greyPawnsBase[t].posY == j*100+20) {
+                                            if(greyPawnsBase[t].posX == i*70+20 &&
+                                               greyPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(greyQueenSquare.posX == i*100+20 &&
-                                           greyQueenSquare.posY == j*100+20) {
+                                        if(greyQueenSquare.posX == i*70+20 &&
+                                           greyQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop1Square.posX == i*100+20 &&
-                                           greyBishop1Square.posY == j*100+20) {
+                                        if(greyBishop1Square.posX == i*70+20 &&
+                                           greyBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop2Square.posX == i*100+20 &&
-                                           greyBishop2Square.posY == j*100+20) {
+                                        if(greyBishop2Square.posX == i*70+20 &&
+                                           greyBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                           greyKnight1Rectangle1.posY == j*100+20) {
+                                        if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                           greyKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                           greyKnight2Rectangle1.posY == j*100+20) {
+                                        if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                           greyKnight2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook1Rectangle1.posX == i*100+20 &&
-                                           greyRook1Rectangle1.posY == j*100+20) {
+                                        if(greyRook1Rectangle1.posX == i*70+20 &&
+                                           greyRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook2Rectangle1.posX == i*100+20 &&
-                                           greyRook2Rectangle1.posY == j*100+20) {
+                                        if(greyRook2Rectangle1.posX == i*70+20 &&
+                                           greyRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
                                         
@@ -8119,8 +8119,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = greyKingSquare.posY;
                                             int a0 = greyKingSquare.posX;
 
-                                            greyKingSquare.posX += 100;
-                                            greyKingSquare.posY += 100;
+                                            greyKingSquare.posX += 70;
+                                            greyKingSquare.posY += 70;
                                             
                                             boolean ffff = checkCheckGrey(j, i);
                                             
@@ -8134,49 +8134,49 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 for(int l=0; l<8; l++) {
                                                     if((redPawnsBase[l].posX == greyKingSquare.posX ||
                                                         redPawnsBase[l].posX == greyKingSquare.posX) && 
-                                                        redPawnsBase[l].posY == j*100+20) {
+                                                        redPawnsBase[l].posY == j*70+20) {
                                                         redPawnsBase[l].posX = 1300;
                                                         break;
                                                     }
                                                 }
-                                                if(redQueenSquare.posX == i*100+20 &&
-                                                   redQueenSquare.posY == j*100+20) {
+                                                if(redQueenSquare.posX == i*70+20 &&
+                                                   redQueenSquare.posY == j*70+20) {
                                                     redQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(redBishop1Square.posX == i*100+20 &&
-                                                   redBishop1Square.posY == j*100+20) {
+                                                if(redBishop1Square.posX == i*70+20 &&
+                                                   redBishop1Square.posY == j*70+20) {
                                                     redBishop1Square.posX = 1300;
                                                 }
-                                                if(redBishop2Square.posX == i*100+20 &&
-                                                   redBishop2Square.posY == j*100+20) {
+                                                if(redBishop2Square.posX == i*70+20 &&
+                                                   redBishop2Square.posY == j*70+20) {
                                                     redBishop2Square.posX = 1300;
                                                 }
-                                                if(redKnight1Rectangle1.posX == i*100+20 &&
-                                                   redKnight1Rectangle1.posY == j*100+20) {
+                                                if(redKnight1Rectangle1.posX == i*70+20 &&
+                                                   redKnight1Rectangle1.posY == j*70+20) {
                                                     redKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(redKnight2Rectangle1.posX == i*100+20 &&
-                                                   redKnight2Rectangle1.posY == j*100+20) {
+                                                if(redKnight2Rectangle1.posX == i*70+20 &&
+                                                   redKnight2Rectangle1.posY == j*70+20) {
                                                     redKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook1Rectangle1.posX == i*100+20 &&
-                                                   redRook1Rectangle1.posY == j*100+20) {
+                                                if(redRook1Rectangle1.posX == i*70+20 &&
+                                                   redRook1Rectangle1.posY == j*70+20) {
                                                     redRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook2Rectangle1.posX == i*100+20 &&
-                                                   redRook2Rectangle1.posY == j*100+20) {
+                                                if(redRook2Rectangle1.posX == i*70+20 &&
+                                                   redRook2Rectangle1.posY == j*70+20) {
                                                     redRook2Rectangle1.posX = 1300;
                                                 }
 
                                                 for(int u=0; u<8; u++) {
                                                     if(redPawnsBase[u].posX == greyKingSquare.posX &&
-                                                       redPawnsBase[u].posY == greyKingSquare.posY + 100) {
+                                                       redPawnsBase[u].posY == greyKingSquare.posY + 70) {
                                                         redPawnsBase[u].posX = 1300;
                                                         break;
                                                     }
@@ -8190,41 +8190,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'h';
                                         }
-                                    } else if(j*100+20 == greyKingSquare.posY + 100 &&
-                                              i*100+20 == greyKingSquare.posX) {
+                                    } else if(j*70+20 == greyKingSquare.posY + 70 &&
+                                              i*70+20 == greyKingSquare.posX) {
                                         
                                         for(int t=0; t<8; t++) {
-                                            if(greyPawnsBase[t].posX == i*100+20 &&
-                                               greyPawnsBase[t].posY == j*100+20) {
+                                            if(greyPawnsBase[t].posX == i*70+20 &&
+                                               greyPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(greyQueenSquare.posX == i*100+20 &&
-                                           greyQueenSquare.posY == j*100+20) {
+                                        if(greyQueenSquare.posX == i*70+20 &&
+                                           greyQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop1Square.posX == i*100+20 &&
-                                           greyBishop1Square.posY == j*100+20) {
+                                        if(greyBishop1Square.posX == i*70+20 &&
+                                           greyBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop2Square.posX == i*100+20 &&
-                                           greyBishop2Square.posY == j*100+20) {
+                                        if(greyBishop2Square.posX == i*70+20 &&
+                                           greyBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                           greyKnight1Rectangle1.posY == j*100+20) {
+                                        if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                           greyKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                           greyKnight2Rectangle1.posY == j*100+20) {
+                                        if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                           greyKnight2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook1Rectangle1.posX == i*100+20 &&
-                                           greyRook1Rectangle1.posY == j*100+20) {
+                                        if(greyRook1Rectangle1.posX == i*70+20 &&
+                                           greyRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook2Rectangle1.posX == i*100+20 &&
-                                           greyRook2Rectangle1.posY == j*100+20) {
+                                        if(greyRook2Rectangle1.posX == i*70+20 &&
+                                           greyRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
                                         
@@ -8233,7 +8233,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = greyKingSquare.posY;
                                             int a0 = greyKingSquare.posX;
                                             
-                                            greyKingSquare.posY += 100;
+                                            greyKingSquare.posY += 70;
                                             
                                             boolean ffff = checkCheckGrey(j, i);
                                             
@@ -8247,49 +8247,49 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 for(int l=0; l<8; l++) {
                                                     if((redPawnsBase[l].posX == greyKingSquare.posX ||
                                                         redPawnsBase[l].posX == greyKingSquare.posX) && 
-                                                        redPawnsBase[l].posY == j*100+20) {
+                                                        redPawnsBase[l].posY == j*70+20) {
                                                         redPawnsBase[l].posX = 1300;
                                                         break;
                                                     }
                                                 }
-                                                if(redQueenSquare.posX == i*100+20 &&
-                                                   redQueenSquare.posY == j*100+20) {
+                                                if(redQueenSquare.posX == i*70+20 &&
+                                                   redQueenSquare.posY == j*70+20) {
                                                     redQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(redBishop1Square.posX == i*100+20 &&
-                                                   redBishop1Square.posY == j*100+20) {
+                                                if(redBishop1Square.posX == i*70+20 &&
+                                                   redBishop1Square.posY == j*70+20) {
                                                     redBishop1Square.posX = 1300;
                                                 }
-                                                if(redBishop2Square.posX == i*100+20 &&
-                                                   redBishop2Square.posY == j*100+20) {
+                                                if(redBishop2Square.posX == i*70+20 &&
+                                                   redBishop2Square.posY == j*70+20) {
                                                     redBishop2Square.posX = 1300;
                                                 }
-                                                if(redKnight1Rectangle1.posX == i*100+20 &&
-                                                   redKnight1Rectangle1.posY == j*100+20) {
+                                                if(redKnight1Rectangle1.posX == i*70+20 &&
+                                                   redKnight1Rectangle1.posY == j*70+20) {
                                                     redKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(redKnight2Rectangle1.posX == i*100+20 &&
-                                                   redKnight2Rectangle1.posY == j*100+20) {
+                                                if(redKnight2Rectangle1.posX == i*70+20 &&
+                                                   redKnight2Rectangle1.posY == j*70+20) {
                                                     redKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook1Rectangle1.posX == i*100+20 &&
-                                                   redRook1Rectangle1.posY == j*100+20) {
+                                                if(redRook1Rectangle1.posX == i*70+20 &&
+                                                   redRook1Rectangle1.posY == j*70+20) {
                                                     redRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook2Rectangle1.posX == i*100+20 &&
-                                                   redRook2Rectangle1.posY == j*100+20) {
+                                                if(redRook2Rectangle1.posX == i*70+20 &&
+                                                   redRook2Rectangle1.posY == j*70+20) {
                                                     redRook2Rectangle1.posX = 1300;
                                                 }
 
                                                 for(int u=0; u<8; u++) {
                                                     if(redPawnsBase[u].posX == greyKingSquare.posX &&
-                                                       redPawnsBase[u].posY == greyKingSquare.posY + 100) {
+                                                       redPawnsBase[u].posY == greyKingSquare.posY + 70) {
                                                         redPawnsBase[u].posX = 1300;
                                                         break;
                                                     }
@@ -8303,41 +8303,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'h';
                                         }
-                                    } else if(j*100+20 == greyKingSquare.posY + 100 &&
-                                              i*100+20 == greyKingSquare.posX - 100) {
+                                    } else if(j*70+20 == greyKingSquare.posY + 70 &&
+                                              i*70+20 == greyKingSquare.posX - 70) {
                                         
                                         for(int t=0; t<8; t++) {
-                                            if(greyPawnsBase[t].posX == i*100+20 &&
-                                               greyPawnsBase[t].posY == j*100+20) {
+                                            if(greyPawnsBase[t].posX == i*70+20 &&
+                                               greyPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(greyQueenSquare.posX == i*100+20 &&
-                                           greyQueenSquare.posY == j*100+20) {
+                                        if(greyQueenSquare.posX == i*70+20 &&
+                                           greyQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop1Square.posX == i*100+20 &&
-                                           greyBishop1Square.posY == j*100+20) {
+                                        if(greyBishop1Square.posX == i*70+20 &&
+                                           greyBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop2Square.posX == i*100+20 &&
-                                           greyBishop2Square.posY == j*100+20) {
+                                        if(greyBishop2Square.posX == i*70+20 &&
+                                           greyBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                           greyKnight1Rectangle1.posY == j*100+20) {
+                                        if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                           greyKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                           greyKnight2Rectangle1.posY == j*100+20) {
+                                        if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                           greyKnight2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook1Rectangle1.posX == i*100+20 &&
-                                           greyRook1Rectangle1.posY == j*100+20) {
+                                        if(greyRook1Rectangle1.posX == i*70+20 &&
+                                           greyRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook2Rectangle1.posX == i*100+20 &&
-                                           greyRook2Rectangle1.posY == j*100+20) {
+                                        if(greyRook2Rectangle1.posX == i*70+20 &&
+                                           greyRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
                                         
@@ -8346,8 +8346,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = greyKingSquare.posY;
                                             int a0 = greyKingSquare.posX;
                                             
-                                            greyKingSquare.posX -= 100;
-                                            greyKingSquare.posY += 100;
+                                            greyKingSquare.posX -= 70;
+                                            greyKingSquare.posY += 70;
                                             
                                             boolean ffff = checkCheckGrey(j, i);
                                             
@@ -8361,49 +8361,49 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 for(int l=0; l<8; l++) {
                                                     if((redPawnsBase[l].posX == greyKingSquare.posX ||
                                                         redPawnsBase[l].posX == greyKingSquare.posX) && 
-                                                        redPawnsBase[l].posY == j*100+20) {
+                                                        redPawnsBase[l].posY == j*70+20) {
                                                         redPawnsBase[l].posX = 1300;
                                                         break;
                                                     }
                                                 }
-                                                if(redQueenSquare.posX == i*100+20 &&
-                                                   redQueenSquare.posY == j*100+20) {
+                                                if(redQueenSquare.posX == i*70+20 &&
+                                                   redQueenSquare.posY == j*70+20) {
                                                     redQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(redBishop1Square.posX == i*100+20 &&
-                                                   redBishop1Square.posY == j*100+20) {
+                                                if(redBishop1Square.posX == i*70+20 &&
+                                                   redBishop1Square.posY == j*70+20) {
                                                     redBishop1Square.posX = 1300;
                                                 }
-                                                if(redBishop2Square.posX == i*100+20 &&
-                                                   redBishop2Square.posY == j*100+20) {
+                                                if(redBishop2Square.posX == i*70+20 &&
+                                                   redBishop2Square.posY == j*70+20) {
                                                     redBishop2Square.posX = 1300;
                                                 }
-                                                if(redKnight1Rectangle1.posX == i*100+20 &&
-                                                   redKnight1Rectangle1.posY == j*100+20) {
+                                                if(redKnight1Rectangle1.posX == i*70+20 &&
+                                                   redKnight1Rectangle1.posY == j*70+20) {
                                                     redKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(redKnight2Rectangle1.posX == i*100+20 &&
-                                                   redKnight2Rectangle1.posY == j*100+20) {
+                                                if(redKnight2Rectangle1.posX == i*70+20 &&
+                                                   redKnight2Rectangle1.posY == j*70+20) {
                                                     redKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook1Rectangle1.posX == i*100+20 &&
-                                                   redRook1Rectangle1.posY == j*100+20) {
+                                                if(redRook1Rectangle1.posX == i*70+20 &&
+                                                   redRook1Rectangle1.posY == j*70+20) {
                                                     redRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook2Rectangle1.posX == i*100+20 &&
-                                                   redRook2Rectangle1.posY == j*100+20) {
+                                                if(redRook2Rectangle1.posX == i*70+20 &&
+                                                   redRook2Rectangle1.posY == j*70+20) {
                                                     redRook2Rectangle1.posX = 1300;
                                                 }
 
                                                 for(int u=0; u<8; u++) {
                                                     if(redPawnsBase[u].posX == greyKingSquare.posX &&
-                                                       redPawnsBase[u].posY == greyKingSquare.posY + 100) {
+                                                       redPawnsBase[u].posY == greyKingSquare.posY + 70) {
                                                         redPawnsBase[u].posX = 1300;
                                                         break;
                                                     }
@@ -8417,41 +8417,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'h';
                                         }
-                                    } else if(j*100+20 == greyKingSquare.posY &&
-                                              i*100+20 == greyKingSquare.posX - 100) {
+                                    } else if(j*70+20 == greyKingSquare.posY &&
+                                              i*70+20 == greyKingSquare.posX - 70) {
                                         
                                         for(int t=0; t<8; t++) {
-                                            if(greyPawnsBase[t].posX == i*100+20 &&
-                                               greyPawnsBase[t].posY == j*100+20) {
+                                            if(greyPawnsBase[t].posX == i*70+20 &&
+                                               greyPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(greyQueenSquare.posX == i*100+20 &&
-                                           greyQueenSquare.posY == j*100+20) {
+                                        if(greyQueenSquare.posX == i*70+20 &&
+                                           greyQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop1Square.posX == i*100+20 &&
-                                           greyBishop1Square.posY == j*100+20) {
+                                        if(greyBishop1Square.posX == i*70+20 &&
+                                           greyBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop2Square.posX == i*100+20 &&
-                                           greyBishop2Square.posY == j*100+20) {
+                                        if(greyBishop2Square.posX == i*70+20 &&
+                                           greyBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                           greyKnight1Rectangle1.posY == j*100+20) {
+                                        if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                           greyKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                           greyKnight2Rectangle1.posY == j*100+20) {
+                                        if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                           greyKnight2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook1Rectangle1.posX == i*100+20 &&
-                                           greyRook1Rectangle1.posY == j*100+20) {
+                                        if(greyRook1Rectangle1.posX == i*70+20 &&
+                                           greyRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook2Rectangle1.posX == i*100+20 &&
-                                           greyRook2Rectangle1.posY == j*100+20) {
+                                        if(greyRook2Rectangle1.posX == i*70+20 &&
+                                           greyRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
                                         
@@ -8460,7 +8460,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = greyKingSquare.posY;
                                             int a0 = greyKingSquare.posX;
                                             
-                                            greyKingSquare.posX -= 100;
+                                            greyKingSquare.posX -= 70;
 
                                             boolean ffff = checkCheckGrey(j, i);
                                             
@@ -8474,49 +8474,49 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 for(int l=0; l<8; l++) {
                                                     if((redPawnsBase[l].posX == greyKingSquare.posX ||
                                                         redPawnsBase[l].posX == greyKingSquare.posX) && 
-                                                        redPawnsBase[l].posY == j*100+20) {
+                                                        redPawnsBase[l].posY == j*70+20) {
                                                         redPawnsBase[l].posX = 1300;
                                                         break;
                                                     }
                                                 }
-                                                if(redQueenSquare.posX == i*100+20 &&
-                                                   redQueenSquare.posY == j*100+20) {
+                                                if(redQueenSquare.posX == i*70+20 &&
+                                                   redQueenSquare.posY == j*70+20) {
                                                     redQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(redBishop1Square.posX == i*100+20 &&
-                                                   redBishop1Square.posY == j*100+20) {
+                                                if(redBishop1Square.posX == i*70+20 &&
+                                                   redBishop1Square.posY == j*70+20) {
                                                     redBishop1Square.posX = 1300;
                                                 }
-                                                if(redBishop2Square.posX == i*100+20 &&
-                                                   redBishop2Square.posY == j*100+20) {
+                                                if(redBishop2Square.posX == i*70+20 &&
+                                                   redBishop2Square.posY == j*70+20) {
                                                     redBishop2Square.posX = 1300;
                                                 }
-                                                if(redKnight1Rectangle1.posX == i*100+20 &&
-                                                   redKnight1Rectangle1.posY == j*100+20) {
+                                                if(redKnight1Rectangle1.posX == i*70+20 &&
+                                                   redKnight1Rectangle1.posY == j*70+20) {
                                                     redKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(redKnight2Rectangle1.posX == i*100+20 &&
-                                                   redKnight2Rectangle1.posY == j*100+20) {
+                                                if(redKnight2Rectangle1.posX == i*70+20 &&
+                                                   redKnight2Rectangle1.posY == j*70+20) {
                                                     redKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook1Rectangle1.posX == i*100+20 &&
-                                                   redRook1Rectangle1.posY == j*100+20) {
+                                                if(redRook1Rectangle1.posX == i*70+20 &&
+                                                   redRook1Rectangle1.posY == j*70+20) {
                                                     redRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook2Rectangle1.posX == i*100+20 &&
-                                                   redRook2Rectangle1.posY == j*100+20) {
+                                                if(redRook2Rectangle1.posX == i*70+20 &&
+                                                   redRook2Rectangle1.posY == j*70+20) {
                                                     redRook2Rectangle1.posX = 1300;
                                                 }
 
                                                 for(int u=0; u<8; u++) {
                                                     if(redPawnsBase[u].posX == greyKingSquare.posX &&
-                                                       redPawnsBase[u].posY == greyKingSquare.posY + 100) {
+                                                       redPawnsBase[u].posY == greyKingSquare.posY + 70) {
                                                         redPawnsBase[u].posX = 1300;
                                                         break;
                                                     }
@@ -8530,41 +8530,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'h';
                                         }
-                                    } else if(j*100+20 == greyKingSquare.posY - 100 &&
-                                              i*100+20 == greyKingSquare.posX - 100) {
+                                    } else if(j*70+20 == greyKingSquare.posY - 70 &&
+                                              i*70+20 == greyKingSquare.posX - 70) {
                                         
                                         for(int t=0; t<8; t++) {
-                                            if(greyPawnsBase[t].posX == i*100+20 &&
-                                               greyPawnsBase[t].posY == j*100+20) {
+                                            if(greyPawnsBase[t].posX == i*70+20 &&
+                                               greyPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(greyQueenSquare.posX == i*100+20 &&
-                                           greyQueenSquare.posY == j*100+20) {
+                                        if(greyQueenSquare.posX == i*70+20 &&
+                                           greyQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop1Square.posX == i*100+20 &&
-                                           greyBishop1Square.posY == j*100+20) {
+                                        if(greyBishop1Square.posX == i*70+20 &&
+                                           greyBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyBishop2Square.posX == i*100+20 &&
-                                           greyBishop2Square.posY == j*100+20) {
+                                        if(greyBishop2Square.posX == i*70+20 &&
+                                           greyBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                           greyKnight1Rectangle1.posY == j*100+20) {
+                                        if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                           greyKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                           greyKnight2Rectangle1.posY == j*100+20) {
+                                        if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                           greyKnight2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook1Rectangle1.posX == i*100+20 &&
-                                           greyRook1Rectangle1.posY == j*100+20) {
+                                        if(greyRook1Rectangle1.posX == i*70+20 &&
+                                           greyRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyRook2Rectangle1.posX == i*100+20 &&
-                                           greyRook2Rectangle1.posY == j*100+20) {
+                                        if(greyRook2Rectangle1.posX == i*70+20 &&
+                                           greyRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
                                         
@@ -8573,8 +8573,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = greyKingSquare.posY;
                                             int a0 = greyKingSquare.posX;
                                             
-                                            greyKingSquare.posX -= 100;
-                                            greyKingSquare.posY -= 100;
+                                            greyKingSquare.posX -= 70;
+                                            greyKingSquare.posY -= 70;
                                             
                                             boolean ffff = checkCheckGrey(j, i);
                                             
@@ -8588,49 +8588,49 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 for(int l=0; l<8; l++) {
                                                     if((redPawnsBase[l].posX == greyKingSquare.posX ||
                                                         redPawnsBase[l].posX == greyKingSquare.posX) && 
-                                                        redPawnsBase[l].posY == j*100+20) {
+                                                        redPawnsBase[l].posY == j*70+20) {
                                                         redPawnsBase[l].posX = 1300;
                                                         break;
                                                     }
                                                 }
-                                                if(redQueenSquare.posX == i*100+20 &&
-                                                   redQueenSquare.posY == j*100+20) {
+                                                if(redQueenSquare.posX == i*70+20 &&
+                                                   redQueenSquare.posY == j*70+20) {
                                                     redQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(redQueenSquareK[z].posX == i*100+20 &&
-                                                       redQueenSquareK[z].posY == j*100+20) {
+                                                    if(redQueenSquareK[z].posX == i*70+20 &&
+                                                       redQueenSquareK[z].posY == j*70+20) {
                                                         redQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(redBishop1Square.posX == i*100+20 &&
-                                                   redBishop1Square.posY == j*100+20) {
+                                                if(redBishop1Square.posX == i*70+20 &&
+                                                   redBishop1Square.posY == j*70+20) {
                                                     redBishop1Square.posX = 1300;
                                                 }
-                                                if(redBishop2Square.posX == i*100+20 &&
-                                                   redBishop2Square.posY == j*100+20) {
+                                                if(redBishop2Square.posX == i*70+20 &&
+                                                   redBishop2Square.posY == j*70+20) {
                                                     redBishop2Square.posX = 1300;
                                                 }
-                                                if(redKnight1Rectangle1.posX == i*100+20 &&
-                                                   redKnight1Rectangle1.posY == j*100+20) {
+                                                if(redKnight1Rectangle1.posX == i*70+20 &&
+                                                   redKnight1Rectangle1.posY == j*70+20) {
                                                     redKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(redKnight2Rectangle1.posX == i*100+20 &&
-                                                   redKnight2Rectangle1.posY == j*100+20) {
+                                                if(redKnight2Rectangle1.posX == i*70+20 &&
+                                                   redKnight2Rectangle1.posY == j*70+20) {
                                                     redKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook1Rectangle1.posX == i*100+20 &&
-                                                   redRook1Rectangle1.posY == j*100+20) {
+                                                if(redRook1Rectangle1.posX == i*70+20 &&
+                                                   redRook1Rectangle1.posY == j*70+20) {
                                                     redRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(redRook2Rectangle1.posX == i*100+20 &&
-                                                   redRook2Rectangle1.posY == j*100+20) {
+                                                if(redRook2Rectangle1.posX == i*70+20 &&
+                                                   redRook2Rectangle1.posY == j*70+20) {
                                                     redRook2Rectangle1.posX = 1300;
                                                 }
 
                                                 for(int u=0; u<8; u++) {
                                                     if(redPawnsBase[u].posX == greyKingSquare.posX &&
-                                                       redPawnsBase[u].posY == greyKingSquare.posY + 100) {
+                                                       redPawnsBase[u].posY == greyKingSquare.posY + 70) {
                                                         redPawnsBase[u].posX = 1300;
                                                         break;
                                                     }
@@ -8672,8 +8672,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                             itdid = FALSE;
                             
-                            if(greyQueenSquare.posX == i*100+20 &&
-                               greyQueenSquare.posY == j*100+20) {
+                            if(greyQueenSquare.posX == i*70+20 &&
+                               greyQueenSquare.posY == j*70+20) {
                                 
                                 clickedOne = 'g';
                                 greyQueenSquare.clicked = TRUE;
@@ -8700,20 +8700,20 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     int a1 = greyQueenSquare.posY;
                                     int a0 = greyQueenSquare.posX;
 
-                                    boxes[greyQueenSquare.posY/100][greyQueenSquare.posX/100].clear = TRUE;
+                                    boxes[greyQueenSquare.posY/70][greyQueenSquare.posX/70].clear = TRUE;
                                     boolean f = FALSE;
                                     
                                     greyQueenSquare.failedpath = FALSE;
 
-                                    if(i*100+20 == greyQueenSquare.posX) {
-                                        f = moveGreyQueen(msg, j, i, j*100+20 - greyQueenSquare.posY, j*100+20 - greyQueenSquare.posY);
+                                    if(i*70+20 == greyQueenSquare.posX) {
+                                        f = moveGreyQueen(msg, j, i, j*70+20 - greyQueenSquare.posY, j*70+20 - greyQueenSquare.posY);
                                         f = greyQueenSquare.failedpath;
-                                    } else if(j*100+20 == greyQueenSquare.posY) {
-                                        f = moveGreyQueenSide(msg, j, i, i*100+20 - greyQueenSquare.posX, i*100+20 - greyQueenSquare.posX);
+                                    } else if(j*70+20 == greyQueenSquare.posY) {
+                                        f = moveGreyQueenSide(msg, j, i, i*70+20 - greyQueenSquare.posX, i*70+20 - greyQueenSquare.posX);
                                         f = greyQueenSquare.failedpath;
-                                    } else if(i*100+20 != greyQueenSquare.posX &&
-                                       j*100+20 != greyQueenSquare.posY) {
-                                        f = moveGreyQueenDiagonally(msg, j, i, j*100+20 - greyQueenSquare.posY, i*100+20 - greyQueenSquare.posX, j*100+20 - greyQueenSquare.posY, i*100+20 - greyQueenSquare.posX);
+                                    } else if(i*70+20 != greyQueenSquare.posX &&
+                                       j*70+20 != greyQueenSquare.posY) {
+                                        f = moveGreyQueenDiagonally(msg, j, i, j*70+20 - greyQueenSquare.posY, i*70+20 - greyQueenSquare.posX, j*70+20 - greyQueenSquare.posY, i*70+20 - greyQueenSquare.posX);
                                         f = greyQueenSquare.failedpath;
                                     }
 
@@ -8756,8 +8756,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 itdid = FALSE;
 
                                 if(changeii == FALSE &&
-                                   greyQueenSquareK[z].posX == i*100+20 &&
-                                   greyQueenSquareK[z].posY == j*100+20) {
+                                   greyQueenSquareK[z].posX == i*70+20 &&
+                                   greyQueenSquareK[z].posY == j*70+20) {
 
                                     clickedOne = 'h';
                                     greyQueenSquareK[z].clicked = TRUE;
@@ -8788,17 +8788,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                         greyQueenSquareK[z].failedpath = FALSE;
 
-                                        if(i*100+20 == greyQueenSquareK[z].posX) {
-                                            f = moveGreyQueenK(msg, j, i, j*100+20 - greyQueenSquareK[z].posY, j*100+20 - greyQueenSquareK[z].posY, z);
+                                        if(i*70+20 == greyQueenSquareK[z].posX) {
+                                            f = moveGreyQueenK(msg, j, i, j*70+20 - greyQueenSquareK[z].posY, j*70+20 - greyQueenSquareK[z].posY, z);
                                             f = greyQueenSquareK[z].failedpath;
-                                        } else if(j*100+20 == greyQueenSquareK[z].posY) {
-                                            f = moveGreyQueenSideK(msg, j, i, i*100+20 - greyQueenSquareK[z].posX, i*100+20 - greyQueenSquareK[z].posX, z);
+                                        } else if(j*70+20 == greyQueenSquareK[z].posY) {
+                                            f = moveGreyQueenSideK(msg, j, i, i*70+20 - greyQueenSquareK[z].posX, i*70+20 - greyQueenSquareK[z].posX, z);
                                             f = greyQueenSquareK[z].failedpath;
-                                        } else if(i*100+20 != greyQueenSquareK[z].posX &&
-                                           j*100+20 != greyQueenSquareK[z].posY) {
-                                            if(j*100+20 - greyQueenSquareK[z].posY == i*100+20 - greyQueenSquareK[z].posX ||
-                                               j*100+20 - greyQueenSquareK[z].posY == -1 * (i*100+20 - greyQueenSquareK[z].posX)) {
-                                                f = moveGreyQueenDiagonallyK(msg, j, i, j*100+20 - greyQueenSquareK[z].posY, i*100+20 - greyQueenSquareK[z].posX, j*100+20 - greyQueenSquareK[z].posY, i*100+20 - greyQueenSquareK[z].posX, z);
+                                        } else if(i*70+20 != greyQueenSquareK[z].posX &&
+                                           j*70+20 != greyQueenSquareK[z].posY) {
+                                            if(j*70+20 - greyQueenSquareK[z].posY == i*70+20 - greyQueenSquareK[z].posX ||
+                                               j*70+20 - greyQueenSquareK[z].posY == -1 * (i*70+20 - greyQueenSquareK[z].posX)) {
+                                                f = moveGreyQueenDiagonallyK(msg, j, i, j*70+20 - greyQueenSquareK[z].posY, i*70+20 - greyQueenSquareK[z].posX, j*70+20 - greyQueenSquareK[z].posY, i*70+20 - greyQueenSquareK[z].posX, z);
                                                 f = greyQueenSquareK[z].failedpath;
                                             } else {
                                                 f = greyQueenSquareK[z].failedpath = TRUE;
@@ -8842,8 +8842,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                             itdid = FALSE;
                             
-                            if(greyBishop1Square.posX == i*100+20 &&
-                               greyBishop1Square.posY == j*100+20) {
+                            if(greyBishop1Square.posX == i*70+20 &&
+                               greyBishop1Square.posY == j*70+20) {
                                 
                                 clickedOne = 'g';
                                 greyBishop1Square.clicked = TRUE;
@@ -8874,9 +8874,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                     greyBishop1Square.failedpath = FALSE;
 
-                                    if(i*100+20 != greyBishop1Square.posX &&
-                                       j*100+20 != greyBishop1Square.posY) {
-                                        f = moveGreyBishop1(msg, j, i, j*100+20 - greyBishop1Square.posY, i*100+20 - greyBishop1Square.posX, j*100+20 - greyBishop1Square.posY, i*100+20 - greyBishop1Square.posX);
+                                    if(i*70+20 != greyBishop1Square.posX &&
+                                       j*70+20 != greyBishop1Square.posY) {
+                                        f = moveGreyBishop1(msg, j, i, j*70+20 - greyBishop1Square.posY, i*70+20 - greyBishop1Square.posX, j*70+20 - greyBishop1Square.posY, i*70+20 - greyBishop1Square.posX);
                                         f = greyBishop1Square.failedpath;
                                     } else {
                                         f = greyBishop1Square.failedpath = TRUE;
@@ -8918,8 +8918,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                             itdid = FALSE;
                             
-                            if(greyBishop2Square.posX == i*100+20 &&
-                               greyBishop2Square.posY == j*100+20) {
+                            if(greyBishop2Square.posX == i*70+20 &&
+                               greyBishop2Square.posY == j*70+20) {
                                 
                                 clickedOne = 'g';
                                 greyBishop2Square.clicked = TRUE;
@@ -8950,9 +8950,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                     greyBishop2Square.failedpath = FALSE;
                                     
-                                    if(i*100+20 != greyBishop2Square.posX &&
-                                       j*100+20 != greyBishop2Square.posY) {
-                                        f = moveGreyBishop2(msg, j, i, j*100+20 - greyBishop2Square.posY, i*100+20 - greyBishop2Square.posX, j*100+20 - greyBishop2Square.posY, i*100+20 - greyBishop2Square.posX);
+                                    if(i*70+20 != greyBishop2Square.posX &&
+                                       j*70+20 != greyBishop2Square.posY) {
+                                        f = moveGreyBishop2(msg, j, i, j*70+20 - greyBishop2Square.posY, i*70+20 - greyBishop2Square.posX, j*70+20 - greyBishop2Square.posY, i*70+20 - greyBishop2Square.posX);
                                         f = greyBishop2Square.failedpath;
                                     } else {
                                         f = greyBishop2Square.failedpath = TRUE;
@@ -8994,8 +8994,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                             itdid = FALSE;
                             
-                            if(greyRook1Rectangle1.posX == i*100+20 &&
-                               greyRook1Rectangle1.posY == j*100+20) {
+                            if(greyRook1Rectangle1.posX == i*70+20 &&
+                               greyRook1Rectangle1.posY == j*70+20) {
                                 
                                 clickedOne = 'g';
                                 greyRook1Rectangle1.clicked = TRUE;
@@ -9022,17 +9022,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     int a1 = greyRook1Rectangle1.posY;
                                     int a0 = greyRook1Rectangle1.posX;
 
-                                    boxes[greyRook1Rectangle1.posY/100][greyRook1Rectangle1.posX/100].clear = TRUE;
+                                    boxes[greyRook1Rectangle1.posY/70][greyRook1Rectangle1.posX/70].clear = TRUE;
 
                                     boolean f = FALSE;
 
                                     greyRook1Rectangle1.failedpath = FALSE;
 
-                                    if(i*100+20 == greyRook1Rectangle1.posX) {
-                                        f = moveGreyRook1(msg, j, i, j*100+20 - greyRook1Rectangle1.posY, j*100+20 - greyRook1Rectangle1.posY);
+                                    if(i*70+20 == greyRook1Rectangle1.posX) {
+                                        f = moveGreyRook1(msg, j, i, j*70+20 - greyRook1Rectangle1.posY, j*70+20 - greyRook1Rectangle1.posY);
                                         f = greyRook1Rectangle1.failedpath;
-                                    } else if(j*100+20 == greyRook1Rectangle1.posY) {
-                                        f = moveGreyRook1Side(msg, j, i, i*100+20 - greyRook1Rectangle1.posX, i*100+20 - greyRook1Rectangle1.posX);
+                                    } else if(j*70+20 == greyRook1Rectangle1.posY) {
+                                        f = moveGreyRook1Side(msg, j, i, i*70+20 - greyRook1Rectangle1.posX, i*70+20 - greyRook1Rectangle1.posX);
                                         f = greyRook1Rectangle1.failedpath;
                                     } else {
                                         f = greyRook1Rectangle1.failedpath = TRUE;
@@ -9079,8 +9079,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                             itdid = FALSE;
                             
-                            if(greyRook2Rectangle1.posX == i*100+20 &&
-                               greyRook2Rectangle1.posY == j*100+20) {
+                            if(greyRook2Rectangle1.posX == i*70+20 &&
+                               greyRook2Rectangle1.posY == j*70+20) {
                                 
                                 clickedOne = 'h';
                                 greyRook2Rectangle1.clicked = TRUE;
@@ -9107,17 +9107,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     int a1 = greyRook2Rectangle1.posY;
                                     int a0 = greyRook2Rectangle1.posX;
 
-                                    boxes[greyRook2Rectangle1.posY/100][greyRook2Rectangle1.posX/100].clear = TRUE;
+                                    boxes[greyRook2Rectangle1.posY/70][greyRook2Rectangle1.posX/70].clear = TRUE;
 
                                     boolean f = FALSE;
 
                                     greyRook2Rectangle1.failedpath = FALSE;
 
-                                    if(i*100+20 == greyRook2Rectangle1.posX) {
-                                        f = moveGreyRook2(msg, j, i, j*100+20 - greyRook2Rectangle1.posY, j*100+20 - greyRook2Rectangle1.posY);
+                                    if(i*70+20 == greyRook2Rectangle1.posX) {
+                                        f = moveGreyRook2(msg, j, i, j*70+20 - greyRook2Rectangle1.posY, j*70+20 - greyRook2Rectangle1.posY);
                                         f = greyRook2Rectangle1.failedpath;
-                                    } else if(j*100+20 == greyRook2Rectangle1.posY) {
-                                        f = moveGreyRook2Side(msg, j, i, i*100+20 - greyRook2Rectangle1.posX, i*100+20 - greyRook2Rectangle1.posX);
+                                    } else if(j*70+20 == greyRook2Rectangle1.posY) {
+                                        f = moveGreyRook2Side(msg, j, i, i*70+20 - greyRook2Rectangle1.posX, i*70+20 - greyRook2Rectangle1.posX);
                                         f = greyRook2Rectangle1.failedpath;
                                     } else {
                                         f = greyRook2Rectangle1.failedpath = TRUE;
@@ -9353,19 +9353,19 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                             HBRUSH rBrush;
                             rBrush = CreateSolidBrush(RGB(0, 255, 0));
-                            RECT r = {i*100+20+20, j*100+20+20-8, i*100+20+20 + 12, j*100+20+20-8 + 12};
+                            RECT r = {i*70+20+20, j*70+20+20-8, i*70+20+20 + 12, j*70+20+20-8 + 12};
                             for(int t=0; t<8; t++) {
-                                if(turn == 'r' && greyPawnsBase[t].posX == i*100+20 &&
-                                   greyPawnsBase[t].posY == j*100+20) {
+                                if(turn == 'r' && greyPawnsBase[t].posX == i*70+20 &&
+                                   greyPawnsBase[t].posY == j*70+20) {
                                     if(TRUE==done) {
-                                        int l1_x1 = i*100+20+20;
-                                        int l1_y1 = j*100+20 + 8;
-                                        int l1_x2 = i*100+20+20 + 8;
-                                        int l1_y2 = j*100+20 + 16;
-                                        int l2_x1 = i*100+20+20 + 8;
-                                        int l2_y1 = j*100+20 + 16;
-                                        int l2_x2 = i*100+20+20 + 16;
-                                        int l2_y2 = j*100+20;
+                                        int l1_x1 = i*70+20+20;
+                                        int l1_y1 = j*70+20 + 8;
+                                        int l1_x2 = i*70+20+20 + 8;
+                                        int l1_y2 = j*70+20 + 16;
+                                        int l2_x1 = i*70+20+20 + 8;
+                                        int l2_y1 = j*70+20 + 16;
+                                        int l2_x2 = i*70+20+20 + 16;
+                                        int l2_y2 = j*70+20;
                                         PAINTSTRUCT pntS;
                                         HPEN pen, oldPen;
                                         pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
@@ -9380,22 +9380,22 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 }
                             }
                             for(int t=0; t<8; t++) {
-                                if(turn == 'h' && greyPawnsBase[t].posX == i*100+20 &&
-                                   greyPawnsBase[t].posY == j*100+20) {
+                                if(turn == 'h' && greyPawnsBase[t].posX == i*70+20 &&
+                                   greyPawnsBase[t].posY == j*70+20) {
                                     FillRect(hdc, &r, rBrush);
                                 }
                             }
-                            if(turn == 'r' && greyKingSquare.posX == i*100+20 &&
-                               greyKingSquare.posY == j*100+20) {
+                            if(turn == 'r' && greyKingSquare.posX == i*70+20 &&
+                               greyKingSquare.posY == j*70+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20+20;
-                                    int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20+20 + 8;
-                                    int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20+20 + 8;
-                                    int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20+20 + 16;
-                                    int l2_y2 = j*100+20;
+                                    int l1_x1 = i*70+20+20;
+                                    int l1_y1 = j*70+20 + 8;
+                                    int l1_x2 = i*70+20+20 + 8;
+                                    int l1_y2 = j*70+20 + 16;
+                                    int l2_x1 = i*70+20+20 + 8;
+                                    int l2_y1 = j*70+20 + 16;
+                                    int l2_x2 = i*70+20+20 + 16;
+                                    int l2_y2 = j*70+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
@@ -9408,21 +9408,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     DeleteObject(pen);
                                 }
                             }
-                            if(turn == 'h' && greyKingSquare.posX == i*100+20 &&
-                               greyKingSquare.posY == j*100+20) {
+                            if(turn == 'h' && greyKingSquare.posX == i*70+20 &&
+                               greyKingSquare.posY == j*70+20) {
                                 FillRect(hdc, &r, rBrush);
                             }
-                            if(turn == 'r' && greyQueenSquare.posX == i*100+20 &&
-                               greyQueenSquare.posY == j*100+20) {
+                            if(turn == 'r' && greyQueenSquare.posX == i*70+20 &&
+                               greyQueenSquare.posY == j*70+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20+20;
-                                    int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20+20 + 8;
-                                    int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20+20 + 8;
-                                    int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20+20 + 16;
-                                    int l2_y2 = j*100+20;
+                                    int l1_x1 = i*70+20+20;
+                                    int l1_y1 = j*70+20 + 8;
+                                    int l1_x2 = i*70+20+20 + 8;
+                                    int l1_y2 = j*70+20 + 16;
+                                    int l2_x1 = i*70+20+20 + 8;
+                                    int l2_y1 = j*70+20 + 16;
+                                    int l2_x2 = i*70+20+20 + 16;
+                                    int l2_y2 = j*70+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
@@ -9435,22 +9435,22 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     DeleteObject(pen);
                                 }
                             }
-                            if(turn == 'h' && greyQueenSquare.posX == i*100+20 &&
-                               greyQueenSquare.posY == j*100+20) {
+                            if(turn == 'h' && greyQueenSquare.posX == i*70+20 &&
+                               greyQueenSquare.posY == j*70+20) {
                                 FillRect(hdc, &r, rBrush);
                             }
                             for(int z=0; z<8; z++) {
-                                if(turn == 'r' && greyQueenSquareK[z].posX == i*100+20 &&
-                                   greyQueenSquareK[z].posY == j*100+20) {
+                                if(turn == 'r' && greyQueenSquareK[z].posX == i*70+20 &&
+                                   greyQueenSquareK[z].posY == j*70+20) {
                                     if(TRUE==done) {
-                                        int l1_x1 = i*100+20+20;
-                                        int l1_y1 = j*100+20 + 8;
-                                        int l1_x2 = i*100+20+20 + 8;
-                                        int l1_y2 = j*100+20 + 16;
-                                        int l2_x1 = i*100+20+20 + 8;
-                                        int l2_y1 = j*100+20 + 16;
-                                        int l2_x2 = i*100+20+20 + 16;
-                                        int l2_y2 = j*100+20;
+                                        int l1_x1 = i*70+20+20;
+                                        int l1_y1 = j*70+20 + 8;
+                                        int l1_x2 = i*70+20+20 + 8;
+                                        int l1_y2 = j*70+20 + 16;
+                                        int l2_x1 = i*70+20+20 + 8;
+                                        int l2_y1 = j*70+20 + 16;
+                                        int l2_x2 = i*70+20+20 + 16;
+                                        int l2_y2 = j*70+20;
                                         PAINTSTRUCT pntS;
                                         HPEN pen, oldPen;
                                         pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
@@ -9463,22 +9463,22 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         DeleteObject(pen);
                                     }
                                 }
-                                if(turn == 'h' && greyQueenSquareK[z].posX == i*100+20 &&
-                                   greyQueenSquareK[z].posY == j*100+20) {
+                                if(turn == 'h' && greyQueenSquareK[z].posX == i*70+20 &&
+                                   greyQueenSquareK[z].posY == j*70+20) {
                                     FillRect(hdc, &r, rBrush);
                                 }
                             }
-                            if(turn == 'r' && greyKnight1Rectangle1.posX == i*100+20 &&
-                               greyKnight1Rectangle1.posY == j*100+20) {
+                            if(turn == 'r' && greyKnight1Rectangle1.posX == i*70+20 &&
+                               greyKnight1Rectangle1.posY == j*70+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20+20;
-                                    int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20+20 + 8;
-                                    int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20+20 + 8;
-                                    int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20+20 + 16;
-                                    int l2_y2 = j*100+20;
+                                    int l1_x1 = i*70+20+20;
+                                    int l1_y1 = j*70+20 + 8;
+                                    int l1_x2 = i*70+20+20 + 8;
+                                    int l1_y2 = j*70+20 + 16;
+                                    int l2_x1 = i*70+20+20 + 8;
+                                    int l2_y1 = j*70+20 + 16;
+                                    int l2_x2 = i*70+20+20 + 16;
+                                    int l2_y2 = j*70+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
@@ -9491,21 +9491,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     DeleteObject(pen);
                                 }
                             }
-                            if(turn == 'h' && greyKnight1Rectangle1.posX == i*100+20 &&
-                               greyKnight1Rectangle1.posY == j*100+20) {
+                            if(turn == 'h' && greyKnight1Rectangle1.posX == i*70+20 &&
+                               greyKnight1Rectangle1.posY == j*70+20) {
                                 FillRect(hdc, &r, rBrush);
                             }
-                            if(turn == 'r' && greyKnight2Rectangle1.posX == i*100+20 &&
-                               greyKnight2Rectangle1.posY == j*100+20) {
+                            if(turn == 'r' && greyKnight2Rectangle1.posX == i*70+20 &&
+                               greyKnight2Rectangle1.posY == j*70+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20+20;
-                                    int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20+20 + 8;
-                                    int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20+20 + 8;
-                                    int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20+20 + 16;
-                                    int l2_y2 = j*100+20;
+                                    int l1_x1 = i*70+20+20;
+                                    int l1_y1 = j*70+20 + 8;
+                                    int l1_x2 = i*70+20+20 + 8;
+                                    int l1_y2 = j*70+20 + 16;
+                                    int l2_x1 = i*70+20+20 + 8;
+                                    int l2_y1 = j*70+20 + 16;
+                                    int l2_x2 = i*70+20+20 + 16;
+                                    int l2_y2 = j*70+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
@@ -9518,21 +9518,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     DeleteObject(pen);
                                 }
                             }
-                            if(turn == 'h' && greyKnight2Rectangle1.posX == i*100+20 &&
-                               greyKnight2Rectangle1.posY == j*100+20) {
+                            if(turn == 'h' && greyKnight2Rectangle1.posX == i*70+20 &&
+                               greyKnight2Rectangle1.posY == j*70+20) {
                                 FillRect(hdc, &r, rBrush);
                             }
-                            if(turn == 'r' && greyBishop1Square.posX == i*100+20 &&
-                               greyBishop1Square.posY == j*100+20) {
+                            if(turn == 'r' && greyBishop1Square.posX == i*70+20 &&
+                               greyBishop1Square.posY == j*70+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20+20;
-                                    int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20+20 + 8;
-                                    int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20+20 + 8;
-                                    int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20+20 + 16;
-                                    int l2_y2 = j*100+20;
+                                    int l1_x1 = i*70+20+20;
+                                    int l1_y1 = j*70+20 + 8;
+                                    int l1_x2 = i*70+20+20 + 8;
+                                    int l1_y2 = j*70+20 + 16;
+                                    int l2_x1 = i*70+20+20 + 8;
+                                    int l2_y1 = j*70+20 + 16;
+                                    int l2_x2 = i*70+20+20 + 16;
+                                    int l2_y2 = j*70+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
@@ -9545,21 +9545,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     DeleteObject(pen);
                                 }
                             }
-                            if(turn == 'h' && greyBishop1Square.posX == i*100+20 &&
-                               greyBishop1Square.posY == j*100+20) {
+                            if(turn == 'h' && greyBishop1Square.posX == i*70+20 &&
+                               greyBishop1Square.posY == j*70+20) {
                                 FillRect(hdc, &r, rBrush);
                             }
-                            if(turn == 'r' && greyBishop2Square.posX == i*100+20 &&
-                               greyBishop2Square.posY == j*100+20) {
+                            if(turn == 'r' && greyBishop2Square.posX == i*70+20 &&
+                               greyBishop2Square.posY == j*70+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20+20;
-                                    int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20+20 + 8;
-                                    int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20+20 + 8;
-                                    int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20+20 + 16;
-                                    int l2_y2 = j*100+20;
+                                    int l1_x1 = i*70+20+20;
+                                    int l1_y1 = j*70+20 + 8;
+                                    int l1_x2 = i*70+20+20 + 8;
+                                    int l1_y2 = j*70+20 + 16;
+                                    int l2_x1 = i*70+20+20 + 8;
+                                    int l2_y1 = j*70+20 + 16;
+                                    int l2_x2 = i*70+20+20 + 16;
+                                    int l2_y2 = j*70+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
@@ -9572,21 +9572,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     DeleteObject(pen);
                                 }
                             }
-                            if(turn == 'h' && greyBishop2Square.posX == i*100+20 &&
-                               greyBishop2Square.posY == j*100+20) {
+                            if(turn == 'h' && greyBishop2Square.posX == i*70+20 &&
+                               greyBishop2Square.posY == j*70+20) {
                                 FillRect(hdc, &r, rBrush);
                             }
-                            if(turn == 'r' && greyRook1Rectangle1.posX == i*100+20 &&
-                               greyRook1Rectangle1.posY == j*100+20) {
+                            if(turn == 'r' && greyRook1Rectangle1.posX == i*70+20 &&
+                               greyRook1Rectangle1.posY == j*70+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20+20;
-                                    int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20+20 + 8;
-                                    int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20+20 + 8;
-                                    int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20+20 + 16;
-                                    int l2_y2 = j*100+20;
+                                    int l1_x1 = i*70+20+20;
+                                    int l1_y1 = j*70+20 + 8;
+                                    int l1_x2 = i*70+20+20 + 8;
+                                    int l1_y2 = j*70+20 + 16;
+                                    int l2_x1 = i*70+20+20 + 8;
+                                    int l2_y1 = j*70+20 + 16;
+                                    int l2_x2 = i*70+20+20 + 16;
+                                    int l2_y2 = j*70+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
@@ -9599,21 +9599,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     DeleteObject(pen);
                                 }
                             }
-                            if(turn == 'h' && greyRook1Rectangle1.posX == i*100+20 &&
-                               greyRook1Rectangle1.posY == j*100+20) {
+                            if(turn == 'h' && greyRook1Rectangle1.posX == i*70+20 &&
+                               greyRook1Rectangle1.posY == j*70+20) {
                                 FillRect(hdc, &r, rBrush);
                             }
-                            if(turn == 'r' && greyRook2Rectangle1.posX == i*100+20 &&
-                               greyRook2Rectangle1.posY == j*100+20) {
+                            if(turn == 'r' && greyRook2Rectangle1.posX == i*70+20 &&
+                               greyRook2Rectangle1.posY == j*70+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20+20;
-                                    int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20+20 + 8;
-                                    int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20+20 + 8;
-                                    int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20+20 + 16;
-                                    int l2_y2 = j*100+20;
+                                    int l1_x1 = i*70+20+20;
+                                    int l1_y1 = j*70+20 + 8;
+                                    int l1_x2 = i*70+20+20 + 8;
+                                    int l1_y2 = j*70+20 + 16;
+                                    int l2_x1 = i*70+20+20 + 8;
+                                    int l2_y1 = j*70+20 + 16;
+                                    int l2_x2 = i*70+20+20 + 16;
+                                    int l2_y2 = j*70+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
@@ -9626,8 +9626,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     DeleteObject(pen);
                                 }
                             }
-                            if(turn == 'h' && greyRook2Rectangle1.posX == i*100+20 &&
-                               greyRook2Rectangle1.posY == j*100+20) {
+                            if(turn == 'h' && greyRook2Rectangle1.posX == i*70+20 &&
+                               greyRook2Rectangle1.posY == j*70+20) {
                                 FillRect(hdc, &r, rBrush);
                             }
                             DeleteObject(rBrush);
@@ -9686,229 +9686,229 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                             hdcMem = CreateCompatibleDC(hdc);
                             HBITMAP hBmp;
-                            if(((greyRook1Rectangle1.posX/100)+(greyRook1Rectangle1.posY/100)) % 2 == 0)
+                            if(((greyRook1Rectangle1.posX/70)+(greyRook1Rectangle1.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(rookWhite,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(rookWhite,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, greyRook1Rectangle1.posX+25+7, greyRook1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, greyRook1Rectangle1.posX+25+7, greyRook1Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((greyRook2Rectangle1.posX/100)+(greyRook2Rectangle1.posY/100)) % 2 == 0)
+                            if(((greyRook2Rectangle1.posX/70)+(greyRook2Rectangle1.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(rook2White,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(rook2White,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, greyRook2Rectangle1.posX+25+7, greyRook2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, greyRook2Rectangle1.posX+25+7, greyRook2Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((greyKnight1Rectangle1.posX/100)+(greyKnight1Rectangle1.posY/100)) % 2 == 0)
+                            if(((greyKnight1Rectangle1.posX/70)+(greyKnight1Rectangle1.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(knightWhite,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(knightWhite,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, greyKnight1Rectangle1.posX+25+7, greyKnight1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, greyKnight1Rectangle1.posX+25+7, greyKnight1Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((greyKnight2Rectangle1.posX/100)+(greyKnight2Rectangle1.posY/100)) % 2 == 0)
+                            if(((greyKnight2Rectangle1.posX/70)+(greyKnight2Rectangle1.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(knight2White,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(knight2White,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, greyKnight2Rectangle1.posX+25+7, greyKnight2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, greyKnight2Rectangle1.posX+25+7, greyKnight2Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((greyBishop1Square.posX/100)+(greyBishop1Square.posY/100)) % 2 == 0)
+                            if(((greyBishop1Square.posX/70)+(greyBishop1Square.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(bishopWhite,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(bishopWhite,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, greyBishop1Square.posX+25+7, greyBishop1Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, greyBishop1Square.posX+25+7, greyBishop1Square.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((greyBishop2Square.posX/100)+(greyBishop2Square.posY/100)) % 2 == 0)
+                            if(((greyBishop2Square.posX/70)+(greyBishop2Square.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(bishop2White,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(bishop2White,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, greyBishop2Square.posX+25+7, greyBishop2Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, greyBishop2Square.posX+25+7, greyBishop2Square.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((greyQueenSquare.posX/100)+(greyQueenSquare.posY/100)) % 2 == 0)
+                            if(((greyQueenSquare.posX/70)+(greyQueenSquare.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(queenWhite,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(queenWhite,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, greyQueenSquare.posX+25+7, greyQueenSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, greyQueenSquare.posX+25+7, greyQueenSquare.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((greyKingSquare.posX/100)+(greyKingSquare.posY/100)) % 2 == 0)
+                            if(((greyKingSquare.posX/70)+(greyKingSquare.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(kingWhite,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(kingWhite,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, greyKingSquare.posX+25+7, greyKingSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, greyKingSquare.posX+25+7, greyKingSquare.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             for(int o=0; o<8; o++) {
                                 hdcMem = CreateCompatibleDC(hdc);
-                                if(((greyPawnsBase[o].posX/100)+(greyPawnsBase[o].posY/100)) % 2 == 0)
+                                if(((greyPawnsBase[o].posX/70)+(greyPawnsBase[o].posY/70)) % 2 == 0)
                                     hBmp = ReplaceColor(pawnWhite,0x110000,0xffffff,hdcMem);
                                 else
                                     hBmp = ReplaceColor(pawnWhite,0x110000,0x000000,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                BitBlt(hdc, greyPawnsBase[o].posX+25+7, greyPawnsBase[o].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                BitBlt(hdc, greyPawnsBase[o].posX+25+7, greyPawnsBase[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             }
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((redRook1Rectangle1.posX/100)+(redRook1Rectangle1.posY/100)) % 2 == 0)
+                            if(((redRook1Rectangle1.posX/70)+(redRook1Rectangle1.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(rookBlack,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(rookBlack,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, redRook1Rectangle1.posX+25+7, redRook1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, redRook1Rectangle1.posX+25+7, redRook1Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((redRook2Rectangle1.posX/100)+(redRook2Rectangle1.posY/100)) % 2 == 0)
+                            if(((redRook2Rectangle1.posX/70)+(redRook2Rectangle1.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(rook2Black,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(rookBlack,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, redRook2Rectangle1.posX+25+7, redRook2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, redRook2Rectangle1.posX+25+7, redRook2Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((redKnight1Rectangle1.posX/100)+(redKnight1Rectangle1.posY/100)) % 2 == 0)
+                            if(((redKnight1Rectangle1.posX/70)+(redKnight1Rectangle1.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(knightBlack,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(knightBlack,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, redKnight1Rectangle1.posX+25+7, redKnight1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, redKnight1Rectangle1.posX+25+7, redKnight1Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((redKnight2Rectangle1.posX/100)+(redKnight2Rectangle1.posY/100)) % 2 == 0)
+                            if(((redKnight2Rectangle1.posX/70)+(redKnight2Rectangle1.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(knight2Black,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(knight2Black,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, redKnight2Rectangle1.posX+25+7, redKnight2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, redKnight2Rectangle1.posX+25+7, redKnight2Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((redBishop1Square.posX/100)+(redBishop1Square.posY/100)) % 2 == 0)
+                            if(((redBishop1Square.posX/70)+(redBishop1Square.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(bishopBlack,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(bishopBlack,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, redBishop1Square.posX+25+7, redBishop1Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, redBishop1Square.posX+25+7, redBishop1Square.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((redBishop2Square.posX/100)+(redBishop2Square.posY/100)) % 2 == 0)
+                            if(((redBishop2Square.posX/70)+(redBishop2Square.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(bishop2Black,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(bishop2Black,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, redBishop2Square.posX+25+7, redBishop2Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, redBishop2Square.posX+25+7, redBishop2Square.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((redQueenSquare.posX/100)+(redQueenSquare.posY/100)) % 2 == 0)
+                            if(((redQueenSquare.posX/70)+(redQueenSquare.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(queenBlack,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(queenBlack,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, redQueenSquare.posX+25+7, redQueenSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, redQueenSquare.posX+25+7, redQueenSquare.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((redKingSquare.posX/100)+(redKingSquare.posY/100)) % 2 == 0)
+                            if(((redKingSquare.posX/70)+(redKingSquare.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(kingBlack,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(kingBlack,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, redKingSquare.posX+25+7, redKingSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, redKingSquare.posX+25+7, redKingSquare.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             for(int o=0; o<8; o++) {
                                 hdcMem = CreateCompatibleDC(hdc);
-                                if(((redPawnsBase[o].posX/100)+(redPawnsBase[o].posY/100)) % 2 == 0)
+                                if(((redPawnsBase[o].posX/70)+(redPawnsBase[o].posY/70)) % 2 == 0)
                                     hBmp = ReplaceColor(pawnBlack,0x110000,0xffffff,hdcMem);
                                 else
                                     hBmp = ReplaceColor(pawnBlack,0x110000,0x000000,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                BitBlt(hdc, redPawnsBase[o].posX+25+7, redPawnsBase[o].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                BitBlt(hdc, redPawnsBase[o].posX+25+7, redPawnsBase[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             }
 
                             for(int m=0; m<8; m++) {
                                 hdcMem = CreateCompatibleDC(hdc);
-                                if(((greyQueenSquareK[m].posX/100)+(greyQueenSquareK[m].posY/100)) % 2 == 0)
+                                if(((greyQueenSquareK[m].posX/70)+(greyQueenSquareK[m].posY/70)) % 2 == 0)
                                     hBmp = ReplaceColor(queenWhite,0x110000,0xffffff,hdcMem);
                                 else
                                     hBmp = ReplaceColor(queenWhite,0x110000,0x000000,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                BitBlt(hdc, greyQueenSquareK[m].posX+25+7, greyQueenSquareK[m].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                BitBlt(hdc, greyQueenSquareK[m].posX+25+7, greyQueenSquareK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             }
 
                             for(int m=0; m<8; m++) {
                                 hdcMem = CreateCompatibleDC(hdc);
-                                if(((redQueenSquareK[m].posX/100)+(redQueenSquareK[m].posY/100)) % 2 == 0)
+                                if(((redQueenSquareK[m].posX/70)+(redQueenSquareK[m].posY/70)) % 2 == 0)
                                     hBmp = ReplaceColor(queenBlack,0x110000,0xffffff,hdcMem);
                                 else
                                     hBmp = ReplaceColor(queenBlack,0x110000,0x000000,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                BitBlt(hdc, redQueenSquareK[m].posX+25+7, redQueenSquareK[m].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                BitBlt(hdc, redQueenSquareK[m].posX+25+7, redQueenSquareK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             }
@@ -9984,229 +9984,229 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                 hdcMem = CreateCompatibleDC(hdc);
                                 HBITMAP hBmp;
-                                if(((greyRook1Rectangle1.posX/100)+(greyRook1Rectangle1.posY/100)) % 2 == 0)
+                                if(((greyRook1Rectangle1.posX/70)+(greyRook1Rectangle1.posY/70)) % 2 == 0)
                                     hBmp = ReplaceColor(rookWhite,0x110000,0xffffff,hdcMem);
                                 else
                                     hBmp = ReplaceColor(rookWhite,0x110000,0x000000,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                BitBlt(hdc, greyRook1Rectangle1.posX+25+7, greyRook1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                BitBlt(hdc, greyRook1Rectangle1.posX+25+7, greyRook1Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
-                                if(((greyRook2Rectangle1.posX/100)+(greyRook2Rectangle1.posY/100)) % 2 == 0)
+                                if(((greyRook2Rectangle1.posX/70)+(greyRook2Rectangle1.posY/70)) % 2 == 0)
                                     hBmp = ReplaceColor(rook2White,0x110000,0xffffff,hdcMem);
                                 else
                                     hBmp = ReplaceColor(rook2White,0x110000,0x000000,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                BitBlt(hdc, greyRook2Rectangle1.posX+25+7, greyRook2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                BitBlt(hdc, greyRook2Rectangle1.posX+25+7, greyRook2Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
-                                if(((greyKnight1Rectangle1.posX/100)+(greyKnight1Rectangle1.posY/100)) % 2 == 0)
+                                if(((greyKnight1Rectangle1.posX/70)+(greyKnight1Rectangle1.posY/70)) % 2 == 0)
                                     hBmp = ReplaceColor(knightWhite,0x110000,0xffffff,hdcMem);
                                 else
                                     hBmp = ReplaceColor(knightWhite,0x110000,0x000000,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                BitBlt(hdc, greyKnight1Rectangle1.posX+25+7, greyKnight1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                BitBlt(hdc, greyKnight1Rectangle1.posX+25+7, greyKnight1Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
-                                if(((greyKnight2Rectangle1.posX/100)+(greyKnight2Rectangle1.posY/100)) % 2 == 0)
+                                if(((greyKnight2Rectangle1.posX/70)+(greyKnight2Rectangle1.posY/70)) % 2 == 0)
                                     hBmp = ReplaceColor(knight2White,0x110000,0xffffff,hdcMem);
                                 else
                                     hBmp = ReplaceColor(knight2White,0x110000,0x000000,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                BitBlt(hdc, greyKnight2Rectangle1.posX+25+7, greyKnight2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                BitBlt(hdc, greyKnight2Rectangle1.posX+25+7, greyKnight2Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
-                                if(((greyBishop1Square.posX/100)+(greyBishop1Square.posY/100)) % 2 == 0)
+                                if(((greyBishop1Square.posX/70)+(greyBishop1Square.posY/70)) % 2 == 0)
                                     hBmp = ReplaceColor(bishopWhite,0x110000,0xffffff,hdcMem);
                                 else
                                     hBmp = ReplaceColor(bishopWhite,0x110000,0x000000,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                BitBlt(hdc, greyBishop1Square.posX+25+7, greyBishop1Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                BitBlt(hdc, greyBishop1Square.posX+25+7, greyBishop1Square.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
-                                if(((greyBishop2Square.posX/100)+(greyBishop2Square.posY/100)) % 2 == 0)
+                                if(((greyBishop2Square.posX/70)+(greyBishop2Square.posY/70)) % 2 == 0)
                                     hBmp = ReplaceColor(bishop2White,0x110000,0xffffff,hdcMem);
                                 else
                                     hBmp = ReplaceColor(bishop2White,0x110000,0x000000,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                BitBlt(hdc, greyBishop2Square.posX+25+7, greyBishop2Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                BitBlt(hdc, greyBishop2Square.posX+25+7, greyBishop2Square.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
-                                if(((greyQueenSquare.posX/100)+(greyQueenSquare.posY/100)) % 2 == 0)
+                                if(((greyQueenSquare.posX/70)+(greyQueenSquare.posY/70)) % 2 == 0)
                                     hBmp = ReplaceColor(queenWhite,0x110000,0xffffff,hdcMem);
                                 else
                                     hBmp = ReplaceColor(queenWhite,0x110000,0x000000,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                BitBlt(hdc, greyQueenSquare.posX+25+7, greyQueenSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                BitBlt(hdc, greyQueenSquare.posX+25+7, greyQueenSquare.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
-                                if(((greyKingSquare.posX/100)+(greyKingSquare.posY/100)) % 2 == 0)
+                                if(((greyKingSquare.posX/70)+(greyKingSquare.posY/70)) % 2 == 0)
                                     hBmp = ReplaceColor(kingWhite,0x110000,0xffffff,hdcMem);
                                 else
                                     hBmp = ReplaceColor(kingWhite,0x110000,0x000000,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                BitBlt(hdc, greyKingSquare.posX+25+7, greyKingSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                BitBlt(hdc, greyKingSquare.posX+25+7, greyKingSquare.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 for(int o=0; o<8; o++) {
                                     hdcMem = CreateCompatibleDC(hdc);
-                                    if(((greyPawnsBase[o].posX/100)+(greyPawnsBase[o].posY/100)) % 2 == 0)
+                                    if(((greyPawnsBase[o].posX/70)+(greyPawnsBase[o].posY/70)) % 2 == 0)
                                         hBmp = ReplaceColor(pawnWhite,0x110000,0xffffff,hdcMem);
                                     else
                                         hBmp = ReplaceColor(pawnWhite,0x110000,0x000000,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                    BitBlt(hdc, greyPawnsBase[o].posX+25+7, greyPawnsBase[o].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                    BitBlt(hdc, greyPawnsBase[o].posX+25+7, greyPawnsBase[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                     SelectObject(hdcMem, oldBitmap);
                                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                 }
 
                                 hdcMem = CreateCompatibleDC(hdc);
-                                if(((redRook1Rectangle1.posX/100)+(redRook1Rectangle1.posY/100)) % 2 == 0)
+                                if(((redRook1Rectangle1.posX/70)+(redRook1Rectangle1.posY/70)) % 2 == 0)
                                     hBmp = ReplaceColor(rookBlack,0x110000,0xffffff,hdcMem);
                                 else
                                     hBmp = ReplaceColor(rookBlack,0x110000,0x000000,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                BitBlt(hdc, redRook1Rectangle1.posX+25+7, redRook1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                BitBlt(hdc, redRook1Rectangle1.posX+25+7, redRook1Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
-                                if(((redRook2Rectangle1.posX/100)+(redRook2Rectangle1.posY/100)) % 2 == 0)
+                                if(((redRook2Rectangle1.posX/70)+(redRook2Rectangle1.posY/70)) % 2 == 0)
                                     hBmp = ReplaceColor(rook2Black,0x110000,0xffffff,hdcMem);
                                 else
                                     hBmp = ReplaceColor(rookBlack,0x110000,0x000000,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                BitBlt(hdc, redRook2Rectangle1.posX+25+7, redRook2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                BitBlt(hdc, redRook2Rectangle1.posX+25+7, redRook2Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
-                                if(((redKnight1Rectangle1.posX/100)+(redKnight1Rectangle1.posY/100)) % 2 == 0)
+                                if(((redKnight1Rectangle1.posX/70)+(redKnight1Rectangle1.posY/70)) % 2 == 0)
                                     hBmp = ReplaceColor(knightBlack,0x110000,0xffffff,hdcMem);
                                 else
                                     hBmp = ReplaceColor(knightBlack,0x110000,0x000000,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                BitBlt(hdc, redKnight1Rectangle1.posX+25+7, redKnight1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                BitBlt(hdc, redKnight1Rectangle1.posX+25+7, redKnight1Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
-                                if(((redKnight2Rectangle1.posX/100)+(redKnight2Rectangle1.posY/100)) % 2 == 0)
+                                if(((redKnight2Rectangle1.posX/70)+(redKnight2Rectangle1.posY/70)) % 2 == 0)
                                     hBmp = ReplaceColor(knight2Black,0x110000,0xffffff,hdcMem);
                                 else
                                     hBmp = ReplaceColor(knight2Black,0x110000,0x000000,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                BitBlt(hdc, redKnight2Rectangle1.posX+25+7, redKnight2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                BitBlt(hdc, redKnight2Rectangle1.posX+25+7, redKnight2Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
-                                if(((redBishop1Square.posX/100)+(redBishop1Square.posY/100)) % 2 == 0)
+                                if(((redBishop1Square.posX/70)+(redBishop1Square.posY/70)) % 2 == 0)
                                     hBmp = ReplaceColor(bishopBlack,0x110000,0xffffff,hdcMem);
                                 else
                                     hBmp = ReplaceColor(bishopBlack,0x110000,0x000000,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                BitBlt(hdc, redBishop1Square.posX+25+7, redBishop1Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                BitBlt(hdc, redBishop1Square.posX+25+7, redBishop1Square.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
-                                if(((redBishop2Square.posX/100)+(redBishop2Square.posY/100)) % 2 == 0)
+                                if(((redBishop2Square.posX/70)+(redBishop2Square.posY/70)) % 2 == 0)
                                     hBmp = ReplaceColor(bishop2Black,0x110000,0xffffff,hdcMem);
                                 else
                                     hBmp = ReplaceColor(bishop2Black,0x110000,0x000000,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                BitBlt(hdc, redBishop2Square.posX+25+7, redBishop2Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                BitBlt(hdc, redBishop2Square.posX+25+7, redBishop2Square.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
-                                if(((redQueenSquare.posX/100)+(redQueenSquare.posY/100)) % 2 == 0)
+                                if(((redQueenSquare.posX/70)+(redQueenSquare.posY/70)) % 2 == 0)
                                     hBmp = ReplaceColor(queenBlack,0x110000,0xffffff,hdcMem);
                                 else
                                     hBmp = ReplaceColor(queenBlack,0x110000,0x000000,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                BitBlt(hdc, redQueenSquare.posX+25+7, redQueenSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                BitBlt(hdc, redQueenSquare.posX+25+7, redQueenSquare.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
-                                if(((redKingSquare.posX/100)+(redKingSquare.posY/100)) % 2 == 0)
+                                if(((redKingSquare.posX/70)+(redKingSquare.posY/70)) % 2 == 0)
                                     hBmp = ReplaceColor(kingBlack,0x110000,0xffffff,hdcMem);
                                 else
                                     hBmp = ReplaceColor(kingBlack,0x110000,0x000000,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                BitBlt(hdc, redKingSquare.posX+25+7, redKingSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                BitBlt(hdc, redKingSquare.posX+25+7, redKingSquare.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 for(int o=0; o<8; o++) {
                                     hdcMem = CreateCompatibleDC(hdc);
-                                    if(((redPawnsBase[o].posX/100)+(redPawnsBase[o].posY/100)) % 2 == 0)
+                                    if(((redPawnsBase[o].posX/70)+(redPawnsBase[o].posY/70)) % 2 == 0)
                                         hBmp = ReplaceColor(pawnBlack,0x110000,0xffffff,hdcMem);
                                     else
                                         hBmp = ReplaceColor(pawnBlack,0x110000,0x000000,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                    BitBlt(hdc, redPawnsBase[o].posX+25+7, redPawnsBase[o].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                    BitBlt(hdc, redPawnsBase[o].posX+25+7, redPawnsBase[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                     SelectObject(hdcMem, oldBitmap);
                                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                 }
 
                                 for(int m=0; m<8; m++) {
                                     hdcMem = CreateCompatibleDC(hdc);
-                                    if(((greyQueenSquareK[m].posX/100)+(greyQueenSquareK[m].posY/100)) % 2 == 0)
+                                    if(((greyQueenSquareK[m].posX/70)+(greyQueenSquareK[m].posY/70)) % 2 == 0)
                                         hBmp = ReplaceColor(queenWhite,0x110000,0xffffff,hdcMem);
                                     else
                                         hBmp = ReplaceColor(queenWhite,0x110000,0x000000,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                    BitBlt(hdc, greyQueenSquareK[m].posX+25+7, greyQueenSquareK[m].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                    BitBlt(hdc, greyQueenSquareK[m].posX+25+7, greyQueenSquareK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                     SelectObject(hdcMem, oldBitmap);
                                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                 }
 
                                 for(int m=0; m<8; m++) {
                                     hdcMem = CreateCompatibleDC(hdc);
-                                    if(((redQueenSquareK[m].posX/100)+(redQueenSquareK[m].posY/100)) % 2 == 0)
+                                    if(((redQueenSquareK[m].posX/70)+(redQueenSquareK[m].posY/70)) % 2 == 0)
                                         hBmp = ReplaceColor(queenBlack,0x110000,0xffffff,hdcMem);
                                     else
                                         hBmp = ReplaceColor(queenBlack,0x110000,0x000000,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                    BitBlt(hdc, redQueenSquareK[m].posX+25+7, redQueenSquareK[m].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                    BitBlt(hdc, redQueenSquareK[m].posX+25+7, redQueenSquareK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                     SelectObject(hdcMem, oldBitmap);
                                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                 }
@@ -10270,7 +10270,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 _y_ = 20;
 
                                 HBRUSH yellow_brush = CreateSolidBrush(RGB(255,255,0));
-                                RECT rrect = {821+50, 20, 1120, 810};
+                                RECT rrect = {610+0, 20, 910, 600};
                                 FillRect(hdc, &rrect, yellow_brush);
                                 DeleteObject(yellow_brush);
 
@@ -10279,11 +10279,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     HBITMAP hBmp = ReplaceColor(rookWhite_s,0xff0000,0xc8c8ff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                    BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                    BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(greyRook1Rectangle1.from != NULL && greyRook1Rectangle1.to != NULL) {
                                         if(strlen(greyRook1Rectangle1.from) >= 2 && strlen(greyRook1Rectangle1.to) >= 2) {
                                             TextOut(hdc,
-                                                    855+50,
+                                                    615+50,
                                                     _y_,
                                                     greyRook1Rectangle1.to,
                                                     GetTextSize("za"));
@@ -10299,11 +10299,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     HBITMAP hBmp = ReplaceColor(rook2White_s,0xff0000,0xc8c8ff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                    BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                    BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(greyRook2Rectangle1.from != NULL && greyRook2Rectangle1.to != NULL) {
                                         if(strlen(greyRook2Rectangle1.from) >= 2 && strlen(greyRook2Rectangle1.to) >= 2) {
                                             TextOut(hdc,
-                                                    855+50,
+                                                    615+50,
                                                     _y_,
                                                     greyRook2Rectangle1.to,
                                                     GetTextSize("za"));
@@ -10319,11 +10319,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     HBITMAP hBmp = ReplaceColor(knightWhite_s,0x00ff00,0xc8c8ff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                    BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                    BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(greyKnight1Rectangle1.from != NULL && greyKnight1Rectangle1.to != NULL) {
                                         if(strlen(greyKnight1Rectangle1.from) >= 2 && strlen(greyKnight1Rectangle1.to) >= 2) {
                                             TextOut(hdc,
-                                                    855+50,
+                                                    615+50,
                                                     _y_,
                                                     greyKnight1Rectangle1.to,
                                                     GetTextSize("za"));
@@ -10339,11 +10339,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     HBITMAP hBmp = ReplaceColor(knight2White_s,0x00ff00,0xc8c8ff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                    BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                    BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(greyKnight2Rectangle1.from != NULL && greyKnight2Rectangle1.to != NULL) {
                                         if(strlen(greyKnight2Rectangle1.from) >= 2 && strlen(greyKnight2Rectangle1.to) >= 2) {
                                             TextOut(hdc,
-                                                    855+50,
+                                                    615+50,
                                                     _y_,
                                                     greyKnight2Rectangle1.to,
                                                     GetTextSize("za"));
@@ -10359,11 +10359,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     HBITMAP hBmp = ReplaceColor(bishopWhite_s,0x4cb122,0xc8c8ff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                    BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                    BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(greyBishop1Square.from != NULL && greyBishop1Square.to != NULL) {
                                         if(strlen(greyBishop1Square.from) >= 2 && strlen(greyBishop1Square.to) >= 2) {
                                             TextOut(hdc,
-                                                    855+50,
+                                                    615+50,
                                                     _y_,
                                                     greyBishop1Square.to,
                                                     GetTextSize("za"));
@@ -10379,11 +10379,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     HBITMAP hBmp = ReplaceColor(bishop2White_s,0x4cb122,0xc8c8ff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                    BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                    BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(greyBishop2Square.from != NULL && greyBishop2Square.to != NULL) {
                                         if(strlen(greyBishop2Square.from) >= 2 && strlen(greyBishop2Square.to) >= 2) {
                                             TextOut(hdc,
-                                                    855+50,
+                                                    615+50,
                                                     _y_,
                                                     greyBishop2Square.to,
                                                     GetTextSize("za"));
@@ -10399,11 +10399,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     HBITMAP hBmp = ReplaceColor(queenWhite_s,0xff0000,0xc8c8ff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                    BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                    BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(greyQueenSquare.from != NULL && greyQueenSquare.to != NULL) {
                                         if(strlen(greyQueenSquare.from) >= 2 && strlen(greyQueenSquare.to) >= 2) {
                                             TextOut(hdc,
-                                                    855+50,
+                                                    615+50,
                                                     _y_,
                                                     greyQueenSquare.to,
                                                     GetTextSize("za"));
@@ -10419,7 +10419,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     HBITMAP hBmp = ReplaceColor(kingWhite_s,0x00ff00,0xc8c8ff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                    BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                    BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     SelectObject(hdcMem, oldBitmap);
                                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
@@ -10431,11 +10431,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         HBITMAP hBmp = ReplaceColor(pawnWhite_s,0x000000,0xc8c8ff,hdcMem);
                                         oldBitmap = SelectObject(hdcMem, hBmp);
                                         GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                        BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                        BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                         if(greyPawnsBase[o].from != NULL && greyPawnsBase[o].to != NULL) {
                                             if(strlen(greyPawnsBase[o].from) >= 2 && strlen(greyPawnsBase[o].to) >= 2) {
                                                 TextOut(hdc,
-                                                        855+50,
+                                                        615+50,
                                                         _y_,
                                                         greyPawnsBase[o].to,
                                                         GetTextSize("za"));
@@ -10453,11 +10453,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         HBITMAP hBmp = ReplaceColor(queenWhite_s,0xff0000,0xc8c8ff,hdcMem);
                                         oldBitmap = SelectObject(hdcMem, hBmp);
                                         GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                        BitBlt(hdc, 825+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                        BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                         if(greyQueenSquareK[m].from != NULL && greyQueenSquareK[m].to != NULL) {
                                             if(strlen(greyQueenSquareK[m].from) >= 2 && strlen(greyQueenSquareK[m].to) >= 2) {
                                                 TextOut(hdc,
-                                                        855+50,
+                                                        615+50,
                                                         _y_,
                                                         greyQueenSquareK[m].to,
                                                         GetTextSize("za"));
@@ -10476,11 +10476,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     HBITMAP hBmp = ReplaceColor(rookBlack_s,0x00ff00,0xc8c8ff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                    BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                    BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(redRook1Rectangle1.from != NULL && redRook1Rectangle1.to != NULL) {
                                         if(strlen(redRook1Rectangle1.from) >= 2 && strlen(redRook1Rectangle1.to) >= 2) {
                                             TextOut(hdc,
-                                                    930+50,
+                                                    690+50,
                                                     _y_,
                                                     redRook1Rectangle1.to,
                                                     GetTextSize("za"));
@@ -10496,11 +10496,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     HBITMAP hBmp = ReplaceColor(rook2Black_s,0x00ff00,0xc8c8ff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                    BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                    BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(redRook2Rectangle1.from != NULL && redRook2Rectangle1.to != NULL) {
                                         if(strlen(redRook2Rectangle1.from) >= 2 && strlen(redRook2Rectangle1.to) >= 2) {
                                             TextOut(hdc,
-                                                    930+50,
+                                                    690+50,
                                                     _y_,
                                                     redRook2Rectangle1.to,
                                                     GetTextSize("za"));
@@ -10516,11 +10516,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     HBITMAP hBmp = ReplaceColor(knightBlack_s,0x00ff00,0xc8c8ff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                    BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                    BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(redKnight1Rectangle1.from != NULL && redKnight1Rectangle1.to != NULL) {
                                         if(strlen(redKnight1Rectangle1.from) >= 2 && strlen(redKnight1Rectangle1.to) >= 2) {
                                             TextOut(hdc,
-                                                    930+50,
+                                                    690+50,
                                                     _y_,
                                                     redKnight1Rectangle1.to,
                                                     GetTextSize("za"));
@@ -10536,11 +10536,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     HBITMAP hBmp = ReplaceColor(knight2Black_s,0x00ff00,0xc8c8ff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                    BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                    BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(redKnight2Rectangle1.from != NULL && redKnight2Rectangle1.to != NULL) {
                                         if(strlen(redKnight2Rectangle1.from) >= 2 && strlen(redKnight2Rectangle1.to) >= 2) {
                                             TextOut(hdc,
-                                                    930+50,
+                                                    690+50,
                                                     _y_,
                                                     redKnight2Rectangle1.to,
                                                     GetTextSize("za"));
@@ -10556,11 +10556,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     HBITMAP hBmp = ReplaceColor(bishopBlack_s,0xff0000,0xc8c8ff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                    BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                    BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(redBishop1Square.from != NULL && redBishop1Square.to != NULL) {
                                         if(strlen(redBishop1Square.from) >= 2 && strlen(redBishop1Square.to) >= 2) {
                                             TextOut(hdc,
-                                                    930+50,
+                                                    690+50,
                                                     _y_,
                                                     redBishop1Square.to,
                                                     GetTextSize("za"));
@@ -10576,11 +10576,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     HBITMAP hBmp = ReplaceColor(bishop2Black_s,0xff0000,0xc8c8ff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                    BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                    BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(redBishop2Square.from != NULL && redBishop2Square.to != NULL) {
                                         if(strlen(redBishop2Square.from) >= 2 && strlen(redBishop2Square.to) >= 2) {
                                             TextOut(hdc,
-                                                    930+50,
+                                                    690+50,
                                                     _y_,
                                                     redBishop2Square.to,
                                                     GetTextSize("za"));
@@ -10596,11 +10596,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     HBITMAP hBmp = ReplaceColor(queenBlack_s,0x00ff00,0xc8c8ff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                    BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                    BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(redQueenSquare.from != NULL && redQueenSquare.to != NULL) {
                                         if(strlen(redQueenSquare.from) >= 2 && strlen(redQueenSquare.to) >= 2) {
                                             TextOut(hdc,
-                                                    930+50,
+                                                    690+50,
                                                     _y_,
                                                     redQueenSquare.to,
                                                     GetTextSize("za"));
@@ -10616,7 +10616,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     HBITMAP hBmp = ReplaceColor(kingBlack_s,0xff0000,0xc8c8ff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                    BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                    BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     SelectObject(hdcMem, oldBitmap);
                                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
@@ -10628,11 +10628,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         HBITMAP hBmp = ReplaceColor(pawnBlack_s,0xff0000,0xc8c8ff,hdcMem);
                                         oldBitmap = SelectObject(hdcMem, hBmp);
                                         GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                        BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                        BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                         if(redPawnsBase[o].from != NULL && redPawnsBase[o].to != NULL) {
                                             if(strlen(redPawnsBase[o].from) >= 2 && strlen(redPawnsBase[o].to) >= 2) {
                                                 TextOut(hdc,
-                                                        930+50,
+                                                        690+50,
                                                         _y_,
                                                         redPawnsBase[o].to,
                                                         GetTextSize("za"));
@@ -10650,11 +10650,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         HBITMAP hBmp = ReplaceColor(queenBlack_s,0x00ff00,0xc8c8ff,hdcMem);
                                         oldBitmap = SelectObject(hdcMem, hBmp);
                                         GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                        BitBlt(hdc, 900+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                        BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                         if(redQueenSquareK[m].from != NULL && redQueenSquareK[m].to != NULL) {
                                             if(strlen(redQueenSquareK[m].from) >= 2 && strlen(redQueenSquareK[m].to) >= 2) {
                                                 TextOut(hdc,
-                                                        930+50,
+                                                        690+50,
                                                         _y_,
                                                         redQueenSquareK[m].to,
                                                         GetTextSize("za"));
@@ -10688,7 +10688,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 if(pcgame) {
                                     if(turn == 'r') {
                                         if(from != NULL && to != NULL) {
-                                            SetWindowText(hwnd_timer, "a.i. thinking ...");
+                                            SetWindowText(hwnd_timer, "thinking ...");
                                             thread_1 = CreateThread(NULL, 0, callApi, NULL, 0, NULL);
                                         }
                                         break;
@@ -10699,8 +10699,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                             for(int k=0; k<8; k++) {
 
-                                if(redPawnsBase[k].posX == i*100+20 &&
-                                   redPawnsBase[k].posY == j*100+20) {
+                                if(redPawnsBase[k].posX == i*70+20 &&
+                                   redPawnsBase[k].posY == j*70+20) {
 
                                     clickedOne = 'r';
                                     redPawnsBase[k].clicked = TRUE;
@@ -10736,68 +10736,68 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         boolean ff = FALSE;
 
 //                                        for(int m=0; m<8; m++) {
-//                                            if(redPawnsBase[m].posY == redPawnsBase[k].posY + 100 &&
-//                                               (redPawnsBase[m].posX == redPawnsBase[k].posX + 100 || redPawnsBase[m].posX == redPawnsBase[k].posX - 100)) {
+//                                            if(redPawnsBase[m].posY == redPawnsBase[k].posY + 70 &&
+//                                               (redPawnsBase[m].posX == redPawnsBase[k].posX + 70 || redPawnsBase[m].posX == redPawnsBase[k].posX - 70)) {
 //                                                ff = TRUE;
 //                                            }
-//                                            if(redPawnsBase[m].posY == redPawnsBase[k].posY + 100 &&
+//                                            if(redPawnsBase[m].posY == redPawnsBase[k].posY + 70 &&
 //                                               redPawnsBase[m].posX == redPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(redKnight1Rectangle1.posY == redPawnsBase[k].posY + 100 &&
+//                                            if(redKnight1Rectangle1.posY == redPawnsBase[k].posY + 70 &&
 //                                               redKnight1Rectangle1.posX == redPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(redKnight2Rectangle1.posY == redPawnsBase[k].posY + 100 &&
+//                                            if(redKnight2Rectangle1.posY == redPawnsBase[k].posY + 70 &&
 //                                               redKnight2Rectangle1.posX == redPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(redBishop1Square.posY == redPawnsBase[k].posY + 100 &&
+//                                            if(redBishop1Square.posY == redPawnsBase[k].posY + 70 &&
 //                                               redBishop1Square.posX == redPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(redBishop2Square.posY == redPawnsBase[k].posY + 100 &&
+//                                            if(redBishop2Square.posY == redPawnsBase[k].posY + 70 &&
 //                                               redBishop2Square.posX == redPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(redRook1Rectangle1.posY == redPawnsBase[k].posY + 100 &&
+//                                            if(redRook1Rectangle1.posY == redPawnsBase[k].posY + 70 &&
 //                                               redRook1Rectangle1.posX == redPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(redRook2Rectangle1.posY == redPawnsBase[k].posY + 100 &&
+//                                            if(redRook2Rectangle1.posY == redPawnsBase[k].posY + 70 &&
 //                                               redRook2Rectangle1.posX == redPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(redKnight1Rectangle1.posY == redPawnsBase[k].posY + 100 &&
+//                                            if(redKnight1Rectangle1.posY == redPawnsBase[k].posY + 70 &&
 //                                               redKnight1Rectangle1.posX == redPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(redKnight2Rectangle1.posY == redPawnsBase[k].posY + 100 &&
+//                                            if(redKnight2Rectangle1.posY == redPawnsBase[k].posY + 70 &&
 //                                               redKnight2Rectangle1.posX == redPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(redBishop1Square.posY == redPawnsBase[k].posY + 100 &&
+//                                            if(redBishop1Square.posY == redPawnsBase[k].posY + 70 &&
 //                                               redBishop1Square.posX == redPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(redBishop2Square.posY == redPawnsBase[k].posY + 100 &&
+//                                            if(redBishop2Square.posY == redPawnsBase[k].posY + 70 &&
 //                                               redBishop2Square.posX == redPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(redRook1Rectangle1.posY == redPawnsBase[k].posY + 100 &&
+//                                            if(redRook1Rectangle1.posY == redPawnsBase[k].posY + 70 &&
 //                                               redRook1Rectangle1.posX == redPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(redRook2Rectangle1.posY == redPawnsBase[k].posY + 100 &&
+//                                            if(redRook2Rectangle1.posY == redPawnsBase[k].posY + 70 &&
 //                                               redRook2Rectangle1.posX == redPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
 //                                        }
 
                                         if(!ff &&
-                                           j*100+20 == redPawnsBase[k].posY + 100 &&
-                                          (i*100+20 == redPawnsBase[k].posX - 100 ||
-                                           i*100+20 == redPawnsBase[k].posX + 100)) {
+                                           j*70+20 == redPawnsBase[k].posY + 70 &&
+                                          (i*70+20 == redPawnsBase[k].posX - 70 ||
+                                           i*70+20 == redPawnsBase[k].posX + 70)) {
 
                                             turn = 'h';
 
@@ -10807,51 +10807,51 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = redPawnsBase[k].posY;
 
                                             boxes[j][i].clear = FALSE;
-                                            boxes[redPawnsBase[k].posY/100][redPawnsBase[k].posX/100].clear = TRUE;
-                                            redPawnsBase[k].posY = j*100+20;
-                                            redPawnsBase[k].posX = i*100+20;
+                                            boxes[redPawnsBase[k].posY/70][redPawnsBase[k].posX/70].clear = TRUE;
+                                            redPawnsBase[k].posY = j*70+20;
+                                            redPawnsBase[k].posX = i*70+20;
 
                                             boolean fff = TRUE;
 
                                             for(int l=0; l<8; l++) {
                                                 if((greyPawnsBase[l].posX == redPawnsBase[k].posX ||
                                                     greyPawnsBase[l].posX == redPawnsBase[k].posX) &&
-                                                    greyPawnsBase[l].posY == j*100+20) {
+                                                    greyPawnsBase[l].posY == j*70+20) {
                                                     fff = FALSE;
                                                 }
                                             }
                                             for(int z=0; z<8; z++) {
-                                                if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                   greyQueenSquareK[z].posY == j*100+20) {
+                                                if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                   greyQueenSquareK[z].posY == j*70+20) {
                                                     fff = FALSE;
                                                 }
                                             }
-                                            if(greyQueenSquare.posX == i*100+20 &&
-                                               greyQueenSquare.posY == j*100+20) {
+                                            if(greyQueenSquare.posX == i*70+20 &&
+                                               greyQueenSquare.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
-                                            if(greyBishop1Square.posX == i*100+20 &&
-                                               greyBishop1Square.posY == j*100+20) {
+                                            if(greyBishop1Square.posX == i*70+20 &&
+                                               greyBishop1Square.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
-                                            if(greyBishop2Square.posX == i*100+20 &&
-                                               greyBishop2Square.posY == j*100+20) {
+                                            if(greyBishop2Square.posX == i*70+20 &&
+                                               greyBishop2Square.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
-                                            if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                               greyKnight1Rectangle1.posY == j*100+20) {
+                                            if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                               greyKnight1Rectangle1.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
-                                            if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                               greyKnight2Rectangle1.posY == j*100+20) {
+                                            if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                               greyKnight2Rectangle1.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
-                                            if(greyRook1Rectangle1.posX == i*100+20 &&
-                                               greyRook1Rectangle1.posY == j*100+20) {
+                                            if(greyRook1Rectangle1.posX == i*70+20 &&
+                                               greyRook1Rectangle1.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
-                                            if(greyRook2Rectangle1.posX == i*100+20 &&
-                                               greyRook2Rectangle1.posY == j*100+20) {
+                                            if(greyRook2Rectangle1.posX == i*70+20 &&
+                                               greyRook2Rectangle1.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
 
@@ -10875,51 +10875,51 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 for(int l=0; l<8; l++) {
                                                     if((greyPawnsBase[l].posX == redPawnsBase[k].posX ||
                                                         greyPawnsBase[l].posX == redPawnsBase[k].posX) &&
-                                                        greyPawnsBase[l].posY == j*100+20) {
+                                                        greyPawnsBase[l].posY == j*70+20) {
                                                         greyPawnsBase[l].posX = 1300;
                                                         ate = TRUE;
                                                         break;
                                                     }
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                       greyQueenSquareK[z].posY == j*100+20) {
+                                                    if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                       greyQueenSquareK[z].posY == j*70+20) {
                                                         greyQueenSquareK[z].posX = 1300;
                                                         ate = TRUE;
                                                     }
                                                 }
-                                                if(greyQueenSquare.posX == i*100+20 &&
-                                                   greyQueenSquare.posY == j*100+20) {
+                                                if(greyQueenSquare.posX == i*70+20 &&
+                                                   greyQueenSquare.posY == j*70+20) {
                                                     greyQueenSquare.posX = 1300;
                                                     ate = TRUE;
                                                 }
-                                                if(greyBishop1Square.posX == i*100+20 &&
-                                                   greyBishop1Square.posY == j*100+20) {
+                                                if(greyBishop1Square.posX == i*70+20 &&
+                                                   greyBishop1Square.posY == j*70+20) {
                                                     greyBishop1Square.posX = 1300;
                                                     ate = TRUE;
                                                 }
-                                                if(greyBishop2Square.posX == i*100+20 &&
-                                                   greyBishop2Square.posY == j*100+20) {
+                                                if(greyBishop2Square.posX == i*70+20 &&
+                                                   greyBishop2Square.posY == j*70+20) {
                                                     greyBishop2Square.posX = 1300;
                                                     ate = TRUE;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                                   greyKnight1Rectangle1.posY == j*100+20) {
+                                                if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                                   greyKnight1Rectangle1.posY == j*70+20) {
                                                     greyKnight1Rectangle1.posX = 1300;
                                                     ate = TRUE;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                                   greyKnight2Rectangle1.posY == j*100+20) {
+                                                if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                                   greyKnight2Rectangle1.posY == j*70+20) {
                                                     greyKnight2Rectangle1.posX = 1300;
                                                     ate = TRUE;
                                                 }
-                                                if(greyRook1Rectangle1.posX == i*100+20 &&
-                                                   greyRook1Rectangle1.posY == j*100+20) {
+                                                if(greyRook1Rectangle1.posX == i*70+20 &&
+                                                   greyRook1Rectangle1.posY == j*70+20) {
                                                     greyRook1Rectangle1.posX = 1300;
                                                     ate = TRUE;
                                                 }
-                                                if(greyRook2Rectangle1.posX == i*100+20 &&
-                                                   greyRook2Rectangle1.posY == j*100+20) {
+                                                if(greyRook2Rectangle1.posX == i*70+20 &&
+                                                   greyRook2Rectangle1.posY == j*70+20) {
                                                     greyRook2Rectangle1.posX = 1300;
                                                     ate = TRUE;
                                                 }
@@ -10948,19 +10948,19 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
 
                                         else if(!fail &&
-                                                j*100+20 == redPawnsBase[k].posY + 100 &&
-                                                i*100+20 == redPawnsBase[k].posX) {
+                                                j*70+20 == redPawnsBase[k].posY + 70 &&
+                                                i*70+20 == redPawnsBase[k].posX) {
 
                                             turn = 'h';
 
                                             boolean cant = FALSE;
                                             for(int s=0; s<8; s++) {
                                                 if(greyPawnsBase[s].posX == redPawnsBase[k].posX &&
-                                                   greyPawnsBase[s].posY - 100 == redPawnsBase[k].posY) {
+                                                   greyPawnsBase[s].posY - 70 == redPawnsBase[k].posY) {
                                                     cant = TRUE;
                                                 }
                                                 if(redPawnsBase[s].posX == redPawnsBase[k].posX &&
-                                                   redPawnsBase[s].posY - 100 == redPawnsBase[k].posY) {
+                                                   redPawnsBase[s].posY - 70 == redPawnsBase[k].posY) {
                                                     cant = TRUE;
                                                 }
                                             }
@@ -10971,8 +10971,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                                 boxes[j][i].clear = FALSE;
 
-                                                boxes[redPawnsBase[k].posY/100][redPawnsBase[k].posX/100].clear = TRUE;
-                                                redPawnsBase[k].posY = j*100+20;
+                                                boxes[redPawnsBase[k].posY/70][redPawnsBase[k].posX/70].clear = TRUE;
+                                                redPawnsBase[k].posY = j*70+20;
 
                                                 boolean ffff = checkCheckRed(j, i);
 
@@ -10995,19 +10995,19 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
 
                                         else if(!fail &&
-                                                j*100+20 == redPawnsBase[k].posY + 200 &&
-                                                i*100+20 == redPawnsBase[k].posX) {
+                                                j*70+20 == redPawnsBase[k].posY + 140 &&
+                                                i*70+20 == redPawnsBase[k].posX) {
 
                                             turn = 'h';
 
                                             boolean cant = FALSE;
                                             for(int s=0; s<8; s++) {
                                                 if(greyPawnsBase[s].posX == redPawnsBase[k].posX &&
-                                                   greyPawnsBase[s].posY - 100 == redPawnsBase[k].posY) {
+                                                   greyPawnsBase[s].posY - 70 == redPawnsBase[k].posY) {
                                                     cant = TRUE;
                                                 }
                                                 if(redPawnsBase[s].posX == redPawnsBase[k].posX &&
-                                                   redPawnsBase[s].posY - 100 == redPawnsBase[k].posY) {
+                                                   redPawnsBase[s].posY - 70 == redPawnsBase[k].posY) {
                                                     cant = TRUE;
                                                 }
                                             }
@@ -11018,8 +11018,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                                 boxes[j][i].clear = FALSE;
 
-                                                boxes[redPawnsBase[k].posY/100][redPawnsBase[k].posX/100].clear = TRUE;
-                                                redPawnsBase[k].posY = j*100+20;
+                                                boxes[redPawnsBase[k].posY/70][redPawnsBase[k].posX/70].clear = TRUE;
+                                                redPawnsBase[k].posY = j*70+20;
 
                                                 boolean ffff = checkCheckRed(j, i);
 
@@ -11046,68 +11046,68 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         boolean ff = FALSE;
 
 //                                        for(int m=0; m<8; m++) {
-//                                            if(redPawnsBase[m].posY == redPawnsBase[k].posY + 100 &&
-//                                               (redPawnsBase[m].posX == redPawnsBase[k].posX + 100 || redPawnsBase[m].posX == redPawnsBase[k].posX - 100)) {
+//                                            if(redPawnsBase[m].posY == redPawnsBase[k].posY + 70 &&
+//                                               (redPawnsBase[m].posX == redPawnsBase[k].posX + 70 || redPawnsBase[m].posX == redPawnsBase[k].posX - 70)) {
 //                                                ff = TRUE;
 //                                            }
-//                                            if(greyPawnsBase[m].posY == redPawnsBase[k].posY + 100 &&
+//                                            if(greyPawnsBase[m].posY == redPawnsBase[k].posY + 70 &&
 //                                               greyPawnsBase[m].posX == redPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyKnight1Rectangle1.posY == redPawnsBase[k].posY + 100 &&
+//                                            if(greyKnight1Rectangle1.posY == redPawnsBase[k].posY + 70 &&
 //                                               greyKnight1Rectangle1.posX == redPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyKnight2Rectangle1.posY == redPawnsBase[k].posY + 100 &&
+//                                            if(greyKnight2Rectangle1.posY == redPawnsBase[k].posY + 70 &&
 //                                               greyKnight2Rectangle1.posX == redPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyBishop1Square.posY == redPawnsBase[k].posY + 100 &&
+//                                            if(greyBishop1Square.posY == redPawnsBase[k].posY + 70 &&
 //                                               greyBishop1Square.posX == redPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyBishop2Square.posY == redPawnsBase[k].posY + 100 &&
+//                                            if(greyBishop2Square.posY == redPawnsBase[k].posY + 70 &&
 //                                               greyBishop2Square.posX == redPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyRook1Rectangle1.posY == redPawnsBase[k].posY + 100 &&
+//                                            if(greyRook1Rectangle1.posY == redPawnsBase[k].posY + 70 &&
 //                                               greyRook1Rectangle1.posX == redPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyRook2Rectangle1.posY == redPawnsBase[k].posY + 100 &&
+//                                            if(greyRook2Rectangle1.posY == redPawnsBase[k].posY + 70 &&
 //                                               greyRook2Rectangle1.posX == redPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyKnight1Rectangle1.posY == redPawnsBase[k].posY + 100 &&
+//                                            if(greyKnight1Rectangle1.posY == redPawnsBase[k].posY + 70 &&
 //                                               greyKnight1Rectangle1.posX == redPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyKnight2Rectangle1.posY == redPawnsBase[k].posY + 100 &&
+//                                            if(greyKnight2Rectangle1.posY == redPawnsBase[k].posY + 70 &&
 //                                               greyKnight2Rectangle1.posX == redPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyBishop1Square.posY == redPawnsBase[k].posY + 100 &&
+//                                            if(greyBishop1Square.posY == redPawnsBase[k].posY + 70 &&
 //                                               greyBishop1Square.posX == redPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyBishop2Square.posY == redPawnsBase[k].posY + 100 &&
+//                                            if(greyBishop2Square.posY == redPawnsBase[k].posY + 70 &&
 //                                               greyBishop2Square.posX == redPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyRook1Rectangle1.posY == redPawnsBase[k].posY + 100 &&
+//                                            if(greyRook1Rectangle1.posY == redPawnsBase[k].posY + 70 &&
 //                                               greyRook1Rectangle1.posX == redPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
-//                                            if(greyRook2Rectangle1.posY == redPawnsBase[k].posY + 100 &&
+//                                            if(greyRook2Rectangle1.posY == redPawnsBase[k].posY + 70 &&
 //                                               greyRook2Rectangle1.posX == redPawnsBase[k].posX) {
 //                                                fail = TRUE;
 //                                            }
 //                                        }
 
                                         if(!ff &&
-                                           j*100+20 == redPawnsBase[k].posY + 100 &&
-                                          (i*100+20 == redPawnsBase[k].posX - 100 ||
-                                           i*100+20 == redPawnsBase[k].posX + 100)) {
+                                           j*70+20 == redPawnsBase[k].posY + 70 &&
+                                          (i*70+20 == redPawnsBase[k].posX - 70 ||
+                                           i*70+20 == redPawnsBase[k].posX + 70)) {
 
                                             turn = 'h';
 
@@ -11116,52 +11116,52 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a0 = redPawnsBase[k].posX;
                                             int a1 = redPawnsBase[k].posY;
 
-                                            boxes[redPawnsBase[k].posY/100][redPawnsBase[k].posX/100].clear = TRUE;
+                                            boxes[redPawnsBase[k].posY/70][redPawnsBase[k].posX/70].clear = TRUE;
                                             boxes[j][i].clear = FALSE;
-                                            redPawnsBase[k].posY = j*100+20;
-                                            redPawnsBase[k].posX = i*100+20;
+                                            redPawnsBase[k].posY = j*70+20;
+                                            redPawnsBase[k].posX = i*70+20;
 
                                             boolean fff = TRUE;
 
                                             for(int l=0; l<8; l++) {
                                                 if((greyPawnsBase[l].posX == redPawnsBase[k].posX ||
                                                     greyPawnsBase[l].posX == redPawnsBase[k].posX) &&
-                                                    greyPawnsBase[l].posY == j*100+20) {
+                                                    greyPawnsBase[l].posY == j*70+20) {
                                                     fff = FALSE;
                                                 }
                                             }
                                             for(int z=0; z<8; z++) {
-                                                if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                   greyQueenSquareK[z].posY == j*100+20) {
+                                                if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                   greyQueenSquareK[z].posY == j*70+20) {
                                                     fff = FALSE;
                                                 }
                                             }
-                                            if(greyQueenSquare.posX == i*100+20 &&
-                                               greyQueenSquare.posY == j*100+20) {
+                                            if(greyQueenSquare.posX == i*70+20 &&
+                                               greyQueenSquare.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
-                                            if(greyBishop1Square.posX == i*100+20 &&
-                                               greyBishop1Square.posY == j*100+20) {
+                                            if(greyBishop1Square.posX == i*70+20 &&
+                                               greyBishop1Square.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
-                                            if(greyBishop2Square.posX == i*100+20 &&
-                                               greyBishop2Square.posY == j*100+20) {
+                                            if(greyBishop2Square.posX == i*70+20 &&
+                                               greyBishop2Square.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
-                                            if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                               greyKnight1Rectangle1.posY == j*100+20) {
+                                            if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                               greyKnight1Rectangle1.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
-                                            if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                               greyKnight2Rectangle1.posY == j*100+20) {
+                                            if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                               greyKnight2Rectangle1.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
-                                            if(greyRook1Rectangle1.posX == i*100+20 &&
-                                               greyRook1Rectangle1.posY == j*100+20) {
+                                            if(greyRook1Rectangle1.posX == i*70+20 &&
+                                               greyRook1Rectangle1.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
-                                            if(greyRook2Rectangle1.posX == i*100+20 &&
-                                               greyRook2Rectangle1.posY == j*100+20) {
+                                            if(greyRook2Rectangle1.posX == i*70+20 &&
+                                               greyRook2Rectangle1.posY == j*70+20) {
                                                 fff = FALSE;
                                             }
 
@@ -11183,53 +11183,53 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int l=0; l<8; l++) {
-                                                    if(greyPawnsBase[l].posX == i*100+20 &&
-                                                       greyPawnsBase[l].posY == j*100+20) {
+                                                    if(greyPawnsBase[l].posX == i*70+20 &&
+                                                       greyPawnsBase[l].posY == j*70+20) {
                                                         greyPawnsBase[l].posX = 1300;
                                                         ate = TRUE;
                                                         break;
                                                     }
                                                 }
-                                                if(greyQueenSquare.posX == i*100+20 &&
-                                                   greyQueenSquare.posY == j*100+20) {
+                                                if(greyQueenSquare.posX == i*70+20 &&
+                                                   greyQueenSquare.posY == j*70+20) {
                                                     greyQueenSquare.posX = 1300;
                                                     ate = TRUE;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                       greyQueenSquareK[z].posY == j*100+20) {
+                                                    if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                       greyQueenSquareK[z].posY == j*70+20) {
                                                         greyQueenSquareK[z].posX = 1300;
                                                         ate = TRUE;
                                                     }
                                                 }
-                                                if(greyBishop1Square.posX == i*100+20 &&
-                                                   greyBishop1Square.posY == j*100+20) {
+                                                if(greyBishop1Square.posX == i*70+20 &&
+                                                   greyBishop1Square.posY == j*70+20) {
                                                     greyBishop1Square.posX = 1300;
                                                     ate = TRUE;
                                                 }
-                                                if(greyBishop2Square.posX == i*100+20 &&
-                                                   greyBishop2Square.posY == j*100+20) {
+                                                if(greyBishop2Square.posX == i*70+20 &&
+                                                   greyBishop2Square.posY == j*70+20) {
                                                     greyBishop2Square.posX = 1300;
                                                     ate = TRUE;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                                   greyKnight1Rectangle1.posY == j*100+20) {
+                                                if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                                   greyKnight1Rectangle1.posY == j*70+20) {
                                                     greyKnight1Rectangle1.posX = 1300;
                                                     ate = TRUE;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                                   greyKnight2Rectangle1.posY == j*100+20) {
+                                                if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                                   greyKnight2Rectangle1.posY == j*70+20) {
                                                     greyKnight2Rectangle1.posX = 1300;
                                                     ate = TRUE;
                                                 }
-                                                if(greyRook1Rectangle1.posX == i*100+20 &&
-                                                   greyRook1Rectangle1.posY == j*100+20) {
+                                                if(greyRook1Rectangle1.posX == i*70+20 &&
+                                                   greyRook1Rectangle1.posY == j*70+20) {
                                                     greyRook1Rectangle1.posX = 1300;
                                                     ate = TRUE;
                                                 }
 
-                                                if(greyRook2Rectangle1.posX == i*100+20 &&
-                                                   greyRook2Rectangle1.posY == j*100+20) {
+                                                if(greyRook2Rectangle1.posX == i*70+20 &&
+                                                   greyRook2Rectangle1.posY == j*70+20) {
                                                     greyRook2Rectangle1.posX = 1300;
                                                     ate = TRUE;
                                                 }
@@ -11258,19 +11258,19 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
 
                                         else if(!fail &&
-                                           j*100+20 == redPawnsBase[k].posY + 100 &&
-                                           i*100+20 == redPawnsBase[k].posX) {
+                                           j*70+20 == redPawnsBase[k].posY + 70 &&
+                                           i*70+20 == redPawnsBase[k].posX) {
 
                                             turn = 'h';
 
                                             boolean cant = FALSE;
                                             for(int s=0; s<8; s++) {
                                                 if(greyPawnsBase[s].posX == redPawnsBase[k].posX &&
-                                                   greyPawnsBase[s].posY - 100 == redPawnsBase[k].posY) {
+                                                   greyPawnsBase[s].posY - 70 == redPawnsBase[k].posY) {
                                                     cant = TRUE;
                                                 }
                                                 if(redPawnsBase[s].posX == redPawnsBase[k].posX &&
-                                                   redPawnsBase[s].posY - 100 == redPawnsBase[k].posY) {
+                                                   redPawnsBase[s].posY - 70 == redPawnsBase[k].posY) {
                                                     cant = TRUE;
                                                 }
                                             }
@@ -11279,10 +11279,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 int a0 = redPawnsBase[k].posX;
                                                 int a1 = redPawnsBase[k].posY;
 
-                                                boxes[redPawnsBase[k].posY/100][redPawnsBase[k].posX/100].clear = TRUE;
+                                                boxes[redPawnsBase[k].posY/70][redPawnsBase[k].posX/70].clear = TRUE;
                                                 boxes[j][i].clear = FALSE;
 
-                                                redPawnsBase[k].posY = j*100+20;
+                                                redPawnsBase[k].posY = j*70+20;
 
                                                 boolean ffff = checkCheckRed(j, i);
 
@@ -11308,8 +11308,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                             boolean itdid = FALSE;
 
-                            if(redKnight1Rectangle1.posX == i*100+20 &&
-                               redKnight1Rectangle1.posY == j*100+20) {
+                            if(redKnight1Rectangle1.posX == i*70+20 &&
+                               redKnight1Rectangle1.posY == j*70+20) {
 
                                 clickedOne = 'r';
                                 redKnight1Rectangle1.clicked = TRUE;
@@ -11336,45 +11336,45 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                     redKnight1Rectangle1.clicked = FALSE;
 
-                                    if(j*100+20 == redKnight1Rectangle1.posY - 200 &&
-                                       i*100+20 == redKnight1Rectangle1.posX - 100) {
+                                    if(j*70+20 == redKnight1Rectangle1.posY - 140 &&
+                                       i*70+20 == redKnight1Rectangle1.posX - 70) {
 
                                         for(int t=0; t<8; t++) {
-                                            if(redPawnsBase[t].posX == i*100+20 &&
-                                               redPawnsBase[t].posY == j*100+20) {
+                                            if(redPawnsBase[t].posX == i*70+20 &&
+                                               redPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(redQueenSquare.posX == i*100+20 &&
-                                           redQueenSquare.posY == j*100+20) {
+                                        if(redQueenSquare.posX == i*70+20 &&
+                                           redQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop1Square.posX == i*100+20 &&
-                                           redBishop1Square.posY == j*100+20) {
+                                        if(redBishop1Square.posX == i*70+20 &&
+                                           redBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop2Square.posX == i*100+20 &&
-                                           redBishop2Square.posY == j*100+20) {
+                                        if(redBishop2Square.posX == i*70+20 &&
+                                           redBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight1Rectangle1.posX == i*100+20 &&
-                                           redKnight1Rectangle1.posY == j*100+20) {
+                                        if(redKnight1Rectangle1.posX == i*70+20 &&
+                                           redKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook1Rectangle1.posX == i*100+20 &&
-                                           redRook1Rectangle1.posY == j*100+20) {
+                                        if(redRook1Rectangle1.posX == i*70+20 &&
+                                           redRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook2Rectangle1.posX == i*100+20 &&
-                                           redRook2Rectangle1.posY == j*100+20) {
+                                        if(redRook2Rectangle1.posX == i*70+20 &&
+                                           redRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -11383,8 +11383,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = redKnight1Rectangle1.posY;
                                             int a0 = redKnight1Rectangle1.posX;
 
-                                            redKnight1Rectangle1.posX = i*100+20;
-                                            redKnight1Rectangle1.posY = j*100+20;
+                                            redKnight1Rectangle1.posX = i*70+20;
+                                            redKnight1Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckRed(j, i);
 
@@ -11398,43 +11398,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(greyPawnsBase[t].posX == i*100+20 &&
-                                                       greyPawnsBase[t].posY == j*100+20) {
+                                                    if(greyPawnsBase[t].posX == i*70+20 &&
+                                                       greyPawnsBase[t].posY == j*70+20) {
                                                         greyPawnsBase[t].posX = 1300;
                                                     }
                                                 }
-                                                if(greyQueenSquare.posX == i*100+20 &&
-                                                   greyQueenSquare.posY == j*100+20) {
+                                                if(greyQueenSquare.posX == i*70+20 &&
+                                                   greyQueenSquare.posY == j*70+20) {
                                                     greyQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                       greyQueenSquareK[z].posY == j*100+20) {
+                                                    if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                       greyQueenSquareK[z].posY == j*70+20) {
                                                         greyQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(greyBishop1Square.posX == i*100+20 &&
-                                                   greyBishop1Square.posY == j*100+20) {
+                                                if(greyBishop1Square.posX == i*70+20 &&
+                                                   greyBishop1Square.posY == j*70+20) {
                                                     greyBishop1Square.posX = 1300;
                                                 }
-                                                if(greyBishop2Square.posX == i*100+20 &&
-                                                   greyBishop2Square.posY == j*100+20) {
+                                                if(greyBishop2Square.posX == i*70+20 &&
+                                                   greyBishop2Square.posY == j*70+20) {
                                                     greyBishop2Square.posX = 1300;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                                   greyKnight1Rectangle1.posY == j*100+20) {
+                                                if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                                   greyKnight1Rectangle1.posY == j*70+20) {
                                                     greyKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                                   greyKnight2Rectangle1.posY == j*100+20) {
+                                                if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                                   greyKnight2Rectangle1.posY == j*70+20) {
                                                     greyKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook1Rectangle1.posX == i*100+20 &&
-                                                   greyRook1Rectangle1.posY == j*100+20) {
+                                                if(greyRook1Rectangle1.posX == i*70+20 &&
+                                                   greyRook1Rectangle1.posY == j*70+20) {
                                                     greyRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook2Rectangle1.posX == i*100+20 &&
-                                                   greyRook2Rectangle1.posY == j*100+20) {
+                                                if(greyRook2Rectangle1.posX == i*70+20 &&
+                                                   greyRook2Rectangle1.posY == j*70+20) {
                                                     greyRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -11445,45 +11445,45 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'r';
                                         }
-                                    } else if(j*100+20 == redKnight1Rectangle1.posY - 200 &&
-                                              i*100+20 == redKnight1Rectangle1.posX + 100) {
+                                    } else if(j*70+20 == redKnight1Rectangle1.posY - 140 &&
+                                              i*70+20 == redKnight1Rectangle1.posX + 70) {
 
                                         for(int t=0; t<8; t++) {
-                                            if(redPawnsBase[t].posX == i*100+20 &&
-                                               redPawnsBase[t].posY == j*100+20) {
+                                            if(redPawnsBase[t].posX == i*70+20 &&
+                                               redPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(redQueenSquare.posX == i*100+20 &&
-                                           redQueenSquare.posY == j*100+20) {
+                                        if(redQueenSquare.posX == i*70+20 &&
+                                           redQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop1Square.posX == i*100+20 &&
-                                           redBishop1Square.posY == j*100+20) {
+                                        if(redBishop1Square.posX == i*70+20 &&
+                                           redBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop2Square.posX == i*100+20 &&
-                                           redBishop2Square.posY == j*100+20) {
+                                        if(redBishop2Square.posX == i*70+20 &&
+                                           redBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight1Rectangle1.posX == i*100+20 &&
-                                           redKnight1Rectangle1.posY == j*100+20) {
+                                        if(redKnight1Rectangle1.posX == i*70+20 &&
+                                           redKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook1Rectangle1.posX == i*100+20 &&
-                                           redRook1Rectangle1.posY == j*100+20) {
+                                        if(redRook1Rectangle1.posX == i*70+20 &&
+                                           redRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook2Rectangle1.posX == i*100+20 &&
-                                           redRook2Rectangle1.posY == j*100+20) {
+                                        if(redRook2Rectangle1.posX == i*70+20 &&
+                                           redRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -11492,8 +11492,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = redKnight1Rectangle1.posY;
                                             int a0 = redKnight1Rectangle1.posX;
 
-                                            redKnight1Rectangle1.posX = i*100+20;
-                                            redKnight1Rectangle1.posY = j*100+20;
+                                            redKnight1Rectangle1.posX = i*70+20;
+                                            redKnight1Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckRed(j, i);
 
@@ -11505,43 +11505,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(greyPawnsBase[t].posX == i*100+20 &&
-                                                       greyPawnsBase[t].posY == j*100+20) {
+                                                    if(greyPawnsBase[t].posX == i*70+20 &&
+                                                       greyPawnsBase[t].posY == j*70+20) {
                                                         greyPawnsBase[t].posX = 1300;
                                                     }
                                                 }
-                                                if(greyQueenSquare.posX == i*100+20 &&
-                                                   greyQueenSquare.posY == j*100+20) {
+                                                if(greyQueenSquare.posX == i*70+20 &&
+                                                   greyQueenSquare.posY == j*70+20) {
                                                     greyQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                       greyQueenSquareK[z].posY == j*100+20) {
+                                                    if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                       greyQueenSquareK[z].posY == j*70+20) {
                                                         greyQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(greyBishop1Square.posX == i*100+20 &&
-                                                   greyBishop1Square.posY == j*100+20) {
+                                                if(greyBishop1Square.posX == i*70+20 &&
+                                                   greyBishop1Square.posY == j*70+20) {
                                                     greyBishop1Square.posX = 1300;
                                                 }
-                                                if(greyBishop2Square.posX == i*100+20 &&
-                                                   greyBishop2Square.posY == j*100+20) {
+                                                if(greyBishop2Square.posX == i*70+20 &&
+                                                   greyBishop2Square.posY == j*70+20) {
                                                     greyBishop2Square.posX = 1300;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                                   greyKnight1Rectangle1.posY == j*100+20) {
+                                                if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                                   greyKnight1Rectangle1.posY == j*70+20) {
                                                     greyKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                                   greyKnight2Rectangle1.posY == j*100+20) {
+                                                if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                                   greyKnight2Rectangle1.posY == j*70+20) {
                                                     greyKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook1Rectangle1.posX == i*100+20 &&
-                                                   greyRook1Rectangle1.posY == j*100+20) {
+                                                if(greyRook1Rectangle1.posX == i*70+20 &&
+                                                   greyRook1Rectangle1.posY == j*70+20) {
                                                     greyRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook2Rectangle1.posX == i*100+20 &&
-                                                   greyRook2Rectangle1.posY == j*100+20) {
+                                                if(greyRook2Rectangle1.posX == i*70+20 &&
+                                                   greyRook2Rectangle1.posY == j*70+20) {
                                                     greyRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -11552,45 +11552,45 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'r';
                                         }
-                                    } else if(j*100+20 == redKnight1Rectangle1.posY - 100 &&
-                                              i*100+20 == redKnight1Rectangle1.posX - 200) {
+                                    } else if(j*70+20 == redKnight1Rectangle1.posY - 70 &&
+                                              i*70+20 == redKnight1Rectangle1.posX - 140) {
 
                                         for(int t=0; t<8; t++) {
-                                            if(redPawnsBase[t].posX == i*100+20 &&
-                                               redPawnsBase[t].posY == j*100+20) {
+                                            if(redPawnsBase[t].posX == i*70+20 &&
+                                               redPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(redQueenSquare.posX == i*100+20 &&
-                                           redQueenSquare.posY == j*100+20) {
+                                        if(redQueenSquare.posX == i*70+20 &&
+                                           redQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop1Square.posX == i*100+20 &&
-                                           redBishop1Square.posY == j*100+20) {
+                                        if(redBishop1Square.posX == i*70+20 &&
+                                           redBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop2Square.posX == i*100+20 &&
-                                           redBishop2Square.posY == j*100+20) {
+                                        if(redBishop2Square.posX == i*70+20 &&
+                                           redBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight1Rectangle1.posX == i*100+20 &&
-                                           redKnight1Rectangle1.posY == j*100+20) {
+                                        if(redKnight1Rectangle1.posX == i*70+20 &&
+                                           redKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook1Rectangle1.posX == i*100+20 &&
-                                           redRook1Rectangle1.posY == j*100+20) {
+                                        if(redRook1Rectangle1.posX == i*70+20 &&
+                                           redRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook2Rectangle1.posX == i*100+20 &&
-                                           redRook2Rectangle1.posY == j*100+20) {
+                                        if(redRook2Rectangle1.posX == i*70+20 &&
+                                           redRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -11599,8 +11599,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = redKnight1Rectangle1.posY;
                                             int a0 = redKnight1Rectangle1.posX;
 
-                                            redKnight1Rectangle1.posX = i*100+20;
-                                            redKnight1Rectangle1.posY = j*100+20;
+                                            redKnight1Rectangle1.posX = i*70+20;
+                                            redKnight1Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckRed(j, i);
 
@@ -11612,43 +11612,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(greyPawnsBase[t].posX == i*100+20 &&
-                                                       greyPawnsBase[t].posY == j*100+20) {
+                                                    if(greyPawnsBase[t].posX == i*70+20 &&
+                                                       greyPawnsBase[t].posY == j*70+20) {
                                                         greyPawnsBase[t].posX = 1300;
                                                     }
                                                 }
-                                                if(greyQueenSquare.posX == i*100+20 &&
-                                                   greyQueenSquare.posY == j*100+20) {
+                                                if(greyQueenSquare.posX == i*70+20 &&
+                                                   greyQueenSquare.posY == j*70+20) {
                                                     greyQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                       greyQueenSquareK[z].posY == j*100+20) {
+                                                    if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                       greyQueenSquareK[z].posY == j*70+20) {
                                                         greyQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(greyBishop1Square.posX == i*100+20 &&
-                                                   greyBishop1Square.posY == j*100+20) {
+                                                if(greyBishop1Square.posX == i*70+20 &&
+                                                   greyBishop1Square.posY == j*70+20) {
                                                     greyBishop1Square.posX = 1300;
                                                 }
-                                                if(greyBishop2Square.posX == i*100+20 &&
-                                                   greyBishop2Square.posY == j*100+20) {
+                                                if(greyBishop2Square.posX == i*70+20 &&
+                                                   greyBishop2Square.posY == j*70+20) {
                                                     greyBishop2Square.posX = 1300;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                                   greyKnight1Rectangle1.posY == j*100+20) {
+                                                if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                                   greyKnight1Rectangle1.posY == j*70+20) {
                                                     greyKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                                   greyKnight2Rectangle1.posY == j*100+20) {
+                                                if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                                   greyKnight2Rectangle1.posY == j*70+20) {
                                                     greyKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook1Rectangle1.posX == i*100+20 &&
-                                                   greyRook1Rectangle1.posY == j*100+20) {
+                                                if(greyRook1Rectangle1.posX == i*70+20 &&
+                                                   greyRook1Rectangle1.posY == j*70+20) {
                                                     greyRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook2Rectangle1.posX == i*100+20 &&
-                                                   greyRook2Rectangle1.posY == j*100+20) {
+                                                if(greyRook2Rectangle1.posX == i*70+20 &&
+                                                   greyRook2Rectangle1.posY == j*70+20) {
                                                     greyRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -11659,45 +11659,45 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'h';
                                         }
-                                    } else if(j*100+20 == redKnight1Rectangle1.posY + 100 &&
-                                              i*100+20 == redKnight1Rectangle1.posX - 200) {
+                                    } else if(j*70+20 == redKnight1Rectangle1.posY + 70 &&
+                                              i*70+20 == redKnight1Rectangle1.posX - 140) {
 
                                         for(int t=0; t<8; t++) {
-                                            if(redPawnsBase[t].posX == i*100+20 &&
-                                               redPawnsBase[t].posY == j*100+20) {
+                                            if(redPawnsBase[t].posX == i*70+20 &&
+                                               redPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(redQueenSquare.posX == i*100+20 &&
-                                           redQueenSquare.posY == j*100+20) {
+                                        if(redQueenSquare.posX == i*70+20 &&
+                                           redQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop1Square.posX == i*100+20 &&
-                                           redBishop1Square.posY == j*100+20) {
+                                        if(redBishop1Square.posX == i*70+20 &&
+                                           redBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop2Square.posX == i*100+20 &&
-                                           redBishop2Square.posY == j*100+20) {
+                                        if(redBishop2Square.posX == i*70+20 &&
+                                           redBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight1Rectangle1.posX == i*100+20 &&
-                                           redKnight1Rectangle1.posY == j*100+20) {
+                                        if(redKnight1Rectangle1.posX == i*70+20 &&
+                                           redKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook1Rectangle1.posX == i*100+20 &&
-                                           redRook1Rectangle1.posY == j*100+20) {
+                                        if(redRook1Rectangle1.posX == i*70+20 &&
+                                           redRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook2Rectangle1.posX == i*100+20 &&
-                                           redRook2Rectangle1.posY == j*100+20) {
+                                        if(redRook2Rectangle1.posX == i*70+20 &&
+                                           redRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -11708,8 +11708,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = redKnight1Rectangle1.posY;
                                             int a0 = redKnight1Rectangle1.posX;
 
-                                            redKnight1Rectangle1.posX = i*100+20;
-                                            redKnight1Rectangle1.posY = j*100+20;
+                                            redKnight1Rectangle1.posX = i*70+20;
+                                            redKnight1Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckRed(j, i);
 
@@ -11721,43 +11721,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(greyPawnsBase[t].posX == i*100+20 &&
-                                                       greyPawnsBase[t].posY == j*100+20) {
+                                                    if(greyPawnsBase[t].posX == i*70+20 &&
+                                                       greyPawnsBase[t].posY == j*70+20) {
                                                         greyPawnsBase[t].posX = 1300;
                                                     }
                                                 }
-                                                if(greyQueenSquare.posX == i*100+20 &&
-                                                   greyQueenSquare.posY == j*100+20) {
+                                                if(greyQueenSquare.posX == i*70+20 &&
+                                                   greyQueenSquare.posY == j*70+20) {
                                                     greyQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                       greyQueenSquareK[z].posY == j*100+20) {
+                                                    if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                       greyQueenSquareK[z].posY == j*70+20) {
                                                         greyQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(greyBishop1Square.posX == i*100+20 &&
-                                                   greyBishop1Square.posY == j*100+20) {
+                                                if(greyBishop1Square.posX == i*70+20 &&
+                                                   greyBishop1Square.posY == j*70+20) {
                                                     greyBishop1Square.posX = 1300;
                                                 }
-                                                if(greyBishop2Square.posX == i*100+20 &&
-                                                   greyBishop2Square.posY == j*100+20) {
+                                                if(greyBishop2Square.posX == i*70+20 &&
+                                                   greyBishop2Square.posY == j*70+20) {
                                                     greyBishop2Square.posX = 1300;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                                   greyKnight1Rectangle1.posY == j*100+20) {
+                                                if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                                   greyKnight1Rectangle1.posY == j*70+20) {
                                                     greyKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                                   greyKnight2Rectangle1.posY == j*100+20) {
+                                                if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                                   greyKnight2Rectangle1.posY == j*70+20) {
                                                     greyKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook1Rectangle1.posX == i*100+20 &&
-                                                   greyRook1Rectangle1.posY == j*100+20) {
+                                                if(greyRook1Rectangle1.posX == i*70+20 &&
+                                                   greyRook1Rectangle1.posY == j*70+20) {
                                                     greyRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook2Rectangle1.posX == i*100+20 &&
-                                                   greyRook2Rectangle1.posY == j*100+20) {
+                                                if(greyRook2Rectangle1.posX == i*70+20 &&
+                                                   greyRook2Rectangle1.posY == j*70+20) {
                                                     greyRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -11768,45 +11768,45 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'g';
                                         }
-                                    } else if(j*100+20 == redKnight1Rectangle1.posY + 200 &&
-                                              i*100+20 == redKnight1Rectangle1.posX - 100) {
+                                    } else if(j*70+20 == redKnight1Rectangle1.posY + 140 &&
+                                              i*70+20 == redKnight1Rectangle1.posX - 70) {
 
                                         for(int t=0; t<8; t++) {
-                                            if(redPawnsBase[t].posX == i*100+20 &&
-                                               redPawnsBase[t].posY == j*100+20) {
+                                            if(redPawnsBase[t].posX == i*70+20 &&
+                                               redPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(redQueenSquare.posX == i*100+20 &&
-                                           redQueenSquare.posY == j*100+20) {
+                                        if(redQueenSquare.posX == i*70+20 &&
+                                           redQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop1Square.posX == i*100+20 &&
-                                           redBishop1Square.posY == j*100+20) {
+                                        if(redBishop1Square.posX == i*70+20 &&
+                                           redBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop2Square.posX == i*100+20 &&
-                                           redBishop2Square.posY == j*100+20) {
+                                        if(redBishop2Square.posX == i*70+20 &&
+                                           redBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight1Rectangle1.posX == i*100+20 &&
-                                           redKnight1Rectangle1.posY == j*100+20) {
+                                        if(redKnight1Rectangle1.posX == i*70+20 &&
+                                           redKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook1Rectangle1.posX == i*100+20 &&
-                                           redRook1Rectangle1.posY == j*100+20) {
+                                        if(redRook1Rectangle1.posX == i*70+20 &&
+                                           redRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook2Rectangle1.posX == i*100+20 &&
-                                           redRook2Rectangle1.posY == j*100+20) {
+                                        if(redRook2Rectangle1.posX == i*70+20 &&
+                                           redRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -11815,8 +11815,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = redKnight1Rectangle1.posY;
                                             int a0 = redKnight1Rectangle1.posX;
 
-                                            redKnight1Rectangle1.posX = i*100+20;
-                                            redKnight1Rectangle1.posY = j*100+20;
+                                            redKnight1Rectangle1.posX = i*70+20;
+                                            redKnight1Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckRed(j, i);
 
@@ -11828,43 +11828,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(greyPawnsBase[t].posX == i*100+20 &&
-                                                       greyPawnsBase[t].posY == j*100+20) {
+                                                    if(greyPawnsBase[t].posX == i*70+20 &&
+                                                       greyPawnsBase[t].posY == j*70+20) {
                                                         greyPawnsBase[t].posX = 1300;
                                                     }
                                                 }
-                                                if(greyQueenSquare.posX == i*100+20 &&
-                                                   greyQueenSquare.posY == j*100+20) {
+                                                if(greyQueenSquare.posX == i*70+20 &&
+                                                   greyQueenSquare.posY == j*70+20) {
                                                     greyQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                       greyQueenSquareK[z].posY == j*100+20) {
+                                                    if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                       greyQueenSquareK[z].posY == j*70+20) {
                                                         greyQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(greyBishop1Square.posX == i*100+20 &&
-                                                   greyBishop1Square.posY == j*100+20) {
+                                                if(greyBishop1Square.posX == i*70+20 &&
+                                                   greyBishop1Square.posY == j*70+20) {
                                                     greyBishop1Square.posX = 1300;
                                                 }
-                                                if(greyBishop2Square.posX == i*100+20 &&
-                                                   greyBishop2Square.posY == j*100+20) {
+                                                if(greyBishop2Square.posX == i*70+20 &&
+                                                   greyBishop2Square.posY == j*70+20) {
                                                     greyBishop2Square.posX = 1300;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                                   greyKnight1Rectangle1.posY == j*100+20) {
+                                                if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                                   greyKnight1Rectangle1.posY == j*70+20) {
                                                     greyKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                                   greyKnight2Rectangle1.posY == j*100+20) {
+                                                if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                                   greyKnight2Rectangle1.posY == j*70+20) {
                                                     greyKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook1Rectangle1.posX == i*100+20 &&
-                                                   greyRook1Rectangle1.posY == j*100+20) {
+                                                if(greyRook1Rectangle1.posX == i*70+20 &&
+                                                   greyRook1Rectangle1.posY == j*70+20) {
                                                     greyRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook2Rectangle1.posX == i*100+20 &&
-                                                   greyRook2Rectangle1.posY == j*100+20) {
+                                                if(greyRook2Rectangle1.posX == i*70+20 &&
+                                                   greyRook2Rectangle1.posY == j*70+20) {
                                                     greyRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -11875,45 +11875,45 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'r';
                                         }
-                                    } else if(j*100+20 == redKnight1Rectangle1.posY + 200 &&
-                                              i*100+20 == redKnight1Rectangle1.posX + 100) {
+                                    } else if(j*70+20 == redKnight1Rectangle1.posY + 140 &&
+                                              i*70+20 == redKnight1Rectangle1.posX + 70) {
 
                                         for(int t=0; t<8; t++) {
-                                            if(redPawnsBase[t].posX == i*100+20 &&
-                                               redPawnsBase[t].posY == j*100+20) {
+                                            if(redPawnsBase[t].posX == i*70+20 &&
+                                               redPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(redQueenSquare.posX == i*100+20 &&
-                                           redQueenSquare.posY == j*100+20) {
+                                        if(redQueenSquare.posX == i*70+20 &&
+                                           redQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop1Square.posX == i*100+20 &&
-                                           redBishop1Square.posY == j*100+20) {
+                                        if(redBishop1Square.posX == i*70+20 &&
+                                           redBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop2Square.posX == i*100+20 &&
-                                           redBishop2Square.posY == j*100+20) {
+                                        if(redBishop2Square.posX == i*70+20 &&
+                                           redBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight1Rectangle1.posX == i*100+20 &&
-                                           redKnight1Rectangle1.posY == j*100+20) {
+                                        if(redKnight1Rectangle1.posX == i*70+20 &&
+                                           redKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook1Rectangle1.posX == i*100+20 &&
-                                           redRook1Rectangle1.posY == j*100+20) {
+                                        if(redRook1Rectangle1.posX == i*70+20 &&
+                                           redRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook2Rectangle1.posX == i*100+20 &&
-                                           redRook2Rectangle1.posY == j*100+20) {
+                                        if(redRook2Rectangle1.posX == i*70+20 &&
+                                           redRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -11922,8 +11922,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = redKnight1Rectangle1.posY;
                                             int a0 = redKnight1Rectangle1.posX;
 
-                                            redKnight1Rectangle1.posX = i*100+20;
-                                            redKnight1Rectangle1.posY = j*100+20;
+                                            redKnight1Rectangle1.posX = i*70+20;
+                                            redKnight1Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckRed(j, i);
 
@@ -11935,43 +11935,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(greyPawnsBase[t].posX == i*100+20 &&
-                                                       greyPawnsBase[t].posY == j*100+20) {
+                                                    if(greyPawnsBase[t].posX == i*70+20 &&
+                                                       greyPawnsBase[t].posY == j*70+20) {
                                                         greyPawnsBase[t].posX = 1300;
                                                     }
                                                 }
-                                                if(greyQueenSquare.posX == i*100+20 &&
-                                                   greyQueenSquare.posY == j*100+20) {
+                                                if(greyQueenSquare.posX == i*70+20 &&
+                                                   greyQueenSquare.posY == j*70+20) {
                                                     greyQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                       greyQueenSquareK[z].posY == j*100+20) {
+                                                    if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                       greyQueenSquareK[z].posY == j*70+20) {
                                                         greyQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(greyBishop1Square.posX == i*100+20 &&
-                                                   greyBishop1Square.posY == j*100+20) {
+                                                if(greyBishop1Square.posX == i*70+20 &&
+                                                   greyBishop1Square.posY == j*70+20) {
                                                     greyBishop1Square.posX = 1300;
                                                 }
-                                                if(greyBishop2Square.posX == i*100+20 &&
-                                                   greyBishop2Square.posY == j*100+20) {
+                                                if(greyBishop2Square.posX == i*70+20 &&
+                                                   greyBishop2Square.posY == j*70+20) {
                                                     greyBishop2Square.posX = 1300;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                                   greyKnight1Rectangle1.posY == j*100+20) {
+                                                if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                                   greyKnight1Rectangle1.posY == j*70+20) {
                                                     greyKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                                   greyKnight2Rectangle1.posY == j*100+20) {
+                                                if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                                   greyKnight2Rectangle1.posY == j*70+20) {
                                                     greyKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook1Rectangle1.posX == i*100+20 &&
-                                                   greyRook1Rectangle1.posY == j*100+20) {
+                                                if(greyRook1Rectangle1.posX == i*70+20 &&
+                                                   greyRook1Rectangle1.posY == j*70+20) {
                                                     greyRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook2Rectangle1.posX == i*100+20 &&
-                                                   greyRook2Rectangle1.posY == j*100+20) {
+                                                if(greyRook2Rectangle1.posX == i*70+20 &&
+                                                   greyRook2Rectangle1.posY == j*70+20) {
                                                     greyRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -11982,45 +11982,45 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'r';
                                         }
-                                    } else if(j*100+20 == redKnight1Rectangle1.posY - 100 &&
-                                              i*100+20 == redKnight1Rectangle1.posX + 200) {
+                                    } else if(j*70+20 == redKnight1Rectangle1.posY - 70 &&
+                                              i*70+20 == redKnight1Rectangle1.posX + 140) {
 
                                         for(int t=0; t<8; t++) {
-                                            if(redPawnsBase[t].posX == i*100+20 &&
-                                               redPawnsBase[t].posY == j*100+20) {
+                                            if(redPawnsBase[t].posX == i*70+20 &&
+                                               redPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(redQueenSquare.posX == i*100+20 &&
-                                           redQueenSquare.posY == j*100+20) {
+                                        if(redQueenSquare.posX == i*70+20 &&
+                                           redQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop1Square.posX == i*100+20 &&
-                                           redBishop1Square.posY == j*100+20) {
+                                        if(redBishop1Square.posX == i*70+20 &&
+                                           redBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop2Square.posX == i*100+20 &&
-                                           redBishop2Square.posY == j*100+20) {
+                                        if(redBishop2Square.posX == i*70+20 &&
+                                           redBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight1Rectangle1.posX == i*100+20 &&
-                                           redKnight1Rectangle1.posY == j*100+20) {
+                                        if(redKnight1Rectangle1.posX == i*70+20 &&
+                                           redKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook1Rectangle1.posX == i*100+20 &&
-                                           redRook1Rectangle1.posY == j*100+20) {
+                                        if(redRook1Rectangle1.posX == i*70+20 &&
+                                           redRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook2Rectangle1.posX == i*100+20 &&
-                                           redRook2Rectangle1.posY == j*100+20) {
+                                        if(redRook2Rectangle1.posX == i*70+20 &&
+                                           redRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -12029,8 +12029,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = redKnight1Rectangle1.posY;
                                             int a0 = redKnight1Rectangle1.posX;
 
-                                            redKnight1Rectangle1.posX = i*100+20;
-                                            redKnight1Rectangle1.posY = j*100+20;
+                                            redKnight1Rectangle1.posX = i*70+20;
+                                            redKnight1Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckRed(j, i);
 
@@ -12042,43 +12042,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(greyPawnsBase[t].posX == i*100+20 &&
-                                                       greyPawnsBase[t].posY == j*100+20) {
+                                                    if(greyPawnsBase[t].posX == i*70+20 &&
+                                                       greyPawnsBase[t].posY == j*70+20) {
                                                         greyPawnsBase[t].posX = 1300;
                                                     }
                                                 }
-                                                if(greyQueenSquare.posX == i*100+20 &&
-                                                   greyQueenSquare.posY == j*100+20) {
+                                                if(greyQueenSquare.posX == i*70+20 &&
+                                                   greyQueenSquare.posY == j*70+20) {
                                                     greyQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                       greyQueenSquareK[z].posY == j*100+20) {
+                                                    if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                       greyQueenSquareK[z].posY == j*70+20) {
                                                         greyQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(greyBishop1Square.posX == i*100+20 &&
-                                                   greyBishop1Square.posY == j*100+20) {
+                                                if(greyBishop1Square.posX == i*70+20 &&
+                                                   greyBishop1Square.posY == j*70+20) {
                                                     greyBishop1Square.posX = 1300;
                                                 }
-                                                if(greyBishop2Square.posX == i*100+20 &&
-                                                   greyBishop2Square.posY == j*100+20) {
+                                                if(greyBishop2Square.posX == i*70+20 &&
+                                                   greyBishop2Square.posY == j*70+20) {
                                                     greyBishop2Square.posX = 1300;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                                   greyKnight1Rectangle1.posY == j*100+20) {
+                                                if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                                   greyKnight1Rectangle1.posY == j*70+20) {
                                                     greyKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                                   greyKnight2Rectangle1.posY == j*100+20) {
+                                                if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                                   greyKnight2Rectangle1.posY == j*70+20) {
                                                     greyKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook1Rectangle1.posX == i*100+20 &&
-                                                   greyRook1Rectangle1.posY == j*100+20) {
+                                                if(greyRook1Rectangle1.posX == i*70+20 &&
+                                                   greyRook1Rectangle1.posY == j*70+20) {
                                                     greyRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook2Rectangle1.posX == i*100+20 &&
-                                                   greyRook2Rectangle1.posY == j*100+20) {
+                                                if(greyRook2Rectangle1.posX == i*70+20 &&
+                                                   greyRook2Rectangle1.posY == j*70+20) {
                                                     greyRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -12089,45 +12089,45 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'r';
                                         }
-                                    } else if(j*100+20 == redKnight1Rectangle1.posY + 100 &&
-                                              i*100+20 == redKnight1Rectangle1.posX + 200) {
+                                    } else if(j*70+20 == redKnight1Rectangle1.posY + 70 &&
+                                              i*70+20 == redKnight1Rectangle1.posX + 140) {
 
                                         for(int t=0; t<8; t++) {
-                                            if(redPawnsBase[t].posX == i*100+20 &&
-                                               redPawnsBase[t].posY == j*100+20) {
+                                            if(redPawnsBase[t].posX == i*70+20 &&
+                                               redPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(redQueenSquare.posX == i*100+20 &&
-                                           redQueenSquare.posY == j*100+20) {
+                                        if(redQueenSquare.posX == i*70+20 &&
+                                           redQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop1Square.posX == i*100+20 &&
-                                           redBishop1Square.posY == j*100+20) {
+                                        if(redBishop1Square.posX == i*70+20 &&
+                                           redBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop2Square.posX == i*100+20 &&
-                                           redBishop2Square.posY == j*100+20) {
+                                        if(redBishop2Square.posX == i*70+20 &&
+                                           redBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight1Rectangle1.posX == i*100+20 &&
-                                           redKnight1Rectangle1.posY == j*100+20) {
+                                        if(redKnight1Rectangle1.posX == i*70+20 &&
+                                           redKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook1Rectangle1.posX == i*100+20 &&
-                                           redRook1Rectangle1.posY == j*100+20) {
+                                        if(redRook1Rectangle1.posX == i*70+20 &&
+                                           redRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook2Rectangle1.posX == i*100+20 &&
-                                           redRook2Rectangle1.posY == j*100+20) {
+                                        if(redRook2Rectangle1.posX == i*70+20 &&
+                                           redRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -12136,8 +12136,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = redKnight1Rectangle1.posY;
                                             int a0 = redKnight1Rectangle1.posX;
 
-                                            redKnight1Rectangle1.posX = i*100+20;
-                                            redKnight1Rectangle1.posY = j*100+20;
+                                            redKnight1Rectangle1.posX = i*70+20;
+                                            redKnight1Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckRed(j, i);
 
@@ -12149,43 +12149,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(greyPawnsBase[t].posX == i*100+20 &&
-                                                       greyPawnsBase[t].posY == j*100+20) {
+                                                    if(greyPawnsBase[t].posX == i*70+20 &&
+                                                       greyPawnsBase[t].posY == j*70+20) {
                                                         greyPawnsBase[t].posX = 1300;
                                                     }
                                                 }
-                                                if(greyQueenSquare.posX == i*100+20 &&
-                                                   greyQueenSquare.posY == j*100+20) {
+                                                if(greyQueenSquare.posX == i*70+20 &&
+                                                   greyQueenSquare.posY == j*70+20) {
                                                     greyQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                       greyQueenSquareK[z].posY == j*100+20) {
+                                                    if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                       greyQueenSquareK[z].posY == j*70+20) {
                                                         greyQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(greyBishop1Square.posX == i*100+20 &&
-                                                   greyBishop1Square.posY == j*100+20) {
+                                                if(greyBishop1Square.posX == i*70+20 &&
+                                                   greyBishop1Square.posY == j*70+20) {
                                                     greyBishop1Square.posX = 1300;
                                                 }
-                                                if(greyBishop2Square.posX == i*100+20 &&
-                                                   greyBishop2Square.posY == j*100+20) {
+                                                if(greyBishop2Square.posX == i*70+20 &&
+                                                   greyBishop2Square.posY == j*70+20) {
                                                     greyBishop2Square.posX = 1300;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                                   greyKnight1Rectangle1.posY == j*100+20) {
+                                                if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                                   greyKnight1Rectangle1.posY == j*70+20) {
                                                     greyKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                                   greyKnight2Rectangle1.posY == j*100+20) {
+                                                if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                                   greyKnight2Rectangle1.posY == j*70+20) {
                                                     greyKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook1Rectangle1.posX == i*100+20 &&
-                                                   greyRook1Rectangle1.posY == j*100+20) {
+                                                if(greyRook1Rectangle1.posX == i*70+20 &&
+                                                   greyRook1Rectangle1.posY == j*70+20) {
                                                     greyRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook2Rectangle1.posX == i*100+20 &&
-                                                   greyRook2Rectangle1.posY == j*100+20) {
+                                                if(greyRook2Rectangle1.posX == i*70+20 &&
+                                                   greyRook2Rectangle1.posY == j*70+20) {
                                                     greyRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -12202,8 +12202,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                             itdid = FALSE;
 
-                            if(redKnight2Rectangle1.posX == i*100+20 &&
-                               redKnight2Rectangle1.posY == j*100+20) {
+                            if(redKnight2Rectangle1.posX == i*70+20 &&
+                               redKnight2Rectangle1.posY == j*70+20) {
 
                                 clickedOne = 'r';
                                 redKnight2Rectangle1.clicked = TRUE;
@@ -12230,45 +12230,45 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                     redKnight2Rectangle1.clicked = FALSE;
 
-                                    if(j*100+20 == redKnight2Rectangle1.posY - 200 &&
-                                       i*100+20 == redKnight2Rectangle1.posX - 100) {
+                                    if(j*70+20 == redKnight2Rectangle1.posY - 140 &&
+                                       i*70+20 == redKnight2Rectangle1.posX - 70) {
 
                                         for(int t=0; t<8; t++) {
-                                            if(redPawnsBase[t].posX == i*100+20 &&
-                                               redPawnsBase[t].posY == j*100+20) {
+                                            if(redPawnsBase[t].posX == i*70+20 &&
+                                               redPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(redQueenSquare.posX == i*100+20 &&
-                                           redQueenSquare.posY == j*100+20) {
+                                        if(redQueenSquare.posX == i*70+20 &&
+                                           redQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop1Square.posX == i*100+20 &&
-                                           redBishop1Square.posY == j*100+20) {
+                                        if(redBishop1Square.posX == i*70+20 &&
+                                           redBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop2Square.posX == i*100+20 &&
-                                           redBishop2Square.posY == j*100+20) {
+                                        if(redBishop2Square.posX == i*70+20 &&
+                                           redBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight1Rectangle1.posX == i*100+20 &&
-                                           redKnight1Rectangle1.posY == j*100+20) {
+                                        if(redKnight1Rectangle1.posX == i*70+20 &&
+                                           redKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook1Rectangle1.posX == i*100+20 &&
-                                           redRook1Rectangle1.posY == j*100+20) {
+                                        if(redRook1Rectangle1.posX == i*70+20 &&
+                                           redRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook2Rectangle1.posX == i*100+20 &&
-                                           redRook2Rectangle1.posY == j*100+20) {
+                                        if(redRook2Rectangle1.posX == i*70+20 &&
+                                           redRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -12277,8 +12277,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = redKnight2Rectangle1.posY;
                                             int a0 = redKnight2Rectangle1.posX;
 
-                                            redKnight2Rectangle1.posX = i*100+20;
-                                            redKnight2Rectangle1.posY = j*100+20;
+                                            redKnight2Rectangle1.posX = i*70+20;
+                                            redKnight2Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckRed(j, i);
 
@@ -12290,43 +12290,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(greyPawnsBase[t].posX == i*100+20 &&
-                                                       greyPawnsBase[t].posY == j*100+20) {
+                                                    if(greyPawnsBase[t].posX == i*70+20 &&
+                                                       greyPawnsBase[t].posY == j*70+20) {
                                                         greyPawnsBase[t].posX = 1300;
                                                     }
                                                 }
-                                                if(greyQueenSquare.posX == i*100+20 &&
-                                                   greyQueenSquare.posY == j*100+20) {
+                                                if(greyQueenSquare.posX == i*70+20 &&
+                                                   greyQueenSquare.posY == j*70+20) {
                                                     greyQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                       greyQueenSquareK[z].posY == j*100+20) {
+                                                    if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                       greyQueenSquareK[z].posY == j*70+20) {
                                                         greyQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(greyBishop1Square.posX == i*100+20 &&
-                                                   greyBishop1Square.posY == j*100+20) {
+                                                if(greyBishop1Square.posX == i*70+20 &&
+                                                   greyBishop1Square.posY == j*70+20) {
                                                     greyBishop1Square.posX = 1300;
                                                 }
-                                                if(greyBishop2Square.posX == i*100+20 &&
-                                                   greyBishop2Square.posY == j*100+20) {
+                                                if(greyBishop2Square.posX == i*70+20 &&
+                                                   greyBishop2Square.posY == j*70+20) {
                                                     greyBishop2Square.posX = 1300;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                                   greyKnight1Rectangle1.posY == j*100+20) {
+                                                if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                                   greyKnight1Rectangle1.posY == j*70+20) {
                                                     greyKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                                   greyKnight2Rectangle1.posY == j*100+20) {
+                                                if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                                   greyKnight2Rectangle1.posY == j*70+20) {
                                                     greyKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook1Rectangle1.posX == i*100+20 &&
-                                                   greyRook1Rectangle1.posY == j*100+20) {
+                                                if(greyRook1Rectangle1.posX == i*70+20 &&
+                                                   greyRook1Rectangle1.posY == j*70+20) {
                                                     greyRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook2Rectangle1.posX == i*100+20 &&
-                                                   greyRook2Rectangle1.posY == j*100+20) {
+                                                if(greyRook2Rectangle1.posX == i*70+20 &&
+                                                   greyRook2Rectangle1.posY == j*70+20) {
                                                     greyRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -12337,45 +12337,45 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'r';
                                         }
-                                    } else if(j*100+20 == redKnight2Rectangle1.posY - 200 &&
-                                              i*100+20 == redKnight2Rectangle1.posX + 100) {
+                                    } else if(j*70+20 == redKnight2Rectangle1.posY - 140 &&
+                                              i*70+20 == redKnight2Rectangle1.posX + 70) {
 
                                         for(int t=0; t<8; t++) {
-                                            if(redPawnsBase[t].posX == i*100+20 &&
-                                               redPawnsBase[t].posY == j*100+20) {
+                                            if(redPawnsBase[t].posX == i*70+20 &&
+                                               redPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(redQueenSquare.posX == i*100+20 &&
-                                           redQueenSquare.posY == j*100+20) {
+                                        if(redQueenSquare.posX == i*70+20 &&
+                                           redQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop1Square.posX == i*100+20 &&
-                                           redBishop1Square.posY == j*100+20) {
+                                        if(redBishop1Square.posX == i*70+20 &&
+                                           redBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop2Square.posX == i*100+20 &&
-                                           redBishop2Square.posY == j*100+20) {
+                                        if(redBishop2Square.posX == i*70+20 &&
+                                           redBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight1Rectangle1.posX == i*100+20 &&
-                                           redKnight1Rectangle1.posY == j*100+20) {
+                                        if(redKnight1Rectangle1.posX == i*70+20 &&
+                                           redKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook1Rectangle1.posX == i*100+20 &&
-                                           redRook1Rectangle1.posY == j*100+20) {
+                                        if(redRook1Rectangle1.posX == i*70+20 &&
+                                           redRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook2Rectangle1.posX == i*100+20 &&
-                                           redRook2Rectangle1.posY == j*100+20) {
+                                        if(redRook2Rectangle1.posX == i*70+20 &&
+                                           redRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -12384,8 +12384,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = redKnight2Rectangle1.posY;
                                             int a0 = redKnight2Rectangle1.posX;
 
-                                            redKnight2Rectangle1.posX = i*100+20;
-                                            redKnight2Rectangle1.posY = j*100+20;
+                                            redKnight2Rectangle1.posX = i*70+20;
+                                            redKnight2Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckRed(j, i);
 
@@ -12397,43 +12397,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(greyPawnsBase[t].posX == i*100+20 &&
-                                                       greyPawnsBase[t].posY == j*100+20) {
+                                                    if(greyPawnsBase[t].posX == i*70+20 &&
+                                                       greyPawnsBase[t].posY == j*70+20) {
                                                         greyPawnsBase[t].posX = 1300;
                                                     }
                                                 }
-                                                if(greyQueenSquare.posX == i*100+20 &&
-                                                   greyQueenSquare.posY == j*100+20) {
+                                                if(greyQueenSquare.posX == i*70+20 &&
+                                                   greyQueenSquare.posY == j*70+20) {
                                                     greyQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                       greyQueenSquareK[z].posY == j*100+20) {
+                                                    if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                       greyQueenSquareK[z].posY == j*70+20) {
                                                         greyQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(greyBishop1Square.posX == i*100+20 &&
-                                                   greyBishop1Square.posY == j*100+20) {
+                                                if(greyBishop1Square.posX == i*70+20 &&
+                                                   greyBishop1Square.posY == j*70+20) {
                                                     greyBishop1Square.posX = 1300;
                                                 }
-                                                if(greyBishop2Square.posX == i*100+20 &&
-                                                   greyBishop2Square.posY == j*100+20) {
+                                                if(greyBishop2Square.posX == i*70+20 &&
+                                                   greyBishop2Square.posY == j*70+20) {
                                                     greyBishop2Square.posX = 1300;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                                   greyKnight1Rectangle1.posY == j*100+20) {
+                                                if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                                   greyKnight1Rectangle1.posY == j*70+20) {
                                                     greyKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                                   greyKnight2Rectangle1.posY == j*100+20) {
+                                                if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                                   greyKnight2Rectangle1.posY == j*70+20) {
                                                     greyKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook1Rectangle1.posX == i*100+20 &&
-                                                   greyRook1Rectangle1.posY == j*100+20) {
+                                                if(greyRook1Rectangle1.posX == i*70+20 &&
+                                                   greyRook1Rectangle1.posY == j*70+20) {
                                                     greyRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook2Rectangle1.posX == i*100+20 &&
-                                                   greyRook2Rectangle1.posY == j*100+20) {
+                                                if(greyRook2Rectangle1.posX == i*70+20 &&
+                                                   greyRook2Rectangle1.posY == j*70+20) {
                                                     greyRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -12444,45 +12444,45 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'r';
                                         }
-                                    } else if(j*100+20 == redKnight2Rectangle1.posY - 100 &&
-                                              i*100+20 == redKnight2Rectangle1.posX - 200) {
+                                    } else if(j*70+20 == redKnight2Rectangle1.posY - 70 &&
+                                              i*70+20 == redKnight2Rectangle1.posX - 140) {
 
                                         for(int t=0; t<8; t++) {
-                                            if(redPawnsBase[t].posX == i*100+20 &&
-                                               redPawnsBase[t].posY == j*100+20) {
+                                            if(redPawnsBase[t].posX == i*70+20 &&
+                                               redPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(redQueenSquare.posX == i*100+20 &&
-                                           redQueenSquare.posY == j*100+20) {
+                                        if(redQueenSquare.posX == i*70+20 &&
+                                           redQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop1Square.posX == i*100+20 &&
-                                           redBishop1Square.posY == j*100+20) {
+                                        if(redBishop1Square.posX == i*70+20 &&
+                                           redBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop2Square.posX == i*100+20 &&
-                                           redBishop2Square.posY == j*100+20) {
+                                        if(redBishop2Square.posX == i*70+20 &&
+                                           redBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight1Rectangle1.posX == i*100+20 &&
-                                           redKnight1Rectangle1.posY == j*100+20) {
+                                        if(redKnight1Rectangle1.posX == i*70+20 &&
+                                           redKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook1Rectangle1.posX == i*100+20 &&
-                                           redRook1Rectangle1.posY == j*100+20) {
+                                        if(redRook1Rectangle1.posX == i*70+20 &&
+                                           redRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook2Rectangle1.posX == i*100+20 &&
-                                           redRook2Rectangle1.posY == j*100+20) {
+                                        if(redRook2Rectangle1.posX == i*70+20 &&
+                                           redRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -12491,8 +12491,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = redKnight2Rectangle1.posY;
                                             int a0 = redKnight2Rectangle1.posX;
 
-                                            redKnight2Rectangle1.posX = i*100+20;
-                                            redKnight2Rectangle1.posY = j*100+20;
+                                            redKnight2Rectangle1.posX = i*70+20;
+                                            redKnight2Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckRed(j, i);
 
@@ -12504,43 +12504,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(greyPawnsBase[t].posX == i*100+20 &&
-                                                       greyPawnsBase[t].posY == j*100+20) {
+                                                    if(greyPawnsBase[t].posX == i*70+20 &&
+                                                       greyPawnsBase[t].posY == j*70+20) {
                                                         greyPawnsBase[t].posX = 1300;
                                                     }
                                                 }
-                                                if(greyQueenSquare.posX == i*100+20 &&
-                                                   greyQueenSquare.posY == j*100+20) {
+                                                if(greyQueenSquare.posX == i*70+20 &&
+                                                   greyQueenSquare.posY == j*70+20) {
                                                     greyQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                       greyQueenSquareK[z].posY == j*100+20) {
+                                                    if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                       greyQueenSquareK[z].posY == j*70+20) {
                                                         greyQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(greyBishop1Square.posX == i*100+20 &&
-                                                   greyBishop1Square.posY == j*100+20) {
+                                                if(greyBishop1Square.posX == i*70+20 &&
+                                                   greyBishop1Square.posY == j*70+20) {
                                                     greyBishop1Square.posX = 1300;
                                                 }
-                                                if(greyBishop2Square.posX == i*100+20 &&
-                                                   greyBishop2Square.posY == j*100+20) {
+                                                if(greyBishop2Square.posX == i*70+20 &&
+                                                   greyBishop2Square.posY == j*70+20) {
                                                     greyBishop2Square.posX = 1300;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                                   greyKnight1Rectangle1.posY == j*100+20) {
+                                                if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                                   greyKnight1Rectangle1.posY == j*70+20) {
                                                     greyKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                                   greyKnight2Rectangle1.posY == j*100+20) {
+                                                if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                                   greyKnight2Rectangle1.posY == j*70+20) {
                                                     greyKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook1Rectangle1.posX == i*100+20 &&
-                                                   greyRook1Rectangle1.posY == j*100+20) {
+                                                if(greyRook1Rectangle1.posX == i*70+20 &&
+                                                   greyRook1Rectangle1.posY == j*70+20) {
                                                     greyRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook2Rectangle1.posX == i*100+20 &&
-                                                   greyRook2Rectangle1.posY == j*100+20) {
+                                                if(greyRook2Rectangle1.posX == i*70+20 &&
+                                                   greyRook2Rectangle1.posY == j*70+20) {
                                                     greyRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -12551,45 +12551,45 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'h';
                                         }
-                                    } else if(j*100+20 == redKnight2Rectangle1.posY + 100 &&
-                                              i*100+20 == redKnight2Rectangle1.posX - 200) {
+                                    } else if(j*70+20 == redKnight2Rectangle1.posY + 70 &&
+                                              i*70+20 == redKnight2Rectangle1.posX - 140) {
 
                                         for(int t=0; t<8; t++) {
-                                            if(redPawnsBase[t].posX == i*100+20 &&
-                                               redPawnsBase[t].posY == j*100+20) {
+                                            if(redPawnsBase[t].posX == i*70+20 &&
+                                               redPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(redQueenSquare.posX == i*100+20 &&
-                                           redQueenSquare.posY == j*100+20) {
+                                        if(redQueenSquare.posX == i*70+20 &&
+                                           redQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop1Square.posX == i*100+20 &&
-                                           redBishop1Square.posY == j*100+20) {
+                                        if(redBishop1Square.posX == i*70+20 &&
+                                           redBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop2Square.posX == i*100+20 &&
-                                           redBishop2Square.posY == j*100+20) {
+                                        if(redBishop2Square.posX == i*70+20 &&
+                                           redBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight1Rectangle1.posX == i*100+20 &&
-                                           redKnight1Rectangle1.posY == j*100+20) {
+                                        if(redKnight1Rectangle1.posX == i*70+20 &&
+                                           redKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook1Rectangle1.posX == i*100+20 &&
-                                           redRook1Rectangle1.posY == j*100+20) {
+                                        if(redRook1Rectangle1.posX == i*70+20 &&
+                                           redRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook2Rectangle1.posX == i*100+20 &&
-                                           redRook2Rectangle1.posY == j*100+20) {
+                                        if(redRook2Rectangle1.posX == i*70+20 &&
+                                           redRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -12598,8 +12598,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = redKnight2Rectangle1.posY;
                                             int a0 = redKnight2Rectangle1.posX;
 
-                                            redKnight2Rectangle1.posX = i*100+20;
-                                            redKnight2Rectangle1.posY = j*100+20;
+                                            redKnight2Rectangle1.posX = i*70+20;
+                                            redKnight2Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckRed(j, i);
 
@@ -12611,43 +12611,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(greyPawnsBase[t].posX == i*100+20 &&
-                                                       greyPawnsBase[t].posY == j*100+20) {
+                                                    if(greyPawnsBase[t].posX == i*70+20 &&
+                                                       greyPawnsBase[t].posY == j*70+20) {
                                                         greyPawnsBase[t].posX = 1300;
                                                     }
                                                 }
-                                                if(greyQueenSquare.posX == i*100+20 &&
-                                                   greyQueenSquare.posY == j*100+20) {
+                                                if(greyQueenSquare.posX == i*70+20 &&
+                                                   greyQueenSquare.posY == j*70+20) {
                                                     greyQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                       greyQueenSquareK[z].posY == j*100+20) {
+                                                    if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                       greyQueenSquareK[z].posY == j*70+20) {
                                                         greyQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(greyBishop1Square.posX == i*100+20 &&
-                                                   greyBishop1Square.posY == j*100+20) {
+                                                if(greyBishop1Square.posX == i*70+20 &&
+                                                   greyBishop1Square.posY == j*70+20) {
                                                     greyBishop1Square.posX = 1300;
                                                 }
-                                                if(greyBishop2Square.posX == i*100+20 &&
-                                                   greyBishop2Square.posY == j*100+20) {
+                                                if(greyBishop2Square.posX == i*70+20 &&
+                                                   greyBishop2Square.posY == j*70+20) {
                                                     greyBishop2Square.posX = 1300;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                                   greyKnight1Rectangle1.posY == j*100+20) {
+                                                if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                                   greyKnight1Rectangle1.posY == j*70+20) {
                                                     greyKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                                   greyKnight2Rectangle1.posY == j*100+20) {
+                                                if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                                   greyKnight2Rectangle1.posY == j*70+20) {
                                                     greyKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook1Rectangle1.posX == i*100+20 &&
-                                                   greyRook1Rectangle1.posY == j*100+20) {
+                                                if(greyRook1Rectangle1.posX == i*70+20 &&
+                                                   greyRook1Rectangle1.posY == j*70+20) {
                                                     greyRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook2Rectangle1.posX == i*100+20 &&
-                                                   greyRook2Rectangle1.posY == j*100+20) {
+                                                if(greyRook2Rectangle1.posX == i*70+20 &&
+                                                   greyRook2Rectangle1.posY == j*70+20) {
                                                     greyRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -12658,45 +12658,45 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'g';
                                         }
-                                    } else if(j*100+20 == redKnight2Rectangle1.posY + 200 &&
-                                              i*100+20 == redKnight2Rectangle1.posX - 100) {
+                                    } else if(j*70+20 == redKnight2Rectangle1.posY + 140 &&
+                                              i*70+20 == redKnight2Rectangle1.posX - 70) {
 
                                         for(int t=0; t<8; t++) {
-                                            if(redPawnsBase[t].posX == i*100+20 &&
-                                               redPawnsBase[t].posY == j*100+20) {
+                                            if(redPawnsBase[t].posX == i*70+20 &&
+                                               redPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(redQueenSquare.posX == i*100+20 &&
-                                           redQueenSquare.posY == j*100+20) {
+                                        if(redQueenSquare.posX == i*70+20 &&
+                                           redQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop1Square.posX == i*100+20 &&
-                                           redBishop1Square.posY == j*100+20) {
+                                        if(redBishop1Square.posX == i*70+20 &&
+                                           redBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop2Square.posX == i*100+20 &&
-                                           redBishop2Square.posY == j*100+20) {
+                                        if(redBishop2Square.posX == i*70+20 &&
+                                           redBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight1Rectangle1.posX == i*100+20 &&
-                                           redKnight1Rectangle1.posY == j*100+20) {
+                                        if(redKnight1Rectangle1.posX == i*70+20 &&
+                                           redKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook1Rectangle1.posX == i*100+20 &&
-                                           redRook1Rectangle1.posY == j*100+20) {
+                                        if(redRook1Rectangle1.posX == i*70+20 &&
+                                           redRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook2Rectangle1.posX == i*100+20 &&
-                                           redRook2Rectangle1.posY == j*100+20) {
+                                        if(redRook2Rectangle1.posX == i*70+20 &&
+                                           redRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -12705,8 +12705,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = redKnight2Rectangle1.posY;
                                             int a0 = redKnight2Rectangle1.posX;
 
-                                            redKnight2Rectangle1.posX = i*100+20;
-                                            redKnight2Rectangle1.posY = j*100+20;
+                                            redKnight2Rectangle1.posX = i*70+20;
+                                            redKnight2Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckRed(j, i);
 
@@ -12718,43 +12718,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(greyPawnsBase[t].posX == i*100+20 &&
-                                                       greyPawnsBase[t].posY == j*100+20) {
+                                                    if(greyPawnsBase[t].posX == i*70+20 &&
+                                                       greyPawnsBase[t].posY == j*70+20) {
                                                         greyPawnsBase[t].posX = 1300;
                                                     }
                                                 }
-                                                if(greyQueenSquare.posX == i*100+20 &&
-                                                   greyQueenSquare.posY == j*100+20) {
+                                                if(greyQueenSquare.posX == i*70+20 &&
+                                                   greyQueenSquare.posY == j*70+20) {
                                                     greyQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                       greyQueenSquareK[z].posY == j*100+20) {
+                                                    if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                       greyQueenSquareK[z].posY == j*70+20) {
                                                         greyQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(greyBishop1Square.posX == i*100+20 &&
-                                                   greyBishop1Square.posY == j*100+20) {
+                                                if(greyBishop1Square.posX == i*70+20 &&
+                                                   greyBishop1Square.posY == j*70+20) {
                                                     greyBishop1Square.posX = 1300;
                                                 }
-                                                if(greyBishop2Square.posX == i*100+20 &&
-                                                   greyBishop2Square.posY == j*100+20) {
+                                                if(greyBishop2Square.posX == i*70+20 &&
+                                                   greyBishop2Square.posY == j*70+20) {
                                                     greyBishop2Square.posX = 1300;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                                   greyKnight1Rectangle1.posY == j*100+20) {
+                                                if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                                   greyKnight1Rectangle1.posY == j*70+20) {
                                                     greyKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                                   greyKnight2Rectangle1.posY == j*100+20) {
+                                                if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                                   greyKnight2Rectangle1.posY == j*70+20) {
                                                     greyKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook1Rectangle1.posX == i*100+20 &&
-                                                   greyRook1Rectangle1.posY == j*100+20) {
+                                                if(greyRook1Rectangle1.posX == i*70+20 &&
+                                                   greyRook1Rectangle1.posY == j*70+20) {
                                                     greyRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook2Rectangle1.posX == i*100+20 &&
-                                                   greyRook2Rectangle1.posY == j*100+20) {
+                                                if(greyRook2Rectangle1.posX == i*70+20 &&
+                                                   greyRook2Rectangle1.posY == j*70+20) {
                                                     greyRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -12765,45 +12765,45 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'r';
                                         }
-                                    } else if(j*100+20 == redKnight2Rectangle1.posY + 200 &&
-                                              i*100+20 == redKnight2Rectangle1.posX + 100) {
+                                    } else if(j*70+20 == redKnight2Rectangle1.posY + 140 &&
+                                              i*70+20 == redKnight2Rectangle1.posX + 70) {
 
                                         for(int t=0; t<8; t++) {
-                                            if(redPawnsBase[t].posX == i*100+20 &&
-                                               redPawnsBase[t].posY == j*100+20) {
+                                            if(redPawnsBase[t].posX == i*70+20 &&
+                                               redPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(redQueenSquare.posX == i*100+20 &&
-                                           redQueenSquare.posY == j*100+20) {
+                                        if(redQueenSquare.posX == i*70+20 &&
+                                           redQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop1Square.posX == i*100+20 &&
-                                           redBishop1Square.posY == j*100+20) {
+                                        if(redBishop1Square.posX == i*70+20 &&
+                                           redBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop2Square.posX == i*100+20 &&
-                                           redBishop2Square.posY == j*100+20) {
+                                        if(redBishop2Square.posX == i*70+20 &&
+                                           redBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight1Rectangle1.posX == i*100+20 &&
-                                           redKnight1Rectangle1.posY == j*100+20) {
+                                        if(redKnight1Rectangle1.posX == i*70+20 &&
+                                           redKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook1Rectangle1.posX == i*100+20 &&
-                                           redRook1Rectangle1.posY == j*100+20) {
+                                        if(redRook1Rectangle1.posX == i*70+20 &&
+                                           redRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook2Rectangle1.posX == i*100+20 &&
-                                           redRook2Rectangle1.posY == j*100+20) {
+                                        if(redRook2Rectangle1.posX == i*70+20 &&
+                                           redRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -12812,8 +12812,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = redKnight2Rectangle1.posY;
                                             int a0 = redKnight2Rectangle1.posX;
 
-                                            redKnight2Rectangle1.posX = i*100+20;
-                                            redKnight2Rectangle1.posY = j*100+20;
+                                            redKnight2Rectangle1.posX = i*70+20;
+                                            redKnight2Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckRed(j, i);
 
@@ -12825,43 +12825,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(greyPawnsBase[t].posX == i*100+20 &&
-                                                       greyPawnsBase[t].posY == j*100+20) {
+                                                    if(greyPawnsBase[t].posX == i*70+20 &&
+                                                       greyPawnsBase[t].posY == j*70+20) {
                                                         greyPawnsBase[t].posX = 1300;
                                                     }
                                                 }
-                                                if(greyQueenSquare.posX == i*100+20 &&
-                                                   greyQueenSquare.posY == j*100+20) {
+                                                if(greyQueenSquare.posX == i*70+20 &&
+                                                   greyQueenSquare.posY == j*70+20) {
                                                     greyQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                       greyQueenSquareK[z].posY == j*100+20) {
+                                                    if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                       greyQueenSquareK[z].posY == j*70+20) {
                                                         greyQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(greyBishop1Square.posX == i*100+20 &&
-                                                   greyBishop1Square.posY == j*100+20) {
+                                                if(greyBishop1Square.posX == i*70+20 &&
+                                                   greyBishop1Square.posY == j*70+20) {
                                                     greyBishop1Square.posX = 1300;
                                                 }
-                                                if(greyBishop2Square.posX == i*100+20 &&
-                                                   greyBishop2Square.posY == j*100+20) {
+                                                if(greyBishop2Square.posX == i*70+20 &&
+                                                   greyBishop2Square.posY == j*70+20) {
                                                     greyBishop2Square.posX = 1300;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                                   greyKnight1Rectangle1.posY == j*100+20) {
+                                                if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                                   greyKnight1Rectangle1.posY == j*70+20) {
                                                     greyKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                                   greyKnight2Rectangle1.posY == j*100+20) {
+                                                if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                                   greyKnight2Rectangle1.posY == j*70+20) {
                                                     greyKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook1Rectangle1.posX == i*100+20 &&
-                                                   greyRook1Rectangle1.posY == j*100+20) {
+                                                if(greyRook1Rectangle1.posX == i*70+20 &&
+                                                   greyRook1Rectangle1.posY == j*70+20) {
                                                     greyRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook2Rectangle1.posX == i*100+20 &&
-                                                   greyRook2Rectangle1.posY == j*100+20) {
+                                                if(greyRook2Rectangle1.posX == i*70+20 &&
+                                                   greyRook2Rectangle1.posY == j*70+20) {
                                                     greyRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -12872,45 +12872,45 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'r';
                                         }
-                                    } else if(j*100+20 == redKnight2Rectangle1.posY - 100 &&
-                                              i*100+20 == redKnight2Rectangle1.posX + 200) {
+                                    } else if(j*70+20 == redKnight2Rectangle1.posY - 70 &&
+                                              i*70+20 == redKnight2Rectangle1.posX + 140) {
 
                                         for(int t=0; t<8; t++) {
-                                            if(redPawnsBase[t].posX == i*100+20 &&
-                                               redPawnsBase[t].posY == j*100+20) {
+                                            if(redPawnsBase[t].posX == i*70+20 &&
+                                               redPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(redQueenSquare.posX == i*100+20 &&
-                                           redQueenSquare.posY == j*100+20) {
+                                        if(redQueenSquare.posX == i*70+20 &&
+                                           redQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop1Square.posX == i*100+20 &&
-                                           redBishop1Square.posY == j*100+20) {
+                                        if(redBishop1Square.posX == i*70+20 &&
+                                           redBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop2Square.posX == i*100+20 &&
-                                           redBishop2Square.posY == j*100+20) {
+                                        if(redBishop2Square.posX == i*70+20 &&
+                                           redBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight1Rectangle1.posX == i*100+20 &&
-                                           redKnight1Rectangle1.posY == j*100+20) {
+                                        if(redKnight1Rectangle1.posX == i*70+20 &&
+                                           redKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook1Rectangle1.posX == i*100+20 &&
-                                           redRook1Rectangle1.posY == j*100+20) {
+                                        if(redRook1Rectangle1.posX == i*70+20 &&
+                                           redRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook2Rectangle1.posX == i*100+20 &&
-                                           redRook2Rectangle1.posY == j*100+20) {
+                                        if(redRook2Rectangle1.posX == i*70+20 &&
+                                           redRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -12919,8 +12919,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = redKnight2Rectangle1.posY;
                                             int a0 = redKnight2Rectangle1.posX;
 
-                                            redKnight2Rectangle1.posX = i*100+20;
-                                            redKnight2Rectangle1.posY = j*100+20;
+                                            redKnight2Rectangle1.posX = i*70+20;
+                                            redKnight2Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckRed(j, i);
 
@@ -12932,43 +12932,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(greyPawnsBase[t].posX == i*100+20 &&
-                                                       greyPawnsBase[t].posY == j*100+20) {
+                                                    if(greyPawnsBase[t].posX == i*70+20 &&
+                                                       greyPawnsBase[t].posY == j*70+20) {
                                                         greyPawnsBase[t].posX = 1300;
                                                     }
                                                 }
-                                                if(greyQueenSquare.posX == i*100+20 &&
-                                                   greyQueenSquare.posY == j*100+20) {
+                                                if(greyQueenSquare.posX == i*70+20 &&
+                                                   greyQueenSquare.posY == j*70+20) {
                                                     greyQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                       greyQueenSquareK[z].posY == j*100+20) {
+                                                    if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                       greyQueenSquareK[z].posY == j*70+20) {
                                                         greyQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(greyBishop1Square.posX == i*100+20 &&
-                                                   greyBishop1Square.posY == j*100+20) {
+                                                if(greyBishop1Square.posX == i*70+20 &&
+                                                   greyBishop1Square.posY == j*70+20) {
                                                     greyBishop1Square.posX = 1300;
                                                 }
-                                                if(greyBishop2Square.posX == i*100+20 &&
-                                                   greyBishop2Square.posY == j*100+20) {
+                                                if(greyBishop2Square.posX == i*70+20 &&
+                                                   greyBishop2Square.posY == j*70+20) {
                                                     greyBishop2Square.posX = 1300;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                                   greyKnight1Rectangle1.posY == j*100+20) {
+                                                if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                                   greyKnight1Rectangle1.posY == j*70+20) {
                                                     greyKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                                   greyKnight2Rectangle1.posY == j*100+20) {
+                                                if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                                   greyKnight2Rectangle1.posY == j*70+20) {
                                                     greyKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook1Rectangle1.posX == i*100+20 &&
-                                                   greyRook1Rectangle1.posY == j*100+20) {
+                                                if(greyRook1Rectangle1.posX == i*70+20 &&
+                                                   greyRook1Rectangle1.posY == j*70+20) {
                                                     greyRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook2Rectangle1.posX == i*100+20 &&
-                                                   greyRook2Rectangle1.posY == j*100+20) {
+                                                if(greyRook2Rectangle1.posX == i*70+20 &&
+                                                   greyRook2Rectangle1.posY == j*70+20) {
                                                     greyRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -12979,45 +12979,45 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'r';
                                         }
-                                    } else if(j*100+20 == redKnight2Rectangle1.posY + 100 &&
-                                              i*100+20 == redKnight2Rectangle1.posX + 200) {
+                                    } else if(j*70+20 == redKnight2Rectangle1.posY + 70 &&
+                                              i*70+20 == redKnight2Rectangle1.posX + 140) {
 
                                         for(int t=0; t<8; t++) {
-                                            if(redPawnsBase[t].posX == i*100+20 &&
-                                               redPawnsBase[t].posY == j*100+20) {
+                                            if(redPawnsBase[t].posX == i*70+20 &&
+                                               redPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(redQueenSquare.posX == i*100+20 &&
-                                           redQueenSquare.posY == j*100+20) {
+                                        if(redQueenSquare.posX == i*70+20 &&
+                                           redQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop1Square.posX == i*100+20 &&
-                                           redBishop1Square.posY == j*100+20) {
+                                        if(redBishop1Square.posX == i*70+20 &&
+                                           redBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop2Square.posX == i*100+20 &&
-                                           redBishop2Square.posY == j*100+20) {
+                                        if(redBishop2Square.posX == i*70+20 &&
+                                           redBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight1Rectangle1.posX == i*100+20 &&
-                                           redKnight1Rectangle1.posY == j*100+20) {
+                                        if(redKnight1Rectangle1.posX == i*70+20 &&
+                                           redKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook1Rectangle1.posX == i*100+20 &&
-                                           redRook1Rectangle1.posY == j*100+20) {
+                                        if(redRook1Rectangle1.posX == i*70+20 &&
+                                           redRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook2Rectangle1.posX == i*100+20 &&
-                                           redRook2Rectangle1.posY == j*100+20) {
+                                        if(redRook2Rectangle1.posX == i*70+20 &&
+                                           redRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKingSquare.posX == i*100+20 &&
-                                           redKingSquare.posY == j*100+20) {
+                                        if(redKingSquare.posX == i*70+20 &&
+                                           redKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(greyKingSquare.posX == i*100+20 &&
-                                           greyKingSquare.posY == j*100+20) {
+                                        if(greyKingSquare.posX == i*70+20 &&
+                                           greyKingSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -13026,8 +13026,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = redKnight2Rectangle1.posY;
                                             int a0 = redKnight2Rectangle1.posX;
 
-                                            redKnight2Rectangle1.posX = i*100+20;
-                                            redKnight2Rectangle1.posY = j*100+20;
+                                            redKnight2Rectangle1.posX = i*70+20;
+                                            redKnight2Rectangle1.posY = j*70+20;
 
                                             boolean ffff = checkCheckRed(j, i);
 
@@ -13039,43 +13039,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             } else {
 
                                                 for(int t=0; t<8; t++) {
-                                                    if(greyPawnsBase[t].posX == i*100+20 &&
-                                                       greyPawnsBase[t].posY == j*100+20) {
+                                                    if(greyPawnsBase[t].posX == i*70+20 &&
+                                                       greyPawnsBase[t].posY == j*70+20) {
                                                         greyPawnsBase[t].posX = 1300;
                                                     }
                                                 }
-                                                if(greyQueenSquare.posX == i*100+20 &&
-                                                   greyQueenSquare.posY == j*100+20) {
+                                                if(greyQueenSquare.posX == i*70+20 &&
+                                                   greyQueenSquare.posY == j*70+20) {
                                                     greyQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                       greyQueenSquareK[z].posY == j*100+20) {
+                                                    if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                       greyQueenSquareK[z].posY == j*70+20) {
                                                         greyQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(greyBishop1Square.posX == i*100+20 &&
-                                                   greyBishop1Square.posY == j*100+20) {
+                                                if(greyBishop1Square.posX == i*70+20 &&
+                                                   greyBishop1Square.posY == j*70+20) {
                                                     greyBishop1Square.posX = 1300;
                                                 }
-                                                if(greyBishop2Square.posX == i*100+20 &&
-                                                   greyBishop2Square.posY == j*100+20) {
+                                                if(greyBishop2Square.posX == i*70+20 &&
+                                                   greyBishop2Square.posY == j*70+20) {
                                                     greyBishop2Square.posX = 1300;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                                   greyKnight1Rectangle1.posY == j*100+20) {
+                                                if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                                   greyKnight1Rectangle1.posY == j*70+20) {
                                                     greyKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                                   greyKnight2Rectangle1.posY == j*100+20) {
+                                                if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                                   greyKnight2Rectangle1.posY == j*70+20) {
                                                     greyKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook1Rectangle1.posX == i*100+20 &&
-                                                   greyRook1Rectangle1.posY == j*100+20) {
+                                                if(greyRook1Rectangle1.posX == i*70+20 &&
+                                                   greyRook1Rectangle1.posY == j*70+20) {
                                                     greyRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook2Rectangle1.posX == i*100+20 &&
-                                                   greyRook2Rectangle1.posY == j*100+20) {
+                                                if(greyRook2Rectangle1.posX == i*70+20 &&
+                                                   greyRook2Rectangle1.posY == j*70+20) {
                                                     greyRook2Rectangle1.posX = 1300;
                                                 }
 
@@ -13092,8 +13092,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                             itdid = FALSE;
 
-                            if(redKingSquare.posX == i*100+20 &&
-                               redKingSquare.posY == j*100+20) {
+                            if(redKingSquare.posX == i*70+20 &&
+                               redKingSquare.posY == j*70+20) {
 
                                 clickedOne = 'r';
                                 redKingSquare.clicked = TRUE;
@@ -13116,184 +13116,184 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                     redKingSquare.clicked = FALSE;
 
-                                    if(j*100+20 == redKingSquare.posY &&
-                                       i*100+20 == redKingSquare.posX - 200) {
+                                    if(j*70+20 == redKingSquare.posY &&
+                                       i*70+20 == redKingSquare.posX - 140) {
                                         if(redRook1Rectangle1.posY == 0 &&
                                            redRook1Rectangle1.posX == 0) {
                                             if(redKingSquare.posY == 0 &&
-                                               redKingSquare.posX == 400) {
+                                               redKingSquare.posX == 280) {
                                                 boolean isthere = FALSE;
-                                                if(greyRook1Rectangle1.posX == 300 &&
+                                                if(greyRook1Rectangle1.posX == 210 &&
                                                    greyRook1Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyRook1Rectangle1.posX == 200 &&
+                                                if(greyRook1Rectangle1.posX == 140 &&
                                                    greyRook1Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyRook1Rectangle1.posX == 100 &&
+                                                if(greyRook1Rectangle1.posX == 70 &&
                                                    greyRook1Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyRook2Rectangle1.posX == 300 &&
+                                                if(greyRook2Rectangle1.posX == 210 &&
                                                    greyRook2Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyRook2Rectangle1.posX == 200 &&
+                                                if(greyRook2Rectangle1.posX == 140 &&
                                                    greyRook2Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyRook2Rectangle1.posX == 100 &&
+                                                if(greyRook2Rectangle1.posX == 70 &&
                                                    greyRook2Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook1Rectangle1.posX == 300 &&
+                                                if(redRook1Rectangle1.posX == 210 &&
                                                    redRook1Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook1Rectangle1.posX == 200 &&
+                                                if(redRook1Rectangle1.posX == 140 &&
                                                    redRook1Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook1Rectangle1.posX == 100 &&
+                                                if(redRook1Rectangle1.posX == 70 &&
                                                    redRook1Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook2Rectangle1.posX == 300 &&
+                                                if(redRook2Rectangle1.posX == 210 &&
                                                    redRook2Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook2Rectangle1.posX == 200 &&
+                                                if(redRook2Rectangle1.posX == 140 &&
                                                    redRook2Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook2Rectangle1.posX == 100 &&
+                                                if(redRook2Rectangle1.posX == 70 &&
                                                    redRook2Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop1Square.posX == 300 &&
+                                                if(greyBishop1Square.posX == 210 &&
                                                    greyBishop1Square.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop1Square.posX == 200 &&
+                                                if(greyBishop1Square.posX == 140 &&
                                                    greyBishop1Square.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop1Square.posX == 100 &&
+                                                if(greyBishop1Square.posX == 70 &&
                                                    greyBishop1Square.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop2Square.posX == 300 &&
+                                                if(greyBishop2Square.posX == 210 &&
                                                    greyBishop2Square.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop2Square.posX == 200 &&
+                                                if(greyBishop2Square.posX == 140 &&
                                                    greyBishop2Square.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop2Square.posX == 100 &&
+                                                if(greyBishop2Square.posX == 70 &&
                                                    greyBishop2Square.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop1Square.posX == 300 &&
+                                                if(redBishop1Square.posX == 210 &&
                                                    redBishop1Square.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop1Square.posX == 200 &&
+                                                if(redBishop1Square.posX == 140 &&
                                                    redBishop1Square.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop1Square.posX == 100 &&
+                                                if(redBishop1Square.posX == 70 &&
                                                    redBishop1Square.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop2Square.posX == 300 &&
+                                                if(redBishop2Square.posX == 210 &&
                                                    redBishop2Square.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop2Square.posX == 200 &&
+                                                if(redBishop2Square.posX == 140 &&
                                                    redBishop2Square.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop2Square.posX == 100 &&
+                                                if(redBishop2Square.posX == 70 &&
                                                    redBishop2Square.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == 300 &&
+                                                if(greyKnight1Rectangle1.posX == 210 &&
                                                    greyKnight1Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == 200 &&
+                                                if(greyKnight1Rectangle1.posX == 140 &&
                                                    greyKnight1Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == 100 &&
+                                                if(greyKnight1Rectangle1.posX == 70 &&
                                                    greyKnight1Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == 300 &&
+                                                if(greyKnight2Rectangle1.posX == 210 &&
                                                    greyKnight2Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == 200 &&
+                                                if(greyKnight2Rectangle1.posX == 140 &&
                                                    greyKnight2Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == 100 &&
+                                                if(greyKnight2Rectangle1.posX == 70 &&
                                                    greyKnight2Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight1Rectangle1.posX == 300 &&
+                                                if(redKnight1Rectangle1.posX == 210 &&
                                                    redKnight1Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight1Rectangle1.posX == 200 &&
+                                                if(redKnight1Rectangle1.posX == 140 &&
                                                    redKnight1Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight1Rectangle1.posX == 100 &&
+                                                if(redKnight1Rectangle1.posX == 70 &&
                                                    redKnight1Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight2Rectangle1.posX == 300 &&
+                                                if(redKnight2Rectangle1.posX == 210 &&
                                                    redKnight2Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight2Rectangle1.posX == 200 &&
+                                                if(redKnight2Rectangle1.posX == 140 &&
                                                    redKnight2Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight2Rectangle1.posX == 100 &&
+                                                if(redKnight2Rectangle1.posX == 70 &&
                                                    redKnight2Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyQueenSquare.posX == 300 &&
+                                                if(greyQueenSquare.posX == 210 &&
                                                    greyQueenSquare.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyQueenSquare.posX == 200 &&
+                                                if(greyQueenSquare.posX == 140 &&
                                                    greyQueenSquare.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyQueenSquare.posX == 100 &&
+                                                if(greyQueenSquare.posX == 70 &&
                                                    greyQueenSquare.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redQueenSquare.posX == 300 &&
+                                                if(redQueenSquare.posX == 210 &&
                                                    redQueenSquare.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redQueenSquare.posX == 200 &&
+                                                if(redQueenSquare.posX == 140 &&
                                                    redQueenSquare.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redQueenSquare.posX == 100 &&
+                                                if(redQueenSquare.posX == 70 &&
                                                    redQueenSquare.posY == 0) {
                                                     isthere = TRUE;
                                                 }
                                                 if(!isthere && !redKingMoved && !redRook1Moved) {
-                                                    redKingSquare.posX -= 200;
-                                                    redRook1Rectangle1.posX += 300;
+                                                    redKingSquare.posX -= 140;
+                                                    redRook1Rectangle1.posX += 210;
                                                     redKingMoved = TRUE;
                                                     redRook1Moved = TRUE;
                                                     turnChanged = TRUE;
@@ -13304,128 +13304,128 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
                                     }
 
-                                    if(j*100+20 == redKingSquare.posY &&
-                                       i*100+20 == redKingSquare.posX + 200) {
+                                    if(j*70+20 == redKingSquare.posY &&
+                                       i*70+20 == redKingSquare.posX + 140) {
                                         if(redRook2Rectangle1.posY == 0 &&
-                                           redRook2Rectangle1.posX == 700) {
+                                           redRook2Rectangle1.posX == 490) {
                                             if(redKingSquare.posY == 0 &&
-                                               redKingSquare.posX == 400) {
+                                               redKingSquare.posX == 280) {
                                                 boolean isthere = FALSE;
-                                                if(greyRook1Rectangle1.posX == 500 &&
+                                                if(greyRook1Rectangle1.posX == 350 &&
                                                    greyRook1Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyRook1Rectangle1.posX == 600 &&
+                                                if(greyRook1Rectangle1.posX == 420 &&
                                                    greyRook1Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyRook2Rectangle1.posX == 500 &&
+                                                if(greyRook2Rectangle1.posX == 350 &&
                                                    greyRook2Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyRook2Rectangle1.posX == 600 &&
+                                                if(greyRook2Rectangle1.posX == 420 &&
                                                    greyRook2Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook1Rectangle1.posX == 500 &&
+                                                if(redRook1Rectangle1.posX == 350 &&
                                                    redRook1Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook1Rectangle1.posX == 600 &&
+                                                if(redRook1Rectangle1.posX == 420 &&
                                                    redRook1Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook2Rectangle1.posX == 500 &&
+                                                if(redRook2Rectangle1.posX == 350 &&
                                                    redRook2Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redRook2Rectangle1.posX == 600 &&
+                                                if(redRook2Rectangle1.posX == 420 &&
                                                    redRook2Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop1Square.posX == 500 &&
+                                                if(greyBishop1Square.posX == 350 &&
                                                    greyBishop1Square.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop1Square.posX == 600 &&
+                                                if(greyBishop1Square.posX == 420 &&
                                                    greyBishop1Square.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop2Square.posX == 500 &&
+                                                if(greyBishop2Square.posX == 350 &&
                                                    greyBishop2Square.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyBishop2Square.posX == 600 &&
+                                                if(greyBishop2Square.posX == 420 &&
                                                    greyBishop2Square.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop1Square.posX == 500 &&
+                                                if(redBishop1Square.posX == 350 &&
                                                    redBishop1Square.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop1Square.posX == 600 &&
+                                                if(redBishop1Square.posX == 420 &&
                                                    redBishop1Square.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop2Square.posX == 500 &&
+                                                if(redBishop2Square.posX == 350 &&
                                                    redBishop2Square.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redBishop2Square.posX == 600 &&
+                                                if(redBishop2Square.posX == 420 &&
                                                    redBishop2Square.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == 500 &&
+                                                if(greyKnight1Rectangle1.posX == 350 &&
                                                    greyKnight1Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == 600 &&
+                                                if(greyKnight1Rectangle1.posX == 420 &&
                                                    greyKnight1Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == 500 &&
+                                                if(greyKnight2Rectangle1.posX == 350 &&
                                                    greyKnight2Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == 600 &&
+                                                if(greyKnight2Rectangle1.posX == 420 &&
                                                    greyKnight2Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight1Rectangle1.posX == 500 &&
+                                                if(redKnight1Rectangle1.posX == 350 &&
                                                    redKnight1Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight1Rectangle1.posX == 600 &&
+                                                if(redKnight1Rectangle1.posX == 420 &&
                                                    redKnight1Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight2Rectangle1.posX == 500 &&
+                                                if(redKnight2Rectangle1.posX == 350 &&
                                                    redKnight2Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redKnight2Rectangle1.posX == 600 &&
+                                                if(redKnight2Rectangle1.posX == 420 &&
                                                    redKnight2Rectangle1.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyQueenSquare.posX == 500 &&
+                                                if(greyQueenSquare.posX == 350 &&
                                                    greyQueenSquare.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(greyQueenSquare.posX == 600 &&
+                                                if(greyQueenSquare.posX == 420 &&
                                                    greyQueenSquare.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redQueenSquare.posX == 500 &&
+                                                if(redQueenSquare.posX == 350 &&
                                                    redQueenSquare.posY == 0) {
                                                     isthere = TRUE;
                                                 }
-                                                if(redQueenSquare.posX == 600 &&
+                                                if(redQueenSquare.posX == 420 &&
                                                    redQueenSquare.posY == 0) {
                                                     isthere = TRUE;
                                                 }
                                                 if(!isthere && !redKingMoved && !redRook2Moved) {
-                                                    redKingSquare.posX += 200;
-                                                    redRook2Rectangle1.posX -= 200;
+                                                    redKingSquare.posX += 140;
+                                                    redRook2Rectangle1.posX -= 140;
                                                     redKingMoved = TRUE;
                                                     redRook2Moved = TRUE;
                                                     turnChanged = TRUE;
@@ -13436,41 +13436,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         }
                                     }
 
-                                    if(j*100+20 == redKingSquare.posY - 100 &&
-                                       i*100+20 == redKingSquare.posX) {
+                                    if(j*70+20 == redKingSquare.posY - 70 &&
+                                       i*70+20 == redKingSquare.posX) {
 
                                         for(int t=0; t<8; t++) {
-                                            if(redPawnsBase[t].posX == i*100+20 &&
-                                               redPawnsBase[t].posY == j*100+20) {
+                                            if(redPawnsBase[t].posX == i*70+20 &&
+                                               redPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(redQueenSquare.posX == i*100+20 &&
-                                           redQueenSquare.posY == j*100+20) {
+                                        if(redQueenSquare.posX == i*70+20 &&
+                                           redQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop1Square.posX == i*100+20 &&
-                                           redBishop1Square.posY == j*100+20) {
+                                        if(redBishop1Square.posX == i*70+20 &&
+                                           redBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop2Square.posX == i*100+20 &&
-                                           redBishop2Square.posY == j*100+20) {
+                                        if(redBishop2Square.posX == i*70+20 &&
+                                           redBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight1Rectangle1.posX == i*100+20 &&
-                                           redKnight1Rectangle1.posY == j*100+20) {
+                                        if(redKnight1Rectangle1.posX == i*70+20 &&
+                                           redKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight2Rectangle1.posX == i*100+20 &&
-                                           redKnight2Rectangle1.posY == j*100+20) {
+                                        if(redKnight2Rectangle1.posX == i*70+20 &&
+                                           redKnight2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook1Rectangle1.posX == i*100+20 &&
-                                           redRook1Rectangle1.posY == j*100+20) {
+                                        if(redRook1Rectangle1.posX == i*70+20 &&
+                                           redRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook2Rectangle1.posX == i*100+20 &&
-                                           redRook2Rectangle1.posY == j*100+20) {
+                                        if(redRook2Rectangle1.posX == i*70+20 &&
+                                           redRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -13479,7 +13479,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = redKingSquare.posY;
                                             int a0 = redKingSquare.posX;
 
-                                            redKingSquare.posY -= 100;
+                                            redKingSquare.posY -= 70;
 
                                             boolean ffff = checkCheckRed(j, i);
 
@@ -13493,49 +13493,49 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 for(int l=0; l<8; l++) {
                                                     if((greyPawnsBase[l].posX == redKingSquare.posX ||
                                                         greyPawnsBase[l].posX == redKingSquare.posX) &&
-                                                        greyPawnsBase[l].posY == j*100+20) {
+                                                        greyPawnsBase[l].posY == j*70+20) {
                                                         greyPawnsBase[l].posX = 1300;
                                                         break;
                                                     }
                                                 }
-                                                if(greyQueenSquare.posX == i*100+20 &&
-                                                   greyQueenSquare.posY == j*100+20) {
+                                                if(greyQueenSquare.posX == i*70+20 &&
+                                                   greyQueenSquare.posY == j*70+20) {
                                                     greyQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                       greyQueenSquareK[z].posY == j*100+20) {
+                                                    if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                       greyQueenSquareK[z].posY == j*70+20) {
                                                         greyQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(greyBishop1Square.posX == i*100+20 &&
-                                                   greyBishop1Square.posY == j*100+20) {
+                                                if(greyBishop1Square.posX == i*70+20 &&
+                                                   greyBishop1Square.posY == j*70+20) {
                                                     greyBishop1Square.posX = 1300;
                                                 }
-                                                if(greyBishop2Square.posX == i*100+20 &&
-                                                   greyBishop2Square.posY == j*100+20) {
+                                                if(greyBishop2Square.posX == i*70+20 &&
+                                                   greyBishop2Square.posY == j*70+20) {
                                                     greyBishop2Square.posX = 1300;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                                   greyKnight1Rectangle1.posY == j*100+20) {
+                                                if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                                   greyKnight1Rectangle1.posY == j*70+20) {
                                                     greyKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                                   greyKnight2Rectangle1.posY == j*100+20) {
+                                                if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                                   greyKnight2Rectangle1.posY == j*70+20) {
                                                     greyKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook1Rectangle1.posX == i*100+20 &&
-                                                   greyRook1Rectangle1.posY == j*100+20) {
+                                                if(greyRook1Rectangle1.posX == i*70+20 &&
+                                                   greyRook1Rectangle1.posY == j*70+20) {
                                                     greyRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook2Rectangle1.posX == i*100+20 &&
-                                                   greyRook2Rectangle1.posY == j*100+20) {
+                                                if(greyRook2Rectangle1.posX == i*70+20 &&
+                                                   greyRook2Rectangle1.posY == j*70+20) {
                                                     greyRook2Rectangle1.posX = 1300;
                                                 }
 
                                                 for(int u=0; u<8; u++) {
                                                     if(greyPawnsBase[u].posX == redKingSquare.posX &&
-                                                       greyPawnsBase[u].posY == redKingSquare.posY - 100) {
+                                                       greyPawnsBase[u].posY == redKingSquare.posY - 70) {
                                                         greyPawnsBase[u].posX = 1300;
                                                         break;
                                                     }
@@ -13549,41 +13549,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'r';
                                         }
-                                    } else if(j*100+20 == redKingSquare.posY - 100 &&
-                                              i*100+20 == redKingSquare.posX + 100) {
+                                    } else if(j*70+20 == redKingSquare.posY - 70 &&
+                                              i*70+20 == redKingSquare.posX + 70) {
 
                                         for(int t=0; t<8; t++) {
-                                            if(redPawnsBase[t].posX == i*100+20 &&
-                                               redPawnsBase[t].posY == j*100+20) {
+                                            if(redPawnsBase[t].posX == i*70+20 &&
+                                               redPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(redQueenSquare.posX == i*100+20 &&
-                                           redQueenSquare.posY == j*100+20) {
+                                        if(redQueenSquare.posX == i*70+20 &&
+                                           redQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop1Square.posX == i*100+20 &&
-                                           redBishop1Square.posY == j*100+20) {
+                                        if(redBishop1Square.posX == i*70+20 &&
+                                           redBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop2Square.posX == i*100+20 &&
-                                           redBishop2Square.posY == j*100+20) {
+                                        if(redBishop2Square.posX == i*70+20 &&
+                                           redBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight1Rectangle1.posX == i*100+20 &&
-                                           redKnight1Rectangle1.posY == j*100+20) {
+                                        if(redKnight1Rectangle1.posX == i*70+20 &&
+                                           redKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight2Rectangle1.posX == i*100+20 &&
-                                           redKnight2Rectangle1.posY == j*100+20) {
+                                        if(redKnight2Rectangle1.posX == i*70+20 &&
+                                           redKnight2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook1Rectangle1.posX == i*100+20 &&
-                                           redRook1Rectangle1.posY == j*100+20) {
+                                        if(redRook1Rectangle1.posX == i*70+20 &&
+                                           redRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook2Rectangle1.posX == i*100+20 &&
-                                           redRook2Rectangle1.posY == j*100+20) {
+                                        if(redRook2Rectangle1.posX == i*70+20 &&
+                                           redRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -13592,8 +13592,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = redKingSquare.posY;
                                             int a0 = redKingSquare.posX;
 
-                                            redKingSquare.posY -= 100;
-                                            redKingSquare.posX += 100;
+                                            redKingSquare.posY -= 70;
+                                            redKingSquare.posX += 70;
 
                                             boolean ffff = checkCheckRed(j, i);
 
@@ -13607,49 +13607,49 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 for(int l=0; l<8; l++) {
                                                     if((greyPawnsBase[l].posX == redKingSquare.posX ||
                                                         greyPawnsBase[l].posX == redKingSquare.posX) &&
-                                                        greyPawnsBase[l].posY == j*100+20) {
+                                                        greyPawnsBase[l].posY == j*70+20) {
                                                         greyPawnsBase[l].posX = 1300;
                                                         break;
                                                     }
                                                 }
-                                                if(greyQueenSquare.posX == i*100+20 &&
-                                                   greyQueenSquare.posY == j*100+20) {
+                                                if(greyQueenSquare.posX == i*70+20 &&
+                                                   greyQueenSquare.posY == j*70+20) {
                                                     greyQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                       greyQueenSquareK[z].posY == j*100+20) {
+                                                    if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                       greyQueenSquareK[z].posY == j*70+20) {
                                                         greyQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(greyBishop1Square.posX == i*100+20 &&
-                                                   greyBishop1Square.posY == j*100+20) {
+                                                if(greyBishop1Square.posX == i*70+20 &&
+                                                   greyBishop1Square.posY == j*70+20) {
                                                     greyBishop1Square.posX = 1300;
                                                 }
-                                                if(greyBishop2Square.posX == i*100+20 &&
-                                                   greyBishop2Square.posY == j*100+20) {
+                                                if(greyBishop2Square.posX == i*70+20 &&
+                                                   greyBishop2Square.posY == j*70+20) {
                                                     greyBishop2Square.posX = 1300;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                                   greyKnight1Rectangle1.posY == j*100+20) {
+                                                if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                                   greyKnight1Rectangle1.posY == j*70+20) {
                                                     greyKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                                   greyKnight2Rectangle1.posY == j*100+20) {
+                                                if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                                   greyKnight2Rectangle1.posY == j*70+20) {
                                                     greyKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook1Rectangle1.posX == i*100+20 &&
-                                                   greyRook1Rectangle1.posY == j*100+20) {
+                                                if(greyRook1Rectangle1.posX == i*70+20 &&
+                                                   greyRook1Rectangle1.posY == j*70+20) {
                                                     greyRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook2Rectangle1.posX == i*100+20 &&
-                                                   greyRook2Rectangle1.posY == j*100+20) {
+                                                if(greyRook2Rectangle1.posX == i*70+20 &&
+                                                   greyRook2Rectangle1.posY == j*70+20) {
                                                     greyRook2Rectangle1.posX = 1300;
                                                 }
 
                                                 for(int u=0; u<8; u++) {
                                                     if(greyPawnsBase[u].posX == redKingSquare.posX &&
-                                                       greyPawnsBase[u].posY == redKingSquare.posY - 100) {
+                                                       greyPawnsBase[u].posY == redKingSquare.posY - 70) {
                                                         greyPawnsBase[u].posX = 1300;
                                                         break;
                                                     }
@@ -13663,41 +13663,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'r';
                                         }
-                                    } else if(j*100+20 == redKingSquare.posY &&
-                                              i*100+20 == redKingSquare.posX + 100) {
+                                    } else if(j*70+20 == redKingSquare.posY &&
+                                              i*70+20 == redKingSquare.posX + 70) {
 
                                         for(int t=0; t<8; t++) {
-                                            if(redPawnsBase[t].posX == i*100+20 &&
-                                               redPawnsBase[t].posY == j*100+20) {
+                                            if(redPawnsBase[t].posX == i*70+20 &&
+                                               redPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(redQueenSquare.posX == i*100+20 &&
-                                           redQueenSquare.posY == j*100+20) {
+                                        if(redQueenSquare.posX == i*70+20 &&
+                                           redQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop1Square.posX == i*100+20 &&
-                                           redBishop1Square.posY == j*100+20) {
+                                        if(redBishop1Square.posX == i*70+20 &&
+                                           redBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop2Square.posX == i*100+20 &&
-                                           redBishop2Square.posY == j*100+20) {
+                                        if(redBishop2Square.posX == i*70+20 &&
+                                           redBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight1Rectangle1.posX == i*100+20 &&
-                                           redKnight1Rectangle1.posY == j*100+20) {
+                                        if(redKnight1Rectangle1.posX == i*70+20 &&
+                                           redKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight2Rectangle1.posX == i*100+20 &&
-                                           redKnight2Rectangle1.posY == j*100+20) {
+                                        if(redKnight2Rectangle1.posX == i*70+20 &&
+                                           redKnight2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook1Rectangle1.posX == i*100+20 &&
-                                           redRook1Rectangle1.posY == j*100+20) {
+                                        if(redRook1Rectangle1.posX == i*70+20 &&
+                                           redRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook2Rectangle1.posX == i*100+20 &&
-                                           redRook2Rectangle1.posY == j*100+20) {
+                                        if(redRook2Rectangle1.posX == i*70+20 &&
+                                           redRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -13706,7 +13706,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = redKingSquare.posY;
                                             int a0 = redKingSquare.posX;
 
-                                            redKingSquare.posX += 100;
+                                            redKingSquare.posX += 70;
 
                                             boolean ffff = checkCheckRed(j, i);
 
@@ -13720,49 +13720,49 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 for(int l=0; l<8; l++) {
                                                     if((greyPawnsBase[l].posX == redKingSquare.posX ||
                                                         greyPawnsBase[l].posX == redKingSquare.posX) &&
-                                                        greyPawnsBase[l].posY == j*100+20) {
+                                                        greyPawnsBase[l].posY == j*70+20) {
                                                         greyPawnsBase[l].posX = 1300;
                                                         break;
                                                     }
                                                 }
-                                                if(greyQueenSquare.posX == i*100+20 &&
-                                                   greyQueenSquare.posY == j*100+20) {
+                                                if(greyQueenSquare.posX == i*70+20 &&
+                                                   greyQueenSquare.posY == j*70+20) {
                                                     greyQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                       greyQueenSquareK[z].posY == j*100+20) {
+                                                    if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                       greyQueenSquareK[z].posY == j*70+20) {
                                                         greyQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(greyBishop1Square.posX == i*100+20 &&
-                                                   greyBishop1Square.posY == j*100+20) {
+                                                if(greyBishop1Square.posX == i*70+20 &&
+                                                   greyBishop1Square.posY == j*70+20) {
                                                     greyBishop1Square.posX = 1300;
                                                 }
-                                                if(greyBishop2Square.posX == i*100+20 &&
-                                                   greyBishop2Square.posY == j*100+20) {
+                                                if(greyBishop2Square.posX == i*70+20 &&
+                                                   greyBishop2Square.posY == j*70+20) {
                                                     greyBishop2Square.posX = 1300;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                                   greyKnight1Rectangle1.posY == j*100+20) {
+                                                if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                                   greyKnight1Rectangle1.posY == j*70+20) {
                                                     greyKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                                   greyKnight2Rectangle1.posY == j*100+20) {
+                                                if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                                   greyKnight2Rectangle1.posY == j*70+20) {
                                                     greyKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook1Rectangle1.posX == i*100+20 &&
-                                                   greyRook1Rectangle1.posY == j*100+20) {
+                                                if(greyRook1Rectangle1.posX == i*70+20 &&
+                                                   greyRook1Rectangle1.posY == j*70+20) {
                                                     greyRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook2Rectangle1.posX == i*100+20 &&
-                                                   greyRook2Rectangle1.posY == j*100+20) {
+                                                if(greyRook2Rectangle1.posX == i*70+20 &&
+                                                   greyRook2Rectangle1.posY == j*70+20) {
                                                     greyRook2Rectangle1.posX = 1300;
                                                 }
 
                                                 for(int u=0; u<8; u++) {
                                                     if(greyPawnsBase[u].posX == redKingSquare.posX &&
-                                                       greyPawnsBase[u].posY == redKingSquare.posY - 100) {
+                                                       greyPawnsBase[u].posY == redKingSquare.posY - 70) {
                                                         greyPawnsBase[u].posX = 1300;
                                                         break;
                                                     }
@@ -13776,41 +13776,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'r';
                                         }
-                                    } else if(j*100+20 == redKingSquare.posY + 100 &&
-                                              i*100+20 == redKingSquare.posX + 100) {
+                                    } else if(j*70+20 == redKingSquare.posY + 70 &&
+                                              i*70+20 == redKingSquare.posX + 70) {
 
                                         for(int t=0; t<8; t++) {
-                                            if(redPawnsBase[t].posX == i*100+20 &&
-                                               redPawnsBase[t].posY == j*100+20) {
+                                            if(redPawnsBase[t].posX == i*70+20 &&
+                                               redPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(redQueenSquare.posX == i*100+20 &&
-                                           redQueenSquare.posY == j*100+20) {
+                                        if(redQueenSquare.posX == i*70+20 &&
+                                           redQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop1Square.posX == i*100+20 &&
-                                           redBishop1Square.posY == j*100+20) {
+                                        if(redBishop1Square.posX == i*70+20 &&
+                                           redBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop2Square.posX == i*100+20 &&
-                                           redBishop2Square.posY == j*100+20) {
+                                        if(redBishop2Square.posX == i*70+20 &&
+                                           redBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight1Rectangle1.posX == i*100+20 &&
-                                           redKnight1Rectangle1.posY == j*100+20) {
+                                        if(redKnight1Rectangle1.posX == i*70+20 &&
+                                           redKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight2Rectangle1.posX == i*100+20 &&
-                                           redKnight2Rectangle1.posY == j*100+20) {
+                                        if(redKnight2Rectangle1.posX == i*70+20 &&
+                                           redKnight2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook1Rectangle1.posX == i*100+20 &&
-                                           redRook1Rectangle1.posY == j*100+20) {
+                                        if(redRook1Rectangle1.posX == i*70+20 &&
+                                           redRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook2Rectangle1.posX == i*100+20 &&
-                                           redRook2Rectangle1.posY == j*100+20) {
+                                        if(redRook2Rectangle1.posX == i*70+20 &&
+                                           redRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -13819,8 +13819,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = redKingSquare.posY;
                                             int a0 = redKingSquare.posX;
 
-                                            redKingSquare.posX += 100;
-                                            redKingSquare.posY += 100;
+                                            redKingSquare.posX += 70;
+                                            redKingSquare.posY += 70;
 
                                             boolean ffff = checkCheckRed(j, i);
 
@@ -13834,49 +13834,49 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 for(int l=0; l<8; l++) {
                                                     if((greyPawnsBase[l].posX == redKingSquare.posX ||
                                                         greyPawnsBase[l].posX == redKingSquare.posX) &&
-                                                        greyPawnsBase[l].posY == j*100+20) {
+                                                        greyPawnsBase[l].posY == j*70+20) {
                                                         greyPawnsBase[l].posX = 1300;
                                                         break;
                                                     }
                                                 }
-                                                if(greyQueenSquare.posX == i*100+20 &&
-                                                   greyQueenSquare.posY == j*100+20) {
+                                                if(greyQueenSquare.posX == i*70+20 &&
+                                                   greyQueenSquare.posY == j*70+20) {
                                                     greyQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                       greyQueenSquareK[z].posY == j*100+20) {
+                                                    if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                       greyQueenSquareK[z].posY == j*70+20) {
                                                         greyQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(greyBishop1Square.posX == i*100+20 &&
-                                                   greyBishop1Square.posY == j*100+20) {
+                                                if(greyBishop1Square.posX == i*70+20 &&
+                                                   greyBishop1Square.posY == j*70+20) {
                                                     greyBishop1Square.posX = 1300;
                                                 }
-                                                if(greyBishop2Square.posX == i*100+20 &&
-                                                   greyBishop2Square.posY == j*100+20) {
+                                                if(greyBishop2Square.posX == i*70+20 &&
+                                                   greyBishop2Square.posY == j*70+20) {
                                                     greyBishop2Square.posX = 1300;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                                   greyKnight1Rectangle1.posY == j*100+20) {
+                                                if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                                   greyKnight1Rectangle1.posY == j*70+20) {
                                                     greyKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                                   greyKnight2Rectangle1.posY == j*100+20) {
+                                                if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                                   greyKnight2Rectangle1.posY == j*70+20) {
                                                     greyKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook1Rectangle1.posX == i*100+20 &&
-                                                   greyRook1Rectangle1.posY == j*100+20) {
+                                                if(greyRook1Rectangle1.posX == i*70+20 &&
+                                                   greyRook1Rectangle1.posY == j*70+20) {
                                                     greyRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook2Rectangle1.posX == i*100+20 &&
-                                                   greyRook2Rectangle1.posY == j*100+20) {
+                                                if(greyRook2Rectangle1.posX == i*70+20 &&
+                                                   greyRook2Rectangle1.posY == j*70+20) {
                                                     greyRook2Rectangle1.posX = 1300;
                                                 }
 
                                                 for(int u=0; u<8; u++) {
                                                     if(greyPawnsBase[u].posX == redKingSquare.posX &&
-                                                       greyPawnsBase[u].posY == redKingSquare.posY - 100) {
+                                                       greyPawnsBase[u].posY == redKingSquare.posY - 70) {
                                                         greyPawnsBase[u].posX = 1300;
                                                         break;
                                                     }
@@ -13890,41 +13890,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'r';
                                         }
-                                    } else if(j*100+20 == redKingSquare.posY + 100 &&
-                                              i*100+20 == redKingSquare.posX) {
+                                    } else if(j*70+20 == redKingSquare.posY + 70 &&
+                                              i*70+20 == redKingSquare.posX) {
 
                                         for(int t=0; t<8; t++) {
-                                            if(redPawnsBase[t].posX == i*100+20 &&
-                                               redPawnsBase[t].posY == j*100+20) {
+                                            if(redPawnsBase[t].posX == i*70+20 &&
+                                               redPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(redQueenSquare.posX == i*100+20 &&
-                                           redQueenSquare.posY == j*100+20) {
+                                        if(redQueenSquare.posX == i*70+20 &&
+                                           redQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop1Square.posX == i*100+20 &&
-                                           redBishop1Square.posY == j*100+20) {
+                                        if(redBishop1Square.posX == i*70+20 &&
+                                           redBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop2Square.posX == i*100+20 &&
-                                           redBishop2Square.posY == j*100+20) {
+                                        if(redBishop2Square.posX == i*70+20 &&
+                                           redBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight1Rectangle1.posX == i*100+20 &&
-                                           redKnight1Rectangle1.posY == j*100+20) {
+                                        if(redKnight1Rectangle1.posX == i*70+20 &&
+                                           redKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight2Rectangle1.posX == i*100+20 &&
-                                           redKnight2Rectangle1.posY == j*100+20) {
+                                        if(redKnight2Rectangle1.posX == i*70+20 &&
+                                           redKnight2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook1Rectangle1.posX == i*100+20 &&
-                                           redRook1Rectangle1.posY == j*100+20) {
+                                        if(redRook1Rectangle1.posX == i*70+20 &&
+                                           redRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook2Rectangle1.posX == i*100+20 &&
-                                           redRook2Rectangle1.posY == j*100+20) {
+                                        if(redRook2Rectangle1.posX == i*70+20 &&
+                                           redRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -13933,7 +13933,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = redKingSquare.posY;
                                             int a0 = redKingSquare.posX;
 
-                                            redKingSquare.posY += 100;
+                                            redKingSquare.posY += 70;
 
                                             boolean ffff = checkCheckRed(j, i);
 
@@ -13947,49 +13947,49 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 for(int l=0; l<8; l++) {
                                                     if((greyPawnsBase[l].posX == redKingSquare.posX ||
                                                         greyPawnsBase[l].posX == redKingSquare.posX) &&
-                                                        greyPawnsBase[l].posY == j*100+20) {
+                                                        greyPawnsBase[l].posY == j*70+20) {
                                                         greyPawnsBase[l].posX = 1300;
                                                         break;
                                                     }
                                                 }
-                                                if(greyQueenSquare.posX == i*100+20 &&
-                                                   greyQueenSquare.posY == j*100+20) {
+                                                if(greyQueenSquare.posX == i*70+20 &&
+                                                   greyQueenSquare.posY == j*70+20) {
                                                     greyQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                       greyQueenSquareK[z].posY == j*100+20) {
+                                                    if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                       greyQueenSquareK[z].posY == j*70+20) {
                                                         greyQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(greyBishop1Square.posX == i*100+20 &&
-                                                   greyBishop1Square.posY == j*100+20) {
+                                                if(greyBishop1Square.posX == i*70+20 &&
+                                                   greyBishop1Square.posY == j*70+20) {
                                                     greyBishop1Square.posX = 1300;
                                                 }
-                                                if(greyBishop2Square.posX == i*100+20 &&
-                                                   greyBishop2Square.posY == j*100+20) {
+                                                if(greyBishop2Square.posX == i*70+20 &&
+                                                   greyBishop2Square.posY == j*70+20) {
                                                     greyBishop2Square.posX = 1300;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                                   greyKnight1Rectangle1.posY == j*100+20) {
+                                                if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                                   greyKnight1Rectangle1.posY == j*70+20) {
                                                     greyKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                                   greyKnight2Rectangle1.posY == j*100+20) {
+                                                if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                                   greyKnight2Rectangle1.posY == j*70+20) {
                                                     greyKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook1Rectangle1.posX == i*100+20 &&
-                                                   greyRook1Rectangle1.posY == j*100+20) {
+                                                if(greyRook1Rectangle1.posX == i*70+20 &&
+                                                   greyRook1Rectangle1.posY == j*70+20) {
                                                     greyRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook2Rectangle1.posX == i*100+20 &&
-                                                   greyRook2Rectangle1.posY == j*100+20) {
+                                                if(greyRook2Rectangle1.posX == i*70+20 &&
+                                                   greyRook2Rectangle1.posY == j*70+20) {
                                                     greyRook2Rectangle1.posX = 1300;
                                                 }
 
                                                 for(int u=0; u<8; u++) {
                                                     if(greyPawnsBase[u].posX == redKingSquare.posX &&
-                                                       greyPawnsBase[u].posY == redKingSquare.posY - 100) {
+                                                       greyPawnsBase[u].posY == redKingSquare.posY - 70) {
                                                         greyPawnsBase[u].posX = 1300;
                                                         break;
                                                     }
@@ -14003,41 +14003,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'r';
                                         }
-                                    } else if(j*100+20 == redKingSquare.posY + 100 &&
-                                              i*100+20 == redKingSquare.posX - 100) {
+                                    } else if(j*70+20 == redKingSquare.posY + 70 &&
+                                              i*70+20 == redKingSquare.posX - 70) {
 
                                         for(int t=0; t<8; t++) {
-                                            if(redPawnsBase[t].posX == i*100+20 &&
-                                               redPawnsBase[t].posY == j*100+20) {
+                                            if(redPawnsBase[t].posX == i*70+20 &&
+                                               redPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(redQueenSquare.posX == i*100+20 &&
-                                           redQueenSquare.posY == j*100+20) {
+                                        if(redQueenSquare.posX == i*70+20 &&
+                                           redQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop1Square.posX == i*100+20 &&
-                                           redBishop1Square.posY == j*100+20) {
+                                        if(redBishop1Square.posX == i*70+20 &&
+                                           redBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop2Square.posX == i*100+20 &&
-                                           redBishop2Square.posY == j*100+20) {
+                                        if(redBishop2Square.posX == i*70+20 &&
+                                           redBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight1Rectangle1.posX == i*100+20 &&
-                                           redKnight1Rectangle1.posY == j*100+20) {
+                                        if(redKnight1Rectangle1.posX == i*70+20 &&
+                                           redKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight2Rectangle1.posX == i*100+20 &&
-                                           redKnight2Rectangle1.posY == j*100+20) {
+                                        if(redKnight2Rectangle1.posX == i*70+20 &&
+                                           redKnight2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook1Rectangle1.posX == i*100+20 &&
-                                           redRook1Rectangle1.posY == j*100+20) {
+                                        if(redRook1Rectangle1.posX == i*70+20 &&
+                                           redRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook2Rectangle1.posX == i*100+20 &&
-                                           redRook2Rectangle1.posY == j*100+20) {
+                                        if(redRook2Rectangle1.posX == i*70+20 &&
+                                           redRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -14046,8 +14046,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = redKingSquare.posY;
                                             int a0 = redKingSquare.posX;
 
-                                            redKingSquare.posX -= 100;
-                                            redKingSquare.posY += 100;
+                                            redKingSquare.posX -= 70;
+                                            redKingSquare.posY += 70;
 
                                             boolean ffff = checkCheckRed(j, i);
 
@@ -14061,49 +14061,49 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 for(int l=0; l<8; l++) {
                                                     if((greyPawnsBase[l].posX == redKingSquare.posX ||
                                                         greyPawnsBase[l].posX == redKingSquare.posX) &&
-                                                        greyPawnsBase[l].posY == j*100+20) {
+                                                        greyPawnsBase[l].posY == j*70+20) {
                                                         greyPawnsBase[l].posX = 1300;
                                                         break;
                                                     }
                                                 }
-                                                if(greyQueenSquare.posX == i*100+20 &&
-                                                   greyQueenSquare.posY == j*100+20) {
+                                                if(greyQueenSquare.posX == i*70+20 &&
+                                                   greyQueenSquare.posY == j*70+20) {
                                                     greyQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                       greyQueenSquareK[z].posY == j*100+20) {
+                                                    if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                       greyQueenSquareK[z].posY == j*70+20) {
                                                         greyQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(greyBishop1Square.posX == i*100+20 &&
-                                                   greyBishop1Square.posY == j*100+20) {
+                                                if(greyBishop1Square.posX == i*70+20 &&
+                                                   greyBishop1Square.posY == j*70+20) {
                                                     greyBishop1Square.posX = 1300;
                                                 }
-                                                if(greyBishop2Square.posX == i*100+20 &&
-                                                   greyBishop2Square.posY == j*100+20) {
+                                                if(greyBishop2Square.posX == i*70+20 &&
+                                                   greyBishop2Square.posY == j*70+20) {
                                                     greyBishop2Square.posX = 1300;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                                   greyKnight1Rectangle1.posY == j*100+20) {
+                                                if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                                   greyKnight1Rectangle1.posY == j*70+20) {
                                                     greyKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                                   greyKnight2Rectangle1.posY == j*100+20) {
+                                                if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                                   greyKnight2Rectangle1.posY == j*70+20) {
                                                     greyKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook1Rectangle1.posX == i*100+20 &&
-                                                   greyRook1Rectangle1.posY == j*100+20) {
+                                                if(greyRook1Rectangle1.posX == i*70+20 &&
+                                                   greyRook1Rectangle1.posY == j*70+20) {
                                                     greyRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook2Rectangle1.posX == i*100+20 &&
-                                                   greyRook2Rectangle1.posY == j*100+20) {
+                                                if(greyRook2Rectangle1.posX == i*70+20 &&
+                                                   greyRook2Rectangle1.posY == j*70+20) {
                                                     greyRook2Rectangle1.posX = 1300;
                                                 }
 
                                                 for(int u=0; u<8; u++) {
                                                     if(greyPawnsBase[u].posX == redKingSquare.posX &&
-                                                       greyPawnsBase[u].posY == redKingSquare.posY - 100) {
+                                                       greyPawnsBase[u].posY == redKingSquare.posY - 70) {
                                                         greyPawnsBase[u].posX = 1300;
                                                         break;
                                                     }
@@ -14117,41 +14117,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'r';
                                         }
-                                    } else if(j*100+20 == redKingSquare.posY &&
-                                              i*100+20 == redKingSquare.posX - 100) {
+                                    } else if(j*70+20 == redKingSquare.posY &&
+                                              i*70+20 == redKingSquare.posX - 70) {
 
                                         for(int t=0; t<8; t++) {
-                                            if(redPawnsBase[t].posX == i*100+20 &&
-                                               redPawnsBase[t].posY == j*100+20) {
+                                            if(redPawnsBase[t].posX == i*70+20 &&
+                                               redPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(redQueenSquare.posX == i*100+20 &&
-                                           redQueenSquare.posY == j*100+20) {
+                                        if(redQueenSquare.posX == i*70+20 &&
+                                           redQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop1Square.posX == i*100+20 &&
-                                           redBishop1Square.posY == j*100+20) {
+                                        if(redBishop1Square.posX == i*70+20 &&
+                                           redBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop2Square.posX == i*100+20 &&
-                                           redBishop2Square.posY == j*100+20) {
+                                        if(redBishop2Square.posX == i*70+20 &&
+                                           redBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight1Rectangle1.posX == i*100+20 &&
-                                           redKnight1Rectangle1.posY == j*100+20) {
+                                        if(redKnight1Rectangle1.posX == i*70+20 &&
+                                           redKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight2Rectangle1.posX == i*100+20 &&
-                                           redKnight2Rectangle1.posY == j*100+20) {
+                                        if(redKnight2Rectangle1.posX == i*70+20 &&
+                                           redKnight2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook1Rectangle1.posX == i*100+20 &&
-                                           redRook1Rectangle1.posY == j*100+20) {
+                                        if(redRook1Rectangle1.posX == i*70+20 &&
+                                           redRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook2Rectangle1.posX == i*100+20 &&
-                                           redRook2Rectangle1.posY == j*100+20) {
+                                        if(redRook2Rectangle1.posX == i*70+20 &&
+                                           redRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -14160,7 +14160,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = redKingSquare.posY;
                                             int a0 = redKingSquare.posX;
 
-                                            redKingSquare.posX -= 100;
+                                            redKingSquare.posX -= 70;
 
                                             boolean ffff = checkCheckRed(j, i);
 
@@ -14174,49 +14174,49 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 for(int l=0; l<8; l++) {
                                                     if((greyPawnsBase[l].posX == redKingSquare.posX ||
                                                         greyPawnsBase[l].posX == redKingSquare.posX) &&
-                                                        greyPawnsBase[l].posY == j*100+20) {
+                                                        greyPawnsBase[l].posY == j*70+20) {
                                                         greyPawnsBase[l].posX = 1300;
                                                         break;
                                                     }
                                                 }
-                                                if(greyQueenSquare.posX == i*100+20 &&
-                                                   greyQueenSquare.posY == j*100+20) {
+                                                if(greyQueenSquare.posX == i*70+20 &&
+                                                   greyQueenSquare.posY == j*70+20) {
                                                     greyQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                       greyQueenSquareK[z].posY == j*100+20) {
+                                                    if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                       greyQueenSquareK[z].posY == j*70+20) {
                                                         greyQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(greyBishop1Square.posX == i*100+20 &&
-                                                   greyBishop1Square.posY == j*100+20) {
+                                                if(greyBishop1Square.posX == i*70+20 &&
+                                                   greyBishop1Square.posY == j*70+20) {
                                                     greyBishop1Square.posX = 1300;
                                                 }
-                                                if(greyBishop2Square.posX == i*100+20 &&
-                                                   greyBishop2Square.posY == j*100+20) {
+                                                if(greyBishop2Square.posX == i*70+20 &&
+                                                   greyBishop2Square.posY == j*70+20) {
                                                     greyBishop2Square.posX = 1300;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                                   greyKnight1Rectangle1.posY == j*100+20) {
+                                                if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                                   greyKnight1Rectangle1.posY == j*70+20) {
                                                     greyKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                                   greyKnight2Rectangle1.posY == j*100+20) {
+                                                if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                                   greyKnight2Rectangle1.posY == j*70+20) {
                                                     greyKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook1Rectangle1.posX == i*100+20 &&
-                                                   greyRook1Rectangle1.posY == j*100+20) {
+                                                if(greyRook1Rectangle1.posX == i*70+20 &&
+                                                   greyRook1Rectangle1.posY == j*70+20) {
                                                     greyRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook2Rectangle1.posX == i*100+20 &&
-                                                   greyRook2Rectangle1.posY == j*100+20) {
+                                                if(greyRook2Rectangle1.posX == i*70+20 &&
+                                                   greyRook2Rectangle1.posY == j*70+20) {
                                                     greyRook2Rectangle1.posX = 1300;
                                                 }
 
                                                 for(int u=0; u<8; u++) {
                                                     if(greyPawnsBase[u].posX == redKingSquare.posX &&
-                                                       greyPawnsBase[u].posY == redKingSquare.posY - 100) {
+                                                       greyPawnsBase[u].posY == redKingSquare.posY - 70) {
                                                         greyPawnsBase[u].posX = 1300;
                                                         break;
                                                     }
@@ -14230,41 +14230,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         } else {
                                             turn = 'r';
                                         }
-                                    } else if(j*100+20 == redKingSquare.posY - 100 &&
-                                              i*100+20 == redKingSquare.posX - 100) {
+                                    } else if(j*70+20 == redKingSquare.posY - 70 &&
+                                              i*70+20 == redKingSquare.posX - 70) {
 
                                         for(int t=0; t<8; t++) {
-                                            if(redPawnsBase[t].posX == i*100+20 &&
-                                               redPawnsBase[t].posY == j*100+20) {
+                                            if(redPawnsBase[t].posX == i*70+20 &&
+                                               redPawnsBase[t].posY == j*70+20) {
                                                 failed = TRUE;
                                             }
                                         }
-                                        if(redQueenSquare.posX == i*100+20 &&
-                                           redQueenSquare.posY == j*100+20) {
+                                        if(redQueenSquare.posX == i*70+20 &&
+                                           redQueenSquare.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop1Square.posX == i*100+20 &&
-                                           redBishop1Square.posY == j*100+20) {
+                                        if(redBishop1Square.posX == i*70+20 &&
+                                           redBishop1Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redBishop2Square.posX == i*100+20 &&
-                                           redBishop2Square.posY == j*100+20) {
+                                        if(redBishop2Square.posX == i*70+20 &&
+                                           redBishop2Square.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight1Rectangle1.posX == i*100+20 &&
-                                           redKnight1Rectangle1.posY == j*100+20) {
+                                        if(redKnight1Rectangle1.posX == i*70+20 &&
+                                           redKnight1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redKnight2Rectangle1.posX == i*100+20 &&
-                                           redKnight2Rectangle1.posY == j*100+20) {
+                                        if(redKnight2Rectangle1.posX == i*70+20 &&
+                                           redKnight2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook1Rectangle1.posX == i*100+20 &&
-                                           redRook1Rectangle1.posY == j*100+20) {
+                                        if(redRook1Rectangle1.posX == i*70+20 &&
+                                           redRook1Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
-                                        if(redRook2Rectangle1.posX == i*100+20 &&
-                                           redRook2Rectangle1.posY == j*100+20) {
+                                        if(redRook2Rectangle1.posX == i*70+20 &&
+                                           redRook2Rectangle1.posY == j*70+20) {
                                             failed = TRUE;
                                         }
 
@@ -14273,8 +14273,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                             int a1 = redKingSquare.posY;
                                             int a0 = redKingSquare.posX;
 
-                                            redKingSquare.posX -= 100;
-                                            redKingSquare.posY -= 100;
+                                            redKingSquare.posX -= 70;
+                                            redKingSquare.posY -= 70;
 
                                             boolean ffff = checkCheckRed(j, i);
 
@@ -14288,49 +14288,49 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 for(int l=0; l<8; l++) {
                                                     if((greyPawnsBase[l].posX == redKingSquare.posX ||
                                                         greyPawnsBase[l].posX == redKingSquare.posX) &&
-                                                        greyPawnsBase[l].posY == j*100+20) {
+                                                        greyPawnsBase[l].posY == j*70+20) {
                                                         greyPawnsBase[l].posX = 1300;
                                                         break;
                                                     }
                                                 }
-                                                if(greyQueenSquare.posX == i*100+20 &&
-                                                   greyQueenSquare.posY == j*100+20) {
+                                                if(greyQueenSquare.posX == i*70+20 &&
+                                                   greyQueenSquare.posY == j*70+20) {
                                                     greyQueenSquare.posX = 1300;
                                                 }
                                                 for(int z=0; z<8; z++) {
-                                                    if(greyQueenSquareK[z].posX == i*100+20 &&
-                                                       greyQueenSquareK[z].posY == j*100+20) {
+                                                    if(greyQueenSquareK[z].posX == i*70+20 &&
+                                                       greyQueenSquareK[z].posY == j*70+20) {
                                                         greyQueenSquareK[z].posX = 1300;
                                                     }
                                                 }
-                                                if(greyBishop1Square.posX == i*100+20 &&
-                                                   greyBishop1Square.posY == j*100+20) {
+                                                if(greyBishop1Square.posX == i*70+20 &&
+                                                   greyBishop1Square.posY == j*70+20) {
                                                     greyBishop1Square.posX = 1300;
                                                 }
-                                                if(greyBishop2Square.posX == i*100+20 &&
-                                                   greyBishop2Square.posY == j*100+20) {
+                                                if(greyBishop2Square.posX == i*70+20 &&
+                                                   greyBishop2Square.posY == j*70+20) {
                                                     greyBishop2Square.posX = 1300;
                                                 }
-                                                if(greyKnight1Rectangle1.posX == i*100+20 &&
-                                                   greyKnight1Rectangle1.posY == j*100+20) {
+                                                if(greyKnight1Rectangle1.posX == i*70+20 &&
+                                                   greyKnight1Rectangle1.posY == j*70+20) {
                                                     greyKnight1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyKnight2Rectangle1.posX == i*100+20 &&
-                                                   greyKnight2Rectangle1.posY == j*100+20) {
+                                                if(greyKnight2Rectangle1.posX == i*70+20 &&
+                                                   greyKnight2Rectangle1.posY == j*70+20) {
                                                     greyKnight2Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook1Rectangle1.posX == i*100+20 &&
-                                                   greyRook1Rectangle1.posY == j*100+20) {
+                                                if(greyRook1Rectangle1.posX == i*70+20 &&
+                                                   greyRook1Rectangle1.posY == j*70+20) {
                                                     greyRook1Rectangle1.posX = 1300;
                                                 }
-                                                if(greyRook2Rectangle1.posX == i*100+20 &&
-                                                   greyRook2Rectangle1.posY == j*100+20) {
+                                                if(greyRook2Rectangle1.posX == i*70+20 &&
+                                                   greyRook2Rectangle1.posY == j*70+20) {
                                                     greyRook2Rectangle1.posX = 1300;
                                                 }
 
                                                 for(int u=0; u<8; u++) {
                                                     if(greyPawnsBase[u].posX == redKingSquare.posX &&
-                                                       greyPawnsBase[u].posY == redKingSquare.posY - 100) {
+                                                       greyPawnsBase[u].posY == redKingSquare.posY - 70) {
                                                         greyPawnsBase[u].posX = 1300;
                                                         break;
                                                     }
@@ -14351,7 +14351,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             boolean changeii = FALSE;
 
                             for(int z=0; z<8; z++) {
-                                if(redPawnsBase[z].posY == 700+20) {
+                                if(redPawnsBase[z].posY == 490+20) {
                                     strncpy(chosenPiece, "qr", 2);
                                     changeii = TRUE;
                                     int x = redPawnsBase[z].posX;
@@ -14372,8 +14372,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                             itdid = FALSE;
 
-                            if(redQueenSquare.posX == i*100+20 &&
-                               redQueenSquare.posY == j*100+20) {
+                            if(redQueenSquare.posX == i*70+20 &&
+                               redQueenSquare.posY == j*70+20) {
 
                                 clickedOne = 'r';
                                 redQueenSquare.clicked = TRUE;
@@ -14400,21 +14400,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     int a1 = redQueenSquare.posY;
                                     int a0 = redQueenSquare.posX;
 
-                                    boxes[redQueenSquare.posY/100][redQueenSquare.posX/100].clear = TRUE;
+                                    boxes[redQueenSquare.posY/70][redQueenSquare.posX/70].clear = TRUE;
 
                                     boolean f = FALSE;
 
                                     redQueenSquare.failedpath = FALSE;
 
-                                    if(i*100+20 == redQueenSquare.posX) {
-                                        f = moveRedQueen(msg, j, i, j*100+20 - redQueenSquare.posY, j*100+20 - redQueenSquare.posY);
+                                    if(i*70+20 == redQueenSquare.posX) {
+                                        f = moveRedQueen(msg, j, i, j*70+20 - redQueenSquare.posY, j*70+20 - redQueenSquare.posY);
                                         f = redQueenSquare.failedpath;
-                                    } else if(j*100+20 == redQueenSquare.posY) {
-                                        f = moveRedQueenSide(msg, j, i, i*100+20 - redQueenSquare.posX, i*100+20 - redQueenSquare.posX);
+                                    } else if(j*70+20 == redQueenSquare.posY) {
+                                        f = moveRedQueenSide(msg, j, i, i*70+20 - redQueenSquare.posX, i*70+20 - redQueenSquare.posX);
                                         f = redQueenSquare.failedpath;
-                                    } else if(i*100+20 != redQueenSquare.posX &&
-                                       j*100+20 != redQueenSquare.posY) {
-                                        f = moveRedQueenDiagonally(msg, j, i, j*100+20 - redQueenSquare.posY, i*100+20 - redQueenSquare.posX, j*100+20 - redQueenSquare.posY, i*100+20 - redQueenSquare.posX);
+                                    } else if(i*70+20 != redQueenSquare.posX &&
+                                       j*70+20 != redQueenSquare.posY) {
+                                        f = moveRedQueenDiagonally(msg, j, i, j*70+20 - redQueenSquare.posY, i*70+20 - redQueenSquare.posX, j*70+20 - redQueenSquare.posY, i*70+20 - redQueenSquare.posX);
                                         f = redQueenSquare.failedpath;
                                     }
 
@@ -14457,8 +14457,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 itdid = FALSE;
 
                                 if(changeii == FALSE &&
-                                   redQueenSquareK[z].posX == i*100+20 &&
-                                   redQueenSquareK[z].posY == j*100+20) {
+                                   redQueenSquareK[z].posX == i*70+20 &&
+                                   redQueenSquareK[z].posY == j*70+20) {
 
                                     clickedOne = 'r';
                                     redQueenSquareK[z].clicked = TRUE;
@@ -14485,15 +14485,15 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                         redQueenSquareK[z].failedpath = FALSE;
 
-                                        if(i*100+20 == redQueenSquareK[z].posX) {
-                                            f = moveRedQueenK(msg, j, i, j*100+20 - redQueenSquareK[z].posY, j*100+20 - redQueenSquareK[z].posY, z);
+                                        if(i*70+20 == redQueenSquareK[z].posX) {
+                                            f = moveRedQueenK(msg, j, i, j*70+20 - redQueenSquareK[z].posY, j*70+20 - redQueenSquareK[z].posY, z);
                                             f = redQueenSquareK[z].failedpath;
-                                        } else if(j*100+20 == redQueenSquareK[z].posY) {
-                                            f = moveRedQueenSideK(msg, j, i, i*100+20 - redQueenSquareK[z].posX, i*100+20 - redQueenSquareK[z].posX, z);
+                                        } else if(j*70+20 == redQueenSquareK[z].posY) {
+                                            f = moveRedQueenSideK(msg, j, i, i*70+20 - redQueenSquareK[z].posX, i*70+20 - redQueenSquareK[z].posX, z);
                                             f = redQueenSquareK[z].failedpath;
-                                        } else if(i*100+20 != redQueenSquareK[z].posX &&
-                                           j*100+20 != redQueenSquareK[z].posY) {
-                                            f = moveRedQueenDiagonallyK(msg, j, i, j*100+20 - redQueenSquareK[z].posY, i*100+20 - redQueenSquareK[z].posX, j*100+20 - redQueenSquareK[z].posY, i*100+20 - redQueenSquareK[z].posX, z);
+                                        } else if(i*70+20 != redQueenSquareK[z].posX &&
+                                           j*70+20 != redQueenSquareK[z].posY) {
+                                            f = moveRedQueenDiagonallyK(msg, j, i, j*70+20 - redQueenSquareK[z].posY, i*70+20 - redQueenSquareK[z].posX, j*70+20 - redQueenSquareK[z].posY, i*70+20 - redQueenSquareK[z].posX, z);
                                             f = redQueenSquareK[z].failedpath;
                                         }
 
@@ -14534,8 +14534,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                             itdid = FALSE;
 
-                            if(redBishop1Square.posX == i*100+20 &&
-                               redBishop1Square.posY == j*100+20) {
+                            if(redBishop1Square.posX == i*70+20 &&
+                               redBishop1Square.posY == j*70+20) {
 
                                 clickedOne = 'r';
                                 redBishop1Square.clicked = TRUE;
@@ -14566,9 +14566,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                     redBishop1Square.failedpath = FALSE;
 
-                                    if(i*100+20 != redBishop1Square.posX &&
-                                       j*100+20 != redBishop1Square.posY) {
-                                        f = moveRedBishop1(msg, j, i, j*100+20 - redBishop1Square.posY, i*100+20 - redBishop1Square.posX, j*100+20 - redBishop1Square.posY, i*100+20 - redBishop1Square.posX);
+                                    if(i*70+20 != redBishop1Square.posX &&
+                                       j*70+20 != redBishop1Square.posY) {
+                                        f = moveRedBishop1(msg, j, i, j*70+20 - redBishop1Square.posY, i*70+20 - redBishop1Square.posX, j*70+20 - redBishop1Square.posY, i*70+20 - redBishop1Square.posX);
                                         f = redBishop1Square.failedpath;
                                     } else {
                                         f = redBishop1Square.failedpath = TRUE;
@@ -14610,8 +14610,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                             itdid = FALSE;
 
-                            if(redBishop2Square.posX == i*100+20 &&
-                               redBishop2Square.posY == j*100+20) {
+                            if(redBishop2Square.posX == i*70+20 &&
+                               redBishop2Square.posY == j*70+20) {
 
                                 clickedOne = 'r';
                                 redBishop2Square.clicked = TRUE;
@@ -14642,9 +14642,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                     redBishop2Square.failedpath = FALSE;
 
-                                    if(i*100+20 != redBishop2Square.posX &&
-                                       j*100+20 != redBishop2Square.posY) {
-                                        f = moveRedBishop2(msg, j, i, j*100+20 - redBishop2Square.posY, i*100+20 - redBishop2Square.posX, j*100+20 - redBishop2Square.posY, i*100+20 - redBishop2Square.posX);
+                                    if(i*70+20 != redBishop2Square.posX &&
+                                       j*70+20 != redBishop2Square.posY) {
+                                        f = moveRedBishop2(msg, j, i, j*70+20 - redBishop2Square.posY, i*70+20 - redBishop2Square.posX, j*70+20 - redBishop2Square.posY, i*70+20 - redBishop2Square.posX);
                                         f = redBishop2Square.failedpath;
                                     } else {
                                         f = redBishop2Square.failedpath = TRUE;
@@ -14687,8 +14687,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                             itdid = FALSE;
 
-                            if(redRook1Rectangle1.posX == i*100+20 &&
-                               redRook1Rectangle1.posY == j*100+20) {
+                            if(redRook1Rectangle1.posX == i*70+20 &&
+                               redRook1Rectangle1.posY == j*70+20) {
 
                                 clickedOne = 'r';
                                 redRook1Rectangle1.clicked = TRUE;
@@ -14715,17 +14715,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     int a1 = redRook1Rectangle1.posY;
                                     int a0 = redRook1Rectangle1.posX;
 
-                                    boxes[redRook1Rectangle1.posY/100][redRook1Rectangle1.posX/100].clear = TRUE;
+                                    boxes[redRook1Rectangle1.posY/70][redRook1Rectangle1.posX/70].clear = TRUE;
 
                                     boolean f = FALSE;
 
                                     redRook1Rectangle1.failedpath = FALSE;
 
-                                    if(i*100+20 == redRook1Rectangle1.posX) {
-                                        f = moveRedRook1(msg, j, i, j*100+20 - redRook1Rectangle1.posY, j*100+20 - redRook1Rectangle1.posY);
+                                    if(i*70+20 == redRook1Rectangle1.posX) {
+                                        f = moveRedRook1(msg, j, i, j*70+20 - redRook1Rectangle1.posY, j*70+20 - redRook1Rectangle1.posY);
                                         f = redRook1Rectangle1.failedpath;
-                                    } else if(j*100+20 == redRook1Rectangle1.posY) {
-                                        f = moveRedRook1Side(msg, j, i, i*100+20 - redRook1Rectangle1.posX, i*100+20 - redRook1Rectangle1.posX);
+                                    } else if(j*70+20 == redRook1Rectangle1.posY) {
+                                        f = moveRedRook1Side(msg, j, i, i*70+20 - redRook1Rectangle1.posX, i*70+20 - redRook1Rectangle1.posX);
                                         f = redRook1Rectangle1.failedpath;
                                     } else {
                                         f = redRook1Rectangle1.failedpath = TRUE;
@@ -14774,8 +14774,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                             itdid = FALSE;
 
-                            if(redRook2Rectangle1.posX == i*100+20 &&
-                               redRook2Rectangle1.posY == j*100+20) {
+                            if(redRook2Rectangle1.posX == i*70+20 &&
+                               redRook2Rectangle1.posY == j*70+20) {
 
                                 clickedOne = 'r';
                                 redRook2Rectangle1.clicked = TRUE;
@@ -14802,17 +14802,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     int a1 = redRook2Rectangle1.posY;
                                     int a0 = redRook2Rectangle1.posX;
 
-                                    boxes[redRook2Rectangle1.posY/100][redRook2Rectangle1.posX/100].clear = TRUE;
+                                    boxes[redRook2Rectangle1.posY/70][redRook2Rectangle1.posX/70].clear = TRUE;
 
                                     boolean f = FALSE;
 
                                     redRook2Rectangle1.failedpath = FALSE;
 
-                                    if(i*100+20 == redRook2Rectangle1.posX) {
-                                        f = moveRedRook2(msg, j, i, j*100+20 - redRook2Rectangle1.posY, j*100+20 - redRook2Rectangle1.posY);
+                                    if(i*70+20 == redRook2Rectangle1.posX) {
+                                        f = moveRedRook2(msg, j, i, j*70+20 - redRook2Rectangle1.posY, j*70+20 - redRook2Rectangle1.posY);
                                         f = redRook2Rectangle1.failedpath;
-                                    } else if(j*100+20 == redRook2Rectangle1.posY) {
-                                        f = moveRedRook2Side(msg, j, i, i*100+20 - redRook2Rectangle1.posX, i*100+20 - redRook2Rectangle1.posX);
+                                    } else if(j*70+20 == redRook2Rectangle1.posY) {
+                                        f = moveRedRook2Side(msg, j, i, i*70+20 - redRook2Rectangle1.posX, i*70+20 - redRook2Rectangle1.posX);
                                         f = redRook2Rectangle1.failedpath;
                                     } else {
                                         f = redRook2Rectangle1.failedpath = TRUE;
@@ -15102,229 +15102,229 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                             hdcMem = CreateCompatibleDC(hdc);
                             HBITMAP hBmp;
-                            if(((greyRook1Rectangle1.posX/100)+(greyRook1Rectangle1.posY/100)) % 2 == 0)
+                            if(((greyRook1Rectangle1.posX/70)+(greyRook1Rectangle1.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(rookWhite,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(rookWhite,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, greyRook1Rectangle1.posX+25+7, greyRook1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, greyRook1Rectangle1.posX+25+7, greyRook1Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((greyRook2Rectangle1.posX/100)+(greyRook2Rectangle1.posY/100)) % 2 == 0)
+                            if(((greyRook2Rectangle1.posX/70)+(greyRook2Rectangle1.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(rook2White,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(rook2White,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, greyRook2Rectangle1.posX+25+7, greyRook2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, greyRook2Rectangle1.posX+25+7, greyRook2Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((greyKnight1Rectangle1.posX/100)+(greyKnight1Rectangle1.posY/100)) % 2 == 0)
+                            if(((greyKnight1Rectangle1.posX/70)+(greyKnight1Rectangle1.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(knightWhite,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(knightWhite,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, greyKnight1Rectangle1.posX+25+7, greyKnight1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, greyKnight1Rectangle1.posX+25+7, greyKnight1Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((greyKnight2Rectangle1.posX/100)+(greyKnight2Rectangle1.posY/100)) % 2 == 0)
+                            if(((greyKnight2Rectangle1.posX/70)+(greyKnight2Rectangle1.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(knight2White,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(knight2White,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, greyKnight2Rectangle1.posX+25+7, greyKnight2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, greyKnight2Rectangle1.posX+25+7, greyKnight2Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((greyBishop1Square.posX/100)+(greyBishop1Square.posY/100)) % 2 == 0)
+                            if(((greyBishop1Square.posX/70)+(greyBishop1Square.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(bishopWhite,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(bishopWhite,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, greyBishop1Square.posX+25+7, greyBishop1Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, greyBishop1Square.posX+25+7, greyBishop1Square.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((greyBishop2Square.posX/100)+(greyBishop2Square.posY/100)) % 2 == 0)
+                            if(((greyBishop2Square.posX/70)+(greyBishop2Square.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(bishop2White,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(bishop2White,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, greyBishop2Square.posX+25+7, greyBishop2Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, greyBishop2Square.posX+25+7, greyBishop2Square.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((greyQueenSquare.posX/100)+(greyQueenSquare.posY/100)) % 2 == 0)
+                            if(((greyQueenSquare.posX/70)+(greyQueenSquare.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(queenWhite,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(queenWhite,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, greyQueenSquare.posX+25+7, greyQueenSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, greyQueenSquare.posX+25+7, greyQueenSquare.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((greyKingSquare.posX/100)+(greyKingSquare.posY/100)) % 2 == 0)
+                            if(((greyKingSquare.posX/70)+(greyKingSquare.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(kingWhite,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(kingWhite,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, greyKingSquare.posX+25+7, greyKingSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, greyKingSquare.posX+25+7, greyKingSquare.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             for(int o=0; o<8; o++) {
                                 hdcMem = CreateCompatibleDC(hdc);
-                                if(((greyPawnsBase[o].posX/100)+(greyPawnsBase[o].posY/100)) % 2 == 0)
+                                if(((greyPawnsBase[o].posX/70)+(greyPawnsBase[o].posY/70)) % 2 == 0)
                                     hBmp = ReplaceColor(pawnWhite,0x110000,0xffffff,hdcMem);
                                 else
                                     hBmp = ReplaceColor(pawnWhite,0x110000,0x000000,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                BitBlt(hdc, greyPawnsBase[o].posX+25+7, greyPawnsBase[o].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                BitBlt(hdc, greyPawnsBase[o].posX+25+7, greyPawnsBase[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             }
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((redRook1Rectangle1.posX/100)+(redRook1Rectangle1.posY/100)) % 2 == 0)
+                            if(((redRook1Rectangle1.posX/70)+(redRook1Rectangle1.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(rookBlack,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(rookBlack,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, redRook1Rectangle1.posX+25+7, redRook1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, redRook1Rectangle1.posX+25+7, redRook1Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((redRook2Rectangle1.posX/100)+(redRook2Rectangle1.posY/100)) % 2 == 0)
+                            if(((redRook2Rectangle1.posX/70)+(redRook2Rectangle1.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(rook2Black,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(rookBlack,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, redRook2Rectangle1.posX+25+7, redRook2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, redRook2Rectangle1.posX+25+7, redRook2Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((redKnight1Rectangle1.posX/100)+(redKnight1Rectangle1.posY/100)) % 2 == 0)
+                            if(((redKnight1Rectangle1.posX/70)+(redKnight1Rectangle1.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(knightBlack,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(knightBlack,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, redKnight1Rectangle1.posX+25+7, redKnight1Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, redKnight1Rectangle1.posX+25+7, redKnight1Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((redKnight2Rectangle1.posX/100)+(redKnight2Rectangle1.posY/100)) % 2 == 0)
+                            if(((redKnight2Rectangle1.posX/70)+(redKnight2Rectangle1.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(knight2Black,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(knight2Black,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, redKnight2Rectangle1.posX+25+7, redKnight2Rectangle1.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, redKnight2Rectangle1.posX+25+7, redKnight2Rectangle1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((redBishop1Square.posX/100)+(redBishop1Square.posY/100)) % 2 == 0)
+                            if(((redBishop1Square.posX/70)+(redBishop1Square.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(bishopBlack,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(bishopBlack,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, redBishop1Square.posX+25+7, redBishop1Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, redBishop1Square.posX+25+7, redBishop1Square.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((redBishop2Square.posX/100)+(redBishop2Square.posY/100)) % 2 == 0)
+                            if(((redBishop2Square.posX/70)+(redBishop2Square.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(bishop2Black,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(bishop2Black,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, redBishop2Square.posX+25+7, redBishop2Square.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, redBishop2Square.posX+25+7, redBishop2Square.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((redQueenSquare.posX/100)+(redQueenSquare.posY/100)) % 2 == 0)
+                            if(((redQueenSquare.posX/70)+(redQueenSquare.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(queenBlack,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(queenBlack,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, redQueenSquare.posX+25+7, redQueenSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, redQueenSquare.posX+25+7, redQueenSquare.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
-                            if(((redKingSquare.posX/100)+(redKingSquare.posY/100)) % 2 == 0)
+                            if(((redKingSquare.posX/70)+(redKingSquare.posY/70)) % 2 == 0)
                                 hBmp = ReplaceColor(kingBlack,0x110000,0xffffff,hdcMem);
                             else
                                 hBmp = ReplaceColor(kingBlack,0x110000,0x000000,hdcMem);
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
-                            BitBlt(hdc, redKingSquare.posX+25+7, redKingSquare.posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                            BitBlt(hdc, redKingSquare.posX+25+7, redKingSquare.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                             SelectObject(hdcMem, oldBitmap);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             for(int o=0; o<8; o++) {
                                 hdcMem = CreateCompatibleDC(hdc);
-                                if(((redPawnsBase[o].posX/100)+(redPawnsBase[o].posY/100)) % 2 == 0)
+                                if(((redPawnsBase[o].posX/70)+(redPawnsBase[o].posY/70)) % 2 == 0)
                                     hBmp = ReplaceColor(pawnBlack,0x110000,0xffffff,hdcMem);
                                 else
                                     hBmp = ReplaceColor(pawnBlack,0x110000,0x000000,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                BitBlt(hdc, redPawnsBase[o].posX+25+7, redPawnsBase[o].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                BitBlt(hdc, redPawnsBase[o].posX+25+7, redPawnsBase[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             }
 
                             for(int m=0; m<8; m++) {
                                 hdcMem = CreateCompatibleDC(hdc);
-                                if(((greyQueenSquareK[m].posX/100)+(greyQueenSquareK[m].posY/100)) % 2 == 0)
+                                if(((greyQueenSquareK[m].posX/70)+(greyQueenSquareK[m].posY/70)) % 2 == 0)
                                     hBmp = ReplaceColor(queenWhite,0x110000,0xffffff,hdcMem);
                                 else
                                     hBmp = ReplaceColor(queenWhite,0x110000,0x000000,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                BitBlt(hdc, greyQueenSquareK[m].posX+25+7, greyQueenSquareK[m].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                BitBlt(hdc, greyQueenSquareK[m].posX+25+7, greyQueenSquareK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             }
 
                             for(int m=0; m<8; m++) {
                                 hdcMem = CreateCompatibleDC(hdc);
-                                if(((redQueenSquareK[m].posX/100)+(redQueenSquareK[m].posY/100)) % 2 == 0)
+                                if(((redQueenSquareK[m].posX/70)+(redQueenSquareK[m].posY/70)) % 2 == 0)
                                     hBmp = ReplaceColor(queenBlack,0x110000,0xffffff,hdcMem);
                                 else
                                     hBmp = ReplaceColor(queenBlack,0x110000,0x000000,hdcMem);
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
-                                BitBlt(hdc, redQueenSquareK[m].posX+25+7, redQueenSquareK[m].posY+25, 65, 65, hdcMem, 0, 0, SRCCOPY);
+                                BitBlt(hdc, redQueenSquareK[m].posX+25+7, redQueenSquareK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
                                 SelectObject(hdcMem, oldBitmap);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             }
@@ -15350,19 +15350,19 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                             HBRUSH rBrush;
                             rBrush = CreateSolidBrush(RGB(0, 255, 0));
-                            RECT r = {i*100+20+20, j*100+20+20-8, i*100+20+20 + 12, j*100+20+20-8 + 12};
+                            RECT r = {i*70+20+20, j*70+20+20-8, i*70+20+20 + 12, j*70+20+20-8 + 12};
                             for(int t=0; t<8; t++) {
-                                if(turn == 'h' && redPawnsBase[t].posX == i*100+20 &&
-                                   redPawnsBase[t].posY == j*100+20) {
+                                if(turn == 'h' && redPawnsBase[t].posX == i*70+20 &&
+                                   redPawnsBase[t].posY == j*70+20) {
                                     if(TRUE==done) {
-                                        int l1_x1 = i*100+20+20;
-                                        int l1_y1 = j*100+20 + 8;
-                                        int l1_x2 = i*100+20+20 + 8;
-                                        int l1_y2 = j*100+20 + 16;
-                                        int l2_x1 = i*100+20+20 + 8;
-                                        int l2_y1 = j*100+20 + 16;
-                                        int l2_x2 = i*100+20+20 + 16;
-                                        int l2_y2 = j*100+20;
+                                        int l1_x1 = i*70+20+20;
+                                        int l1_y1 = j*70+20 + 8;
+                                        int l1_x2 = i*70+20+20 + 8;
+                                        int l1_y2 = j*70+20 + 16;
+                                        int l2_x1 = i*70+20+20 + 8;
+                                        int l2_y1 = j*70+20 + 16;
+                                        int l2_x2 = i*70+20+20 + 16;
+                                        int l2_y2 = j*70+20;
                                         PAINTSTRUCT pntS;
                                         HPEN pen, oldPen;
                                         pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
@@ -15377,22 +15377,22 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 }
                             }
                             for(int t=0; t<8; t++) {
-                                if(turn == 'r' && redPawnsBase[t].posX == i*100+20 &&
-                                   redPawnsBase[t].posY == j*100+20) {
+                                if(turn == 'r' && redPawnsBase[t].posX == i*70+20 &&
+                                   redPawnsBase[t].posY == j*70+20) {
                                     FillRect(hdc, &r, rBrush);
                                 }
                             }
-                            if(turn == 'h' && redKingSquare.posX == i*100+20 &&
-                               redKingSquare.posY == j*100+20) {
+                            if(turn == 'h' && redKingSquare.posX == i*70+20 &&
+                               redKingSquare.posY == j*70+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20+20;
-                                    int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20+20 + 8;
-                                    int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20+20 + 8;
-                                    int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20+20 + 16;
-                                    int l2_y2 = j*100+20;
+                                    int l1_x1 = i*70+20+20;
+                                    int l1_y1 = j*70+20 + 8;
+                                    int l1_x2 = i*70+20+20 + 8;
+                                    int l1_y2 = j*70+20 + 16;
+                                    int l2_x1 = i*70+20+20 + 8;
+                                    int l2_y1 = j*70+20 + 16;
+                                    int l2_x2 = i*70+20+20 + 16;
+                                    int l2_y2 = j*70+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
@@ -15405,21 +15405,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     DeleteObject(pen);
                                 }
                             }
-                            if(turn == 'r' && redKingSquare.posX == i*100+20 &&
-                               redKingSquare.posY == j*100+20) {
+                            if(turn == 'r' && redKingSquare.posX == i*70+20 &&
+                               redKingSquare.posY == j*70+20) {
                                 FillRect(hdc, &r, rBrush);
                             }
-                            if(turn == 'h' && redQueenSquare.posX == i*100+20 &&
-                               redQueenSquare.posY == j*100+20) {
+                            if(turn == 'h' && redQueenSquare.posX == i*70+20 &&
+                               redQueenSquare.posY == j*70+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20+20;
-                                    int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20+20 + 8;
-                                    int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20+20 + 8;
-                                    int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20+20 + 16;
-                                    int l2_y2 = j*100+20;
+                                    int l1_x1 = i*70+20+20;
+                                    int l1_y1 = j*70+20 + 8;
+                                    int l1_x2 = i*70+20+20 + 8;
+                                    int l1_y2 = j*70+20 + 16;
+                                    int l2_x1 = i*70+20+20 + 8;
+                                    int l2_y1 = j*70+20 + 16;
+                                    int l2_x2 = i*70+20+20 + 16;
+                                    int l2_y2 = j*70+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
@@ -15432,22 +15432,22 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     DeleteObject(pen);
                                 }
                             }
-                            if(turn == 'r' && redQueenSquare.posX == i*100+20 &&
-                               redQueenSquare.posY == j*100+20) {
+                            if(turn == 'r' && redQueenSquare.posX == i*70+20 &&
+                               redQueenSquare.posY == j*70+20) {
                                 FillRect(hdc, &r, rBrush);
                             }
                             for(int z=0; z<8; z++) {
-                                if(turn == 'h' && redQueenSquareK[z].posX == i*100+20 &&
-                                   redQueenSquareK[z].posY == j*100+20) {
+                                if(turn == 'h' && redQueenSquareK[z].posX == i*70+20 &&
+                                   redQueenSquareK[z].posY == j*70+20) {
                                     if(TRUE==done) {
-                                        int l1_x1 = i*100+20+20;
-                                        int l1_y1 = j*100+20 + 8;
-                                        int l1_x2 = i*100+20+20 + 8;
-                                        int l1_y2 = j*100+20 + 16;
-                                        int l2_x1 = i*100+20+20 + 8;
-                                        int l2_y1 = j*100+20 + 16;
-                                        int l2_x2 = i*100+20+20 + 16;
-                                        int l2_y2 = j*100+20;
+                                        int l1_x1 = i*70+20+20;
+                                        int l1_y1 = j*70+20 + 8;
+                                        int l1_x2 = i*70+20+20 + 8;
+                                        int l1_y2 = j*70+20 + 16;
+                                        int l2_x1 = i*70+20+20 + 8;
+                                        int l2_y1 = j*70+20 + 16;
+                                        int l2_x2 = i*70+20+20 + 16;
+                                        int l2_y2 = j*70+20;
                                         PAINTSTRUCT pntS;
                                         HPEN pen, oldPen;
                                         pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
@@ -15460,22 +15460,22 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         DeleteObject(pen);
                                     }
                                 }
-                                if(turn == 'r' && redQueenSquareK[z].posX == i*100+20 &&
-                                   redQueenSquareK[z].posY == j*100+20) {
+                                if(turn == 'r' && redQueenSquareK[z].posX == i*70+20 &&
+                                   redQueenSquareK[z].posY == j*70+20) {
                                     FillRect(hdc, &r, rBrush);
                                 }
                             }
-                            if(turn == 'h' && redKnight1Rectangle1.posX == i*100+20 &&
-                               redKnight1Rectangle1.posY == j*100+20) {
+                            if(turn == 'h' && redKnight1Rectangle1.posX == i*70+20 &&
+                               redKnight1Rectangle1.posY == j*70+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20+20;
-                                    int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20+20 + 8;
-                                    int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20+20 + 8;
-                                    int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20+20 + 16;
-                                    int l2_y2 = j*100+20;
+                                    int l1_x1 = i*70+20+20;
+                                    int l1_y1 = j*70+20 + 8;
+                                    int l1_x2 = i*70+20+20 + 8;
+                                    int l1_y2 = j*70+20 + 16;
+                                    int l2_x1 = i*70+20+20 + 8;
+                                    int l2_y1 = j*70+20 + 16;
+                                    int l2_x2 = i*70+20+20 + 16;
+                                    int l2_y2 = j*70+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
@@ -15488,21 +15488,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     DeleteObject(pen);
                                 }
                             }
-                            if(turn == 'r' && redKnight1Rectangle1.posX == i*100+20 &&
-                               redKnight1Rectangle1.posY == j*100+20) {
+                            if(turn == 'r' && redKnight1Rectangle1.posX == i*70+20 &&
+                               redKnight1Rectangle1.posY == j*70+20) {
                                 FillRect(hdc, &r, rBrush);
                             }
-                            if(turn == 'h' && redKnight2Rectangle1.posX == i*100+20 &&
-                               redKnight2Rectangle1.posY == j*100+20) {
+                            if(turn == 'h' && redKnight2Rectangle1.posX == i*70+20 &&
+                               redKnight2Rectangle1.posY == j*70+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20+20;
-                                    int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20+20 + 8;
-                                    int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20+20 + 8;
-                                    int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20+20 + 16;
-                                    int l2_y2 = j*100+20;
+                                    int l1_x1 = i*70+20+20;
+                                    int l1_y1 = j*70+20 + 8;
+                                    int l1_x2 = i*70+20+20 + 8;
+                                    int l1_y2 = j*70+20 + 16;
+                                    int l2_x1 = i*70+20+20 + 8;
+                                    int l2_y1 = j*70+20 + 16;
+                                    int l2_x2 = i*70+20+20 + 16;
+                                    int l2_y2 = j*70+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
@@ -15515,21 +15515,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     DeleteObject(pen);
                                 }
                             }
-                            if(turn == 'r' && redKnight2Rectangle1.posX == i*100+20 &&
-                               redKnight2Rectangle1.posY == j*100+20) {
+                            if(turn == 'r' && redKnight2Rectangle1.posX == i*70+20 &&
+                               redKnight2Rectangle1.posY == j*70+20) {
                                 FillRect(hdc, &r, rBrush);
                             }
-                            if(turn == 'h' && redBishop1Square.posX == i*100+20 &&
-                               redBishop1Square.posY == j*100+20) {
+                            if(turn == 'h' && redBishop1Square.posX == i*70+20 &&
+                               redBishop1Square.posY == j*70+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20+20;
-                                    int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20+20 + 8;
-                                    int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20+20 + 8;
-                                    int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20+20 + 16;
-                                    int l2_y2 = j*100+20;
+                                    int l1_x1 = i*70+20+20;
+                                    int l1_y1 = j*70+20 + 8;
+                                    int l1_x2 = i*70+20+20 + 8;
+                                    int l1_y2 = j*70+20 + 16;
+                                    int l2_x1 = i*70+20+20 + 8;
+                                    int l2_y1 = j*70+20 + 16;
+                                    int l2_x2 = i*70+20+20 + 16;
+                                    int l2_y2 = j*70+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
@@ -15542,22 +15542,22 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     DeleteObject(pen);
                                 }
                             }
-                            if(turn == 'r' && redBishop1Square.posX == i*100+20 &&
-                               redBishop1Square.posY == j*100+20) {
+                            if(turn == 'r' && redBishop1Square.posX == i*70+20 &&
+                               redBishop1Square.posY == j*70+20) {
                                 FillRect(hdc, &r, rBrush);
                             }
-                            if(turn == 'r' && redBishop2Square.posX == i*100+20 &&
-                               redBishop2Square.posY == j*100+20) {
+                            if(turn == 'r' && redBishop2Square.posX == i*70+20 &&
+                               redBishop2Square.posY == j*70+20) {
                                 FillRect(hdc, &r, rBrush);
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20+20;
-                                    int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20+20 + 8;
-                                    int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20+20 + 8;
-                                    int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20+20 + 16;
-                                    int l2_y2 = j*100+20;
+                                    int l1_x1 = i*70+20+20;
+                                    int l1_y1 = j*70+20 + 8;
+                                    int l1_x2 = i*70+20+20 + 8;
+                                    int l1_y2 = j*70+20 + 16;
+                                    int l2_x1 = i*70+20+20 + 8;
+                                    int l2_y1 = j*70+20 + 16;
+                                    int l2_x2 = i*70+20+20 + 16;
+                                    int l2_y2 = j*70+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
@@ -15570,17 +15570,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     DeleteObject(pen);
                                 }
                             }
-                            if(turn == 'h' && redBishop2Square.posX == i*100+20 &&
-                               redBishop2Square.posY == j*100+20) {
+                            if(turn == 'h' && redBishop2Square.posX == i*70+20 &&
+                               redBishop2Square.posY == j*70+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20+20;
-                                    int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20+20 + 8;
-                                    int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20+20 + 8;
-                                    int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20+20 + 16;
-                                    int l2_y2 = j*100+20;
+                                    int l1_x1 = i*70+20+20;
+                                    int l1_y1 = j*70+20 + 8;
+                                    int l1_x2 = i*70+20+20 + 8;
+                                    int l1_y2 = j*70+20 + 16;
+                                    int l2_x1 = i*70+20+20 + 8;
+                                    int l2_y1 = j*70+20 + 16;
+                                    int l2_x2 = i*70+20+20 + 16;
+                                    int l2_y2 = j*70+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
@@ -15593,21 +15593,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     DeleteObject(pen);
                                 }
                             }
-                            if(turn == 'r' && redBishop2Square.posX == i*100+20 &&
-                               redBishop2Square.posY == j*100+20) {
+                            if(turn == 'r' && redBishop2Square.posX == i*70+20 &&
+                               redBishop2Square.posY == j*70+20) {
                                 FillRect(hdc, &r, rBrush);
                             }
-                            if(turn == 'h' && redRook1Rectangle1.posX == i*100+20 &&
-                               redRook1Rectangle1.posY == j*100+20) {
+                            if(turn == 'h' && redRook1Rectangle1.posX == i*70+20 &&
+                               redRook1Rectangle1.posY == j*70+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20+20;
-                                    int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20+20 + 8;
-                                    int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20+20 + 8;
-                                    int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20+20 + 16;
-                                    int l2_y2 = j*100+20;
+                                    int l1_x1 = i*70+20+20;
+                                    int l1_y1 = j*70+20 + 8;
+                                    int l1_x2 = i*70+20+20 + 8;
+                                    int l1_y2 = j*70+20 + 16;
+                                    int l2_x1 = i*70+20+20 + 8;
+                                    int l2_y1 = j*70+20 + 16;
+                                    int l2_x2 = i*70+20+20 + 16;
+                                    int l2_y2 = j*70+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
@@ -15620,22 +15620,22 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     DeleteObject(pen);
                                 }
                             }
-                            if(turn == 'r' && redRook1Rectangle1.posX == i*100+20 &&
-                               redRook1Rectangle1.posY == j*100+20) {
+                            if(turn == 'r' && redRook1Rectangle1.posX == i*70+20 &&
+                               redRook1Rectangle1.posY == j*70+20) {
                                 FillRect(hdc, &r, rBrush);
                             }
-                            if(turn == 'r' && redRook2Rectangle1.posX == i*100+20 &&
-                               redRook2Rectangle1.posY == j*100+20) {
+                            if(turn == 'r' && redRook2Rectangle1.posX == i*70+20 &&
+                               redRook2Rectangle1.posY == j*70+20) {
                                 FillRect(hdc, &r, rBrush);
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20+20;
-                                    int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20+20 + 8;
-                                    int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20+20 + 8;
-                                    int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20+20 + 16;
-                                    int l2_y2 = j*100+20;
+                                    int l1_x1 = i*70+20+20;
+                                    int l1_y1 = j*70+20 + 8;
+                                    int l1_x2 = i*70+20+20 + 8;
+                                    int l1_y2 = j*70+20 + 16;
+                                    int l2_x1 = i*70+20+20 + 8;
+                                    int l2_y1 = j*70+20 + 16;
+                                    int l2_x2 = i*70+20+20 + 16;
+                                    int l2_y2 = j*70+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
@@ -15648,17 +15648,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     DeleteObject(pen);
                                 }
                             }
-                            if(turn == 'h' && redRook2Rectangle1.posX == i*100+20 &&
-                               redRook2Rectangle1.posY == j*100+20) {
+                            if(turn == 'h' && redRook2Rectangle1.posX == i*70+20 &&
+                               redRook2Rectangle1.posY == j*70+20) {
                                 if(TRUE==done) {
-                                    int l1_x1 = i*100+20+20;
-                                    int l1_y1 = j*100+20 + 8;
-                                    int l1_x2 = i*100+20+20 + 8;
-                                    int l1_y2 = j*100+20 + 16;
-                                    int l2_x1 = i*100+20+20 + 8;
-                                    int l2_y1 = j*100+20 + 16;
-                                    int l2_x2 = i*100+20+20 + 16;
-                                    int l2_y2 = j*100+20;
+                                    int l1_x1 = i*70+20+20;
+                                    int l1_y1 = j*70+20 + 8;
+                                    int l1_x2 = i*70+20+20 + 8;
+                                    int l1_y2 = j*70+20 + 16;
+                                    int l2_x1 = i*70+20+20 + 8;
+                                    int l2_y1 = j*70+20 + 16;
+                                    int l2_x2 = i*70+20+20 + 16;
+                                    int l2_y2 = j*70+20;
                                     PAINTSTRUCT pntS;
                                     HPEN pen, oldPen;
                                     pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
@@ -15671,8 +15671,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     DeleteObject(pen);
                                 }
                             }
-                            if(turn == 'r' && redRook2Rectangle1.posX == i*100+20 &&
-                               redRook2Rectangle1.posY == j*100+20) {
+                            if(turn == 'r' && redRook2Rectangle1.posX == i*70+20 &&
+                               redRook2Rectangle1.posY == j*70+20) {
                                 FillRect(hdc, &r, rBrush);
                             }
                             DeleteObject(rBrush);
@@ -15748,7 +15748,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
             char b[100] = "white versus";
             y = 0; h = 15;
-            x = 825+50; w = 120;
+            x = 585+50; w = 120;
             hwnd_white = CreateWindow("static", NULL,
                                        WS_CHILD | WS_VISIBLE | WS_TABSTOP,
                                        x, y, w, h,
@@ -15758,7 +15758,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
             char c[100] = "black";
             y = 0; h = 15;
-            x = 900+60; w = 120;
+            x = 660+60; w = 120;
             hwnd_black = CreateWindow("static", NULL,
                                        WS_CHILD | WS_VISIBLE | WS_TABSTOP,
                                        x, y, w, h,
@@ -15766,26 +15766,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                        (HINSTANCE) GetWindowLong (hwnd, GWL_HINSTANCE), NULL);
             SetWindowText(hwnd_black, c);
 
-            y = 850+50; h = 20;
-            x = 10; w = 420;
+            y = 590+50; h = 20;
+            x = 10; w = 220;
             hwnd_timer = CreateWindow("static", NULL,
                                        WS_CHILD | WS_VISIBLE | WS_TABSTOP,
                                        x, y, w, h,
                                        hwnd, (HMENU)(501),
                                        (HINSTANCE) GetWindowLong (hwnd, GWL_HINSTANCE), NULL);
 
-            y = 830+50; h = 48;
-            x = 450; w = 124;
+            y = 570+50; h = 48;
+            x = 250; w = 124;
   	    hwnd_newgamebtn = CreateWindowEx(0, "BUTTON", "new game", WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
 								x, y, w, h, hwnd, (HMENU) IDC_NEW_GAME_BUTTON, GetModuleHandle(NULL), NULL);
             
-            y = 830+50; h = 48;
-            x = 828; w = 144;
-            hwnd_downloadbtn = CreateWindowEx(0, "BUTTON", "get mine", WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON, 
-                                 x, y, w, h, hwnd, (HMENU) IDC_DOWNLOAD_BUTTON, GetModuleHandle(NULL), NULL);
-
-            y = 830+50; h = 48;
-            x = 580; w = 164;
+            y = 570+50; h = 48;
+            x = 380; w = 164;
   	    hwnd_quitbtn = CreateWindowEx(0, "BUTTON", "quit", WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
 								x, y, w, h, hwnd, (HMENU) IDC_QUIT_BUTTON, GetModuleHandle(NULL), NULL);
 
@@ -16124,7 +16119,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     hwnd = CreateWindowEx(WS_EX_LAYERED, 
             g_szClassName, "My Chess by Daniel Cho", 
             WS_OVERLAPPEDWINDOW,
-            rect.left, rect.top, 1200, 1000, 
+            rect.left, rect.top, 1040, 740, 
             NULL, NULL, hInstance, NULL);
 
     if(hwnd == NULL) {

@@ -263,62 +263,62 @@ int reMap(char b[], int typ) {
         }
 
         if(b[0] == 'b') {
-            return 100;
+            return 70;
         }
 
         if(b[0] == 'c') {
-            return 200;
+            return 140;
         }
 
         if(b[0] == 'd') {
-            return 300;
+            return 210;
         }
 
         if(b[0] == 'e') {
-            return 400;
+            return 280;
         }
 
         if(b[0] == 'f') {
-            return 500;
+            return 350;
         }
 
         if(b[0] == 'g') {
-            return 600;
+            return 420;
         }
 
         if(b[0] == 'h') {
-            return 700;
+            return 490;
         }
     }
 
     else if(typ == 1) {
 
         if(b[1] == '1') {
-            return 700;
+            return 490;
         }
 
         if(b[1] == '2') {
-            return 600;
+            return 420;
         }
 
         if(b[1] == '3') {
-            return 500;
+            return 350;
         }
 
         if(b[1] == '4') {
-            return 400;
+            return 280;
         }
 
         if(b[1] == '5') {
-            return 300;
+            return 210;
         }
 
         if(b[1] == '6') {
-            return 200;
+            return 140;
         }
 
         if(b[1] == '7') {
-            return 100;
+            return 70;
         }
 
         if(b[1] == '8') {
@@ -338,62 +338,62 @@ int re_Map(char b[], int typ) {
         }
 
         if(b[2] == 'b') {
-            return 100;
+            return 70;
         }
 
         if(b[2] == 'c') {
-            return 200;
+            return 140;
         }
 
         if(b[2] == 'd') {
-            return 300;
+            return 210;
         }
 
         if(b[2] == 'e') {
-            return 400;
+            return 280;
         }
 
         if(b[2] == 'f') {
-            return 500;
+            return 350;
         }
 
         if(b[2] == 'g') {
-            return 600;
+            return 420;
         }
 
         if(b[2] == 'h') {
-            return 700;
+            return 490;
         }
     }
 
     else if(typ == 1) {
 
         if(b[3] == '1') {
-            return 700;
+            return 490;
         }
 
         if(b[3] == '2') {
-            return 600;
+            return 420;
         }
 
         if(b[3] == '3') {
-            return 500;
+            return 350;
         }
 
         if(b[3] == '4') {
-            return 400;
+            return 280;
         }
 
         if(b[3] == '5') {
-            return 300;
+            return 210;
         }
 
         if(b[3] == '6') {
-            return 200;
+            return 140;
         }
 
         if(b[3] == '7') {
-            return 100;
+            return 70;
         }
 
         if(b[3] == '8') {
@@ -499,7 +499,7 @@ void DrawChessBoard() {
     oldBitmap = SelectObject(hdcMem, hhbb);
 
     GetObject(hhbb, sizeof(bitmap), &bitmap);
-    BitBlt(hdc, 0, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
+    BitBlt(hdc, 20, 20, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
 
     SelectObject(hdcMem, oldBitmap);
     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hhbb); DeleteObject(oldBitmap);
@@ -555,13 +555,13 @@ boolean moveGreyQueen(UINT msg, int j, int i, int pos, int o) {
     }
     if(pos < 0) {
         boolean f = FALSE;
-        if(pos < -100) {
-            f = moveGreyQueen(msg, j, i, pos + 100, o);
+        if(pos < -70) {
+            f = moveGreyQueen(msg, j, i, pos + 70, o);
         }
         if(!f) {
             if(pos == o) {
 
-                greyQueenSquare.posY = greyQueenSquare.posY - 100;
+                greyQueenSquare.posY = greyQueenSquare.posY - 70;
                     
                 for(int s=0; s<8; s++) {
                     if(greyPawnsBase[s].posY == greyQueenSquare.posY &&
@@ -647,85 +647,85 @@ boolean moveGreyQueen(UINT msg, int j, int i, int pos, int o) {
                 boolean flag = FALSE;
 
                 for(int s=0; s<8; s++) {
-                    if(greyPawnsBase[s].posY == greyQueenSquare.posY - 100 &&
+                    if(greyPawnsBase[s].posY == greyQueenSquare.posY - 70 &&
                        greyPawnsBase[s].posX == greyQueenSquare.posX) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redPawnsBase[s].posY == greyQueenSquare.posY - 100 &&
+                    if(redPawnsBase[s].posY == greyQueenSquare.posY - 70 &&
                        redPawnsBase[s].posX == greyQueenSquare.posX) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
-                if(redQueenSquare.posY == greyQueenSquare.posY - 100 &&
+                if(redQueenSquare.posY == greyQueenSquare.posY - 70 &&
                    redQueenSquare.posX == greyQueenSquare.posX) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop1Square.posY == greyQueenSquare.posY - 100 &&
+                if(redBishop1Square.posY == greyQueenSquare.posY - 70 &&
                    redBishop1Square.posX == greyQueenSquare.posX) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop2Square.posY == greyQueenSquare.posY - 100 &&
+                if(redBishop2Square.posY == greyQueenSquare.posY - 70 &&
                    redBishop2Square.posX == greyQueenSquare.posX) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyRook1Rectangle1.posY == greyQueenSquare.posY - 100 &&
+                if(greyRook1Rectangle1.posY == greyQueenSquare.posY - 70 &&
                    greyRook1Rectangle1.posX == greyQueenSquare.posX) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyRook2Rectangle1.posY == greyQueenSquare.posY - 100 &&
+                if(greyRook2Rectangle1.posY == greyQueenSquare.posY - 70 &&
                    greyRook2Rectangle1.posX == greyQueenSquare.posX) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight1Rectangle1.posY == greyQueenSquare.posY - 100 &&
+                if(greyKnight1Rectangle1.posY == greyQueenSquare.posY - 70 &&
                    greyKnight1Rectangle1.posX == greyQueenSquare.posX) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight2Rectangle1.posY == greyQueenSquare.posY - 100 &&
+                if(greyKnight2Rectangle1.posY == greyQueenSquare.posY - 70 &&
                    greyKnight2Rectangle1.posX == greyQueenSquare.posX) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop1Square.posY == greyQueenSquare.posY - 100 &&
+                if(redBishop1Square.posY == greyQueenSquare.posY - 70 &&
                    redBishop1Square.posX == greyQueenSquare.posX) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop2Square.posY == greyQueenSquare.posY - 100 &&
+                if(redBishop2Square.posY == greyQueenSquare.posY - 70 &&
                    redBishop2Square.posX == greyQueenSquare.posX) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook1Rectangle1.posY == greyQueenSquare.posY - 100 &&
+                if(redRook1Rectangle1.posY == greyQueenSquare.posY - 70 &&
                    redRook1Rectangle1.posX == greyQueenSquare.posX) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook2Rectangle1.posY == greyQueenSquare.posY - 100 &&
+                if(redRook2Rectangle1.posY == greyQueenSquare.posY - 70 &&
                    redRook2Rectangle1.posX == greyQueenSquare.posX) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight1Rectangle1.posY == greyQueenSquare.posY - 100 &&
+                if(redKnight1Rectangle1.posY == greyQueenSquare.posY - 70 &&
                    redKnight1Rectangle1.posX == greyQueenSquare.posX) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight2Rectangle1.posY == greyQueenSquare.posY - 100 &&
+                if(redKnight2Rectangle1.posY == greyQueenSquare.posY - 70 &&
                    redKnight2Rectangle1.posX == greyQueenSquare.posX) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 
                 if(!flag) {
-                    greyQueenSquare.posY = greyQueenSquare.posY - 100;
+                    greyQueenSquare.posY = greyQueenSquare.posY - 70;
                 }
 
                 return flag;
@@ -739,13 +739,13 @@ boolean moveGreyQueen(UINT msg, int j, int i, int pos, int o) {
         }
     } else if(pos > 0) {
         boolean f = FALSE;
-        if(pos > 100) {
-            f = moveGreyQueen(msg, j, i, pos - 100, o);
+        if(pos > 70) {
+            f = moveGreyQueen(msg, j, i, pos - 70, o);
         }
         if(!f) {
             if(pos == o) {
 
-                greyQueenSquare.posY = greyQueenSquare.posY + 100;
+                greyQueenSquare.posY = greyQueenSquare.posY + 70;
 
                 for(int s=0; s<8; s++) {
                     if(greyPawnsBase[s].posY == greyQueenSquare.posY &&
@@ -831,85 +831,85 @@ boolean moveGreyQueen(UINT msg, int j, int i, int pos, int o) {
                 boolean flag = FALSE;
 
                 for(int s=0; s<8; s++) {
-                    if(greyPawnsBase[s].posY == greyQueenSquare.posY + 100 &&
+                    if(greyPawnsBase[s].posY == greyQueenSquare.posY + 70 &&
                        greyPawnsBase[s].posX == greyQueenSquare.posX) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redPawnsBase[s].posY == greyQueenSquare.posY + 100 &&
+                    if(redPawnsBase[s].posY == greyQueenSquare.posY + 70 &&
                        redPawnsBase[s].posX == greyQueenSquare.posX) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
-                if(redQueenSquare.posY == greyQueenSquare.posY + 100 &&
+                if(redQueenSquare.posY == greyQueenSquare.posY + 70 &&
                    redQueenSquare.posX == greyQueenSquare.posX) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop1Square.posY == greyQueenSquare.posY + 100 &&
+                if(redBishop1Square.posY == greyQueenSquare.posY + 70 &&
                    redBishop1Square.posX == greyQueenSquare.posX) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop2Square.posY == greyQueenSquare.posY + 100 &&
+                if(redBishop2Square.posY == greyQueenSquare.posY + 70 &&
                    redBishop2Square.posX == greyQueenSquare.posX) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyRook1Rectangle1.posY == greyQueenSquare.posY + 100 &&
+                if(greyRook1Rectangle1.posY == greyQueenSquare.posY + 70 &&
                    greyRook1Rectangle1.posX == greyQueenSquare.posX) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyRook2Rectangle1.posY == greyQueenSquare.posY + 100 &&
+                if(greyRook2Rectangle1.posY == greyQueenSquare.posY + 70 &&
                    greyRook2Rectangle1.posX == greyQueenSquare.posX) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight1Rectangle1.posY == greyQueenSquare.posY + 100 &&
+                if(greyKnight1Rectangle1.posY == greyQueenSquare.posY + 70 &&
                    greyKnight1Rectangle1.posX == greyQueenSquare.posX) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight2Rectangle1.posY == greyQueenSquare.posY + 100 &&
+                if(greyKnight2Rectangle1.posY == greyQueenSquare.posY + 70 &&
                    greyKnight2Rectangle1.posX == greyQueenSquare.posX) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop1Square.posY == greyQueenSquare.posY + 100 &&
+                if(redBishop1Square.posY == greyQueenSquare.posY + 70 &&
                    redBishop1Square.posX == greyQueenSquare.posX) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop2Square.posY == greyQueenSquare.posY + 100 &&
+                if(redBishop2Square.posY == greyQueenSquare.posY + 70 &&
                    redBishop2Square.posX == greyQueenSquare.posX) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook1Rectangle1.posY == greyQueenSquare.posY + 100 &&
+                if(redRook1Rectangle1.posY == greyQueenSquare.posY + 70 &&
                    redRook1Rectangle1.posX == greyQueenSquare.posX) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook2Rectangle1.posY == greyQueenSquare.posY + 100 &&
+                if(redRook2Rectangle1.posY == greyQueenSquare.posY + 70 &&
                    redRook2Rectangle1.posX == greyQueenSquare.posX) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight1Rectangle1.posY == greyQueenSquare.posY + 100 &&
+                if(redKnight1Rectangle1.posY == greyQueenSquare.posY + 70 &&
                    redKnight1Rectangle1.posX == greyQueenSquare.posX) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight2Rectangle1.posY == greyQueenSquare.posY + 100 &&
+                if(redKnight2Rectangle1.posY == greyQueenSquare.posY + 70 &&
                    redKnight2Rectangle1.posX == greyQueenSquare.posX) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    greyQueenSquare.posY = greyQueenSquare.posY + 100;
+                    greyQueenSquare.posY = greyQueenSquare.posY + 70;
                 }
 
                 return flag;
@@ -974,13 +974,13 @@ boolean moveGreyQueenSide(UINT msg, int j, int i, int pos, int o) {
     }
     if(pos < 0) {
         boolean f = FALSE;
-        if(pos < -100) {
-            f = moveGreyQueenSide(msg, j, i, pos + 100, o);
+        if(pos < -70) {
+            f = moveGreyQueenSide(msg, j, i, pos + 70, o);
         }
         if(!f) {
             if(pos == o) {
 
-                greyQueenSquare.posX = greyQueenSquare.posX - 100;
+                greyQueenSquare.posX = greyQueenSquare.posX - 70;
 
                 for(int s=0; s<8; s++) {
                     if(greyPawnsBase[s].posY == greyQueenSquare.posY &&
@@ -1067,84 +1067,84 @@ boolean moveGreyQueenSide(UINT msg, int j, int i, int pos, int o) {
 
                 for(int s=0; s<8; s++) {
                     if(greyPawnsBase[s].posY == greyQueenSquare.posY &&
-                       greyPawnsBase[s].posX == greyQueenSquare.posX - 100) {
+                       greyPawnsBase[s].posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
                     if(redPawnsBase[s].posY == greyQueenSquare.posY &&
-                       redPawnsBase[s].posX == greyQueenSquare.posX - 100) {
+                       redPawnsBase[s].posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
                 if(redQueenSquare.posY == greyQueenSquare.posY &&
-                   redQueenSquare.posX == greyQueenSquare.posX - 100) {
+                   redQueenSquare.posX == greyQueenSquare.posX - 70) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop1Square.posY == greyQueenSquare.posY &&
-                   redBishop1Square.posX == greyQueenSquare.posX - 100) {
+                   redBishop1Square.posX == greyQueenSquare.posX - 70) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop2Square.posY == greyQueenSquare.posY &&
-                   redBishop2Square.posX == greyQueenSquare.posX - 100) {
+                   redBishop2Square.posX == greyQueenSquare.posX - 70) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyRook1Rectangle1.posY == greyQueenSquare.posY &&
-                   greyRook1Rectangle1.posX == greyQueenSquare.posX - 100) {
+                   greyRook1Rectangle1.posX == greyQueenSquare.posX - 70) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyRook2Rectangle1.posY == greyQueenSquare.posY &&
-                   greyRook2Rectangle1.posX == greyQueenSquare.posX - 100) {
+                   greyRook2Rectangle1.posX == greyQueenSquare.posX - 70) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight1Rectangle1.posY == greyQueenSquare.posY &&
-                   greyKnight1Rectangle1.posX == greyQueenSquare.posX - 100) {
+                   greyKnight1Rectangle1.posX == greyQueenSquare.posX - 70) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight2Rectangle1.posY == greyQueenSquare.posY &&
-                   greyKnight2Rectangle1.posX == greyQueenSquare.posX - 100) {
+                   greyKnight2Rectangle1.posX == greyQueenSquare.posX - 70) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop1Square.posY == greyQueenSquare.posY &&
-                   redBishop1Square.posX == greyQueenSquare.posX - 100) {
+                   redBishop1Square.posX == greyQueenSquare.posX - 70) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop2Square.posY == greyQueenSquare.posY &&
-                   redBishop2Square.posX == greyQueenSquare.posX - 100) {
+                   redBishop2Square.posX == greyQueenSquare.posX - 70) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook1Rectangle1.posY == greyQueenSquare.posY &&
-                   redRook1Rectangle1.posX == greyQueenSquare.posX - 100) {
+                   redRook1Rectangle1.posX == greyQueenSquare.posX - 70) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook2Rectangle1.posY == greyQueenSquare.posY &&
-                   redRook2Rectangle1.posX == greyQueenSquare.posX - 100) {
+                   redRook2Rectangle1.posX == greyQueenSquare.posX - 70) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight1Rectangle1.posY == greyQueenSquare.posY &&
-                   redKnight1Rectangle1.posX == greyQueenSquare.posX - 100) {
+                   redKnight1Rectangle1.posX == greyQueenSquare.posX - 70) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight2Rectangle1.posY == greyQueenSquare.posY &&
-                   redKnight2Rectangle1.posX == greyQueenSquare.posX - 100) {
+                   redKnight2Rectangle1.posX == greyQueenSquare.posX - 70) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    greyQueenSquare.posX = greyQueenSquare.posX - 100;
+                    greyQueenSquare.posX = greyQueenSquare.posX - 70;
                 }
 
                 return flag;
@@ -1158,13 +1158,13 @@ boolean moveGreyQueenSide(UINT msg, int j, int i, int pos, int o) {
         }
     } else if(pos > 0) {
         boolean f = FALSE;
-        if(pos > 100) {
-            f = moveGreyQueenSide(msg, j, i, pos - 100, o);
+        if(pos > 70) {
+            f = moveGreyQueenSide(msg, j, i, pos - 70, o);
         }
         if(!f) {
             if(pos == o) {
 
-                greyQueenSquare.posX = greyQueenSquare.posX + 100;
+                greyQueenSquare.posX = greyQueenSquare.posX + 70;
 
                 for(int s=0; s<8; s++) {
                     if(greyPawnsBase[i].posY == greyQueenSquare.posY &&
@@ -1255,84 +1255,84 @@ boolean moveGreyQueenSide(UINT msg, int j, int i, int pos, int o) {
 
                 for(int s=0; s<8; s++) {
                     if(greyPawnsBase[s].posY == greyQueenSquare.posY &&
-                       greyPawnsBase[s].posX == greyQueenSquare.posX + 100) {
+                       greyPawnsBase[s].posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
                     if(redPawnsBase[s].posY == greyQueenSquare.posY &&
-                       redPawnsBase[s].posX == greyQueenSquare.posX + 100) {
+                       redPawnsBase[s].posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
                 if(redQueenSquare.posY == greyQueenSquare.posY &&
-                   redQueenSquare.posX == greyQueenSquare.posX + 100) {
+                   redQueenSquare.posX == greyQueenSquare.posX + 70) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop1Square.posY == greyQueenSquare.posY &&
-                   redBishop1Square.posX == greyQueenSquare.posX + 100) {
+                   redBishop1Square.posX == greyQueenSquare.posX + 70) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop2Square.posY == greyQueenSquare.posY &&
-                   redBishop2Square.posX == greyQueenSquare.posX + 100) {
+                   redBishop2Square.posX == greyQueenSquare.posX + 70) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyRook1Rectangle1.posY == greyQueenSquare.posY &&
-                   greyRook1Rectangle1.posX == greyQueenSquare.posX + 100) {
+                   greyRook1Rectangle1.posX == greyQueenSquare.posX + 70) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyRook2Rectangle1.posY == greyQueenSquare.posY &&
-                   greyRook2Rectangle1.posX == greyQueenSquare.posX + 100) {
+                   greyRook2Rectangle1.posX == greyQueenSquare.posX + 70) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight1Rectangle1.posY == greyQueenSquare.posY &&
-                   greyKnight1Rectangle1.posX == greyQueenSquare.posX + 100) {
+                   greyKnight1Rectangle1.posX == greyQueenSquare.posX + 70) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight2Rectangle1.posY == greyQueenSquare.posY &&
-                   greyKnight2Rectangle1.posX == greyQueenSquare.posX + 100) {
+                   greyKnight2Rectangle1.posX == greyQueenSquare.posX + 70) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop1Square.posY == greyQueenSquare.posY &&
-                   redBishop1Square.posX == greyQueenSquare.posX + 100) {
+                   redBishop1Square.posX == greyQueenSquare.posX + 70) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop2Square.posY == greyQueenSquare.posY &&
-                   redBishop2Square.posX == greyQueenSquare.posX + 100) {
+                   redBishop2Square.posX == greyQueenSquare.posX + 70) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook1Rectangle1.posY == greyQueenSquare.posY &&
-                   redRook1Rectangle1.posX == greyQueenSquare.posX + 100) {
+                   redRook1Rectangle1.posX == greyQueenSquare.posX + 70) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook2Rectangle1.posY == greyQueenSquare.posY &&
-                   redRook2Rectangle1.posX == greyQueenSquare.posX + 100) {
+                   redRook2Rectangle1.posX == greyQueenSquare.posX + 70) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight1Rectangle1.posY == greyQueenSquare.posY &&
-                   redKnight1Rectangle1.posX == greyQueenSquare.posX + 100) {
+                   redKnight1Rectangle1.posX == greyQueenSquare.posX + 70) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight2Rectangle1.posY == greyQueenSquare.posY &&
-                   redKnight2Rectangle1.posX == greyQueenSquare.posX + 100) {
+                   redKnight2Rectangle1.posX == greyQueenSquare.posX + 70) {
                     greyQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    greyQueenSquare.posX = greyQueenSquare.posX + 100;
+                    greyQueenSquare.posX = greyQueenSquare.posX + 70;
                 }
 
                 return flag;
@@ -1397,13 +1397,13 @@ boolean moveRedQueen(UINT msg, int j, int i, int pos, int o) {
     }
     if(pos < 0) {
         boolean f = FALSE;
-        if(pos < -100) {
-            f = moveRedQueen(msg, j, i, pos + 100, o);
+        if(pos < -70) {
+            f = moveRedQueen(msg, j, i, pos + 70, o);
         }
         if(!f) {
             if(pos == o) {
 
-                redQueenSquare.posY = redQueenSquare.posY - 100;
+                redQueenSquare.posY = redQueenSquare.posY - 70;
 
                 for(int s=0; s<8; s++) {
                     if(redPawnsBase[s].posY == redQueenSquare.posY &&
@@ -1524,95 +1524,95 @@ boolean moveRedQueen(UINT msg, int j, int i, int pos, int o) {
                 boolean flag = FALSE;
 
                 for(int s=0; s<8; s++) {
-                    if(redPawnsBase[s].posY == redQueenSquare.posY - 100 &&
+                    if(redPawnsBase[s].posY == redQueenSquare.posY - 70 &&
                        redPawnsBase[s].posX == redQueenSquare.posX) {
                         redQueenSquare.failedpath = TRUE;                        
                         flag = TRUE;
                     }
-                    if(greyPawnsBase[s].posY == redQueenSquare.posY - 100 &&
+                    if(greyPawnsBase[s].posY == redQueenSquare.posY - 70 &&
                        greyPawnsBase[s].posX == redQueenSquare.posX) {
                         redQueenSquare.failedpath = TRUE;                        
                         flag = TRUE;
                     }
                 }
-                if(redBishop1Square.posY == redQueenSquare.posY - 100 &&
+                if(redBishop1Square.posY == redQueenSquare.posY - 70 &&
                    redBishop1Square.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop2Square.posY == redQueenSquare.posY - 100 &&
+                if(redBishop2Square.posY == redQueenSquare.posY - 70 &&
                    redBishop2Square.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook1Rectangle1.posY == redQueenSquare.posY - 100 &&
+                if(redRook1Rectangle1.posY == redQueenSquare.posY - 70 &&
                    redRook1Rectangle1.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook2Rectangle1.posY == redQueenSquare.posY - 100 &&
+                if(redRook2Rectangle1.posY == redQueenSquare.posY - 70 &&
                    redRook2Rectangle1.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight1Rectangle1.posY == redQueenSquare.posY - 100 &&
+                if(redKnight1Rectangle1.posY == redQueenSquare.posY - 70 &&
                    redKnight1Rectangle1.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight2Rectangle1.posY == redQueenSquare.posY - 100 &&
+                if(redKnight2Rectangle1.posY == redQueenSquare.posY - 70 &&
                    redKnight2Rectangle1.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop1Square.posY == redQueenSquare.posY - 100 &&
+                if(redBishop1Square.posY == redQueenSquare.posY - 70 &&
                    redBishop1Square.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop2Square.posY == redQueenSquare.posY - 100 &&
+                if(redBishop2Square.posY == redQueenSquare.posY - 70 &&
                    redBishop2Square.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyQueenSquare.posY == redQueenSquare.posY - 100 &&
+                if(greyQueenSquare.posY == redQueenSquare.posY - 70 &&
                    greyQueenSquare.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyBishop1Square.posY == redQueenSquare.posY - 100 &&
+                if(greyBishop1Square.posY == redQueenSquare.posY - 70 &&
                    greyBishop1Square.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyBishop2Square.posY == redQueenSquare.posY - 100 &&
+                if(greyBishop2Square.posY == redQueenSquare.posY - 70 &&
                    greyBishop2Square.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyRook1Rectangle1.posY == redQueenSquare.posY - 100 &&
+                if(greyRook1Rectangle1.posY == redQueenSquare.posY - 70 &&
                    greyRook1Rectangle1.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyRook2Rectangle1.posY == redQueenSquare.posY - 100 &&
+                if(greyRook2Rectangle1.posY == redQueenSquare.posY - 70 &&
                    greyRook2Rectangle1.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight1Rectangle1.posY == redQueenSquare.posY - 100 &&
+                if(greyKnight1Rectangle1.posY == redQueenSquare.posY - 70 &&
                    greyKnight1Rectangle1.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight2Rectangle1.posY == redQueenSquare.posY - 100 &&
+                if(greyKnight2Rectangle1.posY == redQueenSquare.posY - 70 &&
                    greyKnight2Rectangle1.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    redQueenSquare.posY = redQueenSquare.posY - 100;
+                    redQueenSquare.posY = redQueenSquare.posY - 70;
                 }
 
                 return flag;
@@ -1626,13 +1626,13 @@ boolean moveRedQueen(UINT msg, int j, int i, int pos, int o) {
         }
     } else if(pos > 0) {
         boolean f = FALSE;
-        if(pos > 100) {
-            f = moveRedQueen(msg, j, i, pos - 100, o);
+        if(pos > 70) {
+            f = moveRedQueen(msg, j, i, pos - 70, o);
         }
         if(!f) {
             if(pos == o) {
 
-                redQueenSquare.posY = redQueenSquare.posY + 100;
+                redQueenSquare.posY = redQueenSquare.posY + 70;
 
                 for(int s=0; s<8; s++) {
                     if(redPawnsBase[s].posY == redQueenSquare.posY &&
@@ -1753,110 +1753,110 @@ boolean moveRedQueen(UINT msg, int j, int i, int pos, int o) {
                 boolean flag = FALSE;
 
                 for(int s=0; s<8; s++) {
-                    if(redPawnsBase[s].posY == redQueenSquare.posY + 100 &&
+                    if(redPawnsBase[s].posY == redQueenSquare.posY + 70 &&
                        redPawnsBase[s].posX == redQueenSquare.posX) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyPawnsBase[s].posY == redQueenSquare.posY + 100 &&
+                    if(greyPawnsBase[s].posY == redQueenSquare.posY + 70 &&
                        greyPawnsBase[s].posX == redQueenSquare.posX) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
-                if(redBishop1Square.posY == redQueenSquare.posY + 100 &&
+                if(redBishop1Square.posY == redQueenSquare.posY + 70 &&
                    redBishop1Square.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop2Square.posY == redQueenSquare.posY + 100 &&
+                if(redBishop2Square.posY == redQueenSquare.posY + 70 &&
                    redBishop2Square.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook1Rectangle1.posY == redQueenSquare.posY + 100 &&
+                if(redRook1Rectangle1.posY == redQueenSquare.posY + 70 &&
                    redRook1Rectangle1.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook2Rectangle1.posY == redQueenSquare.posY + 100 &&
+                if(redRook2Rectangle1.posY == redQueenSquare.posY + 70 &&
                    redRook2Rectangle1.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight1Rectangle1.posY == redQueenSquare.posY + 100 &&
+                if(redKnight1Rectangle1.posY == redQueenSquare.posY + 70 &&
                    redKnight1Rectangle1.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight2Rectangle1.posY == redQueenSquare.posY + 100 &&
+                if(redKnight2Rectangle1.posY == redQueenSquare.posY + 70 &&
                    redKnight2Rectangle1.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop1Square.posY == redQueenSquare.posY + 100 &&
+                if(redBishop1Square.posY == redQueenSquare.posY + 70 &&
                    redBishop1Square.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop2Square.posY == redQueenSquare.posY + 100 &&
+                if(redBishop2Square.posY == redQueenSquare.posY + 70 &&
                    redBishop2Square.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyQueenSquare.posY == redQueenSquare.posY + 100 &&
+                if(greyQueenSquare.posY == redQueenSquare.posY + 70 &&
                    greyQueenSquare.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyBishop1Square.posY == redQueenSquare.posY + 100 &&
+                if(greyBishop1Square.posY == redQueenSquare.posY + 70 &&
                    greyBishop1Square.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyBishop2Square.posY == redQueenSquare.posY + 100 &&
+                if(greyBishop2Square.posY == redQueenSquare.posY + 70 &&
                    greyBishop2Square.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyRook1Rectangle1.posY == redQueenSquare.posY + 100 &&
+                if(greyRook1Rectangle1.posY == redQueenSquare.posY + 70 &&
                    greyRook1Rectangle1.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyRook2Rectangle1.posY == redQueenSquare.posY + 100 &&
+                if(greyRook2Rectangle1.posY == redQueenSquare.posY + 70 &&
                    greyRook2Rectangle1.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight1Rectangle1.posY == redQueenSquare.posY + 100 &&
+                if(greyKnight1Rectangle1.posY == redQueenSquare.posY + 70 &&
                    greyKnight1Rectangle1.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight2Rectangle1.posY == redQueenSquare.posY + 100 &&
+                if(greyKnight2Rectangle1.posY == redQueenSquare.posY + 70 &&
                    greyKnight2Rectangle1.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyBishop1Square.posY == redQueenSquare.posY + 100 &&
+                if(greyBishop1Square.posY == redQueenSquare.posY + 70 &&
                    greyBishop1Square.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyBishop2Square.posY == redQueenSquare.posY + 100 &&
+                if(greyBishop2Square.posY == redQueenSquare.posY + 70 &&
                    greyBishop2Square.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyQueenSquare.posY == redQueenSquare.posY + 100 &&
+                if(greyQueenSquare.posY == redQueenSquare.posY + 70 &&
                    greyQueenSquare.posX == redQueenSquare.posX) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    redQueenSquare.posY = redQueenSquare.posY + 100;
+                    redQueenSquare.posY = redQueenSquare.posY + 70;
                 }
 
                 return flag;
@@ -1921,13 +1921,13 @@ boolean moveRedQueenSide(UINT msg, int j, int i, int pos, int o) {
     }
     if(pos < 0) {
         boolean f = FALSE;
-        if(pos < -100) {
-            f = moveRedQueenSide(msg, j, i, pos + 100, o);
+        if(pos < -70) {
+            f = moveRedQueenSide(msg, j, i, pos + 70, o);
         }
         if(!f) {
             if(pos == o) {
 
-                redQueenSquare.posX = redQueenSquare.posX - 100;
+                redQueenSquare.posX = redQueenSquare.posX - 70;
 
                 for(int s=0; s<8; s++) {
                     if(redPawnsBase[s].posY == redQueenSquare.posY &&
@@ -2049,109 +2049,109 @@ boolean moveRedQueenSide(UINT msg, int j, int i, int pos, int o) {
 
                 for(int s=0; s<8; s++) {
                     if(redPawnsBase[s].posY == redQueenSquare.posY &&
-                       redPawnsBase[s].posX == redQueenSquare.posX - 100) {
+                       redPawnsBase[s].posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
                     if(greyPawnsBase[s].posY == redQueenSquare.posY &&
-                       greyPawnsBase[s].posX == redQueenSquare.posX - 100) {
+                       greyPawnsBase[s].posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
                 if(redBishop1Square.posY == redQueenSquare.posY &&
-                   redBishop1Square.posX == redQueenSquare.posX - 100) {
+                   redBishop1Square.posX == redQueenSquare.posX - 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop2Square.posY == redQueenSquare.posY &&
-                   redBishop2Square.posX == redQueenSquare.posX - 100) {
+                   redBishop2Square.posX == redQueenSquare.posX - 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook1Rectangle1.posY == redQueenSquare.posY &&
-                   redRook1Rectangle1.posX == redQueenSquare.posX - 100) {
+                   redRook1Rectangle1.posX == redQueenSquare.posX - 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook2Rectangle1.posY == redQueenSquare.posY &&
-                   redRook2Rectangle1.posX == redQueenSquare.posX - 100) {
+                   redRook2Rectangle1.posX == redQueenSquare.posX - 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight1Rectangle1.posY == redQueenSquare.posY &&
-                   redKnight1Rectangle1.posX == redQueenSquare.posX - 100) {
+                   redKnight1Rectangle1.posX == redQueenSquare.posX - 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight2Rectangle1.posY == redQueenSquare.posY &&
-                   redKnight2Rectangle1.posX == redQueenSquare.posX - 100) {
+                   redKnight2Rectangle1.posX == redQueenSquare.posX - 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop1Square.posY == redQueenSquare.posY &&
-                   redBishop1Square.posX == redQueenSquare.posX - 100) {
+                   redBishop1Square.posX == redQueenSquare.posX - 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop2Square.posY == redQueenSquare.posY &&
-                   redBishop2Square.posX == redQueenSquare.posX - 100) {
+                   redBishop2Square.posX == redQueenSquare.posX - 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyQueenSquare.posY == redQueenSquare.posY &&
-                   greyQueenSquare.posX == redQueenSquare.posX - 100) {
+                   greyQueenSquare.posX == redQueenSquare.posX - 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop1Square.posY == redQueenSquare.posY &&
-                   greyBishop1Square.posX == redQueenSquare.posX - 100) {
+                   greyBishop1Square.posX == redQueenSquare.posX - 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop2Square.posY == redQueenSquare.posY &&
-                   greyBishop2Square.posX == redQueenSquare.posX - 100) {
+                   greyBishop2Square.posX == redQueenSquare.posX - 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyRook1Rectangle1.posY == redQueenSquare.posY &&
-                   greyRook1Rectangle1.posX == redQueenSquare.posX - 100) {
+                   greyRook1Rectangle1.posX == redQueenSquare.posX - 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyRook2Rectangle1.posY == redQueenSquare.posY &&
-                   greyRook2Rectangle1.posX == redQueenSquare.posX - 100) {
+                   greyRook2Rectangle1.posX == redQueenSquare.posX - 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight1Rectangle1.posY == redQueenSquare.posY &&
-                   greyKnight1Rectangle1.posX == redQueenSquare.posX - 100) {
+                   greyKnight1Rectangle1.posX == redQueenSquare.posX - 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight2Rectangle1.posY == redQueenSquare.posY &&
-                   greyKnight2Rectangle1.posX == redQueenSquare.posX - 100) {
+                   greyKnight2Rectangle1.posX == redQueenSquare.posX - 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop1Square.posY == redQueenSquare.posY &&
-                   greyBishop1Square.posX == redQueenSquare.posX - 100) {
+                   greyBishop1Square.posX == redQueenSquare.posX - 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop2Square.posY == redQueenSquare.posY &&
-                   greyBishop2Square.posX == redQueenSquare.posX - 100) {
+                   greyBishop2Square.posX == redQueenSquare.posX - 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyQueenSquare.posY == redQueenSquare.posY &&
-                   greyQueenSquare.posX == redQueenSquare.posX - 100) {
+                   greyQueenSquare.posX == redQueenSquare.posX - 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    redQueenSquare.posX = redQueenSquare.posX - 100;
+                    redQueenSquare.posX = redQueenSquare.posX - 70;
                 }
 
                 return flag;
@@ -2165,13 +2165,13 @@ boolean moveRedQueenSide(UINT msg, int j, int i, int pos, int o) {
         }
     } else if(pos > 0) {
         boolean f = FALSE;
-        if(pos > 100) {
-            f = moveRedQueenSide(msg, j, i, pos - 100, o);
+        if(pos > 70) {
+            f = moveRedQueenSide(msg, j, i, pos - 70, o);
         }
         if(!f) {
             if(pos == o) {
 
-                redQueenSquare.posX = redQueenSquare.posX + 100;
+                redQueenSquare.posX = redQueenSquare.posX + 70;
 
                 for(int s=0; s<8; s++) {
                     if(redPawnsBase[s].posY == redQueenSquare.posY &&
@@ -2293,109 +2293,109 @@ boolean moveRedQueenSide(UINT msg, int j, int i, int pos, int o) {
 
                 for(int i=0; i<8; i++) {
                     if(redPawnsBase[i].posY == redQueenSquare.posY &&
-                       redPawnsBase[i].posX == redQueenSquare.posX + 100) {
+                       redPawnsBase[i].posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
                     if(greyPawnsBase[i].posY == redQueenSquare.posY &&
-                       greyPawnsBase[i].posX == redQueenSquare.posX + 100) {
+                       greyPawnsBase[i].posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
                 if(redBishop1Square.posY == redQueenSquare.posY &&
-                   redBishop1Square.posX == redQueenSquare.posX + 100) {
+                   redBishop1Square.posX == redQueenSquare.posX + 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop2Square.posY == redQueenSquare.posY &&
-                   redBishop2Square.posX == redQueenSquare.posX + 100) {
+                   redBishop2Square.posX == redQueenSquare.posX + 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook1Rectangle1.posY == redQueenSquare.posY &&
-                   redRook1Rectangle1.posX == redQueenSquare.posX + 100) {
+                   redRook1Rectangle1.posX == redQueenSquare.posX + 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook2Rectangle1.posY == redQueenSquare.posY &&
-                   redRook2Rectangle1.posX == redQueenSquare.posX + 100) {
+                   redRook2Rectangle1.posX == redQueenSquare.posX + 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight1Rectangle1.posY == redQueenSquare.posY &&
-                   redKnight1Rectangle1.posX == redQueenSquare.posX + 100) {
+                   redKnight1Rectangle1.posX == redQueenSquare.posX + 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight2Rectangle1.posY == redQueenSquare.posY &&
-                   redKnight2Rectangle1.posX == redQueenSquare.posX + 100) {
+                   redKnight2Rectangle1.posX == redQueenSquare.posX + 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop1Square.posY == redQueenSquare.posY &&
-                   redBishop1Square.posX == redQueenSquare.posX + 100) {
+                   redBishop1Square.posX == redQueenSquare.posX + 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop2Square.posY == redQueenSquare.posY &&
-                   redBishop2Square.posX == redQueenSquare.posX + 100) {
+                   redBishop2Square.posX == redQueenSquare.posX + 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyQueenSquare.posY == redQueenSquare.posY &&
-                   greyQueenSquare.posX == redQueenSquare.posX + 100) {
+                   greyQueenSquare.posX == redQueenSquare.posX + 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop1Square.posY == redQueenSquare.posY &&
-                   greyBishop1Square.posX == redQueenSquare.posX + 100) {
+                   greyBishop1Square.posX == redQueenSquare.posX + 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop2Square.posY == redQueenSquare.posY &&
-                   greyBishop2Square.posX == redQueenSquare.posX + 100) {
+                   greyBishop2Square.posX == redQueenSquare.posX + 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyRook1Rectangle1.posY == redQueenSquare.posY &&
-                   greyRook1Rectangle1.posX == redQueenSquare.posX + 100) {
+                   greyRook1Rectangle1.posX == redQueenSquare.posX + 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyRook2Rectangle1.posY == redQueenSquare.posY &&
-                   greyRook2Rectangle1.posX == redQueenSquare.posX + 100) {
+                   greyRook2Rectangle1.posX == redQueenSquare.posX + 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight1Rectangle1.posY == redQueenSquare.posY &&
-                   greyKnight1Rectangle1.posX == redQueenSquare.posX + 100) {
+                   greyKnight1Rectangle1.posX == redQueenSquare.posX + 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight2Rectangle1.posY == redQueenSquare.posY &&
-                   greyKnight2Rectangle1.posX == redQueenSquare.posX + 100) {
+                   greyKnight2Rectangle1.posX == redQueenSquare.posX + 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop1Square.posY == redQueenSquare.posY &&
-                   greyBishop1Square.posX == redQueenSquare.posX + 100) {
+                   greyBishop1Square.posX == redQueenSquare.posX + 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop2Square.posY == redQueenSquare.posY &&
-                   greyBishop2Square.posX == redQueenSquare.posX + 100) {
+                   greyBishop2Square.posX == redQueenSquare.posX + 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyQueenSquare.posY == redQueenSquare.posY &&
-                   greyQueenSquare.posX == redQueenSquare.posX + 100) {
+                   greyQueenSquare.posX == redQueenSquare.posX + 70) {
                     redQueenSquare.failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    redQueenSquare.posX = redQueenSquare.posX + 100;
+                    redQueenSquare.posX = redQueenSquare.posX + 70;
                 }
 
                 return flag;
@@ -2460,13 +2460,13 @@ boolean moveRedQueenSideK(UINT msg, int j, int i, int pos, int o, int k) {
     }
     if(pos < 0) {
         boolean f = FALSE;
-        if(pos < -100) {
-            f = moveRedQueenSideK(msg, j, i, pos + 100, o, k);
+        if(pos < -70) {
+            f = moveRedQueenSideK(msg, j, i, pos + 70, o, k);
         }
         if(!f) {
             if(pos == o) {
 
-                redQueenSquareK[k].posX = redQueenSquareK[k].posX - 100;
+                redQueenSquareK[k].posX = redQueenSquareK[k].posX - 70;
 
                 for(int s=0; s<8; s++) {
                     for(int p=0; p<8; p++) {
@@ -2608,125 +2608,125 @@ boolean moveRedQueenSideK(UINT msg, int j, int i, int pos, int o, int k) {
                 for(int s=0; s<8; s++) {
                     for(int d=0; d<8; d++) {
                         if(redQueenSquareK[d].posY == redQueenSquareK[k].posY &&
-                           redQueenSquareK[d].posX == redQueenSquareK[k].posX - 100) {
+                           redQueenSquareK[d].posX == redQueenSquareK[k].posX - 70) {
                             redQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
                         if(greyQueenSquareK[d].posY == redQueenSquareK[k].posY &&
-                           greyQueenSquareK[d].posX == redQueenSquareK[k].posX - 100) {
+                           greyQueenSquareK[d].posX == redQueenSquareK[k].posX - 70) {
                             redQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
                     if(redPawnsBase[s].posY == redQueenSquareK[k].posY &&
-                       redPawnsBase[s].posX == redQueenSquareK[k].posX - 100) {
+                       redPawnsBase[s].posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
                     if(greyPawnsBase[s].posY == redQueenSquareK[k].posY &&
-                       greyPawnsBase[s].posX == redQueenSquareK[k].posX - 100) {
+                       greyPawnsBase[s].posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
                 if(redBishop1Square.posY == redQueenSquareK[k].posY &&
-                   redBishop1Square.posX == redQueenSquareK[k].posX - 100) {
+                   redBishop1Square.posX == redQueenSquareK[k].posX - 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop2Square.posY == redQueenSquareK[k].posY &&
-                   redBishop2Square.posX == redQueenSquareK[k].posX - 100) {
+                   redBishop2Square.posX == redQueenSquareK[k].posX - 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook1Rectangle1.posY == redQueenSquareK[k].posY &&
-                   redRook1Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                   redRook1Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook2Rectangle1.posY == redQueenSquareK[k].posY &&
-                   redRook2Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                   redRook2Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight1Rectangle1.posY == redQueenSquareK[k].posY &&
-                   redKnight1Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                   redKnight1Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight2Rectangle1.posY == redQueenSquareK[k].posY &&
-                   redKnight2Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                   redKnight2Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop1Square.posY == redQueenSquareK[k].posY &&
-                   redBishop1Square.posX == redQueenSquareK[k].posX - 100) {
+                   redBishop1Square.posX == redQueenSquareK[k].posX - 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop2Square.posY == redQueenSquareK[k].posY &&
-                   redBishop2Square.posX == redQueenSquareK[k].posX - 100) {
+                   redBishop2Square.posX == redQueenSquareK[k].posX - 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyQueenSquare.posY == redQueenSquareK[k].posY &&
-                   greyQueenSquare.posX == redQueenSquareK[k].posX - 100) {
+                   greyQueenSquare.posX == redQueenSquareK[k].posX - 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop1Square.posY == redQueenSquareK[k].posY &&
-                   greyBishop1Square.posX == redQueenSquareK[k].posX - 100) {
+                   greyBishop1Square.posX == redQueenSquareK[k].posX - 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop2Square.posY == redQueenSquareK[k].posY &&
-                   greyBishop2Square.posX == redQueenSquareK[k].posX - 100) {
+                   greyBishop2Square.posX == redQueenSquareK[k].posX - 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyRook1Rectangle1.posY == redQueenSquareK[k].posY &&
-                   greyRook1Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                   greyRook1Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyRook2Rectangle1.posY == redQueenSquareK[k].posY &&
-                   greyRook2Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                   greyRook2Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight1Rectangle1.posY == redQueenSquareK[k].posY &&
-                   greyKnight1Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                   greyKnight1Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight2Rectangle1.posY == redQueenSquareK[k].posY &&
-                   greyKnight2Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                   greyKnight2Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop1Square.posY == redQueenSquareK[k].posY &&
-                   greyBishop1Square.posX == redQueenSquareK[k].posX - 100) {
+                   greyBishop1Square.posX == redQueenSquareK[k].posX - 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop2Square.posY == redQueenSquareK[k].posY &&
-                   greyBishop2Square.posX == redQueenSquareK[k].posX - 100) {
+                   greyBishop2Square.posX == redQueenSquareK[k].posX - 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyQueenSquare.posY == redQueenSquareK[k].posY &&
-                   greyQueenSquare.posX == redQueenSquareK[k].posX - 100) {
+                   greyQueenSquare.posX == redQueenSquareK[k].posX - 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redQueenSquare.posY == redQueenSquareK[k].posY &&
-                   redQueenSquare.posX == redQueenSquareK[k].posX - 100) {
+                   redQueenSquare.posX == redQueenSquareK[k].posX - 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    redQueenSquareK[k].posX = redQueenSquareK[k].posX - 100;
+                    redQueenSquareK[k].posX = redQueenSquareK[k].posX - 70;
                 }
 
                 return flag;
@@ -2740,13 +2740,13 @@ boolean moveRedQueenSideK(UINT msg, int j, int i, int pos, int o, int k) {
         }
     } else if(pos > 0) {
         boolean f = FALSE;
-        if(pos > 100) {
-            f = moveRedQueenSideK(msg, j, i, pos - 100, o, k);
+        if(pos > 70) {
+            f = moveRedQueenSideK(msg, j, i, pos - 70, o, k);
         }
         if(!f) {
             if(pos == o) {
 
-                redQueenSquareK[k].posX = redQueenSquareK[k].posX + 100;
+                redQueenSquareK[k].posX = redQueenSquareK[k].posX + 70;
 
                 for(int s=0; s<8; s++) {
                     for(int p=0; p<8; p++) {
@@ -2888,127 +2888,127 @@ boolean moveRedQueenSideK(UINT msg, int j, int i, int pos, int o, int k) {
                 for(int i=0; i<8; i++) {
                     for(int f=0; f<8; f++) {
                         if(redQueenSquareK[f].posY == redQueenSquareK[k].posY &&
-                           redQueenSquareK[f].posX == redQueenSquareK[k].posX + 100) {
+                           redQueenSquareK[f].posX == redQueenSquareK[k].posX + 70) {
                             redQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
                     if(redQueenSquare.posY == redQueenSquareK[k].posY &&
-                       redQueenSquare.posX == redQueenSquareK[k].posX + 100) {
+                       redQueenSquare.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
                     if(redPawnsBase[i].posY == redQueenSquareK[k].posY &&
-                       redPawnsBase[i].posX == redQueenSquareK[k].posX + 100) {
+                       redPawnsBase[i].posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
                     if(greyPawnsBase[i].posY == redQueenSquareK[k].posY &&
-                       greyPawnsBase[i].posX == redQueenSquareK[k].posX + 100) {
+                       greyPawnsBase[i].posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
                 if(redBishop1Square.posY == redQueenSquareK[k].posY &&
-                   redBishop1Square.posX == redQueenSquareK[k].posX + 100) {
+                   redBishop1Square.posX == redQueenSquareK[k].posX + 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop2Square.posY == redQueenSquareK[k].posY &&
-                   redBishop2Square.posX == redQueenSquareK[k].posX + 100) {
+                   redBishop2Square.posX == redQueenSquareK[k].posX + 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook1Rectangle1.posY == redQueenSquareK[k].posY &&
-                   redRook1Rectangle1.posX == redQueenSquareK[k].posX + 100) {
+                   redRook1Rectangle1.posX == redQueenSquareK[k].posX + 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook2Rectangle1.posY == redQueenSquareK[k].posY &&
-                   redRook2Rectangle1.posX == redQueenSquareK[k].posX + 100) {
+                   redRook2Rectangle1.posX == redQueenSquareK[k].posX + 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight1Rectangle1.posY == redQueenSquareK[k].posY &&
-                   redKnight1Rectangle1.posX == redQueenSquareK[k].posX + 100) {
+                   redKnight1Rectangle1.posX == redQueenSquareK[k].posX + 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight2Rectangle1.posY == redQueenSquareK[k].posY &&
-                   redKnight2Rectangle1.posX == redQueenSquareK[k].posX + 100) {
+                   redKnight2Rectangle1.posX == redQueenSquareK[k].posX + 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop1Square.posY == redQueenSquareK[k].posY &&
-                   redBishop1Square.posX == redQueenSquareK[k].posX + 100) {
+                   redBishop1Square.posX == redQueenSquareK[k].posX + 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop2Square.posY == redQueenSquareK[k].posY &&
-                   redBishop2Square.posX == redQueenSquareK[k].posX + 100) {
+                   redBishop2Square.posX == redQueenSquareK[k].posX + 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 for(int g=0; g<8; g++) {
                     if(greyQueenSquareK[g].posY == redQueenSquareK[k].posY &&
-                       greyQueenSquareK[g].posX == redQueenSquareK[k].posX + 100) {
+                       greyQueenSquareK[g].posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
                 if(greyQueenSquare.posY == redQueenSquareK[k].posY &&
-                   greyQueenSquare.posX == redQueenSquareK[k].posX + 100) {
+                   greyQueenSquare.posX == redQueenSquareK[k].posX + 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop1Square.posY == redQueenSquareK[k].posY &&
-                   greyBishop1Square.posX == redQueenSquareK[k].posX + 100) {
+                   greyBishop1Square.posX == redQueenSquareK[k].posX + 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop2Square.posY == redQueenSquareK[k].posY &&
-                   greyBishop2Square.posX == redQueenSquareK[k].posX + 100) {
+                   greyBishop2Square.posX == redQueenSquareK[k].posX + 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyRook1Rectangle1.posY == redQueenSquareK[k].posY &&
-                   greyRook1Rectangle1.posX == redQueenSquareK[k].posX + 100) {
+                   greyRook1Rectangle1.posX == redQueenSquareK[k].posX + 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyRook2Rectangle1.posY == redQueenSquareK[k].posY &&
-                   greyRook2Rectangle1.posX == redQueenSquareK[k].posX + 100) {
+                   greyRook2Rectangle1.posX == redQueenSquareK[k].posX + 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight1Rectangle1.posY == redQueenSquareK[k].posY &&
-                   greyKnight1Rectangle1.posX == redQueenSquareK[k].posX + 100) {
+                   greyKnight1Rectangle1.posX == redQueenSquareK[k].posX + 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight2Rectangle1.posY == redQueenSquareK[k].posY &&
-                   greyKnight2Rectangle1.posX == redQueenSquareK[k].posX + 100) {
+                   greyKnight2Rectangle1.posX == redQueenSquareK[k].posX + 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop1Square.posY == redQueenSquareK[k].posY &&
-                   greyBishop1Square.posX == redQueenSquareK[k].posX + 100) {
+                   greyBishop1Square.posX == redQueenSquareK[k].posX + 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop2Square.posY == redQueenSquareK[k].posY &&
-                   greyBishop2Square.posX == redQueenSquareK[k].posX + 100) {
+                   greyBishop2Square.posX == redQueenSquareK[k].posX + 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyQueenSquare.posY == redQueenSquareK[k].posY &&
-                   greyQueenSquare.posX == redQueenSquareK[k].posX + 100) {
+                   greyQueenSquare.posX == redQueenSquareK[k].posX + 70) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    redQueenSquareK[k].posX = redQueenSquareK[k].posX + 100;
+                    redQueenSquareK[k].posX = redQueenSquareK[k].posX + 70;
                 }
 
                 return flag;
@@ -3073,13 +3073,13 @@ boolean moveGreyQueenSideK(UINT msg, int j, int i, int pos, int o, int k) {
     }
     if(pos < 0) {
         boolean f = FALSE;
-        if(pos < -100) {
-            f = moveGreyQueenSideK(msg, j, i, pos + 100, o, k);
+        if(pos < -70) {
+            f = moveGreyQueenSideK(msg, j, i, pos + 70, o, k);
         }
         if(!f) {
             if(pos == o) {
 
-                greyQueenSquareK[k].posX = greyQueenSquareK[k].posX - 100;
+                greyQueenSquareK[k].posX = greyQueenSquareK[k].posX - 70;
 
                 for(int s=0; s<8; s++) {
                     for(int p=0; p<8; p++) {
@@ -3221,125 +3221,125 @@ boolean moveGreyQueenSideK(UINT msg, int j, int i, int pos, int o, int k) {
                 for(int s=0; s<8; s++) {
                     for(int d=0; d<8; d++) {
                         if(greyQueenSquareK[d].posY == greyQueenSquareK[k].posY &&
-                           greyQueenSquareK[d].posX == greyQueenSquareK[k].posX - 100) {
+                           greyQueenSquareK[d].posX == greyQueenSquareK[k].posX - 70) {
                             greyQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
                         if(redQueenSquareK[d].posY == greyQueenSquareK[k].posY &&
-                           redQueenSquareK[d].posX == greyQueenSquareK[k].posX - 100) {
+                           redQueenSquareK[d].posX == greyQueenSquareK[k].posX - 70) {
                             greyQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
                     if(redPawnsBase[s].posY == greyQueenSquareK[k].posY &&
-                       redPawnsBase[s].posX == greyQueenSquareK[k].posX - 100) {
+                       redPawnsBase[s].posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
                     if(greyPawnsBase[s].posY == greyQueenSquareK[k].posY &&
-                       greyPawnsBase[s].posX == greyQueenSquareK[k].posX - 100) {
+                       greyPawnsBase[s].posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
                 if(redBishop1Square.posY == greyQueenSquareK[k].posY &&
-                   redBishop1Square.posX == greyQueenSquareK[k].posX - 100) {
+                   redBishop1Square.posX == greyQueenSquareK[k].posX - 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop2Square.posY == greyQueenSquareK[k].posY &&
-                   redBishop2Square.posX == greyQueenSquareK[k].posX - 100) {
+                   redBishop2Square.posX == greyQueenSquareK[k].posX - 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook1Rectangle1.posY == greyQueenSquareK[k].posY &&
-                   redRook1Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                   redRook1Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook2Rectangle1.posY == greyQueenSquareK[k].posY &&
-                   redRook2Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                   redRook2Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight1Rectangle1.posY == greyQueenSquareK[k].posY &&
-                   redKnight1Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                   redKnight1Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight2Rectangle1.posY == greyQueenSquareK[k].posY &&
-                   redKnight2Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                   redKnight2Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop1Square.posY == greyQueenSquareK[k].posY &&
-                   redBishop1Square.posX == greyQueenSquareK[k].posX - 100) {
+                   redBishop1Square.posX == greyQueenSquareK[k].posX - 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop2Square.posY == greyQueenSquareK[k].posY &&
-                   redBishop2Square.posX == greyQueenSquareK[k].posX - 100) {
+                   redBishop2Square.posX == greyQueenSquareK[k].posX - 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyQueenSquare.posY == greyQueenSquareK[k].posY &&
-                   greyQueenSquare.posX == greyQueenSquareK[k].posX - 100) {
+                   greyQueenSquare.posX == greyQueenSquareK[k].posX - 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop1Square.posY == greyQueenSquareK[k].posY &&
-                   greyBishop1Square.posX == greyQueenSquareK[k].posX - 100) {
+                   greyBishop1Square.posX == greyQueenSquareK[k].posX - 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop2Square.posY == greyQueenSquareK[k].posY &&
-                   greyBishop2Square.posX == greyQueenSquareK[k].posX - 100) {
+                   greyBishop2Square.posX == greyQueenSquareK[k].posX - 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyRook1Rectangle1.posY == greyQueenSquareK[k].posY &&
-                   greyRook1Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                   greyRook1Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyRook2Rectangle1.posY == greyQueenSquareK[k].posY &&
-                   greyRook2Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                   greyRook2Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight1Rectangle1.posY == greyQueenSquareK[k].posY &&
-                   greyKnight1Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                   greyKnight1Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight2Rectangle1.posY == greyQueenSquareK[k].posY &&
-                   greyKnight2Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                   greyKnight2Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop1Square.posY == greyQueenSquareK[k].posY &&
-                   greyBishop1Square.posX == greyQueenSquareK[k].posX - 100) {
+                   greyBishop1Square.posX == greyQueenSquareK[k].posX - 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop2Square.posY == greyQueenSquareK[k].posY &&
-                   greyBishop2Square.posX == greyQueenSquareK[k].posX - 100) {
+                   greyBishop2Square.posX == greyQueenSquareK[k].posX - 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyQueenSquare.posY == greyQueenSquareK[k].posY &&
-                   greyQueenSquare.posX == greyQueenSquareK[k].posX - 100) {
+                   greyQueenSquare.posX == greyQueenSquareK[k].posX - 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redQueenSquare.posY == greyQueenSquareK[k].posY &&
-                   redQueenSquare.posX == greyQueenSquareK[k].posX - 100) {
+                   redQueenSquare.posX == greyQueenSquareK[k].posX - 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    greyQueenSquareK[k].posX = greyQueenSquareK[k].posX - 100;
+                    greyQueenSquareK[k].posX = greyQueenSquareK[k].posX - 70;
                 }
 
                 return flag;
@@ -3353,13 +3353,13 @@ boolean moveGreyQueenSideK(UINT msg, int j, int i, int pos, int o, int k) {
         }
     } else if(pos > 0) {
         boolean f = FALSE;
-        if(pos > 100) {
-            f = moveGreyQueenSideK(msg, j, i, pos - 100, o, k);
+        if(pos > 70) {
+            f = moveGreyQueenSideK(msg, j, i, pos - 70, o, k);
         }
         if(!f) {
             if(pos == o) {
 
-                greyQueenSquareK[k].posX = greyQueenSquareK[k].posX + 100;
+                greyQueenSquareK[k].posX = greyQueenSquareK[k].posX + 70;
 
                 for(int s=0; s<8; s++) {
                     for(int p=0; p<8; p++) {
@@ -3501,127 +3501,127 @@ boolean moveGreyQueenSideK(UINT msg, int j, int i, int pos, int o, int k) {
                 for(int i=0; i<8; i++) {
                     for(int f=0; f<8; f++) {
                         if(redQueenSquareK[f].posY == greyQueenSquareK[k].posY &&
-                           redQueenSquareK[f].posX == greyQueenSquareK[k].posX + 100) {
+                           redQueenSquareK[f].posX == greyQueenSquareK[k].posX + 70) {
                             greyQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
                     if(redQueenSquare.posY == greyQueenSquareK[k].posY &&
-                       redQueenSquare.posX == greyQueenSquareK[k].posX + 100) {
+                       redQueenSquare.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
                     if(redPawnsBase[i].posY == greyQueenSquareK[k].posY &&
-                       redPawnsBase[i].posX == greyQueenSquareK[k].posX + 100) {
+                       redPawnsBase[i].posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
                     if(greyPawnsBase[i].posY == greyQueenSquareK[k].posY &&
-                       greyPawnsBase[i].posX == greyQueenSquareK[k].posX + 100) {
+                       greyPawnsBase[i].posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
                 if(redBishop1Square.posY == greyQueenSquareK[k].posY &&
-                   redBishop1Square.posX == greyQueenSquareK[k].posX + 100) {
+                   redBishop1Square.posX == greyQueenSquareK[k].posX + 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop2Square.posY == greyQueenSquareK[k].posY &&
-                   redBishop2Square.posX == greyQueenSquareK[k].posX + 100) {
+                   redBishop2Square.posX == greyQueenSquareK[k].posX + 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook1Rectangle1.posY == greyQueenSquareK[k].posY &&
-                   redRook1Rectangle1.posX == greyQueenSquareK[k].posX + 100) {
+                   redRook1Rectangle1.posX == greyQueenSquareK[k].posX + 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook2Rectangle1.posY == greyQueenSquareK[k].posY &&
-                   redRook2Rectangle1.posX == greyQueenSquareK[k].posX + 100) {
+                   redRook2Rectangle1.posX == greyQueenSquareK[k].posX + 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight1Rectangle1.posY == greyQueenSquareK[k].posY &&
-                   redKnight1Rectangle1.posX == greyQueenSquareK[k].posX + 100) {
+                   redKnight1Rectangle1.posX == greyQueenSquareK[k].posX + 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight2Rectangle1.posY == greyQueenSquareK[k].posY &&
-                   redKnight2Rectangle1.posX == greyQueenSquareK[k].posX + 100) {
+                   redKnight2Rectangle1.posX == greyQueenSquareK[k].posX + 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop1Square.posY == greyQueenSquareK[k].posY &&
-                   redBishop1Square.posX == greyQueenSquareK[k].posX + 100) {
+                   redBishop1Square.posX == greyQueenSquareK[k].posX + 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop2Square.posY == greyQueenSquareK[k].posY &&
-                   redBishop2Square.posX == greyQueenSquareK[k].posX + 100) {
+                   redBishop2Square.posX == greyQueenSquareK[k].posX + 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 for(int g=0; g<8; g++) {
                     if(greyQueenSquareK[g].posY == greyQueenSquareK[k].posY &&
-                       greyQueenSquareK[g].posX == greyQueenSquareK[k].posX + 100) {
+                       greyQueenSquareK[g].posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
                 if(greyQueenSquare.posY == greyQueenSquareK[k].posY &&
-                   greyQueenSquare.posX == greyQueenSquareK[k].posX + 100) {
+                   greyQueenSquare.posX == greyQueenSquareK[k].posX + 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop1Square.posY == greyQueenSquareK[k].posY &&
-                   greyBishop1Square.posX == greyQueenSquareK[k].posX + 100) {
+                   greyBishop1Square.posX == greyQueenSquareK[k].posX + 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop2Square.posY == greyQueenSquareK[k].posY &&
-                   greyBishop2Square.posX == greyQueenSquareK[k].posX + 100) {
+                   greyBishop2Square.posX == greyQueenSquareK[k].posX + 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyRook1Rectangle1.posY == greyQueenSquareK[k].posY &&
-                   greyRook1Rectangle1.posX == greyQueenSquareK[k].posX + 100) {
+                   greyRook1Rectangle1.posX == greyQueenSquareK[k].posX + 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyRook2Rectangle1.posY == greyQueenSquareK[k].posY &&
-                   greyRook2Rectangle1.posX == greyQueenSquareK[k].posX + 100) {
+                   greyRook2Rectangle1.posX == greyQueenSquareK[k].posX + 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight1Rectangle1.posY == greyQueenSquareK[k].posY &&
-                   greyKnight1Rectangle1.posX == greyQueenSquareK[k].posX + 100) {
+                   greyKnight1Rectangle1.posX == greyQueenSquareK[k].posX + 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight2Rectangle1.posY == greyQueenSquareK[k].posY &&
-                   greyKnight2Rectangle1.posX == greyQueenSquareK[k].posX + 100) {
+                   greyKnight2Rectangle1.posX == greyQueenSquareK[k].posX + 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop1Square.posY == greyQueenSquareK[k].posY &&
-                   greyBishop1Square.posX == greyQueenSquareK[k].posX + 100) {
+                   greyBishop1Square.posX == greyQueenSquareK[k].posX + 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop2Square.posY == greyQueenSquareK[k].posY &&
-                   greyBishop2Square.posX == greyQueenSquareK[k].posX + 100) {
+                   greyBishop2Square.posX == greyQueenSquareK[k].posX + 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyQueenSquare.posY == greyQueenSquareK[k].posY &&
-                   greyQueenSquare.posX == greyQueenSquareK[k].posX + 100) {
+                   greyQueenSquare.posX == greyQueenSquareK[k].posX + 70) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    greyQueenSquareK[k].posX = greyQueenSquareK[k].posX + 100;
+                    greyQueenSquareK[k].posX = greyQueenSquareK[k].posX + 70;
                 }
 
                 return flag;
@@ -3710,13 +3710,13 @@ boolean moveRedQueenK(UINT msg, int j, int i, int pos, int o, int k) {
     }
     if(pos < 0) {
         boolean f = FALSE;
-        if(pos < -100) {
-            f = moveRedQueenK(msg, j, i, pos + 100, o, k);
+        if(pos < -70) {
+            f = moveRedQueenK(msg, j, i, pos + 70, o, k);
         }
         if(!f) {
             if(pos == o) {
 
-                redQueenSquareK[k].posY = redQueenSquareK[k].posY - 100;
+                redQueenSquareK[k].posY = redQueenSquareK[k].posY - 70;
 
                 for(int s=0; s<8; s++) {
                     for(int p=0; p<8; p++) {
@@ -3858,113 +3858,113 @@ boolean moveRedQueenK(UINT msg, int j, int i, int pos, int o, int k) {
                 for(int s=0; s<8; s++) {
                     for(int p=0; p<8; p++) {
                         if(p != k &&
-                           redQueenSquareK[p].posY == redQueenSquareK[k].posY - 100 &&
+                           redQueenSquareK[p].posY == redQueenSquareK[k].posY - 70 &&
                            redQueenSquareK[p].posX == redQueenSquareK[k].posX) {
                             redQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redQueenSquare.posY == redQueenSquareK[k].posY - 100 &&
+                    if(redQueenSquare.posY == redQueenSquareK[k].posY - 70 &&
                        redQueenSquare.posX == redQueenSquareK[k].posX) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redPawnsBase[s].posY == redQueenSquareK[k].posY - 100 &&
+                    if(redPawnsBase[s].posY == redQueenSquareK[k].posY - 70 &&
                        redPawnsBase[s].posX == redQueenSquareK[k].posX) {
                         redQueenSquareK[k].failedpath = TRUE;                        
                         flag = TRUE;
                     }
-                    if(greyPawnsBase[s].posY == redQueenSquareK[k].posY - 100 &&
+                    if(greyPawnsBase[s].posY == redQueenSquareK[k].posY - 70 &&
                        greyPawnsBase[s].posX == redQueenSquareK[k].posX) {
                         redQueenSquareK[k].failedpath = TRUE;                        
                         flag = TRUE;
                     }
                 }
-                if(redBishop1Square.posY == redQueenSquareK[k].posY - 100 &&
+                if(redBishop1Square.posY == redQueenSquareK[k].posY - 70 &&
                    redBishop1Square.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop2Square.posY == redQueenSquareK[k].posY - 100 &&
+                if(redBishop2Square.posY == redQueenSquareK[k].posY - 70 &&
                    redBishop2Square.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook1Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
+                if(redRook1Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
                    redRook1Rectangle1.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook2Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
+                if(redRook2Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
                    redRook2Rectangle1.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight1Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
+                if(redKnight1Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
                    redKnight1Rectangle1.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight2Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
+                if(redKnight2Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
                    redKnight2Rectangle1.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop1Square.posY == redQueenSquareK[k].posY - 100 &&
+                if(redBishop1Square.posY == redQueenSquareK[k].posY - 70 &&
                    redBishop1Square.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop2Square.posY == redQueenSquareK[k].posY - 100 &&
+                if(redBishop2Square.posY == redQueenSquareK[k].posY - 70 &&
                    redBishop2Square.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 for(int w=0; w<8; w++) {
-                    if(greyQueenSquareK[w].posY == redQueenSquareK[k].posY - 100 &&
+                    if(greyQueenSquareK[w].posY == redQueenSquareK[k].posY - 70 &&
                        greyQueenSquareK[w].posX == redQueenSquareK[k].posX) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
-                if(greyQueenSquare.posY == redQueenSquareK[k].posY - 100 &&
+                if(greyQueenSquare.posY == redQueenSquareK[k].posY - 70 &&
                    greyQueenSquare.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyBishop1Square.posY == redQueenSquareK[k].posY - 100 &&
+                if(greyBishop1Square.posY == redQueenSquareK[k].posY - 70 &&
                    greyBishop1Square.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyBishop2Square.posY == redQueenSquareK[k].posY - 100 &&
+                if(greyBishop2Square.posY == redQueenSquareK[k].posY - 70 &&
                    greyBishop2Square.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyRook1Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
+                if(greyRook1Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
                    greyRook1Rectangle1.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyRook2Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
+                if(greyRook2Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
                    greyRook2Rectangle1.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight1Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
+                if(greyKnight1Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
                    greyKnight1Rectangle1.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight2Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
+                if(greyKnight2Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
                    greyKnight2Rectangle1.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    redQueenSquareK[k].posY = redQueenSquareK[k].posY - 100;
+                    redQueenSquareK[k].posY = redQueenSquareK[k].posY - 70;
                 }
 
                 return flag;
@@ -3978,13 +3978,13 @@ boolean moveRedQueenK(UINT msg, int j, int i, int pos, int o, int k) {
         }
     } else if(pos > 0) {
         boolean f = FALSE;
-        if(pos > 100) {
-            f = moveRedQueenK(msg, j, i, pos - 100, o, k);
+        if(pos > 70) {
+            f = moveRedQueenK(msg, j, i, pos - 70, o, k);
         }
         if(!f) {
             if(pos == o) {
 
-                redQueenSquareK[k].posY = redQueenSquareK[k].posY + 100;
+                redQueenSquareK[k].posY = redQueenSquareK[k].posY + 70;
 
                 for(int s=0; s<8; s++) {
                     for(int p=0; p<8; p++) {
@@ -4126,128 +4126,128 @@ boolean moveRedQueenK(UINT msg, int j, int i, int pos, int o, int k) {
                 for(int s=0; s<8; s++) {
                     for(int p=0; p<8; p++) {
                         if(p != k &&
-                           redQueenSquareK[p].posY == redQueenSquareK[k].posY + 100 &&
+                           redQueenSquareK[p].posY == redQueenSquareK[k].posY + 70 &&
                            redQueenSquareK[p].posX == redQueenSquareK[k].posX) {
                             redQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redQueenSquare.posY == redQueenSquareK[k].posY + 100 &&
+                    if(redQueenSquare.posY == redQueenSquareK[k].posY + 70 &&
                        redQueenSquare.posX == redQueenSquareK[k].posX) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redPawnsBase[s].posY == redQueenSquareK[k].posY + 100 &&
+                    if(redPawnsBase[s].posY == redQueenSquareK[k].posY + 70 &&
                        redPawnsBase[s].posX == redQueenSquareK[k].posX) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyPawnsBase[s].posY == redQueenSquareK[k].posY + 100 &&
+                    if(greyPawnsBase[s].posY == redQueenSquareK[k].posY + 70 &&
                        greyPawnsBase[s].posX == redQueenSquareK[k].posX) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
-                if(redBishop1Square.posY == redQueenSquareK[k].posY + 100 &&
+                if(redBishop1Square.posY == redQueenSquareK[k].posY + 70 &&
                    redBishop1Square.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop2Square.posY == redQueenSquareK[k].posY + 100 &&
+                if(redBishop2Square.posY == redQueenSquareK[k].posY + 70 &&
                    redBishop2Square.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook1Rectangle1.posY == redQueenSquareK[k].posY + 100 &&
+                if(redRook1Rectangle1.posY == redQueenSquareK[k].posY + 70 &&
                    redRook1Rectangle1.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook2Rectangle1.posY == redQueenSquareK[k].posY + 100 &&
+                if(redRook2Rectangle1.posY == redQueenSquareK[k].posY + 70 &&
                    redRook2Rectangle1.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight1Rectangle1.posY == redQueenSquareK[k].posY + 100 &&
+                if(redKnight1Rectangle1.posY == redQueenSquareK[k].posY + 70 &&
                    redKnight1Rectangle1.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight2Rectangle1.posY == redQueenSquareK[k].posY + 100 &&
+                if(redKnight2Rectangle1.posY == redQueenSquareK[k].posY + 70 &&
                    redKnight2Rectangle1.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop1Square.posY == redQueenSquareK[k].posY + 100 &&
+                if(redBishop1Square.posY == redQueenSquareK[k].posY + 70 &&
                    redBishop1Square.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop2Square.posY == redQueenSquareK[k].posY + 100 &&
+                if(redBishop2Square.posY == redQueenSquareK[k].posY + 70 &&
                    redBishop2Square.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 for(int e=0; e<8; e++) {
-                    if(greyQueenSquareK[e].posY == redQueenSquareK[k].posY + 100 &&
+                    if(greyQueenSquareK[e].posY == redQueenSquareK[k].posY + 70 &&
                        greyQueenSquareK[e].posX == redQueenSquareK[k].posX) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
-                if(greyQueenSquare.posY == redQueenSquareK[k].posY + 100 &&
+                if(greyQueenSquare.posY == redQueenSquareK[k].posY + 70 &&
                    greyQueenSquare.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyBishop1Square.posY == redQueenSquareK[k].posY + 100 &&
+                if(greyBishop1Square.posY == redQueenSquareK[k].posY + 70 &&
                    greyBishop1Square.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyBishop2Square.posY == redQueenSquareK[k].posY + 100 &&
+                if(greyBishop2Square.posY == redQueenSquareK[k].posY + 70 &&
                    greyBishop2Square.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyRook1Rectangle1.posY == redQueenSquareK[k].posY + 100 &&
+                if(greyRook1Rectangle1.posY == redQueenSquareK[k].posY + 70 &&
                    greyRook1Rectangle1.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyRook2Rectangle1.posY == redQueenSquareK[k].posY + 100 &&
+                if(greyRook2Rectangle1.posY == redQueenSquareK[k].posY + 70 &&
                    greyRook2Rectangle1.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight1Rectangle1.posY == redQueenSquareK[k].posY + 100 &&
+                if(greyKnight1Rectangle1.posY == redQueenSquareK[k].posY + 70 &&
                    greyKnight1Rectangle1.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight2Rectangle1.posY == redQueenSquareK[k].posY + 100 &&
+                if(greyKnight2Rectangle1.posY == redQueenSquareK[k].posY + 70 &&
                    greyKnight2Rectangle1.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyBishop1Square.posY == redQueenSquareK[k].posY + 100 &&
+                if(greyBishop1Square.posY == redQueenSquareK[k].posY + 70 &&
                    greyBishop1Square.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyBishop2Square.posY == redQueenSquareK[k].posY + 100 &&
+                if(greyBishop2Square.posY == redQueenSquareK[k].posY + 70 &&
                    greyBishop2Square.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyQueenSquare.posY == redQueenSquareK[k].posY + 100 &&
+                if(greyQueenSquare.posY == redQueenSquareK[k].posY + 70 &&
                    greyQueenSquare.posX == redQueenSquareK[k].posX) {
                     redQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    redQueenSquareK[k].posY = redQueenSquareK[k].posY + 100;
+                    redQueenSquareK[k].posY = redQueenSquareK[k].posY + 70;
                 }
 
                 return flag;
@@ -4336,13 +4336,13 @@ boolean moveGreyQueenK(UINT msg, int j, int i, int pos, int o, int k) {
     }
     if(pos < 0) {
         boolean f = FALSE;
-        if(pos < -100) {
-            f = moveGreyQueenK(msg, j, i, pos + 100, o, k);
+        if(pos < -70) {
+            f = moveGreyQueenK(msg, j, i, pos + 70, o, k);
         }
         if(!f) {
             if(pos == o) {
 
-                greyQueenSquareK[k].posY = greyQueenSquareK[k].posY - 100;
+                greyQueenSquareK[k].posY = greyQueenSquareK[k].posY - 70;
 
                 for(int s=0; s<8; s++) {
                     for(int p=0; p<8; p++) {
@@ -4484,118 +4484,118 @@ boolean moveGreyQueenK(UINT msg, int j, int i, int pos, int o, int k) {
                 for(int s=0; s<8; s++) {
                     for(int p=0; p<8; p++) {
                         if(p != k &&
-                           redQueenSquareK[p].posY == greyQueenSquareK[k].posY - 100 &&
+                           redQueenSquareK[p].posY == greyQueenSquareK[k].posY - 70 &&
                            redQueenSquareK[p].posX == greyQueenSquareK[k].posX) {
                             greyQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(greyQueenSquare.posY == greyQueenSquareK[k].posY - 100 &&
+                    if(greyQueenSquare.posY == greyQueenSquareK[k].posY - 70 &&
                        greyQueenSquare.posX == greyQueenSquareK[k].posX) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redQueenSquare.posY == greyQueenSquareK[k].posY - 100 &&
+                    if(redQueenSquare.posY == greyQueenSquareK[k].posY - 70 &&
                        redQueenSquare.posX == greyQueenSquareK[k].posX) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redPawnsBase[s].posY == greyQueenSquareK[k].posY - 100 &&
+                    if(redPawnsBase[s].posY == greyQueenSquareK[k].posY - 70 &&
                        redPawnsBase[s].posX == greyQueenSquareK[k].posX) {
                         greyQueenSquareK[k].failedpath = TRUE;                        
                         flag = TRUE;
                     }
-                    if(greyPawnsBase[s].posY == greyQueenSquareK[k].posY - 100 &&
+                    if(greyPawnsBase[s].posY == greyQueenSquareK[k].posY - 70 &&
                        greyPawnsBase[s].posX == greyQueenSquareK[k].posX) {
                         greyQueenSquareK[k].failedpath = TRUE;                        
                         flag = TRUE;
                     }
                 }
-                if(redBishop1Square.posY == greyQueenSquareK[k].posY - 100 &&
+                if(redBishop1Square.posY == greyQueenSquareK[k].posY - 70 &&
                    redBishop1Square.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop2Square.posY == greyQueenSquareK[k].posY - 100 &&
+                if(redBishop2Square.posY == greyQueenSquareK[k].posY - 70 &&
                    redBishop2Square.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook1Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
+                if(redRook1Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
                    redRook1Rectangle1.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook2Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
+                if(redRook2Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
                    redRook2Rectangle1.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight1Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
+                if(redKnight1Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
                    redKnight1Rectangle1.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight2Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
+                if(redKnight2Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
                    redKnight2Rectangle1.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop1Square.posY == greyQueenSquareK[k].posY - 100 &&
+                if(redBishop1Square.posY == greyQueenSquareK[k].posY - 70 &&
                    redBishop1Square.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop2Square.posY == greyQueenSquareK[k].posY - 100 &&
+                if(redBishop2Square.posY == greyQueenSquareK[k].posY - 70 &&
                    redBishop2Square.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 for(int w=0; w<8; w++) {
-                    if(greyQueenSquareK[w].posY == greyQueenSquareK[k].posY - 100 &&
+                    if(greyQueenSquareK[w].posY == greyQueenSquareK[k].posY - 70 &&
                        greyQueenSquareK[w].posX == greyQueenSquareK[k].posX) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
-                if(greyQueenSquare.posY == greyQueenSquareK[k].posY - 100 &&
+                if(greyQueenSquare.posY == greyQueenSquareK[k].posY - 70 &&
                    greyQueenSquare.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyBishop1Square.posY == greyQueenSquareK[k].posY - 100 &&
+                if(greyBishop1Square.posY == greyQueenSquareK[k].posY - 70 &&
                    greyBishop1Square.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyBishop2Square.posY == greyQueenSquareK[k].posY - 100 &&
+                if(greyBishop2Square.posY == greyQueenSquareK[k].posY - 70 &&
                    greyBishop2Square.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyRook1Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
+                if(greyRook1Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
                    greyRook1Rectangle1.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyRook2Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
+                if(greyRook2Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
                    greyRook2Rectangle1.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight1Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
+                if(greyKnight1Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
                    greyKnight1Rectangle1.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight2Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
+                if(greyKnight2Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
                    greyKnight2Rectangle1.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    greyQueenSquareK[k].posY = greyQueenSquareK[k].posY - 100;
+                    greyQueenSquareK[k].posY = greyQueenSquareK[k].posY - 70;
                 }
 
                 return flag;
@@ -4609,13 +4609,13 @@ boolean moveGreyQueenK(UINT msg, int j, int i, int pos, int o, int k) {
         }
     } else if(pos > 0) {
         boolean f = FALSE;
-        if(pos > 100) {
-            f = moveGreyQueenK(msg, j, i, pos - 100, o, k);
+        if(pos > 70) {
+            f = moveGreyQueenK(msg, j, i, pos - 70, o, k);
         }
         if(!f) {
             if(pos == o) {
 
-                greyQueenSquareK[k].posY = greyQueenSquareK[k].posY + 100;
+                greyQueenSquareK[k].posY = greyQueenSquareK[k].posY + 70;
 
                 for(int s=0; s<8; s++) {
                     for(int p=0; p<8; p++) {
@@ -4750,133 +4750,133 @@ boolean moveGreyQueenK(UINT msg, int j, int i, int pos, int o, int k) {
                 for(int s=0; s<8; s++) {
                     for(int p=0; p<8; p++) {
                         if(p != k &&
-                           greyQueenSquareK[p].posY == greyQueenSquareK[k].posY + 100 &&
+                           greyQueenSquareK[p].posY == greyQueenSquareK[k].posY + 70 &&
                            greyQueenSquareK[p].posX == greyQueenSquareK[k].posX) {
                             greyQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(greyQueenSquare.posY == greyQueenSquareK[k].posY + 100 &&
+                    if(greyQueenSquare.posY == greyQueenSquareK[k].posY + 70 &&
                        greyQueenSquare.posX == greyQueenSquareK[k].posX) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redQueenSquare.posY == greyQueenSquareK[k].posY + 100 &&
+                    if(redQueenSquare.posY == greyQueenSquareK[k].posY + 70 &&
                        redQueenSquare.posX == greyQueenSquareK[k].posX) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redPawnsBase[s].posY == greyQueenSquareK[k].posY + 100 &&
+                    if(redPawnsBase[s].posY == greyQueenSquareK[k].posY + 70 &&
                        redPawnsBase[s].posX == greyQueenSquareK[k].posX) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyPawnsBase[s].posY == greyQueenSquareK[k].posY + 100 &&
+                    if(greyPawnsBase[s].posY == greyQueenSquareK[k].posY + 70 &&
                        greyPawnsBase[s].posX == greyQueenSquareK[k].posX) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
-                if(redBishop1Square.posY == greyQueenSquareK[k].posY + 100 &&
+                if(redBishop1Square.posY == greyQueenSquareK[k].posY + 70 &&
                    redBishop1Square.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop2Square.posY == greyQueenSquareK[k].posY + 100 &&
+                if(redBishop2Square.posY == greyQueenSquareK[k].posY + 70 &&
                    redBishop2Square.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook1Rectangle1.posY == greyQueenSquareK[k].posY + 100 &&
+                if(redRook1Rectangle1.posY == greyQueenSquareK[k].posY + 70 &&
                    redRook1Rectangle1.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook2Rectangle1.posY == greyQueenSquareK[k].posY + 100 &&
+                if(redRook2Rectangle1.posY == greyQueenSquareK[k].posY + 70 &&
                    redRook2Rectangle1.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight1Rectangle1.posY == greyQueenSquareK[k].posY + 100 &&
+                if(redKnight1Rectangle1.posY == greyQueenSquareK[k].posY + 70 &&
                    redKnight1Rectangle1.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight2Rectangle1.posY == greyQueenSquareK[k].posY + 100 &&
+                if(redKnight2Rectangle1.posY == greyQueenSquareK[k].posY + 70 &&
                    redKnight2Rectangle1.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop1Square.posY == greyQueenSquareK[k].posY + 100 &&
+                if(redBishop1Square.posY == greyQueenSquareK[k].posY + 70 &&
                    redBishop1Square.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop2Square.posY == greyQueenSquareK[k].posY + 100 &&
+                if(redBishop2Square.posY == greyQueenSquareK[k].posY + 70 &&
                    redBishop2Square.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
                 for(int e=0; e<8; e++) {
-                    if(greyQueenSquareK[e].posY == greyQueenSquareK[k].posY + 100 &&
+                    if(greyQueenSquareK[e].posY == greyQueenSquareK[k].posY + 70 &&
                        greyQueenSquareK[e].posX == greyQueenSquareK[k].posX) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
-                if(greyQueenSquare.posY == greyQueenSquareK[k].posY + 100 &&
+                if(greyQueenSquare.posY == greyQueenSquareK[k].posY + 70 &&
                    greyQueenSquare.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyBishop1Square.posY == greyQueenSquareK[k].posY + 100 &&
+                if(greyBishop1Square.posY == greyQueenSquareK[k].posY + 70 &&
                    greyBishop1Square.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyBishop2Square.posY == greyQueenSquareK[k].posY + 100 &&
+                if(greyBishop2Square.posY == greyQueenSquareK[k].posY + 70 &&
                    greyBishop2Square.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyRook1Rectangle1.posY == greyQueenSquareK[k].posY + 100 &&
+                if(greyRook1Rectangle1.posY == greyQueenSquareK[k].posY + 70 &&
                    greyRook1Rectangle1.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyRook2Rectangle1.posY == greyQueenSquareK[k].posY + 100 &&
+                if(greyRook2Rectangle1.posY == greyQueenSquareK[k].posY + 70 &&
                    greyRook2Rectangle1.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight1Rectangle1.posY == greyQueenSquareK[k].posY + 100 &&
+                if(greyKnight1Rectangle1.posY == greyQueenSquareK[k].posY + 70 &&
                    greyKnight1Rectangle1.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight2Rectangle1.posY == greyQueenSquareK[k].posY + 100 &&
+                if(greyKnight2Rectangle1.posY == greyQueenSquareK[k].posY + 70 &&
                    greyKnight2Rectangle1.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyBishop1Square.posY == greyQueenSquareK[k].posY + 100 &&
+                if(greyBishop1Square.posY == greyQueenSquareK[k].posY + 70 &&
                    greyBishop1Square.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyBishop2Square.posY == greyQueenSquareK[k].posY + 100 &&
+                if(greyBishop2Square.posY == greyQueenSquareK[k].posY + 70 &&
                    greyBishop2Square.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyQueenSquare.posY == greyQueenSquareK[k].posY + 100 &&
+                if(greyQueenSquare.posY == greyQueenSquareK[k].posY + 70 &&
                    greyQueenSquare.posX == greyQueenSquareK[k].posX) {
                     greyQueenSquareK[k].failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    greyQueenSquareK[k].posY = greyQueenSquareK[k].posY + 100;
+                    greyQueenSquareK[k].posY = greyQueenSquareK[k].posY + 70;
                 }
 
                 return flag;
@@ -4951,15 +4951,15 @@ boolean moveGreyQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int p
     if(pos1 < 0) {
         if(ps1 < 0) {
             boolean f = FALSE;
-            if(pos1 < -100 && ps1 < -100) {
-                f = moveGreyQueenDiagonally(msg, j, i, pos1 + 100, ps1 + 100, pos2, ps2);
+            if(pos1 < -70 && ps1 < -70) {
+                f = moveGreyQueenDiagonally(msg, j, i, pos1 + 70, ps1 + 70, pos2, ps2);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    greyQueenSquare.posY = greyQueenSquare.posY - 100;
-                    greyQueenSquare.posX = greyQueenSquare.posX - 100;
+                    greyQueenSquare.posY = greyQueenSquare.posY - 70;
+                    greyQueenSquare.posX = greyQueenSquare.posX - 70;
 
                     for(int s=0; s<8; s++) {
                         if(greyPawnsBase[s].posY == greyQueenSquare.posY &&
@@ -5080,116 +5080,116 @@ boolean moveGreyQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int p
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == greyQueenSquare.posY - 100 &&
-                           redPawnsBase[s].posX == greyQueenSquare.posX - 100) {
+                        if(redPawnsBase[s].posY == greyQueenSquare.posY - 70 &&
+                           redPawnsBase[s].posX == greyQueenSquare.posX - 70) {
                             greyQueenSquare.failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == greyQueenSquare.posY - 100 &&
-                           greyPawnsBase[s].posX == greyQueenSquare.posX - 100) {
+                        if(greyPawnsBase[s].posY == greyQueenSquare.posY - 70 &&
+                           greyPawnsBase[s].posX == greyQueenSquare.posX - 70) {
                             greyQueenSquare.failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redQueenSquare.posY == greyQueenSquare.posY - 100 &&
-                       redQueenSquare.posX == greyQueenSquare.posX - 100) {
+                    if(redQueenSquare.posY == greyQueenSquare.posY - 70 &&
+                       redQueenSquare.posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == greyQueenSquare.posY - 100 &&
-                       redBishop1Square.posX == greyQueenSquare.posX - 100) {
+                    if(redBishop1Square.posY == greyQueenSquare.posY - 70 &&
+                       redBishop1Square.posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyQueenSquare.posY - 100 &&
-                       redBishop2Square.posX == greyQueenSquare.posX - 100) {
+                    if(redBishop2Square.posY == greyQueenSquare.posY - 70 &&
+                       redBishop2Square.posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == greyQueenSquare.posY - 100 &&
-                       redRook1Rectangle1.posX == greyQueenSquare.posX - 100) {
+                    if(redRook1Rectangle1.posY == greyQueenSquare.posY - 70 &&
+                       redRook1Rectangle1.posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == greyQueenSquare.posY - 100 &&
-                       redRook2Rectangle1.posX == greyQueenSquare.posX - 100) {
+                    if(redRook2Rectangle1.posY == greyQueenSquare.posY - 70 &&
+                       redRook2Rectangle1.posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == greyQueenSquare.posY - 100 &&
-                       redKnight1Rectangle1.posX == greyQueenSquare.posX - 100) {
+                    if(redKnight1Rectangle1.posY == greyQueenSquare.posY - 70 &&
+                       redKnight1Rectangle1.posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == greyQueenSquare.posY - 100 &&
-                       redKnight2Rectangle1.posX == greyQueenSquare.posX - 100) {
+                    if(redKnight2Rectangle1.posY == greyQueenSquare.posY - 70 &&
+                       redKnight2Rectangle1.posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == greyQueenSquare.posY - 100 &&
-                       redBishop1Square.posX == greyQueenSquare.posX - 100) {
+                    if(redBishop1Square.posY == greyQueenSquare.posY - 70 &&
+                       redBishop1Square.posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyQueenSquare.posY - 100 &&
-                       redBishop2Square.posX == greyQueenSquare.posX - 100) {
+                    if(redBishop2Square.posY == greyQueenSquare.posY - 70 &&
+                       redBishop2Square.posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == redQueenSquare.posY - 100 &&
-                       greyQueenSquare.posX == redQueenSquare.posX - 100) {
+                    if(greyQueenSquare.posY == redQueenSquare.posY - 70 &&
+                       greyQueenSquare.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == redQueenSquare.posY - 100 &&
-                       greyBishop1Square.posX == redQueenSquare.posX - 100) {
+                    if(greyBishop1Square.posY == redQueenSquare.posY - 70 &&
+                       greyBishop1Square.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == redQueenSquare.posY - 100 &&
-                       greyBishop2Square.posX == redQueenSquare.posX - 100) {
+                    if(greyBishop2Square.posY == redQueenSquare.posY - 70 &&
+                       greyBishop2Square.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == greyQueenSquare.posY - 100 &&
-                       greyRook1Rectangle1.posX == greyQueenSquare.posX - 100) {
+                    if(greyRook1Rectangle1.posY == greyQueenSquare.posY - 70 &&
+                       greyRook1Rectangle1.posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == greyQueenSquare.posY - 100 &&
-                       greyRook2Rectangle1.posX == greyQueenSquare.posX - 100) {
+                    if(greyRook2Rectangle1.posY == greyQueenSquare.posY - 70 &&
+                       greyRook2Rectangle1.posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == greyQueenSquare.posY - 100 &&
-                       greyKnight1Rectangle1.posX == greyQueenSquare.posX - 100) {
+                    if(greyKnight1Rectangle1.posY == greyQueenSquare.posY - 70 &&
+                       greyKnight1Rectangle1.posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == greyQueenSquare.posY - 100 &&
-                       greyKnight2Rectangle1.posX == greyQueenSquare.posX - 100) {
+                    if(greyKnight2Rectangle1.posY == greyQueenSquare.posY - 70 &&
+                       greyKnight2Rectangle1.posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == greyQueenSquare.posY - 100 &&
-                       greyBishop1Square.posX == greyQueenSquare.posX - 100) {
+                    if(greyBishop1Square.posY == greyQueenSquare.posY - 70 &&
+                       greyBishop1Square.posX == greyQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == greyQueenSquare.posY - 100 &&
-                       greyBishop2Square.posX == greyQueenSquare.posX - 100) {
+                    if(greyBishop2Square.posY == greyQueenSquare.posY - 70 &&
+                       greyBishop2Square.posX == greyQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == greyQueenSquare.posY - 100 &&
-                       greyQueenSquare.posX == greyQueenSquare.posX - 100) {
+                    if(greyQueenSquare.posY == greyQueenSquare.posY - 70 &&
+                       greyQueenSquare.posX == greyQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        greyQueenSquare.posY = greyQueenSquare.posY - 100;
-                        greyQueenSquare.posX = greyQueenSquare.posX - 100;
+                        greyQueenSquare.posY = greyQueenSquare.posY - 70;
+                        greyQueenSquare.posX = greyQueenSquare.posX - 70;
                     }
 
                     return flag;
@@ -5204,15 +5204,15 @@ boolean moveGreyQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int p
         }
         if(ps1 > 0) {
             boolean f = FALSE;
-            if(pos1 < -100 && ps1 > 100) {
-                f = moveGreyQueenDiagonally(msg, j, i, pos1 + 100, ps1 - 100, pos2, ps2);
+            if(pos1 < -70 && ps1 > 70) {
+                f = moveGreyQueenDiagonally(msg, j, i, pos1 + 70, ps1 - 70, pos2, ps2);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    greyQueenSquare.posY = greyQueenSquare.posY - 100;
-                    greyQueenSquare.posX = greyQueenSquare.posX + 100;
+                    greyQueenSquare.posY = greyQueenSquare.posY - 70;
+                    greyQueenSquare.posX = greyQueenSquare.posX + 70;
 
                     for(int s=0; s<8; s++) {
                         if(greyPawnsBase[s].posY == greyQueenSquare.posY &&
@@ -5298,101 +5298,101 @@ boolean moveGreyQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int p
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == greyQueenSquare.posY - 100 &&
-                           redPawnsBase[s].posX == greyQueenSquare.posX + 100) {
+                        if(redPawnsBase[s].posY == greyQueenSquare.posY - 70 &&
+                           redPawnsBase[s].posX == greyQueenSquare.posX + 70) {
                             greyQueenSquare.failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == greyQueenSquare.posY - 100 &&
-                           greyPawnsBase[s].posX == greyQueenSquare.posX + 100) {
+                        if(greyPawnsBase[s].posY == greyQueenSquare.posY - 70 &&
+                           greyPawnsBase[s].posX == greyQueenSquare.posX + 70) {
                             greyQueenSquare.failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redQueenSquare.posY == greyQueenSquare.posY - 100 &&
-                       redQueenSquare.posX == greyQueenSquare.posX + 100) {
+                    if(redQueenSquare.posY == greyQueenSquare.posY - 70 &&
+                       redQueenSquare.posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == greyQueenSquare.posY - 100 &&
-                       redBishop1Square.posX == greyQueenSquare.posX + 100) {
+                    if(redBishop1Square.posY == greyQueenSquare.posY - 70 &&
+                       redBishop1Square.posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyQueenSquare.posY - 100 &&
-                       redBishop2Square.posX == greyQueenSquare.posX + 100) {
+                    if(redBishop2Square.posY == greyQueenSquare.posY - 70 &&
+                       redBishop2Square.posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == greyQueenSquare.posY - 100 &&
-                       redRook1Rectangle1.posX == greyQueenSquare.posX + 100) {
+                    if(redRook1Rectangle1.posY == greyQueenSquare.posY - 70 &&
+                       redRook1Rectangle1.posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == greyQueenSquare.posY - 100 &&
-                       redRook2Rectangle1.posX == greyQueenSquare.posX + 100) {
+                    if(redRook2Rectangle1.posY == greyQueenSquare.posY - 70 &&
+                       redRook2Rectangle1.posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == greyQueenSquare.posY - 100 &&
-                       redKnight1Rectangle1.posX == greyQueenSquare.posX + 100) {
+                    if(redKnight1Rectangle1.posY == greyQueenSquare.posY - 70 &&
+                       redKnight1Rectangle1.posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == greyQueenSquare.posY - 100 &&
-                       redKnight2Rectangle1.posX == greyQueenSquare.posX + 100) {
+                    if(redKnight2Rectangle1.posY == greyQueenSquare.posY - 70 &&
+                       redKnight2Rectangle1.posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == greyQueenSquare.posY - 100 &&
-                       redBishop1Square.posX == greyQueenSquare.posX + 100) {
+                    if(redBishop1Square.posY == greyQueenSquare.posY - 70 &&
+                       redBishop1Square.posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyQueenSquare.posY - 100 &&
-                       redBishop2Square.posX == greyQueenSquare.posX + 100) {
+                    if(redBishop2Square.posY == greyQueenSquare.posY - 70 &&
+                       redBishop2Square.posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == greyQueenSquare.posY - 100 &&
-                       greyRook1Rectangle1.posX == greyQueenSquare.posX + 100) {
+                    if(greyRook1Rectangle1.posY == greyQueenSquare.posY - 70 &&
+                       greyRook1Rectangle1.posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == greyQueenSquare.posY - 100 &&
-                       greyRook2Rectangle1.posX == greyQueenSquare.posX + 100) {
+                    if(greyRook2Rectangle1.posY == greyQueenSquare.posY - 70 &&
+                       greyRook2Rectangle1.posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == greyQueenSquare.posY - 100 &&
-                       greyKnight1Rectangle1.posX == greyQueenSquare.posX + 100) {
+                    if(greyKnight1Rectangle1.posY == greyQueenSquare.posY - 70 &&
+                       greyKnight1Rectangle1.posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == greyQueenSquare.posY - 100 &&
-                       greyKnight2Rectangle1.posX == greyQueenSquare.posX + 100) {
+                    if(greyKnight2Rectangle1.posY == greyQueenSquare.posY - 70 &&
+                       greyKnight2Rectangle1.posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == greyQueenSquare.posY - 100 &&
-                       greyBishop1Square.posX == greyQueenSquare.posX + 100) {
+                    if(greyBishop1Square.posY == greyQueenSquare.posY - 70 &&
+                       greyBishop1Square.posX == greyQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == greyQueenSquare.posY - 100 &&
-                       greyBishop2Square.posX == greyQueenSquare.posX + 100) {
+                    if(greyBishop2Square.posY == greyQueenSquare.posY - 70 &&
+                       greyBishop2Square.posX == greyQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == greyQueenSquare.posY - 100 &&
-                       greyQueenSquare.posX == greyQueenSquare.posX + 100) {
+                    if(greyQueenSquare.posY == greyQueenSquare.posY - 70 &&
+                       greyQueenSquare.posX == greyQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        greyQueenSquare.posY = greyQueenSquare.posY - 100;
-                        greyQueenSquare.posX = greyQueenSquare.posX + 100;
+                        greyQueenSquare.posY = greyQueenSquare.posY - 70;
+                        greyQueenSquare.posX = greyQueenSquare.posX + 70;
                     }
 
                     return flag;
@@ -5408,15 +5408,15 @@ boolean moveGreyQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int p
     } else if(pos1 > 0) {
         if(ps1 < 0) {
             boolean f = FALSE;
-            if(pos1 > 100 && ps1 < -100) {
-                f = moveGreyQueenDiagonally(msg, j, i, pos1 - 100, ps1 + 100, pos2, ps2);
+            if(pos1 > 70 && ps1 < -70) {
+                f = moveGreyQueenDiagonally(msg, j, i, pos1 - 70, ps1 + 70, pos2, ps2);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    greyQueenSquare.posY = greyQueenSquare.posY + 100;
-                    greyQueenSquare.posX = greyQueenSquare.posX - 100;
+                    greyQueenSquare.posY = greyQueenSquare.posY + 70;
+                    greyQueenSquare.posX = greyQueenSquare.posX - 70;
 
                     for(int s=0; s<8; s++) {
                         if(greyPawnsBase[s].posY == greyQueenSquare.posY &&
@@ -5502,101 +5502,101 @@ boolean moveGreyQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int p
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == greyQueenSquare.posY + 100 &&
-                           redPawnsBase[s].posX == greyQueenSquare.posX - 100) {
+                        if(redPawnsBase[s].posY == greyQueenSquare.posY + 70 &&
+                           redPawnsBase[s].posX == greyQueenSquare.posX - 70) {
                             greyQueenSquare.failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == greyQueenSquare.posY + 100 &&
-                           greyPawnsBase[s].posX == greyQueenSquare.posX - 100) {
+                        if(greyPawnsBase[s].posY == greyQueenSquare.posY + 70 &&
+                           greyPawnsBase[s].posX == greyQueenSquare.posX - 70) {
                             greyQueenSquare.failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redQueenSquare.posY == greyQueenSquare.posY + 100 &&
-                       redQueenSquare.posX == greyQueenSquare.posX - 100) {
+                    if(redQueenSquare.posY == greyQueenSquare.posY + 70 &&
+                       redQueenSquare.posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == greyQueenSquare.posY + 100 &&
-                       redBishop1Square.posX == greyQueenSquare.posX - 100) {
+                    if(redBishop1Square.posY == greyQueenSquare.posY + 70 &&
+                       redBishop1Square.posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyQueenSquare.posY + 100 &&
-                       redBishop2Square.posX == greyQueenSquare.posX - 100) {
+                    if(redBishop2Square.posY == greyQueenSquare.posY + 70 &&
+                       redBishop2Square.posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == greyQueenSquare.posY + 100 &&
-                       redRook1Rectangle1.posX == greyQueenSquare.posX - 100) {
+                    if(redRook1Rectangle1.posY == greyQueenSquare.posY + 70 &&
+                       redRook1Rectangle1.posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == greyQueenSquare.posY + 100 &&
-                       redRook2Rectangle1.posX == greyQueenSquare.posX - 100) {
+                    if(redRook2Rectangle1.posY == greyQueenSquare.posY + 70 &&
+                       redRook2Rectangle1.posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == greyQueenSquare.posY + 100 &&
-                       redKnight1Rectangle1.posX == greyQueenSquare.posX - 100) {
+                    if(redKnight1Rectangle1.posY == greyQueenSquare.posY + 70 &&
+                       redKnight1Rectangle1.posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == greyQueenSquare.posY + 100 &&
-                       redKnight2Rectangle1.posX == greyQueenSquare.posX - 100) {
+                    if(redKnight2Rectangle1.posY == greyQueenSquare.posY + 70 &&
+                       redKnight2Rectangle1.posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == greyQueenSquare.posY + 100 &&
-                       redBishop1Square.posX == greyQueenSquare.posX - 100) {
+                    if(redBishop1Square.posY == greyQueenSquare.posY + 70 &&
+                       redBishop1Square.posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyQueenSquare.posY + 100 &&
-                       redBishop2Square.posX == greyQueenSquare.posX - 100) {
+                    if(redBishop2Square.posY == greyQueenSquare.posY + 70 &&
+                       redBishop2Square.posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == greyQueenSquare.posY + 100 &&
-                       greyRook1Rectangle1.posX == greyQueenSquare.posX - 100) {
+                    if(greyRook1Rectangle1.posY == greyQueenSquare.posY + 70 &&
+                       greyRook1Rectangle1.posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == greyQueenSquare.posY + 100 &&
-                       greyRook2Rectangle1.posX == greyQueenSquare.posX - 100) {
+                    if(greyRook2Rectangle1.posY == greyQueenSquare.posY + 70 &&
+                       greyRook2Rectangle1.posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == greyQueenSquare.posY + 100 &&
-                       greyKnight1Rectangle1.posX == greyQueenSquare.posX - 100) {
+                    if(greyKnight1Rectangle1.posY == greyQueenSquare.posY + 70 &&
+                       greyKnight1Rectangle1.posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == greyQueenSquare.posY + 100 &&
-                       greyKnight2Rectangle1.posX == greyQueenSquare.posX - 100) {
+                    if(greyKnight2Rectangle1.posY == greyQueenSquare.posY + 70 &&
+                       greyKnight2Rectangle1.posX == greyQueenSquare.posX - 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == greyQueenSquare.posY + 100 &&
-                       greyBishop1Square.posX == greyQueenSquare.posX - 100) {
+                    if(greyBishop1Square.posY == greyQueenSquare.posY + 70 &&
+                       greyBishop1Square.posX == greyQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == greyQueenSquare.posY + 100 &&
-                       greyBishop2Square.posX == greyQueenSquare.posX - 100) {
+                    if(greyBishop2Square.posY == greyQueenSquare.posY + 70 &&
+                       greyBishop2Square.posX == greyQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == greyQueenSquare.posY + 100 &&
-                       greyQueenSquare.posX == greyQueenSquare.posX - 100) {
+                    if(greyQueenSquare.posY == greyQueenSquare.posY + 70 &&
+                       greyQueenSquare.posX == greyQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        greyQueenSquare.posY = greyQueenSquare.posY + 100;
-                        greyQueenSquare.posX = greyQueenSquare.posX - 100;
+                        greyQueenSquare.posY = greyQueenSquare.posY + 70;
+                        greyQueenSquare.posX = greyQueenSquare.posX - 70;
                     }
 
                     return flag;
@@ -5611,15 +5611,15 @@ boolean moveGreyQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int p
         }
         if(ps1 > 0) {
             boolean f = FALSE;
-            if(pos1 > 100 && ps1 > 100) {
-                f = moveGreyQueenDiagonally(msg, j, i, pos1 - 100, ps1 - 100, pos2, ps2);
+            if(pos1 > 70 && ps1 > 70) {
+                f = moveGreyQueenDiagonally(msg, j, i, pos1 - 70, ps1 - 70, pos2, ps2);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    greyQueenSquare.posY = greyQueenSquare.posY + 100;
-                    greyQueenSquare.posX = greyQueenSquare.posX + 100;
+                    greyQueenSquare.posY = greyQueenSquare.posY + 70;
+                    greyQueenSquare.posX = greyQueenSquare.posX + 70;
 
                     for(int s=0; s<8; s++) {
                         if(greyPawnsBase[s].posY == greyQueenSquare.posY &&
@@ -5705,101 +5705,101 @@ boolean moveGreyQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int p
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == greyQueenSquare.posY + 100 &&
-                           redPawnsBase[s].posX == greyQueenSquare.posX + 100) {
+                        if(redPawnsBase[s].posY == greyQueenSquare.posY + 70 &&
+                           redPawnsBase[s].posX == greyQueenSquare.posX + 70) {
                             greyQueenSquare.failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == greyQueenSquare.posY + 100 &&
-                           greyPawnsBase[s].posX == greyQueenSquare.posX + 100) {
+                        if(greyPawnsBase[s].posY == greyQueenSquare.posY + 70 &&
+                           greyPawnsBase[s].posX == greyQueenSquare.posX + 70) {
                             greyQueenSquare.failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redQueenSquare.posY == greyQueenSquare.posY + 100 &&
-                       redQueenSquare.posX == greyQueenSquare.posX + 100) {
+                    if(redQueenSquare.posY == greyQueenSquare.posY + 70 &&
+                       redQueenSquare.posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == greyQueenSquare.posY + 100 &&
-                       redBishop1Square.posX == greyQueenSquare.posX + 100) {
+                    if(redBishop1Square.posY == greyQueenSquare.posY + 70 &&
+                       redBishop1Square.posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyQueenSquare.posY + 100 &&
-                       redBishop2Square.posX == greyQueenSquare.posX + 100) {
+                    if(redBishop2Square.posY == greyQueenSquare.posY + 70 &&
+                       redBishop2Square.posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == greyQueenSquare.posY + 100 &&
-                       redRook1Rectangle1.posX == greyQueenSquare.posX + 100) {
+                    if(redRook1Rectangle1.posY == greyQueenSquare.posY + 70 &&
+                       redRook1Rectangle1.posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == greyQueenSquare.posY + 100 &&
-                       redRook2Rectangle1.posX == greyQueenSquare.posX + 100) {
+                    if(redRook2Rectangle1.posY == greyQueenSquare.posY + 70 &&
+                       redRook2Rectangle1.posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == greyQueenSquare.posY + 100 &&
-                       redKnight1Rectangle1.posX == greyQueenSquare.posX + 100) {
+                    if(redKnight1Rectangle1.posY == greyQueenSquare.posY + 70 &&
+                       redKnight1Rectangle1.posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == greyQueenSquare.posY + 100 &&
-                       redKnight2Rectangle1.posX == greyQueenSquare.posX + 100) {
+                    if(redKnight2Rectangle1.posY == greyQueenSquare.posY + 70 &&
+                       redKnight2Rectangle1.posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == greyQueenSquare.posY + 100 &&
-                       redBishop1Square.posX == greyQueenSquare.posX + 100) {
+                    if(redBishop1Square.posY == greyQueenSquare.posY + 70 &&
+                       redBishop1Square.posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyQueenSquare.posY + 100 &&
-                       redBishop2Square.posX == greyQueenSquare.posX + 100) {
+                    if(redBishop2Square.posY == greyQueenSquare.posY + 70 &&
+                       redBishop2Square.posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == greyQueenSquare.posY + 100 &&
-                       greyRook1Rectangle1.posX == greyQueenSquare.posX + 100) {
+                    if(greyRook1Rectangle1.posY == greyQueenSquare.posY + 70 &&
+                       greyRook1Rectangle1.posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == greyQueenSquare.posY + 100 &&
-                       greyRook2Rectangle1.posX == greyQueenSquare.posX + 100) {
+                    if(greyRook2Rectangle1.posY == greyQueenSquare.posY + 70 &&
+                       greyRook2Rectangle1.posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == greyQueenSquare.posY + 100 &&
-                       greyKnight1Rectangle1.posX == greyQueenSquare.posX + 100) {
+                    if(greyKnight1Rectangle1.posY == greyQueenSquare.posY + 70 &&
+                       greyKnight1Rectangle1.posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == greyQueenSquare.posY + 100 &&
-                       greyKnight2Rectangle1.posX == greyQueenSquare.posX + 100) {
+                    if(greyKnight2Rectangle1.posY == greyQueenSquare.posY + 70 &&
+                       greyKnight2Rectangle1.posX == greyQueenSquare.posX + 70) {
                         greyQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == greyQueenSquare.posY + 100 &&
-                       greyBishop1Square.posX == greyQueenSquare.posX + 100) {
+                    if(greyBishop1Square.posY == greyQueenSquare.posY + 70 &&
+                       greyBishop1Square.posX == greyQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == greyQueenSquare.posY + 100 &&
-                       greyBishop2Square.posX == greyQueenSquare.posX + 100) {
+                    if(greyBishop2Square.posY == greyQueenSquare.posY + 70 &&
+                       greyBishop2Square.posX == greyQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == greyQueenSquare.posY + 100 &&
-                       greyQueenSquare.posX == greyQueenSquare.posX + 100) {
+                    if(greyQueenSquare.posY == greyQueenSquare.posY + 70 &&
+                       greyQueenSquare.posX == greyQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        greyQueenSquare.posY = greyQueenSquare.posY + 100;
-                        greyQueenSquare.posX = greyQueenSquare.posX + 100;
+                        greyQueenSquare.posY = greyQueenSquare.posY + 70;
+                        greyQueenSquare.posX = greyQueenSquare.posX + 70;
                     }
 
                     return flag;
@@ -5875,15 +5875,15 @@ boolean moveRedQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int po
     if(pos1 < 0) {
         if(ps1 < 0) {
             boolean f = FALSE;
-            if(pos1 < -100 && ps1 < -100) {
-                f = moveRedQueenDiagonally(msg, j, i, pos1 + 100, ps1 + 100, pos2, ps2);
+            if(pos1 < -70 && ps1 < -70) {
+                f = moveRedQueenDiagonally(msg, j, i, pos1 + 70, ps1 + 70, pos2, ps2);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    redQueenSquare.posY = redQueenSquare.posY - 100;
-                    redQueenSquare.posX = redQueenSquare.posX - 100;
+                    redQueenSquare.posY = redQueenSquare.posY - 70;
+                    redQueenSquare.posX = redQueenSquare.posX - 70;
 
                     for(int s=0; s<8; s++) {
                         if(redPawnsBase[s].posY == redQueenSquare.posY &&
@@ -5981,157 +5981,157 @@ boolean moveRedQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int po
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == redQueenSquare.posY - 100 &&
-                           redPawnsBase[s].posX == redQueenSquare.posX - 100) {
+                        if(redPawnsBase[s].posY == redQueenSquare.posY - 70 &&
+                           redPawnsBase[s].posX == redQueenSquare.posX - 70) {
                             redQueenSquare.failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == redQueenSquare.posY - 100 &&
-                           greyPawnsBase[s].posX == redQueenSquare.posX - 100) {
+                        if(greyPawnsBase[s].posY == redQueenSquare.posY - 70 &&
+                           greyPawnsBase[s].posX == redQueenSquare.posX - 70) {
                             redQueenSquare.failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redBishop1Square.posY == redQueenSquare.posY - 100 &&
-                       redBishop1Square.posX == redQueenSquare.posX - 100) {
+                    if(redBishop1Square.posY == redQueenSquare.posY - 70 &&
+                       redBishop1Square.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == redQueenSquare.posY - 100 &&
-                       redBishop2Square.posX == redQueenSquare.posX - 100) {
+                    if(redBishop2Square.posY == redQueenSquare.posY - 70 &&
+                       redBishop2Square.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == redQueenSquare.posY - 100 &&
-                       redRook1Rectangle1.posX == redQueenSquare.posX - 100) {
+                    if(redRook1Rectangle1.posY == redQueenSquare.posY - 70 &&
+                       redRook1Rectangle1.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == redQueenSquare.posY - 100 &&
-                       redRook2Rectangle1.posX == redQueenSquare.posX - 100) {
+                    if(redRook2Rectangle1.posY == redQueenSquare.posY - 70 &&
+                       redRook2Rectangle1.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == redQueenSquare.posY - 100 &&
-                       redKnight1Rectangle1.posX == redQueenSquare.posX - 100) {
+                    if(redKnight1Rectangle1.posY == redQueenSquare.posY - 70 &&
+                       redKnight1Rectangle1.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == redQueenSquare.posY - 100 &&
-                       redKnight2Rectangle1.posX == redQueenSquare.posX - 100) {
+                    if(redKnight2Rectangle1.posY == redQueenSquare.posY - 70 &&
+                       redKnight2Rectangle1.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == redQueenSquare.posY - 100 &&
-                       redBishop1Square.posX == redQueenSquare.posX - 100) {
+                    if(redBishop1Square.posY == redQueenSquare.posY - 70 &&
+                       redBishop1Square.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == redQueenSquare.posY - 100 &&
-                       redBishop2Square.posX == redQueenSquare.posX - 100) {
+                    if(redBishop2Square.posY == redQueenSquare.posY - 70 &&
+                       redBishop2Square.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == redQueenSquare.posY - 100 &&
-                       greyRook1Rectangle1.posX == redQueenSquare.posX - 100) {
+                    if(greyRook1Rectangle1.posY == redQueenSquare.posY - 70 &&
+                       greyRook1Rectangle1.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == redQueenSquare.posY - 100 &&
-                       greyRook2Rectangle1.posX == redQueenSquare.posX - 100) {
+                    if(greyRook2Rectangle1.posY == redQueenSquare.posY - 70 &&
+                       greyRook2Rectangle1.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == redQueenSquare.posY - 100 &&
-                       greyKnight1Rectangle1.posX == redQueenSquare.posX - 100) {
+                    if(greyKnight1Rectangle1.posY == redQueenSquare.posY - 70 &&
+                       greyKnight1Rectangle1.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == redQueenSquare.posY - 100 &&
-                       greyKnight2Rectangle1.posX == redQueenSquare.posX - 100) {
+                    if(greyKnight2Rectangle1.posY == redQueenSquare.posY - 70 &&
+                       greyKnight2Rectangle1.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
 
-                    if(redBishop1Square.posY == redQueenSquare.posY - 100 &&
-                       redBishop1Square.posX == redQueenSquare.posX - 100) {
+                    if(redBishop1Square.posY == redQueenSquare.posY - 70 &&
+                       redBishop1Square.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == redQueenSquare.posY - 100 &&
-                       redBishop2Square.posX == redQueenSquare.posX - 100) {
+                    if(redBishop2Square.posY == redQueenSquare.posY - 70 &&
+                       redBishop2Square.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == redQueenSquare.posY - 100 &&
-                       redRook1Rectangle1.posX == redQueenSquare.posX - 100) {
+                    if(redRook1Rectangle1.posY == redQueenSquare.posY - 70 &&
+                       redRook1Rectangle1.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == redQueenSquare.posY - 100 &&
-                       redRook2Rectangle1.posX == redQueenSquare.posX - 100) {
+                    if(redRook2Rectangle1.posY == redQueenSquare.posY - 70 &&
+                       redRook2Rectangle1.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == redQueenSquare.posY - 100 &&
-                       redKnight1Rectangle1.posX == redQueenSquare.posX - 100) {
+                    if(redKnight1Rectangle1.posY == redQueenSquare.posY - 70 &&
+                       redKnight1Rectangle1.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == redQueenSquare.posY - 100 &&
-                       redKnight2Rectangle1.posX == redQueenSquare.posX - 100) {
+                    if(redKnight2Rectangle1.posY == redQueenSquare.posY - 70 &&
+                       redKnight2Rectangle1.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == redQueenSquare.posY - 100 &&
-                       redBishop1Square.posX == redQueenSquare.posX - 100) {
+                    if(redBishop1Square.posY == redQueenSquare.posY - 70 &&
+                       redBishop1Square.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == redQueenSquare.posY - 100 &&
-                       redBishop2Square.posX == redQueenSquare.posX - 100) {
+                    if(redBishop2Square.posY == redQueenSquare.posY - 70 &&
+                       redBishop2Square.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == redQueenSquare.posY - 100 &&
-                       greyRook1Rectangle1.posX == redQueenSquare.posX - 100) {
+                    if(greyRook1Rectangle1.posY == redQueenSquare.posY - 70 &&
+                       greyRook1Rectangle1.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == redQueenSquare.posY - 100 &&
-                       greyRook2Rectangle1.posX == redQueenSquare.posX - 100) {
+                    if(greyRook2Rectangle1.posY == redQueenSquare.posY - 70 &&
+                       greyRook2Rectangle1.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == redQueenSquare.posY - 100 &&
-                       greyKnight1Rectangle1.posX == redQueenSquare.posX - 100) {
+                    if(greyKnight1Rectangle1.posY == redQueenSquare.posY - 70 &&
+                       greyKnight1Rectangle1.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == redQueenSquare.posY - 100 &&
-                       greyKnight2Rectangle1.posX == redQueenSquare.posX - 100) {
+                    if(greyKnight2Rectangle1.posY == redQueenSquare.posY - 70 &&
+                       greyKnight2Rectangle1.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == redQueenSquare.posY + 100 &&
-                       greyBishop1Square.posX == redQueenSquare.posX + 100) {
+                    if(greyBishop1Square.posY == redQueenSquare.posY + 70 &&
+                       greyBishop1Square.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == redQueenSquare.posY + 100 &&
-                       greyBishop2Square.posX == redQueenSquare.posX + 100) {
+                    if(greyBishop2Square.posY == redQueenSquare.posY + 70 &&
+                       greyBishop2Square.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == redQueenSquare.posY + 100 &&
-                       greyQueenSquare.posX == redQueenSquare.posX + 100) {
+                    if(greyQueenSquare.posY == redQueenSquare.posY + 70 &&
+                       greyQueenSquare.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        redQueenSquare.posY = redQueenSquare.posY - 100;
-                        redQueenSquare.posX = redQueenSquare.posX - 100;
+                        redQueenSquare.posY = redQueenSquare.posY - 70;
+                        redQueenSquare.posX = redQueenSquare.posX - 70;
                     }
 
                     return flag;
@@ -6146,15 +6146,15 @@ boolean moveRedQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int po
         }
         if(ps1 > 0) {
             boolean f = FALSE;
-            if(pos1 < -100 && ps1 > 100) {
-                f = moveRedQueenDiagonally(msg, j, i, pos1 + 100, ps1 - 100, pos2, ps2);
+            if(pos1 < -70 && ps1 > 70) {
+                f = moveRedQueenDiagonally(msg, j, i, pos1 + 70, ps1 - 70, pos2, ps2);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    redQueenSquare.posY = redQueenSquare.posY - 100;
-                    redQueenSquare.posX = redQueenSquare.posX + 100;
+                    redQueenSquare.posY = redQueenSquare.posY - 70;
+                    redQueenSquare.posX = redQueenSquare.posX + 70;
 
                     for(int s=0; s<8; s++) {
                         if(redPawnsBase[s].posY == redQueenSquare.posY &&
@@ -6252,96 +6252,96 @@ boolean moveRedQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int po
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == redQueenSquare.posY - 100 &&
-                           redPawnsBase[s].posX == redQueenSquare.posX + 100) {
+                        if(redPawnsBase[s].posY == redQueenSquare.posY - 70 &&
+                           redPawnsBase[s].posX == redQueenSquare.posX + 70) {
                             redQueenSquare.failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == redQueenSquare.posY - 100 &&
-                           greyPawnsBase[s].posX == redQueenSquare.posX + 100) {
+                        if(greyPawnsBase[s].posY == redQueenSquare.posY - 70 &&
+                           greyPawnsBase[s].posX == redQueenSquare.posX + 70) {
                             redQueenSquare.failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redBishop1Square.posY == redQueenSquare.posY - 100 &&
-                       redBishop1Square.posX == redQueenSquare.posX + 100) {
+                    if(redBishop1Square.posY == redQueenSquare.posY - 70 &&
+                       redBishop1Square.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == redQueenSquare.posY - 100 &&
-                       redBishop2Square.posX == redQueenSquare.posX + 100) {
+                    if(redBishop2Square.posY == redQueenSquare.posY - 70 &&
+                       redBishop2Square.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == redQueenSquare.posY - 100 &&
-                       redRook1Rectangle1.posX == redQueenSquare.posX + 100) {
+                    if(redRook1Rectangle1.posY == redQueenSquare.posY - 70 &&
+                       redRook1Rectangle1.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == redQueenSquare.posY - 100 &&
-                       redRook2Rectangle1.posX == redQueenSquare.posX + 100) {
+                    if(redRook2Rectangle1.posY == redQueenSquare.posY - 70 &&
+                       redRook2Rectangle1.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == redQueenSquare.posY - 100 &&
-                       redKnight1Rectangle1.posX == redQueenSquare.posX + 100) {
+                    if(redKnight1Rectangle1.posY == redQueenSquare.posY - 70 &&
+                       redKnight1Rectangle1.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == redQueenSquare.posY - 100 &&
-                       redKnight2Rectangle1.posX == redQueenSquare.posX + 100) {
+                    if(redKnight2Rectangle1.posY == redQueenSquare.posY - 70 &&
+                       redKnight2Rectangle1.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == redQueenSquare.posY - 100 &&
-                       redBishop1Square.posX == redQueenSquare.posX + 100) {
+                    if(redBishop1Square.posY == redQueenSquare.posY - 70 &&
+                       redBishop1Square.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == redQueenSquare.posY - 100 &&
-                       redBishop2Square.posX == redQueenSquare.posX + 100) {
+                    if(redBishop2Square.posY == redQueenSquare.posY - 70 &&
+                       redBishop2Square.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == redQueenSquare.posY - 100 &&
-                       greyRook1Rectangle1.posX == redQueenSquare.posX + 100) {
+                    if(greyRook1Rectangle1.posY == redQueenSquare.posY - 70 &&
+                       greyRook1Rectangle1.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == redQueenSquare.posY - 100 &&
-                       greyRook2Rectangle1.posX == redQueenSquare.posX + 100) {
+                    if(greyRook2Rectangle1.posY == redQueenSquare.posY - 70 &&
+                       greyRook2Rectangle1.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == redQueenSquare.posY - 100 &&
-                       greyKnight1Rectangle1.posX == redQueenSquare.posX + 100) {
+                    if(greyKnight1Rectangle1.posY == redQueenSquare.posY - 70 &&
+                       greyKnight1Rectangle1.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == redQueenSquare.posY - 100 &&
-                       greyKnight2Rectangle1.posX == redQueenSquare.posX + 100) {
+                    if(greyKnight2Rectangle1.posY == redQueenSquare.posY - 70 &&
+                       greyKnight2Rectangle1.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == redQueenSquare.posY + 100 &&
-                       greyBishop1Square.posX == redQueenSquare.posX + 100) {
+                    if(greyBishop1Square.posY == redQueenSquare.posY + 70 &&
+                       greyBishop1Square.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == redQueenSquare.posY + 100 &&
-                       greyBishop2Square.posX == redQueenSquare.posX + 100) {
+                    if(greyBishop2Square.posY == redQueenSquare.posY + 70 &&
+                       greyBishop2Square.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == redQueenSquare.posY + 100 &&
-                       greyQueenSquare.posX == redQueenSquare.posX + 100) {
+                    if(greyQueenSquare.posY == redQueenSquare.posY + 70 &&
+                       greyQueenSquare.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        redQueenSquare.posY = redQueenSquare.posY - 100;
-                        redQueenSquare.posX = redQueenSquare.posX + 100;
+                        redQueenSquare.posY = redQueenSquare.posY - 70;
+                        redQueenSquare.posX = redQueenSquare.posX + 70;
                     }
 
                     return flag;
@@ -6357,15 +6357,15 @@ boolean moveRedQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int po
     } else if(pos1 > 0) {
         if(ps1 < 0) {
             boolean f = FALSE;
-            if(pos1 > 100 && ps1 < -100) {
-                f = moveRedQueenDiagonally(msg, j, i, pos1 - 100, ps1 + 100, pos2, ps2);
+            if(pos1 > 70 && ps1 < -70) {
+                f = moveRedQueenDiagonally(msg, j, i, pos1 - 70, ps1 + 70, pos2, ps2);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    redQueenSquare.posY = redQueenSquare.posY + 100;
-                    redQueenSquare.posX = redQueenSquare.posX - 100;
+                    redQueenSquare.posY = redQueenSquare.posY + 70;
+                    redQueenSquare.posX = redQueenSquare.posX - 70;
 
                     for(int s=0; s<8; s++) {
                         if(redPawnsBase[s].posY == redQueenSquare.posY &&
@@ -6463,96 +6463,96 @@ boolean moveRedQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int po
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == redQueenSquare.posY + 100 &&
-                           redPawnsBase[s].posX == redQueenSquare.posX - 100) {
+                        if(redPawnsBase[s].posY == redQueenSquare.posY + 70 &&
+                           redPawnsBase[s].posX == redQueenSquare.posX - 70) {
                             redQueenSquare.failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == redQueenSquare.posY + 100 &&
-                           greyPawnsBase[s].posX == redQueenSquare.posX - 100) {
+                        if(greyPawnsBase[s].posY == redQueenSquare.posY + 70 &&
+                           greyPawnsBase[s].posX == redQueenSquare.posX - 70) {
                             redQueenSquare.failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redBishop1Square.posY == redQueenSquare.posY + 100 &&
-                       redBishop1Square.posX == redQueenSquare.posX - 100) {
+                    if(redBishop1Square.posY == redQueenSquare.posY + 70 &&
+                       redBishop1Square.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == redQueenSquare.posY + 100 &&
-                       redBishop2Square.posX == redQueenSquare.posX - 100) {
+                    if(redBishop2Square.posY == redQueenSquare.posY + 70 &&
+                       redBishop2Square.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == redQueenSquare.posY + 100 &&
-                       redRook1Rectangle1.posX == redQueenSquare.posX - 100) {
+                    if(redRook1Rectangle1.posY == redQueenSquare.posY + 70 &&
+                       redRook1Rectangle1.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == redQueenSquare.posY + 100 &&
-                       redRook2Rectangle1.posX == redQueenSquare.posX - 100) {
+                    if(redRook2Rectangle1.posY == redQueenSquare.posY + 70 &&
+                       redRook2Rectangle1.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == redQueenSquare.posY + 100 &&
-                       redKnight1Rectangle1.posX == redQueenSquare.posX - 100) {
+                    if(redKnight1Rectangle1.posY == redQueenSquare.posY + 70 &&
+                       redKnight1Rectangle1.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == redQueenSquare.posY + 100 &&
-                       redKnight2Rectangle1.posX == redQueenSquare.posX - 100) {
+                    if(redKnight2Rectangle1.posY == redQueenSquare.posY + 70 &&
+                       redKnight2Rectangle1.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == redQueenSquare.posY + 100 &&
-                       redBishop1Square.posX == redQueenSquare.posX - 100) {
+                    if(redBishop1Square.posY == redQueenSquare.posY + 70 &&
+                       redBishop1Square.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == redQueenSquare.posY + 100 &&
-                       redBishop2Square.posX == redQueenSquare.posX - 100) {
+                    if(redBishop2Square.posY == redQueenSquare.posY + 70 &&
+                       redBishop2Square.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == redQueenSquare.posY + 100 &&
-                       greyRook1Rectangle1.posX == redQueenSquare.posX - 100) {
+                    if(greyRook1Rectangle1.posY == redQueenSquare.posY + 70 &&
+                       greyRook1Rectangle1.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == redQueenSquare.posY + 100 &&
-                       greyRook2Rectangle1.posX == redQueenSquare.posX - 100) {
+                    if(greyRook2Rectangle1.posY == redQueenSquare.posY + 70 &&
+                       greyRook2Rectangle1.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == redQueenSquare.posY + 100 &&
-                       greyKnight1Rectangle1.posX == redQueenSquare.posX - 100) {
+                    if(greyKnight1Rectangle1.posY == redQueenSquare.posY + 70 &&
+                       greyKnight1Rectangle1.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == redQueenSquare.posY + 100 &&
-                       greyKnight2Rectangle1.posX == redQueenSquare.posX - 100) {
+                    if(greyKnight2Rectangle1.posY == redQueenSquare.posY + 70 &&
+                       greyKnight2Rectangle1.posX == redQueenSquare.posX - 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == redQueenSquare.posY + 100 &&
-                       greyBishop1Square.posX == redQueenSquare.posX + 100) {
+                    if(greyBishop1Square.posY == redQueenSquare.posY + 70 &&
+                       greyBishop1Square.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == redQueenSquare.posY + 100 &&
-                       greyBishop2Square.posX == redQueenSquare.posX + 100) {
+                    if(greyBishop2Square.posY == redQueenSquare.posY + 70 &&
+                       greyBishop2Square.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == redQueenSquare.posY + 100 &&
-                       greyQueenSquare.posX == redQueenSquare.posX + 100) {
+                    if(greyQueenSquare.posY == redQueenSquare.posY + 70 &&
+                       greyQueenSquare.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        redQueenSquare.posY = redQueenSquare.posY + 100;
-                        redQueenSquare.posX = redQueenSquare.posX - 100;
+                        redQueenSquare.posY = redQueenSquare.posY + 70;
+                        redQueenSquare.posX = redQueenSquare.posX - 70;
                     }
 
                     return flag;
@@ -6567,15 +6567,15 @@ boolean moveRedQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int po
         }
         if(ps1 > 0) {
             boolean f = FALSE;
-            if(pos1 > 100 && ps1 > 100) {
-                f = moveRedQueenDiagonally(msg, j, i, pos1 - 100, ps1 - 100, pos2, ps2);
+            if(pos1 > 70 && ps1 > 70) {
+                f = moveRedQueenDiagonally(msg, j, i, pos1 - 70, ps1 - 70, pos2, ps2);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    redQueenSquare.posY = redQueenSquare.posY + 100;
-                    redQueenSquare.posX = redQueenSquare.posX + 100;
+                    redQueenSquare.posY = redQueenSquare.posY + 70;
+                    redQueenSquare.posX = redQueenSquare.posX + 70;
 
                     for(int s=0; s<8; s++) {
                         if(redPawnsBase[s].posY == redQueenSquare.posY &&
@@ -6673,96 +6673,96 @@ boolean moveRedQueenDiagonally(UINT msg, int j, int i, int pos1, int ps1, int po
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == redQueenSquare.posY + 100 &&
-                           redPawnsBase[s].posX == redQueenSquare.posX + 100) {
+                        if(redPawnsBase[s].posY == redQueenSquare.posY + 70 &&
+                           redPawnsBase[s].posX == redQueenSquare.posX + 70) {
                             redQueenSquare.failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == redQueenSquare.posY + 100 &&
-                           greyPawnsBase[s].posX == redQueenSquare.posX + 100) {
+                        if(greyPawnsBase[s].posY == redQueenSquare.posY + 70 &&
+                           greyPawnsBase[s].posX == redQueenSquare.posX + 70) {
                             redQueenSquare.failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redBishop1Square.posY == redQueenSquare.posY + 100 &&
-                       redBishop1Square.posX == redQueenSquare.posX + 100) {
+                    if(redBishop1Square.posY == redQueenSquare.posY + 70 &&
+                       redBishop1Square.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == redQueenSquare.posY + 100 &&
-                       redBishop2Square.posX == redQueenSquare.posX + 100) {
+                    if(redBishop2Square.posY == redQueenSquare.posY + 70 &&
+                       redBishop2Square.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == redQueenSquare.posY + 100 &&
-                       redRook1Rectangle1.posX == redQueenSquare.posX + 100) {
+                    if(redRook1Rectangle1.posY == redQueenSquare.posY + 70 &&
+                       redRook1Rectangle1.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == redQueenSquare.posY + 100 &&
-                       redRook2Rectangle1.posX == redQueenSquare.posX + 100) {
+                    if(redRook2Rectangle1.posY == redQueenSquare.posY + 70 &&
+                       redRook2Rectangle1.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == redQueenSquare.posY + 100 &&
-                       redKnight1Rectangle1.posX == redQueenSquare.posX + 100) {
+                    if(redKnight1Rectangle1.posY == redQueenSquare.posY + 70 &&
+                       redKnight1Rectangle1.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == redQueenSquare.posY + 100 &&
-                       redKnight2Rectangle1.posX == redQueenSquare.posX + 100) {
+                    if(redKnight2Rectangle1.posY == redQueenSquare.posY + 70 &&
+                       redKnight2Rectangle1.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == redQueenSquare.posY + 100 &&
-                       redBishop1Square.posX == redQueenSquare.posX + 100) {
+                    if(redBishop1Square.posY == redQueenSquare.posY + 70 &&
+                       redBishop1Square.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == redQueenSquare.posY + 100 &&
-                       redBishop2Square.posX == redQueenSquare.posX + 100) {
+                    if(redBishop2Square.posY == redQueenSquare.posY + 70 &&
+                       redBishop2Square.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == redQueenSquare.posY + 100 &&
-                       greyRook1Rectangle1.posX == redQueenSquare.posX + 100) {
+                    if(greyRook1Rectangle1.posY == redQueenSquare.posY + 70 &&
+                       greyRook1Rectangle1.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == redQueenSquare.posY + 100 &&
-                       greyRook2Rectangle1.posX == redQueenSquare.posX + 100) {
+                    if(greyRook2Rectangle1.posY == redQueenSquare.posY + 70 &&
+                       greyRook2Rectangle1.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == redQueenSquare.posY + 100 &&
-                       greyKnight1Rectangle1.posX == redQueenSquare.posX + 100) {
+                    if(greyKnight1Rectangle1.posY == redQueenSquare.posY + 70 &&
+                       greyKnight1Rectangle1.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == redQueenSquare.posY + 100 &&
-                       greyKnight2Rectangle1.posX == redQueenSquare.posX + 100) {
+                    if(greyKnight2Rectangle1.posY == redQueenSquare.posY + 70 &&
+                       greyKnight2Rectangle1.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == redQueenSquare.posY + 100 &&
-                       greyBishop1Square.posX == redQueenSquare.posX + 100) {
+                    if(greyBishop1Square.posY == redQueenSquare.posY + 70 &&
+                       greyBishop1Square.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == redQueenSquare.posY + 100 &&
-                       greyBishop2Square.posX == redQueenSquare.posX + 100) {
+                    if(greyBishop2Square.posY == redQueenSquare.posY + 70 &&
+                       greyBishop2Square.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == redQueenSquare.posY + 100 &&
-                       greyQueenSquare.posX == redQueenSquare.posX + 100) {
+                    if(greyQueenSquare.posY == redQueenSquare.posY + 70 &&
+                       greyQueenSquare.posX == redQueenSquare.posX + 70) {
                         redQueenSquare.failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        redQueenSquare.posY = redQueenSquare.posY + 100;
-                        redQueenSquare.posX = redQueenSquare.posX + 100;
+                        redQueenSquare.posY = redQueenSquare.posY + 70;
+                        redQueenSquare.posX = redQueenSquare.posX + 70;
                     }
 
                     return flag;
@@ -6862,15 +6862,15 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
     if(pos1 < 0) {
         if(ps1 < 0) {
             boolean f = FALSE;
-            if(pos1 < -100 && ps1 < -100) {
-                f = moveRedQueenDiagonallyK(msg, j, i, pos1 + 100, ps1 + 100, pos2, ps2, k);
+            if(pos1 < -70 && ps1 < -70) {
+                f = moveRedQueenDiagonallyK(msg, j, i, pos1 + 70, ps1 + 70, pos2, ps2, k);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    redQueenSquareK[k].posY = redQueenSquareK[k].posY - 100;
-                    redQueenSquareK[k].posX = redQueenSquareK[k].posX - 100;
+                    redQueenSquareK[k].posY = redQueenSquareK[k].posY - 70;
+                    redQueenSquareK[k].posX = redQueenSquareK[k].posX - 70;
 
                     for(int s=0; s<8; s++) {
                         for(int p=0; p<8; p++) {
@@ -6991,180 +6991,180 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == redQueenSquareK[k].posY - 100 &&
-                           redPawnsBase[s].posX == redQueenSquareK[k].posX - 100) {
+                        if(redPawnsBase[s].posY == redQueenSquareK[k].posY - 70 &&
+                           redPawnsBase[s].posX == redQueenSquareK[k].posX - 70) {
                             redQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == redQueenSquareK[k].posY - 100 &&
-                           greyPawnsBase[s].posX == redQueenSquareK[k].posX - 100) {
+                        if(greyPawnsBase[s].posY == redQueenSquareK[k].posY - 70 &&
+                           greyPawnsBase[s].posX == redQueenSquareK[k].posX - 70) {
                             redQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
                         for(int p=0; p<8; p++) {
                             if(p != k &&
-                               redQueenSquareK[p].posX == redQueenSquareK[k].posX - 100 &&
-                               redQueenSquareK[p].posY == redQueenSquareK[k].posY - 100) {
+                               redQueenSquareK[p].posX == redQueenSquareK[k].posX - 70 &&
+                               redQueenSquareK[p].posY == redQueenSquareK[k].posY - 70) {
                                 redQueenSquareK[k].failedpath = TRUE;
                                 return TRUE;
                             }
                             if(p != k &&
-                               greyQueenSquareK[p].posX == redQueenSquareK[k].posX - 100 &&
-                               greyQueenSquareK[p].posY == redQueenSquareK[k].posY - 100) {
+                               greyQueenSquareK[p].posX == redQueenSquareK[k].posX - 70 &&
+                               greyQueenSquareK[p].posY == redQueenSquareK[k].posY - 70) {
                                 redQueenSquareK[k].failedpath = TRUE;
                                 return TRUE;
                             }
                         }
                     }
-                    if(redQueenSquare.posX == redQueenSquareK[k].posX - 100 &&
-                       redQueenSquare.posY == redQueenSquareK[k].posY - 100) {
+                    if(redQueenSquare.posX == redQueenSquareK[k].posX - 70 &&
+                       redQueenSquare.posY == redQueenSquareK[k].posY - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         return TRUE;
                     }
-                    if(greyQueenSquare.posX == redQueenSquareK[k].posX - 100 &&
-                       greyQueenSquare.posY == redQueenSquareK[k].posY - 100) {
+                    if(greyQueenSquare.posX == redQueenSquareK[k].posX - 70 &&
+                       greyQueenSquare.posY == redQueenSquareK[k].posY - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         return TRUE;
                     }
-                    if(redBishop1Square.posY == redQueenSquareK[k].posY - 100 &&
-                       redBishop1Square.posX == redQueenSquareK[k].posX - 100) {
+                    if(redBishop1Square.posY == redQueenSquareK[k].posY - 70 &&
+                       redBishop1Square.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == redQueenSquareK[k].posY - 100 &&
-                       redBishop2Square.posX == redQueenSquareK[k].posX - 100) {
+                    if(redBishop2Square.posY == redQueenSquareK[k].posY - 70 &&
+                       redBishop2Square.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
-                       redRook1Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                    if(redRook1Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
+                       redRook1Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
-                       redRook2Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                    if(redRook2Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
+                       redRook2Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
-                       redKnight1Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                    if(redKnight1Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
+                       redKnight1Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
-                       redKnight2Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                    if(redKnight2Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
+                       redKnight2Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == redQueenSquareK[k].posY - 100 &&
-                       redBishop1Square.posX == redQueenSquareK[k].posX - 100) {
+                    if(redBishop1Square.posY == redQueenSquareK[k].posY - 70 &&
+                       redBishop1Square.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == redQueenSquareK[k].posY - 100 &&
-                       redBishop2Square.posX == redQueenSquareK[k].posX - 100) {
+                    if(redBishop2Square.posY == redQueenSquareK[k].posY - 70 &&
+                       redBishop2Square.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
-                       greyRook1Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                    if(greyRook1Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
+                       greyRook1Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
-                       greyRook2Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                    if(greyRook2Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
+                       greyRook2Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
-                       greyKnight1Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                    if(greyKnight1Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
+                       greyKnight1Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
-                       greyKnight2Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                    if(greyKnight2Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
+                       greyKnight2Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == redQueenSquareK[k].posY - 100 &&
-                       redBishop1Square.posX == redQueenSquareK[k].posX - 100) {
+                    if(redBishop1Square.posY == redQueenSquareK[k].posY - 70 &&
+                       redBishop1Square.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == redQueenSquareK[k].posY - 100 &&
-                       redBishop2Square.posX == redQueenSquareK[k].posX - 100) {
+                    if(redBishop2Square.posY == redQueenSquareK[k].posY - 70 &&
+                       redBishop2Square.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
-                       redRook1Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                    if(redRook1Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
+                       redRook1Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
-                       redRook2Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                    if(redRook2Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
+                       redRook2Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
-                       redKnight1Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                    if(redKnight1Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
+                       redKnight1Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
-                       redKnight2Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                    if(redKnight2Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
+                       redKnight2Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == redQueenSquareK[k].posY - 100 &&
-                       redBishop1Square.posX == redQueenSquareK[k].posX - 100) {
+                    if(redBishop1Square.posY == redQueenSquareK[k].posY - 70 &&
+                       redBishop1Square.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == redQueenSquareK[k].posY - 100 &&
-                       redBishop2Square.posX == redQueenSquareK[k].posX - 100) {
+                    if(redBishop2Square.posY == redQueenSquareK[k].posY - 70 &&
+                       redBishop2Square.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
-                       greyRook1Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                    if(greyRook1Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
+                       greyRook1Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
-                       greyRook2Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                    if(greyRook2Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
+                       greyRook2Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
-                       greyKnight1Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                    if(greyKnight1Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
+                       greyKnight1Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
-                       greyKnight2Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                    if(greyKnight2Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
+                       greyKnight2Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == redQueenSquareK[k].posY + 100 &&
-                       greyBishop1Square.posX == redQueenSquareK[k].posX + 100) {
+                    if(greyBishop1Square.posY == redQueenSquareK[k].posY + 70 &&
+                       greyBishop1Square.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == redQueenSquareK[k].posY + 100 &&
-                       greyBishop2Square.posX == redQueenSquareK[k].posX + 100) {
+                    if(greyBishop2Square.posY == redQueenSquareK[k].posY + 70 &&
+                       greyBishop2Square.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == redQueenSquareK[k].posY + 100 &&
-                       greyQueenSquare.posX == redQueenSquareK[k].posX + 100) {
+                    if(greyQueenSquare.posY == redQueenSquareK[k].posY + 70 &&
+                       greyQueenSquare.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        redQueenSquareK[k].posY = redQueenSquareK[k].posY - 100;
-                        redQueenSquareK[k].posX = redQueenSquareK[k].posX - 100;
+                        redQueenSquareK[k].posY = redQueenSquareK[k].posY - 70;
+                        redQueenSquareK[k].posX = redQueenSquareK[k].posX - 70;
                     }
 
                     return flag;
@@ -7179,15 +7179,15 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
         }
         if(ps1 > 0) {
             boolean f = FALSE;
-            if(pos1 < -100 && ps1 > 100) {
-                f = moveRedQueenDiagonallyK(msg, j, i, pos1 + 100, ps1 - 100, pos2, ps2, k);
+            if(pos1 < -70 && ps1 > 70) {
+                f = moveRedQueenDiagonallyK(msg, j, i, pos1 + 70, ps1 - 70, pos2, ps2, k);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    redQueenSquareK[k].posY = redQueenSquareK[k].posY - 100;
-                    redQueenSquareK[k].posX = redQueenSquareK[k].posX + 100;
+                    redQueenSquareK[k].posY = redQueenSquareK[k].posY - 70;
+                    redQueenSquareK[k].posX = redQueenSquareK[k].posX + 70;
 
                     for(int s=0; s<8; s++) {
                         for(int p=0; p<8; p++) {
@@ -7310,115 +7310,115 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                     for(int s=0; s<8; s++) {
                         for(int h=0; h<8; h++) {
                             if(h != k &&
-                               redQueenSquareK[h].posY == redQueenSquareK[k].posY - 100 &&
-                               redQueenSquareK[h].posX == redQueenSquareK[k].posX + 100) {
+                               redQueenSquareK[h].posY == redQueenSquareK[k].posY - 70 &&
+                               redQueenSquareK[h].posX == redQueenSquareK[k].posX + 70) {
                                 redQueenSquareK[k].failedpath = TRUE;
                                 flag = TRUE;
                             }
                         }
                         for(int h=0; h<8; h++) {
                             if(h != k &&
-                               greyQueenSquareK[h].posY == redQueenSquareK[k].posY - 100 &&
-                               greyQueenSquareK[h].posX == redQueenSquareK[k].posX + 100) {
+                               greyQueenSquareK[h].posY == redQueenSquareK[k].posY - 70 &&
+                               greyQueenSquareK[h].posX == redQueenSquareK[k].posX + 70) {
                                 redQueenSquareK[k].failedpath = TRUE;
                                 flag = TRUE;
                             }
                         }
-                        if(redQueenSquare.posY == redQueenSquareK[k].posY - 100 &&
-                           redQueenSquare.posX == redQueenSquareK[k].posX + 100) {
+                        if(redQueenSquare.posY == redQueenSquareK[k].posY - 70 &&
+                           redQueenSquare.posX == redQueenSquareK[k].posX + 70) {
                             redQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(redPawnsBase[s].posY == redQueenSquareK[k].posY - 100 &&
-                           redPawnsBase[s].posX == redQueenSquareK[k].posX + 100) {
+                        if(redPawnsBase[s].posY == redQueenSquareK[k].posY - 70 &&
+                           redPawnsBase[s].posX == redQueenSquareK[k].posX + 70) {
                             redQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == redQueenSquareK[k].posY - 100 &&
-                           greyPawnsBase[s].posX == redQueenSquareK[k].posX + 100) {
+                        if(greyPawnsBase[s].posY == redQueenSquareK[k].posY - 70 &&
+                           greyPawnsBase[s].posX == redQueenSquareK[k].posX + 70) {
                             redQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redBishop1Square.posY == redQueenSquareK[k].posY - 100 &&
-                       redBishop1Square.posX == redQueenSquareK[k].posX + 100) {
+                    if(redBishop1Square.posY == redQueenSquareK[k].posY - 70 &&
+                       redBishop1Square.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == redQueenSquareK[k].posY - 100 &&
-                       redBishop2Square.posX == redQueenSquareK[k].posX + 100) {
+                    if(redBishop2Square.posY == redQueenSquareK[k].posY - 70 &&
+                       redBishop2Square.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
-                       redRook1Rectangle1.posX == redQueenSquareK[k].posX + 100) {
+                    if(redRook1Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
+                       redRook1Rectangle1.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
-                       redRook2Rectangle1.posX == redQueenSquareK[k].posX + 100) {
+                    if(redRook2Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
+                       redRook2Rectangle1.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
-                       redKnight1Rectangle1.posX == redQueenSquareK[k].posX + 100) {
+                    if(redKnight1Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
+                       redKnight1Rectangle1.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
-                       redKnight2Rectangle1.posX == redQueenSquareK[k].posX + 100) {
+                    if(redKnight2Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
+                       redKnight2Rectangle1.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == redQueenSquareK[k].posY - 100 &&
-                       redBishop1Square.posX == redQueenSquareK[k].posX + 100) {
+                    if(redBishop1Square.posY == redQueenSquareK[k].posY - 70 &&
+                       redBishop1Square.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == redQueenSquareK[k].posY - 100 &&
-                       redBishop2Square.posX == redQueenSquareK[k].posX + 100) {
+                    if(redBishop2Square.posY == redQueenSquareK[k].posY - 70 &&
+                       redBishop2Square.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
-                       greyRook1Rectangle1.posX == redQueenSquareK[k].posX + 100) {
+                    if(greyRook1Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
+                       greyRook1Rectangle1.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
-                       greyRook2Rectangle1.posX == redQueenSquareK[k].posX + 100) {
+                    if(greyRook2Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
+                       greyRook2Rectangle1.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
-                       greyKnight1Rectangle1.posX == redQueenSquareK[k].posX + 100) {
+                    if(greyKnight1Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
+                       greyKnight1Rectangle1.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == redQueenSquareK[k].posY - 100 &&
-                       greyKnight2Rectangle1.posX == redQueenSquareK[k].posX + 100) {
+                    if(greyKnight2Rectangle1.posY == redQueenSquareK[k].posY - 70 &&
+                       greyKnight2Rectangle1.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == redQueenSquareK[k].posY + 100 &&
-                       greyBishop1Square.posX == redQueenSquareK[k].posX + 100) {
+                    if(greyBishop1Square.posY == redQueenSquareK[k].posY + 70 &&
+                       greyBishop1Square.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == redQueenSquareK[k].posY + 100 &&
-                       greyBishop2Square.posX == redQueenSquareK[k].posX + 100) {
+                    if(greyBishop2Square.posY == redQueenSquareK[k].posY + 70 &&
+                       greyBishop2Square.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == redQueenSquareK[k].posY + 100 &&
-                       greyQueenSquare.posX == redQueenSquareK[k].posX + 100) {
+                    if(greyQueenSquare.posY == redQueenSquareK[k].posY + 70 &&
+                       greyQueenSquare.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        redQueenSquareK[k].posY = redQueenSquareK[k].posY - 100;
-                        redQueenSquareK[k].posX = redQueenSquareK[k].posX + 100;
+                        redQueenSquareK[k].posY = redQueenSquareK[k].posY - 70;
+                        redQueenSquareK[k].posX = redQueenSquareK[k].posX + 70;
                     }
 
                     return flag;
@@ -7434,15 +7434,15 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
     } else if(pos1 > 0) {
         if(ps1 < 0) {
             boolean f = FALSE;
-            if(pos1 > 100 && ps1 < -100) {
-                f = moveRedQueenDiagonallyK(msg, j, i, pos1 - 100, ps1 + 100, pos2, ps2, k);
+            if(pos1 > 70 && ps1 < -70) {
+                f = moveRedQueenDiagonallyK(msg, j, i, pos1 - 70, ps1 + 70, pos2, ps2, k);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    redQueenSquareK[k].posY = redQueenSquareK[k].posY + 100;
-                    redQueenSquareK[k].posX = redQueenSquareK[k].posX - 100;
+                    redQueenSquareK[k].posY = redQueenSquareK[k].posY + 70;
+                    redQueenSquareK[k].posX = redQueenSquareK[k].posX - 70;
 
                     for(int s=0; s<8; s++) {
                         for(int p=0; p<8; p++) {
@@ -7572,118 +7572,118 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                     for(int s=0; s<8; s++) {
                         for(int p=0; p<8; p++) {
                             if(p != k &&
-                               redQueenSquareK[p].posY == redQueenSquareK[k].posY + 100 &&
-                               redQueenSquareK[p].posX == redQueenSquareK[k].posX - 100) {
+                               redQueenSquareK[p].posY == redQueenSquareK[k].posY + 70 &&
+                               redQueenSquareK[p].posX == redQueenSquareK[k].posX - 70) {
                                 redQueenSquareK[k].failedpath = TRUE;
                                 flag = TRUE;
                             }
                             if(p != k &&
-                               greyQueenSquareK[p].posY == redQueenSquareK[k].posY + 100 &&
-                               greyQueenSquareK[p].posX == redQueenSquareK[k].posX - 100) {
+                               greyQueenSquareK[p].posY == redQueenSquareK[k].posY + 70 &&
+                               greyQueenSquareK[p].posX == redQueenSquareK[k].posX - 70) {
                                 redQueenSquareK[k].failedpath = TRUE;
                                 flag = TRUE;
                             }
                         }
-                        if(redPawnsBase[s].posY == redQueenSquareK[k].posY + 100 &&
-                           redPawnsBase[s].posX == redQueenSquareK[k].posX - 100) {
+                        if(redPawnsBase[s].posY == redQueenSquareK[k].posY + 70 &&
+                           redPawnsBase[s].posX == redQueenSquareK[k].posX - 70) {
                             redQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == redQueenSquareK[k].posY + 100 &&
-                           greyPawnsBase[s].posX == redQueenSquareK[k].posX - 100) {
+                        if(greyPawnsBase[s].posY == redQueenSquareK[k].posY + 70 &&
+                           greyPawnsBase[s].posX == redQueenSquareK[k].posX - 70) {
                             redQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redQueenSquare.posY == redQueenSquareK[k].posY + 100 &&
-                       redQueenSquare.posX == redQueenSquareK[k].posX - 100) {
+                    if(redQueenSquare.posY == redQueenSquareK[k].posY + 70 &&
+                       redQueenSquare.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == redQueenSquareK[k].posY + 100 &&
-                       greyQueenSquare.posX == redQueenSquareK[k].posX - 100) {
+                    if(greyQueenSquare.posY == redQueenSquareK[k].posY + 70 &&
+                       greyQueenSquare.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == redQueenSquareK[k].posY + 100 &&
-                       redBishop1Square.posX == redQueenSquareK[k].posX - 100) {
+                    if(redBishop1Square.posY == redQueenSquareK[k].posY + 70 &&
+                       redBishop1Square.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == redQueenSquareK[k].posY + 100 &&
-                       redBishop2Square.posX == redQueenSquareK[k].posX - 100) {
+                    if(redBishop2Square.posY == redQueenSquareK[k].posY + 70 &&
+                       redBishop2Square.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == redQueenSquareK[k].posY + 100 &&
-                       redRook1Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                    if(redRook1Rectangle1.posY == redQueenSquareK[k].posY + 70 &&
+                       redRook1Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == redQueenSquareK[k].posY + 100 &&
-                       redRook2Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                    if(redRook2Rectangle1.posY == redQueenSquareK[k].posY + 70 &&
+                       redRook2Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == redQueenSquareK[k].posY + 100 &&
-                       redKnight1Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                    if(redKnight1Rectangle1.posY == redQueenSquareK[k].posY + 70 &&
+                       redKnight1Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == redQueenSquareK[k].posY + 100 &&
-                       redKnight2Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                    if(redKnight2Rectangle1.posY == redQueenSquareK[k].posY + 70 &&
+                       redKnight2Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == redQueenSquareK[k].posY + 100 &&
-                       redBishop1Square.posX == redQueenSquareK[k].posX - 100) {
+                    if(redBishop1Square.posY == redQueenSquareK[k].posY + 70 &&
+                       redBishop1Square.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == redQueenSquareK[k].posY + 100 &&
-                       redBishop2Square.posX == redQueenSquareK[k].posX - 100) {
+                    if(redBishop2Square.posY == redQueenSquareK[k].posY + 70 &&
+                       redBishop2Square.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == redQueenSquareK[k].posY + 100 &&
-                       greyRook1Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                    if(greyRook1Rectangle1.posY == redQueenSquareK[k].posY + 70 &&
+                       greyRook1Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == redQueenSquareK[k].posY + 100 &&
-                       greyRook2Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                    if(greyRook2Rectangle1.posY == redQueenSquareK[k].posY + 70 &&
+                       greyRook2Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == redQueenSquareK[k].posY + 100 &&
-                       greyKnight1Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                    if(greyKnight1Rectangle1.posY == redQueenSquareK[k].posY + 70 &&
+                       greyKnight1Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == redQueenSquareK[k].posY + 100 &&
-                       greyKnight2Rectangle1.posX == redQueenSquareK[k].posX - 100) {
+                    if(greyKnight2Rectangle1.posY == redQueenSquareK[k].posY + 70 &&
+                       greyKnight2Rectangle1.posX == redQueenSquareK[k].posX - 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == redQueenSquareK[k].posY + 100 &&
-                       greyBishop1Square.posX == redQueenSquareK[k].posX + 100) {
+                    if(greyBishop1Square.posY == redQueenSquareK[k].posY + 70 &&
+                       greyBishop1Square.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == redQueenSquareK[k].posY + 100 &&
-                       greyBishop2Square.posX == redQueenSquareK[k].posX + 100) {
+                    if(greyBishop2Square.posY == redQueenSquareK[k].posY + 70 &&
+                       greyBishop2Square.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == redQueenSquareK[k].posY + 100 &&
-                       greyQueenSquare.posX == redQueenSquareK[k].posX + 100) {
+                    if(greyQueenSquare.posY == redQueenSquareK[k].posY + 70 &&
+                       greyQueenSquare.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        redQueenSquareK[k].posY = redQueenSquareK[k].posY + 100;
-                        redQueenSquareK[k].posX = redQueenSquareK[k].posX - 100;
+                        redQueenSquareK[k].posY = redQueenSquareK[k].posY + 70;
+                        redQueenSquareK[k].posX = redQueenSquareK[k].posX - 70;
                     }
 
                     return flag;
@@ -7698,15 +7698,15 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
         }
         if(ps1 > 0) {
             boolean f = FALSE;
-            if(pos1 > 100 && ps1 > 100) {
-                f = moveRedQueenDiagonallyK(msg, j, i, pos1 - 100, ps1 - 100, pos2, ps2, k);
+            if(pos1 > 70 && ps1 > 70) {
+                f = moveRedQueenDiagonallyK(msg, j, i, pos1 - 70, ps1 - 70, pos2, ps2, k);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    redQueenSquareK[k].posY = redQueenSquareK[k].posY + 100;
-                    redQueenSquareK[k].posX = redQueenSquareK[k].posX + 100;
+                    redQueenSquareK[k].posY = redQueenSquareK[k].posY + 70;
+                    redQueenSquareK[k].posX = redQueenSquareK[k].posX + 70;
 
                     for(int s=0; s<8; s++) {
                         for(int p=0; p<8; p++) {
@@ -7833,118 +7833,118 @@ boolean moveRedQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int p
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == redQueenSquareK[k].posY + 100 &&
-                           redPawnsBase[s].posX == redQueenSquareK[k].posX + 100) {
+                        if(redPawnsBase[s].posY == redQueenSquareK[k].posY + 70 &&
+                           redPawnsBase[s].posX == redQueenSquareK[k].posX + 70) {
                             redQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == redQueenSquareK[k].posY + 100 &&
-                           greyPawnsBase[s].posX == redQueenSquareK[k].posX + 100) {
-                            redQueenSquareK[k].failedpath = TRUE;
-                            flag = TRUE;
-                        }
-                        if(s != k &&
-                           redQueenSquareK[s].posY == redQueenSquareK[k].posY + 100 &&
-                           redQueenSquareK[s].posX == redQueenSquareK[k].posX + 100) {
+                        if(greyPawnsBase[s].posY == redQueenSquareK[k].posY + 70 &&
+                           greyPawnsBase[s].posX == redQueenSquareK[k].posX + 70) {
                             redQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
                         if(s != k &&
-                           greyQueenSquareK[s].posY == redQueenSquareK[k].posY + 100 &&
-                           greyQueenSquareK[s].posX == redQueenSquareK[k].posX + 100) {
+                           redQueenSquareK[s].posY == redQueenSquareK[k].posY + 70 &&
+                           redQueenSquareK[s].posX == redQueenSquareK[k].posX + 70) {
+                            redQueenSquareK[k].failedpath = TRUE;
+                            flag = TRUE;
+                        }
+                        if(s != k &&
+                           greyQueenSquareK[s].posY == redQueenSquareK[k].posY + 70 &&
+                           greyQueenSquareK[s].posX == redQueenSquareK[k].posX + 70) {
                             redQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redQueenSquare.posY == redQueenSquareK[k].posY + 100 &&
-                       redQueenSquare.posX == redQueenSquareK[k].posX + 100) {
+                    if(redQueenSquare.posY == redQueenSquareK[k].posY + 70 &&
+                       redQueenSquare.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == redQueenSquareK[k].posY + 100 &&
-                       greyQueenSquare.posX == redQueenSquareK[k].posX + 100) {
+                    if(greyQueenSquare.posY == redQueenSquareK[k].posY + 70 &&
+                       greyQueenSquare.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == redQueenSquareK[k].posY + 100 &&
-                       redBishop1Square.posX == redQueenSquareK[k].posX + 100) {
+                    if(redBishop1Square.posY == redQueenSquareK[k].posY + 70 &&
+                       redBishop1Square.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == redQueenSquareK[k].posY + 100 &&
-                       redBishop2Square.posX == redQueenSquareK[k].posX + 100) {
+                    if(redBishop2Square.posY == redQueenSquareK[k].posY + 70 &&
+                       redBishop2Square.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == redQueenSquareK[k].posY + 100 &&
-                       redRook1Rectangle1.posX == redQueenSquareK[k].posX + 100) {
+                    if(redRook1Rectangle1.posY == redQueenSquareK[k].posY + 70 &&
+                       redRook1Rectangle1.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == redQueenSquareK[k].posY + 100 &&
-                       redRook2Rectangle1.posX == redQueenSquareK[k].posX + 100) {
+                    if(redRook2Rectangle1.posY == redQueenSquareK[k].posY + 70 &&
+                       redRook2Rectangle1.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == redQueenSquareK[k].posY + 100 &&
-                       redKnight1Rectangle1.posX == redQueenSquareK[k].posX + 100) {
+                    if(redKnight1Rectangle1.posY == redQueenSquareK[k].posY + 70 &&
+                       redKnight1Rectangle1.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == redQueenSquareK[k].posY + 100 &&
-                       redKnight2Rectangle1.posX == redQueenSquareK[k].posX + 100) {
+                    if(redKnight2Rectangle1.posY == redQueenSquareK[k].posY + 70 &&
+                       redKnight2Rectangle1.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == redQueenSquareK[k].posY + 100 &&
-                       redBishop1Square.posX == redQueenSquareK[k].posX + 100) {
+                    if(redBishop1Square.posY == redQueenSquareK[k].posY + 70 &&
+                       redBishop1Square.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == redQueenSquareK[k].posY + 100 &&
-                       redBishop2Square.posX == redQueenSquareK[k].posX + 100) {
+                    if(redBishop2Square.posY == redQueenSquareK[k].posY + 70 &&
+                       redBishop2Square.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == redQueenSquareK[k].posY + 100 &&
-                       greyRook1Rectangle1.posX == redQueenSquareK[k].posX + 100) {
+                    if(greyRook1Rectangle1.posY == redQueenSquareK[k].posY + 70 &&
+                       greyRook1Rectangle1.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == redQueenSquareK[k].posY + 100 &&
-                       greyRook2Rectangle1.posX == redQueenSquareK[k].posX + 100) {
+                    if(greyRook2Rectangle1.posY == redQueenSquareK[k].posY + 70 &&
+                       greyRook2Rectangle1.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == redQueenSquareK[k].posY + 100 &&
-                       greyKnight1Rectangle1.posX == redQueenSquareK[k].posX + 100) {
+                    if(greyKnight1Rectangle1.posY == redQueenSquareK[k].posY + 70 &&
+                       greyKnight1Rectangle1.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == redQueenSquareK[k].posY + 100 &&
-                       greyKnight2Rectangle1.posX == redQueenSquareK[k].posX + 100) {
+                    if(greyKnight2Rectangle1.posY == redQueenSquareK[k].posY + 70 &&
+                       greyKnight2Rectangle1.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == redQueenSquareK[k].posY + 100 &&
-                       greyBishop1Square.posX == redQueenSquareK[k].posX + 100) {
+                    if(greyBishop1Square.posY == redQueenSquareK[k].posY + 70 &&
+                       greyBishop1Square.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == redQueenSquareK[k].posY + 100 &&
-                       greyBishop2Square.posX == redQueenSquareK[k].posX + 100) {
+                    if(greyBishop2Square.posY == redQueenSquareK[k].posY + 70 &&
+                       greyBishop2Square.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == redQueenSquareK[k].posY + 100 &&
-                       greyQueenSquare.posX == redQueenSquareK[k].posX + 100) {
+                    if(greyQueenSquare.posY == redQueenSquareK[k].posY + 70 &&
+                       greyQueenSquare.posX == redQueenSquareK[k].posX + 70) {
                         redQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        redQueenSquareK[k].posY = redQueenSquareK[k].posY + 100;
-                        redQueenSquareK[k].posX = redQueenSquareK[k].posX + 100;
+                        redQueenSquareK[k].posY = redQueenSquareK[k].posY + 70;
+                        redQueenSquareK[k].posX = redQueenSquareK[k].posX + 70;
                     }
 
                     return flag;
@@ -8044,15 +8044,15 @@ boolean moveGreyQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int 
     if(pos1 < 0) {
         if(ps1 < 0) {
             boolean f = FALSE;
-            if(pos1 < -100 && ps1 < -100) {
-                f = moveGreyQueenDiagonallyK(msg, j, i, pos1 + 100, ps1 + 100, pos2, ps2, k);
+            if(pos1 < -70 && ps1 < -70) {
+                f = moveGreyQueenDiagonallyK(msg, j, i, pos1 + 70, ps1 + 70, pos2, ps2, k);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    greyQueenSquareK[k].posY = greyQueenSquareK[k].posY - 100;
-                    greyQueenSquareK[k].posX = greyQueenSquareK[k].posX - 100;
+                    greyQueenSquareK[k].posY = greyQueenSquareK[k].posY - 70;
+                    greyQueenSquareK[k].posX = greyQueenSquareK[k].posX - 70;
 
                     for(int s=0; s<8; s++) {
                         for(int p=0; p<8; p++) {
@@ -8173,180 +8173,180 @@ boolean moveGreyQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int 
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == greyQueenSquareK[k].posY - 100 &&
-                           redPawnsBase[s].posX == greyQueenSquareK[k].posX - 100) {
+                        if(redPawnsBase[s].posY == greyQueenSquareK[k].posY - 70 &&
+                           redPawnsBase[s].posX == greyQueenSquareK[k].posX - 70) {
                             greyQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == greyQueenSquareK[k].posY - 100 &&
-                           greyPawnsBase[s].posX == greyQueenSquareK[k].posX - 100) {
+                        if(greyPawnsBase[s].posY == greyQueenSquareK[k].posY - 70 &&
+                           greyPawnsBase[s].posX == greyQueenSquareK[k].posX - 70) {
                             greyQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
                         for(int p=0; p<8; p++) {
                             if(p != k &&
-                               greyQueenSquareK[p].posX == greyQueenSquareK[k].posX - 100 &&
-                               greyQueenSquareK[p].posY == greyQueenSquareK[k].posY - 100) {
+                               greyQueenSquareK[p].posX == greyQueenSquareK[k].posX - 70 &&
+                               greyQueenSquareK[p].posY == greyQueenSquareK[k].posY - 70) {
                                 greyQueenSquareK[k].failedpath = TRUE;
                                 return TRUE;
                             }
                             if(p != k &&
-                               greyQueenSquareK[p].posX == greyQueenSquareK[k].posX - 100 &&
-                               greyQueenSquareK[p].posY == greyQueenSquareK[k].posY - 100) {
+                               greyQueenSquareK[p].posX == greyQueenSquareK[k].posX - 70 &&
+                               greyQueenSquareK[p].posY == greyQueenSquareK[k].posY - 70) {
                                 greyQueenSquareK[k].failedpath = TRUE;
                                 return TRUE;
                             }
                         }
                     }
-                    if(redQueenSquare.posX == greyQueenSquareK[k].posX - 100 &&
-                       redQueenSquare.posY == greyQueenSquareK[k].posY - 100) {
+                    if(redQueenSquare.posX == greyQueenSquareK[k].posX - 70 &&
+                       redQueenSquare.posY == greyQueenSquareK[k].posY - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         return TRUE;
                     }
-                    if(greyQueenSquare.posX == greyQueenSquareK[k].posX - 100 &&
-                       greyQueenSquare.posY == greyQueenSquareK[k].posY - 100) {
+                    if(greyQueenSquare.posX == greyQueenSquareK[k].posX - 70 &&
+                       greyQueenSquare.posY == greyQueenSquareK[k].posY - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         return TRUE;
                     }
-                    if(redBishop1Square.posY == greyQueenSquareK[k].posY - 100 &&
-                       redBishop1Square.posX == greyQueenSquareK[k].posX - 100) {
+                    if(redBishop1Square.posY == greyQueenSquareK[k].posY - 70 &&
+                       redBishop1Square.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyQueenSquareK[k].posY - 100 &&
-                       redBishop2Square.posX == greyQueenSquareK[k].posX - 100) {
+                    if(redBishop2Square.posY == greyQueenSquareK[k].posY - 70 &&
+                       redBishop2Square.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
-                       redRook1Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                    if(redRook1Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
+                       redRook1Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
-                       redRook2Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                    if(redRook2Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
+                       redRook2Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
-                       redKnight1Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                    if(redKnight1Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
+                       redKnight1Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
-                       redKnight2Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                    if(redKnight2Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
+                       redKnight2Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == greyQueenSquareK[k].posY - 100 &&
-                       redBishop1Square.posX == greyQueenSquareK[k].posX - 100) {
+                    if(redBishop1Square.posY == greyQueenSquareK[k].posY - 70 &&
+                       redBishop1Square.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyQueenSquareK[k].posY - 100 &&
-                       redBishop2Square.posX == greyQueenSquareK[k].posX - 100) {
+                    if(redBishop2Square.posY == greyQueenSquareK[k].posY - 70 &&
+                       redBishop2Square.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
-                       greyRook1Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                    if(greyRook1Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
+                       greyRook1Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
-                       greyRook2Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                    if(greyRook2Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
+                       greyRook2Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
-                       greyKnight1Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                    if(greyKnight1Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
+                       greyKnight1Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
-                       greyKnight2Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                    if(greyKnight2Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
+                       greyKnight2Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == greyQueenSquareK[k].posY - 100 &&
-                       redBishop1Square.posX == greyQueenSquareK[k].posX - 100) {
+                    if(redBishop1Square.posY == greyQueenSquareK[k].posY - 70 &&
+                       redBishop1Square.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyQueenSquareK[k].posY - 100 &&
-                       redBishop2Square.posX == greyQueenSquareK[k].posX - 100) {
+                    if(redBishop2Square.posY == greyQueenSquareK[k].posY - 70 &&
+                       redBishop2Square.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
-                       redRook1Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                    if(redRook1Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
+                       redRook1Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
-                       redRook2Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                    if(redRook2Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
+                       redRook2Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
-                       redKnight1Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                    if(redKnight1Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
+                       redKnight1Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
-                       redKnight2Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                    if(redKnight2Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
+                       redKnight2Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == greyQueenSquareK[k].posY - 100 &&
-                       redBishop1Square.posX == greyQueenSquareK[k].posX - 100) {
+                    if(redBishop1Square.posY == greyQueenSquareK[k].posY - 70 &&
+                       redBishop1Square.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyQueenSquareK[k].posY - 100 &&
-                       redBishop2Square.posX == greyQueenSquareK[k].posX - 100) {
+                    if(redBishop2Square.posY == greyQueenSquareK[k].posY - 70 &&
+                       redBishop2Square.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
-                       greyRook1Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                    if(greyRook1Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
+                       greyRook1Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
-                       greyRook2Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                    if(greyRook2Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
+                       greyRook2Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
-                       greyKnight1Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                    if(greyKnight1Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
+                       greyKnight1Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
-                       greyKnight2Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                    if(greyKnight2Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
+                       greyKnight2Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == greyQueenSquareK[k].posY + 100 &&
-                       greyBishop1Square.posX == greyQueenSquareK[k].posX + 100) {
+                    if(greyBishop1Square.posY == greyQueenSquareK[k].posY + 70 &&
+                       greyBishop1Square.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == greyQueenSquareK[k].posY + 100 &&
-                       greyBishop2Square.posX == greyQueenSquareK[k].posX + 100) {
+                    if(greyBishop2Square.posY == greyQueenSquareK[k].posY + 70 &&
+                       greyBishop2Square.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == greyQueenSquareK[k].posY + 100 &&
-                       greyQueenSquare.posX == greyQueenSquareK[k].posX + 100) {
+                    if(greyQueenSquare.posY == greyQueenSquareK[k].posY + 70 &&
+                       greyQueenSquare.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        greyQueenSquareK[k].posY = greyQueenSquareK[k].posY - 100;
-                        greyQueenSquareK[k].posX = greyQueenSquareK[k].posX - 100;
+                        greyQueenSquareK[k].posY = greyQueenSquareK[k].posY - 70;
+                        greyQueenSquareK[k].posX = greyQueenSquareK[k].posX - 70;
                     }
 
                     return flag;
@@ -8361,15 +8361,15 @@ boolean moveGreyQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int 
         }
         if(ps1 > 0) {
             boolean f = FALSE;
-            if(pos1 < -100 && ps1 > 100) {
-                f = moveGreyQueenDiagonallyK(msg, j, i, pos1 + 100, ps1 - 100, pos2, ps2, k);
+            if(pos1 < -70 && ps1 > 70) {
+                f = moveGreyQueenDiagonallyK(msg, j, i, pos1 + 70, ps1 - 70, pos2, ps2, k);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    greyQueenSquareK[k].posY = greyQueenSquareK[k].posY - 100;
-                    greyQueenSquareK[k].posX = greyQueenSquareK[k].posX + 100;
+                    greyQueenSquareK[k].posY = greyQueenSquareK[k].posY - 70;
+                    greyQueenSquareK[k].posX = greyQueenSquareK[k].posX + 70;
 
                     for(int s=0; s<8; s++) {
                         for(int p=0; p<8; p++) {
@@ -8492,115 +8492,115 @@ boolean moveGreyQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int 
                     for(int s=0; s<8; s++) {
                         for(int h=0; h<8; h++) {
                             if(h != k &&
-                               greyQueenSquareK[h].posY == greyQueenSquareK[k].posY - 100 &&
-                               greyQueenSquareK[h].posX == greyQueenSquareK[k].posX + 100) {
+                               greyQueenSquareK[h].posY == greyQueenSquareK[k].posY - 70 &&
+                               greyQueenSquareK[h].posX == greyQueenSquareK[k].posX + 70) {
                                 greyQueenSquareK[k].failedpath = TRUE;
                                 flag = TRUE;
                             }
                         }
                         for(int h=0; h<8; h++) {
                             if(h != k &&
-                               greyQueenSquareK[h].posY == greyQueenSquareK[k].posY - 100 &&
-                               greyQueenSquareK[h].posX == greyQueenSquareK[k].posX + 100) {
+                               greyQueenSquareK[h].posY == greyQueenSquareK[k].posY - 70 &&
+                               greyQueenSquareK[h].posX == greyQueenSquareK[k].posX + 70) {
                                 greyQueenSquareK[k].failedpath = TRUE;
                                 flag = TRUE;
                             }
                         }
-                        if(redQueenSquare.posY == greyQueenSquareK[k].posY - 100 &&
-                           redQueenSquare.posX == greyQueenSquareK[k].posX + 100) {
+                        if(redQueenSquare.posY == greyQueenSquareK[k].posY - 70 &&
+                           redQueenSquare.posX == greyQueenSquareK[k].posX + 70) {
                             greyQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(redPawnsBase[s].posY == greyQueenSquareK[k].posY - 100 &&
-                           redPawnsBase[s].posX == greyQueenSquareK[k].posX + 100) {
+                        if(redPawnsBase[s].posY == greyQueenSquareK[k].posY - 70 &&
+                           redPawnsBase[s].posX == greyQueenSquareK[k].posX + 70) {
                             greyQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == greyQueenSquareK[k].posY - 100 &&
-                           greyPawnsBase[s].posX == greyQueenSquareK[k].posX + 100) {
+                        if(greyPawnsBase[s].posY == greyQueenSquareK[k].posY - 70 &&
+                           greyPawnsBase[s].posX == greyQueenSquareK[k].posX + 70) {
                             greyQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redBishop1Square.posY == greyQueenSquareK[k].posY - 100 &&
-                       redBishop1Square.posX == greyQueenSquareK[k].posX + 100) {
+                    if(redBishop1Square.posY == greyQueenSquareK[k].posY - 70 &&
+                       redBishop1Square.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyQueenSquareK[k].posY - 100 &&
-                       redBishop2Square.posX == greyQueenSquareK[k].posX + 100) {
+                    if(redBishop2Square.posY == greyQueenSquareK[k].posY - 70 &&
+                       redBishop2Square.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
-                       redRook1Rectangle1.posX == greyQueenSquareK[k].posX + 100) {
+                    if(redRook1Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
+                       redRook1Rectangle1.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
-                       redRook2Rectangle1.posX == greyQueenSquareK[k].posX + 100) {
+                    if(redRook2Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
+                       redRook2Rectangle1.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
-                       redKnight1Rectangle1.posX == greyQueenSquareK[k].posX + 100) {
+                    if(redKnight1Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
+                       redKnight1Rectangle1.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
-                       redKnight2Rectangle1.posX == greyQueenSquareK[k].posX + 100) {
+                    if(redKnight2Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
+                       redKnight2Rectangle1.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == greyQueenSquareK[k].posY - 100 &&
-                       redBishop1Square.posX == greyQueenSquareK[k].posX + 100) {
+                    if(redBishop1Square.posY == greyQueenSquareK[k].posY - 70 &&
+                       redBishop1Square.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyQueenSquareK[k].posY - 100 &&
-                       redBishop2Square.posX == greyQueenSquareK[k].posX + 100) {
+                    if(redBishop2Square.posY == greyQueenSquareK[k].posY - 70 &&
+                       redBishop2Square.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
-                       greyRook1Rectangle1.posX == greyQueenSquareK[k].posX + 100) {
+                    if(greyRook1Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
+                       greyRook1Rectangle1.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
-                       greyRook2Rectangle1.posX == greyQueenSquareK[k].posX + 100) {
+                    if(greyRook2Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
+                       greyRook2Rectangle1.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
-                       greyKnight1Rectangle1.posX == greyQueenSquareK[k].posX + 100) {
+                    if(greyKnight1Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
+                       greyKnight1Rectangle1.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == greyQueenSquareK[k].posY - 100 &&
-                       greyKnight2Rectangle1.posX == greyQueenSquareK[k].posX + 100) {
+                    if(greyKnight2Rectangle1.posY == greyQueenSquareK[k].posY - 70 &&
+                       greyKnight2Rectangle1.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == greyQueenSquareK[k].posY + 100 &&
-                       greyBishop1Square.posX == greyQueenSquareK[k].posX + 100) {
+                    if(greyBishop1Square.posY == greyQueenSquareK[k].posY + 70 &&
+                       greyBishop1Square.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == greyQueenSquareK[k].posY + 100 &&
-                       greyBishop2Square.posX == greyQueenSquareK[k].posX + 100) {
+                    if(greyBishop2Square.posY == greyQueenSquareK[k].posY + 70 &&
+                       greyBishop2Square.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == greyQueenSquareK[k].posY + 100 &&
-                       greyQueenSquare.posX == greyQueenSquareK[k].posX + 100) {
+                    if(greyQueenSquare.posY == greyQueenSquareK[k].posY + 70 &&
+                       greyQueenSquare.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        greyQueenSquareK[k].posY = greyQueenSquareK[k].posY - 100;
-                        greyQueenSquareK[k].posX = greyQueenSquareK[k].posX + 100;
+                        greyQueenSquareK[k].posY = greyQueenSquareK[k].posY - 70;
+                        greyQueenSquareK[k].posX = greyQueenSquareK[k].posX + 70;
                     }
 
                     return flag;
@@ -8616,15 +8616,15 @@ boolean moveGreyQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int 
     } else if(pos1 > 0) {
         if(ps1 < 0) {
             boolean f = FALSE;
-            if(pos1 > 100 && ps1 < -100) {
-                f = moveGreyQueenDiagonallyK(msg, j, i, pos1 - 100, ps1 + 100, pos2, ps2, k);
+            if(pos1 > 70 && ps1 < -70) {
+                f = moveGreyQueenDiagonallyK(msg, j, i, pos1 - 70, ps1 + 70, pos2, ps2, k);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    greyQueenSquareK[k].posY = greyQueenSquareK[k].posY + 100;
-                    greyQueenSquareK[k].posX = greyQueenSquareK[k].posX - 100;
+                    greyQueenSquareK[k].posY = greyQueenSquareK[k].posY + 70;
+                    greyQueenSquareK[k].posX = greyQueenSquareK[k].posX - 70;
 
                     for(int s=0; s<8; s++) {
                         for(int p=0; p<8; p++) {
@@ -8747,118 +8747,118 @@ boolean moveGreyQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int 
                     for(int s=0; s<8; s++) {
                         for(int p=0; p<8; p++) {
                             if(p != k &&
-                               greyQueenSquareK[p].posY == greyQueenSquareK[k].posY + 100 &&
-                               greyQueenSquareK[p].posX == greyQueenSquareK[k].posX - 100) {
+                               greyQueenSquareK[p].posY == greyQueenSquareK[k].posY + 70 &&
+                               greyQueenSquareK[p].posX == greyQueenSquareK[k].posX - 70) {
                                 greyQueenSquareK[k].failedpath = TRUE;
                                 flag = TRUE;
                             }
                             if(p != k &&
-                               greyQueenSquareK[p].posY == greyQueenSquareK[k].posY + 100 &&
-                               greyQueenSquareK[p].posX == greyQueenSquareK[k].posX - 100) {
+                               greyQueenSquareK[p].posY == greyQueenSquareK[k].posY + 70 &&
+                               greyQueenSquareK[p].posX == greyQueenSquareK[k].posX - 70) {
                                 greyQueenSquareK[k].failedpath = TRUE;
                                 flag = TRUE;
                             }
                         }
-                        if(redPawnsBase[s].posY == greyQueenSquareK[k].posY + 100 &&
-                           redPawnsBase[s].posX == greyQueenSquareK[k].posX - 100) {
+                        if(redPawnsBase[s].posY == greyQueenSquareK[k].posY + 70 &&
+                           redPawnsBase[s].posX == greyQueenSquareK[k].posX - 70) {
                             greyQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == greyQueenSquareK[k].posY + 100 &&
-                           greyPawnsBase[s].posX == greyQueenSquareK[k].posX - 100) {
+                        if(greyPawnsBase[s].posY == greyQueenSquareK[k].posY + 70 &&
+                           greyPawnsBase[s].posX == greyQueenSquareK[k].posX - 70) {
                             greyQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redQueenSquare.posY == greyQueenSquareK[k].posY + 100 &&
-                       redQueenSquare.posX == greyQueenSquareK[k].posX - 100) {
+                    if(redQueenSquare.posY == greyQueenSquareK[k].posY + 70 &&
+                       redQueenSquare.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == greyQueenSquareK[k].posY + 100 &&
-                       greyQueenSquare.posX == greyQueenSquareK[k].posX - 100) {
+                    if(greyQueenSquare.posY == greyQueenSquareK[k].posY + 70 &&
+                       greyQueenSquare.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == greyQueenSquareK[k].posY + 100 &&
-                       redBishop1Square.posX == greyQueenSquareK[k].posX - 100) {
+                    if(redBishop1Square.posY == greyQueenSquareK[k].posY + 70 &&
+                       redBishop1Square.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyQueenSquareK[k].posY + 100 &&
-                       redBishop2Square.posX == greyQueenSquareK[k].posX - 100) {
+                    if(redBishop2Square.posY == greyQueenSquareK[k].posY + 70 &&
+                       redBishop2Square.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == greyQueenSquareK[k].posY + 100 &&
-                       redRook1Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                    if(redRook1Rectangle1.posY == greyQueenSquareK[k].posY + 70 &&
+                       redRook1Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == greyQueenSquareK[k].posY + 100 &&
-                       redRook2Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                    if(redRook2Rectangle1.posY == greyQueenSquareK[k].posY + 70 &&
+                       redRook2Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == greyQueenSquareK[k].posY + 100 &&
-                       redKnight1Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                    if(redKnight1Rectangle1.posY == greyQueenSquareK[k].posY + 70 &&
+                       redKnight1Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == greyQueenSquareK[k].posY + 100 &&
-                       redKnight2Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                    if(redKnight2Rectangle1.posY == greyQueenSquareK[k].posY + 70 &&
+                       redKnight2Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == greyQueenSquareK[k].posY + 100 &&
-                       redBishop1Square.posX == greyQueenSquareK[k].posX - 100) {
+                    if(redBishop1Square.posY == greyQueenSquareK[k].posY + 70 &&
+                       redBishop1Square.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyQueenSquareK[k].posY + 100 &&
-                       redBishop2Square.posX == greyQueenSquareK[k].posX - 100) {
+                    if(redBishop2Square.posY == greyQueenSquareK[k].posY + 70 &&
+                       redBishop2Square.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == greyQueenSquareK[k].posY + 100 &&
-                       greyRook1Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                    if(greyRook1Rectangle1.posY == greyQueenSquareK[k].posY + 70 &&
+                       greyRook1Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == greyQueenSquareK[k].posY + 100 &&
-                       greyRook2Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                    if(greyRook2Rectangle1.posY == greyQueenSquareK[k].posY + 70 &&
+                       greyRook2Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == greyQueenSquareK[k].posY + 100 &&
-                       greyKnight1Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                    if(greyKnight1Rectangle1.posY == greyQueenSquareK[k].posY + 70 &&
+                       greyKnight1Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == greyQueenSquareK[k].posY + 100 &&
-                       greyKnight2Rectangle1.posX == greyQueenSquareK[k].posX - 100) {
+                    if(greyKnight2Rectangle1.posY == greyQueenSquareK[k].posY + 70 &&
+                       greyKnight2Rectangle1.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == greyQueenSquareK[k].posY + 100 &&
-                       greyBishop1Square.posX == greyQueenSquareK[k].posX - 100) {
+                    if(greyBishop1Square.posY == greyQueenSquareK[k].posY + 70 &&
+                       greyBishop1Square.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == greyQueenSquareK[k].posY + 100 &&
-                       greyBishop2Square.posX == greyQueenSquareK[k].posX - 100) {
+                    if(greyBishop2Square.posY == greyQueenSquareK[k].posY + 70 &&
+                       greyBishop2Square.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == greyQueenSquareK[k].posY + 100 &&
-                       greyQueenSquare.posX == greyQueenSquareK[k].posX - 100) {
+                    if(greyQueenSquare.posY == greyQueenSquareK[k].posY + 70 &&
+                       greyQueenSquare.posX == greyQueenSquareK[k].posX - 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        greyQueenSquareK[k].posY = greyQueenSquareK[k].posY + 100;
-                        greyQueenSquareK[k].posX = greyQueenSquareK[k].posX - 100;
+                        greyQueenSquareK[k].posY = greyQueenSquareK[k].posY + 70;
+                        greyQueenSquareK[k].posX = greyQueenSquareK[k].posX - 70;
                     }
 
                     return flag;
@@ -8873,15 +8873,15 @@ boolean moveGreyQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int 
         }
         if(ps1 > 0) {
             boolean f = FALSE;
-            if(pos1 > 100 && ps1 > 100) {
-                f = moveGreyQueenDiagonallyK(msg, j, i, pos1 - 100, ps1 - 100, pos2, ps2, k);
+            if(pos1 > 70 && ps1 > 70) {
+                f = moveGreyQueenDiagonallyK(msg, j, i, pos1 - 70, ps1 - 70, pos2, ps2, k);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    greyQueenSquareK[k].posY = greyQueenSquareK[k].posY + 100;
-                    greyQueenSquareK[k].posX = greyQueenSquareK[k].posX + 100;
+                    greyQueenSquareK[k].posY = greyQueenSquareK[k].posY + 70;
+                    greyQueenSquareK[k].posX = greyQueenSquareK[k].posX + 70;
 
                     for(int s=0; s<8; s++) {
                         for(int p=0; p<8; p++) {
@@ -9008,118 +9008,118 @@ boolean moveGreyQueenDiagonallyK(UINT msg, int j, int i, int pos1, int ps1, int 
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == greyQueenSquareK[k].posY + 100 &&
-                           redPawnsBase[s].posX == greyQueenSquareK[k].posX + 100) {
+                        if(redPawnsBase[s].posY == greyQueenSquareK[k].posY + 70 &&
+                           redPawnsBase[s].posX == greyQueenSquareK[k].posX + 70) {
                             greyQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == greyQueenSquareK[k].posY + 100 &&
-                           greyPawnsBase[s].posX == greyQueenSquareK[k].posX + 100) {
-                            greyQueenSquareK[k].failedpath = TRUE;
-                            flag = TRUE;
-                        }
-                        if(s != k &&
-                           greyQueenSquareK[s].posY == greyQueenSquareK[k].posY + 100 &&
-                           greyQueenSquareK[s].posX == greyQueenSquareK[k].posX + 100) {
+                        if(greyPawnsBase[s].posY == greyQueenSquareK[k].posY + 70 &&
+                           greyPawnsBase[s].posX == greyQueenSquareK[k].posX + 70) {
                             greyQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
                         if(s != k &&
-                           greyQueenSquareK[s].posY == greyQueenSquareK[k].posY + 100 &&
-                           greyQueenSquareK[s].posX == greyQueenSquareK[k].posX + 100) {
+                           greyQueenSquareK[s].posY == greyQueenSquareK[k].posY + 70 &&
+                           greyQueenSquareK[s].posX == greyQueenSquareK[k].posX + 70) {
+                            greyQueenSquareK[k].failedpath = TRUE;
+                            flag = TRUE;
+                        }
+                        if(s != k &&
+                           greyQueenSquareK[s].posY == greyQueenSquareK[k].posY + 70 &&
+                           greyQueenSquareK[s].posX == greyQueenSquareK[k].posX + 70) {
                             greyQueenSquareK[k].failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redQueenSquare.posY == greyQueenSquareK[k].posY + 100 &&
-                       redQueenSquare.posX == greyQueenSquareK[k].posX + 100) {
+                    if(redQueenSquare.posY == greyQueenSquareK[k].posY + 70 &&
+                       redQueenSquare.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == greyQueenSquareK[k].posY + 100 &&
-                       greyQueenSquare.posX == greyQueenSquareK[k].posX + 100) {
+                    if(greyQueenSquare.posY == greyQueenSquareK[k].posY + 70 &&
+                       greyQueenSquare.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == greyQueenSquareK[k].posY + 100 &&
-                       redBishop1Square.posX == greyQueenSquareK[k].posX + 100) {
+                    if(redBishop1Square.posY == greyQueenSquareK[k].posY + 70 &&
+                       redBishop1Square.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyQueenSquareK[k].posY + 100 &&
-                       redBishop2Square.posX == greyQueenSquareK[k].posX + 100) {
+                    if(redBishop2Square.posY == greyQueenSquareK[k].posY + 70 &&
+                       redBishop2Square.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == greyQueenSquareK[k].posY + 100 &&
-                       redRook1Rectangle1.posX == greyQueenSquareK[k].posX + 100) {
+                    if(redRook1Rectangle1.posY == greyQueenSquareK[k].posY + 70 &&
+                       redRook1Rectangle1.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == greyQueenSquareK[k].posY + 100 &&
-                       redRook2Rectangle1.posX == greyQueenSquareK[k].posX + 100) {
+                    if(redRook2Rectangle1.posY == greyQueenSquareK[k].posY + 70 &&
+                       redRook2Rectangle1.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == greyQueenSquareK[k].posY + 100 &&
-                       redKnight1Rectangle1.posX == greyQueenSquareK[k].posX + 100) {
+                    if(redKnight1Rectangle1.posY == greyQueenSquareK[k].posY + 70 &&
+                       redKnight1Rectangle1.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == greyQueenSquareK[k].posY + 100 &&
-                       redKnight2Rectangle1.posX == greyQueenSquareK[k].posX + 100) {
+                    if(redKnight2Rectangle1.posY == greyQueenSquareK[k].posY + 70 &&
+                       redKnight2Rectangle1.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == greyQueenSquareK[k].posY + 100 &&
-                       redBishop1Square.posX == greyQueenSquareK[k].posX + 100) {
+                    if(redBishop1Square.posY == greyQueenSquareK[k].posY + 70 &&
+                       redBishop1Square.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyQueenSquareK[k].posY + 100 &&
-                       redBishop2Square.posX == greyQueenSquareK[k].posX + 100) {
+                    if(redBishop2Square.posY == greyQueenSquareK[k].posY + 70 &&
+                       redBishop2Square.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == greyQueenSquareK[k].posY + 100 &&
-                       greyRook1Rectangle1.posX == greyQueenSquareK[k].posX + 100) {
+                    if(greyRook1Rectangle1.posY == greyQueenSquareK[k].posY + 70 &&
+                       greyRook1Rectangle1.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == greyQueenSquareK[k].posY + 100 &&
-                       greyRook2Rectangle1.posX == greyQueenSquareK[k].posX + 100) {
+                    if(greyRook2Rectangle1.posY == greyQueenSquareK[k].posY + 70 &&
+                       greyRook2Rectangle1.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == greyQueenSquareK[k].posY + 100 &&
-                       greyKnight1Rectangle1.posX == greyQueenSquareK[k].posX + 100) {
+                    if(greyKnight1Rectangle1.posY == greyQueenSquareK[k].posY + 70 &&
+                       greyKnight1Rectangle1.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == greyQueenSquareK[k].posY + 100 &&
-                       greyKnight2Rectangle1.posX == greyQueenSquareK[k].posX + 100) {
+                    if(greyKnight2Rectangle1.posY == greyQueenSquareK[k].posY + 70 &&
+                       greyKnight2Rectangle1.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == greyQueenSquareK[k].posY + 100 &&
-                       greyBishop1Square.posX == greyQueenSquareK[k].posX + 100) {
+                    if(greyBishop1Square.posY == greyQueenSquareK[k].posY + 70 &&
+                       greyBishop1Square.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == greyQueenSquareK[k].posY + 100 &&
-                       greyBishop2Square.posX == greyQueenSquareK[k].posX + 100) {
+                    if(greyBishop2Square.posY == greyQueenSquareK[k].posY + 70 &&
+                       greyBishop2Square.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == greyQueenSquareK[k].posY + 100 &&
-                       greyQueenSquare.posX == greyQueenSquareK[k].posX + 100) {
+                    if(greyQueenSquare.posY == greyQueenSquareK[k].posY + 70 &&
+                       greyQueenSquare.posX == greyQueenSquareK[k].posX + 70) {
                         greyQueenSquareK[k].failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        greyQueenSquareK[k].posY = greyQueenSquareK[k].posY + 100;
-                        greyQueenSquareK[k].posX = greyQueenSquareK[k].posX + 100;
+                        greyQueenSquareK[k].posY = greyQueenSquareK[k].posY + 70;
+                        greyQueenSquareK[k].posX = greyQueenSquareK[k].posX + 70;
                     }
 
                     return flag;
@@ -9191,15 +9191,15 @@ boolean moveGreyBishop1(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
     if(pos1 < 0) {
         if(ps1 < 0) {
             boolean f = FALSE;
-            if(pos1 < -100 && ps1 < -100) {
-                f = moveGreyBishop1(msg, j, i, pos1 + 100, ps1 + 100, pos2, ps2);
+            if(pos1 < -70 && ps1 < -70) {
+                f = moveGreyBishop1(msg, j, i, pos1 + 70, ps1 + 70, pos2, ps2);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    greyBishop1Square.posY = greyBishop1Square.posY - 100;
-                    greyBishop1Square.posX = greyBishop1Square.posX - 100;
+                    greyBishop1Square.posY = greyBishop1Square.posY - 70;
+                    greyBishop1Square.posX = greyBishop1Square.posX - 70;
 
                     for(int s=0; s<8; s++) {
                         if(greyPawnsBase[s].posY == greyBishop1Square.posY &&
@@ -9290,81 +9290,81 @@ boolean moveGreyBishop1(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == greyBishop1Square.posY - 100 &&
-                           redPawnsBase[s].posX == greyBishop1Square.posX - 100) {
+                        if(redPawnsBase[s].posY == greyBishop1Square.posY - 70 &&
+                           redPawnsBase[s].posX == greyBishop1Square.posX - 70) {
                             greyBishop1Square.failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == greyBishop1Square.posY - 100 &&
-                           greyPawnsBase[s].posX == greyBishop1Square.posX - 100) {
+                        if(greyPawnsBase[s].posY == greyBishop1Square.posY - 70 &&
+                           greyPawnsBase[s].posX == greyBishop1Square.posX - 70) {
                             greyBishop1Square.failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redQueenSquare.posY == greyBishop1Square.posY - 100 &&
-                       redQueenSquare.posX == greyBishop1Square.posX - 100) {
+                    if(redQueenSquare.posY == greyBishop1Square.posY - 70 &&
+                       redQueenSquare.posX == greyBishop1Square.posX - 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyBishop1Square.posY - 100 &&
-                       redBishop2Square.posX == greyBishop1Square.posX - 100) {
+                    if(redBishop2Square.posY == greyBishop1Square.posY - 70 &&
+                       redBishop2Square.posX == greyBishop1Square.posX - 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == greyBishop1Square.posY - 100 &&
-                       redBishop1Square.posX == greyBishop1Square.posX - 100) {
+                    if(redBishop1Square.posY == greyBishop1Square.posY - 70 &&
+                       redBishop1Square.posX == greyBishop1Square.posX - 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == greyBishop1Square.posY - 100 &&
-                       redRook1Rectangle1.posX == greyBishop1Square.posX - 100) {
+                    if(redRook1Rectangle1.posY == greyBishop1Square.posY - 70 &&
+                       redRook1Rectangle1.posX == greyBishop1Square.posX - 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == greyBishop1Square.posY - 100 &&
-                       redRook2Rectangle1.posX == greyBishop1Square.posX - 100) {
+                    if(redRook2Rectangle1.posY == greyBishop1Square.posY - 70 &&
+                       redRook2Rectangle1.posX == greyBishop1Square.posX - 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == greyBishop1Square.posY - 100 &&
-                       redKnight1Rectangle1.posX == greyBishop1Square.posX - 100) {
+                    if(redKnight1Rectangle1.posY == greyBishop1Square.posY - 70 &&
+                       redKnight1Rectangle1.posX == greyBishop1Square.posX - 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == greyBishop1Square.posY - 100 &&
-                       redKnight2Rectangle1.posX == greyBishop1Square.posX - 100) {
+                    if(redKnight2Rectangle1.posY == greyBishop1Square.posY - 70 &&
+                       redKnight2Rectangle1.posX == greyBishop1Square.posX - 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == greyBishop1Square.posY - 100 &&
-                       greyBishop2Square.posX == greyBishop1Square.posX - 100) {
+                    if(greyBishop2Square.posY == greyBishop1Square.posY - 70 &&
+                       greyBishop2Square.posX == greyBishop1Square.posX - 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == greyBishop1Square.posY - 100 &&
-                       greyRook1Rectangle1.posX == greyBishop1Square.posX - 100) {
+                    if(greyRook1Rectangle1.posY == greyBishop1Square.posY - 70 &&
+                       greyRook1Rectangle1.posX == greyBishop1Square.posX - 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == greyBishop1Square.posY - 100 &&
-                       greyRook2Rectangle1.posX == greyBishop1Square.posX - 100) {
+                    if(greyRook2Rectangle1.posY == greyBishop1Square.posY - 70 &&
+                       greyRook2Rectangle1.posX == greyBishop1Square.posX - 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == greyBishop1Square.posY - 100 &&
-                       greyKnight1Rectangle1.posX == greyBishop1Square.posX - 100) {
+                    if(greyKnight1Rectangle1.posY == greyBishop1Square.posY - 70 &&
+                       greyKnight1Rectangle1.posX == greyBishop1Square.posX - 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == greyBishop1Square.posY - 100 &&
-                       greyKnight2Rectangle1.posX == greyBishop1Square.posX - 100) {
+                    if(greyKnight2Rectangle1.posY == greyBishop1Square.posY - 70 &&
+                       greyKnight2Rectangle1.posX == greyBishop1Square.posX - 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        greyBishop1Square.posY = greyBishop1Square.posY - 100;
-                        greyBishop1Square.posX = greyBishop1Square.posX - 100;
+                        greyBishop1Square.posY = greyBishop1Square.posY - 70;
+                        greyBishop1Square.posX = greyBishop1Square.posX - 70;
                     }
 
                     return flag;
@@ -9379,15 +9379,15 @@ boolean moveGreyBishop1(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
         }
         if(ps1 > 0) {
             boolean f = FALSE;
-            if(pos1 < -100 && ps1 > 100) {
-                f = moveGreyBishop1(msg, j, i, pos1 + 100, ps1 - 100, pos2, ps2);
+            if(pos1 < -70 && ps1 > 70) {
+                f = moveGreyBishop1(msg, j, i, pos1 + 70, ps1 - 70, pos2, ps2);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    greyBishop1Square.posY = greyBishop1Square.posY - 100;
-                    greyBishop1Square.posX = greyBishop1Square.posX + 100;
+                    greyBishop1Square.posY = greyBishop1Square.posY - 70;
+                    greyBishop1Square.posX = greyBishop1Square.posX + 70;
 
                     for(int s=0; s<8; s++) {
                         if(greyPawnsBase[s].posY == greyBishop1Square.posY &&
@@ -9478,81 +9478,81 @@ boolean moveGreyBishop1(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == greyBishop1Square.posY - 100 &&
-                           redPawnsBase[s].posX == greyBishop1Square.posX + 100) {
+                        if(redPawnsBase[s].posY == greyBishop1Square.posY - 70 &&
+                           redPawnsBase[s].posX == greyBishop1Square.posX + 70) {
                             greyBishop1Square.failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == greyBishop1Square.posY - 100 &&
-                           greyPawnsBase[s].posX == greyBishop1Square.posX + 100) {
+                        if(greyPawnsBase[s].posY == greyBishop1Square.posY - 70 &&
+                           greyPawnsBase[s].posX == greyBishop1Square.posX + 70) {
                             greyBishop1Square.failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redQueenSquare.posY == greyBishop1Square.posY - 100 &&
-                       redQueenSquare.posX == greyBishop1Square.posX + 100) {
+                    if(redQueenSquare.posY == greyBishop1Square.posY - 70 &&
+                       redQueenSquare.posX == greyBishop1Square.posX + 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyBishop1Square.posY - 100 &&
-                       redBishop2Square.posX == greyBishop1Square.posX + 100) {
+                    if(redBishop2Square.posY == greyBishop1Square.posY - 70 &&
+                       redBishop2Square.posX == greyBishop1Square.posX + 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == greyBishop1Square.posY - 100 &&
-                       redBishop1Square.posX == greyBishop1Square.posX + 100) {
+                    if(redBishop1Square.posY == greyBishop1Square.posY - 70 &&
+                       redBishop1Square.posX == greyBishop1Square.posX + 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == greyBishop1Square.posY - 100 &&
-                       redRook1Rectangle1.posX == greyBishop1Square.posX + 100) {
+                    if(redRook1Rectangle1.posY == greyBishop1Square.posY - 70 &&
+                       redRook1Rectangle1.posX == greyBishop1Square.posX + 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == greyBishop1Square.posY - 100 &&
-                       redRook2Rectangle1.posX == greyBishop1Square.posX + 100) {
+                    if(redRook2Rectangle1.posY == greyBishop1Square.posY - 70 &&
+                       redRook2Rectangle1.posX == greyBishop1Square.posX + 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == greyBishop1Square.posY - 100 &&
-                       redKnight1Rectangle1.posX == greyBishop1Square.posX + 100) {
+                    if(redKnight1Rectangle1.posY == greyBishop1Square.posY - 70 &&
+                       redKnight1Rectangle1.posX == greyBishop1Square.posX + 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == greyBishop1Square.posY - 100 &&
-                       redKnight2Rectangle1.posX == greyBishop1Square.posX + 100) {
+                    if(redKnight2Rectangle1.posY == greyBishop1Square.posY - 70 &&
+                       redKnight2Rectangle1.posX == greyBishop1Square.posX + 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == greyBishop1Square.posY - 100 &&
-                       greyBishop2Square.posX == greyBishop1Square.posX + 100) {
+                    if(greyBishop2Square.posY == greyBishop1Square.posY - 70 &&
+                       greyBishop2Square.posX == greyBishop1Square.posX + 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == greyBishop1Square.posY - 100 &&
-                       greyRook1Rectangle1.posX == greyBishop1Square.posX + 100) {
+                    if(greyRook1Rectangle1.posY == greyBishop1Square.posY - 70 &&
+                       greyRook1Rectangle1.posX == greyBishop1Square.posX + 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == greyBishop1Square.posY - 100 &&
-                       greyRook2Rectangle1.posX == greyBishop1Square.posX + 100) {
+                    if(greyRook2Rectangle1.posY == greyBishop1Square.posY - 70 &&
+                       greyRook2Rectangle1.posX == greyBishop1Square.posX + 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == greyBishop1Square.posY - 100 &&
-                       greyKnight1Rectangle1.posX == greyBishop1Square.posX + 100) {
+                    if(greyKnight1Rectangle1.posY == greyBishop1Square.posY - 70 &&
+                       greyKnight1Rectangle1.posX == greyBishop1Square.posX + 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == greyBishop1Square.posY - 100 &&
-                       greyKnight2Rectangle1.posX == greyBishop1Square.posX + 100) {
+                    if(greyKnight2Rectangle1.posY == greyBishop1Square.posY - 70 &&
+                       greyKnight2Rectangle1.posX == greyBishop1Square.posX + 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        greyBishop1Square.posY = greyBishop1Square.posY - 100;
-                        greyBishop1Square.posX = greyBishop1Square.posX + 100;
+                        greyBishop1Square.posY = greyBishop1Square.posY - 70;
+                        greyBishop1Square.posX = greyBishop1Square.posX + 70;
                     }
 
                     return flag;
@@ -9568,15 +9568,15 @@ boolean moveGreyBishop1(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
     } else if(pos1 > 0) {
         if(ps1 < 0) {
             boolean f = FALSE;
-            if(pos1 > 100 && ps1 < -100) {
-                f = moveGreyBishop1(msg, j, i, pos1 - 100, ps1 + 100, pos2, ps2);
+            if(pos1 > 70 && ps1 < -70) {
+                f = moveGreyBishop1(msg, j, i, pos1 - 70, ps1 + 70, pos2, ps2);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    greyBishop1Square.posY = greyBishop1Square.posY + 100;
-                    greyBishop1Square.posX = greyBishop1Square.posX - 100;
+                    greyBishop1Square.posY = greyBishop1Square.posY + 70;
+                    greyBishop1Square.posX = greyBishop1Square.posX - 70;
 
                     for(int s=0; s<8; s++) {
                         if(greyPawnsBase[s].posY == greyBishop1Square.posY &&
@@ -9667,81 +9667,81 @@ boolean moveGreyBishop1(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == greyBishop1Square.posY + 100 &&
-                           redPawnsBase[s].posX == greyBishop1Square.posX - 100) {
+                        if(redPawnsBase[s].posY == greyBishop1Square.posY + 70 &&
+                           redPawnsBase[s].posX == greyBishop1Square.posX - 70) {
                             greyBishop1Square.failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == greyBishop1Square.posY + 100 &&
-                           greyPawnsBase[s].posX == greyBishop1Square.posX - 100) {
+                        if(greyPawnsBase[s].posY == greyBishop1Square.posY + 70 &&
+                           greyPawnsBase[s].posX == greyBishop1Square.posX - 70) {
                             greyBishop1Square.failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redQueenSquare.posY == greyBishop1Square.posY + 100 &&
-                       redQueenSquare.posX == greyBishop1Square.posX - 100) {
+                    if(redQueenSquare.posY == greyBishop1Square.posY + 70 &&
+                       redQueenSquare.posX == greyBishop1Square.posX - 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == greyBishop1Square.posY + 100 &&
-                       redBishop1Square.posX == greyBishop1Square.posX - 100) {
+                    if(redBishop1Square.posY == greyBishop1Square.posY + 70 &&
+                       redBishop1Square.posX == greyBishop1Square.posX - 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyBishop1Square.posY + 100 &&
-                       redBishop2Square.posX == greyBishop1Square.posX - 100) {
+                    if(redBishop2Square.posY == greyBishop1Square.posY + 70 &&
+                       redBishop2Square.posX == greyBishop1Square.posX - 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == greyBishop1Square.posY + 100 &&
-                       redRook1Rectangle1.posX == greyBishop1Square.posX - 100) {
+                    if(redRook1Rectangle1.posY == greyBishop1Square.posY + 70 &&
+                       redRook1Rectangle1.posX == greyBishop1Square.posX - 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == greyBishop1Square.posY + 100 &&
-                       redRook2Rectangle1.posX == greyBishop1Square.posX - 100) {
+                    if(redRook2Rectangle1.posY == greyBishop1Square.posY + 70 &&
+                       redRook2Rectangle1.posX == greyBishop1Square.posX - 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == greyBishop1Square.posY + 100 &&
-                       redKnight1Rectangle1.posX == greyBishop1Square.posX - 100) {
+                    if(redKnight1Rectangle1.posY == greyBishop1Square.posY + 70 &&
+                       redKnight1Rectangle1.posX == greyBishop1Square.posX - 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == greyBishop1Square.posY + 100 &&
-                       redKnight2Rectangle1.posX == greyBishop1Square.posX - 100) {
+                    if(redKnight2Rectangle1.posY == greyBishop1Square.posY + 70 &&
+                       redKnight2Rectangle1.posX == greyBishop1Square.posX - 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == greyBishop1Square.posY + 100 &&
-                       greyBishop2Square.posX == greyBishop1Square.posX - 100) {
+                    if(greyBishop2Square.posY == greyBishop1Square.posY + 70 &&
+                       greyBishop2Square.posX == greyBishop1Square.posX - 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == greyBishop1Square.posY + 100 &&
-                       greyRook1Rectangle1.posX == greyBishop1Square.posX - 100) {
+                    if(greyRook1Rectangle1.posY == greyBishop1Square.posY + 70 &&
+                       greyRook1Rectangle1.posX == greyBishop1Square.posX - 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == greyBishop1Square.posY + 100 &&
-                       greyRook2Rectangle1.posX == greyBishop1Square.posX - 100) {
+                    if(greyRook2Rectangle1.posY == greyBishop1Square.posY + 70 &&
+                       greyRook2Rectangle1.posX == greyBishop1Square.posX - 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == greyBishop1Square.posY + 100 &&
-                       greyKnight1Rectangle1.posX == greyBishop1Square.posX - 100) {
+                    if(greyKnight1Rectangle1.posY == greyBishop1Square.posY + 70 &&
+                       greyKnight1Rectangle1.posX == greyBishop1Square.posX - 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == greyBishop1Square.posY + 100 &&
-                       greyKnight2Rectangle1.posX == greyBishop1Square.posX - 100) {
+                    if(greyKnight2Rectangle1.posY == greyBishop1Square.posY + 70 &&
+                       greyKnight2Rectangle1.posX == greyBishop1Square.posX - 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        greyBishop1Square.posY = greyBishop1Square.posY + 100;
-                        greyBishop1Square.posX = greyBishop1Square.posX - 100;
+                        greyBishop1Square.posY = greyBishop1Square.posY + 70;
+                        greyBishop1Square.posX = greyBishop1Square.posX - 70;
                     }
 
                     return flag;
@@ -9756,15 +9756,15 @@ boolean moveGreyBishop1(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
         }
         if(ps1 > 0) {
             boolean f = FALSE;
-            if(pos1 > 100 && ps1 > 100) {
-                f = moveGreyBishop1(msg, j, i, pos1 - 100, ps1 - 100, pos2, ps2);
+            if(pos1 > 70 && ps1 > 70) {
+                f = moveGreyBishop1(msg, j, i, pos1 - 70, ps1 - 70, pos2, ps2);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    greyBishop1Square.posY = greyBishop1Square.posY + 100;
-                    greyBishop1Square.posX = greyBishop1Square.posX + 100;
+                    greyBishop1Square.posY = greyBishop1Square.posY + 70;
+                    greyBishop1Square.posX = greyBishop1Square.posX + 70;
 
                     for(int s=0; s<8; s++) {
                         if(greyPawnsBase[s].posY == greyBishop1Square.posY &&
@@ -9855,81 +9855,81 @@ boolean moveGreyBishop1(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == greyBishop1Square.posY + 100 &&
-                           redPawnsBase[s].posX == greyBishop1Square.posX + 100) {
+                        if(redPawnsBase[s].posY == greyBishop1Square.posY + 70 &&
+                           redPawnsBase[s].posX == greyBishop1Square.posX + 70) {
                             greyBishop1Square.failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == greyBishop1Square.posY + 100 &&
-                           greyPawnsBase[s].posX == greyBishop1Square.posX + 100) {
+                        if(greyPawnsBase[s].posY == greyBishop1Square.posY + 70 &&
+                           greyPawnsBase[s].posX == greyBishop1Square.posX + 70) {
                             greyBishop1Square.failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redQueenSquare.posY == greyBishop1Square.posY + 100 &&
-                       redQueenSquare.posX == greyBishop1Square.posX + 100) {
+                    if(redQueenSquare.posY == greyBishop1Square.posY + 70 &&
+                       redQueenSquare.posX == greyBishop1Square.posX + 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == greyBishop1Square.posY + 100 &&
-                       redBishop1Square.posX == greyBishop1Square.posX + 100) {
+                    if(redBishop1Square.posY == greyBishop1Square.posY + 70 &&
+                       redBishop1Square.posX == greyBishop1Square.posX + 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyBishop1Square.posY + 100 &&
-                       redBishop2Square.posX == greyBishop1Square.posX + 100) {
+                    if(redBishop2Square.posY == greyBishop1Square.posY + 70 &&
+                       redBishop2Square.posX == greyBishop1Square.posX + 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == greyBishop1Square.posY + 100 &&
-                       redRook1Rectangle1.posX == greyBishop1Square.posX + 100) {
+                    if(redRook1Rectangle1.posY == greyBishop1Square.posY + 70 &&
+                       redRook1Rectangle1.posX == greyBishop1Square.posX + 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == greyBishop1Square.posY + 100 &&
-                       redRook2Rectangle1.posX == greyBishop1Square.posX + 100) {
+                    if(redRook2Rectangle1.posY == greyBishop1Square.posY + 70 &&
+                       redRook2Rectangle1.posX == greyBishop1Square.posX + 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == greyBishop1Square.posY + 100 &&
-                       redKnight1Rectangle1.posX == greyBishop1Square.posX + 100) {
+                    if(redKnight1Rectangle1.posY == greyBishop1Square.posY + 70 &&
+                       redKnight1Rectangle1.posX == greyBishop1Square.posX + 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == greyBishop1Square.posY + 100 &&
-                       redKnight2Rectangle1.posX == greyBishop1Square.posX + 100) {
+                    if(redKnight2Rectangle1.posY == greyBishop1Square.posY + 70 &&
+                       redKnight2Rectangle1.posX == greyBishop1Square.posX + 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == greyBishop1Square.posY + 100 &&
-                       greyBishop2Square.posX == greyBishop1Square.posX + 100) {
+                    if(greyBishop2Square.posY == greyBishop1Square.posY + 70 &&
+                       greyBishop2Square.posX == greyBishop1Square.posX + 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == greyBishop1Square.posY + 100 &&
-                       greyRook1Rectangle1.posX == greyBishop1Square.posX + 100) {
+                    if(greyRook1Rectangle1.posY == greyBishop1Square.posY + 70 &&
+                       greyRook1Rectangle1.posX == greyBishop1Square.posX + 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == greyBishop1Square.posY + 100 &&
-                       greyRook2Rectangle1.posX == greyBishop1Square.posX + 100) {
+                    if(greyRook2Rectangle1.posY == greyBishop1Square.posY + 70 &&
+                       greyRook2Rectangle1.posX == greyBishop1Square.posX + 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == greyBishop1Square.posY + 100 &&
-                       greyKnight1Rectangle1.posX == greyBishop1Square.posX + 100) {
+                    if(greyKnight1Rectangle1.posY == greyBishop1Square.posY + 70 &&
+                       greyKnight1Rectangle1.posX == greyBishop1Square.posX + 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == greyBishop1Square.posY + 100 &&
-                       greyKnight2Rectangle1.posX == greyBishop1Square.posX + 100) {
+                    if(greyKnight2Rectangle1.posY == greyBishop1Square.posY + 70 &&
+                       greyKnight2Rectangle1.posX == greyBishop1Square.posX + 70) {
                         greyBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        greyBishop1Square.posY = greyBishop1Square.posY + 100;
-                        greyBishop1Square.posX = greyBishop1Square.posX + 100;
+                        greyBishop1Square.posY = greyBishop1Square.posY + 70;
+                        greyBishop1Square.posX = greyBishop1Square.posX + 70;
                     }
 
                     return flag;
@@ -10001,15 +10001,15 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
     if(pos1 < 0) {
         if(ps1 < 0) {
             boolean f = FALSE;
-            if(pos1 < -100 && ps1 < -100) {
-                f = moveGreyBishop2(msg, j, i, pos1 + 100, ps1 + 100, pos2, ps2);
+            if(pos1 < -70 && ps1 < -70) {
+                f = moveGreyBishop2(msg, j, i, pos1 + 70, ps1 + 70, pos2, ps2);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    greyBishop2Square.posY = greyBishop2Square.posY - 100;
-                    greyBishop2Square.posX = greyBishop2Square.posX - 100;
+                    greyBishop2Square.posY = greyBishop2Square.posY - 70;
+                    greyBishop2Square.posX = greyBishop2Square.posX - 70;
 
                     for(int s=0; s<8; s++) {
                         if(greyPawnsBase[s].posY == greyBishop2Square.posY &&
@@ -10102,81 +10102,81 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == greyBishop2Square.posY - 100 &&
-                           redPawnsBase[s].posX == greyBishop2Square.posX - 100) {
+                        if(redPawnsBase[s].posY == greyBishop2Square.posY - 70 &&
+                           redPawnsBase[s].posX == greyBishop2Square.posX - 70) {
                             greyBishop2Square.failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == greyBishop2Square.posY - 100 &&
-                           greyPawnsBase[s].posX == greyBishop2Square.posX - 100) {
+                        if(greyPawnsBase[s].posY == greyBishop2Square.posY - 70 &&
+                           greyPawnsBase[s].posX == greyBishop2Square.posX - 70) {
                             greyBishop2Square.failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redQueenSquare.posY == greyBishop2Square.posY - 100 &&
-                       redQueenSquare.posX == greyBishop2Square.posX - 100) {
+                    if(redQueenSquare.posY == greyBishop2Square.posY - 70 &&
+                       redQueenSquare.posX == greyBishop2Square.posX - 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyBishop2Square.posY - 100 &&
-                       redBishop2Square.posX == greyBishop2Square.posX - 100) {
+                    if(redBishop2Square.posY == greyBishop2Square.posY - 70 &&
+                       redBishop2Square.posX == greyBishop2Square.posX - 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == greyBishop2Square.posY - 100 &&
-                       redBishop1Square.posX == greyBishop2Square.posX - 100) {
+                    if(redBishop1Square.posY == greyBishop2Square.posY - 70 &&
+                       redBishop1Square.posX == greyBishop2Square.posX - 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == greyBishop2Square.posY - 100 &&
-                       redRook1Rectangle1.posX == greyBishop2Square.posX - 100) {
+                    if(redRook1Rectangle1.posY == greyBishop2Square.posY - 70 &&
+                       redRook1Rectangle1.posX == greyBishop2Square.posX - 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == greyBishop2Square.posY - 100 &&
-                       redRook2Rectangle1.posX == greyBishop2Square.posX - 100) {
+                    if(redRook2Rectangle1.posY == greyBishop2Square.posY - 70 &&
+                       redRook2Rectangle1.posX == greyBishop2Square.posX - 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == greyBishop2Square.posY - 100 &&
-                       redKnight1Rectangle1.posX == greyBishop2Square.posX - 100) {
+                    if(redKnight1Rectangle1.posY == greyBishop2Square.posY - 70 &&
+                       redKnight1Rectangle1.posX == greyBishop2Square.posX - 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == greyBishop2Square.posY - 100 &&
-                       redKnight2Rectangle1.posX == greyBishop2Square.posX - 100) {
+                    if(redKnight2Rectangle1.posY == greyBishop2Square.posY - 70 &&
+                       redKnight2Rectangle1.posX == greyBishop2Square.posX - 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == greyBishop2Square.posY - 100 &&
-                       greyBishop1Square.posX == greyBishop2Square.posX - 100) {
+                    if(greyBishop1Square.posY == greyBishop2Square.posY - 70 &&
+                       greyBishop1Square.posX == greyBishop2Square.posX - 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == greyBishop2Square.posY - 100 &&
-                       greyRook1Rectangle1.posX == greyBishop2Square.posX - 100) {
+                    if(greyRook1Rectangle1.posY == greyBishop2Square.posY - 70 &&
+                       greyRook1Rectangle1.posX == greyBishop2Square.posX - 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == greyBishop2Square.posY - 100 &&
-                       greyRook2Rectangle1.posX == greyBishop2Square.posX - 100) {
+                    if(greyRook2Rectangle1.posY == greyBishop2Square.posY - 70 &&
+                       greyRook2Rectangle1.posX == greyBishop2Square.posX - 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == greyBishop2Square.posY - 100 &&
-                       greyKnight1Rectangle1.posX == greyBishop2Square.posX - 100) {
+                    if(greyKnight1Rectangle1.posY == greyBishop2Square.posY - 70 &&
+                       greyKnight1Rectangle1.posX == greyBishop2Square.posX - 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == greyBishop2Square.posY - 100 &&
-                       greyKnight2Rectangle1.posX == greyBishop2Square.posX - 100) {
+                    if(greyKnight2Rectangle1.posY == greyBishop2Square.posY - 70 &&
+                       greyKnight2Rectangle1.posX == greyBishop2Square.posX - 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        greyBishop2Square.posY = greyBishop2Square.posY - 100;
-                        greyBishop2Square.posX = greyBishop2Square.posX - 100;
+                        greyBishop2Square.posY = greyBishop2Square.posY - 70;
+                        greyBishop2Square.posX = greyBishop2Square.posX - 70;
                     }
 
                     return flag;
@@ -10191,15 +10191,15 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
         }
         if(ps1 > 0) {
             boolean f = FALSE;
-            if(pos1 < -100 && ps1 > 100) {
-                f = moveGreyBishop2(msg, j, i, pos1 + 100, ps1 - 100, pos2, ps2);
+            if(pos1 < -70 && ps1 > 70) {
+                f = moveGreyBishop2(msg, j, i, pos1 + 70, ps1 - 70, pos2, ps2);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    greyBishop2Square.posY = greyBishop2Square.posY - 100;
-                    greyBishop2Square.posX = greyBishop2Square.posX + 100;
+                    greyBishop2Square.posY = greyBishop2Square.posY - 70;
+                    greyBishop2Square.posX = greyBishop2Square.posX + 70;
 
                     for(int s=0; s<8; s++) {
                         if(greyPawnsBase[s].posY == greyBishop2Square.posY &&
@@ -10292,81 +10292,81 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == greyBishop2Square.posY - 100 &&
-                           redPawnsBase[s].posX == greyBishop2Square.posX + 100) {
+                        if(redPawnsBase[s].posY == greyBishop2Square.posY - 70 &&
+                           redPawnsBase[s].posX == greyBishop2Square.posX + 70) {
                             greyBishop2Square.failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == greyBishop2Square.posY - 100 &&
-                           greyPawnsBase[s].posX == greyBishop2Square.posX + 100) {
+                        if(greyPawnsBase[s].posY == greyBishop2Square.posY - 70 &&
+                           greyPawnsBase[s].posX == greyBishop2Square.posX + 70) {
                             greyBishop2Square.failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redQueenSquare.posY == greyBishop2Square.posY - 100 &&
-                       redQueenSquare.posX == greyBishop2Square.posX + 100) {
+                    if(redQueenSquare.posY == greyBishop2Square.posY - 70 &&
+                       redQueenSquare.posX == greyBishop2Square.posX + 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyBishop2Square.posY - 100 &&
-                       redBishop2Square.posX == greyBishop2Square.posX + 100) {
+                    if(redBishop2Square.posY == greyBishop2Square.posY - 70 &&
+                       redBishop2Square.posX == greyBishop2Square.posX + 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == greyBishop2Square.posY - 100 &&
-                       redBishop1Square.posX == greyBishop2Square.posX + 100) {
+                    if(redBishop1Square.posY == greyBishop2Square.posY - 70 &&
+                       redBishop1Square.posX == greyBishop2Square.posX + 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == greyBishop2Square.posY - 100 &&
-                       redRook1Rectangle1.posX == greyBishop2Square.posX + 100) {
+                    if(redRook1Rectangle1.posY == greyBishop2Square.posY - 70 &&
+                       redRook1Rectangle1.posX == greyBishop2Square.posX + 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == greyBishop2Square.posY - 100 &&
-                       redRook2Rectangle1.posX == greyBishop2Square.posX + 100) {
+                    if(redRook2Rectangle1.posY == greyBishop2Square.posY - 70 &&
+                       redRook2Rectangle1.posX == greyBishop2Square.posX + 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == greyBishop2Square.posY - 100 &&
-                       redKnight1Rectangle1.posX == greyBishop2Square.posX + 100) {
+                    if(redKnight1Rectangle1.posY == greyBishop2Square.posY - 70 &&
+                       redKnight1Rectangle1.posX == greyBishop2Square.posX + 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == greyBishop2Square.posY - 100 &&
-                       redKnight2Rectangle1.posX == greyBishop2Square.posX + 100) {
+                    if(redKnight2Rectangle1.posY == greyBishop2Square.posY - 70 &&
+                       redKnight2Rectangle1.posX == greyBishop2Square.posX + 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == greyBishop2Square.posY - 100 &&
-                       greyBishop1Square.posX == greyBishop2Square.posX + 100) {
+                    if(greyBishop1Square.posY == greyBishop2Square.posY - 70 &&
+                       greyBishop1Square.posX == greyBishop2Square.posX + 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == greyBishop2Square.posY - 100 &&
-                       greyRook1Rectangle1.posX == greyBishop2Square.posX + 100) {
+                    if(greyRook1Rectangle1.posY == greyBishop2Square.posY - 70 &&
+                       greyRook1Rectangle1.posX == greyBishop2Square.posX + 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == greyBishop2Square.posY - 100 &&
-                       greyRook2Rectangle1.posX == greyBishop2Square.posX + 100) {
+                    if(greyRook2Rectangle1.posY == greyBishop2Square.posY - 70 &&
+                       greyRook2Rectangle1.posX == greyBishop2Square.posX + 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == greyBishop2Square.posY - 100 &&
-                       greyKnight1Rectangle1.posX == greyBishop2Square.posX + 100) {
+                    if(greyKnight1Rectangle1.posY == greyBishop2Square.posY - 70 &&
+                       greyKnight1Rectangle1.posX == greyBishop2Square.posX + 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == greyBishop2Square.posY - 100 &&
-                       greyKnight2Rectangle1.posX == greyBishop2Square.posX + 100) {
+                    if(greyKnight2Rectangle1.posY == greyBishop2Square.posY - 70 &&
+                       greyKnight2Rectangle1.posX == greyBishop2Square.posX + 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        greyBishop2Square.posY = greyBishop2Square.posY - 100;
-                        greyBishop2Square.posX = greyBishop2Square.posX + 100;
+                        greyBishop2Square.posY = greyBishop2Square.posY - 70;
+                        greyBishop2Square.posX = greyBishop2Square.posX + 70;
                     }
 
                     return flag;
@@ -10382,15 +10382,15 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
     } else if(pos1 > 0) {
         if(ps1 < 0) {
             boolean f = FALSE;
-            if(pos1 > 100 && ps1 < -100) {
-                f = moveGreyBishop2(msg, j, i, pos1 - 100, ps1 + 100, pos2, ps2);
+            if(pos1 > 70 && ps1 < -70) {
+                f = moveGreyBishop2(msg, j, i, pos1 - 70, ps1 + 70, pos2, ps2);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    greyBishop2Square.posY = greyBishop2Square.posY + 100;
-                    greyBishop2Square.posX = greyBishop2Square.posX - 100;
+                    greyBishop2Square.posY = greyBishop2Square.posY + 70;
+                    greyBishop2Square.posX = greyBishop2Square.posX - 70;
 
                     for(int s=0; s<8; s++) {
                         if(greyPawnsBase[s].posY == greyBishop2Square.posY &&
@@ -10483,81 +10483,81 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == greyBishop2Square.posY + 100 &&
-                           redPawnsBase[s].posX == greyBishop2Square.posX - 100) {
+                        if(redPawnsBase[s].posY == greyBishop2Square.posY + 70 &&
+                           redPawnsBase[s].posX == greyBishop2Square.posX - 70) {
                             greyBishop2Square.failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == greyBishop2Square.posY + 100 &&
-                           greyPawnsBase[s].posX == greyBishop2Square.posX - 100) {
+                        if(greyPawnsBase[s].posY == greyBishop2Square.posY + 70 &&
+                           greyPawnsBase[s].posX == greyBishop2Square.posX - 70) {
                             greyBishop2Square.failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redQueenSquare.posY == greyBishop2Square.posY + 100 &&
-                       redQueenSquare.posX == greyBishop2Square.posX - 100) {
+                    if(redQueenSquare.posY == greyBishop2Square.posY + 70 &&
+                       redQueenSquare.posX == greyBishop2Square.posX - 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == greyBishop2Square.posY + 100 &&
-                       redBishop1Square.posX == greyBishop2Square.posX - 100) {
+                    if(redBishop1Square.posY == greyBishop2Square.posY + 70 &&
+                       redBishop1Square.posX == greyBishop2Square.posX - 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyBishop2Square.posY + 100 &&
-                       redBishop2Square.posX == greyBishop2Square.posX - 100) {
+                    if(redBishop2Square.posY == greyBishop2Square.posY + 70 &&
+                       redBishop2Square.posX == greyBishop2Square.posX - 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == greyBishop2Square.posY + 100 &&
-                       redRook1Rectangle1.posX == greyBishop2Square.posX - 100) {
+                    if(redRook1Rectangle1.posY == greyBishop2Square.posY + 70 &&
+                       redRook1Rectangle1.posX == greyBishop2Square.posX - 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == greyBishop2Square.posY + 100 &&
-                       redRook2Rectangle1.posX == greyBishop2Square.posX - 100) {
+                    if(redRook2Rectangle1.posY == greyBishop2Square.posY + 70 &&
+                       redRook2Rectangle1.posX == greyBishop2Square.posX - 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == greyBishop2Square.posY + 100 &&
-                       redKnight1Rectangle1.posX == greyBishop2Square.posX - 100) {
+                    if(redKnight1Rectangle1.posY == greyBishop2Square.posY + 70 &&
+                       redKnight1Rectangle1.posX == greyBishop2Square.posX - 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == greyBishop2Square.posY + 100 &&
-                       redKnight2Rectangle1.posX == greyBishop2Square.posX - 100) {
+                    if(redKnight2Rectangle1.posY == greyBishop2Square.posY + 70 &&
+                       redKnight2Rectangle1.posX == greyBishop2Square.posX - 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == greyBishop2Square.posY + 100 &&
-                       greyBishop1Square.posX == greyBishop2Square.posX - 100) {
+                    if(greyBishop1Square.posY == greyBishop2Square.posY + 70 &&
+                       greyBishop1Square.posX == greyBishop2Square.posX - 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == greyBishop2Square.posY + 100 &&
-                       greyRook1Rectangle1.posX == greyBishop2Square.posX - 100) {
+                    if(greyRook1Rectangle1.posY == greyBishop2Square.posY + 70 &&
+                       greyRook1Rectangle1.posX == greyBishop2Square.posX - 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == greyBishop2Square.posY + 100 &&
-                       greyRook2Rectangle1.posX == greyBishop2Square.posX - 100) {
+                    if(greyRook2Rectangle1.posY == greyBishop2Square.posY + 70 &&
+                       greyRook2Rectangle1.posX == greyBishop2Square.posX - 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == greyBishop2Square.posY + 100 &&
-                       greyKnight1Rectangle1.posX == greyBishop2Square.posX - 100) {
+                    if(greyKnight1Rectangle1.posY == greyBishop2Square.posY + 70 &&
+                       greyKnight1Rectangle1.posX == greyBishop2Square.posX - 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == greyBishop2Square.posY + 100 &&
-                       greyKnight2Rectangle1.posX == greyBishop2Square.posX - 100) {
+                    if(greyKnight2Rectangle1.posY == greyBishop2Square.posY + 70 &&
+                       greyKnight2Rectangle1.posX == greyBishop2Square.posX - 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        greyBishop2Square.posY = greyBishop2Square.posY + 100;
-                        greyBishop2Square.posX = greyBishop2Square.posX - 100;
+                        greyBishop2Square.posY = greyBishop2Square.posY + 70;
+                        greyBishop2Square.posX = greyBishop2Square.posX - 70;
                     }
 
                     return flag;
@@ -10572,15 +10572,15 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
         }
         if(ps1 > 0) {
             boolean f = FALSE;
-            if(pos1 > 100 && ps1 > 100) {
-                f = moveGreyBishop2(msg, j, i, pos1 - 100, ps1 - 100, pos2, ps2);
+            if(pos1 > 70 && ps1 > 70) {
+                f = moveGreyBishop2(msg, j, i, pos1 - 70, ps1 - 70, pos2, ps2);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    greyBishop2Square.posY = greyBishop2Square.posY + 100;
-                    greyBishop2Square.posX = greyBishop2Square.posX + 100;
+                    greyBishop2Square.posY = greyBishop2Square.posY + 70;
+                    greyBishop2Square.posX = greyBishop2Square.posX + 70;
 
                     for(int s=0; s<8; s++) {
                         if(greyPawnsBase[s].posY == greyBishop2Square.posY &&
@@ -10673,81 +10673,81 @@ boolean moveGreyBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == greyBishop2Square.posY + 100 &&
-                           redPawnsBase[s].posX == greyBishop2Square.posX + 100) {
+                        if(redPawnsBase[s].posY == greyBishop2Square.posY + 70 &&
+                           redPawnsBase[s].posX == greyBishop2Square.posX + 70) {
                             greyBishop2Square.failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == greyBishop2Square.posY + 100 &&
-                           greyPawnsBase[s].posX == greyBishop2Square.posX + 100) {
+                        if(greyPawnsBase[s].posY == greyBishop2Square.posY + 70 &&
+                           greyPawnsBase[s].posX == greyBishop2Square.posX + 70) {
                             greyBishop2Square.failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redQueenSquare.posY == greyBishop2Square.posY + 100 &&
-                       redQueenSquare.posX == greyBishop2Square.posX + 100) {
+                    if(redQueenSquare.posY == greyBishop2Square.posY + 70 &&
+                       redQueenSquare.posX == greyBishop2Square.posX + 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == greyBishop2Square.posY + 100 &&
-                       redBishop1Square.posX == greyBishop2Square.posX + 100) {
+                    if(redBishop1Square.posY == greyBishop2Square.posY + 70 &&
+                       redBishop1Square.posX == greyBishop2Square.posX + 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == greyBishop2Square.posY + 100 &&
-                       redBishop2Square.posX == greyBishop2Square.posX + 100) {
+                    if(redBishop2Square.posY == greyBishop2Square.posY + 70 &&
+                       redBishop2Square.posX == greyBishop2Square.posX + 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == greyBishop2Square.posY + 100 &&
-                       redRook1Rectangle1.posX == greyBishop2Square.posX + 100) {
+                    if(redRook1Rectangle1.posY == greyBishop2Square.posY + 70 &&
+                       redRook1Rectangle1.posX == greyBishop2Square.posX + 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == greyBishop2Square.posY + 100 &&
-                       redRook2Rectangle1.posX == greyBishop2Square.posX + 100) {
+                    if(redRook2Rectangle1.posY == greyBishop2Square.posY + 70 &&
+                       redRook2Rectangle1.posX == greyBishop2Square.posX + 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == greyBishop2Square.posY + 100 &&
-                       redKnight1Rectangle1.posX == greyBishop2Square.posX + 100) {
+                    if(redKnight1Rectangle1.posY == greyBishop2Square.posY + 70 &&
+                       redKnight1Rectangle1.posX == greyBishop2Square.posX + 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == greyBishop2Square.posY + 100 &&
-                       redKnight2Rectangle1.posX == greyBishop2Square.posX + 100) {
+                    if(redKnight2Rectangle1.posY == greyBishop2Square.posY + 70 &&
+                       redKnight2Rectangle1.posX == greyBishop2Square.posX + 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == greyBishop2Square.posY + 100 &&
-                       greyBishop1Square.posX == greyBishop2Square.posX + 100) {
+                    if(greyBishop1Square.posY == greyBishop2Square.posY + 70 &&
+                       greyBishop1Square.posX == greyBishop2Square.posX + 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == greyBishop2Square.posY + 100 &&
-                       greyRook1Rectangle1.posX == greyBishop2Square.posX + 100) {
+                    if(greyRook1Rectangle1.posY == greyBishop2Square.posY + 70 &&
+                       greyRook1Rectangle1.posX == greyBishop2Square.posX + 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == greyBishop2Square.posY + 100 &&
-                       greyRook2Rectangle1.posX == greyBishop2Square.posX + 100) {
+                    if(greyRook2Rectangle1.posY == greyBishop2Square.posY + 70 &&
+                       greyRook2Rectangle1.posX == greyBishop2Square.posX + 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == greyBishop2Square.posY + 100 &&
-                       greyKnight1Rectangle1.posX == greyBishop2Square.posX + 100) {
+                    if(greyKnight1Rectangle1.posY == greyBishop2Square.posY + 70 &&
+                       greyKnight1Rectangle1.posX == greyBishop2Square.posX + 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == greyBishop2Square.posY + 100 &&
-                       greyKnight2Rectangle1.posX == greyBishop2Square.posX + 100) {
+                    if(greyKnight2Rectangle1.posY == greyBishop2Square.posY + 70 &&
+                       greyKnight2Rectangle1.posX == greyBishop2Square.posX + 70) {
                         greyBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        greyBishop2Square.posY = greyBishop2Square.posY + 100;
-                        greyBishop2Square.posX = greyBishop2Square.posX + 100;
+                        greyBishop2Square.posY = greyBishop2Square.posY + 70;
+                        greyBishop2Square.posX = greyBishop2Square.posX + 70;
                     }
 
                     return flag;
@@ -10819,15 +10819,15 @@ boolean moveRedBishop1(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
     if(pos1 < 0) {
         if(ps1 < 0) {
             boolean f = FALSE;
-            if(pos1 < -100 && ps1 < -100) {
-                f = moveRedBishop1(msg, j, i, pos1 + 100, ps1 + 100, pos2, ps2);
+            if(pos1 < -70 && ps1 < -70) {
+                f = moveRedBishop1(msg, j, i, pos1 + 70, ps1 + 70, pos2, ps2);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    redBishop1Square.posY = redBishop1Square.posY - 100;
-                    redBishop1Square.posX = redBishop1Square.posX - 100;
+                    redBishop1Square.posY = redBishop1Square.posY - 70;
+                    redBishop1Square.posX = redBishop1Square.posX - 70;
 
                     for(int s=0; s<8; s++) {
                         if(redPawnsBase[s].posY == redBishop1Square.posY &&
@@ -10922,91 +10922,91 @@ boolean moveRedBishop1(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == redBishop1Square.posY - 100 &&
-                           redPawnsBase[s].posX == redBishop1Square.posX - 100) {
+                        if(redPawnsBase[s].posY == redBishop1Square.posY - 70 &&
+                           redPawnsBase[s].posX == redBishop1Square.posX - 70) {
                             redBishop1Square.failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == redBishop1Square.posY - 100 &&
-                           greyPawnsBase[s].posX == redBishop1Square.posX - 100) {
+                        if(greyPawnsBase[s].posY == redBishop1Square.posY - 70 &&
+                           greyPawnsBase[s].posX == redBishop1Square.posX - 70) {
                             redBishop1Square.failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redBishop2Square.posY == redBishop1Square.posY - 100 &&
-                       redBishop2Square.posX == redBishop1Square.posX - 100) {
+                    if(redBishop2Square.posY == redBishop1Square.posY - 70 &&
+                       redBishop2Square.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == redBishop1Square.posY - 100 &&
-                       redRook1Rectangle1.posX == redBishop1Square.posX - 100) {
+                    if(redRook1Rectangle1.posY == redBishop1Square.posY - 70 &&
+                       redRook1Rectangle1.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == redBishop1Square.posY - 100 &&
-                       redRook2Rectangle1.posX == redBishop1Square.posX - 100) {
+                    if(redRook2Rectangle1.posY == redBishop1Square.posY - 70 &&
+                       redRook2Rectangle1.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == redBishop1Square.posY - 100 &&
-                       redKnight1Rectangle1.posX == redBishop1Square.posX - 100) {
+                    if(redKnight1Rectangle1.posY == redBishop1Square.posY - 70 &&
+                       redKnight1Rectangle1.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == redBishop1Square.posY - 100 &&
-                       redKnight2Rectangle1.posX == redBishop1Square.posX - 100) {
+                    if(redKnight2Rectangle1.posY == redBishop1Square.posY - 70 &&
+                       redKnight2Rectangle1.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == redBishop1Square.posY - 100 &&
-                       greyBishop1Square.posX == redBishop1Square.posX - 100) {
+                    if(greyBishop1Square.posY == redBishop1Square.posY - 70 &&
+                       greyBishop1Square.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == redBishop1Square.posY - 100 &&
-                       redBishop2Square.posX == redBishop1Square.posX - 100) {
+                    if(redBishop2Square.posY == redBishop1Square.posY - 70 &&
+                       redBishop2Square.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == redBishop1Square.posY - 100 &&
-                       greyRook1Rectangle1.posX == redBishop1Square.posX - 100) {
+                    if(greyRook1Rectangle1.posY == redBishop1Square.posY - 70 &&
+                       greyRook1Rectangle1.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == redBishop1Square.posY - 100 &&
-                       greyRook2Rectangle1.posX == redBishop1Square.posX - 100) {
+                    if(greyRook2Rectangle1.posY == redBishop1Square.posY - 70 &&
+                       greyRook2Rectangle1.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == redBishop1Square.posY - 100 &&
-                       greyKnight1Rectangle1.posX == redBishop1Square.posX - 100) {
+                    if(greyKnight1Rectangle1.posY == redBishop1Square.posY - 70 &&
+                       greyKnight1Rectangle1.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == redBishop1Square.posY - 100 &&
-                       greyKnight2Rectangle1.posX == redBishop1Square.posX - 100) {
+                    if(greyKnight2Rectangle1.posY == redBishop1Square.posY - 70 &&
+                       greyKnight2Rectangle1.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == redBishop1Square.posY - 100 &&
-                       greyQueenSquare.posX == redBishop1Square.posX - 100) {
+                    if(greyQueenSquare.posY == redBishop1Square.posY - 70 &&
+                       greyQueenSquare.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == redBishop1Square.posY - 100 &&
-                       greyBishop1Square.posX == redBishop1Square.posX - 100) {
+                    if(greyBishop1Square.posY == redBishop1Square.posY - 70 &&
+                       greyBishop1Square.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == redBishop1Square.posY - 100 &&
-                       greyBishop2Square.posX == redBishop1Square.posX - 100) {
+                    if(greyBishop2Square.posY == redBishop1Square.posY - 70 &&
+                       greyBishop2Square.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        redBishop1Square.posY = redBishop1Square.posY - 100;
-                        redBishop1Square.posX = redBishop1Square.posX - 100;
+                        redBishop1Square.posY = redBishop1Square.posY - 70;
+                        redBishop1Square.posX = redBishop1Square.posX - 70;
                     }
 
                     return flag;
@@ -11021,15 +11021,15 @@ boolean moveRedBishop1(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
         }
         if(ps1 > 0) {
             boolean f = FALSE;
-            if(pos1 < -100 && ps1 > 100) {
-                f = moveRedBishop1(msg, j, i, pos1 + 100, ps1 - 100, pos2, ps2);
+            if(pos1 < -70 && ps1 > 70) {
+                f = moveRedBishop1(msg, j, i, pos1 + 70, ps1 - 70, pos2, ps2);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    redBishop1Square.posY = redBishop1Square.posY - 100;
-                    redBishop1Square.posX = redBishop1Square.posX + 100;
+                    redBishop1Square.posY = redBishop1Square.posY - 70;
+                    redBishop1Square.posX = redBishop1Square.posX + 70;
 
                     for(int s=0; s<8; s++) {
                         if(redPawnsBase[s].posY == redBishop1Square.posY &&
@@ -11123,86 +11123,86 @@ boolean moveRedBishop1(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == redBishop1Square.posY - 100 &&
-                           redPawnsBase[s].posX == redBishop1Square.posX + 100) {
+                        if(redPawnsBase[s].posY == redBishop1Square.posY - 70 &&
+                           redPawnsBase[s].posX == redBishop1Square.posX + 70) {
                             redBishop1Square.failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == redBishop1Square.posY - 100 &&
-                           greyPawnsBase[s].posX == redBishop1Square.posX + 100) {
+                        if(greyPawnsBase[s].posY == redBishop1Square.posY - 70 &&
+                           greyPawnsBase[s].posX == redBishop1Square.posX + 70) {
                             redBishop1Square.failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redBishop2Square.posY == redBishop1Square.posY - 100 &&
-                       redBishop2Square.posX == redBishop1Square.posX + 100) {
+                    if(redBishop2Square.posY == redBishop1Square.posY - 70 &&
+                       redBishop2Square.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == redBishop1Square.posY - 100 &&
-                       redRook1Rectangle1.posX == redBishop1Square.posX + 100) {
+                    if(redRook1Rectangle1.posY == redBishop1Square.posY - 70 &&
+                       redRook1Rectangle1.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == redBishop1Square.posY - 100 &&
-                       redRook2Rectangle1.posX == redBishop1Square.posX + 100) {
+                    if(redRook2Rectangle1.posY == redBishop1Square.posY - 70 &&
+                       redRook2Rectangle1.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == redBishop1Square.posY - 100 &&
-                       redKnight1Rectangle1.posX == redBishop1Square.posX + 100) {
+                    if(redKnight1Rectangle1.posY == redBishop1Square.posY - 70 &&
+                       redKnight1Rectangle1.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == redBishop1Square.posY - 100 &&
-                       redKnight2Rectangle1.posX == redBishop1Square.posX + 100) {
+                    if(redKnight2Rectangle1.posY == redBishop1Square.posY - 70 &&
+                       redKnight2Rectangle1.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == redBishop1Square.posY - 100 &&
-                       redBishop1Square.posX == redBishop1Square.posX + 100) {
+                    if(redBishop1Square.posY == redBishop1Square.posY - 70 &&
+                       redBishop1Square.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == redBishop1Square.posY - 100 &&
-                       greyRook1Rectangle1.posX == redBishop1Square.posX + 100) {
+                    if(greyRook1Rectangle1.posY == redBishop1Square.posY - 70 &&
+                       greyRook1Rectangle1.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == redBishop1Square.posY - 100 &&
-                       greyRook2Rectangle1.posX == redBishop1Square.posX + 100) {
+                    if(greyRook2Rectangle1.posY == redBishop1Square.posY - 70 &&
+                       greyRook2Rectangle1.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == redBishop1Square.posY - 100 &&
-                       greyKnight1Rectangle1.posX == redBishop1Square.posX + 100) {
+                    if(greyKnight1Rectangle1.posY == redBishop1Square.posY - 70 &&
+                       greyKnight1Rectangle1.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == redBishop1Square.posY - 100 &&
-                       greyKnight2Rectangle1.posX == redBishop1Square.posX + 100) {
+                    if(greyKnight2Rectangle1.posY == redBishop1Square.posY - 70 &&
+                       greyKnight2Rectangle1.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == redBishop1Square.posY - 100 &&
-                       greyQueenSquare.posX == redBishop1Square.posX + 100) {
+                    if(greyQueenSquare.posY == redBishop1Square.posY - 70 &&
+                       greyQueenSquare.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == redBishop1Square.posY - 100 &&
-                       greyBishop1Square.posX == redBishop1Square.posX + 100) {
+                    if(greyBishop1Square.posY == redBishop1Square.posY - 70 &&
+                       greyBishop1Square.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == redBishop1Square.posY - 100 &&
-                       greyBishop2Square.posX == redBishop1Square.posX + 100) {
+                    if(greyBishop2Square.posY == redBishop1Square.posY - 70 &&
+                       greyBishop2Square.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        redBishop1Square.posY = redBishop1Square.posY - 100;
-                        redBishop1Square.posX = redBishop1Square.posX + 100;
+                        redBishop1Square.posY = redBishop1Square.posY - 70;
+                        redBishop1Square.posX = redBishop1Square.posX + 70;
                     }
 
                     return flag;
@@ -11218,15 +11218,15 @@ boolean moveRedBishop1(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
     } else if(pos1 > 0) {
         if(ps1 < 0) {
             boolean f = FALSE;
-            if(pos1 > 100 && ps1 < -100) {
-                f = moveRedBishop1(msg, j, i, pos1 - 100, ps1 + 100, pos2, ps2);
+            if(pos1 > 70 && ps1 < -70) {
+                f = moveRedBishop1(msg, j, i, pos1 - 70, ps1 + 70, pos2, ps2);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    redBishop1Square.posY = redBishop1Square.posY + 100;
-                    redBishop1Square.posX = redBishop1Square.posX - 100;
+                    redBishop1Square.posY = redBishop1Square.posY + 70;
+                    redBishop1Square.posX = redBishop1Square.posX - 70;
 
                     for(int s=0; s<8; s++) {
                         if(redPawnsBase[s].posY == redBishop1Square.posY &&
@@ -11320,91 +11320,91 @@ boolean moveRedBishop1(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == redBishop1Square.posY + 100 &&
-                           redPawnsBase[s].posX == redBishop1Square.posX - 100) {
+                        if(redPawnsBase[s].posY == redBishop1Square.posY + 70 &&
+                           redPawnsBase[s].posX == redBishop1Square.posX - 70) {
                             redBishop1Square.failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == redBishop1Square.posY + 100 &&
-                           greyPawnsBase[s].posX == redBishop1Square.posX - 100) {
+                        if(greyPawnsBase[s].posY == redBishop1Square.posY + 70 &&
+                           greyPawnsBase[s].posX == redBishop1Square.posX - 70) {
                             redBishop1Square.failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redBishop1Square.posY == redBishop1Square.posY + 100 &&
-                       redBishop1Square.posX == redBishop1Square.posX - 100) {
+                    if(redBishop1Square.posY == redBishop1Square.posY + 70 &&
+                       redBishop1Square.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == redBishop1Square.posY + 100 &&
-                       redBishop2Square.posX == redBishop1Square.posX - 100) {
+                    if(redBishop2Square.posY == redBishop1Square.posY + 70 &&
+                       redBishop2Square.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == redBishop1Square.posY + 100 &&
-                       redRook1Rectangle1.posX == redBishop1Square.posX - 100) {
+                    if(redRook1Rectangle1.posY == redBishop1Square.posY + 70 &&
+                       redRook1Rectangle1.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == redBishop1Square.posY + 100 &&
-                       redRook2Rectangle1.posX == redBishop1Square.posX - 100) {
+                    if(redRook2Rectangle1.posY == redBishop1Square.posY + 70 &&
+                       redRook2Rectangle1.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == redBishop1Square.posY + 100 &&
-                       redKnight1Rectangle1.posX == redBishop1Square.posX - 100) {
+                    if(redKnight1Rectangle1.posY == redBishop1Square.posY + 70 &&
+                       redKnight1Rectangle1.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == redBishop1Square.posY + 100 &&
-                       redKnight2Rectangle1.posX == redBishop1Square.posX - 100) {
+                    if(redKnight2Rectangle1.posY == redBishop1Square.posY + 70 &&
+                       redKnight2Rectangle1.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == redBishop1Square.posY + 100 &&
-                       redBishop1Square.posX == redBishop1Square.posX - 100) {
+                    if(redBishop1Square.posY == redBishop1Square.posY + 70 &&
+                       redBishop1Square.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == redBishop1Square.posY + 100 &&
-                       greyRook1Rectangle1.posX == redBishop1Square.posX - 100) {
+                    if(greyRook1Rectangle1.posY == redBishop1Square.posY + 70 &&
+                       greyRook1Rectangle1.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == redBishop1Square.posY + 100 &&
-                       greyRook2Rectangle1.posX == redBishop1Square.posX - 100) {
+                    if(greyRook2Rectangle1.posY == redBishop1Square.posY + 70 &&
+                       greyRook2Rectangle1.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == redBishop1Square.posY + 100 &&
-                       greyKnight1Rectangle1.posX == redBishop1Square.posX - 100) {
+                    if(greyKnight1Rectangle1.posY == redBishop1Square.posY + 70 &&
+                       greyKnight1Rectangle1.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == redBishop1Square.posY + 100 &&
-                       greyKnight2Rectangle1.posX == redBishop1Square.posX - 100) {
+                    if(greyKnight2Rectangle1.posY == redBishop1Square.posY + 70 &&
+                       greyKnight2Rectangle1.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == redBishop1Square.posY + 100 &&
-                       greyQueenSquare.posX == redBishop1Square.posX - 100) {
+                    if(greyQueenSquare.posY == redBishop1Square.posY + 70 &&
+                       greyQueenSquare.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == redBishop1Square.posY + 100 &&
-                       greyBishop1Square.posX == redBishop1Square.posX - 100) {
+                    if(greyBishop1Square.posY == redBishop1Square.posY + 70 &&
+                       greyBishop1Square.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == redBishop1Square.posY + 100 &&
-                       greyBishop2Square.posX == redBishop1Square.posX - 100) {
+                    if(greyBishop2Square.posY == redBishop1Square.posY + 70 &&
+                       greyBishop2Square.posX == redBishop1Square.posX - 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        redBishop1Square.posY = redBishop1Square.posY + 100;
-                        redBishop1Square.posX = redBishop1Square.posX - 100;
+                        redBishop1Square.posY = redBishop1Square.posY + 70;
+                        redBishop1Square.posX = redBishop1Square.posX - 70;
                     }
 
                     return flag;
@@ -11419,15 +11419,15 @@ boolean moveRedBishop1(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
         }
         if(ps1 > 0) {
             boolean f = FALSE;
-            if(pos1 > 100 && ps1 > 100) {
-                f = moveRedBishop1(msg, j, i, pos1 - 100, ps1 - 100, pos2, ps2);
+            if(pos1 > 70 && ps1 > 70) {
+                f = moveRedBishop1(msg, j, i, pos1 - 70, ps1 - 70, pos2, ps2);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    redBishop1Square.posY = redBishop1Square.posY + 100;
-                    redBishop1Square.posX = redBishop1Square.posX + 100;
+                    redBishop1Square.posY = redBishop1Square.posY + 70;
+                    redBishop1Square.posX = redBishop1Square.posX + 70;
 
                     for(int s=0; s<8; s++) {
                         if(redPawnsBase[s].posY == redBishop1Square.posY &&
@@ -11520,91 +11520,91 @@ boolean moveRedBishop1(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == redBishop1Square.posY + 100 &&
-                           redPawnsBase[s].posX == redBishop1Square.posX + 100) {
+                        if(redPawnsBase[s].posY == redBishop1Square.posY + 70 &&
+                           redPawnsBase[s].posX == redBishop1Square.posX + 70) {
                             redBishop1Square.failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == redBishop1Square.posY + 100 &&
-                           greyPawnsBase[s].posX == redBishop1Square.posX + 100) {
+                        if(greyPawnsBase[s].posY == redBishop1Square.posY + 70 &&
+                           greyPawnsBase[s].posX == redBishop1Square.posX + 70) {
                             redBishop1Square.failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redBishop1Square.posY == redBishop1Square.posY + 100 &&
-                       redBishop1Square.posX == redBishop1Square.posX + 100) {
+                    if(redBishop1Square.posY == redBishop1Square.posY + 70 &&
+                       redBishop1Square.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop2Square.posY == redBishop1Square.posY + 100 &&
-                       redBishop2Square.posX == redBishop1Square.posX + 100) {
+                    if(redBishop2Square.posY == redBishop1Square.posY + 70 &&
+                       redBishop2Square.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == redBishop1Square.posY + 100 &&
-                       redRook1Rectangle1.posX == redBishop1Square.posX + 100) {
+                    if(redRook1Rectangle1.posY == redBishop1Square.posY + 70 &&
+                       redRook1Rectangle1.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == redBishop1Square.posY + 100 &&
-                       redRook2Rectangle1.posX == redBishop1Square.posX + 100) {
+                    if(redRook2Rectangle1.posY == redBishop1Square.posY + 70 &&
+                       redRook2Rectangle1.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == redBishop1Square.posY + 100 &&
-                       redKnight1Rectangle1.posX == redBishop1Square.posX + 100) {
+                    if(redKnight1Rectangle1.posY == redBishop1Square.posY + 70 &&
+                       redKnight1Rectangle1.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == redBishop1Square.posY + 100 &&
-                       redKnight2Rectangle1.posX == redBishop1Square.posX + 100) {
+                    if(redKnight2Rectangle1.posY == redBishop1Square.posY + 70 &&
+                       redKnight2Rectangle1.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == redBishop1Square.posY + 100 &&
-                       redBishop1Square.posX == redBishop1Square.posX + 100) {
+                    if(redBishop1Square.posY == redBishop1Square.posY + 70 &&
+                       redBishop1Square.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == redBishop1Square.posY + 100 &&
-                       greyRook1Rectangle1.posX == redBishop1Square.posX + 100) {
+                    if(greyRook1Rectangle1.posY == redBishop1Square.posY + 70 &&
+                       greyRook1Rectangle1.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == redBishop1Square.posY + 100 &&
-                       greyRook2Rectangle1.posX == redBishop1Square.posX + 100) {
+                    if(greyRook2Rectangle1.posY == redBishop1Square.posY + 70 &&
+                       greyRook2Rectangle1.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == redBishop1Square.posY + 100 &&
-                       greyKnight1Rectangle1.posX == redBishop1Square.posX + 100) {
+                    if(greyKnight1Rectangle1.posY == redBishop1Square.posY + 70 &&
+                       greyKnight1Rectangle1.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == redBishop1Square.posY + 100 &&
-                       greyKnight2Rectangle1.posX == redBishop1Square.posX + 100) {
+                    if(greyKnight2Rectangle1.posY == redBishop1Square.posY + 70 &&
+                       greyKnight2Rectangle1.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == redBishop1Square.posY + 100 &&
-                       greyQueenSquare.posX == redBishop1Square.posX + 100) {
+                    if(greyQueenSquare.posY == redBishop1Square.posY + 70 &&
+                       greyQueenSquare.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == redBishop1Square.posY + 100 &&
-                       greyBishop1Square.posX == redBishop1Square.posX + 100) {
+                    if(greyBishop1Square.posY == redBishop1Square.posY + 70 &&
+                       greyBishop1Square.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == redBishop1Square.posY + 100 &&
-                       greyBishop2Square.posX == redBishop1Square.posX + 100) {
+                    if(greyBishop2Square.posY == redBishop1Square.posY + 70 &&
+                       greyBishop2Square.posX == redBishop1Square.posX + 70) {
                         redBishop1Square.failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        redBishop1Square.posY = redBishop1Square.posY + 100;
-                        redBishop1Square.posX = redBishop1Square.posX + 100;
+                        redBishop1Square.posY = redBishop1Square.posY + 70;
+                        redBishop1Square.posX = redBishop1Square.posX + 70;
                     }
 
                     return flag;
@@ -11676,15 +11676,15 @@ boolean moveRedBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
     if(pos1 < 0) {
         if(ps1 < 0) {
             boolean f = FALSE;
-            if(pos1 < -100 && ps1 < -100) {
-                f = moveRedBishop2(msg, j, i, pos1 + 100, ps1 + 100, pos2, ps2);
+            if(pos1 < -70 && ps1 < -70) {
+                f = moveRedBishop2(msg, j, i, pos1 + 70, ps1 + 70, pos2, ps2);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    redBishop2Square.posY = redBishop2Square.posY - 100;
-                    redBishop2Square.posX = redBishop2Square.posX - 100;
+                    redBishop2Square.posY = redBishop2Square.posY - 70;
+                    redBishop2Square.posX = redBishop2Square.posX - 70;
 
                     for(int s=0; s<8; s++) {
                         if(redPawnsBase[s].posY == redBishop2Square.posY &&
@@ -11777,86 +11777,86 @@ boolean moveRedBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == redBishop2Square.posY - 100 &&
-                           redPawnsBase[s].posX == redBishop2Square.posX - 100) {
+                        if(redPawnsBase[s].posY == redBishop2Square.posY - 70 &&
+                           redPawnsBase[s].posX == redBishop2Square.posX - 70) {
                             redBishop1Square.failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == redBishop2Square.posY - 100 &&
-                           greyPawnsBase[s].posX == redBishop2Square.posX - 100) {
+                        if(greyPawnsBase[s].posY == redBishop2Square.posY - 70 &&
+                           greyPawnsBase[s].posX == redBishop2Square.posX - 70) {
                             redBishop1Square.failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redBishop1Square.posY == redBishop2Square.posY - 100 &&
-                       redBishop1Square.posX == redBishop2Square.posX - 100) {
+                    if(redBishop1Square.posY == redBishop2Square.posY - 70 &&
+                       redBishop1Square.posX == redBishop2Square.posX - 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == redBishop2Square.posY - 100 &&
-                       redRook1Rectangle1.posX == redBishop2Square.posX - 100) {
+                    if(redRook1Rectangle1.posY == redBishop2Square.posY - 70 &&
+                       redRook1Rectangle1.posX == redBishop2Square.posX - 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == redBishop2Square.posY - 100 &&
-                       redRook2Rectangle1.posX == redBishop2Square.posX - 100) {
+                    if(redRook2Rectangle1.posY == redBishop2Square.posY - 70 &&
+                       redRook2Rectangle1.posX == redBishop2Square.posX - 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == redBishop2Square.posY - 100 &&
-                       redKnight1Rectangle1.posX == redBishop2Square.posX - 100) {
+                    if(redKnight1Rectangle1.posY == redBishop2Square.posY - 70 &&
+                       redKnight1Rectangle1.posX == redBishop2Square.posX - 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == redBishop2Square.posY - 100 &&
-                       redKnight2Rectangle1.posX == redBishop2Square.posX - 100) {
+                    if(redKnight2Rectangle1.posY == redBishop2Square.posY - 70 &&
+                       redKnight2Rectangle1.posX == redBishop2Square.posX - 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == redBishop2Square.posY - 100 &&
-                       redBishop1Square.posX == redBishop2Square.posX - 100) {
+                    if(redBishop1Square.posY == redBishop2Square.posY - 70 &&
+                       redBishop1Square.posX == redBishop2Square.posX - 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == redBishop2Square.posY - 100 &&
-                       greyRook1Rectangle1.posX == redBishop2Square.posX - 100) {
+                    if(greyRook1Rectangle1.posY == redBishop2Square.posY - 70 &&
+                       greyRook1Rectangle1.posX == redBishop2Square.posX - 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == redBishop2Square.posY - 100 &&
-                       greyRook2Rectangle1.posX == redBishop2Square.posX - 100) {
+                    if(greyRook2Rectangle1.posY == redBishop2Square.posY - 70 &&
+                       greyRook2Rectangle1.posX == redBishop2Square.posX - 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == redBishop2Square.posY - 100 &&
-                       greyKnight1Rectangle1.posX == redBishop2Square.posX - 100) {
+                    if(greyKnight1Rectangle1.posY == redBishop2Square.posY - 70 &&
+                       greyKnight1Rectangle1.posX == redBishop2Square.posX - 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == redBishop2Square.posY - 100 &&
-                       greyKnight2Rectangle1.posX == redBishop2Square.posX - 100) {
+                    if(greyKnight2Rectangle1.posY == redBishop2Square.posY - 70 &&
+                       greyKnight2Rectangle1.posX == redBishop2Square.posX - 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == redBishop2Square.posY - 100 &&
-                       greyQueenSquare.posX == redBishop2Square.posX - 100) {
+                    if(greyQueenSquare.posY == redBishop2Square.posY - 70 &&
+                       greyQueenSquare.posX == redBishop2Square.posX - 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == redBishop2Square.posY - 100 &&
-                       greyBishop1Square.posX == redBishop2Square.posX - 100) {
+                    if(greyBishop1Square.posY == redBishop2Square.posY - 70 &&
+                       greyBishop1Square.posX == redBishop2Square.posX - 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == redBishop2Square.posY - 100 &&
-                       greyBishop2Square.posX == redBishop2Square.posX - 100) {
+                    if(greyBishop2Square.posY == redBishop2Square.posY - 70 &&
+                       greyBishop2Square.posX == redBishop2Square.posX - 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        redBishop2Square.posY = redBishop2Square.posY - 100;
-                        redBishop2Square.posX = redBishop2Square.posX - 100;
+                        redBishop2Square.posY = redBishop2Square.posY - 70;
+                        redBishop2Square.posX = redBishop2Square.posX - 70;
                     }
 
                     return flag;
@@ -11871,15 +11871,15 @@ boolean moveRedBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
         }
         if(ps1 > 0) {
             boolean f = FALSE;
-            if(pos1 < -100 && ps1 > 100) {
-                f = moveRedBishop2(msg, j, i, pos1 + 100, ps1 - 100, pos2, ps2);
+            if(pos1 < -70 && ps1 > 70) {
+                f = moveRedBishop2(msg, j, i, pos1 + 70, ps1 - 70, pos2, ps2);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    redBishop2Square.posY = redBishop2Square.posY - 100;
-                    redBishop2Square.posX = redBishop2Square.posX + 100;
+                    redBishop2Square.posY = redBishop2Square.posY - 70;
+                    redBishop2Square.posX = redBishop2Square.posX + 70;
 
                     for(int s=0; s<8; s++) {
                         if(redPawnsBase[s].posY == redBishop2Square.posY &&
@@ -11972,86 +11972,86 @@ boolean moveRedBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == redBishop2Square.posY - 100 &&
-                           redPawnsBase[s].posX == redBishop2Square.posX + 100) {
+                        if(redPawnsBase[s].posY == redBishop2Square.posY - 70 &&
+                           redPawnsBase[s].posX == redBishop2Square.posX + 70) {
                             redBishop1Square.failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == redBishop2Square.posY - 100 &&
-                           greyPawnsBase[s].posX == redBishop2Square.posX + 100) {
+                        if(greyPawnsBase[s].posY == redBishop2Square.posY - 70 &&
+                           greyPawnsBase[s].posX == redBishop2Square.posX + 70) {
                             redBishop1Square.failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redBishop1Square.posY == redBishop2Square.posY - 100 &&
-                       redBishop1Square.posX == redBishop2Square.posX + 100) {
+                    if(redBishop1Square.posY == redBishop2Square.posY - 70 &&
+                       redBishop1Square.posX == redBishop2Square.posX + 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == redBishop2Square.posY - 100 &&
-                       redRook1Rectangle1.posX == redBishop2Square.posX + 100) {
+                    if(redRook1Rectangle1.posY == redBishop2Square.posY - 70 &&
+                       redRook1Rectangle1.posX == redBishop2Square.posX + 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == redBishop2Square.posY - 100 &&
-                       redRook2Rectangle1.posX == redBishop2Square.posX + 100) {
+                    if(redRook2Rectangle1.posY == redBishop2Square.posY - 70 &&
+                       redRook2Rectangle1.posX == redBishop2Square.posX + 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == redBishop2Square.posY - 100 &&
-                       redKnight1Rectangle1.posX == redBishop2Square.posX + 100) {
+                    if(redKnight1Rectangle1.posY == redBishop2Square.posY - 70 &&
+                       redKnight1Rectangle1.posX == redBishop2Square.posX + 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == redBishop2Square.posY - 100 &&
-                       redKnight2Rectangle1.posX == redBishop2Square.posX + 100) {
+                    if(redKnight2Rectangle1.posY == redBishop2Square.posY - 70 &&
+                       redKnight2Rectangle1.posX == redBishop2Square.posX + 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == redBishop2Square.posY - 100 &&
-                       redBishop1Square.posX == redBishop2Square.posX + 100) {
+                    if(redBishop1Square.posY == redBishop2Square.posY - 70 &&
+                       redBishop1Square.posX == redBishop2Square.posX + 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == redBishop2Square.posY - 100 &&
-                       greyRook1Rectangle1.posX == redBishop2Square.posX + 100) {
+                    if(greyRook1Rectangle1.posY == redBishop2Square.posY - 70 &&
+                       greyRook1Rectangle1.posX == redBishop2Square.posX + 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == redBishop2Square.posY - 100 &&
-                       greyRook2Rectangle1.posX == redBishop2Square.posX + 100) {
+                    if(greyRook2Rectangle1.posY == redBishop2Square.posY - 70 &&
+                       greyRook2Rectangle1.posX == redBishop2Square.posX + 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == redBishop2Square.posY - 100 &&
-                       greyKnight1Rectangle1.posX == redBishop2Square.posX + 100) {
+                    if(greyKnight1Rectangle1.posY == redBishop2Square.posY - 70 &&
+                       greyKnight1Rectangle1.posX == redBishop2Square.posX + 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == redBishop2Square.posY - 100 &&
-                       greyKnight2Rectangle1.posX == redBishop2Square.posX + 100) {
+                    if(greyKnight2Rectangle1.posY == redBishop2Square.posY - 70 &&
+                       greyKnight2Rectangle1.posX == redBishop2Square.posX + 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == redBishop2Square.posY - 100 &&
-                       greyQueenSquare.posX == redBishop2Square.posX + 100) {
+                    if(greyQueenSquare.posY == redBishop2Square.posY - 70 &&
+                       greyQueenSquare.posX == redBishop2Square.posX + 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == redBishop2Square.posY - 100 &&
-                       greyBishop1Square.posX == redBishop2Square.posX + 100) {
+                    if(greyBishop1Square.posY == redBishop2Square.posY - 70 &&
+                       greyBishop1Square.posX == redBishop2Square.posX + 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == redBishop2Square.posY - 100 &&
-                       greyBishop2Square.posX == redBishop2Square.posX + 100) {
+                    if(greyBishop2Square.posY == redBishop2Square.posY - 70 &&
+                       greyBishop2Square.posX == redBishop2Square.posX + 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        redBishop2Square.posY = redBishop2Square.posY - 100;
-                        redBishop2Square.posX = redBishop2Square.posX + 100;
+                        redBishop2Square.posY = redBishop2Square.posY - 70;
+                        redBishop2Square.posX = redBishop2Square.posX + 70;
                     }
 
                     return flag;
@@ -12067,15 +12067,15 @@ boolean moveRedBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
     } else if(pos1 > 0) {
         if(ps1 < 0) {
             boolean f = FALSE;
-            if(pos1 > 100 && ps1 < -100) {
-                f = moveRedBishop2(msg, j, i, pos1 - 100, ps1 + 100, pos2, ps2);
+            if(pos1 > 70 && ps1 < -70) {
+                f = moveRedBishop2(msg, j, i, pos1 - 70, ps1 + 70, pos2, ps2);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    redBishop2Square.posY = redBishop2Square.posY + 100;
-                    redBishop2Square.posX = redBishop2Square.posX - 100;
+                    redBishop2Square.posY = redBishop2Square.posY + 70;
+                    redBishop2Square.posX = redBishop2Square.posX - 70;
 
                     for(int s=0; s<8; s++) {
                         if(redPawnsBase[s].posY == redBishop2Square.posY &&
@@ -12171,86 +12171,86 @@ boolean moveRedBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == redBishop2Square.posY + 100 &&
-                           redPawnsBase[s].posX == redBishop2Square.posX - 100) {
+                        if(redPawnsBase[s].posY == redBishop2Square.posY + 70 &&
+                           redPawnsBase[s].posX == redBishop2Square.posX - 70) {
                             redBishop1Square.failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == redBishop2Square.posY + 100 &&
-                           greyPawnsBase[s].posX == redBishop2Square.posX - 100) {
+                        if(greyPawnsBase[s].posY == redBishop2Square.posY + 70 &&
+                           greyPawnsBase[s].posX == redBishop2Square.posX - 70) {
                             redBishop1Square.failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redBishop1Square.posY == redBishop2Square.posY + 100 &&
-                       redBishop1Square.posX == redBishop2Square.posX - 100) {
+                    if(redBishop1Square.posY == redBishop2Square.posY + 70 &&
+                       redBishop1Square.posX == redBishop2Square.posX - 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == redBishop2Square.posY + 100 &&
-                       redRook1Rectangle1.posX == redBishop2Square.posX - 100) {
+                    if(redRook1Rectangle1.posY == redBishop2Square.posY + 70 &&
+                       redRook1Rectangle1.posX == redBishop2Square.posX - 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == redBishop2Square.posY + 100 &&
-                       redRook2Rectangle1.posX == redBishop2Square.posX - 100) {
+                    if(redRook2Rectangle1.posY == redBishop2Square.posY + 70 &&
+                       redRook2Rectangle1.posX == redBishop2Square.posX - 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == redBishop2Square.posY + 100 &&
-                       redKnight1Rectangle1.posX == redBishop2Square.posX - 100) {
+                    if(redKnight1Rectangle1.posY == redBishop2Square.posY + 70 &&
+                       redKnight1Rectangle1.posX == redBishop2Square.posX - 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == redBishop2Square.posY + 100 &&
-                       redKnight2Rectangle1.posX == redBishop2Square.posX - 100) {
+                    if(redKnight2Rectangle1.posY == redBishop2Square.posY + 70 &&
+                       redKnight2Rectangle1.posX == redBishop2Square.posX - 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == redBishop2Square.posY + 100 &&
-                       redBishop1Square.posX == redBishop2Square.posX - 100) {
+                    if(redBishop1Square.posY == redBishop2Square.posY + 70 &&
+                       redBishop1Square.posX == redBishop2Square.posX - 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == redBishop2Square.posY + 100 &&
-                       greyRook1Rectangle1.posX == redBishop2Square.posX - 100) {
+                    if(greyRook1Rectangle1.posY == redBishop2Square.posY + 70 &&
+                       greyRook1Rectangle1.posX == redBishop2Square.posX - 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == redBishop2Square.posY + 100 &&
-                       greyRook2Rectangle1.posX == redBishop2Square.posX - 100) {
+                    if(greyRook2Rectangle1.posY == redBishop2Square.posY + 70 &&
+                       greyRook2Rectangle1.posX == redBishop2Square.posX - 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == redBishop2Square.posY + 100 &&
-                       greyKnight1Rectangle1.posX == redBishop2Square.posX - 100) {
+                    if(greyKnight1Rectangle1.posY == redBishop2Square.posY + 70 &&
+                       greyKnight1Rectangle1.posX == redBishop2Square.posX - 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == redBishop2Square.posY + 100 &&
-                       greyKnight2Rectangle1.posX == redBishop2Square.posX - 100) {
+                    if(greyKnight2Rectangle1.posY == redBishop2Square.posY + 70 &&
+                       greyKnight2Rectangle1.posX == redBishop2Square.posX - 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == redBishop2Square.posY + 100 &&
-                       greyQueenSquare.posX == redBishop2Square.posX - 100) {
+                    if(greyQueenSquare.posY == redBishop2Square.posY + 70 &&
+                       greyQueenSquare.posX == redBishop2Square.posX - 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == redBishop2Square.posY + 100 &&
-                       greyBishop1Square.posX == redBishop2Square.posX - 100) {
+                    if(greyBishop1Square.posY == redBishop2Square.posY + 70 &&
+                       greyBishop1Square.posX == redBishop2Square.posX - 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == redBishop2Square.posY + 100 &&
-                       greyBishop2Square.posX == redBishop2Square.posX - 100) {
+                    if(greyBishop2Square.posY == redBishop2Square.posY + 70 &&
+                       greyBishop2Square.posX == redBishop2Square.posX - 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        redBishop2Square.posY = redBishop2Square.posY + 100;
-                        redBishop2Square.posX = redBishop2Square.posX - 100;
+                        redBishop2Square.posY = redBishop2Square.posY + 70;
+                        redBishop2Square.posX = redBishop2Square.posX - 70;
                     }
 
                     return flag;
@@ -12265,15 +12265,15 @@ boolean moveRedBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
         }
         if(ps1 > 0) {
             boolean f = FALSE;
-            if(pos1 > 100 && ps1 > 100) {
-                f = moveRedBishop2(msg, j, i, pos1 - 100, ps1 - 100, pos2, ps2);
+            if(pos1 > 70 && ps1 > 70) {
+                f = moveRedBishop2(msg, j, i, pos1 - 70, ps1 - 70, pos2, ps2);
             }
             if(!f) {
                 if(pos1 == pos2 &&
                     ps1 == ps2) {
 
-                    redBishop2Square.posY = redBishop2Square.posY + 100;
-                    redBishop2Square.posX = redBishop2Square.posX + 100;
+                    redBishop2Square.posY = redBishop2Square.posY + 70;
+                    redBishop2Square.posX = redBishop2Square.posX + 70;
 
                     for(int s=0; s<8; s++) {
                         if(redPawnsBase[s].posY == redBishop2Square.posY &&
@@ -12366,86 +12366,86 @@ boolean moveRedBishop2(UINT msg, int j, int i, int pos1, int ps1, int pos2, int 
                     boolean flag = FALSE;
 
                     for(int s=0; s<8; s++) {
-                        if(redPawnsBase[s].posY == redBishop2Square.posY + 100 &&
-                           redPawnsBase[s].posX == redBishop2Square.posX + 100) {
+                        if(redPawnsBase[s].posY == redBishop2Square.posY + 70 &&
+                           redPawnsBase[s].posX == redBishop2Square.posX + 70) {
                             redBishop1Square.failedpath = TRUE;
                             flag = TRUE;
                         }
-                        if(greyPawnsBase[s].posY == redBishop2Square.posY + 100 &&
-                           greyPawnsBase[s].posX == redBishop2Square.posX + 100) {
+                        if(greyPawnsBase[s].posY == redBishop2Square.posY + 70 &&
+                           greyPawnsBase[s].posX == redBishop2Square.posX + 70) {
                             redBishop1Square.failedpath = TRUE;
                             flag = TRUE;
                         }
                     }
-                    if(redBishop1Square.posY == redBishop2Square.posY + 100 &&
-                       redBishop1Square.posX == redBishop2Square.posX + 100) {
+                    if(redBishop1Square.posY == redBishop2Square.posY + 70 &&
+                       redBishop1Square.posX == redBishop2Square.posX + 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook1Rectangle1.posY == redBishop2Square.posY + 100 &&
-                       redRook1Rectangle1.posX == redBishop2Square.posX + 100) {
+                    if(redRook1Rectangle1.posY == redBishop2Square.posY + 70 &&
+                       redRook1Rectangle1.posX == redBishop2Square.posX + 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redRook2Rectangle1.posY == redBishop2Square.posY + 100 &&
-                       redRook2Rectangle1.posX == redBishop2Square.posX + 100) {
+                    if(redRook2Rectangle1.posY == redBishop2Square.posY + 70 &&
+                       redRook2Rectangle1.posX == redBishop2Square.posX + 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight1Rectangle1.posY == redBishop2Square.posY + 100 &&
-                       redKnight1Rectangle1.posX == redBishop2Square.posX + 100) {
+                    if(redKnight1Rectangle1.posY == redBishop2Square.posY + 70 &&
+                       redKnight1Rectangle1.posX == redBishop2Square.posX + 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redKnight2Rectangle1.posY == redBishop2Square.posY + 100 &&
-                       redKnight2Rectangle1.posX == redBishop2Square.posX + 100) {
+                    if(redKnight2Rectangle1.posY == redBishop2Square.posY + 70 &&
+                       redKnight2Rectangle1.posX == redBishop2Square.posX + 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redBishop1Square.posY == redBishop2Square.posY + 100 &&
-                       redBishop1Square.posX == redBishop2Square.posX + 100) {
+                    if(redBishop1Square.posY == redBishop2Square.posY + 70 &&
+                       redBishop1Square.posX == redBishop2Square.posX + 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook1Rectangle1.posY == redBishop2Square.posY + 100 &&
-                       greyRook1Rectangle1.posX == redBishop2Square.posX + 100) {
+                    if(greyRook1Rectangle1.posY == redBishop2Square.posY + 70 &&
+                       greyRook1Rectangle1.posX == redBishop2Square.posX + 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyRook2Rectangle1.posY == redBishop2Square.posY + 100 &&
-                       greyRook2Rectangle1.posX == redBishop2Square.posX + 100) {
+                    if(greyRook2Rectangle1.posY == redBishop2Square.posY + 70 &&
+                       greyRook2Rectangle1.posX == redBishop2Square.posX + 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight1Rectangle1.posY == redBishop2Square.posY + 100 &&
-                       greyKnight1Rectangle1.posX == redBishop2Square.posX + 100) {
+                    if(greyKnight1Rectangle1.posY == redBishop2Square.posY + 70 &&
+                       greyKnight1Rectangle1.posX == redBishop2Square.posX + 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyKnight2Rectangle1.posY == redBishop2Square.posY + 100 &&
-                       greyKnight2Rectangle1.posX == redBishop2Square.posX + 100) {
+                    if(greyKnight2Rectangle1.posY == redBishop2Square.posY + 70 &&
+                       greyKnight2Rectangle1.posX == redBishop2Square.posX + 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == redBishop2Square.posY + 100 &&
-                       greyQueenSquare.posX == redBishop2Square.posX + 100) {
+                    if(greyQueenSquare.posY == redBishop2Square.posY + 70 &&
+                       greyQueenSquare.posX == redBishop2Square.posX + 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop1Square.posY == redBishop2Square.posY + 100 &&
-                       greyBishop1Square.posX == redBishop2Square.posX + 100) {
+                    if(greyBishop1Square.posY == redBishop2Square.posY + 70 &&
+                       greyBishop1Square.posX == redBishop2Square.posX + 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyBishop2Square.posY == redBishop2Square.posY + 100 &&
-                       greyBishop2Square.posX == redBishop2Square.posX + 100) {
+                    if(greyBishop2Square.posY == redBishop2Square.posY + 70 &&
+                       greyBishop2Square.posX == redBishop2Square.posX + 70) {
                         redBishop2Square.failedpath = TRUE;
                         flag = TRUE;
                     }
 
                     if(!flag) {
-                        redBishop2Square.posY = redBishop2Square.posY + 100;
-                        redBishop2Square.posX = redBishop2Square.posX + 100;
+                        redBishop2Square.posY = redBishop2Square.posY + 70;
+                        redBishop2Square.posX = redBishop2Square.posX + 70;
                     }
 
                     return flag;
@@ -12517,13 +12517,13 @@ boolean moveGreyRook1(UINT msg, int j, int i, int pos, int o) {
     }
     if(pos < 0) {
         boolean f = FALSE;
-        if(pos < -100) {
-            f = moveGreyRook1(msg, j, i, pos + 100, o);
+        if(pos < -70) {
+            f = moveGreyRook1(msg, j, i, pos + 70, o);
         }
         if(!f) {
             if(pos == o) {
 
-                greyRook1Rectangle1.posY = greyRook1Rectangle1.posY - 100;
+                greyRook1Rectangle1.posY = greyRook1Rectangle1.posY - 70;
                 
                 for(int s=0; s<8; s++) {
                     if(greyPawnsBase[s].posY == greyRook1Rectangle1.posY &&
@@ -12608,70 +12608,70 @@ boolean moveGreyRook1(UINT msg, int j, int i, int pos, int o) {
                 boolean flag = FALSE;
 
                 for(int s=0; s<8; s++) {
-                    if(greyPawnsBase[s].posY == greyRook1Rectangle1.posY - 100 &&
+                    if(greyPawnsBase[s].posY == greyRook1Rectangle1.posY - 70 &&
                        greyPawnsBase[s].posX == greyRook1Rectangle1.posX) {
                         greyRook1Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redPawnsBase[s].posY == greyRook1Rectangle1.posY - 100 &&
+                    if(redPawnsBase[s].posY == greyRook1Rectangle1.posY - 70 &&
                        redPawnsBase[s].posX == greyRook1Rectangle1.posX) {
                         greyRook1Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redQueenSquare.posY == greyRook1Rectangle1.posY - 100 &&
+                    if(redQueenSquare.posY == greyRook1Rectangle1.posY - 70 &&
                        redQueenSquare.posX == greyRook1Rectangle1.posX) {
                         greyRook1Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
-                if(redBishop1Square.posY == greyRook1Rectangle1.posY - 100 &&
+                if(redBishop1Square.posY == greyRook1Rectangle1.posY - 70 &&
                    redBishop1Square.posX == greyRook1Rectangle1.posX) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop2Square.posY == greyRook1Rectangle1.posY - 100 &&
+                if(redBishop2Square.posY == greyRook1Rectangle1.posY - 70 &&
                    redBishop2Square.posX == greyRook1Rectangle1.posX) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook1Rectangle1.posY == greyRook1Rectangle1.posY - 100 &&
+                if(redRook1Rectangle1.posY == greyRook1Rectangle1.posY - 70 &&
                    redRook1Rectangle1.posX == greyRook1Rectangle1.posX) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook2Rectangle1.posY == greyRook1Rectangle1.posY - 100 &&
+                if(redRook2Rectangle1.posY == greyRook1Rectangle1.posY - 70 &&
                    redRook2Rectangle1.posX == greyRook1Rectangle1.posX) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight1Rectangle1.posY == greyRook1Rectangle1.posY - 100 &&
+                if(redKnight1Rectangle1.posY == greyRook1Rectangle1.posY - 70 &&
                    redKnight1Rectangle1.posX == greyRook1Rectangle1.posX) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight2Rectangle1.posY == greyRook1Rectangle1.posY - 100 &&
+                if(redKnight2Rectangle1.posY == greyRook1Rectangle1.posY - 70 &&
                    redKnight2Rectangle1.posX == greyRook1Rectangle1.posX) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyRook2Rectangle1.posY == greyRook1Rectangle1.posY - 100 &&
+                if(greyRook2Rectangle1.posY == greyRook1Rectangle1.posY - 70 &&
                    greyRook2Rectangle1.posX == greyRook1Rectangle1.posX) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight1Rectangle1.posY == greyRook1Rectangle1.posY - 100 &&
+                if(greyKnight1Rectangle1.posY == greyRook1Rectangle1.posY - 70 &&
                    greyKnight1Rectangle1.posX == greyRook1Rectangle1.posX) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight2Rectangle1.posY == greyRook1Rectangle1.posY - 100 &&
+                if(greyKnight2Rectangle1.posY == greyRook1Rectangle1.posY - 70 &&
                    greyKnight2Rectangle1.posX == greyRook1Rectangle1.posX) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    greyRook1Rectangle1.posY = greyRook1Rectangle1.posY - 100;
+                    greyRook1Rectangle1.posY = greyRook1Rectangle1.posY - 70;
                 }
 
                 return flag;
@@ -12685,13 +12685,13 @@ boolean moveGreyRook1(UINT msg, int j, int i, int pos, int o) {
         }
     } else if(pos > 0) {
         boolean f = FALSE;
-        if(pos > 100) {
-            f = moveGreyRook1(msg, j, i, pos - 100, o);
+        if(pos > 70) {
+            f = moveGreyRook1(msg, j, i, pos - 70, o);
         }
         if(!f) {
             if(pos == o) {
 
-                greyRook1Rectangle1.posY = greyRook1Rectangle1.posY + 100;
+                greyRook1Rectangle1.posY = greyRook1Rectangle1.posY + 70;
 
                 for(int s=0; s<8; s++) {
                     if(greyPawnsBase[s].posY == greyRook1Rectangle1.posY &&
@@ -12776,75 +12776,75 @@ boolean moveGreyRook1(UINT msg, int j, int i, int pos, int o) {
                 boolean flag = FALSE;
 
                 for(int s=0; s<8; s++) {
-                    if(greyPawnsBase[s].posY == greyRook1Rectangle1.posY + 100 &&
+                    if(greyPawnsBase[s].posY == greyRook1Rectangle1.posY + 70 &&
                        greyPawnsBase[s].posX == greyRook1Rectangle1.posX) {
                         greyRook1Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redPawnsBase[s].posY == greyRook1Rectangle1.posY + 100 &&
+                    if(redPawnsBase[s].posY == greyRook1Rectangle1.posY + 70 &&
                        redPawnsBase[s].posX == greyRook1Rectangle1.posX) {
                         greyRook1Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redQueenSquare.posY == greyRook1Rectangle1.posY + 100 &&
+                    if(redQueenSquare.posY == greyRook1Rectangle1.posY + 70 &&
                        redQueenSquare.posX == greyRook1Rectangle1.posX) {
                         greyRook1Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
-                if(redBishop1Square.posY == greyRook1Rectangle1.posY + 100 &&
+                if(redBishop1Square.posY == greyRook1Rectangle1.posY + 70 &&
                    redBishop1Square.posX == greyRook1Rectangle1.posX) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop2Square.posY == greyRook1Rectangle1.posY + 100 &&
+                if(redBishop2Square.posY == greyRook1Rectangle1.posY + 70 &&
                    redBishop2Square.posX == greyRook1Rectangle1.posX) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook1Rectangle1.posY == greyRook1Rectangle1.posY + 100 &&
+                if(redRook1Rectangle1.posY == greyRook1Rectangle1.posY + 70 &&
                    redRook1Rectangle1.posX == greyRook1Rectangle1.posX) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook2Rectangle1.posY == greyRook1Rectangle1.posY + 100 &&
+                if(redRook2Rectangle1.posY == greyRook1Rectangle1.posY + 70 &&
                    redRook2Rectangle1.posX == greyRook1Rectangle1.posX) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight1Rectangle1.posY == greyRook1Rectangle1.posY + 100 &&
+                if(redKnight1Rectangle1.posY == greyRook1Rectangle1.posY + 70 &&
                    redKnight1Rectangle1.posX == greyRook1Rectangle1.posX) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight2Rectangle1.posY == greyRook1Rectangle1.posY + 100 &&
+                if(redKnight2Rectangle1.posY == greyRook1Rectangle1.posY + 70 &&
                    redKnight2Rectangle1.posX == greyRook1Rectangle1.posX) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop1Square.posY == greyRook1Rectangle1.posY + 100 &&
+                if(redBishop1Square.posY == greyRook1Rectangle1.posY + 70 &&
                    redBishop1Square.posX == greyRook1Rectangle1.posX) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyRook2Rectangle1.posY == greyRook1Rectangle1.posY + 100 &&
+                if(greyRook2Rectangle1.posY == greyRook1Rectangle1.posY + 70 &&
                    greyRook2Rectangle1.posX == greyRook1Rectangle1.posX) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight1Rectangle1.posY == greyRook1Rectangle1.posY + 100 &&
+                if(greyKnight1Rectangle1.posY == greyRook1Rectangle1.posY + 70 &&
                    greyKnight1Rectangle1.posX == greyRook1Rectangle1.posX) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight2Rectangle1.posY == greyRook1Rectangle1.posY + 100 &&
+                if(greyKnight2Rectangle1.posY == greyRook1Rectangle1.posY + 70 &&
                    greyKnight2Rectangle1.posX == greyRook1Rectangle1.posX) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    greyRook1Rectangle1.posY = greyRook1Rectangle1.posY + 100;
+                    greyRook1Rectangle1.posY = greyRook1Rectangle1.posY + 70;
                 }
 
                 return flag;
@@ -12915,13 +12915,13 @@ boolean moveGreyRook1Side(UINT msg, int j, int i, int pos, int o) {
     }
     if(pos < 0) {
         boolean f = FALSE;
-        if(pos < -100) {
-            f = moveGreyRook1Side(msg, j, i, pos + 100, o);
+        if(pos < -70) {
+            f = moveGreyRook1Side(msg, j, i, pos + 70, o);
         }
         if(!f) {
             if(pos == o) {
 
-                greyRook1Rectangle1.posX = greyRook1Rectangle1.posX - 100;
+                greyRook1Rectangle1.posX = greyRook1Rectangle1.posX - 70;
                 
                 for(int s=0; s<8; s++) {
                     if(greyPawnsBase[s].posY == greyRook1Rectangle1.posY &&
@@ -13007,79 +13007,79 @@ boolean moveGreyRook1Side(UINT msg, int j, int i, int pos, int o) {
 
                 for(int s=0; s<8; s++) {
                     if(greyPawnsBase[s].posY == greyRook1Rectangle1.posY &&
-                       greyPawnsBase[s].posX == greyRook1Rectangle1.posX - 100) {
+                       greyPawnsBase[s].posX == greyRook1Rectangle1.posX - 70) {
                         greyRook1Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                     if(redPawnsBase[s].posY == greyRook1Rectangle1.posY &&
-                       redPawnsBase[s].posX == greyRook1Rectangle1.posX - 100) {
+                       redPawnsBase[s].posX == greyRook1Rectangle1.posX - 70) {
                         greyRook1Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                     if(redQueenSquare.posY == greyRook1Rectangle1.posY &&
-                       redQueenSquare.posX == greyRook1Rectangle1.posX - 100) {
+                       redQueenSquare.posX == greyRook1Rectangle1.posX - 70) {
                         greyRook1Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
                 if(redBishop1Square.posY == greyRook1Rectangle1.posY &&
-                   redBishop1Square.posX == greyRook1Rectangle1.posX - 100) {
+                   redBishop1Square.posX == greyRook1Rectangle1.posX - 70) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop2Square.posY == greyRook1Rectangle1.posY &&
-                   redBishop2Square.posX == greyRook1Rectangle1.posX - 100) {
+                   redBishop2Square.posX == greyRook1Rectangle1.posX - 70) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop2Square.posY == greyRook1Rectangle1.posY - 100 &&
+                if(redBishop2Square.posY == greyRook1Rectangle1.posY - 70 &&
                    redBishop2Square.posX == greyRook1Rectangle1.posX) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook1Rectangle1.posY == greyRook1Rectangle1.posY &&
-                   redRook1Rectangle1.posX == greyRook1Rectangle1.posX - 100) {
+                   redRook1Rectangle1.posX == greyRook1Rectangle1.posX - 70) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook2Rectangle1.posY == greyRook1Rectangle1.posY &&
-                   redRook2Rectangle1.posX == greyRook1Rectangle1.posX - 100) {
+                   redRook2Rectangle1.posX == greyRook1Rectangle1.posX - 70) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight1Rectangle1.posY == greyRook1Rectangle1.posY &&
-                   redKnight1Rectangle1.posX == greyRook1Rectangle1.posX - 100) {
+                   redKnight1Rectangle1.posX == greyRook1Rectangle1.posX - 70) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight2Rectangle1.posY == greyRook1Rectangle1.posY &&
-                   redKnight2Rectangle1.posX == greyRook1Rectangle1.posX - 100) {
+                   redKnight2Rectangle1.posX == greyRook1Rectangle1.posX - 70) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop1Square.posY == greyRook1Rectangle1.posY &&
-                   redBishop1Square.posX == greyRook1Rectangle1.posX - 100) {
+                   redBishop1Square.posX == greyRook1Rectangle1.posX - 70) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyRook2Rectangle1.posY == greyRook1Rectangle1.posY &&
-                   greyRook2Rectangle1.posX == greyRook1Rectangle1.posX - 100) {
+                   greyRook2Rectangle1.posX == greyRook1Rectangle1.posX - 70) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight1Rectangle1.posY == greyRook1Rectangle1.posY &&
-                   greyKnight1Rectangle1.posX == greyRook1Rectangle1.posX - 100) {
+                   greyKnight1Rectangle1.posX == greyRook1Rectangle1.posX - 70) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight2Rectangle1.posY == greyRook1Rectangle1.posY &&
-                   greyKnight2Rectangle1.posX == greyRook1Rectangle1.posX - 100) {
+                   greyKnight2Rectangle1.posX == greyRook1Rectangle1.posX - 70) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    greyRook1Rectangle1.posX = greyRook1Rectangle1.posX - 100;
+                    greyRook1Rectangle1.posX = greyRook1Rectangle1.posX - 70;
                 }
 
                 return flag;
@@ -13093,13 +13093,13 @@ boolean moveGreyRook1Side(UINT msg, int j, int i, int pos, int o) {
         }
     } else if(pos > 0) {
         boolean f = FALSE;
-        if(pos > 100) {
-            f = moveGreyRook1Side(msg, j, i, pos - 100, o);
+        if(pos > 70) {
+            f = moveGreyRook1Side(msg, j, i, pos - 70, o);
         }
         if(!f) {
             if(pos == o) {
 
-                greyRook1Rectangle1.posX = greyRook1Rectangle1.posX + 100;
+                greyRook1Rectangle1.posX = greyRook1Rectangle1.posX + 70;
                 
                 for(int s=0; s<8; s++) {
                     if(greyPawnsBase[s].posY == greyRook1Rectangle1.posY &&
@@ -13185,74 +13185,74 @@ boolean moveGreyRook1Side(UINT msg, int j, int i, int pos, int o) {
 
                 for(int s=0; s<8; s++) {
                     if(greyPawnsBase[s].posY == greyRook1Rectangle1.posY &&
-                       greyPawnsBase[s].posX == greyRook1Rectangle1.posX + 100) {
+                       greyPawnsBase[s].posX == greyRook1Rectangle1.posX + 70) {
                         greyRook1Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                     if(redPawnsBase[s].posY == greyRook1Rectangle1.posY &&
-                       redPawnsBase[s].posX == greyRook1Rectangle1.posX + 100) {
+                       redPawnsBase[s].posX == greyRook1Rectangle1.posX + 70) {
                         greyRook1Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                     if(redQueenSquare.posY == greyRook1Rectangle1.posY &&
-                       redQueenSquare.posX == greyRook1Rectangle1.posX + 100) {
+                       redQueenSquare.posX == greyRook1Rectangle1.posX + 70) {
                         greyRook1Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
                 if(redBishop1Square.posY == greyRook1Rectangle1.posY &&
-                   redBishop1Square.posX == greyRook1Rectangle1.posX + 100) {
+                   redBishop1Square.posX == greyRook1Rectangle1.posX + 70) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop2Square.posY == greyRook1Rectangle1.posY &&
-                   redBishop2Square.posX == greyRook1Rectangle1.posX + 100) {
+                   redBishop2Square.posX == greyRook1Rectangle1.posX + 70) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook1Rectangle1.posY == greyRook1Rectangle1.posY &&
-                   redRook1Rectangle1.posX == greyRook1Rectangle1.posX + 100) {
+                   redRook1Rectangle1.posX == greyRook1Rectangle1.posX + 70) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook2Rectangle1.posY == greyRook1Rectangle1.posY &&
-                   redRook2Rectangle1.posX == greyRook1Rectangle1.posX + 100) {
+                   redRook2Rectangle1.posX == greyRook1Rectangle1.posX + 70) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight1Rectangle1.posY == greyRook1Rectangle1.posY &&
-                   redKnight1Rectangle1.posX == greyRook1Rectangle1.posX + 100) {
+                   redKnight1Rectangle1.posX == greyRook1Rectangle1.posX + 70) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight2Rectangle1.posY == greyRook1Rectangle1.posY &&
-                   redKnight2Rectangle1.posX == greyRook1Rectangle1.posX + 100) {
+                   redKnight2Rectangle1.posX == greyRook1Rectangle1.posX + 70) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop1Square.posY == greyRook1Rectangle1.posY &&
-                   redBishop1Square.posX == greyRook1Rectangle1.posX + 100) {
+                   redBishop1Square.posX == greyRook1Rectangle1.posX + 70) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyRook2Rectangle1.posY == greyRook1Rectangle1.posY &&
-                   greyRook2Rectangle1.posX == greyRook1Rectangle1.posX + 100) {
+                   greyRook2Rectangle1.posX == greyRook1Rectangle1.posX + 70) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight1Rectangle1.posY == greyRook1Rectangle1.posY &&
-                   greyKnight1Rectangle1.posX == greyRook1Rectangle1.posX + 100) {
+                   greyKnight1Rectangle1.posX == greyRook1Rectangle1.posX + 70) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight2Rectangle1.posY == greyRook1Rectangle1.posY &&
-                   greyKnight2Rectangle1.posX == greyRook1Rectangle1.posX + 100) {
+                   greyKnight2Rectangle1.posX == greyRook1Rectangle1.posX + 70) {
                     greyRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    greyRook1Rectangle1.posX = greyRook1Rectangle1.posX + 100;
+                    greyRook1Rectangle1.posX = greyRook1Rectangle1.posX + 70;
                 }
 
                 return flag;
@@ -13323,13 +13323,13 @@ boolean moveRedRook1(UINT msg, int j, int i, int pos, int o) {
     }
     if(pos < 0) {
         boolean f = FALSE;
-        if(pos < -100) {
-            f = moveRedRook1(msg, j, i, pos + 100, o);
+        if(pos < -70) {
+            f = moveRedRook1(msg, j, i, pos + 70, o);
         }
         if(!f) {
             if(pos == o) {
 
-                redRook1Rectangle1.posY = redRook1Rectangle1.posY - 100;
+                redRook1Rectangle1.posY = redRook1Rectangle1.posY - 70;
                 
                 for(int s=0; s<8; s++) {
                     if(redPawnsBase[s].posY == redRook1Rectangle1.posY &&
@@ -13413,80 +13413,80 @@ boolean moveRedRook1(UINT msg, int j, int i, int pos, int o) {
                 boolean flag = FALSE;
 
                 for(int s=0; s<8; s++) {
-                    if(redPawnsBase[s].posY == redRook1Rectangle1.posY - 100 &&
+                    if(redPawnsBase[s].posY == redRook1Rectangle1.posY - 70 &&
                        redPawnsBase[s].posX == redRook1Rectangle1.posX) {
                         redRook1Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == redRook1Rectangle1.posY - 100 &&
+                    if(greyQueenSquare.posY == redRook1Rectangle1.posY - 70 &&
                        greyQueenSquare.posX == redRook1Rectangle1.posX) {
                         redRook1Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyPawnsBase[s].posY == redRook1Rectangle1.posY - 100 &&
+                    if(greyPawnsBase[s].posY == redRook1Rectangle1.posY - 70 &&
                        greyPawnsBase[s].posX == redRook1Rectangle1.posX) {
                         redRook1Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
-                if(redBishop1Square.posY == redRook1Rectangle1.posY - 100 &&
+                if(redBishop1Square.posY == redRook1Rectangle1.posY - 70 &&
                    redBishop1Square.posX == redRook1Rectangle1.posX) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop2Square.posY == redRook1Rectangle1.posY - 100 &&
+                if(redBishop2Square.posY == redRook1Rectangle1.posY - 70 &&
                    redBishop2Square.posX == redRook1Rectangle1.posX) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook2Rectangle1.posY == redRook1Rectangle1.posY - 100 &&
+                if(redRook2Rectangle1.posY == redRook1Rectangle1.posY - 70 &&
                    redRook2Rectangle1.posX == redRook1Rectangle1.posX) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight1Rectangle1.posY == redRook1Rectangle1.posY - 100 &&
+                if(redKnight1Rectangle1.posY == redRook1Rectangle1.posY - 70 &&
                    redKnight1Rectangle1.posX == redRook1Rectangle1.posX) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight2Rectangle1.posY == redRook1Rectangle1.posY - 100 &&
+                if(redKnight2Rectangle1.posY == redRook1Rectangle1.posY - 70 &&
                    redKnight2Rectangle1.posX == redRook1Rectangle1.posX) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook1Rectangle1.posY == redRook1Rectangle1.posY - 100 &&
+                if(redRook1Rectangle1.posY == redRook1Rectangle1.posY - 70 &&
                    redRook1Rectangle1.posX == redRook1Rectangle1.posX) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyRook2Rectangle1.posY == redRook1Rectangle1.posY - 100 &&
+                if(greyRook2Rectangle1.posY == redRook1Rectangle1.posY - 70 &&
                    greyRook2Rectangle1.posX == redRook1Rectangle1.posX) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop1Square.posY == redRook1Rectangle1.posY &&
-                   redBishop1Square.posX == redRook1Rectangle1.posX - 100) {
+                   redBishop1Square.posX == redRook1Rectangle1.posX - 70) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop2Square.posY == redRook1Rectangle1.posY &&
-                   redBishop2Square.posX == redRook1Rectangle1.posX - 100) {
+                   redBishop2Square.posX == redRook1Rectangle1.posX - 70) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight1Rectangle1.posY == redRook1Rectangle1.posY - 100 &&
+                if(greyKnight1Rectangle1.posY == redRook1Rectangle1.posY - 70 &&
                    greyKnight1Rectangle1.posX == redRook1Rectangle1.posX) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight2Rectangle1.posY == redRook1Rectangle1.posY - 100 &&
+                if(greyKnight2Rectangle1.posY == redRook1Rectangle1.posY - 70 &&
                    greyKnight2Rectangle1.posX == redRook1Rectangle1.posX) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    redRook1Rectangle1.posY = redRook1Rectangle1.posY - 100;
+                    redRook1Rectangle1.posY = redRook1Rectangle1.posY - 70;
                 }
 
                 return flag;
@@ -13499,13 +13499,13 @@ boolean moveRedRook1(UINT msg, int j, int i, int pos, int o) {
         }
     } else if(pos > 0) {
         boolean f = FALSE;
-        if(pos > 100) {
-            f = moveRedRook1(msg, j, i, pos - 100, o);
+        if(pos > 70) {
+            f = moveRedRook1(msg, j, i, pos - 70, o);
         }
         if(!f) {
             if(pos == o) {
 
-                redRook1Rectangle1.posY = redRook1Rectangle1.posY + 100;
+                redRook1Rectangle1.posY = redRook1Rectangle1.posY + 70;
                 
                 for(int s=0; s<8; s++) {
                     if(redPawnsBase[s].posY == redRook1Rectangle1.posY &&
@@ -13589,80 +13589,80 @@ boolean moveRedRook1(UINT msg, int j, int i, int pos, int o) {
                 boolean flag = FALSE;
 
                 for(int s=0; s<8; s++) {
-                    if(redPawnsBase[s].posY == redRook1Rectangle1.posY + 100 &&
+                    if(redPawnsBase[s].posY == redRook1Rectangle1.posY + 70 &&
                        redPawnsBase[s].posX == redRook1Rectangle1.posX) {
                         redRook1Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == redRook1Rectangle1.posY + 100 &&
+                    if(greyQueenSquare.posY == redRook1Rectangle1.posY + 70 &&
                        greyQueenSquare.posX == redRook1Rectangle1.posX) {
                         redRook1Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyPawnsBase[s].posY == redRook1Rectangle1.posY + 100 &&
+                    if(greyPawnsBase[s].posY == redRook1Rectangle1.posY + 70 &&
                        greyPawnsBase[s].posX == redRook1Rectangle1.posX) {
                         redRook1Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
-                if(redBishop1Square.posY == redRook1Rectangle1.posY + 100 &&
+                if(redBishop1Square.posY == redRook1Rectangle1.posY + 70 &&
                    redBishop1Square.posX == redRook1Rectangle1.posX) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop2Square.posY == redRook1Rectangle1.posY + 100 &&
+                if(redBishop2Square.posY == redRook1Rectangle1.posY + 70 &&
                    redBishop2Square.posX == redRook1Rectangle1.posX) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook2Rectangle1.posY == redRook1Rectangle1.posY + 100 &&
+                if(redRook2Rectangle1.posY == redRook1Rectangle1.posY + 70 &&
                    redRook2Rectangle1.posX == redRook1Rectangle1.posX) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight1Rectangle1.posY == redRook1Rectangle1.posY + 100 &&
+                if(redKnight1Rectangle1.posY == redRook1Rectangle1.posY + 70 &&
                    redKnight1Rectangle1.posX == redRook1Rectangle1.posX) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight2Rectangle1.posY == redRook1Rectangle1.posY + 100 &&
+                if(redKnight2Rectangle1.posY == redRook1Rectangle1.posY + 70 &&
                    redKnight2Rectangle1.posX == redRook1Rectangle1.posX) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook1Rectangle1.posY == redRook1Rectangle1.posY + 100 &&
+                if(redRook1Rectangle1.posY == redRook1Rectangle1.posY + 70 &&
                    redRook1Rectangle1.posX == redRook1Rectangle1.posX) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyRook2Rectangle1.posY == redRook1Rectangle1.posY + 100 &&
+                if(greyRook2Rectangle1.posY == redRook1Rectangle1.posY + 70 &&
                    greyRook2Rectangle1.posX == redRook1Rectangle1.posX) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop1Square.posY == redRook1Rectangle1.posY + 100 &&
+                if(redBishop1Square.posY == redRook1Rectangle1.posY + 70 &&
                    redBishop1Square.posX == redRook1Rectangle1.posX) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop2Square.posY == redRook1Rectangle1.posY + 100 &&
+                if(redBishop2Square.posY == redRook1Rectangle1.posY + 70 &&
                    redBishop2Square.posX == redRook1Rectangle1.posX) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight1Rectangle1.posY == redRook1Rectangle1.posY + 100 &&
+                if(greyKnight1Rectangle1.posY == redRook1Rectangle1.posY + 70 &&
                    greyKnight1Rectangle1.posX == redRook1Rectangle1.posX) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight2Rectangle1.posY == redRook1Rectangle1.posY + 100 &&
+                if(greyKnight2Rectangle1.posY == redRook1Rectangle1.posY + 70 &&
                    greyKnight2Rectangle1.posX == redRook1Rectangle1.posX) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    redRook1Rectangle1.posY = redRook1Rectangle1.posY + 100;
+                    redRook1Rectangle1.posY = redRook1Rectangle1.posY + 70;
                 }
 
                 return flag;
@@ -13732,13 +13732,13 @@ boolean moveRedRook1Side(UINT msg, int j, int i, int pos, int o) {
     }
     if(pos < 0) {
         boolean f = FALSE;
-        if(pos < -100) {
-            f = moveRedRook1Side(msg, j, i, pos + 100, o);
+        if(pos < -70) {
+            f = moveRedRook1Side(msg, j, i, pos + 70, o);
         }
         if(!f) {
             if(pos == o) {
 
-                redRook1Rectangle1.posX = redRook1Rectangle1.posX - 100;
+                redRook1Rectangle1.posX = redRook1Rectangle1.posX - 70;
                 
                 for(int s=0; s<8; s++) {
                     if(redPawnsBase[s].posY == redRook1Rectangle1.posY &&
@@ -13824,79 +13824,79 @@ boolean moveRedRook1Side(UINT msg, int j, int i, int pos, int o) {
 
                 for(int s=0; s<8; s++) {
                     if(redPawnsBase[s].posY == redRook1Rectangle1.posY &&
-                       redPawnsBase[s].posX == redRook1Rectangle1.posX - 100) {
+                       redPawnsBase[s].posX == redRook1Rectangle1.posX - 70) {
                         redRook1Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                     if(redQueenSquare.posY == redRook1Rectangle1.posY &&
-                       redQueenSquare.posX == redRook1Rectangle1.posX - 100) {
+                       redQueenSquare.posX == redRook1Rectangle1.posX - 70) {
                         redRook1Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                     if(greyPawnsBase[s].posY == redRook1Rectangle1.posY &&
-                       greyPawnsBase[s].posX == redRook1Rectangle1.posX - 100) {
+                       greyPawnsBase[s].posX == redRook1Rectangle1.posX - 70) {
                         redRook1Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
                 if(redBishop1Square.posY == redRook1Rectangle1.posY &&
-                   redBishop1Square.posX == redRook1Rectangle1.posX - 100) {
+                   redBishop1Square.posX == redRook1Rectangle1.posX - 70) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop2Square.posY == redRook1Rectangle1.posY &&
-                   redBishop2Square.posX == redRook1Rectangle1.posX - 100) {
+                   redBishop2Square.posX == redRook1Rectangle1.posX - 70) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook2Rectangle1.posY == redRook1Rectangle1.posY &&
-                   redRook2Rectangle1.posX == redRook1Rectangle1.posX - 100) {
+                   redRook2Rectangle1.posX == redRook1Rectangle1.posX - 70) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight1Rectangle1.posY == redRook1Rectangle1.posY &&
-                   redKnight1Rectangle1.posX == redRook1Rectangle1.posX - 100) {
+                   redKnight1Rectangle1.posX == redRook1Rectangle1.posX - 70) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight2Rectangle1.posY == redRook1Rectangle1.posY &&
-                   redKnight2Rectangle1.posX == redRook1Rectangle1.posX - 100) {
+                   redKnight2Rectangle1.posX == redRook1Rectangle1.posX - 70) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook1Rectangle1.posY == redRook1Rectangle1.posY &&
-                   redRook1Rectangle1.posX == redRook1Rectangle1.posX - 100) {
+                   redRook1Rectangle1.posX == redRook1Rectangle1.posX - 70) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyRook2Rectangle1.posY == redRook1Rectangle1.posY &&
-                   greyRook2Rectangle1.posX == redRook1Rectangle1.posX - 100) {
+                   greyRook2Rectangle1.posX == redRook1Rectangle1.posX - 70) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop1Square.posY == redRook1Rectangle1.posY &&
-                   greyBishop1Square.posX == redRook1Rectangle1.posX - 100) {
+                   greyBishop1Square.posX == redRook1Rectangle1.posX - 70) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop2Square.posY == redRook1Rectangle1.posY &&
-                   greyBishop2Square.posX == redRook1Rectangle1.posX - 100) {
+                   greyBishop2Square.posX == redRook1Rectangle1.posX - 70) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight1Rectangle1.posY == redRook1Rectangle1.posY &&
-                   greyKnight1Rectangle1.posX == redRook1Rectangle1.posX - 100) {
+                   greyKnight1Rectangle1.posX == redRook1Rectangle1.posX - 70) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight2Rectangle1.posY == redRook1Rectangle1.posY &&
-                   greyKnight2Rectangle1.posX == redRook1Rectangle1.posX - 100) {
+                   greyKnight2Rectangle1.posX == redRook1Rectangle1.posX - 70) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    redRook1Rectangle1.posX = redRook1Rectangle1.posX - 100;
+                    redRook1Rectangle1.posX = redRook1Rectangle1.posX - 70;
                 }
 
                 return flag;
@@ -13909,13 +13909,13 @@ boolean moveRedRook1Side(UINT msg, int j, int i, int pos, int o) {
         }
     } else if(pos > 0) {
         boolean f = FALSE;
-        if(pos > 100) {
-            f = moveRedRook1Side(msg, j, i, pos - 100, o);
+        if(pos > 70) {
+            f = moveRedRook1Side(msg, j, i, pos - 70, o);
         }
         if(!f) {
             if(pos == o) {
 
-                redRook1Rectangle1.posX = redRook1Rectangle1.posX + 100;
+                redRook1Rectangle1.posX = redRook1Rectangle1.posX + 70;
 
                 for(int s=0; s<8; s++) {
                     if(redPawnsBase[s].posY == redRook1Rectangle1.posY &&
@@ -14001,79 +14001,79 @@ boolean moveRedRook1Side(UINT msg, int j, int i, int pos, int o) {
 
                 for(int i=0; i<8; i++) {
                     if(redPawnsBase[i].posY == redRook1Rectangle1.posY &&
-                       redPawnsBase[i].posX == redRook1Rectangle1.posX + 100) {
+                       redPawnsBase[i].posX == redRook1Rectangle1.posX + 70) {
                         redRook1Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                     if(greyPawnsBase[i].posY == redRook1Rectangle1.posY &&
-                       greyPawnsBase[i].posX == redRook1Rectangle1.posX + 100) {
+                       greyPawnsBase[i].posX == redRook1Rectangle1.posX + 70) {
                         redRook1Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                     if(redQueenSquare.posY == redRook1Rectangle1.posY &&
-                       redQueenSquare.posX == redRook1Rectangle1.posX + 100) {
+                       redQueenSquare.posX == redRook1Rectangle1.posX + 70) {
                         redRook1Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
                 if(redBishop1Square.posY == redRook1Rectangle1.posY &&
-                   redBishop1Square.posX == redRook1Rectangle1.posX + 100) {
+                   redBishop1Square.posX == redRook1Rectangle1.posX + 70) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop2Square.posY == redRook1Rectangle1.posY &&
-                   redBishop2Square.posX == redRook1Rectangle1.posX + 100) {
+                   redBishop2Square.posX == redRook1Rectangle1.posX + 70) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook2Rectangle1.posY == redRook1Rectangle1.posY &&
-                   redRook2Rectangle1.posX == redRook1Rectangle1.posX + 100) {
+                   redRook2Rectangle1.posX == redRook1Rectangle1.posX + 70) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight1Rectangle1.posY == redRook1Rectangle1.posY &&
-                   redKnight1Rectangle1.posX == redRook1Rectangle1.posX + 100) {
+                   redKnight1Rectangle1.posX == redRook1Rectangle1.posX + 70) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight2Rectangle1.posY == redRook1Rectangle1.posY &&
-                   redKnight2Rectangle1.posX == redRook1Rectangle1.posX + 100) {
+                   redKnight2Rectangle1.posX == redRook1Rectangle1.posX + 70) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook1Rectangle1.posY == redRook1Rectangle1.posY &&
-                   redRook1Rectangle1.posX == redRook1Rectangle1.posX + 100) {
+                   redRook1Rectangle1.posX == redRook1Rectangle1.posX + 70) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyRook2Rectangle1.posY == redRook1Rectangle1.posY &&
-                   greyRook2Rectangle1.posX == redRook1Rectangle1.posX + 100) {
+                   greyRook2Rectangle1.posX == redRook1Rectangle1.posX + 70) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop1Square.posY == redRook1Rectangle1.posY &&
-                   greyBishop1Square.posX == redRook1Rectangle1.posX - 100) {
+                   greyBishop1Square.posX == redRook1Rectangle1.posX - 70) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop2Square.posY == redRook1Rectangle1.posY &&
-                   greyBishop2Square.posX == redRook1Rectangle1.posX - 100) {
+                   greyBishop2Square.posX == redRook1Rectangle1.posX - 70) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight1Rectangle1.posY == redRook1Rectangle1.posY &&
-                   greyKnight1Rectangle1.posX == redRook1Rectangle1.posX + 100) {
+                   greyKnight1Rectangle1.posX == redRook1Rectangle1.posX + 70) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight2Rectangle1.posY == redRook1Rectangle1.posY &&
-                   greyKnight2Rectangle1.posX == redRook1Rectangle1.posX + 100) {
+                   greyKnight2Rectangle1.posX == redRook1Rectangle1.posX + 70) {
                     redRook1Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    redRook1Rectangle1.posX = redRook1Rectangle1.posX + 100;
+                    redRook1Rectangle1.posX = redRook1Rectangle1.posX + 70;
                 }
 
                 return flag;
@@ -14143,13 +14143,13 @@ boolean moveGreyRook2(UINT msg, int j, int i, int pos, int o) {
     }
     if(pos < 0) {
         boolean f = FALSE;
-        if(pos < -100) {
-            f = moveGreyRook2(msg, j, i, pos + 100, o);
+        if(pos < -70) {
+            f = moveGreyRook2(msg, j, i, pos + 70, o);
         }
         if(!f) {
             if(pos == o) {
 
-                greyRook2Rectangle1.posY = greyRook2Rectangle1.posY - 100;
+                greyRook2Rectangle1.posY = greyRook2Rectangle1.posY - 70;
                 
                 for(int s=0; s<8; s++) {
                     if(greyPawnsBase[s].posY == greyRook2Rectangle1.posY &&
@@ -14234,70 +14234,70 @@ boolean moveGreyRook2(UINT msg, int j, int i, int pos, int o) {
                 boolean flag = FALSE;
 
                 for(int s=0; s<8; s++) {
-                    if(greyPawnsBase[s].posY == greyRook2Rectangle1.posY - 100 &&
+                    if(greyPawnsBase[s].posY == greyRook2Rectangle1.posY - 70 &&
                        greyPawnsBase[s].posX == greyRook2Rectangle1.posX) {
                         greyRook2Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redPawnsBase[s].posY == greyRook2Rectangle1.posY - 100 &&
+                    if(redPawnsBase[s].posY == greyRook2Rectangle1.posY - 70 &&
                        redPawnsBase[s].posX == greyRook2Rectangle1.posX) {
                         greyRook2Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redQueenSquare.posY == greyRook2Rectangle1.posY - 100 &&
+                    if(redQueenSquare.posY == greyRook2Rectangle1.posY - 70 &&
                        redQueenSquare.posX == greyRook2Rectangle1.posX) {
                         greyRook2Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
-                if(redBishop1Square.posY == greyRook2Rectangle1.posY - 100 &&
+                if(redBishop1Square.posY == greyRook2Rectangle1.posY - 70 &&
                    redBishop1Square.posX == greyRook2Rectangle1.posX) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop2Square.posY == greyRook2Rectangle1.posY - 100 &&
+                if(redBishop2Square.posY == greyRook2Rectangle1.posY - 70 &&
                    redBishop2Square.posX == greyRook2Rectangle1.posX) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyRook2Rectangle1.posY == greyRook2Rectangle1.posY - 100 &&
+                if(greyRook2Rectangle1.posY == greyRook2Rectangle1.posY - 70 &&
                    greyRook2Rectangle1.posX == greyRook2Rectangle1.posX) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook2Rectangle1.posY == greyRook2Rectangle1.posY - 100 &&
+                if(redRook2Rectangle1.posY == greyRook2Rectangle1.posY - 70 &&
                    redRook2Rectangle1.posX == greyRook2Rectangle1.posX) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight1Rectangle1.posY == greyRook2Rectangle1.posY - 100 &&
+                if(redKnight1Rectangle1.posY == greyRook2Rectangle1.posY - 70 &&
                    redKnight1Rectangle1.posX == greyRook2Rectangle1.posX) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight2Rectangle1.posY == greyRook2Rectangle1.posY - 100 &&
+                if(redKnight2Rectangle1.posY == greyRook2Rectangle1.posY - 70 &&
                    redKnight2Rectangle1.posX == greyRook2Rectangle1.posX) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyRook2Rectangle1.posY == greyRook2Rectangle1.posY - 100 &&
+                if(greyRook2Rectangle1.posY == greyRook2Rectangle1.posY - 70 &&
                    greyRook2Rectangle1.posX == greyRook2Rectangle1.posX) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight1Rectangle1.posY == greyRook2Rectangle1.posY - 100 &&
+                if(greyKnight1Rectangle1.posY == greyRook2Rectangle1.posY - 70 &&
                    greyKnight1Rectangle1.posX == greyRook2Rectangle1.posX) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight2Rectangle1.posY == greyRook2Rectangle1.posY - 100 &&
+                if(greyKnight2Rectangle1.posY == greyRook2Rectangle1.posY - 70 &&
                    greyKnight2Rectangle1.posX == greyRook2Rectangle1.posX) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    greyRook2Rectangle1.posY = greyRook2Rectangle1.posY - 100;
+                    greyRook2Rectangle1.posY = greyRook2Rectangle1.posY - 70;
                 }
 
                 return flag;
@@ -14311,13 +14311,13 @@ boolean moveGreyRook2(UINT msg, int j, int i, int pos, int o) {
         }
     } else if(pos > 0) {
         boolean f = FALSE;
-        if(pos > 100) {
-            f = moveGreyRook2(msg, j, i, pos - 100, o);
+        if(pos > 70) {
+            f = moveGreyRook2(msg, j, i, pos - 70, o);
         }
         if(!f) {
             if(pos == o) {
 
-                greyRook2Rectangle1.posY = greyRook2Rectangle1.posY + 100;
+                greyRook2Rectangle1.posY = greyRook2Rectangle1.posY + 70;
 
                 for(int s=0; s<8; s++) {
                     if(greyPawnsBase[s].posY == greyRook2Rectangle1.posY &&
@@ -14402,70 +14402,70 @@ boolean moveGreyRook2(UINT msg, int j, int i, int pos, int o) {
                 boolean flag = FALSE;
 
                 for(int s=0; s<8; s++) {
-                    if(greyPawnsBase[s].posY == greyRook2Rectangle1.posY + 100 &&
+                    if(greyPawnsBase[s].posY == greyRook2Rectangle1.posY + 70 &&
                        greyPawnsBase[s].posX == greyRook2Rectangle1.posX) {
                         greyRook2Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redPawnsBase[s].posY == greyRook2Rectangle1.posY + 100 &&
+                    if(redPawnsBase[s].posY == greyRook2Rectangle1.posY + 70 &&
                        redPawnsBase[s].posX == greyRook2Rectangle1.posX) {
                         greyRook2Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(redQueenSquare.posY == greyRook2Rectangle1.posY + 100 &&
+                    if(redQueenSquare.posY == greyRook2Rectangle1.posY + 70 &&
                        redQueenSquare.posX == greyRook2Rectangle1.posX) {
                         greyRook2Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
-                if(redBishop1Square.posY == greyRook2Rectangle1.posY + 100 &&
+                if(redBishop1Square.posY == greyRook2Rectangle1.posY + 70 &&
                    redBishop1Square.posX == greyRook2Rectangle1.posX) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop2Square.posY == greyRook2Rectangle1.posY + 100 &&
+                if(redBishop2Square.posY == greyRook2Rectangle1.posY + 70 &&
                    redBishop2Square.posX == greyRook2Rectangle1.posX) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyRook2Rectangle1.posY == greyRook2Rectangle1.posY + 100 &&
+                if(greyRook2Rectangle1.posY == greyRook2Rectangle1.posY + 70 &&
                    greyRook2Rectangle1.posX == greyRook2Rectangle1.posX) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook2Rectangle1.posY == greyRook2Rectangle1.posY + 100 &&
+                if(redRook2Rectangle1.posY == greyRook2Rectangle1.posY + 70 &&
                    redRook2Rectangle1.posX == greyRook2Rectangle1.posX) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight1Rectangle1.posY == greyRook2Rectangle1.posY + 100 &&
+                if(redKnight1Rectangle1.posY == greyRook2Rectangle1.posY + 70 &&
                    redKnight1Rectangle1.posX == greyRook2Rectangle1.posX) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight2Rectangle1.posY == greyRook2Rectangle1.posY + 100 &&
+                if(redKnight2Rectangle1.posY == greyRook2Rectangle1.posY + 70 &&
                    redKnight2Rectangle1.posX == greyRook2Rectangle1.posX) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyRook2Rectangle1.posY == greyRook2Rectangle1.posY + 100 &&
+                if(greyRook2Rectangle1.posY == greyRook2Rectangle1.posY + 70 &&
                    greyRook2Rectangle1.posX == greyRook2Rectangle1.posX) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight1Rectangle1.posY == greyRook2Rectangle1.posY + 100 &&
+                if(greyKnight1Rectangle1.posY == greyRook2Rectangle1.posY + 70 &&
                    greyKnight1Rectangle1.posX == greyRook2Rectangle1.posX) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight2Rectangle1.posY == greyRook2Rectangle1.posY + 100 &&
+                if(greyKnight2Rectangle1.posY == greyRook2Rectangle1.posY + 70 &&
                    greyKnight2Rectangle1.posX == greyRook2Rectangle1.posX) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    greyRook2Rectangle1.posY = greyRook2Rectangle1.posY + 100;
+                    greyRook2Rectangle1.posY = greyRook2Rectangle1.posY + 70;
                 }
 
                 return flag;
@@ -14536,13 +14536,13 @@ boolean moveGreyRook2Side(UINT msg, int j, int i, int pos, int o) {
     }
     if(pos < 0) {
         boolean f = FALSE;
-        if(pos < -100) {
-            f = moveGreyRook2Side(msg, j, i, pos + 100, o);
+        if(pos < -70) {
+            f = moveGreyRook2Side(msg, j, i, pos + 70, o);
         }
         if(!f) {
             if(pos == o) {
 
-                greyRook2Rectangle1.posX = greyRook2Rectangle1.posX - 100;
+                greyRook2Rectangle1.posX = greyRook2Rectangle1.posX - 70;
                 
                 for(int s=0; s<8; s++) {
                     if(greyPawnsBase[s].posY == greyRook2Rectangle1.posY &&
@@ -14628,69 +14628,69 @@ boolean moveGreyRook2Side(UINT msg, int j, int i, int pos, int o) {
 
                 for(int s=0; s<8; s++) {
                     if(greyPawnsBase[s].posY == greyRook2Rectangle1.posY &&
-                       greyPawnsBase[s].posX == greyRook2Rectangle1.posX - 100) {
+                       greyPawnsBase[s].posX == greyRook2Rectangle1.posX - 70) {
                         greyRook2Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                     if(redPawnsBase[s].posY == greyRook2Rectangle1.posY &&
-                       redPawnsBase[s].posX == greyRook2Rectangle1.posX - 100) {
+                       redPawnsBase[s].posX == greyRook2Rectangle1.posX - 70) {
                         greyRook2Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                     if(redQueenSquare.posY == greyRook2Rectangle1.posY &&
-                       redQueenSquare.posX == greyRook2Rectangle1.posX - 100) {
+                       redQueenSquare.posX == greyRook2Rectangle1.posX - 70) {
                         greyRook2Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
                 if(redBishop1Square.posY == greyRook2Rectangle1.posY &&
-                   redBishop1Square.posX == greyRook2Rectangle1.posX - 100) {
+                   redBishop1Square.posX == greyRook2Rectangle1.posX - 70) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop2Square.posY == greyRook2Rectangle1.posY &&
-                   redBishop2Square.posX == greyRook2Rectangle1.posX - 100) {
+                   redBishop2Square.posX == greyRook2Rectangle1.posX - 70) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyRook2Rectangle1.posY == greyRook2Rectangle1.posY &&
-                   greyRook2Rectangle1.posX == greyRook2Rectangle1.posX - 100) {
+                   greyRook2Rectangle1.posX == greyRook2Rectangle1.posX - 70) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook2Rectangle1.posY == greyRook2Rectangle1.posY &&
-                   redRook2Rectangle1.posX == greyRook2Rectangle1.posX - 100) {
+                   redRook2Rectangle1.posX == greyRook2Rectangle1.posX - 70) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight1Rectangle1.posY == greyRook2Rectangle1.posY &&
-                   redKnight1Rectangle1.posX == greyRook2Rectangle1.posX - 100) {
+                   redKnight1Rectangle1.posX == greyRook2Rectangle1.posX - 70) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight2Rectangle1.posY == greyRook2Rectangle1.posY &&
-                   redKnight2Rectangle1.posX == greyRook2Rectangle1.posX - 100) {
+                   redKnight2Rectangle1.posX == greyRook2Rectangle1.posX - 70) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyRook2Rectangle1.posY == greyRook2Rectangle1.posY &&
-                   greyRook2Rectangle1.posX == greyRook2Rectangle1.posX - 100) {
+                   greyRook2Rectangle1.posX == greyRook2Rectangle1.posX - 70) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight1Rectangle1.posY == greyRook2Rectangle1.posY &&
-                   greyKnight1Rectangle1.posX == greyRook2Rectangle1.posX - 100) {
+                   greyKnight1Rectangle1.posX == greyRook2Rectangle1.posX - 70) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight2Rectangle1.posY == greyRook2Rectangle1.posY &&
-                   greyKnight2Rectangle1.posX == greyRook2Rectangle1.posX - 100) {
+                   greyKnight2Rectangle1.posX == greyRook2Rectangle1.posX - 70) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    greyRook2Rectangle1.posX = greyRook2Rectangle1.posX - 100;
+                    greyRook2Rectangle1.posX = greyRook2Rectangle1.posX - 70;
                 }
 
                 return flag;
@@ -14704,13 +14704,13 @@ boolean moveGreyRook2Side(UINT msg, int j, int i, int pos, int o) {
         }
     } else if(pos > 0) {
         boolean f = FALSE;
-        if(pos > 100) {
-            f = moveGreyRook2Side(msg, j, i, pos - 100, o);
+        if(pos > 70) {
+            f = moveGreyRook2Side(msg, j, i, pos - 70, o);
         }
         if(!f) {
             if(pos == o) {
 
-                greyRook2Rectangle1.posX = greyRook2Rectangle1.posX + 100;
+                greyRook2Rectangle1.posX = greyRook2Rectangle1.posX + 70;
                 
                 for(int s=0; s<8; s++) {
                     if(greyPawnsBase[s].posY == greyRook2Rectangle1.posY &&
@@ -14796,69 +14796,69 @@ boolean moveGreyRook2Side(UINT msg, int j, int i, int pos, int o) {
 
                 for(int s=0; s<8; s++) {
                     if(greyPawnsBase[s].posY == greyRook2Rectangle1.posY &&
-                       greyPawnsBase[s].posX == greyRook2Rectangle1.posX + 100) {
+                       greyPawnsBase[s].posX == greyRook2Rectangle1.posX + 70) {
                         greyRook2Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                     if(redPawnsBase[s].posY == greyRook2Rectangle1.posY &&
-                       redPawnsBase[s].posX == greyRook2Rectangle1.posX + 100) {
+                       redPawnsBase[s].posX == greyRook2Rectangle1.posX + 70) {
                         greyRook2Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                     if(redQueenSquare.posY == greyRook2Rectangle1.posY &&
-                       redQueenSquare.posX == greyRook2Rectangle1.posX + 100) {
+                       redQueenSquare.posX == greyRook2Rectangle1.posX + 70) {
                         greyRook2Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
                 if(redBishop1Square.posY == greyRook2Rectangle1.posY &&
-                   redBishop1Square.posX == greyRook2Rectangle1.posX + 100) {
+                   redBishop1Square.posX == greyRook2Rectangle1.posX + 70) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop2Square.posY == greyRook2Rectangle1.posY &&
-                   redBishop2Square.posX == greyRook2Rectangle1.posX + 100) {
+                   redBishop2Square.posX == greyRook2Rectangle1.posX + 70) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyRook2Rectangle1.posY == greyRook2Rectangle1.posY &&
-                   greyRook2Rectangle1.posX == greyRook2Rectangle1.posX + 100) {
+                   greyRook2Rectangle1.posX == greyRook2Rectangle1.posX + 70) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook2Rectangle1.posY == greyRook2Rectangle1.posY &&
-                   redRook2Rectangle1.posX == greyRook2Rectangle1.posX + 100) {
+                   redRook2Rectangle1.posX == greyRook2Rectangle1.posX + 70) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight1Rectangle1.posY == greyRook2Rectangle1.posY &&
-                   redKnight1Rectangle1.posX == greyRook2Rectangle1.posX + 100) {
+                   redKnight1Rectangle1.posX == greyRook2Rectangle1.posX + 70) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight2Rectangle1.posY == greyRook2Rectangle1.posY &&
-                   redKnight2Rectangle1.posX == greyRook2Rectangle1.posX + 100) {
+                   redKnight2Rectangle1.posX == greyRook2Rectangle1.posX + 70) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyRook2Rectangle1.posY == greyRook2Rectangle1.posY &&
-                   greyRook2Rectangle1.posX == greyRook2Rectangle1.posX + 100) {
+                   greyRook2Rectangle1.posX == greyRook2Rectangle1.posX + 70) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight1Rectangle1.posY == greyRook2Rectangle1.posY &&
-                   greyKnight1Rectangle1.posX == greyRook2Rectangle1.posX + 100) {
+                   greyKnight1Rectangle1.posX == greyRook2Rectangle1.posX + 70) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight2Rectangle1.posY == greyRook2Rectangle1.posY &&
-                   greyKnight2Rectangle1.posX == greyRook2Rectangle1.posX + 100) {
+                   greyKnight2Rectangle1.posX == greyRook2Rectangle1.posX + 70) {
                     greyRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    greyRook2Rectangle1.posX = greyRook2Rectangle1.posX + 100;
+                    greyRook2Rectangle1.posX = greyRook2Rectangle1.posX + 70;
                 }
 
                 return flag;
@@ -14929,13 +14929,13 @@ boolean moveRedRook2(UINT msg, int j, int i, int pos, int o) {
     }
     if(pos < 0) {
         boolean f = FALSE;
-        if(pos < -100) {
-            f = moveRedRook2(msg, j, i, pos + 100, o);
+        if(pos < -70) {
+            f = moveRedRook2(msg, j, i, pos + 70, o);
         }
         if(!f) {
             if(pos == o) {
 
-                redRook2Rectangle1.posY = redRook2Rectangle1.posY - 100;
+                redRook2Rectangle1.posY = redRook2Rectangle1.posY - 70;
                 
                 for(int s=0; s<8; s++) {
                     if(redPawnsBase[s].posY == redRook2Rectangle1.posY &&
@@ -15024,74 +15024,74 @@ boolean moveRedRook2(UINT msg, int j, int i, int pos, int o) {
                 boolean flag = FALSE;
 
                 for(int s=0; s<8; s++) {
-                    if(redPawnsBase[s].posY == redRook2Rectangle1.posY - 100 &&
+                    if(redPawnsBase[s].posY == redRook2Rectangle1.posY - 70 &&
                        redPawnsBase[s].posX == redRook2Rectangle1.posX) {
                         redRook2Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == redRook2Rectangle1.posY - 100 &&
+                    if(greyQueenSquare.posY == redRook2Rectangle1.posY - 70 &&
                        greyQueenSquare.posX == redRook2Rectangle1.posX) {
                         redRook2Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyPawnsBase[i].posY == redRook2Rectangle1.posY - 100 &&
+                    if(greyPawnsBase[i].posY == redRook2Rectangle1.posY - 70 &&
                        greyPawnsBase[i].posX == redRook2Rectangle1.posX) {
                         flag = TRUE;
                     }
                 }
-                if(redBishop1Square.posY == redRook2Rectangle1.posY - 100 &&
+                if(redBishop1Square.posY == redRook2Rectangle1.posY - 70 &&
                    redBishop1Square.posX == redRook2Rectangle1.posX) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop2Square.posY == redRook2Rectangle1.posY - 100 &&
+                if(redBishop2Square.posY == redRook2Rectangle1.posY - 70 &&
                    redBishop2Square.posX == redRook2Rectangle1.posX) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook1Rectangle1.posY == redRook2Rectangle1.posY - 100 &&
+                if(redRook1Rectangle1.posY == redRook2Rectangle1.posY - 70 &&
                    redRook1Rectangle1.posX == redRook2Rectangle1.posX) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight1Rectangle1.posY == redRook2Rectangle1.posY - 100 &&
+                if(redKnight1Rectangle1.posY == redRook2Rectangle1.posY - 70 &&
                    redKnight1Rectangle1.posX == redRook2Rectangle1.posX) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight2Rectangle1.posY == redRook2Rectangle1.posY - 100 &&
+                if(redKnight2Rectangle1.posY == redRook2Rectangle1.posY - 70 &&
                    redKnight2Rectangle1.posX == redRook2Rectangle1.posX) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyRook1Rectangle1.posY == redRook2Rectangle1.posY - 100 &&
+                if(greyRook1Rectangle1.posY == redRook2Rectangle1.posY - 70 &&
                    greyRook1Rectangle1.posX == redRook2Rectangle1.posX) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyBishop1Square.posY == redRook2Rectangle1.posY - 100 &&
+                if(greyBishop1Square.posY == redRook2Rectangle1.posY - 70 &&
                    greyBishop1Square.posX == redRook2Rectangle1.posX) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyBishop2Square.posY == redRook2Rectangle1.posY - 100 &&
+                if(greyBishop2Square.posY == redRook2Rectangle1.posY - 70 &&
                    greyBishop2Square.posX == redRook2Rectangle1.posX) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight1Rectangle1.posY == redRook2Rectangle1.posY - 100 &&
+                if(greyKnight1Rectangle1.posY == redRook2Rectangle1.posY - 70 &&
                    greyKnight1Rectangle1.posX == redRook2Rectangle1.posX) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight2Rectangle1.posY == redRook2Rectangle1.posY - 100 &&
+                if(greyKnight2Rectangle1.posY == redRook2Rectangle1.posY - 70 &&
                    greyKnight2Rectangle1.posX == redRook2Rectangle1.posX) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    redRook2Rectangle1.posY = redRook2Rectangle1.posY - 100;
+                    redRook2Rectangle1.posY = redRook2Rectangle1.posY - 70;
                 }
 
                 return flag;
@@ -15104,13 +15104,13 @@ boolean moveRedRook2(UINT msg, int j, int i, int pos, int o) {
         }
     } else if(pos > 0) {
         boolean f = FALSE;
-        if(pos > 100) {
-            f = moveRedRook2(msg, j, i, pos - 100, o);
+        if(pos > 70) {
+            f = moveRedRook2(msg, j, i, pos - 70, o);
         }
         if(!f) {
             if(pos == o) {
 
-                redRook2Rectangle1.posY = redRook2Rectangle1.posY + 100;
+                redRook2Rectangle1.posY = redRook2Rectangle1.posY + 70;
                 
                 for(int s=0; s<8; s++) {
                     if(redPawnsBase[s].posY == redRook2Rectangle1.posY &&
@@ -15195,80 +15195,80 @@ boolean moveRedRook2(UINT msg, int j, int i, int pos, int o) {
                 boolean flag = FALSE;
 
                 for(int s=0; s<8; s++) {
-                    if(redPawnsBase[s].posY == redRook2Rectangle1.posY + 100 &&
+                    if(redPawnsBase[s].posY == redRook2Rectangle1.posY + 70 &&
                        redPawnsBase[s].posX == redRook2Rectangle1.posX) {
                         redRook2Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyQueenSquare.posY == redRook2Rectangle1.posY + 100 &&
+                    if(greyQueenSquare.posY == redRook2Rectangle1.posY + 70 &&
                        greyQueenSquare.posX == redRook2Rectangle1.posX) {
                         redRook2Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
-                    if(greyPawnsBase[i].posY == redRook2Rectangle1.posY + 100 &&
+                    if(greyPawnsBase[i].posY == redRook2Rectangle1.posY + 70 &&
                        greyPawnsBase[i].posX == redRook2Rectangle1.posX) {
                         redRook2Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
-                if(redBishop1Square.posY == redRook2Rectangle1.posY + 100 &&
+                if(redBishop1Square.posY == redRook2Rectangle1.posY + 70 &&
                    redBishop1Square.posX == redRook2Rectangle1.posX) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop2Square.posY == redRook2Rectangle1.posY - 100 &&
+                if(redBishop2Square.posY == redRook2Rectangle1.posY - 70 &&
                    redBishop2Square.posX == redRook2Rectangle1.posX) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redRook1Rectangle1.posY == redRook2Rectangle1.posY + 100 &&
+                if(redRook1Rectangle1.posY == redRook2Rectangle1.posY + 70 &&
                    redRook1Rectangle1.posX == redRook2Rectangle1.posX) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight1Rectangle1.posY == redRook2Rectangle1.posY + 100 &&
+                if(redKnight1Rectangle1.posY == redRook2Rectangle1.posY + 70 &&
                    redKnight1Rectangle1.posX == redRook2Rectangle1.posX) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redKnight2Rectangle1.posY == redRook2Rectangle1.posY + 100 &&
+                if(redKnight2Rectangle1.posY == redRook2Rectangle1.posY + 70 &&
                    redKnight2Rectangle1.posX == redRook2Rectangle1.posX) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(redBishop1Square.posY == redRook2Rectangle1.posY + 100 &&
+                if(redBishop1Square.posY == redRook2Rectangle1.posY + 70 &&
                    redBishop1Square.posX == redRook2Rectangle1.posX) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyRook1Rectangle1.posY == redRook2Rectangle1.posY + 100 &&
+                if(greyRook1Rectangle1.posY == redRook2Rectangle1.posY + 70 &&
                    greyRook1Rectangle1.posX == redRook2Rectangle1.posX) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyBishop1Square.posY == redRook2Rectangle1.posY - 100 &&
+                if(greyBishop1Square.posY == redRook2Rectangle1.posY - 70 &&
                    greyBishop1Square.posX == redRook2Rectangle1.posX) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyBishop2Square.posY == redRook2Rectangle1.posY - 100 &&
+                if(greyBishop2Square.posY == redRook2Rectangle1.posY - 70 &&
                    greyBishop2Square.posX == redRook2Rectangle1.posX) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight1Rectangle1.posY == redRook2Rectangle1.posY + 100 &&
+                if(greyKnight1Rectangle1.posY == redRook2Rectangle1.posY + 70 &&
                    greyKnight1Rectangle1.posX == redRook2Rectangle1.posX) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
-                if(greyKnight2Rectangle1.posY == redRook2Rectangle1.posY + 100 &&
+                if(greyKnight2Rectangle1.posY == redRook2Rectangle1.posY + 70 &&
                    greyKnight2Rectangle1.posX == redRook2Rectangle1.posX) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    redRook2Rectangle1.posY = redRook2Rectangle1.posY + 100;
+                    redRook2Rectangle1.posY = redRook2Rectangle1.posY + 70;
                 }
 
                 return flag;
@@ -15338,13 +15338,13 @@ boolean moveRedRook2Side(UINT msg, int j, int i, int pos, int o) {
     }
     if(pos < 0) {
         boolean f = FALSE;
-        if(pos < -100) {
-            f = moveRedRook2Side(msg, j, i, pos + 100, o);
+        if(pos < -70) {
+            f = moveRedRook2Side(msg, j, i, pos + 70, o);
         }
         if(!f) {
             if(pos == o) {
 
-                redRook2Rectangle1.posX = redRook2Rectangle1.posX - 100;
+                redRook2Rectangle1.posX = redRook2Rectangle1.posX - 70;
                 
                 for(int s=0; s<8; s++) {
                     if(redPawnsBase[s].posY == redRook2Rectangle1.posY &&
@@ -15430,74 +15430,74 @@ boolean moveRedRook2Side(UINT msg, int j, int i, int pos, int o) {
 
                 for(int s=0; s<8; s++) {
                     if(redPawnsBase[s].posY == redRook2Rectangle1.posY &&
-                       redPawnsBase[s].posX == redRook2Rectangle1.posX - 100) {
+                       redPawnsBase[s].posX == redRook2Rectangle1.posX - 70) {
                         redRook2Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                     if(greyPawnsBase[s].posY == redRook2Rectangle1.posY &&
-                       greyPawnsBase[s].posX == redRook2Rectangle1.posX - 100) {
+                       greyPawnsBase[s].posX == redRook2Rectangle1.posX - 70) {
                         redRook2Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                     if(redQueenSquare.posY == redRook2Rectangle1.posY &&
-                       redQueenSquare.posX == redRook2Rectangle1.posX - 100) {
+                       redQueenSquare.posX == redRook2Rectangle1.posX - 70) {
                         redRook2Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
                 if(redBishop1Square.posY == redRook2Rectangle1.posY &&
-                   redBishop1Square.posX == redRook2Rectangle1.posX - 100) {
+                   redBishop1Square.posX == redRook2Rectangle1.posX - 70) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop2Square.posY == redRook2Rectangle1.posY &&
-                   redBishop2Square.posX == redRook2Rectangle1.posX - 100) {
+                   redBishop2Square.posX == redRook2Rectangle1.posX - 70) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook1Rectangle1.posY == redRook2Rectangle1.posY &&
-                   redRook1Rectangle1.posX == redRook2Rectangle1.posX - 100) {
+                   redRook1Rectangle1.posX == redRook2Rectangle1.posX - 70) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight1Rectangle1.posY == redRook2Rectangle1.posY &&
-                   redKnight1Rectangle1.posX == redRook2Rectangle1.posX - 100) {
+                   redKnight1Rectangle1.posX == redRook2Rectangle1.posX - 70) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight2Rectangle1.posY == redRook2Rectangle1.posY &&
-                   redKnight2Rectangle1.posX == redRook2Rectangle1.posX - 100) {
+                   redKnight2Rectangle1.posX == redRook2Rectangle1.posX - 70) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyRook1Rectangle1.posY == redRook2Rectangle1.posY &&
-                   greyRook1Rectangle1.posX == redRook2Rectangle1.posX - 100) {
+                   greyRook1Rectangle1.posX == redRook2Rectangle1.posX - 70) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop1Square.posY == redRook2Rectangle1.posY &&
-                   greyBishop1Square.posX == redRook2Rectangle1.posX - 100) {
+                   greyBishop1Square.posX == redRook2Rectangle1.posX - 70) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop2Square.posY == redRook2Rectangle1.posY &&
-                   greyBishop2Square.posX == redRook2Rectangle1.posX - 100) {
+                   greyBishop2Square.posX == redRook2Rectangle1.posX - 70) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight1Rectangle1.posY == redRook2Rectangle1.posY &&
-                   greyKnight1Rectangle1.posX == redRook2Rectangle1.posX - 100) {
+                   greyKnight1Rectangle1.posX == redRook2Rectangle1.posX - 70) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight2Rectangle1.posY == redRook2Rectangle1.posY &&
-                   greyKnight2Rectangle1.posX == redRook2Rectangle1.posX - 100) {
+                   greyKnight2Rectangle1.posX == redRook2Rectangle1.posX - 70) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    redRook2Rectangle1.posX = redRook2Rectangle1.posX - 100;
+                    redRook2Rectangle1.posX = redRook2Rectangle1.posX - 70;
                 }
 
                 return flag;
@@ -15510,13 +15510,13 @@ boolean moveRedRook2Side(UINT msg, int j, int i, int pos, int o) {
         }
     } else if(pos > 0) {
         boolean f = FALSE;
-        if(pos > 100) {
-            f = moveRedRook2Side(msg, j, i, pos - 100, o);
+        if(pos > 70) {
+            f = moveRedRook2Side(msg, j, i, pos - 70, o);
         }
         if(!f) {
             if(pos == o) {
 
-                redRook2Rectangle1.posX = redRook2Rectangle1.posX + 100;
+                redRook2Rectangle1.posX = redRook2Rectangle1.posX + 70;
 
                 for(int s=0; s<8; s++) {
                     if(redPawnsBase[s].posY == redRook2Rectangle1.posY &&
@@ -15602,74 +15602,74 @@ boolean moveRedRook2Side(UINT msg, int j, int i, int pos, int o) {
 
                 for(int i=0; i<8; i++) {
                     if(redPawnsBase[i].posY == redRook2Rectangle1.posY &&
-                       redPawnsBase[i].posX == redRook2Rectangle1.posX + 100) {
+                       redPawnsBase[i].posX == redRook2Rectangle1.posX + 70) {
                         redRook2Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                     if(greyPawnsBase[i].posY == redRook2Rectangle1.posY &&
-                       greyPawnsBase[i].posX == redRook2Rectangle1.posX + 100) {
+                       greyPawnsBase[i].posX == redRook2Rectangle1.posX + 70) {
                         redRook2Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                     if(redQueenSquare.posY == redRook2Rectangle1.posY &&
-                       redQueenSquare.posX == redRook2Rectangle1.posX + 100) {
+                       redQueenSquare.posX == redRook2Rectangle1.posX + 70) {
                         redRook2Rectangle1.failedpath = TRUE;
                         flag = TRUE;
                     }
                 }
                 if(redBishop1Square.posY == redRook2Rectangle1.posY &&
-                   redBishop1Square.posX == redRook2Rectangle1.posX + 100) {
+                   redBishop1Square.posX == redRook2Rectangle1.posX + 70) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redBishop2Square.posY == redRook2Rectangle1.posY &&
-                   redBishop2Square.posX == redRook2Rectangle1.posX + 100) {
+                   redBishop2Square.posX == redRook2Rectangle1.posX + 70) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redRook1Rectangle1.posY == redRook2Rectangle1.posY &&
-                   redRook1Rectangle1.posX == redRook2Rectangle1.posX + 100) {
+                   redRook1Rectangle1.posX == redRook2Rectangle1.posX + 70) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight1Rectangle1.posY == redRook2Rectangle1.posY &&
-                   redKnight1Rectangle1.posX == redRook2Rectangle1.posX + 100) {
+                   redKnight1Rectangle1.posX == redRook2Rectangle1.posX + 70) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(redKnight2Rectangle1.posY == redRook2Rectangle1.posY &&
-                   redKnight2Rectangle1.posX == redRook2Rectangle1.posX + 100) {
+                   redKnight2Rectangle1.posX == redRook2Rectangle1.posX + 70) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyRook1Rectangle1.posY == redRook2Rectangle1.posY &&
-                   greyRook1Rectangle1.posX == redRook2Rectangle1.posX + 100) {
+                   greyRook1Rectangle1.posX == redRook2Rectangle1.posX + 70) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop1Square.posY == redRook2Rectangle1.posY &&
-                   greyBishop1Square.posX == redRook2Rectangle1.posX + 100) {
+                   greyBishop1Square.posX == redRook2Rectangle1.posX + 70) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyBishop2Square.posY == redRook2Rectangle1.posY &&
-                   greyBishop2Square.posX == redRook2Rectangle1.posX + 100) {
+                   greyBishop2Square.posX == redRook2Rectangle1.posX + 70) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight1Rectangle1.posY == redRook2Rectangle1.posY &&
-                   greyKnight1Rectangle1.posX == redRook2Rectangle1.posX + 100) {
+                   greyKnight1Rectangle1.posX == redRook2Rectangle1.posX + 70) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
                 if(greyKnight2Rectangle1.posY == redRook2Rectangle1.posY &&
-                   greyKnight2Rectangle1.posX == redRook2Rectangle1.posX + 100) {
+                   greyKnight2Rectangle1.posX == redRook2Rectangle1.posX + 70) {
                     redRook2Rectangle1.failedpath = TRUE;
                     flag = TRUE;
                 }
 
                 if(!flag) {
-                    redRook2Rectangle1.posX = redRook2Rectangle1.posX + 100;
+                    redRook2Rectangle1.posX = redRook2Rectangle1.posX + 70;
                 }
 
                 return flag;
