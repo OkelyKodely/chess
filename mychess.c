@@ -27,6 +27,12 @@ int wLMSize;
 char *wLM[1000];
 char *wLgalMoves;
 
+PAINTSTRUCT     pss;
+BITMAP          bitmaps;
+HDC             hdcMems;
+HGDIOBJ         oldBitmaps;
+HBITMAP         hhbbs;
+
 #ifdef WINDOWS
 #include <direct.h>
 #define GetCurrentDir _getcwd
@@ -120,6 +126,70 @@ HANDLE thread_1;
 
 HANDLE thread;
 
+HANDLE sideLogoThread;
+
+HANDLE wkThread;
+HANDLE wqThread;
+HANDLE wpThread;
+HANDLE wr1Thread;
+HANDLE wr2Thread;
+HANDLE wb1Thread;
+HANDLE wb2Thread;
+HANDLE wk1Thread;
+HANDLE wk2Thread;
+
+int whiteKingStart = -1;
+int whiteQueenStart = -1;
+int whitePawnsStart = -1;
+int whiteRook1Start = -1;
+int whiteRook2Start = -1;
+int whiteBishop1Start = -1;
+int whiteBishop2Start = -1;
+int whiteKnight1Start = -1;
+int whiteKnight2Start = -1;
+
+int whitePawnsIndex;
+int whiteKingFunc;
+int whiteQueenFunc;
+int whitePawnsFunc;
+int whiteRook1Func;
+int whiteRook2Func;
+int whiteBishop1Func;
+int whiteBishop2Func;
+int whiteKnight1Func;
+int whiteKnight2Func;
+
+HANDLE bkThread;
+HANDLE bqThread;
+HANDLE bpThread;
+HANDLE br1Thread;
+HANDLE br2Thread;
+HANDLE bb1Thread;
+HANDLE bb2Thread;
+HANDLE bk1Thread;
+HANDLE bk2Thread;
+
+int blackKingStart = -1;
+int blackQueenStart = -1;
+int blackPawnsStart = -1;
+int blackRook1Start = -1;
+int blackRook2Start = -1;
+int blackBishop1Start = -1;
+int blackBishop2Start = -1;
+int blackKnight1Start = -1;
+int blackKnight2Start = -1;
+
+int blackPawnsIndex;
+int blackKingFunc;
+int blackQueenFunc;
+int blackPawnsFunc;
+int blackRook1Func;
+int blackRook2Func;
+int blackBishop1Func;
+int blackBishop2Func;
+int blackKnight1Func;
+int blackKnight2Func;
+
 int timestampPast;
 int timestampNow;
 int min;
@@ -174,6 +244,852 @@ char *seventyFiveMin = "75 mins (2 players)";
 char *eightyMin = "80 mins (2 players)";
 char *eightyFiveMin = "85 mins (2 players)";
 char *ninetyMin = "90 mins (2 players)";
+
+void paintWhiteKing(void *data) {
+  
+    int ipt;
+  
+    while(TRUE) {
+        if(whiteKingFunc == -1) {
+            break;
+        } else {
+            //ppp();
+            Sleep(50);
+            HBITMAP kingWhites = (HBITMAP)LoadImage(hInst, "kingwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+            hdcMems = CreateCompatibleDC(hdc);
+            HBITMAP hBmp;
+            if(((whiteKing.posX/70)+(whiteKing.posY/70)) % 2 == 0) {
+                hBmp = ReplaceColor(kingWhites,0x110000,0xffffff,hdcMems);
+                HBRUSH white_brush = CreateSolidBrush(RGB(255,255,255));
+                RECT rrect = {whiteKing.posX+20, 
+                              whiteKing.posY+11, 
+                              whiteKing.posX+20+70,
+                              whiteKing.posY+11+70};
+                FillRect(hdc, &rrect, white_brush);
+                DeleteObject(white_brush);
+            } else {
+                hBmp = ReplaceColor(kingWhites,0x110000,0x000000,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
+                RECT rrect = {whiteKing.posX+20, 
+                              whiteKing.posY+11, 
+                              whiteKing.posX+20+70,
+                              whiteKing.posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            }
+            oldBitmaps = SelectObject(hdcMems, hBmp);
+            GetObject(hBmp, sizeof(bitmaps), &bitmaps);
+            BitBlt(hdc, whiteKing.posX+25+0+ipt, whiteKing.posY+25, 46, 46, hdcMems, 0, 0, SRCCOPY);
+            SelectObject(hdcMems, oldBitmaps);
+            ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
+            DeleteObject(kingWhites);
+
+            if(ipt == 17)
+                ipt = 0;
+
+            ipt++;
+        }
+    }
+}
+
+void paintWhiteQueen(void *data) {
+  
+    int ipt;
+  
+    while(TRUE) {
+        if(whiteQueenFunc == -1) {
+            break;
+        } else {
+            //ppp();
+            Sleep(50);
+            HBITMAP queenWhites = (HBITMAP)LoadImage(hInst, "queenwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+            hdcMems = CreateCompatibleDC(hdc);
+            HBITMAP hBmp;
+            if(((whiteQueen.posX/70)+(whiteQueen.posY/70)) % 2 == 0) {
+                hBmp = ReplaceColor(queenWhites,0x110000,0xffffff,hdcMems);
+                HBRUSH white_brush = CreateSolidBrush(RGB(255,255,255));
+                RECT rrect = {whiteQueen.posX+20, 
+                              whiteQueen.posY+11, 
+                              whiteQueen.posX+20+70,
+                              whiteQueen.posY+11+70};
+                FillRect(hdc, &rrect, white_brush);
+                DeleteObject(white_brush);
+            } else {
+                hBmp = ReplaceColor(queenWhites,0x110000,0x000000,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
+                RECT rrect = {whiteQueen.posX+20, 
+                              whiteQueen.posY+11, 
+                              whiteQueen.posX+20+70,
+                              whiteQueen.posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            }
+            oldBitmaps = SelectObject(hdcMems, hBmp);
+            GetObject(hBmp, sizeof(bitmaps), &bitmaps);
+            BitBlt(hdc, whiteQueen.posX+25+0+ipt, whiteQueen.posY+25, 46, 46, hdcMems, 0, 0, SRCCOPY);
+            SelectObject(hdcMems, oldBitmaps);
+            ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
+            DeleteObject(queenWhites);
+
+            if(ipt == 17)
+                ipt = 0;
+
+            ipt++;
+        }
+    }
+}
+
+void paintWhitePawn(void *data) {
+  
+    int ipt;
+  
+    while(TRUE) {
+        if(whitePawnsFunc == -1) {
+            break;
+        } else {
+            //ppp();
+            Sleep(50);
+            HBITMAP pawnWhites = (HBITMAP)LoadImage(hInst, "pawnwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+            hdcMems = CreateCompatibleDC(hdc);
+            HBITMAP hBmp;
+            if(((whitePawns[whitePawnsIndex].posX/70)+(whitePawns[whitePawnsIndex].posY/70)) % 2 == 0) {
+                hBmp = ReplaceColor(pawnWhites,0x110000,0xffffff,hdcMems);
+                HBRUSH white_brush = CreateSolidBrush(RGB(255,255,255));
+                RECT rrect = {whitePawns[whitePawnsIndex].posX+20, 
+                              whitePawns[whitePawnsIndex].posY+11, 
+                              whitePawns[whitePawnsIndex].posX+20+70,
+                              whitePawns[whitePawnsIndex].posY+11+70};
+                FillRect(hdc, &rrect, white_brush);
+                DeleteObject(white_brush);
+            } else {
+                hBmp = ReplaceColor(pawnWhites,0x110000,0x000000,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
+                RECT rrect = {whitePawns[whitePawnsIndex].posX+20, 
+                              whitePawns[whitePawnsIndex].posY+11, 
+                              whitePawns[whitePawnsIndex].posX+20+70,
+                              whitePawns[whitePawnsIndex].posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            }
+            oldBitmaps = SelectObject(hdcMems, hBmp);
+            GetObject(hBmp, sizeof(bitmaps), &bitmaps);
+            BitBlt(hdc, whitePawns[whitePawnsIndex].posX+25+0+ipt, whitePawns[whitePawnsIndex].posY+25, 46, 46, hdcMems, 0, 0, SRCCOPY);
+            SelectObject(hdcMems, oldBitmaps);
+            ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
+            DeleteObject(pawnWhites);
+
+            if(ipt == 17)
+                ipt = 0;
+
+            ipt++;
+        }
+    }
+}
+
+void paintWhiteRook1(void *data) {
+  
+    int ipt;
+  
+    while(TRUE) {
+        if(whiteRook1Func == -1) {
+            break;
+        } else {
+            //ppp();
+            Sleep(50);
+            HBITMAP rookWhites = (HBITMAP)LoadImage(hInst, "rookwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+            hdcMems = CreateCompatibleDC(hdc);
+            HBITMAP hBmp;
+            if(((whiteRook1.posX/70)+(whiteRook1.posY/70)) % 2 == 0) {
+                hBmp = ReplaceColor(rookWhites,0x110000,0xffffff,hdcMems);
+                HBRUSH white_brush = CreateSolidBrush(RGB(255,255,255));
+                RECT rrect = {whiteRook1.posX+20, 
+                              whiteRook1.posY+11, 
+                              whiteRook1.posX+20+70,
+                              whiteRook1.posY+11+70};
+                FillRect(hdc, &rrect, white_brush);
+                DeleteObject(white_brush);
+            } else {
+                hBmp = ReplaceColor(rookWhites,0x110000,0x000000,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
+                RECT rrect = {whiteRook1.posX+20, 
+                              whiteRook1.posY+11, 
+                              whiteRook1.posX+20+70,
+                              whiteRook1.posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            }
+            oldBitmaps = SelectObject(hdcMems, hBmp);
+            GetObject(hBmp, sizeof(bitmaps), &bitmaps);
+            BitBlt(hdc, whiteRook1.posX+25+0+ipt, whiteRook1.posY+25, 46, 46, hdcMems, 0, 0, SRCCOPY);
+            SelectObject(hdcMems, oldBitmaps);
+            ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
+            DeleteObject(rookWhites);
+
+            if(ipt == 17)
+                ipt = 0;
+
+            ipt++;
+        }
+    }
+}
+
+void paintWhiteRook2(void *data) {
+  
+    int ipt;
+  
+    while(TRUE) {
+        if(whiteRook2Func == -1) {
+            break;
+        } else {
+            //ppp();
+            Sleep(50);
+            HBITMAP rookWhites = (HBITMAP)LoadImage(hInst, "rookwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+            hdcMems = CreateCompatibleDC(hdc);
+            HBITMAP hBmp;
+            if(((whiteRook2.posX/70)+(whiteRook2.posY/70)) % 2 == 0) {
+                hBmp = ReplaceColor(rookWhites,0x110000,0xffffff,hdcMems);
+                HBRUSH white_brush = CreateSolidBrush(RGB(255,255,255));
+                RECT rrect = {whiteRook2.posX+20, 
+                              whiteRook2.posY+11, 
+                              whiteRook2.posX+20+70,
+                              whiteRook2.posY+11+70};
+                FillRect(hdc, &rrect, white_brush);
+                DeleteObject(white_brush);
+            } else {
+                hBmp = ReplaceColor(rookWhites,0x110000,0x000000,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
+                RECT rrect = {whiteRook2.posX+20, 
+                              whiteRook2.posY+11, 
+                              whiteRook2.posX+20+70,
+                              whiteRook2.posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            }
+            oldBitmaps = SelectObject(hdcMems, hBmp);
+            GetObject(hBmp, sizeof(bitmaps), &bitmaps);
+            BitBlt(hdc, whiteRook2.posX+25+0+ipt, whiteRook2.posY+25, 46, 46, hdcMems, 0, 0, SRCCOPY);
+            SelectObject(hdcMems, oldBitmaps);
+            ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
+            DeleteObject(rookWhites);
+
+            if(ipt == 17)
+                ipt = 0;
+
+            ipt++;
+        }
+    }
+}
+
+void paintWhiteBishop1(void *data) {
+  
+    int ipt;
+  
+    while(1) {
+        if(whiteBishop1Func == -1) {
+            break;
+        } else {
+            //ppp();
+            Sleep(50);
+            HBITMAP bishopWhites = (HBITMAP)LoadImage(hInst, "bishopwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+            hdcMems = CreateCompatibleDC(hdc);
+            HBITMAP hBmp;
+            if(((whiteBishop1.posX/70)+(whiteBishop1.posY/70)) % 2 == 0) {
+                hBmp = ReplaceColor(bishopWhites,0x110000,0xffffff,hdcMems);
+                HBRUSH white_brush = CreateSolidBrush(RGB(255,255,255));
+                RECT rrect = {whiteBishop1.posX+20, 
+                              whiteBishop1.posY+11, 
+                              whiteBishop1.posX+20+70,
+                              whiteBishop1.posY+11+70};
+                FillRect(hdc, &rrect, white_brush);
+                DeleteObject(white_brush);
+            } else {
+                hBmp = ReplaceColor(bishopWhites,0x110000,0x000000,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
+                RECT rrect = {whiteBishop1.posX+20, 
+                              whiteBishop1.posY+11, 
+                              whiteBishop1.posX+20+70,
+                              whiteBishop1.posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            }
+            oldBitmaps = SelectObject(hdcMems, hBmp);
+            GetObject(hBmp, sizeof(bitmaps), &bitmaps);
+            BitBlt(hdc, whiteBishop1.posX+25+0+ipt, whiteBishop1.posY+25, 46, 46, hdcMems, 0, 0, SRCCOPY);
+            SelectObject(hdcMems, oldBitmaps);
+            ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
+            DeleteObject(bishopWhites);
+
+            if(ipt == 17)
+                ipt = 0;
+
+            ipt++;
+        }
+    }
+}
+
+void paintWhiteBishop2(void *data) {
+  
+    int ipt;
+  
+    while(1) {
+        if(whiteBishop2Func == -1) {
+            break;
+        } else {
+            //ppp();
+            Sleep(50);
+            HBITMAP bishopWhites = (HBITMAP)LoadImage(hInst, "bishopwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+            hdcMems = CreateCompatibleDC(hdc);
+            HBITMAP hBmp;
+            if(((whiteBishop2.posX/70)+(whiteBishop2.posY/70)) % 2 == 0) {
+                hBmp = ReplaceColor(bishopWhites,0x110000,0xffffff,hdcMems);
+                HBRUSH white_brush = CreateSolidBrush(RGB(255,255,255));
+                RECT rrect = {whiteBishop2.posX+20, 
+                              whiteBishop2.posY+11, 
+                              whiteBishop2.posX+20+70,
+                              whiteBishop2.posY+11+70};
+                FillRect(hdc, &rrect, white_brush);
+                DeleteObject(white_brush);
+            } else {
+                hBmp = ReplaceColor(bishopWhites,0x110000,0x000000,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
+                RECT rrect = {whiteBishop2.posX+20, 
+                              whiteBishop2.posY+11, 
+                              whiteBishop2.posX+20+70,
+                              whiteBishop2.posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            }
+            oldBitmaps = SelectObject(hdcMems, hBmp);
+            GetObject(hBmp, sizeof(bitmaps), &bitmaps);
+            BitBlt(hdc, whiteBishop2.posX+25+0+ipt, whiteBishop2.posY+25, 46, 46, hdcMems, 0, 0, SRCCOPY);
+            SelectObject(hdcMems, oldBitmaps);
+            ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
+            DeleteObject(bishopWhites);
+
+            if(ipt == 17)
+                ipt = 0;
+
+            ipt++;
+        }
+    }
+}
+
+void paintWhiteKnight1(void *data) {
+  
+    int ipt;
+  
+    while(1) {
+        if(whiteKnight1Func == -1) {
+            break;
+        } else {
+            //ppp();
+            Sleep(50);
+            HBITMAP knightWhites = (HBITMAP)LoadImage(hInst, "knightwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+            hdcMems = CreateCompatibleDC(hdc);
+            HBITMAP hBmp;
+            if(((whiteKnight1.posX/70)+(whiteKnight1.posY/70)) % 2 == 0) {
+                hBmp = ReplaceColor(knightWhites,0x110000,0xffffff,hdcMems);
+                HBRUSH white_brush = CreateSolidBrush(RGB(255,255,255));
+                RECT rrect = {whiteKnight1.posX+20, 
+                              whiteKnight1.posY+11, 
+                              whiteKnight1.posX+20+70,
+                              whiteKnight1.posY+11+70};
+                FillRect(hdc, &rrect, white_brush);
+                DeleteObject(white_brush);
+            } else {
+                hBmp = ReplaceColor(knightWhites,0x110000,0x000000,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
+                RECT rrect = {whiteKnight1.posX+20, 
+                              whiteKnight1.posY+11, 
+                              whiteKnight1.posX+20+70,
+                              whiteKnight1.posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            }
+            oldBitmaps = SelectObject(hdcMems, hBmp);
+            GetObject(hBmp, sizeof(bitmaps), &bitmaps);
+            BitBlt(hdc, whiteKnight1.posX+25+0+ipt, whiteKnight1.posY+25, 46, 46, hdcMems, 0, 0, SRCCOPY);
+            SelectObject(hdcMems, oldBitmaps);
+            ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
+            DeleteObject(knightWhites);
+
+            if(ipt == 17)
+                ipt = 0;
+
+            ipt++;
+        }
+    }
+}
+
+void paintWhiteKnight2(void *data) {
+  
+    int ipt;
+  
+    while(1) {
+        if(whiteKnight2Func == -1) {
+            break;
+        } else {
+            //ppp();
+            Sleep(50);
+            HBITMAP knightWhites = (HBITMAP)LoadImage(hInst, "knightwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+            hdcMems = CreateCompatibleDC(hdc);
+            HBITMAP hBmp;
+            if(((whiteKnight2.posX/70)+(whiteKnight2.posY/70)) % 2 == 0) {
+                hBmp = ReplaceColor(knightWhites,0x110000,0xffffff,hdcMems);
+                HBRUSH white_brush = CreateSolidBrush(RGB(255,255,255));
+                RECT rrect = {whiteKnight2.posX+20, 
+                              whiteKnight2.posY+11, 
+                              whiteKnight2.posX+20+70,
+                              whiteKnight2.posY+11+70};
+                FillRect(hdc, &rrect, white_brush);
+                DeleteObject(white_brush);
+            } else {
+                hBmp = ReplaceColor(knightWhites,0x110000,0x000000,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
+                RECT rrect = {whiteKnight2.posX+20, 
+                              whiteKnight2.posY+11, 
+                              whiteKnight2.posX+20+70,
+                              whiteKnight2.posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            }
+            oldBitmaps = SelectObject(hdcMems, hBmp);
+            GetObject(hBmp, sizeof(bitmaps), &bitmaps);
+            BitBlt(hdc, whiteKnight2.posX+25+0+ipt, whiteKnight2.posY+25, 46, 46, hdcMems, 0, 0, SRCCOPY);
+            SelectObject(hdcMems, oldBitmaps);
+            ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
+            DeleteObject(knightWhites);
+
+            if(ipt == 17)
+                ipt = 0;
+
+            ipt++;
+        }
+    }
+}
+
+void paintBlackKing(void *data) {
+  
+    int ipt;
+  
+    while(TRUE) {
+        if(blackKingFunc == -1) {
+            break;
+        } else {
+            //ppp();
+            Sleep(50);
+            HBITMAP kingBlacks = (HBITMAP)LoadImage(hInst, "kingblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+            hdcMems = CreateCompatibleDC(hdc);
+            HBITMAP hBmp;
+            if(((blackKing.posX/70)+(blackKing.posY/70)) % 2 == 0) {
+                hBmp = ReplaceColor(kingBlacks,0x110000,0xffffff,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(255,255,255));
+                RECT rrect = {blackKing.posX+20, 
+                              blackKing.posY+11, 
+                              blackKing.posX+20+70,
+                              blackKing.posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            } else {
+                hBmp = ReplaceColor(kingBlacks,0x110000,0x000000,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
+                RECT rrect = {blackKing.posX+20, 
+                              blackKing.posY+11, 
+                              blackKing.posX+20+70,
+                              blackKing.posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            }
+            oldBitmaps = SelectObject(hdcMems, hBmp);
+            GetObject(hBmp, sizeof(bitmaps), &bitmaps);
+            BitBlt(hdc, blackKing.posX+25+0+ipt, blackKing.posY+25, 46, 46, hdcMems, 0, 0, SRCCOPY);
+            SelectObject(hdcMems, oldBitmaps);
+            ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
+            DeleteObject(kingBlacks);
+
+            if(ipt == 17)
+                ipt = 0;
+
+            ipt++;
+        }
+    }
+}
+
+void paintBlackQueen(void *data) {
+  
+    int ipt;
+  
+    while(TRUE) {
+        if(blackQueenFunc == -1) {
+            break;
+        } else {
+            //ppp();
+            Sleep(50);
+            HBITMAP queenBlacks = (HBITMAP)LoadImage(hInst, "queenblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+            hdcMems = CreateCompatibleDC(hdc);
+            HBITMAP hBmp;
+            if(((blackQueen.posX/70)+(blackQueen.posY/70)) % 2 == 0) {
+                hBmp = ReplaceColor(queenBlacks,0x110000,0xffffff,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(255,255,255));
+                RECT rrect = {blackQueen.posX+20, 
+                              blackQueen.posY+11, 
+                              blackQueen.posX+20+70,
+                              blackQueen.posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            } else {
+                hBmp = ReplaceColor(queenBlacks,0x110000,0x000000,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
+                RECT rrect = {blackQueen.posX+20, 
+                              blackQueen.posY+11, 
+                              blackQueen.posX+20+70,
+                              blackQueen.posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            }
+            oldBitmaps = SelectObject(hdcMems, hBmp);
+            GetObject(hBmp, sizeof(bitmaps), &bitmaps);
+            BitBlt(hdc, blackQueen.posX+25+0+ipt, blackQueen.posY+25, 46, 46, hdcMems, 0, 0, SRCCOPY);
+            SelectObject(hdcMems, oldBitmaps);
+            ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
+            DeleteObject(queenBlacks);
+
+            if(ipt == 17)
+                ipt = 0;
+
+            ipt++;
+        }
+    }
+}
+
+void paintBlackPawn(void *data) {
+  
+    int ipt;
+  
+    while(TRUE) {
+        if(blackPawnsFunc == -1) {
+            break;
+        } else {
+            //ppp();
+            Sleep(50);
+            HBITMAP pawnBlacks = (HBITMAP)LoadImage(hInst, "pawnblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+            hdcMems = CreateCompatibleDC(hdc);
+            HBITMAP hBmp;
+            if(((blackPawns[blackPawnsIndex].posX/70)+(blackPawns[blackPawnsIndex].posY/70)) % 2 == 0) {
+                hBmp = ReplaceColor(pawnBlacks,0x110000,0xffffff,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(255,255,255));
+                RECT rrect = {blackPawns[blackPawnsIndex].posX+20, 
+                              blackPawns[blackPawnsIndex].posY+11, 
+                              blackPawns[blackPawnsIndex].posX+20+70,
+                              blackPawns[blackPawnsIndex].posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            } else {
+                hBmp = ReplaceColor(pawnBlacks,0x110000,0x000000,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
+                RECT rrect = {blackPawns[blackPawnsIndex].posX+20, 
+                              blackPawns[blackPawnsIndex].posY+11, 
+                              blackPawns[blackPawnsIndex].posX+20+70,
+                              blackPawns[blackPawnsIndex].posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            }
+            oldBitmaps = SelectObject(hdcMems, hBmp);
+            GetObject(hBmp, sizeof(bitmaps), &bitmaps);
+            BitBlt(hdc, blackPawns[blackPawnsIndex].posX+25+0+ipt, blackPawns[blackPawnsIndex].posY+25, 46, 46, hdcMems, 0, 0, SRCCOPY);
+            SelectObject(hdcMems, oldBitmaps);
+            ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
+            DeleteObject(pawnBlacks);
+
+            if(ipt == 17)
+                ipt = 0;
+
+            ipt++;
+        }
+    }
+}
+
+void paintBlackRook1(void *data) {
+  
+    int ipt;
+  
+    while(TRUE) {
+        if(blackRook1Func == -1) {
+            break;
+        } else {
+            //ppp();
+            Sleep(50);
+            HBITMAP rookBlacks = (HBITMAP)LoadImage(hInst, "rookblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+            hdcMems = CreateCompatibleDC(hdc);
+            HBITMAP hBmp;
+            if(((blackRook1.posX/70)+(blackRook1.posY/70)) % 2 == 0) {
+                hBmp = ReplaceColor(rookBlacks,0x110000,0xffffff,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(255,255,255));
+                RECT rrect = {blackRook1.posX+20, 
+                              blackRook1.posY+11, 
+                              blackRook1.posX+20+70,
+                              blackRook1.posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            } else {
+                hBmp = ReplaceColor(rookBlacks,0x110000,0x000000,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
+                RECT rrect = {blackRook1.posX+20, 
+                              blackRook1.posY+11, 
+                              blackRook1.posX+20+70,
+                              blackRook1.posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            }
+            oldBitmaps = SelectObject(hdcMems, hBmp);
+            GetObject(hBmp, sizeof(bitmaps), &bitmaps);
+            BitBlt(hdc, blackRook1.posX+25+0+ipt, blackRook1.posY+25, 46, 46, hdcMems, 0, 0, SRCCOPY);
+            SelectObject(hdcMems, oldBitmaps);
+            ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
+            DeleteObject(rookBlacks);
+
+            if(ipt == 17)
+                ipt = 0;
+
+            ipt++;
+        }
+    }
+}
+
+void paintBlackRook2(void *data) {
+  
+    int ipt;
+  
+    while(TRUE) {
+        if(blackRook2Func == -1) {
+            break;
+        } else {
+            //ppp();
+            Sleep(50);
+            HBITMAP rookBlacks = (HBITMAP)LoadImage(hInst, "rookblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+            hdcMems = CreateCompatibleDC(hdc);
+            HBITMAP hBmp;
+            if(((blackRook2.posX/70)+(blackRook2.posY/70)) % 2 == 0) {
+                hBmp = ReplaceColor(rookBlacks,0x110000,0xffffff,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(255,255,255));
+                RECT rrect = {blackRook2.posX+20, 
+                              blackRook2.posY+11, 
+                              blackRook2.posX+20+70,
+                              blackRook2.posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            } else {
+                hBmp = ReplaceColor(rookBlacks,0x110000,0x000000,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
+                RECT rrect = {blackRook2.posX+20, 
+                              blackRook2.posY+11, 
+                              blackRook2.posX+20+70,
+                              blackRook2.posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            }
+            oldBitmaps = SelectObject(hdcMems, hBmp);
+            GetObject(hBmp, sizeof(bitmaps), &bitmaps);
+            BitBlt(hdc, blackRook2.posX+25+0+ipt, blackRook2.posY+25, 46, 46, hdcMems, 0, 0, SRCCOPY);
+            SelectObject(hdcMems, oldBitmaps);
+            ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
+            DeleteObject(rookBlacks);
+
+            if(ipt == 17)
+                ipt = 0;
+
+            ipt++;
+        }
+    }
+}
+
+void paintBlackBishop1(void *data) {
+  
+    int ipt;
+  
+    while(1) {
+        if(blackBishop1Func == -1) {
+            break;
+        } else {
+            //ppp();
+            Sleep(50);
+            HBITMAP bishopBlacks = (HBITMAP)LoadImage(hInst, "bishopblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+            hdcMems = CreateCompatibleDC(hdc);
+            HBITMAP hBmp;
+            if(((blackBishop1.posX/70)+(blackBishop1.posY/70)) % 2 == 0) {
+                hBmp = ReplaceColor(bishopBlacks,0x110000,0xffffff,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(255,255,255));
+                RECT rrect = {blackBishop1.posX+20, 
+                              blackBishop1.posY+11, 
+                              blackBishop1.posX+20+70,
+                              blackBishop1.posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            } else {
+                hBmp = ReplaceColor(bishopBlacks,0x110000,0x000000,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
+                RECT rrect = {blackBishop1.posX+20, 
+                              blackBishop1.posY+11, 
+                              blackBishop1.posX+20+70,
+                              blackBishop1.posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            }
+            oldBitmaps = SelectObject(hdcMems, hBmp);
+            GetObject(hBmp, sizeof(bitmaps), &bitmaps);
+            BitBlt(hdc, blackBishop1.posX+25+0+ipt, blackBishop1.posY+25, 46, 46, hdcMems, 0, 0, SRCCOPY);
+            SelectObject(hdcMems, oldBitmaps);
+            ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
+            DeleteObject(bishopBlacks);
+
+            if(ipt == 17)
+                ipt = 0;
+
+            ipt++;
+        }
+    }
+}
+
+void paintBlackBishop2(void *data) {
+  
+    int ipt;
+  
+    while(1) {
+        if(blackBishop2Func == -1) {
+            break;
+        } else {
+            //ppp();
+            Sleep(50);
+            HBITMAP bishopBlacks = (HBITMAP)LoadImage(hInst, "bishopblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+            hdcMems = CreateCompatibleDC(hdc);
+            HBITMAP hBmp;
+            if(((blackBishop2.posX/70)+(blackBishop2.posY/70)) % 2 == 0) {
+                hBmp = ReplaceColor(bishopBlacks,0x110000,0xffffff,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(255,255,255));
+                RECT rrect = {blackBishop2.posX+20, 
+                              blackBishop2.posY+11, 
+                              blackBishop2.posX+20+70,
+                              blackBishop2.posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            } else {
+                hBmp = ReplaceColor(bishopBlacks,0x110000,0x000000,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
+                RECT rrect = {blackBishop2.posX+20, 
+                              blackBishop2.posY+11, 
+                              blackBishop2.posX+20+70,
+                              blackBishop2.posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            }
+            oldBitmaps = SelectObject(hdcMems, hBmp);
+            GetObject(hBmp, sizeof(bitmaps), &bitmaps);
+            BitBlt(hdc, blackBishop2.posX+25+0+ipt, blackBishop2.posY+25, 46, 46, hdcMems, 0, 0, SRCCOPY);
+            SelectObject(hdcMems, oldBitmaps);
+            ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
+            DeleteObject(bishopBlacks);
+
+            if(ipt == 17)
+                ipt = 0;
+
+            ipt++;
+        }
+    }
+}
+
+void paintBlackKnight1(void *data) {
+  
+    int ipt;
+  
+    while(1) {
+        if(blackKnight1Func == -1) {
+            break;
+        } else {
+            //ppp();
+            Sleep(50);
+            HBITMAP knightBlacks = (HBITMAP)LoadImage(hInst, "knightblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+            hdcMems = CreateCompatibleDC(hdc);
+            HBITMAP hBmp;
+            if(((blackKnight1.posX/70)+(blackKnight1.posY/70)) % 2 == 0) {
+                hBmp = ReplaceColor(knightBlacks,0x110000,0xffffff,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(255,255,255));
+                RECT rrect = {blackKnight1.posX+20, 
+                              blackKnight1.posY+11, 
+                              blackKnight1.posX+20+70,
+                              blackKnight1.posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            } else {
+                hBmp = ReplaceColor(knightBlacks,0x110000,0x000000,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
+                RECT rrect = {blackKnight1.posX+20, 
+                              blackKnight1.posY+11, 
+                              blackKnight1.posX+20+70,
+                              blackKnight1.posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            }
+            oldBitmaps = SelectObject(hdcMems, hBmp);
+            GetObject(hBmp, sizeof(bitmaps), &bitmaps);
+            BitBlt(hdc, blackKnight1.posX+25+0+ipt, blackKnight1.posY+25, 46, 46, hdcMems, 0, 0, SRCCOPY);
+            SelectObject(hdcMems, oldBitmaps);
+            ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
+            DeleteObject(knightBlacks);
+
+            if(ipt == 17)
+                ipt = 0;
+
+            ipt++;
+        }
+    }
+}
+
+void paintBlackKnight2(void *data) {
+  
+    int ipt;
+  
+    while(1) {
+        if(blackKnight2Func == -1) {
+            break;
+        } else {
+            //ppp();
+            Sleep(50);
+            HBITMAP knightBlacks = (HBITMAP)LoadImage(hInst, "knightblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+            hdcMems = CreateCompatibleDC(hdc);
+            HBITMAP hBmp;
+            if(((blackKnight2.posX/70)+(blackKnight2.posY/70)) % 2 == 0) {
+                hBmp = ReplaceColor(knightBlacks,0x110000,0xffffff,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(255,255,255));
+                RECT rrect = {blackKnight2.posX+20, 
+                              blackKnight2.posY+11, 
+                              blackKnight2.posX+20+70,
+                              blackKnight2.posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            } else {
+                hBmp = ReplaceColor(knightBlacks,0x110000,0x000000,hdcMems);
+                HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
+                RECT rrect = {blackKnight2.posX+20, 
+                              blackKnight2.posY+11, 
+                              blackKnight2.posX+20+70,
+                              blackKnight2.posY+11+70};
+                FillRect(hdc, &rrect, black_brush);
+                DeleteObject(black_brush);
+            }
+            oldBitmaps = SelectObject(hdcMems, hBmp);
+            GetObject(hBmp, sizeof(bitmaps), &bitmaps);
+            BitBlt(hdc, blackKnight2.posX+25+0+ipt, blackKnight2.posY+25, 46, 46, hdcMems, 0, 0, SRCCOPY);
+            SelectObject(hdcMems, oldBitmaps);
+            ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
+            DeleteObject(knightBlacks);
+
+            if(ipt == 17)
+                ipt = 0;
+
+            ipt++;
+        }
+    }
+}
 
 void SetMyMenu(int option) {
 
@@ -832,6 +1748,31 @@ void removeChar( char * string, char letter ) {
     }
   if(letter == ' ')
     wLMSize = ++i1;
+}
+
+void paintSideLogo() {
+
+    int ipp;
+    
+    while(1) {
+        Sleep(3);
+
+        hBitmapSideLogo = (HBITMAP)LoadImage(hInst, "sidelogo.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+        
+        hdcMem = CreateCompatibleDC(hdc);
+        oldBitmap = SelectObject(hdcMem, hBitmapSideLogo);
+
+        GetObject(hBitmapSideLogo, sizeof(bitmap), &bitmap);
+        BitBlt(hdc, 976, 0+ipp, 1030, 740+ipp, hdcMem, 0, 0, SRCCOPY);
+
+        SelectObject(hdcMem, oldBitmap);
+        DeleteDC(hdcMem); DeleteObject(hBitmapSideLogo);
+
+        ipp++;
+        
+        if(ipp == 600)
+            ipp = 0;
+    }
 }
 
 void getApiUnderwaterChessDotComMove(char *frm, char *too) {
@@ -3733,6 +4674,8 @@ void highlightPossibleMoves(int j, int i) {
     }
 }
 
+
+
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     switch(msg)
@@ -3758,10 +4701,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     
                 Sleep(1500);
 
-                HBRUSH brush = CreateSolidBrush(RGB(255,0,0));
-                RECT rrect = {0, 0, 1040, 740};
-                FillRect(hdc, &rrect, brush);
-                DeleteObject(brush);
+//                HBRUSH brush = CreateSolidBrush(RGB(255,0,0));
+//                RECT rrect = {0, 0, 1040, 740};
+//                FillRect(hdc, &rrect, brush);
+//                DeleteObject(brush);
 
                 hdcMem = CreateCompatibleDC(hdc);
                 
@@ -3798,6 +4741,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 wLM[17] = "f2f4";
                 wLM[18] = "g2g4";
                 wLM[19] = "h2h4";
+
+                //sideLogoThread = CreateThread(NULL, 0, paintSideLogo, NULL, 0, NULL);
 
                 thread = CreateThread(NULL, 0, ThreadFunc, NULL, 0, NULL);
                 Play();
@@ -5041,6 +5986,23 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     whitePawns[k].from = map(j, i);
                                     from = map(j, i);
                                     turn = 'h';
+
+                                    if(msg == WM_LBUTTONDOWN) {
+                                        if(whitePawnsStart == -1 || whitePawnsFunc == -1) {
+                                            whitePawnsIndex = k;
+                                            whiteBishop2Func = -1;
+                                            whiteBishop1Func = -1;
+                                            whiteKnight1Func = -1;
+                                            whiteKnight2Func = -1;
+                                            whitePawnsFunc = 0;
+                                            whiteRook1Func = -1;
+                                            whiteRook2Func = -1;
+                                            whiteKingFunc = -1;
+                                            whiteQueenFunc = -1;
+                                            wpThread = CreateThread(NULL, 0, paintWhitePawn, NULL, 0, NULL);
+                                            whitePawnsStart = 0;
+                                        }
+                                    }
                                     
                                     strncpy(chosenPiece, "pw", 2);
                                     
@@ -5270,6 +6232,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 }
 
                                                 if(ate) {
+                                                    whitePawnsFunc = -1;
+
                                                     whitePawns[k].firstTimeMove = FALSE;
 
                                                     whitePawns[k].clicked = FALSE;
@@ -5319,6 +6283,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                                     turn = 'h';
                                                 } else {
+                                                    whitePawnsFunc = -1;
+
                                                     whitePawns[k].firstTimeMove = FALSE;
 
                                                     whitePawns[k].clicked = FALSE;
@@ -5377,6 +6343,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                                     turn = 'h';
                                                 } else {
+                                                    whitePawnsFunc = -1;
+
                                                     whitePawns[k].firstTimeMove = FALSE;
 
                                                     whitePawns[k].clicked = FALSE;
@@ -5597,6 +6565,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 }
 
                                                 if(ate) {
+                                                    whitePawnsFunc = -1;
+
                                                     whitePawns[k].firstTimeMove = FALSE;
                                                     whitePawns[k].clicked = FALSE;
                                                     turnChanged = TRUE;
@@ -5645,6 +6615,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                                     turn = 'h';
                                                 } else {
+                                                    whitePawnsFunc = -1;
+
                                                     whitePawns[k].clicked = FALSE;
                                                     turnChanged = TRUE;
                                                     done = TRUE;
@@ -5668,6 +6640,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 whiteKnight2.from = map(j, i);
                                 from = map(j, i);
                                 turn = 'h';
+                                if(msg == WM_LBUTTONDOWN) {
+                                    if(whiteKnight2Start == -1 || whiteKnight2Func == -1) {
+                                        whitePawnsFunc = -1;
+                                        whiteBishop2Func = -1;
+                                        whiteBishop1Func = -1;
+                                        whiteKnight1Func = -1;
+                                        whiteKnight2Func = 0;
+                                        whiteRook1Func = -1;
+                                        whiteRook2Func = -1;
+                                        whiteKingFunc = -1;
+                                        whiteQueenFunc = -1;
+                                        wk2Thread = CreateThread(NULL, 0, paintWhiteKnight2, NULL, 0, NULL);
+                                        whiteKnight2Start = 0;
+                                    }
+                                }
                                 strncpy(chosenPiece, "kw", 2);
                             } else if(clickedOne == 'g' &&
                                       whiteKnight2.clicked == TRUE) {
@@ -5790,6 +6777,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                whiteKnight2Func = -1;
                                             }
                                         } else {
                                             turn = 'h';
@@ -5899,6 +6887,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                whiteKnight2Func = -1;
                                             }
                                         } else {
                                             turn = 'h';
@@ -6002,6 +6991,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                whiteKnight2Func = -1;
                                             }
                                         } else {
                                             turn = 'h';
@@ -6105,6 +7095,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                whiteKnight2Func = -1;
                                             }
                                         } else {
                                             turn = 'h';
@@ -6208,6 +7199,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                whiteKnight2Func = -1;
                                             }
                                         } else {
                                             turn = 'h';
@@ -6311,6 +7303,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                whiteKnight2Func = -1;
                                             }
                                         } else {
                                             turn = 'h';
@@ -6414,6 +7407,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                whiteKnight2Func = -1;
                                             }
                                         } else {
                                             turn = 'h';
@@ -6517,6 +7511,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                whiteKnight2Func = -1;
                                             }
                                         } else {
                                             turn = 'h';
@@ -6535,6 +7530,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 whiteKnight1.from = map(j, i);
                                 from = map(j, i);
                                 turn = 'h';
+                                if(msg == WM_LBUTTONDOWN) {
+                                    if(whiteKnight1Start == -1 || whiteKnight1Func == -1) {
+                                        whitePawnsFunc = -1;
+                                        whiteBishop2Func = -1;
+                                        whiteBishop1Func = -1;
+                                        whiteKnight2Func = -1;
+                                        whiteKnight1Func = 0;
+                                        whiteRook1Func = -1;
+                                        whiteRook2Func = -1;
+                                        whiteKingFunc = -1;
+                                        whiteQueenFunc = -1;
+                                        wk1Thread = CreateThread(NULL, 0, paintWhiteKnight1, NULL, 0, NULL);
+                                        whiteKnight1Start = 0;
+                                    }
+                                }
                                 strncpy(chosenPiece, "kw", 2);
                             } else if(clickedOne == 'g' &&
                                       whiteKnight1.clicked == TRUE) {
@@ -6654,6 +7664,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                whiteKnight1Func = -1;
                                             }
                                         } else {
                                             turn = 'h';
@@ -6757,6 +7768,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                whiteKnight1Func = -1;
                                             }
                                         } else {
                                             turn = 'h';
@@ -6862,6 +7874,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                whiteKnight1Func = -1;
                                             }
                                         } else {
                                             turn = 'h';
@@ -6967,6 +7980,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                whiteKnight1Func = -1;
                                             }
                                         } else {
                                             turn = 'h';
@@ -7072,6 +8086,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                whiteKnight1Func = -1;
                                             }
                                         } else {
                                             turn = 'h';
@@ -7177,6 +8192,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                whiteKnight1Func = -1;
                                             }
                                         } else {
                                             turn = 'h';
@@ -7282,6 +8298,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                whiteKnight1Func = -1;
                                             }
                                         } else {
                                             turn = 'h';
@@ -7387,6 +8404,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                whiteKnight1Func = -1;
                                             }
                                         } else {
                                             turn = 'h';
@@ -7404,6 +8422,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 whiteKing.clicked = TRUE;
                                 from = map(j, i);
                                 turn = 'h';
+                                if(msg == WM_LBUTTONDOWN) {
+                                    if(whiteKingStart == -1 || whiteKingFunc == -1) {
+                                        whitePawnsFunc = -1;
+                                        whiteBishop1Func = -1;
+                                        whiteBishop2Func = -1;
+                                        whiteKnight1Func = -1;
+                                        whiteKnight2Func = -1;
+                                        whiteRook1Func = -1;
+                                        whiteRook2Func = -1;
+                                        whiteKingFunc = 0;
+                                        whiteQueenFunc = -1;
+                                        wkThread = CreateThread(NULL, 0, paintWhiteKing, NULL, 0, NULL);
+                                        whiteKingStart = 0;
+                                    }
+                                }
                                 strncpy(chosenPiece, "cw", 2);
                             } else if(clickedOne == 'g' &&
                                       whiteKing.clicked == TRUE) {
@@ -7849,6 +8882,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turnChanged = TRUE;
                                                 whiteKingMoved = TRUE;
                                                 done = TRUE;
+                                                whiteKingFunc = -1;
                                             }
                                         } else {
                                             turn = 'h';
@@ -7961,6 +8995,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turnChanged = TRUE;
                                                 whiteKingMoved = TRUE;
                                                 done = TRUE;
+                                                whiteKingFunc = -1;
                                             }
                                         } else {
                                             turn = 'h';
@@ -8073,6 +9108,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turnChanged = TRUE;
                                                 whiteKingMoved = TRUE;
                                                 done = TRUE;
+                                                whiteKingFunc = -1;
                                             }
                                         } else {
                                             turn = 'h';
@@ -8186,6 +9222,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turnChanged = TRUE;
                                                 whiteKingMoved = TRUE;
                                                 done = TRUE;
+                                                whiteKingFunc = -1;
                                             }
                                         } else {
                                             turn = 'h';
@@ -8299,6 +9336,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turnChanged = TRUE;
                                                 whiteKingMoved = TRUE;
                                                 done = TRUE;
+                                                whiteKingFunc = -1;
                                             }
                                         } else {
                                             turn = 'h';
@@ -8413,6 +9451,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turnChanged = TRUE;
                                                 whiteKingMoved = TRUE;
                                                 done = TRUE;
+                                                whiteKingFunc = -1;
                                             }
                                         } else {
                                             turn = 'h';
@@ -8526,6 +9565,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turnChanged = TRUE;
                                                 whiteKingMoved = TRUE;
                                                 done = TRUE;
+                                                whiteKingFunc = -1;
                                             }
                                         } else {
                                             turn = 'h';
@@ -8640,6 +9680,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turnChanged = TRUE;
                                                 whiteKingMoved = TRUE;
                                                 done = TRUE;
+                                                whiteKingFunc = -1;
                                             }
                                         } else {
                                             turn = 'h';
@@ -8680,6 +9721,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 whiteQueen.from = map(j, i);
                                 from = map(j, i);
                                 turn = 'h';
+                                if(msg == WM_LBUTTONDOWN) {
+                                    if(whiteQueenStart == -1 || whiteQueenFunc == -1) {
+                                        whitePawnsFunc = -1;
+                                        whiteBishop1Func = -1;
+                                        whiteBishop2Func = -1;
+                                        whiteKnight1Func = -1;
+                                        whiteKnight2Func = -1;
+                                        whiteRook1Func = -1;
+                                        whiteRook2Func = -1;
+                                        whiteKingFunc = -1;
+                                        whiteQueenFunc = 0;
+                                        wqThread = CreateThread(NULL, 0, paintWhiteQueen, NULL, 0, NULL);
+                                        whiteQueenStart = 0;
+                                    }
+                                }
                                 strncpy(chosenPiece, "qw", 2);
                             } else if(clickedOne == 'g' &&
                                       whiteQueen.clicked == TRUE) {
@@ -8738,6 +9794,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         turn = 'r';
                                         turnChanged = TRUE;
                                         done = TRUE;
+                                        whiteQueenFunc = -1;
                                     }
 
                                     for(int a=0; a<8; a++) {
@@ -8850,6 +9907,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 whiteBishop1.from = map(j, i);
                                 from = map(j, i);
                                 turn = 'h';
+                                if(msg == WM_LBUTTONDOWN) {
+                                    if(whiteBishop1Start == -1 || whiteBishop1Func == -1) {
+                                        whitePawnsFunc = -1;
+                                        whiteBishop1Func = 0;
+                                        whiteBishop2Func = -1;
+                                        whiteKnight1Func = -1;
+                                        whiteKnight2Func = -1;
+                                        whiteRook1Func = -1;
+                                        whiteRook2Func = -1;
+                                        whiteKingFunc = -1;
+                                        whiteQueenFunc = -1;
+                                        wb1Thread = CreateThread(NULL, 0, paintWhiteBishop1, NULL, 0, NULL);
+                                        whiteBishop1Start = 0;
+                                    }
+                                }
                                 strncpy(chosenPiece, "bw", 2);
                             } else if(clickedOne == 'g' &&
                                       whiteBishop1.clicked == TRUE) {
@@ -8903,6 +9975,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         turn = 'r';
                                         turnChanged = TRUE;
                                         done = TRUE;
+                                        whiteBishop1Func = -1;
                                     }
 
                                     for(int a=0; a<8; a++) {
@@ -8926,6 +9999,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 whiteBishop2.from = map(j, i);
                                 from = map(j, i);
                                 turn = 'h';
+                                if(msg == WM_LBUTTONDOWN) {
+                                    if(whiteBishop2Start == -1 || whiteBishop2Func == -1) {
+                                        whitePawnsFunc = -1;
+                                        whiteBishop1Func = -1;
+                                        whiteBishop2Func = 0;
+                                        whiteKnight1Func = -1;
+                                        whiteKnight2Func = -1;
+                                        whiteRook1Func = -1;
+                                        whiteRook2Func = -1;
+                                        whiteKingFunc = -1;
+                                        whiteQueenFunc = -1;
+                                        wb2Thread = CreateThread(NULL, 0, paintWhiteBishop2, NULL, 0, NULL);
+                                        whiteBishop2Start = 0;
+                                    }
+                                }
                                 strncpy(chosenPiece, "bw", 2);
                             } else if(clickedOne == 'g' &&
                                       whiteBishop2.clicked == TRUE) {
@@ -8979,6 +10067,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         turn = 'r';
                                         turnChanged = TRUE;
                                         done = TRUE;
+                                        whiteBishop2Func = -1;
                                     }
 
                                     for(int a=0; a<8; a++) {
@@ -9002,6 +10091,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 whiteRook1.from = map(j, i);
                                 from = map(j, i);
                                 turn = 'h';
+                                if(msg == WM_LBUTTONDOWN) {
+                                    if(whiteRook1Start == -1 || whiteRook1Func == -1) {
+                                        whitePawnsFunc = -1;
+                                        whiteBishop1Func = -1;
+                                        whiteBishop2Func = -1;
+                                        whiteKnight1Func = -1;
+                                        whiteKnight2Func = -1;
+                                        whiteRook1Func = 0;
+                                        whiteRook2Func = -1;
+                                        whiteKingFunc = -1;
+                                        whiteQueenFunc = -1;
+                                        wr1Thread = CreateThread(NULL, 0, paintWhiteRook1, NULL, 0, NULL);
+                                        whiteRook1Start = 0;
+                                    }
+                                }
                                 strncpy(chosenPiece, "rw", 2);
                             } else if(clickedOne == 'g' &&
                                       whiteRook1.clicked == TRUE) {
@@ -9062,6 +10166,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         whiteRook1Moved = TRUE;
                                         turnChanged = TRUE;
                                         done = TRUE;
+                                        whiteRook1Func = -1;
                                     }
 
                                     for(int a=0; a<8; a++) {
@@ -9087,6 +10192,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 whiteRook2.from = map(j, i);
                                 from = map(j, i);
                                 turn = 'h';
+                                if(msg == WM_LBUTTONDOWN) {
+                                    if(whiteRook2Start == -1 || whiteRook2Func == -1) {
+                                        whitePawnsFunc = -1;
+                                        whiteBishop1Func = -1;
+                                        whiteBishop2Func = -1;
+                                        whiteKnight1Func = -1;
+                                        whiteKnight2Func = -1;
+                                        whiteRook1Func = -1;
+                                        whiteRook2Func = 0;
+                                        whiteKingFunc = -1;
+                                        whiteQueenFunc = -1;
+                                        wr2Thread = CreateThread(NULL, 0, paintWhiteRook2, NULL, 0, NULL);
+                                        whiteRook2Start = 0;
+                                    }
+                                }
                                 strncpy(chosenPiece, "rw", 2);
                             } else if(clickedOne == 'h' &&
                                       whiteRook2.clicked == TRUE) {
@@ -9147,6 +10267,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         whiteRook2Moved = TRUE;
                                         turnChanged = TRUE;
                                         done = TRUE;
+                                        whiteRook2Func = -1;
                                     }
 
                                     for(int a=0; a<8; a++) {
@@ -10519,6 +11640,23 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     from = map(j, i);
                                     turn = 'r';
 
+                                    if(msg == WM_LBUTTONDOWN) {
+                                        if(blackPawnsStart == -1 || blackPawnsFunc == -1) {
+                                            blackPawnsIndex = k;
+                                            blackBishop2Func = -1;
+                                            blackBishop1Func = -1;
+                                            blackKnight1Func = -1;
+                                            blackKnight2Func = -1;
+                                            blackPawnsFunc = 0;
+                                            blackRook1Func = -1;
+                                            blackRook2Func = -1;
+                                            blackKingFunc = -1;
+                                            blackQueenFunc = -1;
+                                            bpThread = CreateThread(NULL, 0, paintBlackPawn, NULL, 0, NULL);
+                                            blackPawnsStart = 0;
+                                        }
+                                    }
+
                                     strncpy(chosenPiece, "pr", 2);
 
                                     for(int l=0; l<8; l++) {
@@ -10749,6 +11887,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     blackPawns[k].clicked = FALSE;
                                                     turnChanged = TRUE;
                                                     done = TRUE;
+                                                    blackPawnsFunc = -1;
                                                 } else {
                                                     blackPawns[k].posX = a0;
                                                     blackPawns[k].posY = a1;
@@ -10793,6 +11932,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                                     turn = 'r';
                                                 } else {
+                                                    blackPawnsFunc = -1;
 
                                                     blackPawns[k].firstTimeMove = FALSE;
 
@@ -10840,6 +11980,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                                     turn = 'r';
                                                 } else {
+                                                    blackPawnsFunc = -1;
 
                                                     blackPawns[k].firstTimeMove = FALSE;
 
@@ -11058,6 +12199,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     blackPawns[k].clicked = FALSE;
                                                     turnChanged = TRUE;
                                                     done = TRUE;
+                                                    blackPawnsFunc = -1;
                                                 } else {
 
                                                     blackPawns[k].posX = a0;
@@ -11108,6 +12250,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                     blackPawns[k].clicked = FALSE;
                                                     turnChanged = TRUE;
                                                     done = TRUE;
+                                                    blackPawnsFunc = -1;
                                                 }
                                             } else {
                                                 turn = 'r';
@@ -11127,6 +12270,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 blackKnight1.from = map(j, i);
                                 from = map(j, i);
                                 turn = 'r';
+                                if(msg == WM_LBUTTONDOWN) {
+                                    if(blackKnight1Start == -1 || blackKnight1Func == -1) {
+                                        blackPawnsFunc = -1;
+                                        blackBishop2Func = -1;
+                                        blackBishop1Func = -1;
+                                        blackKnight2Func = -1;
+                                        blackKnight1Func = 0;
+                                        blackRook1Func = -1;
+                                        blackRook2Func = -1;
+                                        blackKingFunc = -1;
+                                        blackQueenFunc = -1;
+                                        bk1Thread = CreateThread(NULL, 0, paintBlackKnight1, NULL, 0, NULL);
+                                        blackKnight1Start = 0;
+                                    }
+                                }
                                 strncpy(chosenPiece, "kr", 2);
                             } else if(clickedOne == 'r' &&
                                       blackKnight1.clicked == TRUE) {
@@ -11252,6 +12410,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                blackKnight1Func = -1;
                                             }
                                         } else {
                                             turn = 'r';
@@ -11359,6 +12518,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                blackKnight1Func = -1;
                                             }
                                         } else {
                                             turn = 'r';
@@ -11466,6 +12626,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                blackKnight1Func = -1;
                                             }
                                         } else {
                                             turn = 'h';
@@ -11575,6 +12736,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                blackKnight1Func = -1;
                                             }
                                         } else {
                                             turn = 'g';
@@ -11682,6 +12844,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                blackKnight1Func = -1;
                                             }
                                         } else {
                                             turn = 'r';
@@ -11789,6 +12952,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                blackKnight1Func = -1;
                                             }
                                         } else {
                                             turn = 'r';
@@ -11896,6 +13060,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                blackKnight1Func = -1;
                                             }
                                         } else {
                                             turn = 'r';
@@ -12003,6 +13168,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                blackKnight1Func = -1;
                                             }
                                         } else {
                                             turn = 'r';
@@ -12021,6 +13187,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 blackKnight2.from = map(j, i);
                                 from = map(j, i);
                                 turn = 'r';
+                                if(msg == WM_LBUTTONDOWN) {
+                                    if(blackKnight2Start == -1 || blackKnight2Func == -1) {
+                                        blackPawnsFunc = -1;
+                                        blackBishop2Func = -1;
+                                        blackBishop1Func = -1;
+                                        blackKnight1Func = -1;
+                                        blackKnight2Func = 0;
+                                        blackRook1Func = -1;
+                                        blackRook2Func = -1;
+                                        blackKingFunc = -1;
+                                        blackQueenFunc = -1;
+                                        bk2Thread = CreateThread(NULL, 0, paintBlackKnight2, NULL, 0, NULL);
+                                        blackKnight2Start = 0;
+                                    }
+                                }
                                 strncpy(chosenPiece, "kr", 2);
                             } else if(clickedOne == 'r' &&
                                       blackKnight2.clicked == TRUE) {
@@ -12144,6 +13325,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                blackKnight2Func = -1;
                                             }
                                         } else {
                                             turn = 'r';
@@ -12251,6 +13433,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                blackKnight2Func = -1;
                                             }
                                         } else {
                                             turn = 'r';
@@ -12358,6 +13541,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'r';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                blackKnight2Func = -1;
                                             }
                                         } else {
                                             turn = 'h';
@@ -12465,6 +13649,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                blackKnight2Func = -1;
                                             }
                                         } else {
                                             turn = 'g';
@@ -12572,6 +13757,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                blackKnight2Func = -1;
                                             }
                                         } else {
                                             turn = 'r';
@@ -12679,6 +13865,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                blackKnight2Func = -1;
                                             }
                                         } else {
                                             turn = 'r';
@@ -12786,6 +13973,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                blackKnight2Func = -1;
                                             }
                                         } else {
                                             turn = 'r';
@@ -12893,6 +14081,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turn = 'h';
                                                 turnChanged = TRUE;
                                                 done = TRUE;
+                                                blackKnight2Func = -1;
                                             }
                                         } else {
                                             turn = 'r';
@@ -12910,6 +14099,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 blackKing.clicked = TRUE;
                                 turn = 'r';
                                 from = map(j, i);
+                                if(msg == WM_LBUTTONDOWN) {
+                                    if(blackKingStart == -1 || blackKingFunc == -1) {
+                                        blackPawnsFunc = -1;
+                                        blackBishop1Func = -1;
+                                        blackBishop2Func = -1;
+                                        blackKnight1Func = -1;
+                                        blackKnight2Func = -1;
+                                        blackRook1Func = -1;
+                                        blackRook2Func = -1;
+                                        blackKingFunc = 0;
+                                        blackQueenFunc = -1;
+                                        bkThread = CreateThread(NULL, 0, paintBlackKing, NULL, 0, NULL);
+                                        blackKingStart = 0;
+                                    }
+                                }
                                 strncpy(chosenPiece, "cr", 2);
                             } else if(clickedOne == 'r' &&
                                       blackKing.clicked == TRUE) {
@@ -13356,6 +14560,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turnChanged = TRUE;
                                                 blackKingMoved = TRUE;
                                                 done = TRUE;
+                                                blackKingFunc = -1;
                                             }
                                         } else {
                                             turn = 'r';
@@ -13470,6 +14675,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turnChanged = TRUE;
                                                 blackKingMoved = TRUE;
                                                 done = TRUE;
+                                                blackKingFunc = -1;
                                             }
                                         } else {
                                             turn = 'r';
@@ -13583,6 +14789,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turnChanged = TRUE;
                                                 blackKingMoved = TRUE;
                                                 done = TRUE;
+                                                blackKingFunc = -1;
                                             }
                                         } else {
                                             turn = 'r';
@@ -13697,6 +14904,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turnChanged = TRUE;
                                                 blackKingMoved = TRUE;
                                                 done = TRUE;
+                                                blackKingFunc = -1;
                                             }
                                         } else {
                                             turn = 'r';
@@ -13810,6 +15018,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turnChanged = TRUE;
                                                 blackKingMoved = TRUE;
                                                 done = TRUE;
+                                                blackKingFunc = -1;
                                             }
                                         } else {
                                             turn = 'r';
@@ -13924,6 +15133,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turnChanged = TRUE;
                                                 blackKingMoved = TRUE;
                                                 done = TRUE;
+                                                blackKingFunc = -1;
                                             }
                                         } else {
                                             turn = 'r';
@@ -14037,6 +15247,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turnChanged = TRUE;
                                                 blackKingMoved = TRUE;
                                                 done = TRUE;
+                                                blackKingFunc = -1;
                                             }
                                         } else {
                                             turn = 'r';
@@ -14151,6 +15362,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 turnChanged = TRUE;
                                                 blackKingMoved = TRUE;
                                                 done = TRUE;
+                                                blackKingFunc = -1;
                                             }
                                         } else {
                                             turn = 'r';
@@ -14191,6 +15403,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 blackQueen.from = map(j, i);
                                 from = map(j, i);
                                 turn = 'r';
+                                if(msg == WM_LBUTTONDOWN) {
+                                    if(blackQueenStart == -1 || blackQueenFunc == -1) {
+                                        blackPawnsFunc = -1;
+                                        blackBishop1Func = -1;
+                                        blackBishop2Func = -1;
+                                        blackKnight1Func = -1;
+                                        blackKnight2Func = -1;
+                                        blackRook1Func = -1;
+                                        blackRook2Func = -1;
+                                        blackKingFunc = -1;
+                                        blackQueenFunc = 0;
+                                        bqThread = CreateThread(NULL, 0, paintBlackQueen, NULL, 0, NULL);
+                                        blackQueenStart = 0;
+                                    }
+                                }
                                 strncpy(chosenPiece, "qr", 2);
                             } else if(clickedOne == 'r' &&
                                       blackQueen.clicked == TRUE) {
@@ -14250,6 +15477,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         turn = 'h';
                                         turnChanged = TRUE;
                                         done = TRUE;
+                                        blackQueenFunc = -1;
                                     }
 
                                     for(int a=0; a<8; a++) {
@@ -14353,6 +15581,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 blackBishop1.from = map(j, i);
                                 turn = 'r';
                                 from = map(j, i);
+                                if(msg == WM_LBUTTONDOWN) {
+                                    if(blackBishop1Start == -1 || blackBishop1Func == -1) {
+                                        blackPawnsFunc = -1;
+                                        blackBishop1Func = 0;
+                                        blackBishop2Func = -1;
+                                        blackKnight1Func = -1;
+                                        blackKnight2Func = -1;
+                                        blackRook1Func = -1;
+                                        blackRook2Func = -1;
+                                        blackKingFunc = -1;
+                                        blackQueenFunc = -1;
+                                        bb1Thread = CreateThread(NULL, 0, paintBlackBishop1, NULL, 0, NULL);
+                                        blackBishop1Start = 0;
+                                    }
+                                }
                                 strncpy(chosenPiece, "br", 2);
                             } else if(clickedOne == 'r' &&
                                       blackBishop1.clicked == TRUE) {
@@ -14406,6 +15649,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         turn = 'h';
                                         turnChanged = TRUE;
                                         done = TRUE;
+                                        blackBishop1Func = -1;
                                     }
 
                                     for(int a=0; a<8; a++) {
@@ -14429,6 +15673,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 blackBishop2.from = map(j, i);
                                 turn = 'r';
                                 from = map(j, i);
+                                if(msg == WM_LBUTTONDOWN) {
+                                    if(blackBishop2Start == -1 || blackBishop2Func == -1) {
+                                        blackPawnsFunc = -1;
+                                        blackBishop2Func = 0;
+                                        blackBishop1Func = -1;
+                                        blackKnight1Func = -1;
+                                        blackKnight2Func = -1;
+                                        blackRook1Func = -1;
+                                        blackRook2Func = -1;
+                                        blackKingFunc = -1;
+                                        blackQueenFunc = -1;
+                                        bb2Thread = CreateThread(NULL, 0, paintBlackBishop2, NULL, 0, NULL);
+                                        blackBishop2Start = 0;
+                                    }
+                                }
                                 strncpy(chosenPiece, "br", 2);
                             } else if(clickedOne == 'r' &&
                                       blackBishop2.clicked == TRUE) {
@@ -14483,6 +15742,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         if(1==2) SetWindowText(hwnd, "Grey move");
                                         turnChanged = TRUE;
                                         done = TRUE;
+                                        blackBishop2Func = -1;
                                     }
 
                                     for(int a=0; a<8; a++) {
@@ -14506,6 +15766,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 blackRook1.from = map(j, i);
                                 turn = 'r';
                                 from = map(j, i);
+                                if(msg == WM_LBUTTONDOWN) {
+                                    if(blackRook1Start == -1 || blackRook1Func == -1) {
+                                        blackPawnsFunc = -1;
+                                        blackBishop1Func = -1;
+                                        blackBishop2Func = -1;
+                                        blackKnight1Func = -1;
+                                        blackKnight2Func = -1;
+                                        blackRook1Func = 0;
+                                        blackRook2Func = -1;
+                                        blackKingFunc = -1;
+                                        blackQueenFunc = -1;
+                                        br1Thread = CreateThread(NULL, 0, paintBlackRook1, NULL, 0, NULL);
+                                        blackRook1Start = 0;
+                                    }
+                                }
                                 strncpy(chosenPiece, "rr", 2);
                             } else if(clickedOne == 'r' &&
                                       blackRook1.clicked == TRUE) {
@@ -14567,6 +15842,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         turnChanged = TRUE;
                                         blackRook1Moved = TRUE;
                                         done = TRUE;
+                                        blackRook1Func = -1;
                                     }
 
                                     for(int a=0; a<8; a++) {
@@ -14593,6 +15869,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 blackRook2.from = map(j, i);
                                 turn = 'r';
                                 from = map(j, i);
+                                if(msg == WM_LBUTTONDOWN) {
+                                    if(blackRook2Start == -1 || blackRook2Func == -1) {
+                                        blackPawnsFunc = -1;
+                                        blackBishop1Func = -1;
+                                        blackBishop2Func = -1;
+                                        blackKnight1Func = -1;
+                                        blackKnight2Func = -1;
+                                        blackRook2Func = 0;
+                                        blackRook1Func = -1;
+                                        blackKingFunc = -1;
+                                        blackQueenFunc = -1;
+                                        br2Thread = CreateThread(NULL, 0, paintBlackRook2, NULL, 0, NULL);
+                                        blackRook2Start = 0;
+                                    }
+                                }
                                 strncpy(chosenPiece, "rr", 2);
                             } else if(clickedOne == 'r' &&
                                       blackRook2.clicked == TRUE) {
@@ -14654,6 +15945,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         turnChanged = TRUE;
                                         blackRook2Moved = TRUE;
                                         done = TRUE;
+                                        blackRook2Func = -1;
                                     }
 
                                     for(int a=0; a<8; a++) {
