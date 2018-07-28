@@ -3454,7 +3454,7 @@ DWORD WINAPI callApi(void *data) {
 
         if(whiteRook1.posX == 1300) {
             hdcMem = CreateCompatibleDC(hdc);
-            HBITMAP hBmp = ReplaceColor(rookWhite_s,0xff0000,0xc8c8ff,hdcMem);
+            HBITMAP hBmp = ReplaceColor(rookWhite_s,0xff0000,0x00ffff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -3474,7 +3474,7 @@ DWORD WINAPI callApi(void *data) {
 
         if(whiteRook2.posX == 1300) {
             hdcMem = CreateCompatibleDC(hdc);
-            HBITMAP hBmp = ReplaceColor(rook2White_s,0xff0000,0xc8c8ff,hdcMem);
+            HBITMAP hBmp = ReplaceColor(rook2White_s,0xff0000,0x00ffff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -3494,7 +3494,7 @@ DWORD WINAPI callApi(void *data) {
 
         if(whiteKnight1.posX == 1300) {
             hdcMem = CreateCompatibleDC(hdc);
-            HBITMAP hBmp = ReplaceColor(knightWhite_s,0x00ff00,0xc8c8ff,hdcMem);
+            HBITMAP hBmp = ReplaceColor(knightWhite_s,0x00ff00,0x00ffff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -3514,7 +3514,7 @@ DWORD WINAPI callApi(void *data) {
 
         if(whiteKnight2.posX == 1300) {
             hdcMem = CreateCompatibleDC(hdc);
-            HBITMAP hBmp = ReplaceColor(knight2White_s,0x00ff00,0xc8c8ff,hdcMem);
+            HBITMAP hBmp = ReplaceColor(knight2White_s,0x00ff00,0x00ffff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -3534,7 +3534,7 @@ DWORD WINAPI callApi(void *data) {
 
         if(whiteBishop1.posX == 1300) {
             hdcMem = CreateCompatibleDC(hdc);
-            HBITMAP hBmp = ReplaceColor(bishopWhite_s,0x4cb122,0xc8c8ff,hdcMem);
+            HBITMAP hBmp = ReplaceColor(bishopWhite_s,0x4cb122,0x00ffff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -3554,7 +3554,7 @@ DWORD WINAPI callApi(void *data) {
 
         if(whiteBishop2.posX == 1300) {
             hdcMem = CreateCompatibleDC(hdc);
-            HBITMAP hBmp = ReplaceColor(bishop2White_s,0x4cb122,0xc8c8ff,hdcMem);
+            HBITMAP hBmp = ReplaceColor(bishop2White_s,0x4cb122,0x00ffff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -3574,7 +3574,7 @@ DWORD WINAPI callApi(void *data) {
 
         if(whiteQueen.posX == 1300) {
             hdcMem = CreateCompatibleDC(hdc);
-            HBITMAP hBmp = ReplaceColor(queenWhite_s,0xff0000,0xc8c8ff,hdcMem);
+            HBITMAP hBmp = ReplaceColor(queenWhite_s,0xff0000,0x00ffff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -3594,7 +3594,7 @@ DWORD WINAPI callApi(void *data) {
 
         if(whiteKing.posX == 1300) {
             hdcMem = CreateCompatibleDC(hdc);
-            HBITMAP hBmp = ReplaceColor(kingWhite_s,0x00ff00,0xc8c8ff,hdcMem);
+            HBITMAP hBmp = ReplaceColor(kingWhite_s,0x00ff00,0x00ffff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -3606,7 +3606,7 @@ DWORD WINAPI callApi(void *data) {
         for(int o=0; o<8; o++) {
             if(whitePawns[o].posX == 1300) {
                 hdcMem = CreateCompatibleDC(hdc);
-                HBITMAP hBmp = ReplaceColor(pawnWhite_s,0x000000,0xc8c8ff,hdcMem);
+                HBITMAP hBmp = ReplaceColor(pawnWhite_s,0x000000,0x00ffff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -3628,7 +3628,7 @@ DWORD WINAPI callApi(void *data) {
         for(int m=0; m<8; m++) {
             if(whiteQueenK[m].posX == 1300) {
                 hdcMem = CreateCompatibleDC(hdc);
-                HBITMAP hBmp = ReplaceColor(queenWhite_s,0xff0000,0xc8c8ff,hdcMem);
+                HBITMAP hBmp = ReplaceColor(queenWhite_s,0xff0000,0x00ffff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -3651,7 +3651,7 @@ DWORD WINAPI callApi(void *data) {
 
         if(blackRook1.posX == 1300) {
             hdcMem = CreateCompatibleDC(hdc);
-            HBITMAP hBmp = ReplaceColor(rookBlack_s,0x00ff00,0xc8c8ff,hdcMem);
+            HBITMAP hBmp = ReplaceColor(rookBlack_s,0x00ff00,0x00ffff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -3671,7 +3671,7 @@ DWORD WINAPI callApi(void *data) {
 
         if(blackRook2.posX == 1300) {
             hdcMem = CreateCompatibleDC(hdc);
-            HBITMAP hBmp = ReplaceColor(rook2Black_s,0x00ff00,0xc8c8ff,hdcMem);
+            HBITMAP hBmp = ReplaceColor(rook2Black_s,0x00ff00,0x00ffff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -3691,7 +3691,7 @@ DWORD WINAPI callApi(void *data) {
 
         if(blackKnight1.posX == 1300) {
             hdcMem = CreateCompatibleDC(hdc);
-            HBITMAP hBmp = ReplaceColor(knightBlack_s,0x00ff00,0xc8c8ff,hdcMem);
+            HBITMAP hBmp = ReplaceColor(knightBlack_s,0x00ff00,0x00ffff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -3711,7 +3711,7 @@ DWORD WINAPI callApi(void *data) {
 
         if(blackKnight2.posX == 1300) {
             hdcMem = CreateCompatibleDC(hdc);
-            HBITMAP hBmp = ReplaceColor(knight2Black_s,0x00ff00,0xc8c8ff,hdcMem);
+            HBITMAP hBmp = ReplaceColor(knight2Black_s,0x00ff00,0x00ffff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -3731,7 +3731,7 @@ DWORD WINAPI callApi(void *data) {
 
         if(blackBishop1.posX == 1300) {
             hdcMem = CreateCompatibleDC(hdc);
-            HBITMAP hBmp = ReplaceColor(bishopBlack_s,0xff0000,0xc8c8ff,hdcMem);
+            HBITMAP hBmp = ReplaceColor(bishopBlack_s,0xff0000,0x00ffff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -3751,7 +3751,7 @@ DWORD WINAPI callApi(void *data) {
 
         if(blackBishop2.posX == 1300) {
             hdcMem = CreateCompatibleDC(hdc);
-            HBITMAP hBmp = ReplaceColor(bishop2Black_s,0xff0000,0xc8c8ff,hdcMem);
+            HBITMAP hBmp = ReplaceColor(bishop2Black_s,0xff0000,0x00ffff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -3771,7 +3771,7 @@ DWORD WINAPI callApi(void *data) {
 
         if(blackQueen.posX == 1300) {
             hdcMem = CreateCompatibleDC(hdc);
-            HBITMAP hBmp = ReplaceColor(queenBlack_s,0x00ff00,0xc8c8ff,hdcMem);
+            HBITMAP hBmp = ReplaceColor(queenBlack_s,0x00ff00,0x00ffff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -3791,7 +3791,7 @@ DWORD WINAPI callApi(void *data) {
 
         if(blackKing.posX == 1300) {
             hdcMem = CreateCompatibleDC(hdc);
-            HBITMAP hBmp = ReplaceColor(kingBlack_s,0xff0000,0xc8c8ff,hdcMem);
+            HBITMAP hBmp = ReplaceColor(kingBlack_s,0xff0000,0x00ffff,hdcMem);
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -3803,7 +3803,7 @@ DWORD WINAPI callApi(void *data) {
         for(int o=0; o<8; o++) {
             if(blackPawns[o].posX == 1300) {
                 hdcMem = CreateCompatibleDC(hdc);
-                HBITMAP hBmp = ReplaceColor(pawnBlack_s,0xff0000,0xc8c8ff,hdcMem);
+                HBITMAP hBmp = ReplaceColor(pawnBlack_s,0xff0000,0x00ffff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -3825,7 +3825,7 @@ DWORD WINAPI callApi(void *data) {
         for(int m=0; m<8; m++) {
             if(blackQueenK[m].posX == 1300) {
                 hdcMem = CreateCompatibleDC(hdc);
-                HBITMAP hBmp = ReplaceColor(queenBlack_s,0x00ff00,0xc8c8ff,hdcMem);
+                HBITMAP hBmp = ReplaceColor(queenBlack_s,0x00ff00,0x00ffff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -4906,7 +4906,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     hBitmapSq = pawnWhite;
 
-                    hBitmapSq = ReplaceColor(hBitmapSq, 0x000000, 0xc8c8ff, hdcMem);
+                    hBitmapSq = ReplaceColor(hBitmapSq, 0x000000, 0x00ffff, hdcMem);
 
                     xq = 22;
                 }
@@ -4961,11 +4961,13 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     xq = 22;
                 }
 
-                hBitmapSq = ReplaceColor(hBitmapSq, 0xff0000, 0xc8c8ff, hdcMem);
+                hBitmapSq = ReplaceColor(hBitmapSq, 0xff0000, 0x00ffff, hdcMem);
 
-                hBitmapSq = ReplaceColor(hBitmapSq, 0x4cb122, 0xc8c8ff, hdcMem);
+                hBitmapSq = ReplaceColor(hBitmapSq, 0x4cb122, 0x00ffff, hdcMem);
                 
-                hBitmapSq = ReplaceColor(hBitmapSq, 0x00ff00, 0xc8c8ff, hdcMem);
+                hBitmapSq = ReplaceColor(hBitmapSq, 0x00ff00, 0x00ffff, hdcMem);
+
+                hBitmapSq = ReplaceColor(hBitmapSq, 0x110000, 0x00ffff, hdcMem);
 
                 oldBitmap = SelectObject(hdcMem, hBitmapSq);
 
@@ -5344,7 +5346,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
             if(whiteRook1.posX == 1300) {
                 hdcMem = CreateCompatibleDC(hdc);
-                HBITMAP hBmp = ReplaceColor(rookWhite_s,0xff0000,0xc8c8ff,hdcMem);
+                HBITMAP hBmp = ReplaceColor(rookWhite_s,0xff0000,0x00ffff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -5364,7 +5366,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
             if(whiteRook2.posX == 1300) {
                 hdcMem = CreateCompatibleDC(hdc);
-                HBITMAP hBmp = ReplaceColor(rook2White_s,0xff0000,0xc8c8ff,hdcMem);
+                HBITMAP hBmp = ReplaceColor(rook2White_s,0xff0000,0x00ffff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -5384,7 +5386,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
             if(whiteKnight1.posX == 1300) {
                 hdcMem = CreateCompatibleDC(hdc);
-                HBITMAP hBmp = ReplaceColor(knightWhite_s,0x00ff00,0xc8c8ff,hdcMem);
+                HBITMAP hBmp = ReplaceColor(knightWhite_s,0x00ff00,0x00ffff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -5404,7 +5406,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
             if(whiteKnight2.posX == 1300) {
                 hdcMem = CreateCompatibleDC(hdc);
-                HBITMAP hBmp = ReplaceColor(knight2White_s,0x00ff00,0xc8c8ff,hdcMem);
+                HBITMAP hBmp = ReplaceColor(knight2White_s,0x00ff00,0x00ffff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -5424,7 +5426,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
             if(whiteBishop1.posX == 1300) {
                 hdcMem = CreateCompatibleDC(hdc);
-                HBITMAP hBmp = ReplaceColor(bishopWhite_s,0x4cb122,0xc8c8ff,hdcMem);
+                HBITMAP hBmp = ReplaceColor(bishopWhite_s,0x4cb122,0x00ffff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -5444,7 +5446,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
             if(whiteBishop2.posX == 1300) {
                 hdcMem = CreateCompatibleDC(hdc);
-                HBITMAP hBmp = ReplaceColor(bishop2White_s,0x4cb122,0xc8c8ff,hdcMem);
+                HBITMAP hBmp = ReplaceColor(bishop2White_s,0x4cb122,0x00ffff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -5464,7 +5466,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
             if(whiteQueen.posX == 1300) {
                 hdcMem = CreateCompatibleDC(hdc);
-                HBITMAP hBmp = ReplaceColor(queenWhite_s,0xff0000,0xc8c8ff,hdcMem);
+                HBITMAP hBmp = ReplaceColor(queenWhite_s,0xff0000,0x00ffff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -5484,7 +5486,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
             if(whiteKing.posX == 1300) {
                 hdcMem = CreateCompatibleDC(hdc);
-                HBITMAP hBmp = ReplaceColor(kingWhite_s,0x00ff00,0xc8c8ff,hdcMem);
+                HBITMAP hBmp = ReplaceColor(kingWhite_s,0x00ff00,0x00ffff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -5496,7 +5498,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             for(int o=0; o<8; o++) {
                 if(whitePawns[o].posX == 1300) {
                     hdcMem = CreateCompatibleDC(hdc);
-                    HBITMAP hBmp = ReplaceColor(pawnWhite_s,0x000000,0xc8c8ff,hdcMem);
+                    HBITMAP hBmp = ReplaceColor(pawnWhite_s,0x000000,0x00ffff,hdcMem);
                     oldBitmap = SelectObject(hdcMem, hBmp);
                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -5518,7 +5520,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             for(int m=0; m<8; m++) {
                 if(whiteQueenK[m].posX == 1300) {
                     hdcMem = CreateCompatibleDC(hdc);
-                    HBITMAP hBmp = ReplaceColor(queenWhite_s,0xff0000,0xc8c8ff,hdcMem);
+                    HBITMAP hBmp = ReplaceColor(queenWhite_s,0xff0000,0x00ffff,hdcMem);
                     oldBitmap = SelectObject(hdcMem, hBmp);
                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -5541,7 +5543,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
             if(blackRook1.posX == 1300) {
                 hdcMem = CreateCompatibleDC(hdc);
-                HBITMAP hBmp = ReplaceColor(rookBlack_s,0x00ff00,0xc8c8ff,hdcMem);
+                HBITMAP hBmp = ReplaceColor(rookBlack_s,0x00ff00,0x00ffff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -5561,7 +5563,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
             if(blackRook2.posX == 1300) {
                 hdcMem = CreateCompatibleDC(hdc);
-                HBITMAP hBmp = ReplaceColor(rook2Black_s,0x00ff00,0xc8c8ff,hdcMem);
+                HBITMAP hBmp = ReplaceColor(rook2Black_s,0x00ff00,0x00ffff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -5581,7 +5583,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
             if(blackKnight1.posX == 1300) {
                 hdcMem = CreateCompatibleDC(hdc);
-                HBITMAP hBmp = ReplaceColor(knightBlack_s,0x00ff00,0xc8c8ff,hdcMem);
+                HBITMAP hBmp = ReplaceColor(knightBlack_s,0x00ff00,0x00ffff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -5601,7 +5603,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
             if(blackKnight2.posX == 1300) {
                 hdcMem = CreateCompatibleDC(hdc);
-                HBITMAP hBmp = ReplaceColor(knight2Black_s,0x00ff00,0xc8c8ff,hdcMem);
+                HBITMAP hBmp = ReplaceColor(knight2Black_s,0x00ff00,0x00ffff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -5621,7 +5623,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
             if(blackBishop1.posX == 1300) {
                 hdcMem = CreateCompatibleDC(hdc);
-                HBITMAP hBmp = ReplaceColor(bishopBlack_s,0xff0000,0xc8c8ff,hdcMem);
+                HBITMAP hBmp = ReplaceColor(bishopBlack_s,0xff0000,0x00ffff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -5641,7 +5643,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
             if(blackBishop2.posX == 1300) {
                 hdcMem = CreateCompatibleDC(hdc);
-                HBITMAP hBmp = ReplaceColor(bishop2Black_s,0xff0000,0xc8c8ff,hdcMem);
+                HBITMAP hBmp = ReplaceColor(bishop2Black_s,0xff0000,0x00ffff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -5661,7 +5663,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
             if(blackQueen.posX == 1300) {
                 hdcMem = CreateCompatibleDC(hdc);
-                HBITMAP hBmp = ReplaceColor(queenBlack_s,0x00ff00,0xc8c8ff,hdcMem);
+                HBITMAP hBmp = ReplaceColor(queenBlack_s,0x00ff00,0x00ffff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -5681,7 +5683,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
             if(blackKing.posX == 1300) {
                 hdcMem = CreateCompatibleDC(hdc);
-                HBITMAP hBmp = ReplaceColor(kingBlack_s,0xff0000,0xc8c8ff,hdcMem);
+                HBITMAP hBmp = ReplaceColor(kingBlack_s,0xff0000,0x00ffff,hdcMem);
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -5693,7 +5695,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             for(int o=0; o<8; o++) {
                 if(blackPawns[o].posX == 1300) {
                     hdcMem = CreateCompatibleDC(hdc);
-                    HBITMAP hBmp = ReplaceColor(pawnBlack_s,0xff0000,0xc8c8ff,hdcMem);
+                    HBITMAP hBmp = ReplaceColor(pawnBlack_s,0xff0000,0x00ffff,hdcMem);
                     oldBitmap = SelectObject(hdcMem, hBmp);
                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -5715,7 +5717,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             for(int m=0; m<8; m++) {
                 if(blackQueenK[m].posX == 1300) {
                     hdcMem = CreateCompatibleDC(hdc);
-                    HBITMAP hBmp = ReplaceColor(queenBlack_s,0x00ff00,0xc8c8ff,hdcMem);
+                    HBITMAP hBmp = ReplaceColor(queenBlack_s,0x00ff00,0x00ffff,hdcMem);
                     oldBitmap = SelectObject(hdcMem, hBmp);
                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -11343,7 +11345,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                 if(whiteRook1.posX == 1300) {
                                     hdcMem = CreateCompatibleDC(hdc);
-                                    HBITMAP hBmp = ReplaceColor(rookWhite_s,0xff0000,0xc8c8ff,hdcMem);
+                                    HBITMAP hBmp = ReplaceColor(rookWhite_s,0xff0000,0x00ffff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -11363,7 +11365,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                 if(whiteRook2.posX == 1300) {
                                     hdcMem = CreateCompatibleDC(hdc);
-                                    HBITMAP hBmp = ReplaceColor(rook2White_s,0xff0000,0xc8c8ff,hdcMem);
+                                    HBITMAP hBmp = ReplaceColor(rook2White_s,0xff0000,0x00ffff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -11383,7 +11385,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                 if(whiteKnight1.posX == 1300) {
                                     hdcMem = CreateCompatibleDC(hdc);
-                                    HBITMAP hBmp = ReplaceColor(knightWhite_s,0x00ff00,0xc8c8ff,hdcMem);
+                                    HBITMAP hBmp = ReplaceColor(knightWhite_s,0x00ff00,0x00ffff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -11403,7 +11405,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                 if(whiteKnight2.posX == 1300) {
                                     hdcMem = CreateCompatibleDC(hdc);
-                                    HBITMAP hBmp = ReplaceColor(knight2White_s,0x00ff00,0xc8c8ff,hdcMem);
+                                    HBITMAP hBmp = ReplaceColor(knight2White_s,0x00ff00,0x00ffff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -11423,7 +11425,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                 if(whiteBishop1.posX == 1300) {
                                     hdcMem = CreateCompatibleDC(hdc);
-                                    HBITMAP hBmp = ReplaceColor(bishopWhite_s,0x4cb122,0xc8c8ff,hdcMem);
+                                    HBITMAP hBmp = ReplaceColor(bishopWhite_s,0x4cb122,0x00ffff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -11443,7 +11445,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                 if(whiteBishop2.posX == 1300) {
                                     hdcMem = CreateCompatibleDC(hdc);
-                                    HBITMAP hBmp = ReplaceColor(bishop2White_s,0x4cb122,0xc8c8ff,hdcMem);
+                                    HBITMAP hBmp = ReplaceColor(bishop2White_s,0x4cb122,0x00ffff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -11463,7 +11465,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                 if(whiteQueen.posX == 1300) {
                                     hdcMem = CreateCompatibleDC(hdc);
-                                    HBITMAP hBmp = ReplaceColor(queenWhite_s,0xff0000,0xc8c8ff,hdcMem);
+                                    HBITMAP hBmp = ReplaceColor(queenWhite_s,0xff0000,0x00ffff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -11483,7 +11485,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                 if(whiteKing.posX == 1300) {
                                     hdcMem = CreateCompatibleDC(hdc);
-                                    HBITMAP hBmp = ReplaceColor(kingWhite_s,0x00ff00,0xc8c8ff,hdcMem);
+                                    HBITMAP hBmp = ReplaceColor(kingWhite_s,0x00ff00,0x00ffff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -11495,7 +11497,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 for(int o=0; o<8; o++) {
                                     if(whitePawns[o].posX == 1300) {
                                         hdcMem = CreateCompatibleDC(hdc);
-                                        HBITMAP hBmp = ReplaceColor(pawnWhite_s,0x000000,0xc8c8ff,hdcMem);
+                                        HBITMAP hBmp = ReplaceColor(pawnWhite_s,0x000000,0x00ffff,hdcMem);
                                         oldBitmap = SelectObject(hdcMem, hBmp);
                                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                                         BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -11517,7 +11519,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 for(int m=0; m<8; m++) {
                                     if(whiteQueenK[m].posX == 1300) {
                                         hdcMem = CreateCompatibleDC(hdc);
-                                        HBITMAP hBmp = ReplaceColor(queenWhite_s,0xff0000,0xc8c8ff,hdcMem);
+                                        HBITMAP hBmp = ReplaceColor(queenWhite_s,0xff0000,0x00ffff,hdcMem);
                                         oldBitmap = SelectObject(hdcMem, hBmp);
                                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                                         BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -11540,7 +11542,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                 if(blackRook1.posX == 1300) {
                                     hdcMem = CreateCompatibleDC(hdc);
-                                    HBITMAP hBmp = ReplaceColor(rookBlack_s,0x00ff00,0xc8c8ff,hdcMem);
+                                    HBITMAP hBmp = ReplaceColor(rookBlack_s,0x00ff00,0x00ffff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -11560,7 +11562,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                 if(blackRook2.posX == 1300) {
                                     hdcMem = CreateCompatibleDC(hdc);
-                                    HBITMAP hBmp = ReplaceColor(rook2Black_s,0x00ff00,0xc8c8ff,hdcMem);
+                                    HBITMAP hBmp = ReplaceColor(rook2Black_s,0x00ff00,0x00ffff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -11580,7 +11582,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                 if(blackKnight1.posX == 1300) {
                                     hdcMem = CreateCompatibleDC(hdc);
-                                    HBITMAP hBmp = ReplaceColor(knightBlack_s,0x00ff00,0xc8c8ff,hdcMem);
+                                    HBITMAP hBmp = ReplaceColor(knightBlack_s,0x00ff00,0x00ffff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -11600,7 +11602,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                 if(blackKnight2.posX == 1300) {
                                     hdcMem = CreateCompatibleDC(hdc);
-                                    HBITMAP hBmp = ReplaceColor(knight2Black_s,0x00ff00,0xc8c8ff,hdcMem);
+                                    HBITMAP hBmp = ReplaceColor(knight2Black_s,0x00ff00,0x00ffff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -11620,7 +11622,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                 if(blackBishop1.posX == 1300) {
                                     hdcMem = CreateCompatibleDC(hdc);
-                                    HBITMAP hBmp = ReplaceColor(bishopBlack_s,0xff0000,0xc8c8ff,hdcMem);
+                                    HBITMAP hBmp = ReplaceColor(bishopBlack_s,0xff0000,0x00ffff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -11640,7 +11642,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                 if(blackBishop2.posX == 1300) {
                                     hdcMem = CreateCompatibleDC(hdc);
-                                    HBITMAP hBmp = ReplaceColor(bishop2Black_s,0xff0000,0xc8c8ff,hdcMem);
+                                    HBITMAP hBmp = ReplaceColor(bishop2Black_s,0xff0000,0x00ffff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -11660,7 +11662,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                 if(blackQueen.posX == 1300) {
                                     hdcMem = CreateCompatibleDC(hdc);
-                                    HBITMAP hBmp = ReplaceColor(queenBlack_s,0x00ff00,0xc8c8ff,hdcMem);
+                                    HBITMAP hBmp = ReplaceColor(queenBlack_s,0x00ff00,0x00ffff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -11680,7 +11682,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                 if(blackKing.posX == 1300) {
                                     hdcMem = CreateCompatibleDC(hdc);
-                                    HBITMAP hBmp = ReplaceColor(kingBlack_s,0xff0000,0xc8c8ff,hdcMem);
+                                    HBITMAP hBmp = ReplaceColor(kingBlack_s,0xff0000,0x00ffff,hdcMem);
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -11692,7 +11694,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 for(int o=0; o<8; o++) {
                                     if(blackPawns[o].posX == 1300) {
                                         hdcMem = CreateCompatibleDC(hdc);
-                                        HBITMAP hBmp = ReplaceColor(pawnBlack_s,0xff0000,0xc8c8ff,hdcMem);
+                                        HBITMAP hBmp = ReplaceColor(pawnBlack_s,0xff0000,0x00ffff,hdcMem);
                                         oldBitmap = SelectObject(hdcMem, hBmp);
                                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                                         BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
@@ -11714,7 +11716,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 for(int m=0; m<8; m++) {
                                     if(blackQueenK[m].posX == 1300) {
                                         hdcMem = CreateCompatibleDC(hdc);
-                                        HBITMAP hBmp = ReplaceColor(queenBlack_s,0x00ff00,0xc8c8ff,hdcMem);
+                                        HBITMAP hBmp = ReplaceColor(queenBlack_s,0x00ff00,0x00ffff,hdcMem);
                                         oldBitmap = SelectObject(hdcMem, hBmp);
                                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                                         BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
