@@ -223,7 +223,7 @@ HICON hIcon, hIconSm;
 char *newGame = "new game";
 char *getMine = "get mine";
 char *captureScreen = "capture screen";
-char *exitGame = "exit game";
+char *exitGame = "quit";
 
 char *pcGame = "> 1 PLAYER (HUMAN VERSUS P.C.)";
 char *humanGame = "2 players (human versus human)";
@@ -3428,7 +3428,7 @@ DWORD WINAPI callApi(void *data) {
         _y_ = 20;
 
         HBRUSH yellow_brush = CreateSolidBrush(RGB(255,255,0));
-        RECT rrect = {635+0, 17, 910, 740};
+        RECT rrect = {635+0, 17, 840, 740};
         FillRect(hdc, &rrect, yellow_brush);
         DeleteObject(yellow_brush);
 
@@ -4791,7 +4791,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBitmapSideLogo);
 
                 GetObject(hBitmapSideLogo, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, 963, 0, 1010, 740, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, 845, 0, 895, 740, hdcMem, 0, 0, SRCCOPY);
 
                 SelectObject(hdcMem, oldBitmap);
                 DeleteDC(hdcMem); DeleteObject(hBitmapSideLogo);
@@ -5318,7 +5318,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             _y_ = 20;
 
             HBRUSH yellow_brush = CreateSolidBrush(RGB(255,255,0));
-            RECT rrect = {635+0, 17, 910, 740};
+            RECT rrect = {635+0, 17, 840, 740};
             FillRect(hdc, &rrect, yellow_brush);
             DeleteObject(yellow_brush);
 
@@ -11317,7 +11317,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 _y_ = 20;
 
                                 HBRUSH yellow_brush = CreateSolidBrush(RGB(255,255,0));
-                                RECT rrect = {635+0, 17, 910, 740};
+                                RECT rrect = {635+0, 17, 840, 740};
                                 FillRect(hdc, &rrect, yellow_brush);
                                 DeleteObject(yellow_brush);
 
@@ -16981,7 +16981,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 break;
                 case IDC_QUIT_BUTTON:
                     if(HIWORD(wParam) == BN_CLICKED) {
-                        if(MessageBox(hwnd,"Would you like to quit?", "Exit Game", MB_YESNO) == IDYES) {
+                        if(MessageBox(hwnd,"Would you like to quit?", "Quit", MB_YESNO) == IDYES) {
                             PostMessage(hwnd, WM_CLOSE, 0, 0);
                         }
                     }
@@ -17179,9 +17179,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     }
 
     hwnd = CreateWindowEx(WS_EX_LAYERED, 
-            g_szClassName, "My Chess by Daniel Cho", 
+            g_szClassName, "My Chess", 
             WS_OVERLAPPEDWINDOW,
-            rect.left, rect.top, 1040, 740, 
+            rect.left, rect.top, 915, 740, 
             NULL, NULL, hInstance, NULL);
 
     if(hwnd == NULL) {
