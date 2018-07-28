@@ -228,10 +228,10 @@ char *exitGame = "exit game";
 char *pcGame = "> 1 PLAYER (HUMAN VERSUS P.C.)";
 char *humanGame = "2 players (human versus human)";
 
-char *easy = "> EASY";
-char *medium = "medium";
-char *hard = "hard";
-char *impossible = "impossible";
+char *easy = "> EASY (1 PLAYER)";
+char *medium = "medium (1 player)";
+char *hard = "hard (1 player)";
+char *impossible = "impossible (1 player)";
 
 char *zeroMin = "> NO TIME (2 PLAYERS)";
 char *fiveMin = "5 mins (2 players)";
@@ -261,27 +261,26 @@ void paintWhiteKing(void *data) {
         if(whiteKingFunc == -1) {
             break;
         } else {
-            //ppp();
-            Sleep(50);
+            Sleep(20);
             HBITMAP kingWhites = (HBITMAP)LoadImage(hInst, "kingwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
             hdcMems = CreateCompatibleDC(hdc);
             HBITMAP hBmp;
             if(((whiteKing.posX/70)+(whiteKing.posY/70)) % 2 == 0) {
                 hBmp = ReplaceColor(kingWhites,0x110000,0xffffff,hdcMems);
                 HBRUSH white_brush = CreateSolidBrush(RGB(255,255,255));
-                RECT rrect = {whiteKing.posX+20, 
-                              whiteKing.posY+11, 
-                              whiteKing.posX+20+70,
-                              whiteKing.posY+11+70};
+                RECT rrect = {whiteKing.posX+16, 
+                              whiteKing.posY+13, 
+                              whiteKing.posX+16+69,
+                              whiteKing.posY+13+69};
                 FillRect(hdc, &rrect, white_brush);
                 DeleteObject(white_brush);
             } else {
                 hBmp = ReplaceColor(kingWhites,0x110000,0x000000,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
-                RECT rrect = {whiteKing.posX+20, 
-                              whiteKing.posY+11, 
-                              whiteKing.posX+20+70,
-                              whiteKing.posY+11+70};
+                RECT rrect = {whiteKing.posX+16, 
+                              whiteKing.posY+13, 
+                              whiteKing.posX+16+69,
+                              whiteKing.posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             }
@@ -292,7 +291,7 @@ void paintWhiteKing(void *data) {
             ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
             DeleteObject(kingWhites);
 
-            if(ipt == 17)
+            if(ipt == 14)
                 ipt = 0;
 
             ipt++;
@@ -308,27 +307,26 @@ void paintWhiteQueen(void *data) {
         if(whiteQueenFunc == -1) {
             break;
         } else {
-            //ppp();
-            Sleep(50);
+            Sleep(20);
             HBITMAP queenWhites = (HBITMAP)LoadImage(hInst, "queenwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
             hdcMems = CreateCompatibleDC(hdc);
             HBITMAP hBmp;
             if(((whiteQueen.posX/70)+(whiteQueen.posY/70)) % 2 == 0) {
                 hBmp = ReplaceColor(queenWhites,0x110000,0xffffff,hdcMems);
                 HBRUSH white_brush = CreateSolidBrush(RGB(255,255,255));
-                RECT rrect = {whiteQueen.posX+20, 
-                              whiteQueen.posY+11, 
-                              whiteQueen.posX+20+70,
-                              whiteQueen.posY+11+70};
+                RECT rrect = {whiteQueen.posX+16, 
+                              whiteQueen.posY+13, 
+                              whiteQueen.posX+16+69,
+                              whiteQueen.posY+13+69};
                 FillRect(hdc, &rrect, white_brush);
                 DeleteObject(white_brush);
             } else {
                 hBmp = ReplaceColor(queenWhites,0x110000,0x000000,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
-                RECT rrect = {whiteQueen.posX+20, 
-                              whiteQueen.posY+11, 
-                              whiteQueen.posX+20+70,
-                              whiteQueen.posY+11+70};
+                RECT rrect = {whiteQueen.posX+16, 
+                              whiteQueen.posY+13, 
+                              whiteQueen.posX+16+69,
+                              whiteQueen.posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             }
@@ -339,7 +337,7 @@ void paintWhiteQueen(void *data) {
             ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
             DeleteObject(queenWhites);
 
-            if(ipt == 17)
+            if(ipt == 14)
                 ipt = 0;
 
             ipt++;
@@ -355,27 +353,26 @@ void paintWhiteQueenK(void *data) {
         if(whiteQueenKFunc == -1) {
             break;
         } else {
-            //ppp();
-            Sleep(50);
+            Sleep(20);
             HBITMAP queenWhites = (HBITMAP)LoadImage(hInst, "queenwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
             hdcMems = CreateCompatibleDC(hdc);
             HBITMAP hBmp;
             if(((whiteQueenK[whiteQueensKIndex].posX/70)+(whiteQueenK[whiteQueensKIndex].posY/70)) % 2 == 0) {
                 hBmp = ReplaceColor(queenWhites,0x110000,0xffffff,hdcMems);
                 HBRUSH white_brush = CreateSolidBrush(RGB(255,255,255));
-                RECT rrect = {whiteQueenK[whiteQueensKIndex].posX+20, 
-                              whiteQueenK[whiteQueensKIndex].posY+11, 
-                              whiteQueenK[whiteQueensKIndex].posX+20+70,
-                              whiteQueenK[whiteQueensKIndex].posY+11+70};
+                RECT rrect = {whiteQueenK[whiteQueensKIndex].posX+16, 
+                              whiteQueenK[whiteQueensKIndex].posY+13, 
+                              whiteQueenK[whiteQueensKIndex].posX+16+69,
+                              whiteQueenK[whiteQueensKIndex].posY+13+69};
                 FillRect(hdc, &rrect, white_brush);
                 DeleteObject(white_brush);
             } else {
                 hBmp = ReplaceColor(queenWhites,0x110000,0x000000,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
-                RECT rrect = {whiteQueenK[whiteQueensKIndex].posX+20, 
-                              whiteQueenK[whiteQueensKIndex].posY+11, 
-                              whiteQueenK[whiteQueensKIndex].posX+20+70,
-                              whiteQueenK[whiteQueensKIndex].posY+11+70};
+                RECT rrect = {whiteQueenK[whiteQueensKIndex].posX+16, 
+                              whiteQueenK[whiteQueensKIndex].posY+13, 
+                              whiteQueenK[whiteQueensKIndex].posX+16+69,
+                              whiteQueenK[whiteQueensKIndex].posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             }
@@ -386,7 +383,7 @@ void paintWhiteQueenK(void *data) {
             ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
             DeleteObject(queenWhites);
 
-            if(ipt == 17)
+            if(ipt == 14)
                 ipt = 0;
 
             ipt++;
@@ -402,27 +399,26 @@ void paintWhitePawn(void *data) {
         if(whitePawnsFunc == -1) {
             break;
         } else {
-            //ppp();
-            Sleep(50);
+            Sleep(20);
             HBITMAP pawnWhites = (HBITMAP)LoadImage(hInst, "pawnwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
             hdcMems = CreateCompatibleDC(hdc);
             HBITMAP hBmp;
             if(((whitePawns[whitePawnsIndex].posX/70)+(whitePawns[whitePawnsIndex].posY/70)) % 2 == 0) {
                 hBmp = ReplaceColor(pawnWhites,0x110000,0xffffff,hdcMems);
                 HBRUSH white_brush = CreateSolidBrush(RGB(255,255,255));
-                RECT rrect = {whitePawns[whitePawnsIndex].posX+20, 
-                              whitePawns[whitePawnsIndex].posY+11, 
-                              whitePawns[whitePawnsIndex].posX+20+70,
-                              whitePawns[whitePawnsIndex].posY+11+70};
+                RECT rrect = {whitePawns[whitePawnsIndex].posX+16, 
+                              whitePawns[whitePawnsIndex].posY+13, 
+                              whitePawns[whitePawnsIndex].posX+16+69,
+                              whitePawns[whitePawnsIndex].posY+13+69};
                 FillRect(hdc, &rrect, white_brush);
                 DeleteObject(white_brush);
             } else {
                 hBmp = ReplaceColor(pawnWhites,0x110000,0x000000,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
-                RECT rrect = {whitePawns[whitePawnsIndex].posX+20, 
-                              whitePawns[whitePawnsIndex].posY+11, 
-                              whitePawns[whitePawnsIndex].posX+20+70,
-                              whitePawns[whitePawnsIndex].posY+11+70};
+                RECT rrect = {whitePawns[whitePawnsIndex].posX+16, 
+                              whitePawns[whitePawnsIndex].posY+13, 
+                              whitePawns[whitePawnsIndex].posX+16+69,
+                              whitePawns[whitePawnsIndex].posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             }
@@ -433,7 +429,7 @@ void paintWhitePawn(void *data) {
             ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
             DeleteObject(pawnWhites);
 
-            if(ipt == 17)
+            if(ipt == 14)
                 ipt = 0;
 
             ipt++;
@@ -449,27 +445,26 @@ void paintWhiteRook1(void *data) {
         if(whiteRook1Func == -1) {
             break;
         } else {
-            //ppp();
-            Sleep(50);
+            Sleep(20);
             HBITMAP rookWhites = (HBITMAP)LoadImage(hInst, "rookwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
             hdcMems = CreateCompatibleDC(hdc);
             HBITMAP hBmp;
             if(((whiteRook1.posX/70)+(whiteRook1.posY/70)) % 2 == 0) {
                 hBmp = ReplaceColor(rookWhites,0x110000,0xffffff,hdcMems);
                 HBRUSH white_brush = CreateSolidBrush(RGB(255,255,255));
-                RECT rrect = {whiteRook1.posX+20, 
-                              whiteRook1.posY+11, 
-                              whiteRook1.posX+20+70,
-                              whiteRook1.posY+11+70};
+                RECT rrect = {whiteRook1.posX+16, 
+                              whiteRook1.posY+13, 
+                              whiteRook1.posX+16+69,
+                              whiteRook1.posY+13+69};
                 FillRect(hdc, &rrect, white_brush);
                 DeleteObject(white_brush);
             } else {
                 hBmp = ReplaceColor(rookWhites,0x110000,0x000000,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
-                RECT rrect = {whiteRook1.posX+20, 
-                              whiteRook1.posY+11, 
-                              whiteRook1.posX+20+70,
-                              whiteRook1.posY+11+70};
+                RECT rrect = {whiteRook1.posX+16, 
+                              whiteRook1.posY+13, 
+                              whiteRook1.posX+16+69,
+                              whiteRook1.posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             }
@@ -480,7 +475,7 @@ void paintWhiteRook1(void *data) {
             ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
             DeleteObject(rookWhites);
 
-            if(ipt == 17)
+            if(ipt == 14)
                 ipt = 0;
 
             ipt++;
@@ -496,27 +491,26 @@ void paintWhiteRook2(void *data) {
         if(whiteRook2Func == -1) {
             break;
         } else {
-            //ppp();
-            Sleep(50);
+            Sleep(20);
             HBITMAP rookWhites = (HBITMAP)LoadImage(hInst, "rookwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
             hdcMems = CreateCompatibleDC(hdc);
             HBITMAP hBmp;
             if(((whiteRook2.posX/70)+(whiteRook2.posY/70)) % 2 == 0) {
                 hBmp = ReplaceColor(rookWhites,0x110000,0xffffff,hdcMems);
                 HBRUSH white_brush = CreateSolidBrush(RGB(255,255,255));
-                RECT rrect = {whiteRook2.posX+20, 
-                              whiteRook2.posY+11, 
-                              whiteRook2.posX+20+70,
-                              whiteRook2.posY+11+70};
+                RECT rrect = {whiteRook2.posX+16, 
+                              whiteRook2.posY+13, 
+                              whiteRook2.posX+16+69,
+                              whiteRook2.posY+13+69};
                 FillRect(hdc, &rrect, white_brush);
                 DeleteObject(white_brush);
             } else {
                 hBmp = ReplaceColor(rookWhites,0x110000,0x000000,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
-                RECT rrect = {whiteRook2.posX+20, 
-                              whiteRook2.posY+11, 
-                              whiteRook2.posX+20+70,
-                              whiteRook2.posY+11+70};
+                RECT rrect = {whiteRook2.posX+16, 
+                              whiteRook2.posY+13, 
+                              whiteRook2.posX+16+69,
+                              whiteRook2.posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             }
@@ -527,7 +521,7 @@ void paintWhiteRook2(void *data) {
             ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
             DeleteObject(rookWhites);
 
-            if(ipt == 17)
+            if(ipt == 14)
                 ipt = 0;
 
             ipt++;
@@ -543,27 +537,26 @@ void paintWhiteBishop1(void *data) {
         if(whiteBishop1Func == -1) {
             break;
         } else {
-            //ppp();
-            Sleep(50);
+            Sleep(20);
             HBITMAP bishopWhites = (HBITMAP)LoadImage(hInst, "bishopwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
             hdcMems = CreateCompatibleDC(hdc);
             HBITMAP hBmp;
             if(((whiteBishop1.posX/70)+(whiteBishop1.posY/70)) % 2 == 0) {
                 hBmp = ReplaceColor(bishopWhites,0x110000,0xffffff,hdcMems);
                 HBRUSH white_brush = CreateSolidBrush(RGB(255,255,255));
-                RECT rrect = {whiteBishop1.posX+20, 
-                              whiteBishop1.posY+11, 
-                              whiteBishop1.posX+20+70,
-                              whiteBishop1.posY+11+70};
+                RECT rrect = {whiteBishop1.posX+16, 
+                              whiteBishop1.posY+13, 
+                              whiteBishop1.posX+16+69,
+                              whiteBishop1.posY+13+69};
                 FillRect(hdc, &rrect, white_brush);
                 DeleteObject(white_brush);
             } else {
                 hBmp = ReplaceColor(bishopWhites,0x110000,0x000000,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
-                RECT rrect = {whiteBishop1.posX+20, 
-                              whiteBishop1.posY+11, 
-                              whiteBishop1.posX+20+70,
-                              whiteBishop1.posY+11+70};
+                RECT rrect = {whiteBishop1.posX+16, 
+                              whiteBishop1.posY+13, 
+                              whiteBishop1.posX+16+69,
+                              whiteBishop1.posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             }
@@ -574,7 +567,7 @@ void paintWhiteBishop1(void *data) {
             ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
             DeleteObject(bishopWhites);
 
-            if(ipt == 17)
+            if(ipt == 14)
                 ipt = 0;
 
             ipt++;
@@ -590,27 +583,26 @@ void paintWhiteBishop2(void *data) {
         if(whiteBishop2Func == -1) {
             break;
         } else {
-            //ppp();
-            Sleep(50);
+            Sleep(20);
             HBITMAP bishopWhites = (HBITMAP)LoadImage(hInst, "bishopwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
             hdcMems = CreateCompatibleDC(hdc);
             HBITMAP hBmp;
             if(((whiteBishop2.posX/70)+(whiteBishop2.posY/70)) % 2 == 0) {
                 hBmp = ReplaceColor(bishopWhites,0x110000,0xffffff,hdcMems);
                 HBRUSH white_brush = CreateSolidBrush(RGB(255,255,255));
-                RECT rrect = {whiteBishop2.posX+20, 
-                              whiteBishop2.posY+11, 
-                              whiteBishop2.posX+20+70,
-                              whiteBishop2.posY+11+70};
+                RECT rrect = {whiteBishop2.posX+16, 
+                              whiteBishop2.posY+13, 
+                              whiteBishop2.posX+16+69,
+                              whiteBishop2.posY+13+69};
                 FillRect(hdc, &rrect, white_brush);
                 DeleteObject(white_brush);
             } else {
                 hBmp = ReplaceColor(bishopWhites,0x110000,0x000000,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
-                RECT rrect = {whiteBishop2.posX+20, 
-                              whiteBishop2.posY+11, 
-                              whiteBishop2.posX+20+70,
-                              whiteBishop2.posY+11+70};
+                RECT rrect = {whiteBishop2.posX+16, 
+                              whiteBishop2.posY+13, 
+                              whiteBishop2.posX+16+69,
+                              whiteBishop2.posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             }
@@ -621,7 +613,7 @@ void paintWhiteBishop2(void *data) {
             ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
             DeleteObject(bishopWhites);
 
-            if(ipt == 17)
+            if(ipt == 14)
                 ipt = 0;
 
             ipt++;
@@ -637,27 +629,26 @@ void paintWhiteKnight1(void *data) {
         if(whiteKnight1Func == -1) {
             break;
         } else {
-            //ppp();
-            Sleep(50);
+            Sleep(20);
             HBITMAP knightWhites = (HBITMAP)LoadImage(hInst, "knightwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
             hdcMems = CreateCompatibleDC(hdc);
             HBITMAP hBmp;
             if(((whiteKnight1.posX/70)+(whiteKnight1.posY/70)) % 2 == 0) {
                 hBmp = ReplaceColor(knightWhites,0x110000,0xffffff,hdcMems);
                 HBRUSH white_brush = CreateSolidBrush(RGB(255,255,255));
-                RECT rrect = {whiteKnight1.posX+20, 
-                              whiteKnight1.posY+11, 
-                              whiteKnight1.posX+20+70,
-                              whiteKnight1.posY+11+70};
+                RECT rrect = {whiteKnight1.posX+16, 
+                              whiteKnight1.posY+13, 
+                              whiteKnight1.posX+16+69,
+                              whiteKnight1.posY+13+69};
                 FillRect(hdc, &rrect, white_brush);
                 DeleteObject(white_brush);
             } else {
                 hBmp = ReplaceColor(knightWhites,0x110000,0x000000,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
-                RECT rrect = {whiteKnight1.posX+20, 
-                              whiteKnight1.posY+11, 
-                              whiteKnight1.posX+20+70,
-                              whiteKnight1.posY+11+70};
+                RECT rrect = {whiteKnight1.posX+16, 
+                              whiteKnight1.posY+13, 
+                              whiteKnight1.posX+16+69,
+                              whiteKnight1.posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             }
@@ -668,7 +659,7 @@ void paintWhiteKnight1(void *data) {
             ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
             DeleteObject(knightWhites);
 
-            if(ipt == 17)
+            if(ipt == 14)
                 ipt = 0;
 
             ipt++;
@@ -684,27 +675,26 @@ void paintWhiteKnight2(void *data) {
         if(whiteKnight2Func == -1) {
             break;
         } else {
-            //ppp();
-            Sleep(50);
+            Sleep(20);
             HBITMAP knightWhites = (HBITMAP)LoadImage(hInst, "knightwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
             hdcMems = CreateCompatibleDC(hdc);
             HBITMAP hBmp;
             if(((whiteKnight2.posX/70)+(whiteKnight2.posY/70)) % 2 == 0) {
                 hBmp = ReplaceColor(knightWhites,0x110000,0xffffff,hdcMems);
                 HBRUSH white_brush = CreateSolidBrush(RGB(255,255,255));
-                RECT rrect = {whiteKnight2.posX+20, 
-                              whiteKnight2.posY+11, 
-                              whiteKnight2.posX+20+70,
-                              whiteKnight2.posY+11+70};
+                RECT rrect = {whiteKnight2.posX+16, 
+                              whiteKnight2.posY+13, 
+                              whiteKnight2.posX+16+69,
+                              whiteKnight2.posY+13+69};
                 FillRect(hdc, &rrect, white_brush);
                 DeleteObject(white_brush);
             } else {
                 hBmp = ReplaceColor(knightWhites,0x110000,0x000000,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
-                RECT rrect = {whiteKnight2.posX+20, 
-                              whiteKnight2.posY+11, 
-                              whiteKnight2.posX+20+70,
-                              whiteKnight2.posY+11+70};
+                RECT rrect = {whiteKnight2.posX+16, 
+                              whiteKnight2.posY+13, 
+                              whiteKnight2.posX+16+69,
+                              whiteKnight2.posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             }
@@ -715,7 +705,7 @@ void paintWhiteKnight2(void *data) {
             ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
             DeleteObject(knightWhites);
 
-            if(ipt == 17)
+            if(ipt == 14)
                 ipt = 0;
 
             ipt++;
@@ -731,27 +721,26 @@ void paintBlackKing(void *data) {
         if(blackKingFunc == -1) {
             break;
         } else {
-            //ppp();
-            Sleep(50);
+            Sleep(20);
             HBITMAP kingBlacks = (HBITMAP)LoadImage(hInst, "kingblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
             hdcMems = CreateCompatibleDC(hdc);
             HBITMAP hBmp;
             if(((blackKing.posX/70)+(blackKing.posY/70)) % 2 == 0) {
                 hBmp = ReplaceColor(kingBlacks,0x110000,0xffffff,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(255,255,255));
-                RECT rrect = {blackKing.posX+20, 
-                              blackKing.posY+11, 
-                              blackKing.posX+20+70,
-                              blackKing.posY+11+70};
+                RECT rrect = {blackKing.posX+16, 
+                              blackKing.posY+13, 
+                              blackKing.posX+16+69,
+                              blackKing.posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             } else {
                 hBmp = ReplaceColor(kingBlacks,0x110000,0x000000,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
-                RECT rrect = {blackKing.posX+20, 
-                              blackKing.posY+11, 
-                              blackKing.posX+20+70,
-                              blackKing.posY+11+70};
+                RECT rrect = {blackKing.posX+16, 
+                              blackKing.posY+13, 
+                              blackKing.posX+16+69,
+                              blackKing.posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             }
@@ -762,7 +751,7 @@ void paintBlackKing(void *data) {
             ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
             DeleteObject(kingBlacks);
 
-            if(ipt == 17)
+            if(ipt == 14)
                 ipt = 0;
 
             ipt++;
@@ -778,27 +767,26 @@ void paintBlackQueen(void *data) {
         if(blackQueenFunc == -1) {
             break;
         } else {
-            //ppp();
-            Sleep(50);
+            Sleep(20);
             HBITMAP queenBlacks = (HBITMAP)LoadImage(hInst, "queenblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
             hdcMems = CreateCompatibleDC(hdc);
             HBITMAP hBmp;
             if(((blackQueen.posX/70)+(blackQueen.posY/70)) % 2 == 0) {
                 hBmp = ReplaceColor(queenBlacks,0x110000,0xffffff,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(255,255,255));
-                RECT rrect = {blackQueen.posX+20, 
-                              blackQueen.posY+11, 
-                              blackQueen.posX+20+70,
-                              blackQueen.posY+11+70};
+                RECT rrect = {blackQueen.posX+16, 
+                              blackQueen.posY+13, 
+                              blackQueen.posX+16+69,
+                              blackQueen.posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             } else {
                 hBmp = ReplaceColor(queenBlacks,0x110000,0x000000,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
-                RECT rrect = {blackQueen.posX+20, 
-                              blackQueen.posY+11, 
-                              blackQueen.posX+20+70,
-                              blackQueen.posY+11+70};
+                RECT rrect = {blackQueen.posX+16, 
+                              blackQueen.posY+13, 
+                              blackQueen.posX+16+69,
+                              blackQueen.posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             }
@@ -809,7 +797,7 @@ void paintBlackQueen(void *data) {
             ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
             DeleteObject(queenBlacks);
 
-            if(ipt == 17)
+            if(ipt == 14)
                 ipt = 0;
 
             ipt++;
@@ -825,27 +813,26 @@ void paintBlackQueenK(void *data) {
         if(blackQueenKFunc == -1) {
             break;
         } else {
-            //ppp();
-            Sleep(50);
+            Sleep(20);
             HBITMAP queenBlacks = (HBITMAP)LoadImage(hInst, "queenblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
             hdcMems = CreateCompatibleDC(hdc);
             HBITMAP hBmp;
             if(((blackQueenK[blackQueenKIndex].posX/70)+(blackQueenK[blackQueenKIndex].posY/70)) % 2 == 0) {
                 hBmp = ReplaceColor(queenBlacks,0x110000,0xffffff,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(255,255,255));
-                RECT rrect = {blackQueenK[blackQueenKIndex].posX+20, 
-                              blackQueenK[blackQueenKIndex].posY+11, 
-                              blackQueenK[blackQueenKIndex].posX+20+70,
-                              blackQueenK[blackQueenKIndex].posY+11+70};
+                RECT rrect = {blackQueenK[blackQueenKIndex].posX+16, 
+                              blackQueenK[blackQueenKIndex].posY+13, 
+                              blackQueenK[blackQueenKIndex].posX+16+69,
+                              blackQueenK[blackQueenKIndex].posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             } else {
                 hBmp = ReplaceColor(queenBlacks,0x110000,0x000000,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
-                RECT rrect = {blackQueenK[blackQueenKIndex].posX+20, 
-                              blackQueenK[blackQueenKIndex].posY+11, 
-                              blackQueenK[blackQueenKIndex].posX+20+70,
-                              blackQueenK[blackQueenKIndex].posY+11+70};
+                RECT rrect = {blackQueenK[blackQueenKIndex].posX+16, 
+                              blackQueenK[blackQueenKIndex].posY+13, 
+                              blackQueenK[blackQueenKIndex].posX+16+69,
+                              blackQueenK[blackQueenKIndex].posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             }
@@ -856,7 +843,7 @@ void paintBlackQueenK(void *data) {
             ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
             DeleteObject(queenBlacks);
 
-            if(ipt == 17)
+            if(ipt == 14)
                 ipt = 0;
 
             ipt++;
@@ -872,27 +859,26 @@ void paintBlackPawn(void *data) {
         if(blackPawnsFunc == -1) {
             break;
         } else {
-            //ppp();
-            Sleep(50);
+            Sleep(20);
             HBITMAP pawnBlacks = (HBITMAP)LoadImage(hInst, "pawnblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
             hdcMems = CreateCompatibleDC(hdc);
             HBITMAP hBmp;
             if(((blackPawns[blackPawnsIndex].posX/70)+(blackPawns[blackPawnsIndex].posY/70)) % 2 == 0) {
                 hBmp = ReplaceColor(pawnBlacks,0x110000,0xffffff,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(255,255,255));
-                RECT rrect = {blackPawns[blackPawnsIndex].posX+20, 
-                              blackPawns[blackPawnsIndex].posY+11, 
-                              blackPawns[blackPawnsIndex].posX+20+70,
-                              blackPawns[blackPawnsIndex].posY+11+70};
+                RECT rrect = {blackPawns[blackPawnsIndex].posX+16, 
+                              blackPawns[blackPawnsIndex].posY+13, 
+                              blackPawns[blackPawnsIndex].posX+16+69,
+                              blackPawns[blackPawnsIndex].posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             } else {
                 hBmp = ReplaceColor(pawnBlacks,0x110000,0x000000,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
-                RECT rrect = {blackPawns[blackPawnsIndex].posX+20, 
-                              blackPawns[blackPawnsIndex].posY+11, 
-                              blackPawns[blackPawnsIndex].posX+20+70,
-                              blackPawns[blackPawnsIndex].posY+11+70};
+                RECT rrect = {blackPawns[blackPawnsIndex].posX+16, 
+                              blackPawns[blackPawnsIndex].posY+13, 
+                              blackPawns[blackPawnsIndex].posX+16+69,
+                              blackPawns[blackPawnsIndex].posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             }
@@ -903,7 +889,7 @@ void paintBlackPawn(void *data) {
             ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
             DeleteObject(pawnBlacks);
 
-            if(ipt == 17)
+            if(ipt == 14)
                 ipt = 0;
 
             ipt++;
@@ -919,27 +905,26 @@ void paintBlackRook1(void *data) {
         if(blackRook1Func == -1) {
             break;
         } else {
-            //ppp();
-            Sleep(50);
+            Sleep(20);
             HBITMAP rookBlacks = (HBITMAP)LoadImage(hInst, "rookblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
             hdcMems = CreateCompatibleDC(hdc);
             HBITMAP hBmp;
             if(((blackRook1.posX/70)+(blackRook1.posY/70)) % 2 == 0) {
                 hBmp = ReplaceColor(rookBlacks,0x110000,0xffffff,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(255,255,255));
-                RECT rrect = {blackRook1.posX+20, 
-                              blackRook1.posY+11, 
-                              blackRook1.posX+20+70,
-                              blackRook1.posY+11+70};
+                RECT rrect = {blackRook1.posX+16, 
+                              blackRook1.posY+13, 
+                              blackRook1.posX+16+69,
+                              blackRook1.posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             } else {
                 hBmp = ReplaceColor(rookBlacks,0x110000,0x000000,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
-                RECT rrect = {blackRook1.posX+20, 
-                              blackRook1.posY+11, 
-                              blackRook1.posX+20+70,
-                              blackRook1.posY+11+70};
+                RECT rrect = {blackRook1.posX+16, 
+                              blackRook1.posY+13, 
+                              blackRook1.posX+16+69,
+                              blackRook1.posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             }
@@ -950,7 +935,7 @@ void paintBlackRook1(void *data) {
             ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
             DeleteObject(rookBlacks);
 
-            if(ipt == 17)
+            if(ipt == 14)
                 ipt = 0;
 
             ipt++;
@@ -966,27 +951,26 @@ void paintBlackRook2(void *data) {
         if(blackRook2Func == -1) {
             break;
         } else {
-            //ppp();
-            Sleep(50);
+            Sleep(20);
             HBITMAP rookBlacks = (HBITMAP)LoadImage(hInst, "rookblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
             hdcMems = CreateCompatibleDC(hdc);
             HBITMAP hBmp;
             if(((blackRook2.posX/70)+(blackRook2.posY/70)) % 2 == 0) {
                 hBmp = ReplaceColor(rookBlacks,0x110000,0xffffff,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(255,255,255));
-                RECT rrect = {blackRook2.posX+20, 
-                              blackRook2.posY+11, 
-                              blackRook2.posX+20+70,
-                              blackRook2.posY+11+70};
+                RECT rrect = {blackRook2.posX+16, 
+                              blackRook2.posY+13, 
+                              blackRook2.posX+16+69,
+                              blackRook2.posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             } else {
                 hBmp = ReplaceColor(rookBlacks,0x110000,0x000000,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
-                RECT rrect = {blackRook2.posX+20, 
-                              blackRook2.posY+11, 
-                              blackRook2.posX+20+70,
-                              blackRook2.posY+11+70};
+                RECT rrect = {blackRook2.posX+16, 
+                              blackRook2.posY+13, 
+                              blackRook2.posX+16+69,
+                              blackRook2.posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             }
@@ -997,7 +981,7 @@ void paintBlackRook2(void *data) {
             ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
             DeleteObject(rookBlacks);
 
-            if(ipt == 17)
+            if(ipt == 14)
                 ipt = 0;
 
             ipt++;
@@ -1013,27 +997,26 @@ void paintBlackBishop1(void *data) {
         if(blackBishop1Func == -1) {
             break;
         } else {
-            //ppp();
-            Sleep(50);
+            Sleep(20);
             HBITMAP bishopBlacks = (HBITMAP)LoadImage(hInst, "bishopblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
             hdcMems = CreateCompatibleDC(hdc);
             HBITMAP hBmp;
             if(((blackBishop1.posX/70)+(blackBishop1.posY/70)) % 2 == 0) {
                 hBmp = ReplaceColor(bishopBlacks,0x110000,0xffffff,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(255,255,255));
-                RECT rrect = {blackBishop1.posX+20, 
-                              blackBishop1.posY+11, 
-                              blackBishop1.posX+20+70,
-                              blackBishop1.posY+11+70};
+                RECT rrect = {blackBishop1.posX+16, 
+                              blackBishop1.posY+13, 
+                              blackBishop1.posX+16+69,
+                              blackBishop1.posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             } else {
                 hBmp = ReplaceColor(bishopBlacks,0x110000,0x000000,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
-                RECT rrect = {blackBishop1.posX+20, 
-                              blackBishop1.posY+11, 
-                              blackBishop1.posX+20+70,
-                              blackBishop1.posY+11+70};
+                RECT rrect = {blackBishop1.posX+16, 
+                              blackBishop1.posY+13, 
+                              blackBishop1.posX+16+69,
+                              blackBishop1.posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             }
@@ -1044,7 +1027,7 @@ void paintBlackBishop1(void *data) {
             ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
             DeleteObject(bishopBlacks);
 
-            if(ipt == 17)
+            if(ipt == 14)
                 ipt = 0;
 
             ipt++;
@@ -1060,27 +1043,26 @@ void paintBlackBishop2(void *data) {
         if(blackBishop2Func == -1) {
             break;
         } else {
-            //ppp();
-            Sleep(50);
+            Sleep(20);
             HBITMAP bishopBlacks = (HBITMAP)LoadImage(hInst, "bishopblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
             hdcMems = CreateCompatibleDC(hdc);
             HBITMAP hBmp;
             if(((blackBishop2.posX/70)+(blackBishop2.posY/70)) % 2 == 0) {
                 hBmp = ReplaceColor(bishopBlacks,0x110000,0xffffff,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(255,255,255));
-                RECT rrect = {blackBishop2.posX+20, 
-                              blackBishop2.posY+11, 
-                              blackBishop2.posX+20+70,
-                              blackBishop2.posY+11+70};
+                RECT rrect = {blackBishop2.posX+16, 
+                              blackBishop2.posY+13, 
+                              blackBishop2.posX+16+69,
+                              blackBishop2.posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             } else {
                 hBmp = ReplaceColor(bishopBlacks,0x110000,0x000000,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
-                RECT rrect = {blackBishop2.posX+20, 
-                              blackBishop2.posY+11, 
-                              blackBishop2.posX+20+70,
-                              blackBishop2.posY+11+70};
+                RECT rrect = {blackBishop2.posX+16, 
+                              blackBishop2.posY+13, 
+                              blackBishop2.posX+16+69,
+                              blackBishop2.posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             }
@@ -1091,7 +1073,7 @@ void paintBlackBishop2(void *data) {
             ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
             DeleteObject(bishopBlacks);
 
-            if(ipt == 17)
+            if(ipt == 14)
                 ipt = 0;
 
             ipt++;
@@ -1107,27 +1089,26 @@ void paintBlackKnight1(void *data) {
         if(blackKnight1Func == -1) {
             break;
         } else {
-            //ppp();
-            Sleep(50);
+            Sleep(20);
             HBITMAP knightBlacks = (HBITMAP)LoadImage(hInst, "knightblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
             hdcMems = CreateCompatibleDC(hdc);
             HBITMAP hBmp;
             if(((blackKnight1.posX/70)+(blackKnight1.posY/70)) % 2 == 0) {
                 hBmp = ReplaceColor(knightBlacks,0x110000,0xffffff,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(255,255,255));
-                RECT rrect = {blackKnight1.posX+20, 
-                              blackKnight1.posY+11, 
-                              blackKnight1.posX+20+70,
-                              blackKnight1.posY+11+70};
+                RECT rrect = {blackKnight1.posX+16, 
+                              blackKnight1.posY+13, 
+                              blackKnight1.posX+16+69,
+                              blackKnight1.posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             } else {
                 hBmp = ReplaceColor(knightBlacks,0x110000,0x000000,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
-                RECT rrect = {blackKnight1.posX+20, 
-                              blackKnight1.posY+11, 
-                              blackKnight1.posX+20+70,
-                              blackKnight1.posY+11+70};
+                RECT rrect = {blackKnight1.posX+16, 
+                              blackKnight1.posY+13, 
+                              blackKnight1.posX+16+69,
+                              blackKnight1.posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             }
@@ -1138,7 +1119,7 @@ void paintBlackKnight1(void *data) {
             ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
             DeleteObject(knightBlacks);
 
-            if(ipt == 17)
+            if(ipt == 14)
                 ipt = 0;
 
             ipt++;
@@ -1154,27 +1135,26 @@ void paintBlackKnight2(void *data) {
         if(blackKnight2Func == -1) {
             break;
         } else {
-            //ppp();
-            Sleep(50);
+            Sleep(20);
             HBITMAP knightBlacks = (HBITMAP)LoadImage(hInst, "knightblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
             hdcMems = CreateCompatibleDC(hdc);
             HBITMAP hBmp;
             if(((blackKnight2.posX/70)+(blackKnight2.posY/70)) % 2 == 0) {
                 hBmp = ReplaceColor(knightBlacks,0x110000,0xffffff,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(255,255,255));
-                RECT rrect = {blackKnight2.posX+20, 
-                              blackKnight2.posY+11, 
-                              blackKnight2.posX+20+70,
-                              blackKnight2.posY+11+70};
+                RECT rrect = {blackKnight2.posX+16, 
+                              blackKnight2.posY+13, 
+                              blackKnight2.posX+16+69,
+                              blackKnight2.posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             } else {
                 hBmp = ReplaceColor(knightBlacks,0x110000,0x000000,hdcMems);
                 HBRUSH black_brush = CreateSolidBrush(RGB(0,0,0));
-                RECT rrect = {blackKnight2.posX+20, 
-                              blackKnight2.posY+11, 
-                              blackKnight2.posX+20+70,
-                              blackKnight2.posY+11+70};
+                RECT rrect = {blackKnight2.posX+16, 
+                              blackKnight2.posY+13, 
+                              blackKnight2.posX+16+69,
+                              blackKnight2.posY+13+69};
                 FillRect(hdc, &rrect, black_brush);
                 DeleteObject(black_brush);
             }
@@ -1185,7 +1165,7 @@ void paintBlackKnight2(void *data) {
             ReleaseDC(hwnd, hdcMems); DeleteDC(hdcMems); DeleteObject(hBmp);
             DeleteObject(knightBlacks);
 
-            if(ipt == 17)
+            if(ipt == 14)
                 ipt = 0;
 
             ipt++;
@@ -1222,34 +1202,34 @@ void SetMyMenu(int option) {
     hSubMenu = CreatePopupMenu();
     AppendMenu(hSubMenu, MF_STRING, ID_PC_GAME, pcGame);
     AppendMenu(hSubMenu, MF_STRING, ID_HUMAN_GAME, humanGame);
-    AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "Player Options");
+    AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "Player");
 
     if(option == 3) {
-        easy = "> EASY";
-        medium = "medium";
-        hard = "hard";
-        impossible = "impossible";
+        easy = "> EASY (1 PLAYER)";
+        medium = "medium (1 player)";
+        hard = "hard (1 player)";
+        impossible = "impossible (1 player)";
     }
 
     if(option == 4) {
-        easy = "easy";
-        medium = "> MEDIUM";
-        hard = "hard";
-        impossible = "impossible";
+        easy = "easy (1 player)";
+        medium = "> MEDIUM (1 PLAYER)";
+        hard = "hard (1 player)";
+        impossible = "impossible (1 player)";
     }
 
     if(option == 5) {
-        easy = "easy";
-        medium = "medium";
-        hard = "> HARD";
-        impossible = "impossible";
+        easy = "easy (1 player)";
+        medium = "medium (1 player)";
+        hard = "> HARD (1 PLAYER)";
+        impossible = "impossible (1 player)";
     }
 
     if(option == 6) {
-        easy = "easy";
-        medium = "medium";
-        hard = "hard";
-        impossible = "> IMPOSSIBLE";
+        easy = "easy (1 player)";
+        medium = "medium (1 player)";
+        hard = "hard (1 player)";
+        impossible = "> IMPOSSIBLE (1 PLAYER)";
     }
 
     hSubMenu = CreatePopupMenu();
@@ -1257,7 +1237,7 @@ void SetMyMenu(int option) {
     AppendMenu(hSubMenu, MF_STRING, ID_MEDIUM, medium);
     AppendMenu(hSubMenu, MF_STRING, ID_HARD, hard);
     AppendMenu(hSubMenu, MF_STRING, ID_IMPOSSIBLE, impossible);
-    AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "1 Player Difficulty Options");
+    AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "Difficulty");
 
     if(option == 7) {
         zeroMin = "> NO TIME (2 PLAYERS)";
@@ -1697,7 +1677,7 @@ void SetMyMenu(int option) {
     AppendMenu(hSubMenu, MF_STRING, ID_TIMER_80MIN, eightyMin);
     AppendMenu(hSubMenu, MF_STRING, ID_TIMER_85MIN, eightyFiveMin);
     AppendMenu(hSubMenu, MF_STRING, ID_TIMER_90MIN, ninetyMin);
-    AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "Timer Settings");
+    AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "Timer");
 
     hSubMenu = CreatePopupMenu();
     AppendMenu(hSubMenu, MF_STRING, ID_ABOUT, "about");
@@ -4768,15 +4748,13 @@ void highlightPossibleMoves(int j, int i) {
             int y = re_Map(wLM[q], 1);
             int x = re_Map(wLM[q], 0);
             HBRUSH rBrush;
-            rBrush = CreateSolidBrush(RGB(200, 200, 255));
-            RECT r = {x+20+20+5, y+20+31, x+20+20 + 63, y+20+20-7 + 68};
+            rBrush = CreateSolidBrush(RGB(255, 0, 0));
+            RECT r = {x+20+20+5-8, y+20+31-17, x+20+20 + 65, y+20+20-7 + 68};
             FillRect(hdc, &r, rBrush);
             DeleteObject(rBrush);
         }
     }
 }
-
-
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -10420,286 +10398,286 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 }
                             }
 
-                            HBRUSH rBrush;
-                            rBrush = CreateSolidBrush(RGB(0, 255, 0));
-                            RECT r = {i*70+20+20, j*70+20+20-8, i*70+20+20 + 12, j*70+20+20-8 + 12};
-                            for(int t=0; t<8; t++) {
-                                if(turn == 'r' && whitePawns[t].posX == i*70+20 &&
-                                   whitePawns[t].posY == j*70+20) {
-                                    if(TRUE==done) {
-                                        int l1_x1 = i*70+20+20;
-                                        int l1_y1 = j*70+20 + 8;
-                                        int l1_x2 = i*70+20+20 + 8;
-                                        int l1_y2 = j*70+20 + 16;
-                                        int l2_x1 = i*70+20+20 + 8;
-                                        int l2_y1 = j*70+20 + 16;
-                                        int l2_x2 = i*70+20+20 + 16;
-                                        int l2_y2 = j*70+20;
-                                        PAINTSTRUCT pntS;
-                                        HPEN pen, oldPen;
-                                        pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-                                        oldPen = (HPEN)SelectObject(hdc, pen);				
-                                        MoveToEx(hdc, l1_x1, l1_y1, NULL);
-                                        LineTo(hdc, l1_x2, l1_y2);
-                                        MoveToEx(hdc, l2_x1, l2_y1, NULL);
-                                        LineTo(hdc, l2_x2, l2_y2);
-                                        SelectObject(hdc, oldPen); 
-                                        DeleteObject(pen);
-                                    }
-                                }
-                            }
-                            for(int t=0; t<8; t++) {
-                                if(turn == 'h' && whitePawns[t].posX == i*70+20 &&
-                                   whitePawns[t].posY == j*70+20) {
-                                    FillRect(hdc, &r, rBrush);
-                                }
-                            }
-                            if(turn == 'r' && whiteKing.posX == i*70+20 &&
-                               whiteKing.posY == j*70+20) {
-                                if(TRUE==done) {
-                                    int l1_x1 = i*70+20+20;
-                                    int l1_y1 = j*70+20 + 8;
-                                    int l1_x2 = i*70+20+20 + 8;
-                                    int l1_y2 = j*70+20 + 16;
-                                    int l2_x1 = i*70+20+20 + 8;
-                                    int l2_y1 = j*70+20 + 16;
-                                    int l2_x2 = i*70+20+20 + 16;
-                                    int l2_y2 = j*70+20;
-                                    PAINTSTRUCT pntS;
-                                    HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-                                    oldPen = (HPEN)SelectObject(hdc, pen);				
-                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
-                                    LineTo(hdc, l1_x2, l1_y2);
-                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
-                                    LineTo(hdc, l2_x2, l2_y2);
-                                    SelectObject(hdc, oldPen); 
-                                    DeleteObject(pen);
-                                }
-                            }
-                            if(turn == 'h' && whiteKing.posX == i*70+20 &&
-                               whiteKing.posY == j*70+20) {
-                                FillRect(hdc, &r, rBrush);
-                            }
-                            if(turn == 'r' && whiteQueen.posX == i*70+20 &&
-                               whiteQueen.posY == j*70+20) {
-                                if(TRUE==done) {
-                                    int l1_x1 = i*70+20+20;
-                                    int l1_y1 = j*70+20 + 8;
-                                    int l1_x2 = i*70+20+20 + 8;
-                                    int l1_y2 = j*70+20 + 16;
-                                    int l2_x1 = i*70+20+20 + 8;
-                                    int l2_y1 = j*70+20 + 16;
-                                    int l2_x2 = i*70+20+20 + 16;
-                                    int l2_y2 = j*70+20;
-                                    PAINTSTRUCT pntS;
-                                    HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-                                    oldPen = (HPEN)SelectObject(hdc, pen);				
-                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
-                                    LineTo(hdc, l1_x2, l1_y2);
-                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
-                                    LineTo(hdc, l2_x2, l2_y2);
-                                    SelectObject(hdc, oldPen); 
-                                    DeleteObject(pen);
-                                }
-                            }
-                            if(turn == 'h' && whiteQueen.posX == i*70+20 &&
-                               whiteQueen.posY == j*70+20) {
-                                FillRect(hdc, &r, rBrush);
-                            }
-                            for(int z=0; z<8; z++) {
-                                if(turn == 'r' && whiteQueenK[z].posX == i*70+20 &&
-                                   whiteQueenK[z].posY == j*70+20) {
-                                    if(TRUE==done) {
-                                        int l1_x1 = i*70+20+20;
-                                        int l1_y1 = j*70+20 + 8;
-                                        int l1_x2 = i*70+20+20 + 8;
-                                        int l1_y2 = j*70+20 + 16;
-                                        int l2_x1 = i*70+20+20 + 8;
-                                        int l2_y1 = j*70+20 + 16;
-                                        int l2_x2 = i*70+20+20 + 16;
-                                        int l2_y2 = j*70+20;
-                                        PAINTSTRUCT pntS;
-                                        HPEN pen, oldPen;
-                                        pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-                                        oldPen = (HPEN)SelectObject(hdc, pen);				
-                                        MoveToEx(hdc, l1_x1, l1_y1, NULL);
-                                        LineTo(hdc, l1_x2, l1_y2);
-                                        MoveToEx(hdc, l2_x1, l2_y1, NULL);
-                                        LineTo(hdc, l2_x2, l2_y2);
-                                        SelectObject(hdc, oldPen); 
-                                        DeleteObject(pen);
-                                    }
-                                }
-                                if(turn == 'h' && whiteQueenK[z].posX == i*70+20 &&
-                                   whiteQueenK[z].posY == j*70+20) {
-                                    FillRect(hdc, &r, rBrush);
-                                }
-                            }
-                            if(turn == 'r' && whiteKnight1.posX == i*70+20 &&
-                               whiteKnight1.posY == j*70+20) {
-                                if(TRUE==done) {
-                                    int l1_x1 = i*70+20+20;
-                                    int l1_y1 = j*70+20 + 8;
-                                    int l1_x2 = i*70+20+20 + 8;
-                                    int l1_y2 = j*70+20 + 16;
-                                    int l2_x1 = i*70+20+20 + 8;
-                                    int l2_y1 = j*70+20 + 16;
-                                    int l2_x2 = i*70+20+20 + 16;
-                                    int l2_y2 = j*70+20;
-                                    PAINTSTRUCT pntS;
-                                    HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-                                    oldPen = (HPEN)SelectObject(hdc, pen);				
-                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
-                                    LineTo(hdc, l1_x2, l1_y2);
-                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
-                                    LineTo(hdc, l2_x2, l2_y2);
-                                    SelectObject(hdc, oldPen); 
-                                    DeleteObject(pen);
-                                }
-                            }
-                            if(turn == 'h' && whiteKnight1.posX == i*70+20 &&
-                               whiteKnight1.posY == j*70+20) {
-                                FillRect(hdc, &r, rBrush);
-                            }
-                            if(turn == 'r' && whiteKnight2.posX == i*70+20 &&
-                               whiteKnight2.posY == j*70+20) {
-                                if(TRUE==done) {
-                                    int l1_x1 = i*70+20+20;
-                                    int l1_y1 = j*70+20 + 8;
-                                    int l1_x2 = i*70+20+20 + 8;
-                                    int l1_y2 = j*70+20 + 16;
-                                    int l2_x1 = i*70+20+20 + 8;
-                                    int l2_y1 = j*70+20 + 16;
-                                    int l2_x2 = i*70+20+20 + 16;
-                                    int l2_y2 = j*70+20;
-                                    PAINTSTRUCT pntS;
-                                    HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-                                    oldPen = (HPEN)SelectObject(hdc, pen);				
-                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
-                                    LineTo(hdc, l1_x2, l1_y2);
-                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
-                                    LineTo(hdc, l2_x2, l2_y2);
-                                    SelectObject(hdc, oldPen); 
-                                    DeleteObject(pen);
-                                }
-                            }
-                            if(turn == 'h' && whiteKnight2.posX == i*70+20 &&
-                               whiteKnight2.posY == j*70+20) {
-                                FillRect(hdc, &r, rBrush);
-                            }
-                            if(turn == 'r' && whiteBishop1.posX == i*70+20 &&
-                               whiteBishop1.posY == j*70+20) {
-                                if(TRUE==done) {
-                                    int l1_x1 = i*70+20+20;
-                                    int l1_y1 = j*70+20 + 8;
-                                    int l1_x2 = i*70+20+20 + 8;
-                                    int l1_y2 = j*70+20 + 16;
-                                    int l2_x1 = i*70+20+20 + 8;
-                                    int l2_y1 = j*70+20 + 16;
-                                    int l2_x2 = i*70+20+20 + 16;
-                                    int l2_y2 = j*70+20;
-                                    PAINTSTRUCT pntS;
-                                    HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-                                    oldPen = (HPEN)SelectObject(hdc, pen);				
-                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
-                                    LineTo(hdc, l1_x2, l1_y2);
-                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
-                                    LineTo(hdc, l2_x2, l2_y2);
-                                    SelectObject(hdc, oldPen); 
-                                    DeleteObject(pen);
-                                }
-                            }
-                            if(turn == 'h' && whiteBishop1.posX == i*70+20 &&
-                               whiteBishop1.posY == j*70+20) {
-                                FillRect(hdc, &r, rBrush);
-                            }
-                            if(turn == 'r' && whiteBishop2.posX == i*70+20 &&
-                               whiteBishop2.posY == j*70+20) {
-                                if(TRUE==done) {
-                                    int l1_x1 = i*70+20+20;
-                                    int l1_y1 = j*70+20 + 8;
-                                    int l1_x2 = i*70+20+20 + 8;
-                                    int l1_y2 = j*70+20 + 16;
-                                    int l2_x1 = i*70+20+20 + 8;
-                                    int l2_y1 = j*70+20 + 16;
-                                    int l2_x2 = i*70+20+20 + 16;
-                                    int l2_y2 = j*70+20;
-                                    PAINTSTRUCT pntS;
-                                    HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-                                    oldPen = (HPEN)SelectObject(hdc, pen);				
-                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
-                                    LineTo(hdc, l1_x2, l1_y2);
-                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
-                                    LineTo(hdc, l2_x2, l2_y2);
-                                    SelectObject(hdc, oldPen); 
-                                    DeleteObject(pen);
-                                }
-                            }
-                            if(turn == 'h' && whiteBishop2.posX == i*70+20 &&
-                               whiteBishop2.posY == j*70+20) {
-                                FillRect(hdc, &r, rBrush);
-                            }
-                            if(turn == 'r' && whiteRook1.posX == i*70+20 &&
-                               whiteRook1.posY == j*70+20) {
-                                if(TRUE==done) {
-                                    int l1_x1 = i*70+20+20;
-                                    int l1_y1 = j*70+20 + 8;
-                                    int l1_x2 = i*70+20+20 + 8;
-                                    int l1_y2 = j*70+20 + 16;
-                                    int l2_x1 = i*70+20+20 + 8;
-                                    int l2_y1 = j*70+20 + 16;
-                                    int l2_x2 = i*70+20+20 + 16;
-                                    int l2_y2 = j*70+20;
-                                    PAINTSTRUCT pntS;
-                                    HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-                                    oldPen = (HPEN)SelectObject(hdc, pen);				
-                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
-                                    LineTo(hdc, l1_x2, l1_y2);
-                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
-                                    LineTo(hdc, l2_x2, l2_y2);
-                                    SelectObject(hdc, oldPen); 
-                                    DeleteObject(pen);
-                                }
-                            }
-                            if(turn == 'h' && whiteRook1.posX == i*70+20 &&
-                               whiteRook1.posY == j*70+20) {
-                                FillRect(hdc, &r, rBrush);
-                            }
-                            if(turn == 'r' && whiteRook2.posX == i*70+20 &&
-                               whiteRook2.posY == j*70+20) {
-                                if(TRUE==done) {
-                                    int l1_x1 = i*70+20+20;
-                                    int l1_y1 = j*70+20 + 8;
-                                    int l1_x2 = i*70+20+20 + 8;
-                                    int l1_y2 = j*70+20 + 16;
-                                    int l2_x1 = i*70+20+20 + 8;
-                                    int l2_y1 = j*70+20 + 16;
-                                    int l2_x2 = i*70+20+20 + 16;
-                                    int l2_y2 = j*70+20;
-                                    PAINTSTRUCT pntS;
-                                    HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-                                    oldPen = (HPEN)SelectObject(hdc, pen);				
-                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
-                                    LineTo(hdc, l1_x2, l1_y2);
-                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
-                                    LineTo(hdc, l2_x2, l2_y2);
-                                    SelectObject(hdc, oldPen); 
-                                    DeleteObject(pen);
-                                }
-                            }
-                            if(turn == 'h' && whiteRook2.posX == i*70+20 &&
-                               whiteRook2.posY == j*70+20) {
-                                FillRect(hdc, &r, rBrush);
-                            }
-                            DeleteObject(rBrush);
+//                            HBRUSH rBrush;
+//                            rBrush = CreateSolidBrush(RGB(0, 255, 0));
+//                            RECT r = {i*70+20+20, j*70+20+20-8, i*70+20+20 + 12, j*70+20+20-8 + 12};
+//                            for(int t=0; t<8; t++) {
+//                                if(turn == 'r' && whitePawns[t].posX == i*70+20 &&
+//                                   whitePawns[t].posY == j*70+20) {
+//                                    if(TRUE==done) {
+//                                        int l1_x1 = i*70+20+20;
+//                                        int l1_y1 = j*70+20 + 8;
+//                                        int l1_x2 = i*70+20+20 + 8;
+//                                        int l1_y2 = j*70+20 + 16;
+//                                        int l2_x1 = i*70+20+20 + 8;
+//                                        int l2_y1 = j*70+20 + 16;
+//                                        int l2_x2 = i*70+20+20 + 16;
+//                                        int l2_y2 = j*70+20;
+//                                        PAINTSTRUCT pntS;
+//                                        HPEN pen, oldPen;
+//                                        pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+//                                        oldPen = (HPEN)SelectObject(hdc, pen);				
+//                                        MoveToEx(hdc, l1_x1, l1_y1, NULL);
+//                                        LineTo(hdc, l1_x2, l1_y2);
+//                                        MoveToEx(hdc, l2_x1, l2_y1, NULL);
+//                                        LineTo(hdc, l2_x2, l2_y2);
+//                                        SelectObject(hdc, oldPen); 
+//                                        DeleteObject(pen);
+//                                    }
+//                                }
+//                            }
+//                            for(int t=0; t<8; t++) {
+//                                if(turn == 'h' && whitePawns[t].posX == i*70+20 &&
+//                                   whitePawns[t].posY == j*70+20) {
+//                                    FillRect(hdc, &r, rBrush);
+//                                }
+//                            }
+//                            if(turn == 'r' && whiteKing.posX == i*70+20 &&
+//                               whiteKing.posY == j*70+20) {
+//                                if(TRUE==done) {
+//                                    int l1_x1 = i*70+20+20;
+//                                    int l1_y1 = j*70+20 + 8;
+//                                    int l1_x2 = i*70+20+20 + 8;
+//                                    int l1_y2 = j*70+20 + 16;
+//                                    int l2_x1 = i*70+20+20 + 8;
+//                                    int l2_y1 = j*70+20 + 16;
+//                                    int l2_x2 = i*70+20+20 + 16;
+//                                    int l2_y2 = j*70+20;
+//                                    PAINTSTRUCT pntS;
+//                                    HPEN pen, oldPen;
+//                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+//                                    oldPen = (HPEN)SelectObject(hdc, pen);				
+//                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
+//                                    LineTo(hdc, l1_x2, l1_y2);
+//                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
+//                                    LineTo(hdc, l2_x2, l2_y2);
+//                                    SelectObject(hdc, oldPen); 
+//                                    DeleteObject(pen);
+//                                }
+//                            }
+//                            if(turn == 'h' && whiteKing.posX == i*70+20 &&
+//                               whiteKing.posY == j*70+20) {
+//                                FillRect(hdc, &r, rBrush);
+//                            }
+//                            if(turn == 'r' && whiteQueen.posX == i*70+20 &&
+//                               whiteQueen.posY == j*70+20) {
+//                                if(TRUE==done) {
+//                                    int l1_x1 = i*70+20+20;
+//                                    int l1_y1 = j*70+20 + 8;
+//                                    int l1_x2 = i*70+20+20 + 8;
+//                                    int l1_y2 = j*70+20 + 16;
+//                                    int l2_x1 = i*70+20+20 + 8;
+//                                    int l2_y1 = j*70+20 + 16;
+//                                    int l2_x2 = i*70+20+20 + 16;
+//                                    int l2_y2 = j*70+20;
+//                                    PAINTSTRUCT pntS;
+//                                    HPEN pen, oldPen;
+//                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+//                                    oldPen = (HPEN)SelectObject(hdc, pen);				
+//                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
+//                                    LineTo(hdc, l1_x2, l1_y2);
+//                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
+//                                    LineTo(hdc, l2_x2, l2_y2);
+//                                    SelectObject(hdc, oldPen); 
+//                                    DeleteObject(pen);
+//                                }
+//                            }
+//                            if(turn == 'h' && whiteQueen.posX == i*70+20 &&
+//                               whiteQueen.posY == j*70+20) {
+//                                FillRect(hdc, &r, rBrush);
+//                            }
+//                            for(int z=0; z<8; z++) {
+//                                if(turn == 'r' && whiteQueenK[z].posX == i*70+20 &&
+//                                   whiteQueenK[z].posY == j*70+20) {
+//                                    if(TRUE==done) {
+//                                        int l1_x1 = i*70+20+20;
+//                                        int l1_y1 = j*70+20 + 8;
+//                                        int l1_x2 = i*70+20+20 + 8;
+//                                        int l1_y2 = j*70+20 + 16;
+//                                        int l2_x1 = i*70+20+20 + 8;
+//                                        int l2_y1 = j*70+20 + 16;
+//                                        int l2_x2 = i*70+20+20 + 16;
+//                                        int l2_y2 = j*70+20;
+//                                        PAINTSTRUCT pntS;
+//                                        HPEN pen, oldPen;
+//                                        pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+//                                        oldPen = (HPEN)SelectObject(hdc, pen);				
+//                                        MoveToEx(hdc, l1_x1, l1_y1, NULL);
+//                                        LineTo(hdc, l1_x2, l1_y2);
+//                                        MoveToEx(hdc, l2_x1, l2_y1, NULL);
+//                                        LineTo(hdc, l2_x2, l2_y2);
+//                                        SelectObject(hdc, oldPen); 
+//                                        DeleteObject(pen);
+//                                    }
+//                                }
+//                                if(turn == 'h' && whiteQueenK[z].posX == i*70+20 &&
+//                                   whiteQueenK[z].posY == j*70+20) {
+//                                    FillRect(hdc, &r, rBrush);
+//                                }
+//                            }
+//                            if(turn == 'r' && whiteKnight1.posX == i*70+20 &&
+//                               whiteKnight1.posY == j*70+20) {
+//                                if(TRUE==done) {
+//                                    int l1_x1 = i*70+20+20;
+//                                    int l1_y1 = j*70+20 + 8;
+//                                    int l1_x2 = i*70+20+20 + 8;
+//                                    int l1_y2 = j*70+20 + 16;
+//                                    int l2_x1 = i*70+20+20 + 8;
+//                                    int l2_y1 = j*70+20 + 16;
+//                                    int l2_x2 = i*70+20+20 + 16;
+//                                    int l2_y2 = j*70+20;
+//                                    PAINTSTRUCT pntS;
+//                                    HPEN pen, oldPen;
+//                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+//                                    oldPen = (HPEN)SelectObject(hdc, pen);				
+//                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
+//                                    LineTo(hdc, l1_x2, l1_y2);
+//                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
+//                                    LineTo(hdc, l2_x2, l2_y2);
+//                                    SelectObject(hdc, oldPen); 
+//                                    DeleteObject(pen);
+//                                }
+//                            }
+//                            if(turn == 'h' && whiteKnight1.posX == i*70+20 &&
+//                               whiteKnight1.posY == j*70+20) {
+//                                FillRect(hdc, &r, rBrush);
+//                            }
+//                            if(turn == 'r' && whiteKnight2.posX == i*70+20 &&
+//                               whiteKnight2.posY == j*70+20) {
+//                                if(TRUE==done) {
+//                                    int l1_x1 = i*70+20+20;
+//                                    int l1_y1 = j*70+20 + 8;
+//                                    int l1_x2 = i*70+20+20 + 8;
+//                                    int l1_y2 = j*70+20 + 16;
+//                                    int l2_x1 = i*70+20+20 + 8;
+//                                    int l2_y1 = j*70+20 + 16;
+//                                    int l2_x2 = i*70+20+20 + 16;
+//                                    int l2_y2 = j*70+20;
+//                                    PAINTSTRUCT pntS;
+//                                    HPEN pen, oldPen;
+//                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+//                                    oldPen = (HPEN)SelectObject(hdc, pen);				
+//                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
+//                                    LineTo(hdc, l1_x2, l1_y2);
+//                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
+//                                    LineTo(hdc, l2_x2, l2_y2);
+//                                    SelectObject(hdc, oldPen); 
+//                                    DeleteObject(pen);
+//                                }
+//                            }
+//                            if(turn == 'h' && whiteKnight2.posX == i*70+20 &&
+//                               whiteKnight2.posY == j*70+20) {
+//                                FillRect(hdc, &r, rBrush);
+//                            }
+//                            if(turn == 'r' && whiteBishop1.posX == i*70+20 &&
+//                               whiteBishop1.posY == j*70+20) {
+//                                if(TRUE==done) {
+//                                    int l1_x1 = i*70+20+20;
+//                                    int l1_y1 = j*70+20 + 8;
+//                                    int l1_x2 = i*70+20+20 + 8;
+//                                    int l1_y2 = j*70+20 + 16;
+//                                    int l2_x1 = i*70+20+20 + 8;
+//                                    int l2_y1 = j*70+20 + 16;
+//                                    int l2_x2 = i*70+20+20 + 16;
+//                                    int l2_y2 = j*70+20;
+//                                    PAINTSTRUCT pntS;
+//                                    HPEN pen, oldPen;
+//                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+//                                    oldPen = (HPEN)SelectObject(hdc, pen);				
+//                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
+//                                    LineTo(hdc, l1_x2, l1_y2);
+//                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
+//                                    LineTo(hdc, l2_x2, l2_y2);
+//                                    SelectObject(hdc, oldPen); 
+//                                    DeleteObject(pen);
+//                                }
+//                            }
+//                            if(turn == 'h' && whiteBishop1.posX == i*70+20 &&
+//                               whiteBishop1.posY == j*70+20) {
+//                                FillRect(hdc, &r, rBrush);
+//                            }
+//                            if(turn == 'r' && whiteBishop2.posX == i*70+20 &&
+//                               whiteBishop2.posY == j*70+20) {
+//                                if(TRUE==done) {
+//                                    int l1_x1 = i*70+20+20;
+//                                    int l1_y1 = j*70+20 + 8;
+//                                    int l1_x2 = i*70+20+20 + 8;
+//                                    int l1_y2 = j*70+20 + 16;
+//                                    int l2_x1 = i*70+20+20 + 8;
+//                                    int l2_y1 = j*70+20 + 16;
+//                                    int l2_x2 = i*70+20+20 + 16;
+//                                    int l2_y2 = j*70+20;
+//                                    PAINTSTRUCT pntS;
+//                                    HPEN pen, oldPen;
+//                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+//                                    oldPen = (HPEN)SelectObject(hdc, pen);				
+//                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
+//                                    LineTo(hdc, l1_x2, l1_y2);
+//                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
+//                                    LineTo(hdc, l2_x2, l2_y2);
+//                                    SelectObject(hdc, oldPen); 
+//                                    DeleteObject(pen);
+//                                }
+//                            }
+//                            if(turn == 'h' && whiteBishop2.posX == i*70+20 &&
+//                               whiteBishop2.posY == j*70+20) {
+//                                FillRect(hdc, &r, rBrush);
+//                            }
+//                            if(turn == 'r' && whiteRook1.posX == i*70+20 &&
+//                               whiteRook1.posY == j*70+20) {
+//                                if(TRUE==done) {
+//                                    int l1_x1 = i*70+20+20;
+//                                    int l1_y1 = j*70+20 + 8;
+//                                    int l1_x2 = i*70+20+20 + 8;
+//                                    int l1_y2 = j*70+20 + 16;
+//                                    int l2_x1 = i*70+20+20 + 8;
+//                                    int l2_y1 = j*70+20 + 16;
+//                                    int l2_x2 = i*70+20+20 + 16;
+//                                    int l2_y2 = j*70+20;
+//                                    PAINTSTRUCT pntS;
+//                                    HPEN pen, oldPen;
+//                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+//                                    oldPen = (HPEN)SelectObject(hdc, pen);				
+//                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
+//                                    LineTo(hdc, l1_x2, l1_y2);
+//                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
+//                                    LineTo(hdc, l2_x2, l2_y2);
+//                                    SelectObject(hdc, oldPen); 
+//                                    DeleteObject(pen);
+//                                }
+//                            }
+//                            if(turn == 'h' && whiteRook1.posX == i*70+20 &&
+//                               whiteRook1.posY == j*70+20) {
+//                                FillRect(hdc, &r, rBrush);
+//                            }
+//                            if(turn == 'r' && whiteRook2.posX == i*70+20 &&
+//                               whiteRook2.posY == j*70+20) {
+//                                if(TRUE==done) {
+//                                    int l1_x1 = i*70+20+20;
+//                                    int l1_y1 = j*70+20 + 8;
+//                                    int l1_x2 = i*70+20+20 + 8;
+//                                    int l1_y2 = j*70+20 + 16;
+//                                    int l2_x1 = i*70+20+20 + 8;
+//                                    int l2_y1 = j*70+20 + 16;
+//                                    int l2_x2 = i*70+20+20 + 16;
+//                                    int l2_y2 = j*70+20;
+//                                    PAINTSTRUCT pntS;
+//                                    HPEN pen, oldPen;
+//                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+//                                    oldPen = (HPEN)SelectObject(hdc, pen);				
+//                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
+//                                    LineTo(hdc, l1_x2, l1_y2);
+//                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
+//                                    LineTo(hdc, l2_x2, l2_y2);
+//                                    SelectObject(hdc, oldPen); 
+//                                    DeleteObject(pen);
+//                                }
+//                            }
+//                            if(turn == 'h' && whiteRook2.posX == i*70+20 &&
+//                               whiteRook2.posY == j*70+20) {
+//                                FillRect(hdc, &r, rBrush);
+//                            }
+//                            DeleteObject(rBrush);
                             
                             if(!pcgame && done) {
                                 getApiUnderwaterChessDotComMove2(from, to);
@@ -16432,334 +16410,334 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             DeleteObject(kingBlack);
                             DeleteObject(kingWhite);
 
-                            HBRUSH rBrush;
-                            rBrush = CreateSolidBrush(RGB(0, 255, 0));
-                            RECT r = {i*70+20+20, j*70+20+20-8, i*70+20+20 + 12, j*70+20+20-8 + 12};
-                            for(int t=0; t<8; t++) {
-                                if(turn == 'h' && blackPawns[t].posX == i*70+20 &&
-                                   blackPawns[t].posY == j*70+20) {
-                                    if(TRUE==done) {
-                                        int l1_x1 = i*70+20+20;
-                                        int l1_y1 = j*70+20 + 8;
-                                        int l1_x2 = i*70+20+20 + 8;
-                                        int l1_y2 = j*70+20 + 16;
-                                        int l2_x1 = i*70+20+20 + 8;
-                                        int l2_y1 = j*70+20 + 16;
-                                        int l2_x2 = i*70+20+20 + 16;
-                                        int l2_y2 = j*70+20;
-                                        PAINTSTRUCT pntS;
-                                        HPEN pen, oldPen;
-                                        pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-                                        oldPen = (HPEN)SelectObject(hdc, pen);				
-                                        MoveToEx(hdc, l1_x1, l1_y1, NULL);
-                                        LineTo(hdc, l1_x2, l1_y2);
-                                        MoveToEx(hdc, l2_x1, l2_y1, NULL);
-                                        LineTo(hdc, l2_x2, l2_y2);
-                                        SelectObject(hdc, oldPen); 
-                                        DeleteObject(pen);
-                                    }
-                                }
-                            }
-                            for(int t=0; t<8; t++) {
-                                if(turn == 'r' && blackPawns[t].posX == i*70+20 &&
-                                   blackPawns[t].posY == j*70+20) {
-                                    FillRect(hdc, &r, rBrush);
-                                }
-                            }
-                            if(turn == 'h' && blackKing.posX == i*70+20 &&
-                               blackKing.posY == j*70+20) {
-                                if(TRUE==done) {
-                                    int l1_x1 = i*70+20+20;
-                                    int l1_y1 = j*70+20 + 8;
-                                    int l1_x2 = i*70+20+20 + 8;
-                                    int l1_y2 = j*70+20 + 16;
-                                    int l2_x1 = i*70+20+20 + 8;
-                                    int l2_y1 = j*70+20 + 16;
-                                    int l2_x2 = i*70+20+20 + 16;
-                                    int l2_y2 = j*70+20;
-                                    PAINTSTRUCT pntS;
-                                    HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-                                    oldPen = (HPEN)SelectObject(hdc, pen);				
-                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
-                                    LineTo(hdc, l1_x2, l1_y2);
-                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
-                                    LineTo(hdc, l2_x2, l2_y2);
-                                    SelectObject(hdc, oldPen); 
-                                    DeleteObject(pen);
-                                }
-                            }
-                            if(turn == 'r' && blackKing.posX == i*70+20 &&
-                               blackKing.posY == j*70+20) {
-                                FillRect(hdc, &r, rBrush);
-                            }
-                            if(turn == 'h' && blackQueen.posX == i*70+20 &&
-                               blackQueen.posY == j*70+20) {
-                                if(TRUE==done) {
-                                    int l1_x1 = i*70+20+20;
-                                    int l1_y1 = j*70+20 + 8;
-                                    int l1_x2 = i*70+20+20 + 8;
-                                    int l1_y2 = j*70+20 + 16;
-                                    int l2_x1 = i*70+20+20 + 8;
-                                    int l2_y1 = j*70+20 + 16;
-                                    int l2_x2 = i*70+20+20 + 16;
-                                    int l2_y2 = j*70+20;
-                                    PAINTSTRUCT pntS;
-                                    HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-                                    oldPen = (HPEN)SelectObject(hdc, pen);				
-                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
-                                    LineTo(hdc, l1_x2, l1_y2);
-                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
-                                    LineTo(hdc, l2_x2, l2_y2);
-                                    SelectObject(hdc, oldPen); 
-                                    DeleteObject(pen);
-                                }
-                            }
-                            if(turn == 'r' && blackQueen.posX == i*70+20 &&
-                               blackQueen.posY == j*70+20) {
-                                FillRect(hdc, &r, rBrush);
-                            }
-                            for(int z=0; z<8; z++) {
-                                if(turn == 'h' && blackQueenK[z].posX == i*70+20 &&
-                                   blackQueenK[z].posY == j*70+20) {
-                                    if(TRUE==done) {
-                                        int l1_x1 = i*70+20+20;
-                                        int l1_y1 = j*70+20 + 8;
-                                        int l1_x2 = i*70+20+20 + 8;
-                                        int l1_y2 = j*70+20 + 16;
-                                        int l2_x1 = i*70+20+20 + 8;
-                                        int l2_y1 = j*70+20 + 16;
-                                        int l2_x2 = i*70+20+20 + 16;
-                                        int l2_y2 = j*70+20;
-                                        PAINTSTRUCT pntS;
-                                        HPEN pen, oldPen;
-                                        pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-                                        oldPen = (HPEN)SelectObject(hdc, pen);				
-                                        MoveToEx(hdc, l1_x1, l1_y1, NULL);
-                                        LineTo(hdc, l1_x2, l1_y2);
-                                        MoveToEx(hdc, l2_x1, l2_y1, NULL);
-                                        LineTo(hdc, l2_x2, l2_y2);
-                                        SelectObject(hdc, oldPen); 
-                                        DeleteObject(pen);
-                                    }
-                                }
-                                if(turn == 'r' && blackQueenK[z].posX == i*70+20 &&
-                                   blackQueenK[z].posY == j*70+20) {
-                                    FillRect(hdc, &r, rBrush);
-                                }
-                            }
-                            if(turn == 'h' && blackKnight1.posX == i*70+20 &&
-                               blackKnight1.posY == j*70+20) {
-                                if(TRUE==done) {
-                                    int l1_x1 = i*70+20+20;
-                                    int l1_y1 = j*70+20 + 8;
-                                    int l1_x2 = i*70+20+20 + 8;
-                                    int l1_y2 = j*70+20 + 16;
-                                    int l2_x1 = i*70+20+20 + 8;
-                                    int l2_y1 = j*70+20 + 16;
-                                    int l2_x2 = i*70+20+20 + 16;
-                                    int l2_y2 = j*70+20;
-                                    PAINTSTRUCT pntS;
-                                    HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-                                    oldPen = (HPEN)SelectObject(hdc, pen);				
-                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
-                                    LineTo(hdc, l1_x2, l1_y2);
-                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
-                                    LineTo(hdc, l2_x2, l2_y2);
-                                    SelectObject(hdc, oldPen); 
-                                    DeleteObject(pen);
-                                }
-                            }
-                            if(turn == 'r' && blackKnight1.posX == i*70+20 &&
-                               blackKnight1.posY == j*70+20) {
-                                FillRect(hdc, &r, rBrush);
-                            }
-                            if(turn == 'h' && blackKnight2.posX == i*70+20 &&
-                               blackKnight2.posY == j*70+20) {
-                                if(TRUE==done) {
-                                    int l1_x1 = i*70+20+20;
-                                    int l1_y1 = j*70+20 + 8;
-                                    int l1_x2 = i*70+20+20 + 8;
-                                    int l1_y2 = j*70+20 + 16;
-                                    int l2_x1 = i*70+20+20 + 8;
-                                    int l2_y1 = j*70+20 + 16;
-                                    int l2_x2 = i*70+20+20 + 16;
-                                    int l2_y2 = j*70+20;
-                                    PAINTSTRUCT pntS;
-                                    HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-                                    oldPen = (HPEN)SelectObject(hdc, pen);				
-                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
-                                    LineTo(hdc, l1_x2, l1_y2);
-                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
-                                    LineTo(hdc, l2_x2, l2_y2);
-                                    SelectObject(hdc, oldPen); 
-                                    DeleteObject(pen);
-                                }
-                            }
-                            if(turn == 'r' && blackKnight2.posX == i*70+20 &&
-                               blackKnight2.posY == j*70+20) {
-                                FillRect(hdc, &r, rBrush);
-                            }
-                            if(turn == 'h' && blackBishop1.posX == i*70+20 &&
-                               blackBishop1.posY == j*70+20) {
-                                if(TRUE==done) {
-                                    int l1_x1 = i*70+20+20;
-                                    int l1_y1 = j*70+20 + 8;
-                                    int l1_x2 = i*70+20+20 + 8;
-                                    int l1_y2 = j*70+20 + 16;
-                                    int l2_x1 = i*70+20+20 + 8;
-                                    int l2_y1 = j*70+20 + 16;
-                                    int l2_x2 = i*70+20+20 + 16;
-                                    int l2_y2 = j*70+20;
-                                    PAINTSTRUCT pntS;
-                                    HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-                                    oldPen = (HPEN)SelectObject(hdc, pen);				
-                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
-                                    LineTo(hdc, l1_x2, l1_y2);
-                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
-                                    LineTo(hdc, l2_x2, l2_y2);
-                                    SelectObject(hdc, oldPen); 
-                                    DeleteObject(pen);
-                                }
-                            }
-                            if(turn == 'r' && blackBishop1.posX == i*70+20 &&
-                               blackBishop1.posY == j*70+20) {
-                                FillRect(hdc, &r, rBrush);
-                            }
-                            if(turn == 'r' && blackBishop2.posX == i*70+20 &&
-                               blackBishop2.posY == j*70+20) {
-                                FillRect(hdc, &r, rBrush);
-                                if(TRUE==done) {
-                                    int l1_x1 = i*70+20+20;
-                                    int l1_y1 = j*70+20 + 8;
-                                    int l1_x2 = i*70+20+20 + 8;
-                                    int l1_y2 = j*70+20 + 16;
-                                    int l2_x1 = i*70+20+20 + 8;
-                                    int l2_y1 = j*70+20 + 16;
-                                    int l2_x2 = i*70+20+20 + 16;
-                                    int l2_y2 = j*70+20;
-                                    PAINTSTRUCT pntS;
-                                    HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-                                    oldPen = (HPEN)SelectObject(hdc, pen);				
-                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
-                                    LineTo(hdc, l1_x2, l1_y2);
-                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
-                                    LineTo(hdc, l2_x2, l2_y2);
-                                    SelectObject(hdc, oldPen); 
-                                    DeleteObject(pen);
-                                }
-                            }
-                            if(turn == 'h' && blackBishop2.posX == i*70+20 &&
-                               blackBishop2.posY == j*70+20) {
-                                if(TRUE==done) {
-                                    int l1_x1 = i*70+20+20;
-                                    int l1_y1 = j*70+20 + 8;
-                                    int l1_x2 = i*70+20+20 + 8;
-                                    int l1_y2 = j*70+20 + 16;
-                                    int l2_x1 = i*70+20+20 + 8;
-                                    int l2_y1 = j*70+20 + 16;
-                                    int l2_x2 = i*70+20+20 + 16;
-                                    int l2_y2 = j*70+20;
-                                    PAINTSTRUCT pntS;
-                                    HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-                                    oldPen = (HPEN)SelectObject(hdc, pen);				
-                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
-                                    LineTo(hdc, l1_x2, l1_y2);
-                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
-                                    LineTo(hdc, l2_x2, l2_y2);
-                                    SelectObject(hdc, oldPen); 
-                                    DeleteObject(pen);
-                                }
-                            }
-                            if(turn == 'r' && blackBishop2.posX == i*70+20 &&
-                               blackBishop2.posY == j*70+20) {
-                                FillRect(hdc, &r, rBrush);
-                            }
-                            if(turn == 'h' && blackRook1.posX == i*70+20 &&
-                               blackRook1.posY == j*70+20) {
-                                if(TRUE==done) {
-                                    int l1_x1 = i*70+20+20;
-                                    int l1_y1 = j*70+20 + 8;
-                                    int l1_x2 = i*70+20+20 + 8;
-                                    int l1_y2 = j*70+20 + 16;
-                                    int l2_x1 = i*70+20+20 + 8;
-                                    int l2_y1 = j*70+20 + 16;
-                                    int l2_x2 = i*70+20+20 + 16;
-                                    int l2_y2 = j*70+20;
-                                    PAINTSTRUCT pntS;
-                                    HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-                                    oldPen = (HPEN)SelectObject(hdc, pen);				
-                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
-                                    LineTo(hdc, l1_x2, l1_y2);
-                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
-                                    LineTo(hdc, l2_x2, l2_y2);
-                                    SelectObject(hdc, oldPen); 
-                                    DeleteObject(pen);
-                                }
-                            }
-                            if(turn == 'r' && blackRook1.posX == i*70+20 &&
-                               blackRook1.posY == j*70+20) {
-                                FillRect(hdc, &r, rBrush);
-                            }
-                            if(turn == 'r' && blackRook2.posX == i*70+20 &&
-                               blackRook2.posY == j*70+20) {
-                                FillRect(hdc, &r, rBrush);
-                                if(TRUE==done) {
-                                    int l1_x1 = i*70+20+20;
-                                    int l1_y1 = j*70+20 + 8;
-                                    int l1_x2 = i*70+20+20 + 8;
-                                    int l1_y2 = j*70+20 + 16;
-                                    int l2_x1 = i*70+20+20 + 8;
-                                    int l2_y1 = j*70+20 + 16;
-                                    int l2_x2 = i*70+20+20 + 16;
-                                    int l2_y2 = j*70+20;
-                                    PAINTSTRUCT pntS;
-                                    HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-                                    oldPen = (HPEN)SelectObject(hdc, pen);				
-                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
-                                    LineTo(hdc, l1_x2, l1_y2);
-                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
-                                    LineTo(hdc, l2_x2, l2_y2);
-                                    SelectObject(hdc, oldPen); 
-                                    DeleteObject(pen);
-                                }
-                            }
-                            if(turn == 'h' && blackRook2.posX == i*70+20 &&
-                               blackRook2.posY == j*70+20) {
-                                if(TRUE==done) {
-                                    int l1_x1 = i*70+20+20;
-                                    int l1_y1 = j*70+20 + 8;
-                                    int l1_x2 = i*70+20+20 + 8;
-                                    int l1_y2 = j*70+20 + 16;
-                                    int l2_x1 = i*70+20+20 + 8;
-                                    int l2_y1 = j*70+20 + 16;
-                                    int l2_x2 = i*70+20+20 + 16;
-                                    int l2_y2 = j*70+20;
-                                    PAINTSTRUCT pntS;
-                                    HPEN pen, oldPen;
-                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-                                    oldPen = (HPEN)SelectObject(hdc, pen);				
-                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
-                                    LineTo(hdc, l1_x2, l1_y2);
-                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
-                                    LineTo(hdc, l2_x2, l2_y2);
-                                    SelectObject(hdc, oldPen); 
-                                    DeleteObject(pen);
-                                }
-                            }
-                            if(turn == 'r' && blackRook2.posX == i*70+20 &&
-                               blackRook2.posY == j*70+20) {
-                                FillRect(hdc, &r, rBrush);
-                            }
-                            DeleteObject(rBrush);
+//                            HBRUSH rBrush;
+//                            rBrush = CreateSolidBrush(RGB(0, 255, 0));
+//                            RECT r = {i*70+20+20, j*70+20+20-8, i*70+20+20 + 12, j*70+20+20-8 + 12};
+//                            for(int t=0; t<8; t++) {
+//                                if(turn == 'h' && blackPawns[t].posX == i*70+20 &&
+//                                   blackPawns[t].posY == j*70+20) {
+//                                    if(TRUE==done) {
+//                                        int l1_x1 = i*70+20+20;
+//                                        int l1_y1 = j*70+20 + 8;
+//                                        int l1_x2 = i*70+20+20 + 8;
+//                                        int l1_y2 = j*70+20 + 16;
+//                                        int l2_x1 = i*70+20+20 + 8;
+//                                        int l2_y1 = j*70+20 + 16;
+//                                        int l2_x2 = i*70+20+20 + 16;
+//                                        int l2_y2 = j*70+20;
+//                                        PAINTSTRUCT pntS;
+//                                        HPEN pen, oldPen;
+//                                        pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+//                                        oldPen = (HPEN)SelectObject(hdc, pen);				
+//                                        MoveToEx(hdc, l1_x1, l1_y1, NULL);
+//                                        LineTo(hdc, l1_x2, l1_y2);
+//                                        MoveToEx(hdc, l2_x1, l2_y1, NULL);
+//                                        LineTo(hdc, l2_x2, l2_y2);
+//                                        SelectObject(hdc, oldPen); 
+//                                        DeleteObject(pen);
+//                                    }
+//                                }
+//                            }
+//                            for(int t=0; t<8; t++) {
+//                                if(turn == 'r' && blackPawns[t].posX == i*70+20 &&
+//                                   blackPawns[t].posY == j*70+20) {
+//                                    FillRect(hdc, &r, rBrush);
+//                                }
+//                            }
+//                            if(turn == 'h' && blackKing.posX == i*70+20 &&
+//                               blackKing.posY == j*70+20) {
+//                                if(TRUE==done) {
+//                                    int l1_x1 = i*70+20+20;
+//                                    int l1_y1 = j*70+20 + 8;
+//                                    int l1_x2 = i*70+20+20 + 8;
+//                                    int l1_y2 = j*70+20 + 16;
+//                                    int l2_x1 = i*70+20+20 + 8;
+//                                    int l2_y1 = j*70+20 + 16;
+//                                    int l2_x2 = i*70+20+20 + 16;
+//                                    int l2_y2 = j*70+20;
+//                                    PAINTSTRUCT pntS;
+//                                    HPEN pen, oldPen;
+//                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+//                                    oldPen = (HPEN)SelectObject(hdc, pen);				
+//                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
+//                                    LineTo(hdc, l1_x2, l1_y2);
+//                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
+//                                    LineTo(hdc, l2_x2, l2_y2);
+//                                    SelectObject(hdc, oldPen); 
+//                                    DeleteObject(pen);
+//                                }
+//                            }
+//                            if(turn == 'r' && blackKing.posX == i*70+20 &&
+//                               blackKing.posY == j*70+20) {
+//                                FillRect(hdc, &r, rBrush);
+//                            }
+//                            if(turn == 'h' && blackQueen.posX == i*70+20 &&
+//                               blackQueen.posY == j*70+20) {
+//                                if(TRUE==done) {
+//                                    int l1_x1 = i*70+20+20;
+//                                    int l1_y1 = j*70+20 + 8;
+//                                    int l1_x2 = i*70+20+20 + 8;
+//                                    int l1_y2 = j*70+20 + 16;
+//                                    int l2_x1 = i*70+20+20 + 8;
+//                                    int l2_y1 = j*70+20 + 16;
+//                                    int l2_x2 = i*70+20+20 + 16;
+//                                    int l2_y2 = j*70+20;
+//                                    PAINTSTRUCT pntS;
+//                                    HPEN pen, oldPen;
+//                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+//                                    oldPen = (HPEN)SelectObject(hdc, pen);				
+//                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
+//                                    LineTo(hdc, l1_x2, l1_y2);
+//                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
+//                                    LineTo(hdc, l2_x2, l2_y2);
+//                                    SelectObject(hdc, oldPen); 
+//                                    DeleteObject(pen);
+//                                }
+//                            }
+//                            if(turn == 'r' && blackQueen.posX == i*70+20 &&
+//                               blackQueen.posY == j*70+20) {
+//                                FillRect(hdc, &r, rBrush);
+//                            }
+//                            for(int z=0; z<8; z++) {
+//                                if(turn == 'h' && blackQueenK[z].posX == i*70+20 &&
+//                                   blackQueenK[z].posY == j*70+20) {
+//                                    if(TRUE==done) {
+//                                        int l1_x1 = i*70+20+20;
+//                                        int l1_y1 = j*70+20 + 8;
+//                                        int l1_x2 = i*70+20+20 + 8;
+//                                        int l1_y2 = j*70+20 + 16;
+//                                        int l2_x1 = i*70+20+20 + 8;
+//                                        int l2_y1 = j*70+20 + 16;
+//                                        int l2_x2 = i*70+20+20 + 16;
+//                                        int l2_y2 = j*70+20;
+//                                        PAINTSTRUCT pntS;
+//                                        HPEN pen, oldPen;
+//                                        pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+//                                        oldPen = (HPEN)SelectObject(hdc, pen);				
+//                                        MoveToEx(hdc, l1_x1, l1_y1, NULL);
+//                                        LineTo(hdc, l1_x2, l1_y2);
+//                                        MoveToEx(hdc, l2_x1, l2_y1, NULL);
+//                                        LineTo(hdc, l2_x2, l2_y2);
+//                                        SelectObject(hdc, oldPen); 
+//                                        DeleteObject(pen);
+//                                    }
+//                                }
+//                                if(turn == 'r' && blackQueenK[z].posX == i*70+20 &&
+//                                   blackQueenK[z].posY == j*70+20) {
+//                                    FillRect(hdc, &r, rBrush);
+//                                }
+//                            }
+//                            if(turn == 'h' && blackKnight1.posX == i*70+20 &&
+//                               blackKnight1.posY == j*70+20) {
+//                                if(TRUE==done) {
+//                                    int l1_x1 = i*70+20+20;
+//                                    int l1_y1 = j*70+20 + 8;
+//                                    int l1_x2 = i*70+20+20 + 8;
+//                                    int l1_y2 = j*70+20 + 16;
+//                                    int l2_x1 = i*70+20+20 + 8;
+//                                    int l2_y1 = j*70+20 + 16;
+//                                    int l2_x2 = i*70+20+20 + 16;
+//                                    int l2_y2 = j*70+20;
+//                                    PAINTSTRUCT pntS;
+//                                    HPEN pen, oldPen;
+//                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+//                                    oldPen = (HPEN)SelectObject(hdc, pen);				
+//                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
+//                                    LineTo(hdc, l1_x2, l1_y2);
+//                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
+//                                    LineTo(hdc, l2_x2, l2_y2);
+//                                    SelectObject(hdc, oldPen); 
+//                                    DeleteObject(pen);
+//                                }
+//                            }
+//                            if(turn == 'r' && blackKnight1.posX == i*70+20 &&
+//                               blackKnight1.posY == j*70+20) {
+//                                FillRect(hdc, &r, rBrush);
+//                            }
+//                            if(turn == 'h' && blackKnight2.posX == i*70+20 &&
+//                               blackKnight2.posY == j*70+20) {
+//                                if(TRUE==done) {
+//                                    int l1_x1 = i*70+20+20;
+//                                    int l1_y1 = j*70+20 + 8;
+//                                    int l1_x2 = i*70+20+20 + 8;
+//                                    int l1_y2 = j*70+20 + 16;
+//                                    int l2_x1 = i*70+20+20 + 8;
+//                                    int l2_y1 = j*70+20 + 16;
+//                                    int l2_x2 = i*70+20+20 + 16;
+//                                    int l2_y2 = j*70+20;
+//                                    PAINTSTRUCT pntS;
+//                                    HPEN pen, oldPen;
+//                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+//                                    oldPen = (HPEN)SelectObject(hdc, pen);				
+//                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
+//                                    LineTo(hdc, l1_x2, l1_y2);
+//                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
+//                                    LineTo(hdc, l2_x2, l2_y2);
+//                                    SelectObject(hdc, oldPen); 
+//                                    DeleteObject(pen);
+//                                }
+//                            }
+//                            if(turn == 'r' && blackKnight2.posX == i*70+20 &&
+//                               blackKnight2.posY == j*70+20) {
+//                                FillRect(hdc, &r, rBrush);
+//                            }
+//                            if(turn == 'h' && blackBishop1.posX == i*70+20 &&
+//                               blackBishop1.posY == j*70+20) {
+//                                if(TRUE==done) {
+//                                    int l1_x1 = i*70+20+20;
+//                                    int l1_y1 = j*70+20 + 8;
+//                                    int l1_x2 = i*70+20+20 + 8;
+//                                    int l1_y2 = j*70+20 + 16;
+//                                    int l2_x1 = i*70+20+20 + 8;
+//                                    int l2_y1 = j*70+20 + 16;
+//                                    int l2_x2 = i*70+20+20 + 16;
+//                                    int l2_y2 = j*70+20;
+//                                    PAINTSTRUCT pntS;
+//                                    HPEN pen, oldPen;
+//                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+//                                    oldPen = (HPEN)SelectObject(hdc, pen);				
+//                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
+//                                    LineTo(hdc, l1_x2, l1_y2);
+//                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
+//                                    LineTo(hdc, l2_x2, l2_y2);
+//                                    SelectObject(hdc, oldPen); 
+//                                    DeleteObject(pen);
+//                                }
+//                            }
+//                            if(turn == 'r' && blackBishop1.posX == i*70+20 &&
+//                               blackBishop1.posY == j*70+20) {
+//                                FillRect(hdc, &r, rBrush);
+//                            }
+//                            if(turn == 'r' && blackBishop2.posX == i*70+20 &&
+//                               blackBishop2.posY == j*70+20) {
+//                                FillRect(hdc, &r, rBrush);
+//                                if(TRUE==done) {
+//                                    int l1_x1 = i*70+20+20;
+//                                    int l1_y1 = j*70+20 + 8;
+//                                    int l1_x2 = i*70+20+20 + 8;
+//                                    int l1_y2 = j*70+20 + 16;
+//                                    int l2_x1 = i*70+20+20 + 8;
+//                                    int l2_y1 = j*70+20 + 16;
+//                                    int l2_x2 = i*70+20+20 + 16;
+//                                    int l2_y2 = j*70+20;
+//                                    PAINTSTRUCT pntS;
+//                                    HPEN pen, oldPen;
+//                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+//                                    oldPen = (HPEN)SelectObject(hdc, pen);				
+//                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
+//                                    LineTo(hdc, l1_x2, l1_y2);
+//                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
+//                                    LineTo(hdc, l2_x2, l2_y2);
+//                                    SelectObject(hdc, oldPen); 
+//                                    DeleteObject(pen);
+//                                }
+//                            }
+//                            if(turn == 'h' && blackBishop2.posX == i*70+20 &&
+//                               blackBishop2.posY == j*70+20) {
+//                                if(TRUE==done) {
+//                                    int l1_x1 = i*70+20+20;
+//                                    int l1_y1 = j*70+20 + 8;
+//                                    int l1_x2 = i*70+20+20 + 8;
+//                                    int l1_y2 = j*70+20 + 16;
+//                                    int l2_x1 = i*70+20+20 + 8;
+//                                    int l2_y1 = j*70+20 + 16;
+//                                    int l2_x2 = i*70+20+20 + 16;
+//                                    int l2_y2 = j*70+20;
+//                                    PAINTSTRUCT pntS;
+//                                    HPEN pen, oldPen;
+//                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+//                                    oldPen = (HPEN)SelectObject(hdc, pen);				
+//                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
+//                                    LineTo(hdc, l1_x2, l1_y2);
+//                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
+//                                    LineTo(hdc, l2_x2, l2_y2);
+//                                    SelectObject(hdc, oldPen); 
+//                                    DeleteObject(pen);
+//                                }
+//                            }
+//                            if(turn == 'r' && blackBishop2.posX == i*70+20 &&
+//                               blackBishop2.posY == j*70+20) {
+//                                FillRect(hdc, &r, rBrush);
+//                            }
+//                            if(turn == 'h' && blackRook1.posX == i*70+20 &&
+//                               blackRook1.posY == j*70+20) {
+//                                if(TRUE==done) {
+//                                    int l1_x1 = i*70+20+20;
+//                                    int l1_y1 = j*70+20 + 8;
+//                                    int l1_x2 = i*70+20+20 + 8;
+//                                    int l1_y2 = j*70+20 + 16;
+//                                    int l2_x1 = i*70+20+20 + 8;
+//                                    int l2_y1 = j*70+20 + 16;
+//                                    int l2_x2 = i*70+20+20 + 16;
+//                                    int l2_y2 = j*70+20;
+//                                    PAINTSTRUCT pntS;
+//                                    HPEN pen, oldPen;
+//                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+//                                    oldPen = (HPEN)SelectObject(hdc, pen);				
+//                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
+//                                    LineTo(hdc, l1_x2, l1_y2);
+//                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
+//                                    LineTo(hdc, l2_x2, l2_y2);
+//                                    SelectObject(hdc, oldPen); 
+//                                    DeleteObject(pen);
+//                                }
+//                            }
+//                            if(turn == 'r' && blackRook1.posX == i*70+20 &&
+//                               blackRook1.posY == j*70+20) {
+//                                FillRect(hdc, &r, rBrush);
+//                            }
+//                            if(turn == 'r' && blackRook2.posX == i*70+20 &&
+//                               blackRook2.posY == j*70+20) {
+//                                FillRect(hdc, &r, rBrush);
+//                                if(TRUE==done) {
+//                                    int l1_x1 = i*70+20+20;
+//                                    int l1_y1 = j*70+20 + 8;
+//                                    int l1_x2 = i*70+20+20 + 8;
+//                                    int l1_y2 = j*70+20 + 16;
+//                                    int l2_x1 = i*70+20+20 + 8;
+//                                    int l2_y1 = j*70+20 + 16;
+//                                    int l2_x2 = i*70+20+20 + 16;
+//                                    int l2_y2 = j*70+20;
+//                                    PAINTSTRUCT pntS;
+//                                    HPEN pen, oldPen;
+//                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+//                                    oldPen = (HPEN)SelectObject(hdc, pen);				
+//                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
+//                                    LineTo(hdc, l1_x2, l1_y2);
+//                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
+//                                    LineTo(hdc, l2_x2, l2_y2);
+//                                    SelectObject(hdc, oldPen); 
+//                                    DeleteObject(pen);
+//                                }
+//                            }
+//                            if(turn == 'h' && blackRook2.posX == i*70+20 &&
+//                               blackRook2.posY == j*70+20) {
+//                                if(TRUE==done) {
+//                                    int l1_x1 = i*70+20+20;
+//                                    int l1_y1 = j*70+20 + 8;
+//                                    int l1_x2 = i*70+20+20 + 8;
+//                                    int l1_y2 = j*70+20 + 16;
+//                                    int l2_x1 = i*70+20+20 + 8;
+//                                    int l2_y1 = j*70+20 + 16;
+//                                    int l2_x2 = i*70+20+20 + 16;
+//                                    int l2_y2 = j*70+20;
+//                                    PAINTSTRUCT pntS;
+//                                    HPEN pen, oldPen;
+//                                    pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+//                                    oldPen = (HPEN)SelectObject(hdc, pen);				
+//                                    MoveToEx(hdc, l1_x1, l1_y1, NULL);
+//                                    LineTo(hdc, l1_x2, l1_y2);
+//                                    MoveToEx(hdc, l2_x1, l2_y1, NULL);
+//                                    LineTo(hdc, l2_x2, l2_y2);
+//                                    SelectObject(hdc, oldPen); 
+//                                    DeleteObject(pen);
+//                                }
+//                            }
+//                            if(turn == 'r' && blackRook2.posX == i*70+20 &&
+//                               blackRook2.posY == j*70+20) {
+//                                FillRect(hdc, &r, rBrush);
+//                            }
+//                            DeleteObject(rBrush);
 
                             if(done) {
                                 PostMessage(hwnd, WM_NOTIFY, 0, 0);
@@ -16785,14 +16763,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             hSubMenu = CreatePopupMenu();
             AppendMenu(hSubMenu, MF_STRING, ID_PC_GAME, "> 1 PLAYER (HUMAN VERSUS P.C.)");
             AppendMenu(hSubMenu, MF_STRING, ID_HUMAN_GAME, "2 players (human versus human)");
-            AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "Player Options");
+            AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "Player");
 
             hSubMenu = CreatePopupMenu();
-            AppendMenu(hSubMenu, MF_STRING, ID_EASY, "> EASY");
-            AppendMenu(hSubMenu, MF_STRING, ID_MEDIUM, "medium");
-            AppendMenu(hSubMenu, MF_STRING, ID_HARD, "hard");
-            AppendMenu(hSubMenu, MF_STRING, ID_IMPOSSIBLE, "impossible");
-            AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "1 Player Difficulty Options");
+            AppendMenu(hSubMenu, MF_STRING, ID_EASY, "> EASY (1 PLAYER)");
+            AppendMenu(hSubMenu, MF_STRING, ID_MEDIUM, "medium (1 player)");
+            AppendMenu(hSubMenu, MF_STRING, ID_HARD, "hard (1 player)");
+            AppendMenu(hSubMenu, MF_STRING, ID_IMPOSSIBLE, "impossible (1 player)");
+            AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "Difficulty");
 
             hSubMenu = CreatePopupMenu();
             AppendMenu(hSubMenu, MF_STRING, ID_TIMER_0MIN, "> NO TIME (2 PLAYERS)");
@@ -16814,7 +16792,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             AppendMenu(hSubMenu, MF_STRING, ID_TIMER_80MIN, "80 mins (2 players)");
             AppendMenu(hSubMenu, MF_STRING, ID_TIMER_85MIN, "85 mins (2 players)");
             AppendMenu(hSubMenu, MF_STRING, ID_TIMER_90MIN, "90 mins (2 players)");
-            AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "Timer Settings");
+            AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "Timer");
 
             hSubMenu = CreatePopupMenu();
             AppendMenu(hSubMenu, MF_STRING, ID_ABOUT, "about");
@@ -17158,7 +17136,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     }
                     break;
                 case ID_CLICK_ME_QUIT:
-                    if(MessageBox(hwnd,"Would you like to quit?", "Exit Game", MB_YESNO) == IDYES) {
+                    if(MessageBox(hwnd,"Would you like to quit?", "Quit", MB_YESNO) == IDYES) {
                         PostMessage(hwnd, WM_CLOSE, 0, 0);
                     }
                 break;
