@@ -21,6 +21,37 @@
 #include <math.h>
 #include "mychess.h"
 
+boolean iswhite;
+char *user_name = NULL;
+char *pass_word = NULL;
+char *opponent = "YOYUO";
+volatile char *opponent1[2];
+int opponentid = -1;
+char strText[255] = {0};
+
+int ftimewmove = 1;
+
+int newoneone = 0;
+
+boolean gr = FALSE;
+
+int gameid = -1;
+
+int taccept = -2;
+
+char game_request_str[192];
+
+HWND hwnd_game_request_label;
+
+#define IDC_ACCEPT_BTN 1049
+#define IDC_DENY_BTN 1050
+
+#define IDC_SAVE_BTN 5049
+#define IDC_COMBOBOX_TEXT 2021
+
+#define username 5050
+#define password 5051
+
 int nCmdShow2 = 123;
 HDC hdc2;
 int wLMSize;
@@ -58,6 +89,52 @@ int iresult = -10;
 
 char *from;
 char *to;
+
+int theaccept = -2;
+
+char *the_game_id = NULL;
+
+char *gt14 = "GET /waititsblack.jsp?";
+char *hstt14 = " HTTP/1.0\r\nHost: herculesa.herokuapp.com\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n";
+
+char *gt13 = "GET /waititsblack.jsp?";
+char *hstt13 = " HTTP/1.0\r\nHost: herculesa.herokuapp.com\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n";
+
+char *gt12 = "GET /putblack.jsp?";
+char *hstt12 = " HTTP/1.0\r\nHost: herculesa.herokuapp.com\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n";
+
+char *gt11 = "GET /waititswhite.jsp?";
+char *hstt11 = " HTTP/1.0\r\nHost: herculesa.herokuapp.com\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n";
+
+char *gt10 = "GET /putwhite.jsp?";
+char *hstt10 = " HTTP/1.0\r\nHost: herculesa.herokuapp.com\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n";
+
+char *gt9 = "GET /telldenycont.jsp?";
+char *hstt9 = " HTTP/1.0\r\nHost: herculesa.herokuapp.com\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n";
+
+char *gt8 = "GET /tellacceptcont.jsp?";
+char *hstt8 = " HTTP/1.0\r\nHost: herculesa.herokuapp.com\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n";
+
+char *gt7 = "GET /telldeny.jsp?";
+char *hstt7 = " HTTP/1.0\r\nHost: herculesa.herokuapp.com\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n";
+
+char *gt6 = "GET /tellaccept.jsp?";
+char *hstt6 = " HTTP/1.0\r\nHost: herculesa.herokuapp.com\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n";
+
+char *gt5 = "GET /waitforgamerequest.jsp?";
+char *hstt5 = " HTTP/1.0\r\nHost: herculesa.herokuapp.com\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n";
+
+char *gt4 = "GET /gamerequest.jsp?";
+char *hstt4 = " HTTP/1.0\r\nHost: herculesa.herokuapp.com\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n";
+
+char *gt3 = "GET /initgameplay.jsp?";
+char *hstt3 = " HTTP/1.0\r\nHost: herculesa.herokuapp.com\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n";
+
+char *gt2 = "GET /signedin.jsp?";
+char *hstt2 = " HTTP/1.0\r\nHost: herculesa.herokuapp.com\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n";
+
+int wLMSizeSignedIn;
+char *wLMSignedIn[1000];
 
 char *gt = "GET /game?fen=";
 char *initfn = "rnbqkbnr%2Fpppppppp%2F8%2F8%2F8%2F8%2FPPPPPPPP%2FRNBQKBNR+w+KQkq+-+0+1";
@@ -118,13 +195,27 @@ BOOL			InitInstance(HINSTANCE, int, char *pszWindowClassName) ;
 LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM) ;
 HBITMAP                 ReplaceColor(HBITMAP hBmp, COLORREF cOldColor,COLORREF cNewColor,HDC hBmpDC);
 
-static HWND hwnd_timer, hwnd_white, hwnd_black, hwnd_newgamebtn, hwnd_downloadbtn, hwnd_quitbtn;
+static HWND hwnd_timer, hwnd_white, hwnd_black, hwnd_newgamebtn, hwnd_downloadbtn, hwnd_quitbtn, hwnd_acceptbtn, hwnd_denybtn;
 
 int x, w, y, h;
 
 HANDLE thread_1;
 
+HANDLE thread_2;
+
+HANDLE thread_3;
+
+HANDLE threadBlack;
+
+HANDLE thread_wb;
+
+HANDLE thread_ww;
+
 HANDLE thread;
+
+HANDLE threadGameRequest;
+
+HANDLE threadWaitForGameRequest;
 
 HANDLE sideLogoThread;
 
@@ -252,6 +343,3895 @@ char *seventyFiveMin = "75 mins (2 players)";
 char *eightyMin = "80 mins (2 players)";
 char *eightyFiveMin = "85 mins (2 players)";
 char *ninetyMin = "90 mins (2 players)";
+
+DWORD WINAPI GameRequest(void *data) {
+
+    WORD wVersionRequested;
+    WSADATA wsaData;
+    int err;
+
+    wVersionRequested = MAKEWORD( 2, 2 );
+
+    err = WSAStartup( wVersionRequested, &wsaData );
+    if(err != 0) {
+        printf("no winsock.");
+        return;
+    }
+
+    taccept = -2;
+    
+    do {
+        
+        int portno = 80;
+        char *host = "herculesa.herokuapp.com";
+
+        struct hostent *server;
+        struct sockaddr_in serv_addr;
+        int sockfd, bytes, sent, received, total;
+        char message[1024],response[8192];
+
+        sockfd = socket(AF_INET, SOCK_STREAM, 0);
+        if(sockfd < 0) {
+            printf("ERROR opening socket");
+        }
+
+        server = gethostbyname(host);
+        if(server == NULL) {
+            printf("ERROR, no such host");
+        }
+
+        memset(&serv_addr,0,sizeof(serv_addr));
+        serv_addr.sin_family = AF_INET;
+        serv_addr.sin_port = htons(portno);
+        memcpy(&serv_addr.sin_addr.s_addr,server->h_addr,server->h_length);
+
+        if (connect(sockfd,(struct sockaddr *)&serv_addr,sizeof(serv_addr)) < 0) {
+            printf("ERROR connecting");
+        }
+
+        char *str_2 = (char*) malloc(1 + strlen(gt4)+ strlen("username=")+ strlen(user_name)+ strlen("&password=")+ strlen(pass_word)+ strlen(hstt4));
+        strcpy(str_2, gt4);
+        strcat(str_2, "username=");
+        strcat(str_2, user_name);
+        strcat(str_2, "&password=");
+        strcat(str_2, pass_word);
+        strcat(str_2, hstt4);
+        char *str = (char *) malloc(1 + strlen(str_2));
+        strcpy(str, str_2);
+
+        Sleep(2000);
+        
+        int length = strlen(str);
+        int x = send(sockfd, str, length, 0);
+        if(x == SOCKET_ERROR) {
+            printf("socket error");
+        }
+
+        do {
+            iResult = recv(sockfd, response, 8192, 0);
+        } while(iResult > 0);
+
+        printf(response);
+
+        char* pPosition = strchr(response, '{');
+
+        if(pPosition != NULL) {
+            char *token = strtok(response, "{");
+            if(token != NULL) {
+                printf("%s\n", token);
+                token = strtok(NULL, "{");
+                if(token != NULL) {
+                    int rresult = strcmp("notGameRequest", token);
+                    if(rresult != 0 && strcmp("abc!@", token) != 0) {
+                        opponentid = atoi(token);
+                        token = strtok(NULL, "{");
+                        gameid = atoi(token);
+                        //taccept = -1;
+                        token = strtok(NULL, "{");
+                        opponent = token;
+                        gr = TRUE;
+                        sprintf(game_request_str, "Request by player %s received.  Accept/deny?", token);
+                        SetWindowText(hwnd_game_request_label, game_request_str);
+                    }
+                }
+            }
+        } else {
+//            MessageBox(hwnd2players,"Username not found, incorrect password, username not signed in, or noone is signed in.","Error",MB_OK);
+        }
+
+        /* close the socket */
+        close(sockfd);
+
+    } while(taccept == -2);
+
+    WSACleanup();
+
+    return 0;
+}
+
+DWORD WINAPI putBlack(void *data) {
+
+    WORD wVersionRequested;
+    WSADATA wsaData;
+    int err;
+
+    wVersionRequested = MAKEWORD( 2, 2 );
+
+    err = WSAStartup( wVersionRequested, &wsaData );
+    if(err != 0) {
+        printf("no winsock.");
+        return;
+    }
+
+    int portno = 80;
+    char *host = "herculesa.herokuapp.com";
+
+    struct hostent *server;
+    struct sockaddr_in serv_addr;
+    int sockfd, bytes, sent, received, total;
+    char message[1024],response[8192];
+    
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if(sockfd < 0) {
+        printf("ERROR opening socket");
+    }
+
+    server = gethostbyname(host);
+    if(server == NULL) {
+        printf("ERROR, no such host");
+    }
+
+    memset(&serv_addr,0,sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_port = htons(portno);
+    memcpy(&serv_addr.sin_addr.s_addr,server->h_addr,server->h_length);
+
+    if (connect(sockfd,(struct sockaddr *)&serv_addr,sizeof(serv_addr)) < 0) {
+        printf("ERROR connecting");
+    }
+    
+    char *aabb = (char *) malloc(100);
+    sprintf(aabb,"%d",opponentid);
+
+    char *gid = (char *) malloc(100);
+    sprintf(gid,"%d",gameid);
+
+    char *str_2 = (char*) malloc(1 + strlen("&fen=") + strlen("&gameid=") + 12 + strlen(gt12)+ strlen("username=")+ strlen(user_name)+ strlen("&password=")+ strlen(pass_word)+strlen("&opponent=")+12+strlen("&from=")+strlen(from)+strlen("&to=")+strlen(to)+ strlen(hstt12));
+    strcpy(str_2, gt12);
+    strcat(str_2, "username=");
+    strcat(str_2, user_name);
+    strcat(str_2, "&password=");
+    strcat(str_2, pass_word);
+    strcat(str_2, "&opponent=");
+    strcat(str_2, aabb);
+    strcat(str_2, "&from=");
+    strcat(str_2, from);
+    strcat(str_2, "&to=");
+    strcat(str_2, to);
+    strcat(str_2, "&gameid=");
+    strcat(str_2, gid);
+    strcat(str_2, "&fen=");
+    strcat(str_2, hstt12);
+    char *str = (char *) malloc(1 + strlen(str_2));
+    strcpy(str, str_2);
+    
+    int length = strlen(str);
+    int x = send(sockfd, str, length, 0);
+    if(x == SOCKET_ERROR) {
+        printf("socket error");
+    }
+
+    do {
+        iResult = recv(sockfd, response, 8192, 0);
+    } while(iResult > 0);
+
+    printf(response);
+
+    /* close the socket */
+    close(sockfd);
+    
+    WSACleanup();
+    
+    return 0;
+}
+
+DWORD WINAPI putWhite(void *data) {
+
+    WORD wVersionRequested;
+    WSADATA wsaData;
+    int err;
+
+    wVersionRequested = MAKEWORD( 2, 2 );
+
+    err = WSAStartup( wVersionRequested, &wsaData );
+    if(err != 0) {
+        printf("no winsock.");
+        return;
+    }
+
+    int portno = 80;
+    char *host = "herculesa.herokuapp.com";
+
+    struct hostent *server;
+    struct sockaddr_in serv_addr;
+    int sockfd, bytes, sent, received, total;
+    char message[1024],response[8192];
+    
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if(sockfd < 0) {
+        printf("ERROR opening socket");
+    }
+
+    server = gethostbyname(host);
+    if(server == NULL) {
+        printf("ERROR, no such host");
+    }
+
+    memset(&serv_addr,0,sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_port = htons(portno);
+    memcpy(&serv_addr.sin_addr.s_addr,server->h_addr,server->h_length);
+
+    if (connect(sockfd,(struct sockaddr *)&serv_addr,sizeof(serv_addr)) < 0) {
+        printf("ERROR connecting");
+    }
+    
+    char *aabb = (char *) malloc(100);
+    sprintf(aabb,"%d",opponentid);
+
+    char *gid = (char *) malloc(100);
+    sprintf(gid,"%d",gameid);
+    
+    char *str_2 = (char*) malloc(1 + strlen("&fen=") + strlen("&gameid=") + 12 + strlen(gt10)+ strlen("username=")+ strlen(user_name)+ strlen("&password=")+ strlen(pass_word)+strlen("&opponent=")+12+strlen("&from=")+strlen(from)+strlen("&to=")+strlen(to)+ strlen(hstt10));
+    strcpy(str_2, gt10);
+    strcat(str_2, "username=");
+    strcat(str_2, user_name);
+    strcat(str_2, "&password=");
+    strcat(str_2, pass_word);
+    strcat(str_2, "&opponent=");
+    strcat(str_2, aabb);
+    strcat(str_2, "&from=");
+    strcat(str_2, from);
+    strcat(str_2, "&to=");
+    strcat(str_2, to);
+    strcat(str_2, "&gameid=");
+    strcat(str_2, gid);
+    strcat(str_2, "&fen=");
+    strcat(str_2, hstt10);
+    char *str = (char *) malloc(1 + strlen(str_2));
+    strcpy(str, str_2);
+
+    int length = strlen(str);
+    int x = send(sockfd, str, length, 0);
+    if(x == SOCKET_ERROR) {
+        printf("socket error");
+    }
+
+    do {
+        iResult = recv(sockfd, response, 8192, 0);
+    } while(iResult > 0);
+
+    printf(response);
+
+    /* close the socket */
+    close(sockfd);
+    
+    WSACleanup();
+    
+    return 0;
+}
+
+DWORD WINAPI waitItsWhite(void *data) {
+
+    WORD wVersionRequested;
+    WSADATA wsaData;
+    int err;
+
+    wVersionRequested = MAKEWORD( 2, 2 );
+
+    err = WSAStartup( wVersionRequested, &wsaData );
+    if(err != 0) {
+        printf("no winsock.");
+        return;
+    }
+
+    do {
+
+        Sleep(15000);
+
+        int portno = 80;
+        char *host = "herculesa.herokuapp.com";
+
+        struct hostent *server;
+        struct sockaddr_in serv_addr;
+        int sockfd, bytes, sent, received, total;
+        char message[1024],response[8192];
+
+        sockfd = socket(AF_INET, SOCK_STREAM, 0);
+        if(sockfd < 0) {
+            printf("ERROR opening socket");
+        }
+
+        server = gethostbyname(host);
+        if(server == NULL) {
+            printf("ERROR, no such host");
+        }
+
+        memset(&serv_addr,0,sizeof(serv_addr));
+        serv_addr.sin_family = AF_INET;
+        serv_addr.sin_port = htons(portno);
+        memcpy(&serv_addr.sin_addr.s_addr,server->h_addr,server->h_length);
+
+        if (connect(sockfd,(struct sockaddr *)&serv_addr,sizeof(serv_addr)) < 0) {
+            printf("ERROR connecting");
+        }
+
+        char *gid = (char *) malloc(100);
+        sprintf(gid,"%d",gameid);
+
+        char *_str_2 = (char*) malloc(1 + strlen("&gameid=") + 12 + strlen(gt11)+ strlen("username=")+ strlen(user_name)+ strlen("&password=")+ strlen(pass_word)+strlen("&opponent=")+strlen(opponent)+ strlen(hstt11));
+        strcpy(_str_2, gt11);
+        strcat(_str_2, "username=");
+        strcat(_str_2, user_name);
+        strcat(_str_2, "&password=");
+        strcat(_str_2, pass_word);
+        strcat(_str_2, "&opponent=");
+        strcat(_str_2, opponent);
+        strcat(_str_2, "&gameid=");
+        strcat(_str_2, gid);
+        strcat(_str_2, hstt11);
+        char *_str = (char *) malloc(1 + strlen(_str_2));
+        strcpy(_str, _str_2);
+
+        int length = strlen(_str);
+        int x = send(sockfd, _str, length, 0);
+        if(x == SOCKET_ERROR) {
+            printf("socket error");
+        }
+
+        do {
+            iResult = recv(sockfd, response, 8192, 0);
+        } while(iResult > 0);
+
+        printf(response);
+        
+        //MessageBox(hwnd,response,"repo",MB_OK);
+        
+        char* pPosition = strchr(response, '{');
+
+        if(pPosition != NULL) {
+            char *token = strtok(response, "{");
+            if(token != NULL) {
+                printf("%s\n", token);
+                token = strtok(NULL, "{");
+                if(token == NULL)
+                    break;
+                int rresult = strcmp("notGameRequest", token);
+                if(rresult != 0) {
+                    from = token;
+                    token = strtok(NULL, "{");
+                    to = token;
+
+                    char *bestMove = (char *) malloc(40);
+                    strcpy(bestMove,from);
+                    strcat(bestMove,to);
+                    
+                    boolean refreshme = FALSE;
+
+                    if(bestMove != NULL) {
+                        boolean changeiii = FALSE;
+                        for(int z=0; z<8; z++) {
+                            if(blackPawns[z].posY == 20+reMap(bestMove,1) &&
+                               420+20 == blackPawns[z].posY &&
+                               blackPawns[z].posX == 20+reMap(bestMove,0)) {
+                                turn = 'h';
+                                strncpy(chosenPiece, "qr", 2);
+                                changeiii = TRUE;
+                                blackPawns[z].from = map((blackPawns[z].posY-20)/70, (blackPawns[z].posX-20)/70);
+                                int x = 20+re_Map(bestMove,0);
+                                int y = 20+re_Map(bestMove,1);
+                                blackQueenK[z].posX = x;
+                                blackQueenK[z].posY = y;
+                                blackQueenK[z].from = map((y-20)/70, (x-20)/70);
+                                blackQueenK[z].to = map((y-20)/70, (x-20)/70);
+                                blackPawns[z].to = map((y-20)/70, (x-20)/70);
+                                strcat(blackPawns[z].to,"q");
+                                refreshme = TRUE;
+                                blackPawns[z].posX = 1300;
+                                blackPawns[z].posY = -1000;
+                            }
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       blackKnight1.posX == 20+reMap(bestMove,0)) {
+                        if(blackKnight1.posY == 20+reMap(bestMove,1)) {
+                            turn = 'h';
+                            blackKnight1.from = map(blackKnight1.posY/70, blackKnight1.posX/70);
+                            blackKnight1.posY = 20+re_Map(bestMove,1);
+                            blackKnight1.posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(blackKnight1.posX == whitePawns[z].posX &&
+                                   blackKnight1.posY == whitePawns[z].posY) {
+                                    whitePawns[z].posX = 1300;
+                                }
+                            }
+                            if(blackKnight1.posX == whiteRook1.posX &&
+                               blackKnight1.posY == whiteRook1.posY) {
+                                whiteRook1.posX = 1300;
+                            }
+                            if(blackKnight1.posX == whiteRook2.posX &&
+                               blackKnight1.posY == whiteRook2.posY) {
+                                whiteRook2.posX = 1300;
+                            }
+                            if(blackKnight1.posX == whiteKnight1.posX &&
+                               blackKnight1.posY == whiteKnight1.posY) {
+                                whiteKnight1.posX = 1300;
+                            }
+                            if(blackKnight1.posX == whiteKnight2.posX &&
+                               blackKnight1.posY == whiteKnight2.posY) {
+                                whiteKnight2.posX = 1300;
+                            }
+                            if(blackKnight1.posX == whiteBishop1.posX &&
+                               blackKnight1.posY == whiteBishop1.posY) {
+                                whiteBishop1.posX = 1300;
+                            }
+                            if(blackKnight1.posX == whiteBishop2.posX &&
+                               blackKnight1.posY == whiteBishop2.posY) {
+                                whiteBishop2.posX = 1300;
+                            }
+                            if(blackKnight1.posX == whiteQueen.posX &&
+                               blackKnight1.posY == whiteQueen.posY) {
+                                whiteQueen.posX = 1300;
+                            }
+                            blackKnight1.to = map(blackKnight1.posY/70, blackKnight1.posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       blackKnight2.posX == 20+reMap(bestMove,0)) {
+                        if(blackKnight2.posY == 20+reMap(bestMove,1)) {
+                            turn = 'h';
+                            blackKnight2.from = map(blackKnight2.posY/70, blackKnight2.posX/70);
+                            blackKnight2.posY = 20+re_Map(bestMove,1);
+                            blackKnight2.posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(blackKnight2.posX == whitePawns[z].posX &&
+                                   blackKnight2.posY == whitePawns[z].posY) {
+                                    whitePawns[z].posX = 1300;
+                                }
+                            }
+                            if(blackKnight2.posX == whiteRook1.posX &&
+                               blackKnight2.posY == whiteRook1.posY) {
+                                whiteRook1.posX = 1300;
+                            }
+                            if(blackKnight2.posX == whiteRook2.posX &&
+                               blackKnight2.posY == whiteRook2.posY) {
+                                whiteRook2.posX = 1300;
+                            }
+                            if(blackKnight2.posX == whiteKnight1.posX &&
+                               blackKnight2.posY == whiteKnight1.posY) {
+                                whiteKnight1.posX = 1300;
+                            }
+                            if(blackKnight2.posX == whiteKnight2.posX &&
+                               blackKnight2.posY == whiteKnight2.posY) {
+                                whiteKnight2.posX = 1300;
+                            }
+                            if(blackKnight2.posX == whiteBishop1.posX &&
+                               blackKnight2.posY == whiteBishop1.posY) {
+                                whiteBishop1.posX = 1300;
+                            }
+                            if(blackKnight2.posX == whiteBishop2.posX &&
+                               blackKnight2.posY == whiteBishop2.posY) {
+                                whiteBishop2.posX = 1300;
+                            }
+                            if(blackKnight2.posX == whiteQueen.posX &&
+                               blackKnight2.posY == whiteQueen.posY) {
+                                whiteQueen.posX = 1300;
+                            }
+                            blackKnight2.to = map(blackKnight2.posY/70, blackKnight2.posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       blackBishop1.posX == 20+reMap(bestMove,0)) {
+                        if(blackBishop1.posY == 20+reMap(bestMove,1)) {
+                            turn = 'h';
+                            blackBishop1.from = map(blackBishop1.posY/70, blackBishop1.posX/70);
+                            blackBishop1.posY = 20+re_Map(bestMove,1);
+                            blackBishop1.posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(blackBishop1.posX == whitePawns[z].posX &&
+                                   blackBishop1.posY == whitePawns[z].posY) {
+                                    whitePawns[z].posX = 1300;
+                                }
+                            }
+                            if(blackBishop1.posX == whiteRook1.posX &&
+                               blackBishop1.posY == whiteRook1.posY) {
+                                whiteRook1.posX = 1300;
+                            }
+                            if(blackBishop1.posX == whiteRook2.posX &&
+                               blackBishop1.posY == whiteRook2.posY) {
+                                whiteRook2.posX = 1300;
+                            }
+                            if(blackBishop1.posX == whiteKnight1.posX &&
+                               blackBishop1.posY == whiteKnight1.posY) {
+                                whiteKnight1.posX = 1300;
+                            }
+                            if(blackBishop1.posX == whiteKnight2.posX &&
+                               blackBishop1.posY == whiteKnight2.posY) {
+                                whiteKnight2.posX = 1300;
+                            }
+                            if(blackBishop1.posX == whiteBishop1.posX &&
+                               blackBishop1.posY == whiteBishop1.posY) {
+                                whiteBishop1.posX = 1300;
+                            }
+                            if(blackBishop1.posX == whiteBishop2.posX &&
+                               blackBishop1.posY == whiteBishop2.posY) {
+                                whiteBishop2.posX = 1300;
+                            }
+                            if(blackBishop1.posX == whiteQueen.posX &&
+                               blackBishop1.posY == whiteQueen.posY) {
+                                whiteQueen.posX = 1300;
+                            }
+                            blackBishop1.to = map(blackBishop1.posY/70, blackBishop1.posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       blackBishop2.posX == 20+reMap(bestMove,0)) {
+                        if(blackBishop2.posY == 20+reMap(bestMove,1)) {
+                            turn = 'h';
+                            blackBishop2.from = map(blackBishop2.posY/70, blackBishop2.posX/70);
+                            blackBishop2.posY = 20+re_Map(bestMove,1);
+                            blackBishop2.posX = 20+re_Map(bestMove,0);
+                                for(int z=0; z<8; z++) {
+                                    if(blackBishop2.posX == whitePawns[z].posX &&
+                                       blackBishop2.posY == whitePawns[z].posY) {
+                                        whitePawns[z].posX = 1300;
+                                    }
+                                }
+                                if(blackBishop2.posX == whiteRook1.posX &&
+                                   blackBishop2.posY == whiteRook1.posY) {
+                                    whiteRook1.posX = 1300;
+                                }
+                                if(blackBishop2.posX == whiteRook2.posX &&
+                                   blackBishop2.posY == whiteRook2.posY) {
+                                    whiteRook2.posX = 1300;
+                                }
+                                if(blackBishop2.posX == whiteKnight1.posX &&
+                                   blackBishop2.posY == whiteKnight1.posY) {
+                                    whiteKnight1.posX = 1300;
+                                }
+                                if(blackBishop2.posX == whiteKnight2.posX &&
+                                   blackBishop2.posY == whiteKnight2.posY) {
+                                    whiteKnight2.posX = 1300;
+                                }
+                                if(blackBishop2.posX == whiteBishop1.posX &&
+                                   blackBishop2.posY == whiteBishop1.posY) {
+                                    whiteBishop1.posX = 1300;
+                                }
+                                if(blackBishop2.posX == whiteBishop2.posX &&
+                                   blackBishop2.posY == whiteBishop2.posY) {
+                                    whiteBishop2.posX = 1300;
+                                }
+                                if(blackBishop2.posX == whiteQueen.posX &&
+                                   blackBishop2.posY == whiteQueen.posY) {
+                                    whiteQueen.posX = 1300;
+                                }
+                            blackBishop2.to = map(blackBishop2.posY/70, blackBishop2.posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       blackRook1.posX == 20+reMap(bestMove,0)) {
+                        if(blackRook1.posY == 20+reMap(bestMove,1)) {
+                            turn = 'h';
+                            blackRook1.from = map(blackRook1.posY/70, blackRook1.posX/70);
+                            blackRook1.posY = 20+re_Map(bestMove,1);
+                            blackRook1.posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(blackRook1.posX == whitePawns[z].posX &&
+                                   blackRook1.posY == whitePawns[z].posY) {
+                                    whitePawns[z].posX = 1300;
+                                }
+                            }
+                            if(blackRook1.posX == whiteRook1.posX &&
+                               blackRook1.posY == whiteRook1.posY) {
+                                whiteRook1.posX = 1300;
+                            }
+                            if(blackRook1.posX == whiteRook2.posX &&
+                               blackRook1.posY == whiteRook2.posY) {
+                                whiteRook2.posX = 1300;
+                            }
+                            if(blackRook1.posX == whiteKnight1.posX &&
+                               blackRook1.posY == whiteKnight1.posY) {
+                                whiteKnight1.posX = 1300;
+                            }
+                            if(blackRook1.posX == whiteKnight2.posX &&
+                               blackRook1.posY == whiteKnight2.posY) {
+                                whiteKnight2.posX = 1300;
+                            }
+                            if(blackRook1.posX == whiteBishop1.posX &&
+                               blackRook1.posY == whiteBishop1.posY) {
+                                whiteBishop1.posX = 1300;
+                            }
+                            if(blackRook1.posX == whiteBishop2.posX &&
+                               blackRook1.posY == whiteBishop2.posY) {
+                                whiteBishop2.posX = 1300;
+                            }
+                            if(blackRook1.posX == whiteQueen.posX &&
+                               blackRook1.posY == whiteQueen.posY) {
+                                whiteQueen.posX = 1300;
+                            }
+                            blackRook1.to = map(blackRook1.posY/70, blackRook1.posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       blackRook2.posX == 20+reMap(bestMove,0)) {
+                        if(blackRook2.posY == 20+reMap(bestMove,1)) {
+                            turn = 'h';
+                            blackRook2.from = map(blackRook2.posY/70, blackRook2.posX/70);
+                            blackRook2.posY = 20+re_Map(bestMove,1);
+                            blackRook2.posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(blackRook2.posX == whitePawns[z].posX &&
+                                   blackRook2.posY == whitePawns[z].posY) {
+                                    whitePawns[z].posX = 1300;
+                                }
+                            }
+                            if(blackRook2.posX == whiteRook1.posX &&
+                               blackRook2.posY == whiteRook1.posY) {
+                                whiteRook1.posX = 1300;
+                            }
+                            if(blackRook2.posX == whiteRook2.posX &&
+                               blackRook2.posY == whiteRook2.posY) {
+                                whiteRook2.posX = 1300;
+                            }
+                            if(blackRook2.posX == whiteKnight1.posX &&
+                               blackRook2.posY == whiteKnight1.posY) {
+                                whiteKnight1.posX = 1300;
+                            }
+                            if(blackRook2.posX == whiteKnight2.posX &&
+                               blackRook2.posY == whiteKnight2.posY) {
+                                whiteKnight2.posX = 1300;
+                            }
+                            if(blackRook2.posX == whiteBishop1.posX &&
+                               blackRook2.posY == whiteBishop1.posY) {
+                                whiteBishop1.posX = 1300;
+                            }
+                            if(blackRook2.posX == whiteBishop2.posX &&
+                               blackRook2.posY == whiteBishop2.posY) {
+                                whiteBishop2.posX = 1300;
+                            }
+                            if(blackRook2.posX == whiteQueen.posX &&
+                               blackRook2.posY == whiteQueen.posY) {
+                                whiteQueen.posX = 1300;
+                            }
+                            blackRook2.to = map(blackRook2.posY/70, blackRook2.posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    for(int d=0; d<8; d++) {
+                        if(bestMove != NULL &&
+                           blackQueenK[d].posX == 20+reMap(bestMove,0)) {
+                            if(blackQueenK[d].posY == 20+reMap(bestMove,1)) {
+                                turn = 'h';
+                                blackQueenK[d].from = map(blackQueenK[d].posY/70, blackQueenK[d].posX/70);
+                                blackQueenK[d].posY = 20+re_Map(bestMove,1);
+                                blackQueenK[d].posX = 20+re_Map(bestMove,0);
+                                for(int z=0; z<8; z++) {
+                                    if(blackQueenK[d].posX == whitePawns[z].posX &&
+                                       blackQueenK[d].posY == whitePawns[z].posY) {
+                                        whitePawns[z].posX = 1300;
+                                    }
+                                }
+                                if(blackQueenK[d].posX == whiteRook1.posX &&
+                                   blackQueenK[d].posY == whiteRook1.posY) {
+                                    whiteRook1.posX = 1300;
+                                }
+                                if(blackQueenK[d].posX == whiteRook2.posX &&
+                                   blackQueenK[d].posY == whiteRook2.posY) {
+                                    whiteRook2.posX = 1300;
+                                }
+                                if(blackQueenK[d].posX == whiteKnight1.posX &&
+                                   blackQueenK[d].posY == whiteKnight1.posY) {
+                                    whiteKnight1.posX = 1300;
+                                }
+                                if(blackQueenK[d].posX == whiteKnight2.posX &&
+                                   blackQueenK[d].posY == whiteKnight2.posY) {
+                                    whiteKnight2.posX = 1300;
+                                }
+                                if(blackQueenK[d].posX == whiteBishop1.posX &&
+                                   blackQueenK[d].posY == whiteBishop1.posY) {
+                                    whiteBishop1.posX = 1300;
+                                }
+                                if(blackQueenK[d].posX == whiteBishop2.posX &&
+                                   blackQueenK[d].posY == whiteBishop2.posY) {
+                                    whiteBishop2.posX = 1300;
+                                }
+                                if(blackQueenK[d].posX == whiteQueen.posX &&
+                                   blackQueenK[d].posY == whiteQueen.posY) {
+                                    whiteQueen.posX = 1300;
+                                }
+                                blackQueenK[d].to = map(blackQueenK[d].posY/70, blackQueenK[d].posX/70);
+                                refreshme = TRUE;
+                            }
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       blackQueen.posX == 20+reMap(bestMove,0)) {
+                        if(blackQueen.posY == 20+reMap(bestMove,1)) {
+                            turn = 'h';
+                            blackQueen.from = map(blackQueen.posY/70, blackQueen.posX/70);
+                            blackQueen.posY = 20+re_Map(bestMove,1);
+                            blackQueen.posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(blackQueen.posX == whitePawns[z].posX &&
+                                   blackQueen.posY == whitePawns[z].posY) {
+                                    whitePawns[z].posX = 1300;
+                                }
+                            }
+                            if(blackQueen.posX == whiteRook1.posX &&
+                               blackQueen.posY == whiteRook1.posY) {
+                                whiteRook1.posX = 1300;
+                            }
+                            if(blackQueen.posX == whiteRook2.posX &&
+                               blackQueen.posY == whiteRook2.posY) {
+                                whiteRook2.posX = 1300;
+                            }
+                            if(blackQueen.posX == whiteKnight1.posX &&
+                               blackQueen.posY == whiteKnight1.posY) {
+                                whiteKnight1.posX = 1300;
+                            }
+                            if(blackQueen.posX == whiteKnight2.posX &&
+                               blackQueen.posY == whiteKnight2.posY) {
+                                whiteKnight2.posX = 1300;
+                            }
+                            if(blackQueen.posX == whiteBishop1.posX &&
+                               blackQueen.posY == whiteBishop1.posY) {
+                                whiteBishop1.posX = 1300;
+                            }
+                            if(blackQueen.posX == whiteBishop2.posX &&
+                               blackQueen.posY == whiteBishop2.posY) {
+                                whiteBishop2.posX = 1300;
+                            }
+                            if(blackQueen.posX == whiteQueen.posX &&
+                               blackQueen.posY == whiteQueen.posY) {
+                                whiteQueen.posX = 1300;
+                            }
+                            blackQueen.to = map(blackQueen.posY/70, blackQueen.posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       blackKing.posX == 20+reMap(bestMove,0)) {
+                        if(blackKing.posY == 20+reMap(bestMove,1)) {
+                            turn = 'h';
+                            blackKing.from = map(blackKing.posY/70, blackKing.posX/70);
+                            int xxxx = blackKing.posX;
+                            int yyyy = blackKing.posY;
+                            blackKing.posY = 20+re_Map(bestMove,1);
+                            blackKing.posX = 20+re_Map(bestMove,0);
+                            if(xxxx - blackKing.posX == 200) {
+                                blackRook1.posX += 300;
+                            }
+                            if(blackKing.posX - xxxx == 200) {
+                                blackRook2.posX -= 200;
+                            }
+                            for(int z=0; z<8; z++) {
+                                if(blackKing.posX == whitePawns[z].posX &&
+                                   blackKing.posY == whitePawns[z].posY) {
+                                    whitePawns[z].posX = 1300;
+                                }
+                            }
+                            if(blackKing.posX == whiteRook1.posX &&
+                               blackKing.posY == whiteRook1.posY) {
+                                whiteRook1.posX = 1300;
+                            }
+                            if(blackKing.posX == whiteRook2.posX &&
+                               blackKing.posY == whiteRook2.posY) {
+                                whiteRook2.posX = 1300;
+                            }
+                            if(blackKing.posX == whiteKnight1.posX &&
+                               blackKing.posY == whiteKnight1.posY) {
+                                whiteKnight1.posX = 1300;
+                            }
+                            if(blackKing.posX == whiteKnight2.posX &&
+                               blackKing.posY == whiteKnight2.posY) {
+                                whiteKnight2.posX = 1300;
+                            }
+                            if(blackKing.posX == whiteBishop1.posX &&
+                               blackKing.posY == whiteBishop1.posY) {
+                                whiteBishop1.posX = 1300;
+                            }
+                            if(blackKing.posX == whiteBishop2.posX &&
+                               blackKing.posY == whiteBishop2.posY) {
+                                whiteBishop2.posX = 1300;
+                            }
+                            if(blackKing.posX == whiteQueen.posX &&
+                               blackKing.posY == whiteQueen.posY) {
+                                whiteQueen.posX = 1300;
+                            }
+                            blackKing.to = map(blackKing.posY/70, blackKing.posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       blackPawns[0].posX == 20+reMap(bestMove,0)) {
+                        if(blackPawns[0].posY == 20+reMap(bestMove,1)) {
+                            turn = 'h';
+                            blackPawns[0].from = map(blackPawns[0].posY/70, blackPawns[0].posX/70);
+                            blackPawns[0].posY = 20+re_Map(bestMove,1);
+                            blackPawns[0].posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(blackPawns[0].posX == whitePawns[z].posX &&
+                                   blackPawns[0].posY == whitePawns[z].posY) {
+                                    whitePawns[z].posX = 1300;
+                                }
+                            }
+                            if(blackPawns[0].posX == whiteRook1.posX &&
+                               blackPawns[0].posY == whiteRook1.posY) {
+                                whiteRook1.posX = 1300;
+                            }
+                            if(blackPawns[0].posX == whiteRook2.posX &&
+                               blackPawns[0].posY == whiteRook2.posY) {
+                                whiteRook2.posX = 1300;
+                            }
+                            if(blackPawns[0].posX == whiteKnight1.posX &&
+                               blackPawns[0].posY == whiteKnight1.posY) {
+                                whiteKnight1.posX = 1300;
+                            }
+                            if(blackPawns[0].posX == whiteKnight2.posX &&
+                               blackPawns[0].posY == whiteKnight2.posY) {
+                                whiteKnight2.posX = 1300;
+                            }
+                            if(blackPawns[0].posX == whiteBishop1.posX &&
+                               blackPawns[0].posY == whiteBishop1.posY) {
+                                whiteBishop1.posX = 1300;
+                            }
+                            if(blackPawns[0].posX == whiteBishop2.posX &&
+                               blackPawns[0].posY == whiteBishop2.posY) {
+                                whiteBishop2.posX = 1300;
+                            }
+                            if(blackPawns[0].posX == whiteQueen.posX &&
+                               blackPawns[0].posY == whiteQueen.posY) {
+                                whiteQueen.posX = 1300;
+                            }
+                            blackPawns[0].to = map(blackPawns[0].posY/70, blackPawns[0].posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       blackPawns[1].posX == 20+reMap(bestMove,0)) {
+                        if(blackPawns[1].posY == 20+reMap(bestMove,1)) {
+                            turn = 'h';
+                            blackPawns[1].from = map(blackPawns[1].posY/70, blackPawns[1].posX/70);
+                            blackPawns[1].posY = 20+re_Map(bestMove,1);
+                            blackPawns[1].posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(blackPawns[1].posX == whitePawns[z].posX &&
+                                   blackPawns[1].posY == whitePawns[z].posY) {
+                                    whitePawns[z].posX = 1300;
+                                }
+                            }
+                            if(blackPawns[1].posX == whiteRook1.posX &&
+                               blackPawns[1].posY == whiteRook1.posY) {
+                                whiteRook1.posX = 1300;
+                            }
+                            if(blackPawns[1].posX == whiteRook2.posX &&
+                               blackPawns[1].posY == whiteRook2.posY) {
+                                whiteRook2.posX = 1300;
+                            }
+                            if(blackPawns[1].posX == whiteKnight1.posX &&
+                               blackPawns[1].posY == whiteKnight1.posY) {
+                                whiteKnight1.posX = 1300;
+                            }
+                            if(blackPawns[1].posX == whiteKnight2.posX &&
+                               blackPawns[1].posY == whiteKnight2.posY) {
+                                whiteKnight2.posX = 1300;
+                            }
+                            if(blackPawns[1].posX == whiteBishop1.posX &&
+                               blackPawns[1].posY == whiteBishop1.posY) {
+                                whiteBishop1.posX = 1300;
+                            }
+                            if(blackPawns[1].posX == whiteBishop2.posX &&
+                               blackPawns[1].posY == whiteBishop2.posY) {
+                                whiteBishop2.posX = 1300;
+                            }
+                            if(blackPawns[1].posX == whiteQueen.posX &&
+                               blackPawns[1].posY == whiteQueen.posY) {
+                                whiteQueen.posX = 1300;
+                            }
+                            blackPawns[1].to = map(blackPawns[1].posY/70, blackPawns[1].posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       blackPawns[2].posX == 20+reMap(bestMove,0)) {
+                        if(blackPawns[2].posY == 20+reMap(bestMove,1)) {
+                            turn = 'h';
+                            blackPawns[2].from = map(blackPawns[2].posY/70, blackPawns[2].posX/70);
+                            blackPawns[2].posY = 20+re_Map(bestMove,1);
+                            blackPawns[2].posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(blackPawns[2].posX == whitePawns[z].posX &&
+                                   blackPawns[2].posY == whitePawns[z].posY) {
+                                    whitePawns[z].posX = 1300;
+                                }
+                            }
+                            if(blackPawns[2].posX == whiteRook1.posX &&
+                               blackPawns[2].posY == whiteRook1.posY) {
+                                whiteRook1.posX = 1300;
+                            }
+                            if(blackPawns[2].posX == whiteRook2.posX &&
+                               blackPawns[2].posY == whiteRook2.posY) {
+                                whiteRook2.posX = 1300;
+                            }
+                            if(blackPawns[2].posX == whiteKnight1.posX &&
+                               blackPawns[2].posY == whiteKnight1.posY) {
+                                whiteKnight1.posX = 1300;
+                            }
+                            if(blackPawns[2].posX == whiteKnight2.posX &&
+                               blackPawns[2].posY == whiteKnight2.posY) {
+                                whiteKnight2.posX = 1300;
+                            }
+                            if(blackPawns[2].posX == whiteBishop1.posX &&
+                               blackPawns[2].posY == whiteBishop1.posY) {
+                                whiteBishop1.posX = 1300;
+                            }
+                            if(blackPawns[2].posX == whiteBishop2.posX &&
+                               blackPawns[2].posY == whiteBishop2.posY) {
+                                whiteBishop2.posX = 1300;
+                            }
+                            if(blackPawns[2].posX == whiteQueen.posX &&
+                               blackPawns[2].posY == whiteQueen.posY) {
+                                whiteQueen.posX = 1300;
+                            }
+                            blackPawns[2].to = map(blackPawns[2].posY/70, blackPawns[2].posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       blackPawns[3].posX == 20+reMap(bestMove,0)) {
+                        if(blackPawns[3].posY == 20+reMap(bestMove,1)) {
+                            turn = 'h';
+                            blackPawns[3].from = map(blackPawns[3].posY/70, blackPawns[3].posX/70);
+                            blackPawns[3].posY = 20+re_Map(bestMove,1);
+                            blackPawns[3].posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(blackPawns[3].posX == whitePawns[z].posX &&
+                                   blackPawns[3].posY == whitePawns[z].posY) {
+                                    whitePawns[z].posX = 1300;
+                                }
+                            }
+                            if(blackPawns[3].posX == whiteRook1.posX &&
+                               blackPawns[3].posY == whiteRook1.posY) {
+                                whiteRook1.posX = 1300;
+                            }
+                            if(blackPawns[3].posX == whiteRook2.posX &&
+                               blackPawns[3].posY == whiteRook2.posY) {
+                                whiteRook2.posX = 1300;
+                            }
+                            if(blackPawns[3].posX == whiteKnight1.posX &&
+                               blackPawns[3].posY == whiteKnight1.posY) {
+                                whiteKnight1.posX = 1300;
+                            }
+                            if(blackPawns[3].posX == whiteKnight2.posX &&
+                               blackPawns[3].posY == whiteKnight2.posY) {
+                                whiteKnight2.posX = 1300;
+                            }
+                            if(blackPawns[3].posX == whiteBishop1.posX &&
+                               blackPawns[3].posY == whiteBishop1.posY) {
+                                whiteBishop1.posX = 1300;
+                            }
+                            if(blackPawns[3].posX == whiteBishop2.posX &&
+                               blackPawns[3].posY == whiteBishop2.posY) {
+                                whiteBishop2.posX = 1300;
+                            }
+                            if(blackPawns[3].posX == whiteQueen.posX &&
+                               blackPawns[3].posY == whiteQueen.posY) {
+                                whiteQueen.posX = 1300;
+                            }
+                            blackPawns[3].to = map(blackPawns[3].posY/70, blackPawns[3].posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       blackPawns[4].posX == 20+reMap(bestMove,0)) {
+                        if(blackPawns[4].posY == 20+reMap(bestMove,1)) {
+                            turn = 'h';
+                            blackPawns[4].from = map(blackPawns[4].posY/70, blackPawns[4].posX/70);
+                            blackPawns[4].posY = 20+re_Map(bestMove,1);
+                            blackPawns[4].posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(blackPawns[4].posX == whitePawns[z].posX &&
+                                   blackPawns[4].posY == whitePawns[z].posY) {
+                                    whitePawns[z].posX = 1300;
+                                }
+                            }
+                            if(blackPawns[4].posX == whiteRook1.posX &&
+                               blackPawns[4].posY == whiteRook1.posY) {
+                                whiteRook1.posX = 1300;
+                            }
+                            if(blackPawns[4].posX == whiteRook2.posX &&
+                               blackPawns[4].posY == whiteRook2.posY) {
+                                whiteRook2.posX = 1300;
+                            }
+                            if(blackPawns[4].posX == whiteKnight1.posX &&
+                               blackPawns[4].posY == whiteKnight1.posY) {
+                                whiteKnight1.posX = 1300;
+                            }
+                            if(blackPawns[4].posX == whiteKnight2.posX &&
+                               blackPawns[4].posY == whiteKnight2.posY) {
+                                whiteKnight2.posX = 1300;
+                            }
+                            if(blackPawns[4].posX == whiteBishop1.posX &&
+                               blackPawns[4].posY == whiteBishop1.posY) {
+                                whiteBishop1.posX = 1300;
+                            }
+                            if(blackPawns[4].posX == whiteBishop2.posX &&
+                               blackPawns[4].posY == whiteBishop2.posY) {
+                                whiteBishop2.posX = 1300;
+                            }
+                            if(blackPawns[4].posX == whiteQueen.posX &&
+                               blackPawns[4].posY == whiteQueen.posY) {
+                                whiteQueen.posX = 1300;
+                            }
+                            blackPawns[4].to = map(blackPawns[4].posY/70, blackPawns[4].posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       blackPawns[5].posX == 20+reMap(bestMove,0)) {
+                        if(blackPawns[5].posY == 20+reMap(bestMove,1)) {
+                            turn = 'h';
+                            blackPawns[5].from = map(blackPawns[5].posY/70, blackPawns[5].posX/70);
+                            blackPawns[5].posY = 20+re_Map(bestMove,1);
+                            blackPawns[5].posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(blackPawns[5].posX == whitePawns[z].posX &&
+                                   blackPawns[5].posY == whitePawns[z].posY) {
+                                    whitePawns[z].posX = 1300;
+                                }
+                            }
+                            if(blackPawns[5].posX == whiteRook1.posX &&
+                               blackPawns[5].posY == whiteRook1.posY) {
+                                whiteRook1.posX = 1300;
+                            }
+                            if(blackPawns[5].posX == whiteRook2.posX &&
+                               blackPawns[5].posY == whiteRook2.posY) {
+                                whiteRook2.posX = 1300;
+                            }
+                            if(blackPawns[5].posX == whiteKnight1.posX &&
+                               blackPawns[5].posY == whiteKnight1.posY) {
+                                whiteKnight1.posX = 1300;
+                            }
+                            if(blackPawns[5].posX == whiteKnight2.posX &&
+                               blackPawns[5].posY == whiteKnight2.posY) {
+                                whiteKnight2.posX = 1300;
+                            }
+                            if(blackPawns[5].posX == whiteBishop1.posX &&
+                               blackPawns[5].posY == whiteBishop1.posY) {
+                                whiteBishop1.posX = 1300;
+                            }
+                            if(blackPawns[5].posX == whiteBishop2.posX &&
+                               blackPawns[5].posY == whiteBishop2.posY) {
+                                whiteBishop2.posX = 1300;
+                            }
+                            if(blackPawns[5].posX == whiteQueen.posX &&
+                               blackPawns[5].posY == whiteQueen.posY) {
+                                whiteQueen.posX = 1300;
+                            }
+                            blackPawns[5].to = map(blackPawns[5].posY/70, blackPawns[5].posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       blackPawns[6].posX == 20+reMap(bestMove,0)) {
+                        if(blackPawns[6].posY == 20+reMap(bestMove,1)) {
+                            turn = 'h';
+                            blackPawns[6].from = map(blackPawns[6].posY/70, blackPawns[6].posX/70);
+                            blackPawns[6].posY = 20+re_Map(bestMove,1);
+                            blackPawns[6].posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(blackPawns[6].posX == whitePawns[z].posX &&
+                                   blackPawns[6].posY == whitePawns[z].posY) {
+                                    whitePawns[z].posX = 1300;
+                                }
+                            }
+                            if(blackPawns[6].posX == whiteRook1.posX &&
+                               blackPawns[6].posY == whiteRook1.posY) {
+                                whiteRook1.posX = 1300;
+                            }
+                            if(blackPawns[6].posX == whiteRook2.posX &&
+                               blackPawns[6].posY == whiteRook2.posY) {
+                                whiteRook2.posX = 1300;
+                            }
+                            if(blackPawns[6].posX == whiteKnight1.posX &&
+                               blackPawns[6].posY == whiteKnight1.posY) {
+                                whiteKnight1.posX = 1300;
+                            }
+                            if(blackPawns[6].posX == whiteKnight2.posX &&
+                               blackPawns[6].posY == whiteKnight2.posY) {
+                                whiteKnight2.posX = 1300;
+                            }
+                            if(blackPawns[6].posX == whiteBishop1.posX &&
+                               blackPawns[6].posY == whiteBishop1.posY) {
+                                whiteBishop1.posX = 1300;
+                            }
+                            if(blackPawns[6].posX == whiteBishop2.posX &&
+                               blackPawns[6].posY == whiteBishop2.posY) {
+                                whiteBishop2.posX = 1300;
+                            }
+                            if(blackPawns[6].posX == whiteQueen.posX &&
+                               blackPawns[6].posY == whiteQueen.posY) {
+                                whiteQueen.posX = 1300;
+                            }
+                            blackPawns[6].to = map(blackPawns[6].posY/70, blackPawns[6].posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       blackPawns[7].posX == 20+reMap(bestMove,0)) {
+                        if(blackPawns[7].posY == 20+reMap(bestMove,1)) {
+                            turn = 'h';
+                            blackPawns[7].from = map(blackPawns[7].posY/70, blackPawns[7].posX/70);
+                            blackPawns[7].posY = 20+re_Map(bestMove,1);
+                            blackPawns[7].posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(blackPawns[7].posX == whitePawns[z].posX &&
+                                   blackPawns[7].posY == whitePawns[z].posY) {
+                                    whitePawns[z].posX = 1300;
+                                }
+                            }
+                            if(blackPawns[7].posX == whiteRook1.posX &&
+                               blackPawns[7].posY == whiteRook1.posY) {
+                                whiteRook1.posX = 1300;
+                            }
+                            if(blackPawns[7].posX == whiteRook2.posX &&
+                               blackPawns[7].posY == whiteRook2.posY) {
+                                whiteRook2.posX = 1300;
+                            }
+                            if(blackPawns[7].posX == whiteKnight1.posX &&
+                               blackPawns[7].posY == whiteKnight1.posY) {
+                                whiteKnight1.posX = 1300;
+                            }
+                            if(blackPawns[7].posX == whiteKnight2.posX &&
+                               blackPawns[7].posY == whiteKnight2.posY) {
+                                whiteKnight2.posX = 1300;
+                            }
+                            if(blackPawns[7].posX == whiteBishop1.posX &&
+                               blackPawns[7].posY == whiteBishop1.posY) {
+                                whiteBishop1.posX = 1300;
+                            }
+                            if(blackPawns[7].posX == whiteBishop2.posX &&
+                               blackPawns[7].posY == whiteBishop2.posY) {
+                                whiteBishop2.posX = 1300;
+                            }
+                            if(blackPawns[7].posX == whiteQueen.posX &&
+                               blackPawns[7].posY == whiteQueen.posY) {
+                                whiteQueen.posX = 1300;
+                            }
+                            blackPawns[7].to = map(blackPawns[7].posY/70, blackPawns[7].posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+
+                    if(refreshme) {
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        oldBitmap = SelectObject(hdcMem, hBitmap);
+
+                        GetObject(hBitmap, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, 0, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
+
+                        SelectObject(hdcMem, oldBitmap);
+                        DeleteDC(hdcMem); DeleteObject(hBitmap);
+
+                        DrawChessBoard();
+
+                        Sleep(1);
+                        pawnBlack = (HBITMAP)LoadImage(hInst, "pawnblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        pawnWhite = (HBITMAP)LoadImage(hInst, "pawnwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        knightBlack = (HBITMAP)LoadImage(hInst, "knightblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        knightWhite = (HBITMAP)LoadImage(hInst, "knightwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        knight2Black = (HBITMAP)LoadImage(hInst, "knightblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        knight2White = (HBITMAP)LoadImage(hInst, "knightwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        rookBlack = (HBITMAP)LoadImage(hInst, "rookblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        rookWhite = (HBITMAP)LoadImage(hInst, "rookwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        rook2Black = (HBITMAP)LoadImage(hInst, "rookblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        rook2White = (HBITMAP)LoadImage(hInst, "rookwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        bishopBlack = (HBITMAP)LoadImage(hInst, "bishopblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        bishopWhite = (HBITMAP)LoadImage(hInst, "bishopwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        bishop2Black = (HBITMAP)LoadImage(hInst, "bishopblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        bishop2White = (HBITMAP)LoadImage(hInst, "bishopwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        queenBlack = (HBITMAP)LoadImage(hInst, "queenblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        queenWhite = (HBITMAP)LoadImage(hInst, "queenwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        kingBlack = (HBITMAP)LoadImage(hInst, "kingblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        kingWhite = (HBITMAP)LoadImage(hInst, "kingwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        HBITMAP hBmp;
+                        if(((whiteRook1.posX/70)+(whiteRook1.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(rookWhite,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(rookWhite,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, whiteRook1.posX+25+7, whiteRook1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((whiteRook2.posX/70)+(whiteRook2.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(rook2White,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(rook2White,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, whiteRook2.posX+25+7, whiteRook2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((whiteKnight1.posX/70)+(whiteKnight1.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(knightWhite,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(knightWhite,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, whiteKnight1.posX+25+7, whiteKnight1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((whiteKnight2.posX/70)+(whiteKnight2.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(knight2White,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(knight2White,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, whiteKnight2.posX+25+7, whiteKnight2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((whiteBishop1.posX/70)+(whiteBishop1.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(bishopWhite,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(bishopWhite,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, whiteBishop1.posX+25+7, whiteBishop1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((whiteBishop2.posX/70)+(whiteBishop2.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(bishop2White,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(bishop2White,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, whiteBishop2.posX+25+7, whiteBishop2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((whiteQueen.posX/70)+(whiteQueen.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(queenWhite,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(queenWhite,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, whiteQueen.posX+25+7, whiteQueen.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((whiteKing.posX/70)+(whiteKing.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(kingWhite,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(kingWhite,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, whiteKing.posX+25+7, whiteKing.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        for(int o=0; o<8; o++) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((whitePawns[o].posX/70)+(whitePawns[o].posY/70)) % 2 == 0)
+                                hBmp = ReplaceColor(pawnWhite,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(pawnWhite,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, whitePawns[o].posX+25+7, whitePawns[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                        }
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((blackRook1.posX/70)+(blackRook1.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(rookBlack,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(rookBlack,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, blackRook1.posX+25+7, blackRook1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((blackRook2.posX/70)+(blackRook2.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(rook2Black,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(rookBlack,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, blackRook2.posX+25+7, blackRook2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((blackKnight1.posX/70)+(blackKnight1.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(knightBlack,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(knightBlack,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, blackKnight1.posX+25+7, blackKnight1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((blackKnight2.posX/70)+(blackKnight2.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(knight2Black,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(knight2Black,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, blackKnight2.posX+25+7, blackKnight2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((blackBishop1.posX/70)+(blackBishop1.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(bishopBlack,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(bishopBlack,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, blackBishop1.posX+25+7, blackBishop1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((blackBishop2.posX/70)+(blackBishop2.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(bishop2Black,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(bishop2Black,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, blackBishop2.posX+25+7, blackBishop2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((blackQueen.posX/70)+(blackQueen.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(queenBlack,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(queenBlack,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, blackQueen.posX+25+7, blackQueen.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((blackKing.posX/70)+(blackKing.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(kingBlack,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(kingBlack,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, blackKing.posX+25+7, blackKing.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        for(int o=0; o<8; o++) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((blackPawns[o].posX/70)+(blackPawns[o].posY/70)) % 2 == 0)
+                                hBmp = ReplaceColor(pawnBlack,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(pawnBlack,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, blackPawns[o].posX+25+7, blackPawns[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                        }
+
+                        for(int m=0; m<8; m++) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((whiteQueenK[m].posX/70)+(whiteQueenK[m].posY/70)) % 2 == 0)
+                                hBmp = ReplaceColor(queenWhite,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(queenWhite,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, whiteQueenK[m].posX+25+7, whiteQueenK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                        }
+
+                        for(int m=0; m<8; m++) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((blackQueenK[m].posX/70)+(blackQueenK[m].posY/70)) % 2 == 0)
+                                hBmp = ReplaceColor(queenBlack,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(queenBlack,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, blackQueenK[m].posX+25+7, blackQueenK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                        }
+
+                        DeleteObject(pawnBlack);
+                        DeleteObject(pawnWhite);
+                        DeleteObject(knightBlack);
+                        DeleteObject(knightWhite);
+                        DeleteObject(knight2Black);
+                        DeleteObject(knight2White);
+                        DeleteObject(rookBlack);
+                        DeleteObject(rookWhite);
+                        DeleteObject(rook2Black);
+                        DeleteObject(rook2White);
+                        DeleteObject(bishopBlack);
+                        DeleteObject(bishopWhite);
+                        DeleteObject(bishop2Black);
+                        DeleteObject(bishop2White);
+                        DeleteObject(queenBlack);
+                        DeleteObject(queenWhite);
+                        DeleteObject(kingBlack);
+                        DeleteObject(kingWhite);
+
+                        Sleep(1);
+                        pawnBlack_s = (HBITMAP)LoadImage(hInst, "pawnblack_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        pawnWhite_s = (HBITMAP)LoadImage(hInst, "pawnwhite_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        knightBlack_s = (HBITMAP)LoadImage(hInst, "knightblack_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        knightWhite_s = (HBITMAP)LoadImage(hInst, "knightwhite_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        knight2Black_s = (HBITMAP)LoadImage(hInst, "knightblack_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        knight2White_s = (HBITMAP)LoadImage(hInst, "knightwhite_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        rookBlack_s = (HBITMAP)LoadImage(hInst, "rookblack_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        rookWhite_s = (HBITMAP)LoadImage(hInst, "rookwhite_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        rook2Black_s = (HBITMAP)LoadImage(hInst, "rookblack_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        rook2White_s = (HBITMAP)LoadImage(hInst, "rookwhite_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        bishopBlack_s = (HBITMAP)LoadImage(hInst, "bishopblack_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        bishopWhite_s = (HBITMAP)LoadImage(hInst, "bishopwhite_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        bishop2Black_s = (HBITMAP)LoadImage(hInst, "bishopblack_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        bishop2White_s = (HBITMAP)LoadImage(hInst, "bishopwhite_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        queenBlack_s = (HBITMAP)LoadImage(hInst, "queenblack_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        queenWhite_s = (HBITMAP)LoadImage(hInst, "queenwhite_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        kingBlack_s = (HBITMAP)LoadImage(hInst, "kingblack_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        kingWhite_s = (HBITMAP)LoadImage(hInst, "kingwhite_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+
+                        _y_ = 20;
+
+                        HBRUSH yellow_brush = CreateSolidBrush(RGB(255,255,0));
+                        RECT rrect = {635+0, 17, 840, 740};
+                        FillRect(hdc, &rrect, yellow_brush);
+                        DeleteObject(yellow_brush);
+
+                        if(whiteRook1.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(rookWhite_s,0xff0000,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(whiteRook1.from != NULL && whiteRook1.to != NULL) {
+                                if(strlen(whiteRook1.from) >= 2 && strlen(whiteRook1.to) >= 2) {
+                                    TextOut(hdc,
+                                            615+50,
+                                            _y_,
+                                            whiteRook1.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(whiteRook2.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(rook2White_s,0xff0000,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(whiteRook2.from != NULL && whiteRook2.to != NULL) {
+                                if(strlen(whiteRook2.from) >= 2 && strlen(whiteRook2.to) >= 2) {
+                                    TextOut(hdc,
+                                            615+50,
+                                            _y_,
+                                            whiteRook2.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(whiteKnight1.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(knightWhite_s,0x00ff00,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(whiteKnight1.from != NULL && whiteKnight1.to != NULL) {
+                                if(strlen(whiteKnight1.from) >= 2 && strlen(whiteKnight1.to) >= 2) {
+                                    TextOut(hdc,
+                                            615+50,
+                                            _y_,
+                                            whiteKnight1.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(whiteKnight2.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(knight2White_s,0x00ff00,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(whiteKnight2.from != NULL && whiteKnight2.to != NULL) {
+                                if(strlen(whiteKnight2.from) >= 2 && strlen(whiteKnight2.to) >= 2) {
+                                    TextOut(hdc,
+                                            615+50,
+                                            _y_,
+                                            whiteKnight2.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(whiteBishop1.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(bishopWhite_s,0x4cb122,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(whiteBishop1.from != NULL && whiteBishop1.to != NULL) {
+                                if(strlen(whiteBishop1.from) >= 2 && strlen(whiteBishop1.to) >= 2) {
+                                    TextOut(hdc,
+                                            615+50,
+                                            _y_,
+                                            whiteBishop1.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(whiteBishop2.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(bishop2White_s,0x4cb122,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(whiteBishop2.from != NULL && whiteBishop2.to != NULL) {
+                                if(strlen(whiteBishop2.from) >= 2 && strlen(whiteBishop2.to) >= 2) {
+                                    TextOut(hdc,
+                                            615+50,
+                                            _y_,
+                                            whiteBishop2.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(whiteQueen.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(queenWhite_s,0xff0000,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(whiteQueen.from != NULL && whiteQueen.to != NULL) {
+                                if(strlen(whiteQueen.from) >= 2 && strlen(whiteQueen.to) >= 2) {
+                                    TextOut(hdc,
+                                            615+50,
+                                            _y_,
+                                            whiteQueen.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(whiteKing.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(kingWhite_s,0x00ff00,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        for(int o=0; o<8; o++) {
+                            if(whitePawns[o].posX == 1300) {
+                                hdcMem = CreateCompatibleDC(hdc);
+                                HBITMAP hBmp = ReplaceColor(pawnWhite_s,0x000000,0x00ffff,hdcMem);
+                                oldBitmap = SelectObject(hdcMem, hBmp);
+                                GetObject(hBmp, sizeof(bitmap), &bitmap);
+                                BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                if(whitePawns[o].from != NULL && whitePawns[o].to != NULL) {
+                                    if(strlen(whitePawns[o].from) >= 2 && strlen(whitePawns[o].to) >= 2) {
+                                        TextOut(hdc,
+                                                615+50,
+                                                _y_,
+                                                whitePawns[o].to,
+                                                GetTextSize("za"));
+                                    }
+                                }
+                                SelectObject(hdcMem, oldBitmap);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                _y_ += 31;
+                            }
+                        }
+
+                        for(int m=0; m<8; m++) {
+                            if(whiteQueenK[m].posX == 1300) {
+                                hdcMem = CreateCompatibleDC(hdc);
+                                HBITMAP hBmp = ReplaceColor(queenWhite_s,0xff0000,0x00ffff,hdcMem);
+                                oldBitmap = SelectObject(hdcMem, hBmp);
+                                GetObject(hBmp, sizeof(bitmap), &bitmap);
+                                BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                if(whiteQueenK[m].from != NULL && whiteQueenK[m].to != NULL) {
+                                    if(strlen(whiteQueenK[m].from) >= 2 && strlen(whiteQueenK[m].to) >= 2) {
+                                        TextOut(hdc,
+                                                615+50,
+                                                _y_,
+                                                whiteQueenK[m].to,
+                                                GetTextSize("za"));
+                                    }
+                                }
+                                SelectObject(hdcMem, oldBitmap);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                _y_ += 31;
+                            }
+                        }
+
+                        _y_ = 20;
+
+                        if(blackRook1.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(rookBlack_s,0x00ff00,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(blackRook1.from != NULL && blackRook1.to != NULL) {
+                                if(strlen(blackRook1.from) >= 2 && strlen(blackRook1.to) >= 2) {
+                                    TextOut(hdc,
+                                            690+50,
+                                            _y_,
+                                            blackRook1.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(blackRook2.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(rook2Black_s,0x00ff00,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(blackRook2.from != NULL && blackRook2.to != NULL) {
+                                if(strlen(blackRook2.from) >= 2 && strlen(blackRook2.to) >= 2) {
+                                    TextOut(hdc,
+                                            690+50,
+                                            _y_,
+                                            blackRook2.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(blackKnight1.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(knightBlack_s,0x00ff00,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(blackKnight1.from != NULL && blackKnight1.to != NULL) {
+                                if(strlen(blackKnight1.from) >= 2 && strlen(blackKnight1.to) >= 2) {
+                                    TextOut(hdc,
+                                            690+50,
+                                            _y_,
+                                            blackKnight1.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(blackKnight2.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(knight2Black_s,0x00ff00,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(blackKnight2.from != NULL && blackKnight2.to != NULL) {
+                                if(strlen(blackKnight2.from) >= 2 && strlen(blackKnight2.to) >= 2) {
+                                    TextOut(hdc,
+                                            690+50,
+                                            _y_,
+                                            blackKnight2.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(blackBishop1.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(bishopBlack_s,0xff0000,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(blackBishop1.from != NULL && blackBishop1.to != NULL) {
+                                if(strlen(blackBishop1.from) >= 2 && strlen(blackBishop1.to) >= 2) {
+                                    TextOut(hdc,
+                                            690+50,
+                                            _y_,
+                                            blackBishop1.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(blackBishop2.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(bishop2Black_s,0xff0000,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(blackBishop2.from != NULL && blackBishop2.to != NULL) {
+                                if(strlen(blackBishop2.from) >= 2 && strlen(blackBishop2.to) >= 2) {
+                                    TextOut(hdc,
+                                            690+50,
+                                            _y_,
+                                            blackBishop2.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(blackQueen.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(queenBlack_s,0x00ff00,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(blackQueen.from != NULL && blackQueen.to != NULL) {
+                                if(strlen(blackQueen.from) >= 2 && strlen(blackQueen.to) >= 2) {
+                                    TextOut(hdc,
+                                            690+50,
+                                            _y_,
+                                            blackQueen.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(blackKing.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(kingBlack_s,0xff0000,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        for(int o=0; o<8; o++) {
+                            if(blackPawns[o].posX == 1300) {
+                                hdcMem = CreateCompatibleDC(hdc);
+                                HBITMAP hBmp = ReplaceColor(pawnBlack_s,0xff0000,0x00ffff,hdcMem);
+                                oldBitmap = SelectObject(hdcMem, hBmp);
+                                GetObject(hBmp, sizeof(bitmap), &bitmap);
+                                BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                if(blackPawns[o].from != NULL && blackPawns[o].to != NULL) {
+                                    if(strlen(blackPawns[o].from) >= 2 && strlen(blackPawns[o].to) >= 2) {
+                                        TextOut(hdc,
+                                                690+50,
+                                                _y_,
+                                                blackPawns[o].to,
+                                                GetTextSize("za"));
+                                    }
+                                }
+                                SelectObject(hdcMem, oldBitmap);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                _y_ += 31;
+                            }
+                        }
+
+                        for(int m=0; m<8; m++) {
+                            if(blackQueenK[m].posX == 1300) {
+                                hdcMem = CreateCompatibleDC(hdc);
+                                HBITMAP hBmp = ReplaceColor(queenBlack_s,0x00ff00,0x00ffff,hdcMem);
+                                oldBitmap = SelectObject(hdcMem, hBmp);
+                                GetObject(hBmp, sizeof(bitmap), &bitmap);
+                                BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                if(blackQueenK[m].from != NULL && blackQueenK[m].to != NULL) {
+                                    if(strlen(blackQueenK[m].from) >= 2 && strlen(blackQueenK[m].to) >= 2) {
+                                        TextOut(hdc,
+                                                690+50,
+                                                _y_,
+                                                blackQueenK[m].to,
+                                                GetTextSize("za"));
+                                    }
+                                }
+                                SelectObject(hdcMem, oldBitmap);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                _y_ += 31;
+                            }
+                        }
+
+                        DeleteObject(pawnBlack_s);
+                        DeleteObject(pawnWhite_s);
+                        DeleteObject(knightBlack_s);
+                        DeleteObject(knightWhite_s);
+                        DeleteObject(knight2Black_s);
+                        DeleteObject(knight2White_s);
+                        DeleteObject(rookBlack_s);
+                        DeleteObject(rookWhite_s);
+                        DeleteObject(rook2Black_s);
+                        DeleteObject(rook2White_s);
+                        DeleteObject(bishopBlack_s);
+                        DeleteObject(bishopWhite_s);
+                        DeleteObject(bishop2Black_s);
+                        DeleteObject(bishop2White_s);
+                        DeleteObject(queenBlack_s);
+                        DeleteObject(queenWhite_s);
+                        DeleteObject(kingBlack_s);
+                        DeleteObject(kingWhite_s);
+                    }
+
+                    //PlaySound(TEXT("ding.wav"), NULL, SND_FILENAME);
+                    
+                    //break;
+                }
+            }
+        } else {
+//            MessageBox(hwnd2players,"Username not found, incorrect password, username not signed in, or noone is signed in.","Error",MB_OK);
+        }
+
+        /* close the socket */
+        close(sockfd);
+
+    } while(TRUE);
+    
+    WSACleanup();
+    
+    return 0;
+}
+
+DWORD WINAPI waitItsBlack(void *data) {
+
+    WORD wVersionRequested;
+    WSADATA wsaData;
+    int err;
+
+    wVersionRequested = MAKEWORD( 2, 2 );
+
+    err = WSAStartup( wVersionRequested, &wsaData );
+    if(err != 0) {
+        printf("no winsock.");
+        return;
+    }
+
+    do {
+
+        Sleep(15000);
+
+        int portno = 80;
+        char *host = "herculesa.herokuapp.com";
+
+        struct hostent *server;
+        struct sockaddr_in serv_addr;
+        int sockfd, bytes, sent, received, total;
+        char message[1024],response[8192];
+
+        sockfd = socket(AF_INET, SOCK_STREAM, 0);
+        if(sockfd < 0) {
+            printf("ERROR opening socket");
+        }
+
+        server = gethostbyname(host);
+        if(server == NULL) {
+            printf("ERROR, no such host");
+        }
+
+        memset(&serv_addr,0,sizeof(serv_addr));
+        serv_addr.sin_family = AF_INET;
+        serv_addr.sin_port = htons(portno);
+        memcpy(&serv_addr.sin_addr.s_addr,server->h_addr,server->h_length);
+
+        if (connect(sockfd,(struct sockaddr *)&serv_addr,sizeof(serv_addr)) < 0) {
+            printf("ERROR connecting");
+        }
+    
+        char *_aabb = (char *) malloc(100);
+        sprintf(_aabb,"%d",opponentid);
+
+        char *gid = (char *) malloc(100);
+        sprintf(gid,"%d",gameid);
+
+        char *_str_2 = (char*) malloc(1 + strlen("&gameid=") + 12 + strlen(gt14)+ strlen("username=")+ strlen(user_name)+ strlen("&password=")+ strlen(pass_word)+strlen("&opponent=")+12+ strlen(hstt14));
+        strcpy(_str_2, gt14);
+        strcat(_str_2, "username=");
+        strcat(_str_2, user_name);
+        strcat(_str_2, "&password=");
+        strcat(_str_2, pass_word);
+        strcat(_str_2, "&opponent=");
+        strcat(_str_2, _aabb);
+        strcat(_str_2, "&gameid=");
+        strcat(_str_2, gid);
+        strcat(_str_2, hstt14);
+        char *_str = (char *) malloc(1 + strlen(_str_2));
+        strcpy(_str, _str_2);
+
+        int length = strlen(_str);
+        int x = send(sockfd, _str, length, 0);
+        if(x == SOCKET_ERROR) {
+            printf("socket error");
+        }
+
+        do {
+            iResult = recv(sockfd, response, 8192, 0);
+        } while(iResult > 0);
+
+        printf(response);
+        
+        char* pPosition = strchr(response, '{');
+
+        if(pPosition != NULL) {
+            char *token = strtok(response, "{");
+            if(token != NULL) {
+                printf("%s\n", token);
+                token = strtok(NULL, "{");
+                if(token == NULL)
+                    break;
+                int rresult = strcmp("notGameRequest", token);
+                if(rresult != 0) {
+                    from = token;
+                    token = strtok(NULL, "{");
+                    to = token;
+
+                    char *bestMove = (char *) malloc(40);
+                    strcpy(bestMove,from);
+                    strcat(bestMove,to);
+                    
+                    boolean refreshme = FALSE;
+
+                    if(bestMove != NULL) {
+                        boolean changeiii = FALSE;
+                        for(int z=0; z<8; z++) {
+                            if(whitePawns[z].posY == 20+reMap(bestMove,1) &&
+                               420+20 == blackPawns[z].posY &&
+                               whitePawns[z].posX == 20+reMap(bestMove,0)) {
+                                turn = 'r';
+                                strncpy(chosenPiece, "qr", 2);
+                                changeiii = TRUE;
+                                whitePawns[z].from = map((whitePawns[z].posY-20)/70, (whitePawns[z].posX-20)/70);
+                                int x = 20+re_Map(bestMove,0);
+                                int y = 20+re_Map(bestMove,1);
+                                whiteQueenK[z].posX = x;
+                                whiteQueenK[z].posY = y;
+                                whiteQueenK[z].from = map((y-20)/70, (x-20)/70);
+                                whiteQueenK[z].to = map((y-20)/70, (x-20)/70);
+                                whitePawns[z].to = map((y-20)/70, (x-20)/70);
+                                strcat(whitePawns[z].to,"q");
+                                refreshme = TRUE;
+                                whitePawns[z].posX = 1300;
+                                whitePawns[z].posY = -1000;
+                            }
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       whiteKnight1.posX == 20+reMap(bestMove,0)) {
+                        if(whiteKnight1.posY == 20+reMap(bestMove,1)) {
+                            turn = 'r';
+                            whiteKnight1.from = map(whiteKnight1.posY/70, whiteKnight1.posX/70);
+                            whiteKnight1.posY = 20+re_Map(bestMove,1);
+                            whiteKnight1.posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(whiteKnight1.posX == blackPawns[z].posX &&
+                                   whiteKnight1.posY == blackPawns[z].posY) {
+                                    blackPawns[z].posX = 1300;
+                                }
+                            }
+                            if(whiteKnight1.posX == blackRook1.posX &&
+                               whiteKnight1.posY == blackRook1.posY) {
+                                blackRook1.posX = 1300;
+                            }
+                            if(whiteKnight1.posX == blackRook2.posX &&
+                               whiteKnight1.posY == blackRook2.posY) {
+                                blackRook2.posX = 1300;
+                            }
+                            if(whiteKnight1.posX == blackKnight1.posX &&
+                               whiteKnight1.posY == blackKnight1.posY) {
+                                blackKnight1.posX = 1300;
+                            }
+                            if(whiteKnight1.posX == blackKnight2.posX &&
+                               whiteKnight1.posY == blackKnight2.posY) {
+                                blackKnight2.posX = 1300;
+                            }
+                            if(whiteKnight1.posX == blackBishop1.posX &&
+                               whiteKnight1.posY == blackBishop1.posY) {
+                                blackBishop1.posX = 1300;
+                            }
+                            if(whiteKnight1.posX == blackBishop2.posX &&
+                               whiteKnight1.posY == blackBishop2.posY) {
+                                blackBishop2.posX = 1300;
+                            }
+                            if(whiteKnight1.posX == blackQueen.posX &&
+                               whiteKnight1.posY == blackQueen.posY) {
+                                blackQueen.posX = 1300;
+                            }
+                            whiteKnight1.to = map(whiteKnight1.posY/70, whiteKnight1.posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       whiteKnight2.posX == 20+reMap(bestMove,0)) {
+                        if(whiteKnight2.posY == 20+reMap(bestMove,1)) {
+                            turn = 'r';
+                            whiteKnight2.from = map(whiteKnight2.posY/70, whiteKnight2.posX/70);
+                            whiteKnight2.posY = 20+re_Map(bestMove,1);
+                            whiteKnight2.posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(whiteKnight2.posX == blackPawns[z].posX &&
+                                   whiteKnight2.posY == blackPawns[z].posY) {
+                                    blackPawns[z].posX = 1300;
+                                }
+                            }
+                            if(whiteKnight2.posX == blackRook1.posX &&
+                               whiteKnight2.posY == blackRook1.posY) {
+                                blackRook1.posX = 1300;
+                            }
+                            if(whiteKnight2.posX == blackRook2.posX &&
+                               whiteKnight2.posY == blackRook2.posY) {
+                                blackRook2.posX = 1300;
+                            }
+                            if(whiteKnight2.posX == blackKnight1.posX &&
+                               whiteKnight2.posY == blackKnight1.posY) {
+                                blackKnight1.posX = 1300;
+                            }
+                            if(whiteKnight2.posX == blackKnight2.posX &&
+                               whiteKnight2.posY == blackKnight2.posY) {
+                                blackKnight2.posX = 1300;
+                            }
+                            if(whiteKnight2.posX == blackBishop1.posX &&
+                               whiteKnight2.posY == blackBishop1.posY) {
+                                blackBishop1.posX = 1300;
+                            }
+                            if(whiteKnight2.posX == blackBishop2.posX &&
+                               whiteKnight2.posY == blackBishop2.posY) {
+                                blackBishop2.posX = 1300;
+                            }
+                            if(whiteKnight2.posX == blackQueen.posX &&
+                               whiteKnight2.posY == blackQueen.posY) {
+                                blackQueen.posX = 1300;
+                            }
+                            whiteKnight2.to = map(whiteKnight2.posY/70, whiteKnight2.posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       whiteBishop1.posX == 20+reMap(bestMove,0)) {
+                        if(whiteBishop1.posY == 20+reMap(bestMove,1)) {
+                            turn = 'r';
+                            whiteBishop1.from = map(whiteBishop1.posY/70, whiteBishop1.posX/70);
+                            whiteBishop1.posY = 20+re_Map(bestMove,1);
+                            whiteBishop1.posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(whiteBishop1.posX == blackPawns[z].posX &&
+                                   whiteBishop1.posY == blackPawns[z].posY) {
+                                    blackPawns[z].posX = 1300;
+                                }
+                            }
+                            if(whiteBishop1.posX == blackRook1.posX &&
+                               whiteBishop1.posY == blackRook1.posY) {
+                                blackRook1.posX = 1300;
+                            }
+                            if(whiteBishop1.posX == blackRook2.posX &&
+                               whiteBishop1.posY == blackRook2.posY) {
+                                blackRook2.posX = 1300;
+                            }
+                            if(whiteBishop1.posX == blackKnight1.posX &&
+                               whiteBishop1.posY == blackKnight1.posY) {
+                                blackKnight1.posX = 1300;
+                            }
+                            if(whiteBishop1.posX == blackKnight2.posX &&
+                               whiteBishop1.posY == blackKnight2.posY) {
+                                blackKnight2.posX = 1300;
+                            }
+                            if(whiteBishop1.posX == blackBishop1.posX &&
+                               whiteBishop1.posY == blackBishop1.posY) {
+                                blackBishop1.posX = 1300;
+                            }
+                            if(whiteBishop1.posX == blackBishop2.posX &&
+                               whiteBishop1.posY == blackBishop2.posY) {
+                                blackBishop2.posX = 1300;
+                            }
+                            if(whiteBishop1.posX == blackQueen.posX &&
+                               whiteBishop1.posY == blackQueen.posY) {
+                                blackQueen.posX = 1300;
+                            }
+                            whiteBishop1.to = map(whiteBishop1.posY/70, whiteBishop1.posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       whiteBishop2.posX == 20+reMap(bestMove,0)) {
+                        if(whiteBishop2.posY == 20+reMap(bestMove,1)) {
+                            turn = 'r';
+                            whiteBishop2.from = map(whiteBishop2.posY/70, whiteBishop2.posX/70);
+                            whiteBishop2.posY = 20+re_Map(bestMove,1);
+                            whiteBishop2.posX = 20+re_Map(bestMove,0);
+                                for(int z=0; z<8; z++) {
+                                    if(whiteBishop2.posX == blackPawns[z].posX &&
+                                       whiteBishop2.posY == blackPawns[z].posY) {
+                                        blackPawns[z].posX = 1300;
+                                    }
+                                }
+                                if(whiteBishop2.posX == blackRook1.posX &&
+                                   whiteBishop2.posY == blackRook1.posY) {
+                                    blackRook1.posX = 1300;
+                                }
+                                if(whiteBishop2.posX == blackRook2.posX &&
+                                   whiteBishop2.posY == blackRook2.posY) {
+                                    blackRook2.posX = 1300;
+                                }
+                                if(whiteBishop2.posX == blackKnight1.posX &&
+                                   whiteBishop2.posY == blackKnight1.posY) {
+                                    blackKnight1.posX = 1300;
+                                }
+                                if(whiteBishop2.posX == blackKnight2.posX &&
+                                   whiteBishop2.posY == blackKnight2.posY) {
+                                    blackKnight2.posX = 1300;
+                                }
+                                if(whiteBishop2.posX == blackBishop1.posX &&
+                                   whiteBishop2.posY == blackBishop1.posY) {
+                                    blackBishop1.posX = 1300;
+                                }
+                                if(whiteBishop2.posX == blackBishop2.posX &&
+                                   whiteBishop2.posY == blackBishop2.posY) {
+                                    blackBishop2.posX = 1300;
+                                }
+                                if(whiteBishop2.posX == blackQueen.posX &&
+                                   whiteBishop2.posY == blackQueen.posY) {
+                                    blackQueen.posX = 1300;
+                                }
+                            whiteBishop2.to = map(whiteBishop2.posY/70, whiteBishop2.posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       whiteRook1.posX == 20+reMap(bestMove,0)) {
+                        if(whiteRook1.posY == 20+reMap(bestMove,1)) {
+                            turn = 'r';
+                            whiteRook1.from = map(whiteRook1.posY/70, whiteRook1.posX/70);
+                            whiteRook1.posY = 20+re_Map(bestMove,1);
+                            whiteRook1.posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(whiteRook1.posX == blackPawns[z].posX &&
+                                   whiteRook1.posY == blackPawns[z].posY) {
+                                    blackPawns[z].posX = 1300;
+                                }
+                            }
+                            if(whiteRook1.posX == blackRook1.posX &&
+                               whiteRook1.posY == blackRook1.posY) {
+                                blackRook1.posX = 1300;
+                            }
+                            if(whiteRook1.posX == blackRook2.posX &&
+                               whiteRook1.posY == blackRook2.posY) {
+                                blackRook2.posX = 1300;
+                            }
+                            if(whiteRook1.posX == blackKnight1.posX &&
+                               whiteRook1.posY == blackKnight1.posY) {
+                                blackKnight1.posX = 1300;
+                            }
+                            if(whiteRook1.posX == blackKnight2.posX &&
+                               whiteRook1.posY == blackKnight2.posY) {
+                                blackKnight2.posX = 1300;
+                            }
+                            if(whiteRook1.posX == blackBishop1.posX &&
+                               whiteRook1.posY == blackBishop1.posY) {
+                                blackBishop1.posX = 1300;
+                            }
+                            if(whiteRook1.posX == blackBishop2.posX &&
+                               whiteRook1.posY == blackBishop2.posY) {
+                                blackBishop2.posX = 1300;
+                            }
+                            if(whiteRook1.posX == blackQueen.posX &&
+                               whiteRook1.posY == blackQueen.posY) {
+                                blackQueen.posX = 1300;
+                            }
+                            whiteRook1.to = map(whiteRook1.posY/70, whiteRook1.posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       whiteRook2.posX == 20+reMap(bestMove,0)) {
+                        if(whiteRook2.posY == 20+reMap(bestMove,1)) {
+                            turn = 'r';
+                            whiteRook2.from = map(whiteRook2.posY/70, whiteRook2.posX/70);
+                            whiteRook2.posY = 20+re_Map(bestMove,1);
+                            whiteRook2.posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(whiteRook2.posX == blackPawns[z].posX &&
+                                   whiteRook2.posY == blackPawns[z].posY) {
+                                    blackPawns[z].posX = 1300;
+                                }
+                            }
+                            if(whiteRook2.posX == blackRook1.posX &&
+                               whiteRook2.posY == blackRook1.posY) {
+                                blackRook1.posX = 1300;
+                            }
+                            if(whiteRook2.posX == blackRook2.posX &&
+                               whiteRook2.posY == blackRook2.posY) {
+                                blackRook2.posX = 1300;
+                            }
+                            if(whiteRook2.posX == blackKnight1.posX &&
+                               whiteRook2.posY == blackKnight1.posY) {
+                                blackKnight1.posX = 1300;
+                            }
+                            if(whiteRook2.posX == blackKnight2.posX &&
+                               whiteRook2.posY == blackKnight2.posY) {
+                                blackKnight2.posX = 1300;
+                            }
+                            if(whiteRook2.posX == blackBishop1.posX &&
+                               whiteRook2.posY == blackBishop1.posY) {
+                                blackBishop1.posX = 1300;
+                            }
+                            if(whiteRook2.posX == blackBishop2.posX &&
+                               whiteRook2.posY == blackBishop2.posY) {
+                                blackBishop2.posX = 1300;
+                            }
+                            if(whiteRook2.posX == blackQueen.posX &&
+                               whiteRook2.posY == blackQueen.posY) {
+                                blackQueen.posX = 1300;
+                            }
+                            whiteRook2.to = map(whiteRook2.posY/70, whiteRook2.posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    for(int d=0; d<8; d++) {
+                        if(bestMove != NULL &&
+                           whiteQueenK[d].posX == 20+reMap(bestMove,0)) {
+                            if(whiteQueenK[d].posY == 20+reMap(bestMove,1)) {
+                                turn = 'r';
+                                whiteQueenK[d].from = map(whiteQueenK[d].posY/70, whiteQueenK[d].posX/70);
+                                whiteQueenK[d].posY = 20+re_Map(bestMove,1);
+                                whiteQueenK[d].posX = 20+re_Map(bestMove,0);
+                                for(int z=0; z<8; z++) {
+                                    if(whiteQueenK[d].posX == blackPawns[z].posX &&
+                                       whiteQueenK[d].posY == blackPawns[z].posY) {
+                                        blackPawns[z].posX = 1300;
+                                    }
+                                }
+                                if(whiteQueenK[d].posX == blackRook1.posX &&
+                                   whiteQueenK[d].posY == blackRook1.posY) {
+                                    blackRook1.posX = 1300;
+                                }
+                                if(whiteQueenK[d].posX == blackRook2.posX &&
+                                   whiteQueenK[d].posY == blackRook2.posY) {
+                                    blackRook2.posX = 1300;
+                                }
+                                if(whiteQueenK[d].posX == blackKnight1.posX &&
+                                   whiteQueenK[d].posY == blackKnight1.posY) {
+                                    blackKnight1.posX = 1300;
+                                }
+                                if(whiteQueenK[d].posX == blackKnight2.posX &&
+                                   whiteQueenK[d].posY == blackKnight2.posY) {
+                                    blackKnight2.posX = 1300;
+                                }
+                                if(whiteQueenK[d].posX == blackBishop1.posX &&
+                                   whiteQueenK[d].posY == blackBishop1.posY) {
+                                    blackBishop1.posX = 1300;
+                                }
+                                if(whiteQueenK[d].posX == blackBishop2.posX &&
+                                   whiteQueenK[d].posY == blackBishop2.posY) {
+                                    blackBishop2.posX = 1300;
+                                }
+                                if(whiteQueenK[d].posX == blackQueen.posX &&
+                                   whiteQueenK[d].posY == blackQueen.posY) {
+                                    blackQueen.posX = 1300;
+                                }
+                                whiteQueenK[d].to = map(whiteQueenK[d].posY/70, whiteQueenK[d].posX/70);
+                                refreshme = TRUE;
+                            }
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       whiteQueen.posX == 20+reMap(bestMove,0)) {
+                        if(whiteQueen.posY == 20+reMap(bestMove,1)) {
+                            turn = 'r';
+                            whiteQueen.from = map(whiteQueen.posY/70, whiteQueen.posX/70);
+                            whiteQueen.posY = 20+re_Map(bestMove,1);
+                            whiteQueen.posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(whiteQueen.posX == blackPawns[z].posX &&
+                                   whiteQueen.posY == blackPawns[z].posY) {
+                                    blackPawns[z].posX = 1300;
+                                }
+                            }
+                            if(whiteQueen.posX == blackRook1.posX &&
+                               whiteQueen.posY == blackRook1.posY) {
+                                blackRook1.posX = 1300;
+                            }
+                            if(whiteQueen.posX == blackRook2.posX &&
+                               whiteQueen.posY == blackRook2.posY) {
+                                blackRook2.posX = 1300;
+                            }
+                            if(whiteQueen.posX == blackKnight1.posX &&
+                               whiteQueen.posY == blackKnight1.posY) {
+                                blackKnight1.posX = 1300;
+                            }
+                            if(whiteQueen.posX == blackKnight2.posX &&
+                               whiteQueen.posY == blackKnight2.posY) {
+                                blackKnight2.posX = 1300;
+                            }
+                            if(whiteQueen.posX == blackBishop1.posX &&
+                               whiteQueen.posY == blackBishop1.posY) {
+                                blackBishop1.posX = 1300;
+                            }
+                            if(whiteQueen.posX == blackBishop2.posX &&
+                               whiteQueen.posY == blackBishop2.posY) {
+                                blackBishop2.posX = 1300;
+                            }
+                            if(whiteQueen.posX == blackQueen.posX &&
+                               whiteQueen.posY == blackQueen.posY) {
+                                blackQueen.posX = 1300;
+                            }
+                            whiteQueen.to = map(whiteQueen.posY/70, whiteQueen.posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       whiteKing.posX == 20+reMap(bestMove,0)) {
+                        if(whiteKing.posY == 20+reMap(bestMove,1)) {
+                            turn = 'r';
+                            whiteKing.from = map(whiteKing.posY/70, whiteKing.posX/70);
+                            int xxxx = whiteKing.posX;
+                            int yyyy = whiteKing.posY;
+                            whiteKing.posY = 20+re_Map(bestMove,1);
+                            whiteKing.posX = 20+re_Map(bestMove,0);
+                            if(xxxx - whiteKing.posX == 200) {
+                                whiteRook1.posX += 300;
+                            }
+                            if(whiteKing.posX - xxxx == 200) {
+                                whiteRook2.posX -= 200;
+                            }
+                            for(int z=0; z<8; z++) {
+                                if(whiteKing.posX == blackPawns[z].posX &&
+                                   whiteKing.posY == blackPawns[z].posY) {
+                                    blackPawns[z].posX = 1300;
+                                }
+                            }
+                            if(whiteKing.posX == blackRook1.posX &&
+                               whiteKing.posY == blackRook1.posY) {
+                                blackRook1.posX = 1300;
+                            }
+                            if(whiteKing.posX == blackRook2.posX &&
+                               whiteKing.posY == blackRook2.posY) {
+                                blackRook2.posX = 1300;
+                            }
+                            if(whiteKing.posX == blackKnight1.posX &&
+                               whiteKing.posY == blackKnight1.posY) {
+                                blackKnight1.posX = 1300;
+                            }
+                            if(whiteKing.posX == blackKnight2.posX &&
+                               whiteKing.posY == blackKnight2.posY) {
+                                blackKnight2.posX = 1300;
+                            }
+                            if(whiteKing.posX == blackBishop1.posX &&
+                               whiteKing.posY == blackBishop1.posY) {
+                                blackBishop1.posX = 1300;
+                            }
+                            if(whiteKing.posX == blackBishop2.posX &&
+                               whiteKing.posY == blackBishop2.posY) {
+                                blackBishop2.posX = 1300;
+                            }
+                            if(whiteKing.posX == blackQueen.posX &&
+                               whiteKing.posY == blackQueen.posY) {
+                                blackQueen.posX = 1300;
+                            }
+                            whiteKing.to = map(whiteKing.posY/70, whiteKing.posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       whitePawns[0].posX == 20+reMap(bestMove,0)) {
+                        if(whitePawns[0].posY == 20+reMap(bestMove,1)) {
+                            turn = 'r';
+                            whitePawns[0].from = map(whitePawns[0].posY/70, whitePawns[0].posX/70);
+                            whitePawns[0].posY = 20+re_Map(bestMove,1);
+                            whitePawns[0].posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(whitePawns[0].posX == blackPawns[z].posX &&
+                                   whitePawns[0].posY == blackPawns[z].posY) {
+                                    blackPawns[z].posX = 1300;
+                                }
+                            }
+                            if(whitePawns[0].posX == blackRook1.posX &&
+                               whitePawns[0].posY == blackRook1.posY) {
+                                blackRook1.posX = 1300;
+                            }
+                            if(whitePawns[0].posX == blackRook2.posX &&
+                               whitePawns[0].posY == blackRook2.posY) {
+                                blackRook2.posX = 1300;
+                            }
+                            if(whitePawns[0].posX == blackKnight1.posX &&
+                               whitePawns[0].posY == blackKnight1.posY) {
+                                blackKnight1.posX = 1300;
+                            }
+                            if(whitePawns[0].posX == blackKnight2.posX &&
+                               whitePawns[0].posY == blackKnight2.posY) {
+                                blackKnight2.posX = 1300;
+                            }
+                            if(whitePawns[0].posX == blackBishop1.posX &&
+                               whitePawns[0].posY == blackBishop1.posY) {
+                                blackBishop1.posX = 1300;
+                            }
+                            if(whitePawns[0].posX == blackBishop2.posX &&
+                               whitePawns[0].posY == blackBishop2.posY) {
+                                blackBishop2.posX = 1300;
+                            }
+                            if(whitePawns[0].posX == blackQueen.posX &&
+                               whitePawns[0].posY == blackQueen.posY) {
+                                blackQueen.posX = 1300;
+                            }
+                            whitePawns[0].to = map(whitePawns[0].posY/70, whitePawns[0].posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       whitePawns[1].posX == 20+reMap(bestMove,0)) {
+                        if(whitePawns[1].posY == 20+reMap(bestMove,1)) {
+                            turn = 'r';
+                            whitePawns[1].from = map(whitePawns[1].posY/70, whitePawns[1].posX/70);
+                            whitePawns[1].posY = 20+re_Map(bestMove,1);
+                            whitePawns[1].posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(whitePawns[1].posX == blackPawns[z].posX &&
+                                   whitePawns[1].posY == blackPawns[z].posY) {
+                                    blackPawns[z].posX = 1300;
+                                }
+                            }
+                            if(whitePawns[1].posX == blackRook1.posX &&
+                               whitePawns[1].posY == blackRook1.posY) {
+                                blackRook1.posX = 1300;
+                            }
+                            if(whitePawns[1].posX == blackRook2.posX &&
+                               whitePawns[1].posY == blackRook2.posY) {
+                                blackRook2.posX = 1300;
+                            }
+                            if(whitePawns[1].posX == blackKnight1.posX &&
+                               whitePawns[1].posY == blackKnight1.posY) {
+                                blackKnight1.posX = 1300;
+                            }
+                            if(whitePawns[1].posX == blackKnight2.posX &&
+                               whitePawns[1].posY == blackKnight2.posY) {
+                                blackKnight2.posX = 1300;
+                            }
+                            if(whitePawns[1].posX == blackBishop1.posX &&
+                               whitePawns[1].posY == blackBishop1.posY) {
+                                blackBishop1.posX = 1300;
+                            }
+                            if(whitePawns[1].posX == blackBishop2.posX &&
+                               whitePawns[1].posY == blackBishop2.posY) {
+                                blackBishop2.posX = 1300;
+                            }
+                            if(whitePawns[1].posX == blackQueen.posX &&
+                               whitePawns[1].posY == blackQueen.posY) {
+                                blackQueen.posX = 1300;
+                            }
+                            whitePawns[1].to = map(whitePawns[1].posY/70, whitePawns[1].posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       whitePawns[2].posX == 20+reMap(bestMove,0)) {
+                        if(whitePawns[2].posY == 20+reMap(bestMove,1)) {
+                            turn = 'r';
+                            whitePawns[2].from = map(whitePawns[2].posY/70, whitePawns[2].posX/70);
+                            whitePawns[2].posY = 20+re_Map(bestMove,1);
+                            whitePawns[2].posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(whitePawns[2].posX == blackPawns[z].posX &&
+                                   whitePawns[2].posY == blackPawns[z].posY) {
+                                    blackPawns[z].posX = 1300;
+                                }
+                            }
+                            if(whitePawns[2].posX == blackRook1.posX &&
+                               whitePawns[2].posY == blackRook1.posY) {
+                                blackRook1.posX = 1300;
+                            }
+                            if(whitePawns[2].posX == blackRook2.posX &&
+                               whitePawns[2].posY == blackRook2.posY) {
+                                blackRook2.posX = 1300;
+                            }
+                            if(whitePawns[2].posX == blackKnight1.posX &&
+                               whitePawns[2].posY == blackKnight1.posY) {
+                                blackKnight1.posX = 1300;
+                            }
+                            if(whitePawns[2].posX == blackKnight2.posX &&
+                               whitePawns[2].posY == blackKnight2.posY) {
+                                blackKnight2.posX = 1300;
+                            }
+                            if(whitePawns[2].posX == blackBishop1.posX &&
+                               whitePawns[2].posY == blackBishop1.posY) {
+                                blackBishop1.posX = 1300;
+                            }
+                            if(whitePawns[2].posX == blackBishop2.posX &&
+                               whitePawns[2].posY == blackBishop2.posY) {
+                                blackBishop2.posX = 1300;
+                            }
+                            if(whitePawns[2].posX == blackQueen.posX &&
+                               whitePawns[2].posY == blackQueen.posY) {
+                                blackQueen.posX = 1300;
+                            }
+                            whitePawns[2].to = map(whitePawns[2].posY/70, whitePawns[2].posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       whitePawns[3].posX == 20+reMap(bestMove,0)) {
+                        if(whitePawns[3].posY == 20+reMap(bestMove,1)) {
+                            turn = 'r';
+                            whitePawns[3].from = map(whitePawns[3].posY/70, whitePawns[3].posX/70);
+                            whitePawns[3].posY = 20+re_Map(bestMove,1);
+                            whitePawns[3].posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(whitePawns[3].posX == blackPawns[z].posX &&
+                                   whitePawns[3].posY == blackPawns[z].posY) {
+                                    blackPawns[z].posX = 1300;
+                                }
+                            }
+                            if(whitePawns[3].posX == blackRook1.posX &&
+                               whitePawns[3].posY == blackRook1.posY) {
+                                blackRook1.posX = 1300;
+                            }
+                            if(whitePawns[3].posX == blackRook2.posX &&
+                               whitePawns[3].posY == blackRook2.posY) {
+                                blackRook2.posX = 1300;
+                            }
+                            if(whitePawns[3].posX == blackKnight1.posX &&
+                               whitePawns[3].posY == blackKnight1.posY) {
+                                blackKnight1.posX = 1300;
+                            }
+                            if(whitePawns[3].posX == blackKnight2.posX &&
+                               whitePawns[3].posY == blackKnight2.posY) {
+                                blackKnight2.posX = 1300;
+                            }
+                            if(whitePawns[3].posX == blackBishop1.posX &&
+                               whitePawns[3].posY == blackBishop1.posY) {
+                                blackBishop1.posX = 1300;
+                            }
+                            if(whitePawns[3].posX == blackBishop2.posX &&
+                               whitePawns[3].posY == blackBishop2.posY) {
+                                blackBishop2.posX = 1300;
+                            }
+                            if(whitePawns[3].posX == blackQueen.posX &&
+                               whitePawns[3].posY == blackQueen.posY) {
+                                blackQueen.posX = 1300;
+                            }
+                            whitePawns[3].to = map(whitePawns[3].posY/70, whitePawns[3].posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       whitePawns[4].posX == 20+reMap(bestMove,0)) {
+                        if(whitePawns[4].posY == 20+reMap(bestMove,1)) {
+                            turn = 'r';
+                            whitePawns[4].from = map(whitePawns[4].posY/70, whitePawns[4].posX/70);
+                            whitePawns[4].posY = 20+re_Map(bestMove,1);
+                            whitePawns[4].posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(whitePawns[4].posX == blackPawns[z].posX &&
+                                   whitePawns[4].posY == blackPawns[z].posY) {
+                                    blackPawns[z].posX = 1300;
+                                }
+                            }
+                            if(whitePawns[4].posX == blackRook1.posX &&
+                               whitePawns[4].posY == blackRook1.posY) {
+                                blackRook1.posX = 1300;
+                            }
+                            if(whitePawns[4].posX == blackRook2.posX &&
+                               whitePawns[4].posY == blackRook2.posY) {
+                                blackRook2.posX = 1300;
+                            }
+                            if(whitePawns[4].posX == blackKnight1.posX &&
+                               whitePawns[4].posY == blackKnight1.posY) {
+                                blackKnight1.posX = 1300;
+                            }
+                            if(whitePawns[4].posX == blackKnight2.posX &&
+                               whitePawns[4].posY == blackKnight2.posY) {
+                                blackKnight2.posX = 1300;
+                            }
+                            if(whitePawns[4].posX == blackBishop1.posX &&
+                               whitePawns[4].posY == blackBishop1.posY) {
+                                blackBishop1.posX = 1300;
+                            }
+                            if(whitePawns[4].posX == blackBishop2.posX &&
+                               whitePawns[4].posY == blackBishop2.posY) {
+                                blackBishop2.posX = 1300;
+                            }
+                            if(whitePawns[4].posX == blackQueen.posX &&
+                               whitePawns[4].posY == blackQueen.posY) {
+                                blackQueen.posX = 1300;
+                            }
+                            whitePawns[4].to = map(whitePawns[4].posY/70, whitePawns[4].posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       whitePawns[5].posX == 20+reMap(bestMove,0)) {
+                        if(whitePawns[5].posY == 20+reMap(bestMove,1)) {
+                            turn = 'r';
+                            whitePawns[5].from = map(whitePawns[5].posY/70, whitePawns[5].posX/70);
+                            whitePawns[5].posY = 20+re_Map(bestMove,1);
+                            whitePawns[5].posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(whitePawns[5].posX == blackPawns[z].posX &&
+                                   whitePawns[5].posY == blackPawns[z].posY) {
+                                    blackPawns[z].posX = 1300;
+                                }
+                            }
+                            if(whitePawns[5].posX == blackRook1.posX &&
+                               whitePawns[5].posY == blackRook1.posY) {
+                                blackRook1.posX = 1300;
+                            }
+                            if(whitePawns[5].posX == blackRook2.posX &&
+                               whitePawns[5].posY == blackRook2.posY) {
+                                blackRook2.posX = 1300;
+                            }
+                            if(whitePawns[5].posX == blackKnight1.posX &&
+                               whitePawns[5].posY == blackKnight1.posY) {
+                                blackKnight1.posX = 1300;
+                            }
+                            if(whitePawns[5].posX == blackKnight2.posX &&
+                               whitePawns[5].posY == blackKnight2.posY) {
+                                blackKnight2.posX = 1300;
+                            }
+                            if(whitePawns[5].posX == blackBishop1.posX &&
+                               whitePawns[5].posY == blackBishop1.posY) {
+                                blackBishop1.posX = 1300;
+                            }
+                            if(whitePawns[5].posX == blackBishop2.posX &&
+                               whitePawns[5].posY == blackBishop2.posY) {
+                                blackBishop2.posX = 1300;
+                            }
+                            if(whitePawns[5].posX == blackQueen.posX &&
+                               whitePawns[5].posY == blackQueen.posY) {
+                                blackQueen.posX = 1300;
+                            }
+                            whitePawns[5].to = map(whitePawns[5].posY/70, whitePawns[5].posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       whitePawns[6].posX == 20+reMap(bestMove,0)) {
+                        if(whitePawns[6].posY == 20+reMap(bestMove,1)) {
+                            turn = 'r';
+                            whitePawns[6].from = map(whitePawns[6].posY/70, whitePawns[6].posX/70);
+                            whitePawns[6].posY = 20+re_Map(bestMove,1);
+                            whitePawns[6].posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(whitePawns[6].posX == blackPawns[z].posX &&
+                                   whitePawns[6].posY == blackPawns[z].posY) {
+                                    blackPawns[z].posX = 1300;
+                                }
+                            }
+                            if(whitePawns[6].posX == blackRook1.posX &&
+                               whitePawns[6].posY == blackRook1.posY) {
+                                blackRook1.posX = 1300;
+                            }
+                            if(whitePawns[6].posX == blackRook2.posX &&
+                               whitePawns[6].posY == blackRook2.posY) {
+                                blackRook2.posX = 1300;
+                            }
+                            if(whitePawns[6].posX == blackKnight1.posX &&
+                               whitePawns[6].posY == blackKnight1.posY) {
+                                blackKnight1.posX = 1300;
+                            }
+                            if(whitePawns[6].posX == blackKnight2.posX &&
+                               whitePawns[6].posY == blackKnight2.posY) {
+                                blackKnight2.posX = 1300;
+                            }
+                            if(whitePawns[6].posX == blackBishop1.posX &&
+                               whitePawns[6].posY == blackBishop1.posY) {
+                                blackBishop1.posX = 1300;
+                            }
+                            if(whitePawns[6].posX == blackBishop2.posX &&
+                               whitePawns[6].posY == blackBishop2.posY) {
+                                blackBishop2.posX = 1300;
+                            }
+                            if(whitePawns[6].posX == blackQueen.posX &&
+                               whitePawns[6].posY == blackQueen.posY) {
+                                blackQueen.posX = 1300;
+                            }
+                            whitePawns[6].to = map(whitePawns[6].posY/70, whitePawns[6].posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+                    if(bestMove != NULL &&
+                       whitePawns[7].posX == 20+reMap(bestMove,0)) {
+                        if(whitePawns[7].posY == 20+reMap(bestMove,1)) {
+                            turn = 'r';
+                            whitePawns[7].from = map(whitePawns[7].posY/70, whitePawns[7].posX/70);
+                            whitePawns[7].posY = 20+re_Map(bestMove,1);
+                            whitePawns[7].posX = 20+re_Map(bestMove,0);
+                            for(int z=0; z<8; z++) {
+                                if(whitePawns[7].posX == blackPawns[z].posX &&
+                                   whitePawns[7].posY == blackPawns[z].posY) {
+                                    blackPawns[z].posX = 1300;
+                                }
+                            }
+                            if(whitePawns[7].posX == blackRook1.posX &&
+                               whitePawns[7].posY == blackRook1.posY) {
+                                blackRook1.posX = 1300;
+                            }
+                            if(whitePawns[7].posX == blackRook2.posX &&
+                               whitePawns[7].posY == blackRook2.posY) {
+                                blackRook2.posX = 1300;
+                            }
+                            if(whitePawns[7].posX == blackKnight1.posX &&
+                               whitePawns[7].posY == blackKnight1.posY) {
+                                blackKnight1.posX = 1300;
+                            }
+                            if(whitePawns[7].posX == blackKnight2.posX &&
+                               whitePawns[7].posY == blackKnight2.posY) {
+                                blackKnight2.posX = 1300;
+                            }
+                            if(whitePawns[7].posX == blackBishop1.posX &&
+                               whitePawns[7].posY == blackBishop1.posY) {
+                                blackBishop1.posX = 1300;
+                            }
+                            if(whitePawns[7].posX == blackBishop2.posX &&
+                               whitePawns[7].posY == blackBishop2.posY) {
+                                blackBishop2.posX = 1300;
+                            }
+                            if(whitePawns[7].posX == blackQueen.posX &&
+                               whitePawns[7].posY == blackQueen.posY) {
+                                blackQueen.posX = 1300;
+                            }
+                            whitePawns[7].to = map(whitePawns[7].posY/70, whitePawns[7].posX/70);
+                            refreshme = TRUE;
+                        }
+                    }
+
+                    if(refreshme) {
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        oldBitmap = SelectObject(hdcMem, hBitmap);
+
+                        GetObject(hBitmap, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, 0, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
+
+                        SelectObject(hdcMem, oldBitmap);
+                        DeleteDC(hdcMem); DeleteObject(hBitmap);
+
+                        DrawChessBoard();
+
+                        Sleep(1);
+                        pawnBlack = (HBITMAP)LoadImage(hInst, "pawnblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        pawnWhite = (HBITMAP)LoadImage(hInst, "pawnwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        knightBlack = (HBITMAP)LoadImage(hInst, "knightblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        knightWhite = (HBITMAP)LoadImage(hInst, "knightwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        knight2Black = (HBITMAP)LoadImage(hInst, "knightblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        knight2White = (HBITMAP)LoadImage(hInst, "knightwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        rookBlack = (HBITMAP)LoadImage(hInst, "rookblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        rookWhite = (HBITMAP)LoadImage(hInst, "rookwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        rook2Black = (HBITMAP)LoadImage(hInst, "rookblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        rook2White = (HBITMAP)LoadImage(hInst, "rookwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        bishopBlack = (HBITMAP)LoadImage(hInst, "bishopblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        bishopWhite = (HBITMAP)LoadImage(hInst, "bishopwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        bishop2Black = (HBITMAP)LoadImage(hInst, "bishopblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        bishop2White = (HBITMAP)LoadImage(hInst, "bishopwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        queenBlack = (HBITMAP)LoadImage(hInst, "queenblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        queenWhite = (HBITMAP)LoadImage(hInst, "queenwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        kingBlack = (HBITMAP)LoadImage(hInst, "kingblack.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        kingWhite = (HBITMAP)LoadImage(hInst, "kingwhite.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        HBITMAP hBmp;
+                        if(((whiteRook1.posX/70)+(whiteRook1.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(rookWhite,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(rookWhite,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, whiteRook1.posX+25+7, whiteRook1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((whiteRook2.posX/70)+(whiteRook2.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(rook2White,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(rook2White,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, whiteRook2.posX+25+7, whiteRook2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((whiteKnight1.posX/70)+(whiteKnight1.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(knightWhite,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(knightWhite,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, whiteKnight1.posX+25+7, whiteKnight1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((whiteKnight2.posX/70)+(whiteKnight2.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(knight2White,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(knight2White,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, whiteKnight2.posX+25+7, whiteKnight2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((whiteBishop1.posX/70)+(whiteBishop1.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(bishopWhite,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(bishopWhite,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, whiteBishop1.posX+25+7, whiteBishop1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((whiteBishop2.posX/70)+(whiteBishop2.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(bishop2White,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(bishop2White,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, whiteBishop2.posX+25+7, whiteBishop2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((whiteQueen.posX/70)+(whiteQueen.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(queenWhite,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(queenWhite,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, whiteQueen.posX+25+7, whiteQueen.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((whiteKing.posX/70)+(whiteKing.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(kingWhite,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(kingWhite,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, whiteKing.posX+25+7, whiteKing.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        for(int o=0; o<8; o++) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((whitePawns[o].posX/70)+(whitePawns[o].posY/70)) % 2 == 0)
+                                hBmp = ReplaceColor(pawnWhite,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(pawnWhite,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, whitePawns[o].posX+25+7, whitePawns[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                        }
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((blackRook1.posX/70)+(blackRook1.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(rookBlack,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(rookBlack,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, blackRook1.posX+25+7, blackRook1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((blackRook2.posX/70)+(blackRook2.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(rook2Black,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(rookBlack,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, blackRook2.posX+25+7, blackRook2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((blackKnight1.posX/70)+(blackKnight1.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(knightBlack,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(knightBlack,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, blackKnight1.posX+25+7, blackKnight1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((blackKnight2.posX/70)+(blackKnight2.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(knight2Black,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(knight2Black,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, blackKnight2.posX+25+7, blackKnight2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((blackBishop1.posX/70)+(blackBishop1.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(bishopBlack,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(bishopBlack,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, blackBishop1.posX+25+7, blackBishop1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((blackBishop2.posX/70)+(blackBishop2.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(bishop2Black,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(bishop2Black,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, blackBishop2.posX+25+7, blackBishop2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((blackQueen.posX/70)+(blackQueen.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(queenBlack,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(queenBlack,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, blackQueen.posX+25+7, blackQueen.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        hdcMem = CreateCompatibleDC(hdc);
+                        if(((blackKing.posX/70)+(blackKing.posY/70)) % 2 == 0)
+                            hBmp = ReplaceColor(kingBlack,0x110000,0xffffff,hdcMem);
+                        else
+                            hBmp = ReplaceColor(kingBlack,0x110000,0x000000,hdcMem);
+                        oldBitmap = SelectObject(hdcMem, hBmp);
+                        GetObject(hBmp, sizeof(bitmap), &bitmap);
+                        BitBlt(hdc, blackKing.posX+25+7, blackKing.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                        SelectObject(hdcMem, oldBitmap);
+                        ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+
+                        for(int o=0; o<8; o++) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((blackPawns[o].posX/70)+(blackPawns[o].posY/70)) % 2 == 0)
+                                hBmp = ReplaceColor(pawnBlack,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(pawnBlack,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, blackPawns[o].posX+25+7, blackPawns[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                        }
+
+                        for(int m=0; m<8; m++) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((whiteQueenK[m].posX/70)+(whiteQueenK[m].posY/70)) % 2 == 0)
+                                hBmp = ReplaceColor(queenWhite,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(queenWhite,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, whiteQueenK[m].posX+25+7, whiteQueenK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                        }
+
+                        for(int m=0; m<8; m++) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            if(((blackQueenK[m].posX/70)+(blackQueenK[m].posY/70)) % 2 == 0)
+                                hBmp = ReplaceColor(queenBlack,0x110000,0xffffff,hdcMem);
+                            else
+                                hBmp = ReplaceColor(queenBlack,0x110000,0x000000,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, blackQueenK[m].posX+25+7, blackQueenK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                        }
+
+                        DeleteObject(pawnBlack);
+                        DeleteObject(pawnWhite);
+                        DeleteObject(knightBlack);
+                        DeleteObject(knightWhite);
+                        DeleteObject(knight2Black);
+                        DeleteObject(knight2White);
+                        DeleteObject(rookBlack);
+                        DeleteObject(rookWhite);
+                        DeleteObject(rook2Black);
+                        DeleteObject(rook2White);
+                        DeleteObject(bishopBlack);
+                        DeleteObject(bishopWhite);
+                        DeleteObject(bishop2Black);
+                        DeleteObject(bishop2White);
+                        DeleteObject(queenBlack);
+                        DeleteObject(queenWhite);
+                        DeleteObject(kingBlack);
+                        DeleteObject(kingWhite);
+
+                        Sleep(1);
+                        pawnBlack_s = (HBITMAP)LoadImage(hInst, "pawnblack_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        pawnWhite_s = (HBITMAP)LoadImage(hInst, "pawnwhite_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        knightBlack_s = (HBITMAP)LoadImage(hInst, "knightblack_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        knightWhite_s = (HBITMAP)LoadImage(hInst, "knightwhite_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        knight2Black_s = (HBITMAP)LoadImage(hInst, "knightblack_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        knight2White_s = (HBITMAP)LoadImage(hInst, "knightwhite_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        rookBlack_s = (HBITMAP)LoadImage(hInst, "rookblack_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        rookWhite_s = (HBITMAP)LoadImage(hInst, "rookwhite_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        rook2Black_s = (HBITMAP)LoadImage(hInst, "rookblack_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        rook2White_s = (HBITMAP)LoadImage(hInst, "rookwhite_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        bishopBlack_s = (HBITMAP)LoadImage(hInst, "bishopblack_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        bishopWhite_s = (HBITMAP)LoadImage(hInst, "bishopwhite_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        bishop2Black_s = (HBITMAP)LoadImage(hInst, "bishopblack_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        bishop2White_s = (HBITMAP)LoadImage(hInst, "bishopwhite_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        queenBlack_s = (HBITMAP)LoadImage(hInst, "queenblack_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        queenWhite_s = (HBITMAP)LoadImage(hInst, "queenwhite_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        kingBlack_s = (HBITMAP)LoadImage(hInst, "kingblack_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+                        Sleep(1);
+                        kingWhite_s = (HBITMAP)LoadImage(hInst, "kingwhite_s.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+
+                        _y_ = 20;
+
+                        HBRUSH yellow_brush = CreateSolidBrush(RGB(255,255,0));
+                        RECT rrect = {635+0, 17, 840, 740};
+                        FillRect(hdc, &rrect, yellow_brush);
+                        DeleteObject(yellow_brush);
+
+                        if(whiteRook1.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(rookWhite_s,0xff0000,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(whiteRook1.from != NULL && whiteRook1.to != NULL) {
+                                if(strlen(whiteRook1.from) >= 2 && strlen(whiteRook1.to) >= 2) {
+                                    TextOut(hdc,
+                                            615+50,
+                                            _y_,
+                                            whiteRook1.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(whiteRook2.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(rook2White_s,0xff0000,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(whiteRook2.from != NULL && whiteRook2.to != NULL) {
+                                if(strlen(whiteRook2.from) >= 2 && strlen(whiteRook2.to) >= 2) {
+                                    TextOut(hdc,
+                                            615+50,
+                                            _y_,
+                                            whiteRook2.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(whiteKnight1.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(knightWhite_s,0x00ff00,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(whiteKnight1.from != NULL && whiteKnight1.to != NULL) {
+                                if(strlen(whiteKnight1.from) >= 2 && strlen(whiteKnight1.to) >= 2) {
+                                    TextOut(hdc,
+                                            615+50,
+                                            _y_,
+                                            whiteKnight1.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(whiteKnight2.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(knight2White_s,0x00ff00,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(whiteKnight2.from != NULL && whiteKnight2.to != NULL) {
+                                if(strlen(whiteKnight2.from) >= 2 && strlen(whiteKnight2.to) >= 2) {
+                                    TextOut(hdc,
+                                            615+50,
+                                            _y_,
+                                            whiteKnight2.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(whiteBishop1.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(bishopWhite_s,0x4cb122,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(whiteBishop1.from != NULL && whiteBishop1.to != NULL) {
+                                if(strlen(whiteBishop1.from) >= 2 && strlen(whiteBishop1.to) >= 2) {
+                                    TextOut(hdc,
+                                            615+50,
+                                            _y_,
+                                            whiteBishop1.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(whiteBishop2.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(bishop2White_s,0x4cb122,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(whiteBishop2.from != NULL && whiteBishop2.to != NULL) {
+                                if(strlen(whiteBishop2.from) >= 2 && strlen(whiteBishop2.to) >= 2) {
+                                    TextOut(hdc,
+                                            615+50,
+                                            _y_,
+                                            whiteBishop2.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(whiteQueen.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(queenWhite_s,0xff0000,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(whiteQueen.from != NULL && whiteQueen.to != NULL) {
+                                if(strlen(whiteQueen.from) >= 2 && strlen(whiteQueen.to) >= 2) {
+                                    TextOut(hdc,
+                                            615+50,
+                                            _y_,
+                                            whiteQueen.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(whiteKing.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(kingWhite_s,0x00ff00,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        for(int o=0; o<8; o++) {
+                            if(whitePawns[o].posX == 1300) {
+                                hdcMem = CreateCompatibleDC(hdc);
+                                HBITMAP hBmp = ReplaceColor(pawnWhite_s,0x000000,0x00ffff,hdcMem);
+                                oldBitmap = SelectObject(hdcMem, hBmp);
+                                GetObject(hBmp, sizeof(bitmap), &bitmap);
+                                BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                if(whitePawns[o].from != NULL && whitePawns[o].to != NULL) {
+                                    if(strlen(whitePawns[o].from) >= 2 && strlen(whitePawns[o].to) >= 2) {
+                                        TextOut(hdc,
+                                                615+50,
+                                                _y_,
+                                                whitePawns[o].to,
+                                                GetTextSize("za"));
+                                    }
+                                }
+                                SelectObject(hdcMem, oldBitmap);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                _y_ += 31;
+                            }
+                        }
+
+                        for(int m=0; m<8; m++) {
+                            if(whiteQueenK[m].posX == 1300) {
+                                hdcMem = CreateCompatibleDC(hdc);
+                                HBITMAP hBmp = ReplaceColor(queenWhite_s,0xff0000,0x00ffff,hdcMem);
+                                oldBitmap = SelectObject(hdcMem, hBmp);
+                                GetObject(hBmp, sizeof(bitmap), &bitmap);
+                                BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                if(whiteQueenK[m].from != NULL && whiteQueenK[m].to != NULL) {
+                                    if(strlen(whiteQueenK[m].from) >= 2 && strlen(whiteQueenK[m].to) >= 2) {
+                                        TextOut(hdc,
+                                                615+50,
+                                                _y_,
+                                                whiteQueenK[m].to,
+                                                GetTextSize("za"));
+                                    }
+                                }
+                                SelectObject(hdcMem, oldBitmap);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                _y_ += 31;
+                            }
+                        }
+
+                        _y_ = 20;
+
+                        if(blackRook1.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(rookBlack_s,0x00ff00,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(blackRook1.from != NULL && blackRook1.to != NULL) {
+                                if(strlen(blackRook1.from) >= 2 && strlen(blackRook1.to) >= 2) {
+                                    TextOut(hdc,
+                                            690+50,
+                                            _y_,
+                                            blackRook1.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(blackRook2.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(rook2Black_s,0x00ff00,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(blackRook2.from != NULL && blackRook2.to != NULL) {
+                                if(strlen(blackRook2.from) >= 2 && strlen(blackRook2.to) >= 2) {
+                                    TextOut(hdc,
+                                            690+50,
+                                            _y_,
+                                            blackRook2.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(blackKnight1.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(knightBlack_s,0x00ff00,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(blackKnight1.from != NULL && blackKnight1.to != NULL) {
+                                if(strlen(blackKnight1.from) >= 2 && strlen(blackKnight1.to) >= 2) {
+                                    TextOut(hdc,
+                                            690+50,
+                                            _y_,
+                                            blackKnight1.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(blackKnight2.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(knight2Black_s,0x00ff00,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(blackKnight2.from != NULL && blackKnight2.to != NULL) {
+                                if(strlen(blackKnight2.from) >= 2 && strlen(blackKnight2.to) >= 2) {
+                                    TextOut(hdc,
+                                            690+50,
+                                            _y_,
+                                            blackKnight2.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(blackBishop1.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(bishopBlack_s,0xff0000,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(blackBishop1.from != NULL && blackBishop1.to != NULL) {
+                                if(strlen(blackBishop1.from) >= 2 && strlen(blackBishop1.to) >= 2) {
+                                    TextOut(hdc,
+                                            690+50,
+                                            _y_,
+                                            blackBishop1.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(blackBishop2.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(bishop2Black_s,0xff0000,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(blackBishop2.from != NULL && blackBishop2.to != NULL) {
+                                if(strlen(blackBishop2.from) >= 2 && strlen(blackBishop2.to) >= 2) {
+                                    TextOut(hdc,
+                                            690+50,
+                                            _y_,
+                                            blackBishop2.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(blackQueen.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(queenBlack_s,0x00ff00,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            if(blackQueen.from != NULL && blackQueen.to != NULL) {
+                                if(strlen(blackQueen.from) >= 2 && strlen(blackQueen.to) >= 2) {
+                                    TextOut(hdc,
+                                            690+50,
+                                            _y_,
+                                            blackQueen.to,
+                                            GetTextSize("za"));
+                                }
+                            }
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        if(blackKing.posX == 1300) {
+                            hdcMem = CreateCompatibleDC(hdc);
+                            HBITMAP hBmp = ReplaceColor(kingBlack_s,0xff0000,0x00ffff,hdcMem);
+                            oldBitmap = SelectObject(hdcMem, hBmp);
+                            GetObject(hBmp, sizeof(bitmap), &bitmap);
+                            BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                            SelectObject(hdcMem, oldBitmap);
+                            ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                            _y_ += 31;
+                        }
+
+                        for(int o=0; o<8; o++) {
+                            if(blackPawns[o].posX == 1300) {
+                                hdcMem = CreateCompatibleDC(hdc);
+                                HBITMAP hBmp = ReplaceColor(pawnBlack_s,0xff0000,0x00ffff,hdcMem);
+                                oldBitmap = SelectObject(hdcMem, hBmp);
+                                GetObject(hBmp, sizeof(bitmap), &bitmap);
+                                BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                if(blackPawns[o].from != NULL && blackPawns[o].to != NULL) {
+                                    if(strlen(blackPawns[o].from) >= 2 && strlen(blackPawns[o].to) >= 2) {
+                                        TextOut(hdc,
+                                                690+50,
+                                                _y_,
+                                                blackPawns[o].to,
+                                                GetTextSize("za"));
+                                    }
+                                }
+                                SelectObject(hdcMem, oldBitmap);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                _y_ += 31;
+                            }
+                        }
+
+                        for(int m=0; m<8; m++) {
+                            if(blackQueenK[m].posX == 1300) {
+                                hdcMem = CreateCompatibleDC(hdc);
+                                HBITMAP hBmp = ReplaceColor(queenBlack_s,0x00ff00,0x00ffff,hdcMem);
+                                oldBitmap = SelectObject(hdcMem, hBmp);
+                                GetObject(hBmp, sizeof(bitmap), &bitmap);
+                                BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
+                                if(blackQueenK[m].from != NULL && blackQueenK[m].to != NULL) {
+                                    if(strlen(blackQueenK[m].from) >= 2 && strlen(blackQueenK[m].to) >= 2) {
+                                        TextOut(hdc,
+                                                690+50,
+                                                _y_,
+                                                blackQueenK[m].to,
+                                                GetTextSize("za"));
+                                    }
+                                }
+                                SelectObject(hdcMem, oldBitmap);
+                                ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
+                                _y_ += 31;
+                            }
+                        }
+
+                        DeleteObject(pawnBlack_s);
+                        DeleteObject(pawnWhite_s);
+                        DeleteObject(knightBlack_s);
+                        DeleteObject(knightWhite_s);
+                        DeleteObject(knight2Black_s);
+                        DeleteObject(knight2White_s);
+                        DeleteObject(rookBlack_s);
+                        DeleteObject(rookWhite_s);
+                        DeleteObject(rook2Black_s);
+                        DeleteObject(rook2White_s);
+                        DeleteObject(bishopBlack_s);
+                        DeleteObject(bishopWhite_s);
+                        DeleteObject(bishop2Black_s);
+                        DeleteObject(bishop2White_s);
+                        DeleteObject(queenBlack_s);
+                        DeleteObject(queenWhite_s);
+                        DeleteObject(kingBlack_s);
+                        DeleteObject(kingWhite_s);
+                    }
+
+                    //PlaySound(TEXT("ding.wav"), NULL, SND_FILENAME);
+                    
+                    //break;
+                }
+            }
+        } else {
+//            MessageBox(hwnd2players,"Username not found, incorrect password, username not signed in, or noone is signed in.","Error",MB_OK);
+        }
+
+        /* close the socket */
+        close(sockfd);
+        
+        if(newoneone == 1)
+            break;
+      
+    } while(TRUE);
+    
+    WSACleanup();
+    
+    return 0;
+}
+
+void acceptgame() {
+
+    WORD wVersionRequested;
+    WSADATA wsaData;
+    int err;
+
+    wVersionRequested = MAKEWORD( 2, 2 );
+
+    err = WSAStartup( wVersionRequested, &wsaData );
+    if(err != 0) {
+        printf("no winsock.");
+        return;
+    }
+
+    int portno = 80;
+    char *host = "herculesa.herokuapp.com";
+
+    struct hostent *server;
+    struct sockaddr_in serv_addr;
+    int sockfd, bytes, sent, received, total;
+    char message[1024],response[8192];
+
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if(sockfd < 0) {
+        printf("ERROR opening socket");
+    }
+
+    server = gethostbyname(host);
+    if(server == NULL) {
+        printf("ERROR, no such host");
+    }
+
+    memset(&serv_addr,0,sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_port = htons(portno);
+    memcpy(&serv_addr.sin_addr.s_addr,server->h_addr,server->h_length);
+
+    if (connect(sockfd,(struct sockaddr *)&serv_addr,sizeof(serv_addr)) < 0) {
+        printf("ERROR connecting");
+    }
+
+    char *str_2 = (char*) malloc(1 + strlen(gt8)+ strlen("username=")+ strlen(user_name)+ strlen("&password=")+ strlen(pass_word)+ strlen("&opponent=")+strlen(strText)+ strlen(hstt8));
+    strcpy(str_2, gt8);
+    strcat(str_2, "username=");
+    strcat(str_2, user_name);
+    strcat(str_2, "&password=");
+    strcat(str_2, pass_word);
+    strcat(str_2, "&opponent=");
+    strcat(str_2, strText);
+    strcat(str_2, hstt8);
+    char *str = (char *) malloc(1 + strlen(str_2));
+    strcpy(str, str_2);
+
+    int length = strlen(str);
+    int x = send(sockfd, str, length, 0);
+    if(x == SOCKET_ERROR) {
+        printf("socket error");
+    }
+
+    do {
+        iResult = recv(sockfd, response, 8192, 0);
+    } while(iResult > 0);
+
+    printf(response);
+
+    /* close the socket */
+    close(sockfd);
+
+    WSACleanup();
+}
+
+void denygame() {
+
+    WORD wVersionRequested;
+    WSADATA wsaData;
+    int err;
+
+    wVersionRequested = MAKEWORD( 2, 2 );
+
+    err = WSAStartup( wVersionRequested, &wsaData );
+    if(err != 0) {
+        printf("no winsock.");
+        return;
+    }
+
+    int portno = 80;
+    char *host = "herculesa.herokuapp.com";
+
+    struct hostent *server;
+    struct sockaddr_in serv_addr;
+    int sockfd, bytes, sent, received, total;
+    char message[1024],response[8192];
+
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if(sockfd < 0) {
+        printf("ERROR opening socket");
+    }
+
+    server = gethostbyname(host);
+    if(server == NULL) {
+        printf("ERROR, no such host");
+    }
+
+    memset(&serv_addr,0,sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_port = htons(portno);
+    memcpy(&serv_addr.sin_addr.s_addr,server->h_addr,server->h_length);
+
+    if (connect(sockfd,(struct sockaddr *)&serv_addr,sizeof(serv_addr)) < 0) {
+        printf("ERROR connecting");
+    }
+
+    char *str_2 = (char*) malloc(1 + strlen(gt9)+ strlen("username=")+ strlen(user_name)+ strlen("&password=")+ strlen(pass_word)+ strlen("&opponent=")+strlen(strText)+ strlen(hstt9));
+    strcpy(str_2, gt9);
+    strcat(str_2, "username=");
+    strcat(str_2, user_name);
+    strcat(str_2, "&password=");
+    strcat(str_2, pass_word);
+    strcat(str_2, "&opponent=");
+    strcat(str_2, strText);
+    strcat(str_2, hstt9);
+    char *str = (char *) malloc(1 + strlen(str_2));
+    strcpy(str, str_2);
+
+    int length = strlen(str);
+    int x = send(sockfd, str, length, 0);
+    if(x == SOCKET_ERROR) {
+        printf("socket error");
+    }
+
+    do {
+        iResult = recv(sockfd, response, 8192, 0);
+    } while(iResult > 0);
+
+    printf(response);
+
+    /* close the socket */
+    close(sockfd);
+
+    WSACleanup();
+}
+
+DWORD WINAPI waitForGameRequest(void *data) {
+
+    WORD wVersionRequested;
+    WSADATA wsaData;
+    int err;
+
+    wVersionRequested = MAKEWORD( 2, 2 );
+
+    err = WSAStartup( wVersionRequested, &wsaData );
+    if(err != 0) {
+        printf("no winsock.");
+        return;
+    }
+
+    theaccept = -2;
+
+    do {
+    
+        int portno = 80;
+        char *host = "herculesa.herokuapp.com";
+
+        struct hostent *server;
+        struct sockaddr_in serv_addr;
+        int sockfd, bytes, sent, received, total;
+        char message[1024],response[8192];
+
+        sockfd = socket(AF_INET, SOCK_STREAM, 0);
+        if(sockfd < 0) {
+            printf("ERROR opening socket");
+        }
+
+        server = gethostbyname(host);
+        if(server == NULL) {
+            printf("ERROR, no such host");
+        }
+
+        memset(&serv_addr,0,sizeof(serv_addr));
+        serv_addr.sin_family = AF_INET;
+        serv_addr.sin_port = htons(portno);
+        memcpy(&serv_addr.sin_addr.s_addr,server->h_addr,server->h_length);
+
+        if (connect(sockfd,(struct sockaddr *)&serv_addr,sizeof(serv_addr)) < 0) {
+            printf("ERROR connecting");
+        }
+
+        char *str_2 = (char*) malloc(1 + strlen(gt5)+ strlen("username=")+ strlen(user_name)+ strlen("&password=")+ strlen(pass_word)+ strlen("&opponent=")+strlen(strText)+ strlen(hstt5));
+        strcpy(str_2, gt5);
+        strcat(str_2, "username=");
+        strcat(str_2, user_name);
+        strcat(str_2, "&password=");
+        strcat(str_2, pass_word);
+        strcat(str_2, "&opponent=");
+        strcat(str_2, strText);
+        strcat(str_2, hstt5);
+        char *str = (char *) malloc(1 + strlen(str_2));
+        strcpy(str, str_2);
+
+        int length = strlen(str);
+        int x = send(sockfd, str, length, 0);
+        if(x == SOCKET_ERROR) {
+            printf("socket error");
+        }
+
+        do {
+            iResult = recv(sockfd, response, 8192, 0);
+        } while(iResult > 0);
+
+        printf(response);
+
+        char* pPosition = strchr(response, '{');
+
+        if(pPosition != NULL) {
+            char *token = strtok(response, "{");
+            if(token != NULL) {
+                printf("%s\n", token);
+                token = strtok(NULL, "{");
+                if(token != NULL) {
+                    int rresult = strcmp("q!w!ertyfella231", token);
+                    char* pp = strchr(token, '!');
+                    if(rresult != 0 && pp == NULL) {
+                        char *state = token;
+                        char *game_make_request_made_str = "";
+                        if(strcmp("accepted",state)==0) {
+                            game_make_request_made_str = "Game accepted.";
+                            acceptgame();
+                            MessageBox(hwnd2players,"Accepted.","Game",MB_OK);
+                            iswhite = TRUE;
+                            theaccept = 1;
+                            SetWindowText(hwnd_game_request_label, game_make_request_made_str);
+                            token = strtok(NULL, "{");
+                            //the_game_id = (char *) malloc(10);
+                            //the_game_id = token;
+                            gameid = atoi(token);
+                            break;
+                        } else if(strcmp("denied",state)==0) {
+                            game_make_request_made_str = "Game rejected.";
+                            denygame();
+                            MessageBox(hwnd2players,"Denied.","Game",MB_OK);
+                            //theaccept = 0;
+                            
+                            SetWindowText(hwnd_game_request_label, game_make_request_made_str);
+                            token = strtok(NULL, "{");
+                            //the_game_id = (char *) malloc(10);
+                            //the_game_id = token;
+                            gameid = atoi(token);
+                            break;
+                        }
+                    }
+                }
+            }
+        } else {
+//            MessageBox(hwnd2players,"errar","Error",MB_OK);
+        }
+        
+        /* close the socket */
+        close(sockfd);
+
+        Sleep(2000);
+        
+    } while(TRUE);
+
+    WSACleanup();
+    
+    return 0;
+}
 
 void paintWhiteKing(void *data) {
   
@@ -1680,6 +5660,13 @@ void SetMyMenu(int option) {
     AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "Timer");
 
     hSubMenu = CreatePopupMenu();
+    AppendMenu(hSubMenu, MF_STRING, ID_2PLY_SU, "sign up");
+    AppendMenu(hSubMenu, MF_STRING, ID_2PLY_SI, "sign in");
+    AppendMenu(hSubMenu, MF_STRING, ID_2PLY_SO, "sign out");
+    AppendMenu(hSubMenu, MF_STRING, ID_2PLY, "play");
+    AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "Online");
+
+    hSubMenu = CreatePopupMenu();
     AppendMenu(hSubMenu, MF_STRING, ID_ABOUT, "about");
     AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "Help");
 
@@ -1714,6 +5701,80 @@ LRESULT CALLBACK aboutWindowProcess(HWND hwnd2, UINT msg, WPARAM wParam, LPARAM 
     }
 
     return DefWindowProc(hwnd2, msg, wParam, lParam);
+}
+
+LRESULT CALLBACK onlineWindowProcess(HWND h, UINT msg, WPARAM wParam, LPARAM lParam) {
+    switch(msg) {
+        case WM_COMMAND: {
+            if(LOWORD(wParam) == IDC_COMBOBOX_TEXT)
+            {
+                switch(HIWORD(wParam))
+                {
+                    case CBN_SELCHANGE: {
+                        int idx_row;
+                        idx_row = SendMessage(hWndComboBox , CB_GETCURSEL, 0, 0 );
+                        SendMessage(hWndComboBox,CB_GETLBTEXT, idx_row,(LPARAM)strText);
+                        opponent = strText;
+                        initGamePlay();
+                        break;
+                    }
+                }
+            }
+            switch(LOWORD(wParam))
+            {
+                case IDC_ACCEPT_BTN: {
+                    if(HIWORD(wParam) == BN_CLICKED) {
+                        if(gr) {
+                            SetWindowText(hwnd_game_request_label, "");
+                            if(gameid != -1 && opponentid != -1) {
+                                tellAccept(gameid);
+                                iswhite = FALSE;
+                                theaccept = 1;
+                                newoneone = 1;
+                                Sleep(5000);
+                                newoneone = 0;
+                                threadBlack = CreateThread(NULL, 0, waitItsBlack, NULL, 0, NULL);
+                            }
+                        }
+                    }
+                }
+                break;
+                case IDC_DENY_BTN: {
+                    if(HIWORD(wParam) == BN_CLICKED) {
+                        if(gr) {
+                            SetWindowText(hwnd_game_request_label, "");
+                            if(gameid != -1 && opponentid != -1)
+                                tellDeny(gameid);
+                        }
+                    }
+                }
+                break;
+                case IDC_SAVE_BTN: {
+                    if(HIWORD(wParam) == BN_CLICKED) {
+                        int len = SendMessage(hEditUsername, WM_GETTEXTLENGTH, 0, 0);
+                        user_name = (char *) malloc(len+1);
+                        SendMessage(hEditUsername, WM_GETTEXT, (WPARAM)len+1, (LPARAM)user_name);
+
+                        len = SendMessage(hEditPassword, WM_GETTEXTLENGTH, 0, 0);
+                        pass_word = (char *) malloc(len+1);
+                        SendMessage(hEditPassword, WM_GETTEXT, (WPARAM)len+1, (LPARAM)pass_word);
+                        
+                        SetWindowText(hwnd_game_request_label, "Standing by ....");
+                        getSignedInPlayers();
+                        threadWaitForGameRequest = CreateThread(NULL, 0, waitForGameRequest, NULL, 0, NULL);
+                    }
+                }
+                break;
+            }
+            break;
+        }
+        case WM_DESTROY: {
+            return 0;
+        }
+        break;
+    }
+
+    return DefWindowProc(h, msg, wParam, lParam);
 }
 
 int GetTextSize(LPSTR a0) {
@@ -1855,6 +5916,353 @@ void paintSideLogo() {
         if(ipp == 600)
             ipp = 0;
     }
+}
+
+void getSignedInPlayers() {
+
+    WORD wVersionRequested;
+    WSADATA wsaData;
+    int err;
+
+    wVersionRequested = MAKEWORD( 2, 2 );
+
+    err = WSAStartup( wVersionRequested, &wsaData );
+    if(err != 0) {
+        printf("no winsock.");
+        return;
+    }
+
+    int portno = 80;
+    char *host = "herculesa.herokuapp.com";
+
+    struct hostent *server;
+    struct sockaddr_in serv_addr;
+    int sockfd, bytes, sent, received, total;
+    char message[1024],response[8192];
+    
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if(sockfd < 0) {
+        printf("ERROR opening socket");
+    }
+
+    server = gethostbyname(host);
+    if(server == NULL) {
+        printf("ERROR, no such host");
+    }
+
+    memset(&serv_addr,0,sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_port = htons(portno);
+    memcpy(&serv_addr.sin_addr.s_addr,server->h_addr,server->h_length);
+
+    if (connect(sockfd,(struct sockaddr *)&serv_addr,sizeof(serv_addr)) < 0) {
+        printf("ERROR connecting");
+    }
+
+    char *str_2 = (char*) malloc(1 + strlen(gt2)+ strlen("username=")+ strlen(user_name)+ strlen("&password=")+ strlen(pass_word)+ strlen(hstt2));
+    strcpy(str_2, gt2);
+    strcat(str_2, "username=");
+    strcat(str_2, user_name);
+    strcat(str_2, "&password=");
+    strcat(str_2, pass_word);
+    strcat(str_2, hstt2);
+    char *str = (char *) malloc(1 + strlen(str_2));
+    strcpy(str, str_2);
+
+    int length = strlen(str);
+    int x = send(sockfd, str, length, 0);
+    if(x == SOCKET_ERROR) {
+        printf("socket error");
+    }
+    
+    do {
+        iResult = recv(sockfd, response, 8192, 0);
+    } while(iResult > 0);
+
+    printf(response);
+
+    char* pPosition = strchr(response, '{');
+
+    if(pPosition != NULL) {
+	SendMessage(hWndComboBox, CB_RESETCONTENT, 0, 0);
+        char *token = strtok(response, "{");
+        int qq = 0;
+        while(token != NULL) {
+            printf("%s\n", token);
+            token = strtok(NULL, "{");
+            if(token == NULL)
+                break;
+            int rresult = strcmp("q!w!ertyfella231", token);
+            char* pp = strchr(token, '!');
+            if(rresult != 0 && pp == NULL) {
+                wLMSignedIn[qq] = token;
+                SendMessage(hWndComboBox,
+                    CB_ADDSTRING,
+                    0,
+                    (LPARAM)wLMSignedIn[qq]);
+                qq++;
+            }
+        }
+        wLMSizeSignedIn = qq - 1;
+        threadGameRequest = CreateThread(NULL, 0, GameRequest, NULL, 0, NULL);
+    } else {
+//        MessageBox(hwnd2players,"Username not found, incorrect password, username not signed in, or noone is signed in.","Error",MB_OK);
+    }
+    
+    /* close the socket */
+    close(sockfd);
+    
+    WSACleanup();
+}
+
+void initGamePlay() {
+
+    WORD wVersionRequested;
+    WSADATA wsaData;
+    int err;
+
+    wVersionRequested = MAKEWORD( 2, 2 );
+
+    err = WSAStartup( wVersionRequested, &wsaData );
+    if(err != 0) {
+        printf("no winsock.");
+        return;
+    }
+
+    int portno = 80;
+    char *host = "herculesa.herokuapp.com";
+
+    struct hostent *server;
+    struct sockaddr_in serv_addr;
+    int sockfd, bytes, sent, received, total;
+    char message[1024],response[8192];
+    
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if(sockfd < 0) {
+        printf("ERROR opening socket");
+    }
+
+    server = gethostbyname(host);
+    if(server == NULL) {
+        printf("ERROR, no such host");
+    }
+
+    memset(&serv_addr,0,sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_port = htons(portno);
+    memcpy(&serv_addr.sin_addr.s_addr,server->h_addr,server->h_length);
+
+    if (connect(sockfd,(struct sockaddr *)&serv_addr,sizeof(serv_addr)) < 0) {
+        printf("ERROR connecting");
+    }
+
+    char *str_2 = (char*) malloc(1 + strlen(gt3)+ strlen("username=")+ strlen(user_name)+ strlen("&password=")+ strlen(pass_word)+ strlen("&opponent=")+ strlen(opponent)+ strlen(hstt3));
+    strcpy(str_2, gt3);
+    strcat(str_2, "username=");
+    strcat(str_2, user_name);
+    strcat(str_2, "&password=");
+    strcat(str_2, pass_word);
+    strcat(str_2, "&opponent=");
+    strcat(str_2, opponent);
+    strcat(str_2, hstt3);
+    char *str = (char *) malloc(1 + strlen(str_2));
+    strcpy(str, str_2);
+
+    int length = strlen(str);
+    int x = send(sockfd, str, length, 0);
+    if(x == SOCKET_ERROR) {
+        printf("socket error");
+    }
+    
+    do {
+        iResult = recv(sockfd, response, 8192, 0);
+    } while(iResult > 0);
+
+    printf(response);
+
+    char* pPosition = strchr(response, '{');
+
+    if(pPosition != NULL) {
+        char *token = strtok(response, "{");
+        if(token != NULL) {
+            printf("%s\n", token);
+            token = strtok(NULL, "{");
+            if(token != NULL) {
+                int rresult = strcmp("q!w!ertyfella231", token);
+                char* pp = strchr(token, '!');
+                if(rresult != 0 && pp == NULL) {
+                    the_game_id = token;
+                    char *game_make_request_str = "Game requested.";
+                    SetWindowText(hwnd_game_request_label, game_make_request_str);
+                }
+            }
+        }
+    } else {
+        MessageBox(hwnd2players,"errar","Error",MB_OK);
+    }
+    
+    /* close the socket */
+    close(sockfd);
+    
+    WSACleanup();
+}
+
+void tellAccept(int number) {
+    
+    WORD wVersionRequested;
+    WSADATA wsaData;
+    int err;
+
+    wVersionRequested = MAKEWORD( 2, 2 );
+
+    err = WSAStartup( wVersionRequested, &wsaData );
+    if(err != 0) {
+        printf("no winsock.");
+        return;
+    }
+
+    int portno = 80;
+    char *host = "herculesa.herokuapp.com";
+
+    struct hostent *server;
+    struct sockaddr_in serv_addr;
+    int sockfd, bytes, sent, received, total;
+    char message[1024],response[8192];
+    
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if(sockfd < 0) {
+        printf("ERROR opening socket");
+    }
+
+    server = gethostbyname(host);
+    if(server == NULL) {
+        printf("ERROR, no such host");
+    }
+
+    memset(&serv_addr,0,sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_port = htons(portno);
+    memcpy(&serv_addr.sin_addr.s_addr,server->h_addr,server->h_length);
+
+    if (connect(sockfd,(struct sockaddr *)&serv_addr,sizeof(serv_addr)) < 0) {
+        printf("ERROR connecting");
+    }
+
+    char *tnumber = (char *) malloc(100);
+    itoa(number, tnumber, 10);
+
+    char *aabb = (char *) malloc(100);
+    sprintf(aabb,"%d",opponentid);
+    
+    char *str_2 = (char*) malloc(1 + strlen(gt6)+ strlen("username=")+ strlen(user_name)+ strlen("&password=")+ strlen(pass_word)+ strlen("&opponent=")+12+ strlen("&gameid=")+ strlen(tnumber)+ strlen(hstt6));
+    strcpy(str_2, gt6);
+    strcat(str_2, "username=");
+    strcat(str_2, user_name);
+    strcat(str_2, "&password=");
+    strcat(str_2, pass_word);
+    strcat(str_2, "&opponent=");
+    strcat(str_2, aabb);
+    strcat(str_2, "&gameid=");
+    strcat(str_2, tnumber);
+    strcat(str_2, hstt6);
+    char *str = (char *) malloc(1 + strlen(str_2));
+    strcpy(str, str_2);
+
+    int length = strlen(str);
+    int x = send(sockfd, str, length, 0);
+    if(x == SOCKET_ERROR) {
+        printf("socket error");
+    }
+    
+    do {
+        iResult = recv(sockfd, response, 8192, 0);
+    } while(iResult > 0);
+
+    printf(response);
+    
+    /* close the socket */
+    close(sockfd);
+    
+    WSACleanup();
+}
+
+void tellDeny(int number) {
+    
+    WORD wVersionRequested;
+    WSADATA wsaData;
+    int err;
+
+    wVersionRequested = MAKEWORD( 2, 2 );
+
+    err = WSAStartup( wVersionRequested, &wsaData );
+    if(err != 0) {
+        printf("no winsock.");
+        return;
+    }
+
+    int portno = 80;
+    char *host = "herculesa.herokuapp.com";
+
+    struct hostent *server;
+    struct sockaddr_in serv_addr;
+    int sockfd, bytes, sent, received, total;
+    char message[1024],response[8192];
+    
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if(sockfd < 0) {
+        printf("ERROR opening socket");
+    }
+
+    server = gethostbyname(host);
+    if(server == NULL) {
+        printf("ERROR, no such host");
+    }
+
+    memset(&serv_addr,0,sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_port = htons(portno);
+    memcpy(&serv_addr.sin_addr.s_addr,server->h_addr,server->h_length);
+
+    if (connect(sockfd,(struct sockaddr *)&serv_addr,sizeof(serv_addr)) < 0) {
+        printf("ERROR connecting");
+    }
+
+    char *tnumber = (char *) malloc(100);
+    itoa(number, tnumber, 10);
+
+    char *aabb = (char *) malloc(100);
+    sprintf(aabb,"%d",opponentid);
+    
+    char *str_2 = (char*) malloc(1 + strlen(gt7)+ strlen("username=")+ strlen(user_name)+ strlen("&password=")+ strlen(pass_word)+ strlen("&opponent=")+12+ strlen("&gameid=")+ strlen(tnumber)+ strlen(hstt7));
+    strcpy(str_2, gt7);
+    strcat(str_2, "username=");
+    strcat(str_2, user_name);
+    strcat(str_2, "&password=");
+    strcat(str_2, pass_word);
+    strcat(str_2, "&opponent=");
+    strcat(str_2, aabb);
+    strcat(str_2, "&gameid=");
+    strcat(str_2, tnumber);
+    strcat(str_2, hstt7);
+    char *str = (char *) malloc(1 + strlen(str_2));
+    strcpy(str, str_2);
+
+    int length = strlen(str);
+    int x = send(sockfd, str, length, 0);
+    if(x == SOCKET_ERROR) {
+        printf("socket error");
+    }
+    
+    do {
+        iResult = recv(sockfd, response, 8192, 0);
+    } while(iResult > 0);
+
+    printf(response);
+    
+    /* close the socket */
+    close(sockfd);
+    
+    WSACleanup();
 }
 
 void getApiUnderwaterChessDotComMove(char *frm, char *too) {
@@ -10679,7 +15087,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 //                            }
 //                            DeleteObject(rBrush);
                             
-                            if(!pcgame && done) {
+                            if(!pcgame && done && theaccept != 1) {
                                 getApiUnderwaterChessDotComMove2(from, to);
                             }
 
@@ -11732,11 +16140,25 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 DeleteObject(kingBlack_s);
                                 DeleteObject(kingWhite_s);
 
-                                if(pcgame) {
+                                if(pcgame && theaccept != 1) {
                                     if(turn == 'r') {
                                         if(from != NULL && to != NULL) {
                                             SetWindowText(hwnd_timer, "thinking ...");
                                             thread_1 = CreateThread(NULL, 0, callApi, NULL, 0, NULL);
+                                        }
+                                        break;
+                                    }
+                                }
+                                
+                                else if(theaccept == 1 || user_name != NULL) {
+                                    pcgame = FALSE;
+                                    if(turn == 'r') {
+                                        if(from != NULL && to != NULL) {
+                                            thread_2 = CreateThread(NULL, 0, putWhite, NULL, 0, NULL);
+                                            if(ftimewmove == 1) {
+                                                thread_ww = CreateThread(NULL, 0, waitItsWhite, NULL, 0, NULL);
+                                                ftimewmove = 0;
+                                            }
                                         }
                                         break;
                                     }
@@ -16110,7 +20532,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 }
                             }
 
-                            if(!pcgame && done) {
+                            if(!pcgame && done && theaccept != 1) {
                                 getApiUnderwaterChessDotComMove2(from, to);
                             }
 
@@ -16741,6 +21163,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                             if(done) {
                                 PostMessage(hwnd, WM_NOTIFY, 0, 0);
+
+                                if(theaccept == 1 || iswhite == FALSE) {
+                                    pcgame = FALSE;
+                                    if(turn == 'h') {
+                                        if(from != NULL && to != NULL) {
+                                            thread_3 = CreateThread(NULL, 0, putBlack, NULL, 0, NULL);
+                                            //thread_wb = CreateThread(NULL, 0, waitItsBlack, NULL, 0, NULL);
+                                        }
+                                        break;
+                                    }
+                                }
                             }
                         }
                     }
@@ -16793,6 +21226,13 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             AppendMenu(hSubMenu, MF_STRING, ID_TIMER_85MIN, "85 mins (2 players)");
             AppendMenu(hSubMenu, MF_STRING, ID_TIMER_90MIN, "90 mins (2 players)");
             AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "Timer");
+
+            hSubMenu = CreatePopupMenu();
+            AppendMenu(hSubMenu, MF_STRING, ID_2PLY_SU, "sign up");
+            AppendMenu(hSubMenu, MF_STRING, ID_2PLY_SI, "sign in");
+            AppendMenu(hSubMenu, MF_STRING, ID_2PLY_SO, "sign out");
+            AppendMenu(hSubMenu, MF_STRING, ID_2PLY, "play");
+            AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "Online");
 
             hSubMenu = CreatePopupMenu();
             AppendMenu(hSubMenu, MF_STRING, ID_ABOUT, "about");
@@ -16865,6 +21305,130 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
         case WM_COMMAND:
             switch(LOWORD(wParam))
             {
+                case ID_2PLY:
+                    ZeroMemory(&wc2players,sizeof(WNDCLASSEX));
+                    wc2players.cbClsExtra=NULL;
+                    wc2players.cbSize=sizeof(WNDCLASSEX);
+                    wc2players.cbWndExtra=NULL;
+                    wc2players.hbrBackground=(HBRUSH)COLOR_WINDOW;
+                    wc2players.hCursor=LoadCursor(NULL,IDC_ARROW);
+                    wc2players.hIcon=NULL;
+                    wc2players.hIconSm=NULL;
+                    wc2players.hInstance=hInst;
+                    wc2players.lpfnWndProc=(WNDPROC)onlineWindowProcess;
+                    wc2players.lpszClassName="online";
+                    wc2players.lpszMenuName=NULL;
+                    wc2players.style=CS_HREDRAW|CS_VREDRAW;
+
+                    if(!RegisterClassEx(&wc2players))
+                    {
+                        int nResult=GetLastError();
+                    }
+                    
+                    hwnd2players=CreateWindowEx(NULL,
+                            wc2players.lpszClassName,
+                            "Online 2 Players",
+                            WS_OVERLAPPEDWINDOW,
+                            200,
+                            150,
+                            614,
+                            700,
+                            NULL,
+                            NULL,
+                            hInst,
+                            NULL);
+
+                    hIcon = LoadImage(NULL, "Icon.ico", IMAGE_ICON, 32, 32, LR_LOADFROMFILE);
+                    if(hIcon)
+                        SendMessage(hwnd2players, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
+
+                    hIconSm = LoadImage(NULL, "Icon.ico", IMAGE_ICON, 16, 16, LR_LOADFROMFILE);
+                    if(hIconSm)
+                        SendMessage(hwnd2players, WM_SETICON, ICON_SMALL, (LPARAM)hIconSm);
+                    
+                    char b[100] = "username: ";
+                    y = 0; h = 20;
+                    x = 0; w = 70;
+                    HWND hwnd_uname = CreateWindow("static", NULL,
+                                               WS_CHILD | WS_VISIBLE | WS_TABSTOP,
+                                               x, y, w, h,
+                                               hwnd2players, (HMENU)(501),
+                                               (HINSTANCE) GetWindowLong (hwnd, GWL_HINSTANCE), NULL);
+                    SetWindowText(hwnd_uname, b);
+
+                    hEditUsername =CreateWindowEx(WS_EX_CLIENTEDGE,"EDIT",
+                    "",WS_CHILD|WS_VISIBLE,
+                    80,0,100,20,hwnd2players,(HMENU)username,GetModuleHandle(NULL),
+                    NULL);
+                    
+                    char _b[100] = "password: ";
+                    y = 0; h = 20;
+                    x = 180; w = 70;
+                    HWND hwnd_pword = CreateWindow("static", NULL,
+                                               WS_CHILD | WS_VISIBLE | WS_TABSTOP,
+                                               x, y, w, h,
+                                               hwnd2players, (HMENU)(501),
+                                               (HINSTANCE) GetWindowLong (hwnd, GWL_HINSTANCE), NULL);
+                    SetWindowText(hwnd_pword, _b);
+
+                    hEditPassword =CreateWindowEx(WS_EX_CLIENTEDGE,"EDIT",
+                    "",WS_CHILD|WS_VISIBLE,
+                    260,0,100,20,hwnd2players,(HMENU)password,GetModuleHandle(NULL),
+                    NULL);
+
+                    y = 30; h = 30;
+                    x = 0; w = 50;
+                    HWND hwndS = CreateWindowEx(0, "BUTTON", "save", WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
+                                                                        x, y, w, h, hwnd2players, (HMENU) IDC_SAVE_BTN, GetModuleHandle(NULL), NULL);
+
+                    char __b[100] = "Players Signed In: ";
+                    y = 70; h = 20;
+                    x = 0; w = 170;
+                    HWND hwnd_signedin_users = CreateWindow("static", NULL,
+                                               WS_CHILD | WS_VISIBLE | WS_TABSTOP,
+                                               x, y, w, h,
+                                               hwnd2players, (HMENU)(501),
+                                               (HINSTANCE) GetWindowLong (hwnd, GWL_HINSTANCE), NULL);
+                    SetWindowText(hwnd_signedin_users, __b);
+
+                    char ___b[100] = "Standing by ...";
+                    y = 400; h = 50;
+                    x = 0; w = 570;
+                    hwnd_game_request_label = CreateWindow("static", NULL,
+                                               WS_CHILD | WS_VISIBLE | WS_TABSTOP,
+                                               x, y, w, h,
+                                               hwnd2players, (HMENU)(501),
+                                               (HINSTANCE) GetWindowLong (hwnd, GWL_HINSTANCE), NULL);
+                    SetWindowText(hwnd_game_request_label, ___b);
+
+                    y = 500; h = 48;
+                    x = 0; w = 60;
+                    hwnd_acceptbtn = CreateWindowEx(0, "BUTTON", "accept", WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
+                                                                        x, y, w, h, hwnd2players, (HMENU) IDC_ACCEPT_BTN, GetModuleHandle(NULL), NULL);
+
+                    y = 500; h = 48;
+                    x = 70; w = 60;
+                    hwnd_denybtn = CreateWindowEx(0, "BUTTON", "deny", WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
+                                                                        x, y, w, h, hwnd2players, (HMENU) IDC_DENY_BTN, GetModuleHandle(NULL), NULL);
+
+                    hWndComboBox = CreateWindowEx(
+                        0,
+                        "COMBOBOX", 
+                        NULL, 
+                        CBS_DROPDOWN | WS_VISIBLE | WS_CHILD | CBS_AUTOHSCROLL | WS_HSCROLL | WS_VSCROLL, 
+                        0,90,100,330, 
+                        hwnd2players, 
+                        (HMENU)IDC_COMBOBOX_TEXT, 
+                        GetModuleHandle(NULL), 
+                        NULL);
+
+                    if (!hWndComboBox)
+                        MessageBox(NULL, "ComboBox Failed.", "Error", MB_OK | MB_ICONERROR);
+
+                    //DisableMaximizeMinimizeButton(hwnd2players);
+                    
+                    ShowWindow(hwnd2players,nCmdShow2);
+                break;
                 case ID_ABOUT:
                     ZeroMemory(&wcfwabout,sizeof(WNDCLASSEX));
                     wcfwabout.cbClsExtra=NULL;
@@ -16941,6 +21505,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 case ID_HUMAN_GAME:
                     SetMyMenu(2);
                     pcgame = FALSE;
+                break;
+                case ID_2PLY_SU:
+                    if(MessageBox(hwnd,"Would you like to sign up?", "Sign Up", MB_YESNO) == IDYES) {
+                        ShellExecute(NULL, "open", "http://herculesa.herokuapp.com:80/Chess2Players/signup.jsp", NULL, NULL, SW_SHOWNORMAL);
+                    }
+                break;
+                case ID_2PLY_SI:
+                    if(MessageBox(hwnd,"Would you like to sign in?", "Sign In", MB_YESNO) == IDYES) {
+                        ShellExecute(NULL, "open", "http://herculesa.herokuapp.com:80/Chess2Players/signin.jsp", NULL, NULL, SW_SHOWNORMAL);
+                    }
+                break;
+                case ID_2PLY_SO:
+                    if(MessageBox(hwnd,"Would you like to sign out?", "Sign Out", MB_YESNO) == IDYES) {
+                        ShellExecute(NULL, "open", "http://herculesa.herokuapp.com:80/Chess2Players/signout.jsp", NULL, NULL, SW_SHOWNORMAL);
+                    }
                 break;
                 case ID_FILE_DOWNLOAD:
                     if(MessageBox(hwnd,"Would you like to download a copy of this source code?", "Get Mine", MB_YESNO) == IDYES) {

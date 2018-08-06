@@ -31,6 +31,11 @@
 
 #define ID_ABOUT 9021
 
+#define ID_2PLY_SU 9023
+#define ID_2PLY_SI 9024
+#define ID_2PLY_SO 9025
+#define ID_2PLY 9022
+
 char bestMove[4] = "b1c3";
     
 boolean firstTime = TRUE;
@@ -40,9 +45,14 @@ const char g_szClassName[] = "mychess";
 
 WNDCLASSEX wc;
 WNDCLASSEX wcfwabout;
-HWND hwnd;
+WNDCLASSEX wc2players;
+HWND hwnd, hwnd2players;
 MSG Msg;
 HDC hdc;
+
+HWND hEditUsername, hEditPassword;
+HWND saveButton;
+HWND hWndComboBox;
 
 struct WhitePawn {
     int x1, y1, x2, y2;
