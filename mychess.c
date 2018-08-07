@@ -21164,7 +21164,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             if(done) {
                                 PostMessage(hwnd, WM_NOTIFY, 0, 0);
 
-                                if(theaccept == 1 || iswhite == FALSE) {
+                                if(theaccept == 1 && iswhite == FALSE) {
                                     pcgame = FALSE;
                                     if(turn == 'h') {
                                         if(from != NULL && to != NULL) {
