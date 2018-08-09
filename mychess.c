@@ -182,6 +182,7 @@ RECT rect;
 HINSTANCE hInst;
 HINSTANCE g_hinstance;
 HBITMAP hBitmap;
+HBITMAP hBitmapA;
 HBITMAP hBitmapSideLogo;
 HBITMAP hBitmapAbout;
 HBITMAP hBitmapSq;
@@ -5684,6 +5685,11 @@ LRESULT CALLBACK aboutWindowProcess(HWND hwnd2, UINT msg, WPARAM wParam, LPARAM 
 
             oldBitmap = SelectObject(hdcMem, hBitmapAbout);
 
+            HBRUSH brush = CreateSolidBrush(RGB(255,0,0));
+            RECT rrect = {0, 0, 614, 700};
+            FillRect(hdc2, &rrect, brush);
+            DeleteObject(brush);
+
             GetObject(hBitmapAbout, sizeof(bitmap), &bitmap);
             BitBlt(hdc2, 0, 0, 504, 539, hdcMem, 0, 0, SRCCOPY);
 
@@ -5705,6 +5711,30 @@ LRESULT CALLBACK aboutWindowProcess(HWND hwnd2, UINT msg, WPARAM wParam, LPARAM 
 
 LRESULT CALLBACK onlineWindowProcess(HWND h, UINT msg, WPARAM wParam, LPARAM lParam) {
     switch(msg) {
+        case WM_CTLCOLORSTATIC: {
+            HBRUSH BGColorBrush = CreateSolidBrush(RGB(255,0,0));
+            HDC hdcStatic = (HDC) wParam;
+            SetBkMode(hdcStatic,TRANSPARENT);
+            return (LRESULT)BGColorBrush;
+        }
+        break;
+        case WM_PAINT: {
+            hBitmapA = (HBITMAP)LoadImage(hInst, "logo2.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+
+            hdc = BeginPaint(hwnd2players, &ps);
+            hdcMem = CreateCompatibleDC(hdc);
+
+            oldBitmap = SelectObject(hdcMem, hBitmapA);
+
+            GetObject(hBitmapA, sizeof(bitmap), &bitmap);
+            BitBlt(hdc, 0, 0, 614, 700, hdcMem, 0, 0, SRCCOPY);
+
+            SelectObject(hdcMem, oldBitmap);
+            DeleteDC(hdcMem); DeleteObject(hBitmapA);
+            
+            EndPaint(hwnd2players, &ps);
+        }
+        break;
         case WM_COMMAND: {
             if(LOWORD(wParam) == IDC_COMBOBOX_TEXT)
             {
@@ -9168,6 +9198,13 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     switch(msg)
     {
+        case WM_CTLCOLORSTATIC: {
+            HBRUSH BGColorBrush = CreateSolidBrush(RGB(255,0,0));
+            HDC hdcStatic = (HDC) wParam;
+            SetBkMode(hdcStatic,TRANSPARENT);
+            return (LRESULT)BGColorBrush;
+        }
+        break;
         case WM_PAINT:
         {
             if(finished == -1) {
@@ -9188,11 +9225,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 PlaySound(TEXT("a-team_plan.wav"), NULL, SND_FILENAME);
     
                 Sleep(1500);
-
-//                HBRUSH brush = CreateSolidBrush(RGB(255,0,0));
-//                RECT rrect = {0, 0, 1040, 740};
-//                FillRect(hdc, &rrect, brush);
-//                DeleteObject(brush);
 
                 hdcMem = CreateCompatibleDC(hdc);
                 
@@ -21269,7 +21301,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             SetWindowText(hwnd_black, c);
 
             y = 590+50; h = 20;
-            x = 10; w = 220;
+            x = 10; w = 240;
             hwnd_timer = CreateWindow("static", NULL,
                                        WS_CHILD | WS_VISIBLE | WS_TABSTOP,
                                        x, y, w, h,
@@ -21327,10 +21359,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     
                     hwnd2players=CreateWindowEx(NULL,
                             wc2players.lpszClassName,
-                            "Online 2 Players",
+                            "Internet Online Game",
                             WS_OVERLAPPEDWINDOW,
                             200,
-                            150,
+                            50,
                             614,
                             700,
                             NULL,
@@ -21376,14 +21408,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     260,0,100,20,hwnd2players,(HMENU)password,GetModuleHandle(NULL),
                     NULL);
 
-                    y = 30; h = 30;
-                    x = 0; w = 50;
-                    HWND hwndS = CreateWindowEx(0, "BUTTON", "save", WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
+                    y = 0; h = 30;
+                    x = 370; w = 60;
+                    HWND hwndS = CreateWindowEx(0, "BUTTON", "login", WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
                                                                         x, y, w, h, hwnd2players, (HMENU) IDC_SAVE_BTN, GetModuleHandle(NULL), NULL);
 
-                    char __b[100] = "Players Signed In: ";
+                    char __b[100] = "Players already signed in: ";
                     y = 70; h = 20;
-                    x = 0; w = 170;
+                    x = 0; w = 614;
                     HWND hwnd_signedin_users = CreateWindow("static", NULL,
                                                WS_CHILD | WS_VISIBLE | WS_TABSTOP,
                                                x, y, w, h,
@@ -21392,8 +21424,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     SetWindowText(hwnd_signedin_users, __b);
 
                     char ___b[100] = "Standing by ...";
-                    y = 400; h = 50;
-                    x = 0; w = 570;
+                    y = 430; h = 50;
+                    x = 0; w = 614;
                     hwnd_game_request_label = CreateWindow("static", NULL,
                                                WS_CHILD | WS_VISIBLE | WS_TABSTOP,
                                                x, y, w, h,
@@ -21425,8 +21457,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     if (!hWndComboBox)
                         MessageBox(NULL, "ComboBox Failed.", "Error", MB_OK | MB_ICONERROR);
 
-                    //DisableMaximizeMinimizeButton(hwnd2players);
-                    
                     ShowWindow(hwnd2players,nCmdShow2);
                 break;
                 case ID_ABOUT:
@@ -21508,17 +21538,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 break;
                 case ID_2PLY_SU:
                     if(MessageBox(hwnd,"Would you like to sign up?", "Sign Up", MB_YESNO) == IDYES) {
-                        ShellExecute(NULL, "open", "http://herculesa.herokuapp.com:80/Chess2Players/signup.jsp", NULL, NULL, SW_SHOWNORMAL);
+                        ShellExecute(NULL, "open", "http://herculesa.herokuapp.com/signup.jsp", NULL, NULL, SW_SHOWNORMAL);
                     }
                 break;
                 case ID_2PLY_SI:
                     if(MessageBox(hwnd,"Would you like to sign in?", "Sign In", MB_YESNO) == IDYES) {
-                        ShellExecute(NULL, "open", "http://herculesa.herokuapp.com:80/Chess2Players/signin.jsp", NULL, NULL, SW_SHOWNORMAL);
+                        ShellExecute(NULL, "open", "http://herculesa.herokuapp.com/signin.jsp", NULL, NULL, SW_SHOWNORMAL);
                     }
                 break;
                 case ID_2PLY_SO:
                     if(MessageBox(hwnd,"Would you like to sign out?", "Sign Out", MB_YESNO) == IDYES) {
-                        ShellExecute(NULL, "open", "http://herculesa.herokuapp.com:80/Chess2Players/signout.jsp", NULL, NULL, SW_SHOWNORMAL);
+                        ShellExecute(NULL, "open", "http://herculesa.herokuapp.com/signout.jsp", NULL, NULL, SW_SHOWNORMAL);
                     }
                 break;
                 case ID_FILE_DOWNLOAD:
