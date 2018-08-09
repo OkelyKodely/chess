@@ -5719,20 +5719,20 @@ LRESULT CALLBACK onlineWindowProcess(HWND h, UINT msg, WPARAM wParam, LPARAM lPa
         }
         break;
         case WM_PAINT: {
-            hBitmapA = (HBITMAP)LoadImage(hInst, "logo2.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-
-            hdc = BeginPaint(hwnd2players, &ps);
-            hdcMem = CreateCompatibleDC(hdc);
-
-            oldBitmap = SelectObject(hdcMem, hBitmapA);
-
-            GetObject(hBitmapA, sizeof(bitmap), &bitmap);
-            BitBlt(hdc, 0, 0, 614, 700, hdcMem, 0, 0, SRCCOPY);
-
-            SelectObject(hdcMem, oldBitmap);
-            DeleteDC(hdcMem); DeleteObject(hBitmapA);
-            
-            EndPaint(hwnd2players, &ps);
+//            hBitmapA = (HBITMAP)LoadImage(hInst, "logo2.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+//
+//            hdc = BeginPaint(hwnd2players, &ps);
+//            hdcMem = CreateCompatibleDC(hdc);
+//
+//            oldBitmap = SelectObject(hdcMem, hBitmapA);
+//
+//            GetObject(hBitmapA, sizeof(bitmap), &bitmap);
+//            BitBlt(hdc, 0, 0, 614, 700, hdcMem, 0, 0, SRCCOPY);
+//
+//            SelectObject(hdcMem, oldBitmap);
+//            DeleteDC(hdcMem); DeleteObject(hBitmapA);
+//            
+//            EndPaint(hwnd2players, &ps);
         }
         break;
         case WM_COMMAND: {
