@@ -427,7 +427,6 @@ DWORD WINAPI GameRequest(void *data) {
                         opponentid = atoi(token);
                         token = strtok(NULL, "{");
                         gameid = atoi(token);
-                        //taccept = -1;
                         token = strtok(NULL, "{");
                         opponent = token;
                         gr = TRUE;
@@ -436,8 +435,6 @@ DWORD WINAPI GameRequest(void *data) {
                     }
                 }
             }
-        } else {
-//            MessageBox(hwnd2players,"Username not found, incorrect password, username not signed in, or noone is signed in.","Error",MB_OK);
         }
 
         /* close the socket */
@@ -638,7 +635,7 @@ DWORD WINAPI waitItsWhite(void *data) {
 
     do {
 
-        Sleep(15000);
+        Sleep(25000);
 
         int portno = 80;
         char *host = "herculesa.herokuapp.com";
@@ -695,8 +692,6 @@ DWORD WINAPI waitItsWhite(void *data) {
         } while(iResult > 0);
 
         printf(response);
-        
-        //MessageBox(hwnd,response,"repo",MB_OK);
         
         char* pPosition = strchr(response, '{');
 
@@ -2272,14 +2267,8 @@ DWORD WINAPI waitItsWhite(void *data) {
                         DeleteObject(kingBlack_s);
                         DeleteObject(kingWhite_s);
                     }
-
-                    //PlaySound(TEXT("ding.wav"), NULL, SND_FILENAME);
-                    
-                    //break;
                 }
             }
-        } else {
-//            MessageBox(hwnd2players,"Username not found, incorrect password, username not signed in, or noone is signed in.","Error",MB_OK);
         }
 
         /* close the socket */
@@ -2308,7 +2297,7 @@ DWORD WINAPI waitItsBlack(void *data) {
 
     do {
 
-        Sleep(15000);
+        Sleep(25000);
 
         int portno = 80;
         char *host = "herculesa.herokuapp.com";
@@ -3943,14 +3932,8 @@ DWORD WINAPI waitItsBlack(void *data) {
                         DeleteObject(kingBlack_s);
                         DeleteObject(kingWhite_s);
                     }
-
-                    //PlaySound(TEXT("ding.wav"), NULL, SND_FILENAME);
-                    
-                    //break;
                 }
             }
-        } else {
-//            MessageBox(hwnd2players,"Username not found, incorrect password, username not signed in, or noone is signed in.","Error",MB_OK);
         }
 
         /* close the socket */
@@ -4193,33 +4176,26 @@ DWORD WINAPI waitForGameRequest(void *data) {
                         if(strcmp("accepted",state)==0) {
                             game_make_request_made_str = "Game accepted.";
                             acceptgame();
-                            MessageBox(hwnd2players,"Accepted.","Game",MB_OK);
+//                            MessageBox(hwnd2players,"Accepted.","Game",MB_OK);
                             iswhite = TRUE;
                             theaccept = 1;
                             SetWindowText(hwnd_game_request_label, game_make_request_made_str);
                             token = strtok(NULL, "{");
-                            //the_game_id = (char *) malloc(10);
-                            //the_game_id = token;
+                            taccept = -1;
                             gameid = atoi(token);
                             break;
                         } else if(strcmp("denied",state)==0) {
                             game_make_request_made_str = "Game rejected.";
                             denygame();
-                            MessageBox(hwnd2players,"Denied.","Game",MB_OK);
-                            //theaccept = 0;
-                            
+//                            MessageBox(hwnd2players,"Denied.","Game",MB_OK);
                             SetWindowText(hwnd_game_request_label, game_make_request_made_str);
                             token = strtok(NULL, "{");
-                            //the_game_id = (char *) malloc(10);
-                            //the_game_id = token;
                             gameid = atoi(token);
                             break;
                         }
                     }
                 }
             }
-        } else {
-//            MessageBox(hwnd2players,"errar","Error",MB_OK);
         }
         
         /* close the socket */
@@ -5712,27 +5688,10 @@ LRESULT CALLBACK aboutWindowProcess(HWND hwnd2, UINT msg, WPARAM wParam, LPARAM 
 LRESULT CALLBACK onlineWindowProcess(HWND h, UINT msg, WPARAM wParam, LPARAM lParam) {
     switch(msg) {
         case WM_CTLCOLORSTATIC: {
-            HBRUSH BGColorBrush = CreateSolidBrush(RGB(255,0,0));
+            HBRUSH BGColorBrush = CreateSolidBrush(RGB(240,240,240));
             HDC hdcStatic = (HDC) wParam;
             SetBkMode(hdcStatic,TRANSPARENT);
             return (LRESULT)BGColorBrush;
-        }
-        break;
-        case WM_PAINT: {
-//            hBitmapA = (HBITMAP)LoadImage(hInst, "logo2.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-//
-//            hdc = BeginPaint(hwnd2players, &ps);
-//            hdcMem = CreateCompatibleDC(hdc);
-//
-//            oldBitmap = SelectObject(hdcMem, hBitmapA);
-//
-//            GetObject(hBitmapA, sizeof(bitmap), &bitmap);
-//            BitBlt(hdc, 0, 0, 614, 700, hdcMem, 0, 0, SRCCOPY);
-//
-//            SelectObject(hdcMem, oldBitmap);
-//            DeleteDC(hdcMem); DeleteObject(hBitmapA);
-//            
-//            EndPaint(hwnd2players, &ps);
         }
         break;
         case WM_COMMAND: {
@@ -6035,8 +5994,6 @@ void getSignedInPlayers() {
         }
         wLMSizeSignedIn = qq - 1;
         threadGameRequest = CreateThread(NULL, 0, GameRequest, NULL, 0, NULL);
-    } else {
-//        MessageBox(hwnd2players,"Username not found, incorrect password, username not signed in, or noone is signed in.","Error",MB_OK);
     }
     
     /* close the socket */
@@ -8413,13 +8370,35 @@ DWORD WINAPI ThreadFunc(void *data) {
             
             if(!pcgame) {
                 
-                if(turn == 'h') {
+                if(theaccept == 1) {
+                    
+                    if(turn == 'h') {
 
-                    sprintf(b, "white player - no time");
+                        if(iswhite == TRUE) {
+                            sprintf(b, "white player - no time");
+                        } else {
+                            sprintf(b, "white player thinking...");
+                        }
+
+                    } else {
+
+                        if(iswhite == TRUE) {
+                            sprintf(b, "black player thinking...");
+                        } else {
+                            sprintf(b, "black player - no time");
+                        }
+                    }
 
                 } else {
+                
+                    if(turn == 'h') {
 
-                    sprintf(b, "black player - no time");
+                        sprintf(b, "white player");
+
+                    } else {
+
+                        sprintf(b, "black player");
+                    }
                 }
                 
             } else {
@@ -8439,7 +8418,7 @@ DWORD WINAPI ThreadFunc(void *data) {
         if(ls != cs) {
             SetWindowText(hwnd_timer, b);
             if(gettingit) {
-                SetWindowText(hwnd_timer, "thinking ...");
+                SetWindowText(hwnd_timer, "thinking ....");
             } else {
                 if(pcgame && tft) {
                     TerminateThread(callApi, 0);
@@ -21393,6 +21372,12 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     80,0,100,20,hwnd2players,(HMENU)username,GetModuleHandle(NULL),
                     NULL);
                     
+                    if(user_name != NULL)
+                        SendMessage(hEditUsername,
+                                    WM_SETTEXT,
+                                    0,
+                                    (LPARAM)user_name);
+                    
                     char _b[100] = "password: ";
                     y = 0; h = 20;
                     x = 180; w = 70;
@@ -21408,6 +21393,12 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     260,0,100,20,hwnd2players,(HMENU)password,GetModuleHandle(NULL),
                     NULL);
 
+                    if(pass_word != NULL)
+                        SendMessage(hEditPassword,
+                                    WM_SETTEXT,
+                                    0,
+                                    (LPARAM)pass_word);
+                    
                     y = 0; h = 30;
                     x = 370; w = 60;
                     HWND hwndS = CreateWindowEx(0, "BUTTON", "login", WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
@@ -21447,8 +21438,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                         0,
                         "COMBOBOX", 
                         NULL, 
-                        CBS_DROPDOWN | WS_VISIBLE | WS_CHILD | CBS_AUTOHSCROLL | WS_HSCROLL | WS_VSCROLL, 
-                        0,90,100,330, 
+                        CBS_DROPDOWN | WS_VISIBLE | WS_CHILD | CBS_AUTOHSCROLL | WS_VSCROLL, 
+                        0,90,100,90, 
                         hwnd2players, 
                         (HMENU)IDC_COMBOBOX_TEXT, 
                         GetModuleHandle(NULL), 
@@ -21456,6 +21447,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                     if (!hWndComboBox)
                         MessageBox(NULL, "ComboBox Failed.", "Error", MB_OK | MB_ICONERROR);
+
+                    if(user_name != NULL && pass_word != NULL)
+                        getSignedInPlayers();
 
                     ShowWindow(hwnd2players,nCmdShow2);
                 break;
