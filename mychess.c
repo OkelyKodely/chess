@@ -7061,11 +7061,11 @@ DWORD WINAPI callApi(void *data) {
             int yyyy = blackKing.posY;
             blackKing.posY = 20+re_Map(bestMove,1);
             blackKing.posX = 20+re_Map(bestMove,0);
-            if(xxxx - blackKing.posX == 200) {
-                blackRook1.posX += 300;
+            if(xxxx - blackKing.posX == 140) {
+                blackRook1.posX += 210;
             }
-            if(blackKing.posX - xxxx == 200) {
-                blackRook2.posX -= 200;
+            if(blackKing.posX - xxxx == 140) {
+                blackRook2.posX -= 140;
             }
             for(int z=0; z<8; z++) {
                 if(blackKing.posX == whitePawns[z].posX &&
@@ -8466,8 +8466,12 @@ void Play() {
     blackRook2Moved = FALSE;
     whiteKing.posX = 4*70+20;
     whiteKing.posY = 7*70+20;
+    whiteKing.from = map(7, 4);
+    whiteKing.to = map(7, 4);
     blackKing.posX = 4*70+20;
     blackKing.posY = 0*70+20;
+    blackKing.from = map(0, 4);
+    blackKing.to = map(0, 4);
     whiteQueen.posX = 3*70+20;
     whiteQueen.posY = 7*70+20;
     whiteQueen.from = map(7, 3);
@@ -13155,7 +13159,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         if(whiteRook2.posY == 490+20 &&
                                            whiteRook2.posX == 490+20) {
                                             if(whiteKing.posY == 490+20 &&
-                                               whiteKing.posX == 400+20) {
+                                               whiteKing.posX == 280+20) {
                                                 boolean isthere = FALSE;
                                                 if(whiteRook1.posX == 350+20 &&
                                                    whiteRook1.posY == 490+20) {
@@ -18687,177 +18691,177 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                     if(j*70+20 == blackKing.posY &&
                                        i*70+20 == blackKing.posX - 140) {
-                                        if(blackRook1.posY == 0 &&
-                                           blackRook1.posX == 0) {
-                                            if(blackKing.posY == 0 &&
-                                               blackKing.posX == 280) {
+                                        if(blackRook1.posY == 20 &&
+                                           blackRook1.posX == 20) {
+                                            if(blackKing.posY == 20 &&
+                                               blackKing.posX == 280+20) {
                                                 boolean isthere = FALSE;
-                                                if(whiteRook1.posX == 210 &&
-                                                   whiteRook1.posY == 0) {
+                                                if(whiteRook1.posX == 210+20 &&
+                                                   whiteRook1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteRook1.posX == 140 &&
-                                                   whiteRook1.posY == 0) {
+                                                if(whiteRook1.posX == 140+20 &&
+                                                   whiteRook1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteRook1.posX == 70 &&
-                                                   whiteRook1.posY == 0) {
+                                                if(whiteRook1.posX == 70+20 &&
+                                                   whiteRook1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteRook2.posX == 210 &&
-                                                   whiteRook2.posY == 0) {
+                                                if(whiteRook2.posX == 210+20 &&
+                                                   whiteRook2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteRook2.posX == 140 &&
-                                                   whiteRook2.posY == 0) {
+                                                if(whiteRook2.posX == 140+20 &&
+                                                   whiteRook2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteRook2.posX == 70 &&
-                                                   whiteRook2.posY == 0) {
+                                                if(whiteRook2.posX == 70+20 &&
+                                                   whiteRook2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackRook1.posX == 210 &&
-                                                   blackRook1.posY == 0) {
+                                                if(blackRook1.posX == 210+20 &&
+                                                   blackRook1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackRook1.posX == 140 &&
-                                                   blackRook1.posY == 0) {
+                                                if(blackRook1.posX == 140+20 &&
+                                                   blackRook1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackRook1.posX == 70 &&
-                                                   blackRook1.posY == 0) {
+                                                if(blackRook1.posX == 70+20 &&
+                                                   blackRook1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackRook2.posX == 210 &&
-                                                   blackRook2.posY == 0) {
+                                                if(blackRook2.posX == 210+20 &&
+                                                   blackRook2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackRook2.posX == 140 &&
-                                                   blackRook2.posY == 0) {
+                                                if(blackRook2.posX == 140+20 &&
+                                                   blackRook2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackRook2.posX == 70 &&
-                                                   blackRook2.posY == 0) {
+                                                if(blackRook2.posX == 70+20 &&
+                                                   blackRook2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteBishop1.posX == 210 &&
-                                                   whiteBishop1.posY == 0) {
+                                                if(whiteBishop1.posX == 210+20 &&
+                                                   whiteBishop1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteBishop1.posX == 140 &&
-                                                   whiteBishop1.posY == 0) {
+                                                if(whiteBishop1.posX == 140+20 &&
+                                                   whiteBishop1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteBishop1.posX == 70 &&
-                                                   whiteBishop1.posY == 0) {
+                                                if(whiteBishop1.posX == 70+20 &&
+                                                   whiteBishop1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteBishop2.posX == 210 &&
-                                                   whiteBishop2.posY == 0) {
+                                                if(whiteBishop2.posX == 210+20 &&
+                                                   whiteBishop2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteBishop2.posX == 140 &&
-                                                   whiteBishop2.posY == 0) {
+                                                if(whiteBishop2.posX == 140+20 &&
+                                                   whiteBishop2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteBishop2.posX == 70 &&
-                                                   whiteBishop2.posY == 0) {
+                                                if(whiteBishop2.posX == 70+20 &&
+                                                   whiteBishop2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackBishop1.posX == 210 &&
-                                                   blackBishop1.posY == 0) {
+                                                if(blackBishop1.posX == 210+20 &&
+                                                   blackBishop1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackBishop1.posX == 140 &&
-                                                   blackBishop1.posY == 0) {
+                                                if(blackBishop1.posX == 140+20 &&
+                                                   blackBishop1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackBishop1.posX == 70 &&
-                                                   blackBishop1.posY == 0) {
+                                                if(blackBishop1.posX == 70+20 &&
+                                                   blackBishop1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackBishop2.posX == 210 &&
-                                                   blackBishop2.posY == 0) {
+                                                if(blackBishop2.posX == 210+20 &&
+                                                   blackBishop2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackBishop2.posX == 140 &&
-                                                   blackBishop2.posY == 0) {
+                                                if(blackBishop2.posX == 140+20 &&
+                                                   blackBishop2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackBishop2.posX == 70 &&
-                                                   blackBishop2.posY == 0) {
+                                                if(blackBishop2.posX == 70+20 &&
+                                                   blackBishop2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteKnight1.posX == 210 &&
-                                                   whiteKnight1.posY == 0) {
+                                                if(whiteKnight1.posX == 210+20 &&
+                                                   whiteKnight1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteKnight1.posX == 140 &&
-                                                   whiteKnight1.posY == 0) {
+                                                if(whiteKnight1.posX == 140+20 &&
+                                                   whiteKnight1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteKnight1.posX == 70 &&
-                                                   whiteKnight1.posY == 0) {
+                                                if(whiteKnight1.posX == 70+20 &&
+                                                   whiteKnight1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteKnight2.posX == 210 &&
-                                                   whiteKnight2.posY == 0) {
+                                                if(whiteKnight2.posX == 210+20 &&
+                                                   whiteKnight2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteKnight2.posX == 140 &&
-                                                   whiteKnight2.posY == 0) {
+                                                if(whiteKnight2.posX == 140+20 &&
+                                                   whiteKnight2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteKnight2.posX == 70 &&
-                                                   whiteKnight2.posY == 0) {
+                                                if(whiteKnight2.posX == 70+20 &&
+                                                   whiteKnight2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackKnight1.posX == 210 &&
-                                                   blackKnight1.posY == 0) {
+                                                if(blackKnight1.posX == 210+20 &&
+                                                   blackKnight1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackKnight1.posX == 140 &&
-                                                   blackKnight1.posY == 0) {
+                                                if(blackKnight1.posX == 140+20 &&
+                                                   blackKnight1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackKnight1.posX == 70 &&
-                                                   blackKnight1.posY == 0) {
+                                                if(blackKnight1.posX == 70+20 &&
+                                                   blackKnight1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackKnight2.posX == 210 &&
-                                                   blackKnight2.posY == 0) {
+                                                if(blackKnight2.posX == 210+20 &&
+                                                   blackKnight2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackKnight2.posX == 140 &&
-                                                   blackKnight2.posY == 0) {
+                                                if(blackKnight2.posX == 140+20 &&
+                                                   blackKnight2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackKnight2.posX == 70 &&
-                                                   blackKnight2.posY == 0) {
+                                                if(blackKnight2.posX == 70+20 &&
+                                                   blackKnight2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteQueen.posX == 210 &&
-                                                   whiteQueen.posY == 0) {
+                                                if(whiteQueen.posX == 210+20 &&
+                                                   whiteQueen.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteQueen.posX == 140 &&
-                                                   whiteQueen.posY == 0) {
+                                                if(whiteQueen.posX == 140+20 &&
+                                                   whiteQueen.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteQueen.posX == 70 &&
-                                                   whiteQueen.posY == 0) {
+                                                if(whiteQueen.posX == 70+20 &&
+                                                   whiteQueen.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackQueen.posX == 210 &&
-                                                   blackQueen.posY == 0) {
+                                                if(blackQueen.posX == 210+20 &&
+                                                   blackQueen.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackQueen.posX == 140 &&
-                                                   blackQueen.posY == 0) {
+                                                if(blackQueen.posX == 140+20 &&
+                                                   blackQueen.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackQueen.posX == 70 &&
-                                                   blackQueen.posY == 0) {
+                                                if(blackQueen.posX == 70+20 &&
+                                                   blackQueen.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
                                                 if(!isthere && !blackKingMoved && !blackRook1Moved) {
@@ -18876,121 +18880,121 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                     if(j*70+20 == blackKing.posY &&
                                        i*70+20 == blackKing.posX + 140) {
-                                        if(blackRook2.posY == 0 &&
-                                           blackRook2.posX == 490) {
-                                            if(blackKing.posY == 0 &&
-                                               blackKing.posX == 280) {
+                                        if(blackRook2.posY == 0+20 &&
+                                           blackRook2.posX == 490+20) {
+                                            if(blackKing.posY == 0+20 &&
+                                               blackKing.posX == 280+20) {
                                                 boolean isthere = FALSE;
-                                                if(whiteRook1.posX == 350 &&
-                                                   whiteRook1.posY == 0) {
+                                                if(whiteRook1.posX == 350+20 &&
+                                                   whiteRook1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteRook1.posX == 420 &&
-                                                   whiteRook1.posY == 0) {
+                                                if(whiteRook1.posX == 420+20 &&
+                                                   whiteRook1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteRook2.posX == 350 &&
-                                                   whiteRook2.posY == 0) {
+                                                if(whiteRook2.posX == 350+20 &&
+                                                   whiteRook2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteRook2.posX == 420 &&
-                                                   whiteRook2.posY == 0) {
+                                                if(whiteRook2.posX == 420+20 &&
+                                                   whiteRook2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackRook1.posX == 350 &&
-                                                   blackRook1.posY == 0) {
+                                                if(blackRook1.posX == 350+20 &&
+                                                   blackRook1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackRook1.posX == 420 &&
-                                                   blackRook1.posY == 0) {
+                                                if(blackRook1.posX == 420+20 &&
+                                                   blackRook1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackRook2.posX == 350 &&
-                                                   blackRook2.posY == 0) {
+                                                if(blackRook2.posX == 350+20 &&
+                                                   blackRook2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackRook2.posX == 420 &&
-                                                   blackRook2.posY == 0) {
+                                                if(blackRook2.posX == 420+20 &&
+                                                   blackRook2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteBishop1.posX == 350 &&
-                                                   whiteBishop1.posY == 0) {
+                                                if(whiteBishop1.posX == 350+20 &&
+                                                   whiteBishop1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteBishop1.posX == 420 &&
-                                                   whiteBishop1.posY == 0) {
+                                                if(whiteBishop1.posX == 420+20 &&
+                                                   whiteBishop1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteBishop2.posX == 350 &&
-                                                   whiteBishop2.posY == 0) {
+                                                if(whiteBishop2.posX == 350+20 &&
+                                                   whiteBishop2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteBishop2.posX == 420 &&
-                                                   whiteBishop2.posY == 0) {
+                                                if(whiteBishop2.posX == 420+20 &&
+                                                   whiteBishop2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackBishop1.posX == 350 &&
-                                                   blackBishop1.posY == 0) {
+                                                if(blackBishop1.posX == 350+20 &&
+                                                   blackBishop1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackBishop1.posX == 420 &&
-                                                   blackBishop1.posY == 0) {
+                                                if(blackBishop1.posX == 420+20 &&
+                                                   blackBishop1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackBishop2.posX == 350 &&
-                                                   blackBishop2.posY == 0) {
+                                                if(blackBishop2.posX == 350+20 &&
+                                                   blackBishop2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackBishop2.posX == 420 &&
-                                                   blackBishop2.posY == 0) {
+                                                if(blackBishop2.posX == 420+20 &&
+                                                   blackBishop2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteKnight1.posX == 350 &&
-                                                   whiteKnight1.posY == 0) {
+                                                if(whiteKnight1.posX == 350+20 &&
+                                                   whiteKnight1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteKnight1.posX == 420 &&
-                                                   whiteKnight1.posY == 0) {
+                                                if(whiteKnight1.posX == 420+20 &&
+                                                   whiteKnight1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteKnight2.posX == 350 &&
-                                                   whiteKnight2.posY == 0) {
+                                                if(whiteKnight2.posX == 350+20 &&
+                                                   whiteKnight2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteKnight2.posX == 420 &&
-                                                   whiteKnight2.posY == 0) {
+                                                if(whiteKnight2.posX == 420+20 &&
+                                                   whiteKnight2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackKnight1.posX == 350 &&
-                                                   blackKnight1.posY == 0) {
+                                                if(blackKnight1.posX == 350+20 &&
+                                                   blackKnight1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackKnight1.posX == 420 &&
-                                                   blackKnight1.posY == 0) {
+                                                if(blackKnight1.posX == 420+20 &&
+                                                   blackKnight1.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackKnight2.posX == 350 &&
-                                                   blackKnight2.posY == 0) {
+                                                if(blackKnight2.posX == 350+20 &&
+                                                   blackKnight2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackKnight2.posX == 420 &&
-                                                   blackKnight2.posY == 0) {
+                                                if(blackKnight2.posX == 420+20 &&
+                                                   blackKnight2.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteQueen.posX == 350 &&
-                                                   whiteQueen.posY == 0) {
+                                                if(whiteQueen.posX == 350+20 &&
+                                                   whiteQueen.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(whiteQueen.posX == 420 &&
-                                                   whiteQueen.posY == 0) {
+                                                if(whiteQueen.posX == 420+20 &&
+                                                   whiteQueen.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackQueen.posX == 350 &&
-                                                   blackQueen.posY == 0) {
+                                                if(blackQueen.posX == 350+20 &&
+                                                   blackQueen.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
-                                                if(blackQueen.posX == 420 &&
-                                                   blackQueen.posY == 0) {
+                                                if(blackQueen.posX == 420+20 &&
+                                                   blackQueen.posY == 0+20) {
                                                     isthere = TRUE;
                                                 }
                                                 if(!isthere && !blackKingMoved && !blackRook2Moved) {
