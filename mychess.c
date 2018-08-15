@@ -1109,11 +1109,11 @@ DWORD WINAPI waitItsWhite(void *data) {
                             int yyyy = blackKing.posY;
                             blackKing.posY = 20+re_Map(bestMove,1);
                             blackKing.posX = 20+re_Map(bestMove,0);
-                            if(xxxx - blackKing.posX == 200) {
-                                blackRook1.posX += 300;
+                            if(xxxx - blackKing.posX == 140) {
+                                blackRook1.posX += 210;
                             }
-                            if(blackKing.posX - xxxx == 200) {
-                                blackRook2.posX -= 200;
+                            if(blackKing.posX - xxxx == 140) {
+                                blackRook2.posX -= 140;
                             }
                             for(int z=0; z<8; z++) {
                                 if(blackKing.posX == whitePawns[z].posX &&
@@ -2774,11 +2774,11 @@ DWORD WINAPI waitItsBlack(void *data) {
                             int yyyy = whiteKing.posY;
                             whiteKing.posY = 20+re_Map(bestMove,1);
                             whiteKing.posX = 20+re_Map(bestMove,0);
-                            if(xxxx - whiteKing.posX == 200) {
-                                whiteRook1.posX += 300;
+                            if(xxxx - whiteKing.posX == 140) {
+                                whiteRook1.posX += 210;
                             }
-                            if(whiteKing.posX - xxxx == 200) {
-                                whiteRook2.posX -= 200;
+                            if(whiteKing.posX - xxxx == 140) {
+                                whiteRook2.posX -= 140;
                             }
                             for(int z=0; z<8; z++) {
                                 if(whiteKing.posX == blackPawns[z].posX &&
