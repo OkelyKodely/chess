@@ -25,6 +25,9 @@
                                         sql = "select * from chess_signedin where username = '" + username + "' and signedin = 1;";
                                         ResultSet rs2 = st2.executeQuery(sql);
                                         if(rs2.next()) {
+                                            sql = "update chess_game set accept = 0 where accept is null and (opponent = '" + username + "' or player = '" + username + "');";
+                                            st2.execute(sql);
+
                                             sql = "select username from chess_signedin where signedin = 1 and username not in ('" + username + "')";
                                             ResultSet rs3 = st2.executeQuery(sql);
                                             int a = 0;
