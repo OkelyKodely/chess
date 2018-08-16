@@ -1864,7 +1864,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteRook1.from != NULL && whiteRook1.to != NULL) {
                                 if(strlen(whiteRook1.from) >= 2 && strlen(whiteRook1.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteRook1.to,
@@ -1884,7 +1884,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteRook2.from != NULL && whiteRook2.to != NULL) {
                                 if(strlen(whiteRook2.from) >= 2 && strlen(whiteRook2.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteRook2.to,
@@ -1904,7 +1904,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteKnight1.from != NULL && whiteKnight1.to != NULL) {
                                 if(strlen(whiteKnight1.from) >= 2 && strlen(whiteKnight1.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteKnight1.to,
@@ -1924,7 +1924,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteKnight2.from != NULL && whiteKnight2.to != NULL) {
                                 if(strlen(whiteKnight2.from) >= 2 && strlen(whiteKnight2.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteKnight2.to,
@@ -1944,7 +1944,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteBishop1.from != NULL && whiteBishop1.to != NULL) {
                                 if(strlen(whiteBishop1.from) >= 2 && strlen(whiteBishop1.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteBishop1.to,
@@ -1964,7 +1964,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteBishop2.from != NULL && whiteBishop2.to != NULL) {
                                 if(strlen(whiteBishop2.from) >= 2 && strlen(whiteBishop2.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteBishop2.to,
@@ -1984,7 +1984,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteQueen.from != NULL && whiteQueen.to != NULL) {
                                 if(strlen(whiteQueen.from) >= 2 && strlen(whiteQueen.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteQueen.to,
@@ -2016,7 +2016,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                 if(whitePawns[o].from != NULL && whitePawns[o].to != NULL) {
                                     if(strlen(whitePawns[o].from) >= 2 && strlen(whitePawns[o].to) >= 2) {
-                                        TextOut(hdc,
+                                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                                 615+50,
                                                 _y_,
                                                 whitePawns[o].to,
@@ -2038,7 +2038,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                 if(whiteQueenK[m].from != NULL && whiteQueenK[m].to != NULL) {
                                     if(strlen(whiteQueenK[m].from) >= 2 && strlen(whiteQueenK[m].to) >= 2) {
-                                        TextOut(hdc,
+                                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                                 615+50,
                                                 _y_,
                                                 whiteQueenK[m].to,
@@ -2061,7 +2061,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackRook1.from != NULL && blackRook1.to != NULL) {
                                 if(strlen(blackRook1.from) >= 2 && strlen(blackRook1.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackRook1.to,
@@ -2081,7 +2081,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackRook2.from != NULL && blackRook2.to != NULL) {
                                 if(strlen(blackRook2.from) >= 2 && strlen(blackRook2.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackRook2.to,
@@ -2101,7 +2101,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackKnight1.from != NULL && blackKnight1.to != NULL) {
                                 if(strlen(blackKnight1.from) >= 2 && strlen(blackKnight1.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackKnight1.to,
@@ -2121,7 +2121,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackKnight2.from != NULL && blackKnight2.to != NULL) {
                                 if(strlen(blackKnight2.from) >= 2 && strlen(blackKnight2.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackKnight2.to,
@@ -2141,7 +2141,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackBishop1.from != NULL && blackBishop1.to != NULL) {
                                 if(strlen(blackBishop1.from) >= 2 && strlen(blackBishop1.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackBishop1.to,
@@ -2161,7 +2161,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackBishop2.from != NULL && blackBishop2.to != NULL) {
                                 if(strlen(blackBishop2.from) >= 2 && strlen(blackBishop2.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackBishop2.to,
@@ -2181,7 +2181,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackQueen.from != NULL && blackQueen.to != NULL) {
                                 if(strlen(blackQueen.from) >= 2 && strlen(blackQueen.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackQueen.to,
@@ -2213,7 +2213,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                 if(blackPawns[o].from != NULL && blackPawns[o].to != NULL) {
                                     if(strlen(blackPawns[o].from) >= 2 && strlen(blackPawns[o].to) >= 2) {
-                                        TextOut(hdc,
+                                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                                 690+50,
                                                 _y_,
                                                 blackPawns[o].to,
@@ -2235,7 +2235,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                 if(blackQueenK[m].from != NULL && blackQueenK[m].to != NULL) {
                                     if(strlen(blackQueenK[m].from) >= 2 && strlen(blackQueenK[m].to) >= 2) {
-                                        TextOut(hdc,
+                                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                                 690+50,
                                                 _y_,
                                                 blackQueenK[m].to,
@@ -3529,7 +3529,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteRook1.from != NULL && whiteRook1.to != NULL) {
                                 if(strlen(whiteRook1.from) >= 2 && strlen(whiteRook1.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteRook1.to,
@@ -3549,7 +3549,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteRook2.from != NULL && whiteRook2.to != NULL) {
                                 if(strlen(whiteRook2.from) >= 2 && strlen(whiteRook2.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteRook2.to,
@@ -3569,7 +3569,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteKnight1.from != NULL && whiteKnight1.to != NULL) {
                                 if(strlen(whiteKnight1.from) >= 2 && strlen(whiteKnight1.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteKnight1.to,
@@ -3589,7 +3589,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteKnight2.from != NULL && whiteKnight2.to != NULL) {
                                 if(strlen(whiteKnight2.from) >= 2 && strlen(whiteKnight2.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteKnight2.to,
@@ -3609,7 +3609,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteBishop1.from != NULL && whiteBishop1.to != NULL) {
                                 if(strlen(whiteBishop1.from) >= 2 && strlen(whiteBishop1.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteBishop1.to,
@@ -3629,7 +3629,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteBishop2.from != NULL && whiteBishop2.to != NULL) {
                                 if(strlen(whiteBishop2.from) >= 2 && strlen(whiteBishop2.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteBishop2.to,
@@ -3649,7 +3649,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteQueen.from != NULL && whiteQueen.to != NULL) {
                                 if(strlen(whiteQueen.from) >= 2 && strlen(whiteQueen.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteQueen.to,
@@ -3681,7 +3681,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                 if(whitePawns[o].from != NULL && whitePawns[o].to != NULL) {
                                     if(strlen(whitePawns[o].from) >= 2 && strlen(whitePawns[o].to) >= 2) {
-                                        TextOut(hdc,
+                                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                                 615+50,
                                                 _y_,
                                                 whitePawns[o].to,
@@ -3703,7 +3703,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                 if(whiteQueenK[m].from != NULL && whiteQueenK[m].to != NULL) {
                                     if(strlen(whiteQueenK[m].from) >= 2 && strlen(whiteQueenK[m].to) >= 2) {
-                                        TextOut(hdc,
+                                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                                 615+50,
                                                 _y_,
                                                 whiteQueenK[m].to,
@@ -3726,7 +3726,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackRook1.from != NULL && blackRook1.to != NULL) {
                                 if(strlen(blackRook1.from) >= 2 && strlen(blackRook1.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackRook1.to,
@@ -3746,7 +3746,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackRook2.from != NULL && blackRook2.to != NULL) {
                                 if(strlen(blackRook2.from) >= 2 && strlen(blackRook2.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackRook2.to,
@@ -3766,7 +3766,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackKnight1.from != NULL && blackKnight1.to != NULL) {
                                 if(strlen(blackKnight1.from) >= 2 && strlen(blackKnight1.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackKnight1.to,
@@ -3786,7 +3786,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackKnight2.from != NULL && blackKnight2.to != NULL) {
                                 if(strlen(blackKnight2.from) >= 2 && strlen(blackKnight2.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackKnight2.to,
@@ -3806,7 +3806,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackBishop1.from != NULL && blackBishop1.to != NULL) {
                                 if(strlen(blackBishop1.from) >= 2 && strlen(blackBishop1.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackBishop1.to,
@@ -3826,7 +3826,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackBishop2.from != NULL && blackBishop2.to != NULL) {
                                 if(strlen(blackBishop2.from) >= 2 && strlen(blackBishop2.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackBishop2.to,
@@ -3846,7 +3846,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackQueen.from != NULL && blackQueen.to != NULL) {
                                 if(strlen(blackQueen.from) >= 2 && strlen(blackQueen.to) >= 2) {
-                                    TextOut(hdc,
+                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackQueen.to,
@@ -3878,7 +3878,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                 if(blackPawns[o].from != NULL && blackPawns[o].to != NULL) {
                                     if(strlen(blackPawns[o].from) >= 2 && strlen(blackPawns[o].to) >= 2) {
-                                        TextOut(hdc,
+                                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                                 690+50,
                                                 _y_,
                                                 blackPawns[o].to,
@@ -3900,7 +3900,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                 if(blackQueenK[m].from != NULL && blackQueenK[m].to != NULL) {
                                     if(strlen(blackQueenK[m].from) >= 2 && strlen(blackQueenK[m].to) >= 2) {
-                                        TextOut(hdc,
+                                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                                 690+50,
                                                 _y_,
                                                 blackQueenK[m].to,
@@ -7835,7 +7835,7 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(whiteRook1.from != NULL && whiteRook1.to != NULL) {
                 if(strlen(whiteRook1.from) >= 2 && strlen(whiteRook1.to) >= 2) {
-                    TextOut(hdc,
+                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                             615+50,
                             _y_,
                             whiteRook1.to,
@@ -7855,7 +7855,7 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(whiteRook2.from != NULL && whiteRook2.to != NULL) {
                 if(strlen(whiteRook2.from) >= 2 && strlen(whiteRook2.to) >= 2) {
-                    TextOut(hdc,
+                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                             615+50,
                             _y_,
                             whiteRook2.to,
@@ -7875,7 +7875,7 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(whiteKnight1.from != NULL && whiteKnight1.to != NULL) {
                 if(strlen(whiteKnight1.from) >= 2 && strlen(whiteKnight1.to) >= 2) {
-                    TextOut(hdc,
+                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                             615+50,
                             _y_,
                             whiteKnight1.to,
@@ -7895,7 +7895,7 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(whiteKnight2.from != NULL && whiteKnight2.to != NULL) {
                 if(strlen(whiteKnight2.from) >= 2 && strlen(whiteKnight2.to) >= 2) {
-                    TextOut(hdc,
+                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                             615+50,
                             _y_,
                             whiteKnight2.to,
@@ -7915,7 +7915,7 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(whiteBishop1.from != NULL && whiteBishop1.to != NULL) {
                 if(strlen(whiteBishop1.from) >= 2 && strlen(whiteBishop1.to) >= 2) {
-                    TextOut(hdc,
+                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                             615+50,
                             _y_,
                             whiteBishop1.to,
@@ -7935,7 +7935,7 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(whiteBishop2.from != NULL && whiteBishop2.to != NULL) {
                 if(strlen(whiteBishop2.from) >= 2 && strlen(whiteBishop2.to) >= 2) {
-                    TextOut(hdc,
+                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                             615+50,
                             _y_,
                             whiteBishop2.to,
@@ -7955,7 +7955,7 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(whiteQueen.from != NULL && whiteQueen.to != NULL) {
                 if(strlen(whiteQueen.from) >= 2 && strlen(whiteQueen.to) >= 2) {
-                    TextOut(hdc,
+                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                             615+50,
                             _y_,
                             whiteQueen.to,
@@ -7987,7 +7987,7 @@ DWORD WINAPI callApi(void *data) {
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(whitePawns[o].from != NULL && whitePawns[o].to != NULL) {
                     if(strlen(whitePawns[o].from) >= 2 && strlen(whitePawns[o].to) >= 2) {
-                        TextOut(hdc,
+                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                 615+50,
                                 _y_,
                                 whitePawns[o].to,
@@ -8009,7 +8009,7 @@ DWORD WINAPI callApi(void *data) {
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(whiteQueenK[m].from != NULL && whiteQueenK[m].to != NULL) {
                     if(strlen(whiteQueenK[m].from) >= 2 && strlen(whiteQueenK[m].to) >= 2) {
-                        TextOut(hdc,
+                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                 615+50,
                                 _y_,
                                 whiteQueenK[m].to,
@@ -8032,7 +8032,7 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(blackRook1.from != NULL && blackRook1.to != NULL) {
                 if(strlen(blackRook1.from) >= 2 && strlen(blackRook1.to) >= 2) {
-                    TextOut(hdc,
+                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                             690+50,
                             _y_,
                             blackRook1.to,
@@ -8052,7 +8052,7 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(blackRook2.from != NULL && blackRook2.to != NULL) {
                 if(strlen(blackRook2.from) >= 2 && strlen(blackRook2.to) >= 2) {
-                    TextOut(hdc,
+                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                             690+50,
                             _y_,
                             blackRook2.to,
@@ -8072,7 +8072,7 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(blackKnight1.from != NULL && blackKnight1.to != NULL) {
                 if(strlen(blackKnight1.from) >= 2 && strlen(blackKnight1.to) >= 2) {
-                    TextOut(hdc,
+                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                             690+50,
                             _y_,
                             blackKnight1.to,
@@ -8092,7 +8092,7 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(blackKnight2.from != NULL && blackKnight2.to != NULL) {
                 if(strlen(blackKnight2.from) >= 2 && strlen(blackKnight2.to) >= 2) {
-                    TextOut(hdc,
+                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                             690+50,
                             _y_,
                             blackKnight2.to,
@@ -8112,7 +8112,7 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(blackBishop1.from != NULL && blackBishop1.to != NULL) {
                 if(strlen(blackBishop1.from) >= 2 && strlen(blackBishop1.to) >= 2) {
-                    TextOut(hdc,
+                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                             690+50,
                             _y_,
                             blackBishop1.to,
@@ -8132,7 +8132,7 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(blackBishop2.from != NULL && blackBishop2.to != NULL) {
                 if(strlen(blackBishop2.from) >= 2 && strlen(blackBishop2.to) >= 2) {
-                    TextOut(hdc,
+                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                             690+50,
                             _y_,
                             blackBishop2.to,
@@ -8152,7 +8152,7 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(blackQueen.from != NULL && blackQueen.to != NULL) {
                 if(strlen(blackQueen.from) >= 2 && strlen(blackQueen.to) >= 2) {
-                    TextOut(hdc,
+                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                             690+50,
                             _y_,
                             blackQueen.to,
@@ -8184,7 +8184,7 @@ DWORD WINAPI callApi(void *data) {
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(blackPawns[o].from != NULL && blackPawns[o].to != NULL) {
                     if(strlen(blackPawns[o].from) >= 2 && strlen(blackPawns[o].to) >= 2) {
-                        TextOut(hdc,
+                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                 690+50,
                                 _y_,
                                 blackPawns[o].to,
@@ -8206,7 +8206,7 @@ DWORD WINAPI callApi(void *data) {
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(blackQueenK[m].from != NULL && blackQueenK[m].to != NULL) {
                     if(strlen(blackQueenK[m].from) >= 2 && strlen(blackQueenK[m].to) >= 2) {
-                        TextOut(hdc,
+                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                 690+50,
                                 _y_,
                                 blackQueenK[m].to,
@@ -9753,7 +9753,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(whiteRook1.from != NULL && whiteRook1.to != NULL) {
                     if(strlen(whiteRook1.from) >= 2 && strlen(whiteRook1.to) >= 2) {
-                        TextOut(hdc,
+                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                 615+50,
                                 _y_,
                                 whiteRook1.to,
@@ -9773,7 +9773,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(whiteRook2.from != NULL && whiteRook2.to != NULL) {
                     if(strlen(whiteRook2.from) >= 2 && strlen(whiteRook2.to) >= 2) {
-                        TextOut(hdc,
+                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                 615+50,
                                 _y_,
                                 whiteRook2.to,
@@ -9793,7 +9793,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(whiteKnight1.from != NULL && whiteKnight1.to != NULL) {
                     if(strlen(whiteKnight1.from) >= 2 && strlen(whiteKnight1.to) >= 2) {
-                        TextOut(hdc,
+                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                 615+50,
                                 _y_,
                                 whiteKnight1.to,
@@ -9813,7 +9813,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(whiteKnight2.from != NULL && whiteKnight2.to != NULL) {
                     if(strlen(whiteKnight2.from) >= 2 && strlen(whiteKnight2.to) >= 2) {
-                        TextOut(hdc,
+                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                 615+50,
                                 _y_,
                                 whiteKnight2.to,
@@ -9833,7 +9833,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(whiteBishop1.from != NULL && whiteBishop1.to != NULL) {
                     if(strlen(whiteBishop1.from) >= 2 && strlen(whiteBishop1.to) >= 2) {
-                        TextOut(hdc,
+                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                 615+50,
                                 _y_,
                                 whiteBishop1.to,
@@ -9853,7 +9853,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(whiteBishop2.from != NULL && whiteBishop2.to != NULL) {
                     if(strlen(whiteBishop2.from) >= 2 && strlen(whiteBishop2.to) >= 2) {
-                        TextOut(hdc,
+                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                 615+50,
                                 _y_,
                                 whiteBishop2.to,
@@ -9873,7 +9873,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(whiteQueen.from != NULL && whiteQueen.to != NULL) {
                     if(strlen(whiteQueen.from) >= 2 && strlen(whiteQueen.to) >= 2) {
-                        TextOut(hdc,
+                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                 615+50,
                                 _y_,
                                 whiteQueen.to,
@@ -9905,7 +9905,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                     if(whitePawns[o].from != NULL && whitePawns[o].to != NULL) {
                         if(strlen(whitePawns[o].from) >= 2 && strlen(whitePawns[o].to) >= 2) {
-                            TextOut(hdc,
+                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                     615+50,
                                     _y_,
                                     whitePawns[o].to,
@@ -9927,7 +9927,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                     if(whiteQueenK[m].from != NULL && whiteQueenK[m].to != NULL) {
                         if(strlen(whiteQueenK[m].from) >= 2 && strlen(whiteQueenK[m].to) >= 2) {
-                            TextOut(hdc,
+                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                     615+50,
                                     _y_,
                                     whiteQueenK[m].to,
@@ -9950,7 +9950,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(blackRook1.from != NULL && blackRook1.to != NULL) {
                     if(strlen(blackRook1.from) >= 2 && strlen(blackRook1.to) >= 2) {
-                        TextOut(hdc,
+                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                 690+50,
                                 _y_,
                                 blackRook1.to,
@@ -9970,7 +9970,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(blackRook2.from != NULL && blackRook2.to != NULL) {
                     if(strlen(blackRook2.from) >= 2 && strlen(blackRook2.to) >= 2) {
-                        TextOut(hdc,
+                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                 690+50,
                                 _y_,
                                 blackRook2.to,
@@ -9990,7 +9990,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(blackKnight1.from != NULL && blackKnight1.to != NULL) {
                     if(strlen(blackKnight1.from) >= 2 && strlen(blackKnight1.to) >= 2) {
-                        TextOut(hdc,
+                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                 690+50,
                                 _y_,
                                 blackKnight1.to,
@@ -10010,7 +10010,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(blackKnight2.from != NULL && blackKnight2.to != NULL) {
                     if(strlen(blackKnight2.from) >= 2 && strlen(blackKnight2.to) >= 2) {
-                        TextOut(hdc,
+                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                 690+50,
                                 _y_,
                                 blackKnight2.to,
@@ -10030,7 +10030,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(blackBishop1.from != NULL && blackBishop1.to != NULL) {
                     if(strlen(blackBishop1.from) >= 2 && strlen(blackBishop1.to) >= 2) {
-                        TextOut(hdc,
+                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                 690+50,
                                 _y_,
                                 blackBishop1.to,
@@ -10050,7 +10050,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(blackBishop2.from != NULL && blackBishop2.to != NULL) {
                     if(strlen(blackBishop2.from) >= 2 && strlen(blackBishop2.to) >= 2) {
-                        TextOut(hdc,
+                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                 690+50,
                                 _y_,
                                 blackBishop2.to,
@@ -10070,7 +10070,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(blackQueen.from != NULL && blackQueen.to != NULL) {
                     if(strlen(blackQueen.from) >= 2 && strlen(blackQueen.to) >= 2) {
-                        TextOut(hdc,
+                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                 690+50,
                                 _y_,
                                 blackQueen.to,
@@ -10102,7 +10102,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                     if(blackPawns[o].from != NULL && blackPawns[o].to != NULL) {
                         if(strlen(blackPawns[o].from) >= 2 && strlen(blackPawns[o].to) >= 2) {
-                            TextOut(hdc,
+                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                     690+50,
                                     _y_,
                                     blackPawns[o].to,
@@ -10124,7 +10124,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                     if(blackQueenK[m].from != NULL && blackQueenK[m].to != NULL) {
                         if(strlen(blackQueenK[m].from) >= 2 && strlen(blackQueenK[m].to) >= 2) {
-                            TextOut(hdc,
+                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                     690+50,
                                     _y_,
                                     blackQueenK[m].to,
@@ -15752,7 +15752,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(whiteRook1.from != NULL && whiteRook1.to != NULL) {
                                         if(strlen(whiteRook1.from) >= 2 && strlen(whiteRook1.to) >= 2) {
-                                            TextOut(hdc,
+                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                                     615+50,
                                                     _y_,
                                                     whiteRook1.to,
@@ -15772,7 +15772,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(whiteRook2.from != NULL && whiteRook2.to != NULL) {
                                         if(strlen(whiteRook2.from) >= 2 && strlen(whiteRook2.to) >= 2) {
-                                            TextOut(hdc,
+                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                                     615+50,
                                                     _y_,
                                                     whiteRook2.to,
@@ -15792,7 +15792,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(whiteKnight1.from != NULL && whiteKnight1.to != NULL) {
                                         if(strlen(whiteKnight1.from) >= 2 && strlen(whiteKnight1.to) >= 2) {
-                                            TextOut(hdc,
+                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                                     615+50,
                                                     _y_,
                                                     whiteKnight1.to,
@@ -15812,7 +15812,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(whiteKnight2.from != NULL && whiteKnight2.to != NULL) {
                                         if(strlen(whiteKnight2.from) >= 2 && strlen(whiteKnight2.to) >= 2) {
-                                            TextOut(hdc,
+                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                                     615+50,
                                                     _y_,
                                                     whiteKnight2.to,
@@ -15832,7 +15832,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(whiteBishop1.from != NULL && whiteBishop1.to != NULL) {
                                         if(strlen(whiteBishop1.from) >= 2 && strlen(whiteBishop1.to) >= 2) {
-                                            TextOut(hdc,
+                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                                     615+50,
                                                     _y_,
                                                     whiteBishop1.to,
@@ -15852,7 +15852,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(whiteBishop2.from != NULL && whiteBishop2.to != NULL) {
                                         if(strlen(whiteBishop2.from) >= 2 && strlen(whiteBishop2.to) >= 2) {
-                                            TextOut(hdc,
+                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                                     615+50,
                                                     _y_,
                                                     whiteBishop2.to,
@@ -15872,7 +15872,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(whiteQueen.from != NULL && whiteQueen.to != NULL) {
                                         if(strlen(whiteQueen.from) >= 2 && strlen(whiteQueen.to) >= 2) {
-                                            TextOut(hdc,
+                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                                     615+50,
                                                     _y_,
                                                     whiteQueen.to,
@@ -15904,7 +15904,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                         if(whitePawns[o].from != NULL && whitePawns[o].to != NULL) {
                                             if(strlen(whitePawns[o].from) >= 2 && strlen(whitePawns[o].to) >= 2) {
-                                                TextOut(hdc,
+                                                SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                                         615+50,
                                                         _y_,
                                                         whitePawns[o].to,
@@ -15926,7 +15926,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                         if(whiteQueenK[m].from != NULL && whiteQueenK[m].to != NULL) {
                                             if(strlen(whiteQueenK[m].from) >= 2 && strlen(whiteQueenK[m].to) >= 2) {
-                                                TextOut(hdc,
+                                                SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                                         615+50,
                                                         _y_,
                                                         whiteQueenK[m].to,
@@ -15949,7 +15949,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(blackRook1.from != NULL && blackRook1.to != NULL) {
                                         if(strlen(blackRook1.from) >= 2 && strlen(blackRook1.to) >= 2) {
-                                            TextOut(hdc,
+                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                                     690+50,
                                                     _y_,
                                                     blackRook1.to,
@@ -15969,7 +15969,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(blackRook2.from != NULL && blackRook2.to != NULL) {
                                         if(strlen(blackRook2.from) >= 2 && strlen(blackRook2.to) >= 2) {
-                                            TextOut(hdc,
+                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                                     690+50,
                                                     _y_,
                                                     blackRook2.to,
@@ -15989,7 +15989,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(blackKnight1.from != NULL && blackKnight1.to != NULL) {
                                         if(strlen(blackKnight1.from) >= 2 && strlen(blackKnight1.to) >= 2) {
-                                            TextOut(hdc,
+                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                                     690+50,
                                                     _y_,
                                                     blackKnight1.to,
@@ -16009,7 +16009,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(blackKnight2.from != NULL && blackKnight2.to != NULL) {
                                         if(strlen(blackKnight2.from) >= 2 && strlen(blackKnight2.to) >= 2) {
-                                            TextOut(hdc,
+                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                                     690+50,
                                                     _y_,
                                                     blackKnight2.to,
@@ -16029,7 +16029,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(blackBishop1.from != NULL && blackBishop1.to != NULL) {
                                         if(strlen(blackBishop1.from) >= 2 && strlen(blackBishop1.to) >= 2) {
-                                            TextOut(hdc,
+                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                                     690+50,
                                                     _y_,
                                                     blackBishop1.to,
@@ -16049,7 +16049,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(blackBishop2.from != NULL && blackBishop2.to != NULL) {
                                         if(strlen(blackBishop2.from) >= 2 && strlen(blackBishop2.to) >= 2) {
-                                            TextOut(hdc,
+                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                                     690+50,
                                                     _y_,
                                                     blackBishop2.to,
@@ -16069,7 +16069,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(blackQueen.from != NULL && blackQueen.to != NULL) {
                                         if(strlen(blackQueen.from) >= 2 && strlen(blackQueen.to) >= 2) {
-                                            TextOut(hdc,
+                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                                     690+50,
                                                     _y_,
                                                     blackQueen.to,
@@ -16101,7 +16101,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                         if(blackPawns[o].from != NULL && blackPawns[o].to != NULL) {
                                             if(strlen(blackPawns[o].from) >= 2 && strlen(blackPawns[o].to) >= 2) {
-                                                TextOut(hdc,
+                                                SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                                         690+50,
                                                         _y_,
                                                         blackPawns[o].to,
@@ -16123,7 +16123,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                         if(blackQueenK[m].from != NULL && blackQueenK[m].to != NULL) {
                                             if(strlen(blackQueenK[m].from) >= 2 && strlen(blackQueenK[m].to) >= 2) {
-                                                TextOut(hdc,
+                                                SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
                                                         690+50,
                                                         _y_,
                                                         blackQueenK[m].to,
