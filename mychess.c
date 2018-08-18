@@ -1856,7 +1856,7 @@ DWORD WINAPI waitItsWhite(void *data) {
 
                         _y_ = 20;
 
-                        HBRUSH yellow_brush = CreateSolidBrush(RGB(255,255,0));
+                        HBRUSH yellow_brush = CreateSolidBrush(RGB(0,0,0));
                         RECT rrect = {635+0, 17, 840, 740};
                         FillRect(hdc, &rrect, yellow_brush);
                         DeleteObject(yellow_brush);
@@ -3536,7 +3536,7 @@ DWORD WINAPI waitItsBlack(void *data) {
 
                         _y_ = 20;
 
-                        HBRUSH yellow_brush = CreateSolidBrush(RGB(255,255,0));
+                        HBRUSH yellow_brush = CreateSolidBrush(RGB(0,0,0));
                         RECT rrect = {635+0, 17, 840, 740};
                         FillRect(hdc, &rrect, yellow_brush);
                         DeleteObject(yellow_brush);
@@ -5928,7 +5928,7 @@ void paintSideLogo() {
         oldBitmap = SelectObject(hdcMem, hBitmapSideLogo);
 
         GetObject(hBitmapSideLogo, sizeof(bitmap), &bitmap);
-        BitBlt(hdc, 976, 0+ipp, 1030, 740+ipp, hdcMem, 0, 0, SRCCOPY);
+        BitBlt(hdc, 970, 0+ipp, 1030, 740+ipp, hdcMem, 0, 0, SRCCOPY);
 
         SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
         DeleteDC(hdcMem); DeleteObject(hBitmapSideLogo);
@@ -7855,7 +7855,7 @@ DWORD WINAPI callApi(void *data) {
 
         _y_ = 20;
 
-        HBRUSH yellow_brush = CreateSolidBrush(RGB(255,255,0));
+        HBRUSH yellow_brush = CreateSolidBrush(RGB(0,0,0));
         RECT rrect = {635+0, 17, 840, 740};
         FillRect(hdc, &rrect, yellow_brush);
         DeleteObject(yellow_brush);
@@ -9342,7 +9342,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBitmapSideLogo);
 
                 GetObject(hBitmapSideLogo, sizeof(bitmap), &bitmap);
-                BitBlt(hdc, 845, 0, 895, 740, hdcMem, 0, 0, SRCCOPY);
+                BitBlt(hdc, 839, 0, 895, 740, hdcMem, 0, 0, SRCCOPY);
 
                 SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 DeleteDC(hdcMem); DeleteObject(hBitmapSideLogo);
@@ -9862,7 +9862,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
             _y_ = 20;
 
-            HBRUSH yellow_brush = CreateSolidBrush(RGB(255,255,0));
+            HBRUSH yellow_brush = CreateSolidBrush(RGB(0,0,0));
             RECT rrect = {635+0, 17, 840, 740};
             FillRect(hdc, &rrect, yellow_brush);
             DeleteObject(yellow_brush);
@@ -15872,7 +15872,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
                                 _y_ = 20;
 
-                                HBRUSH yellow_brush = CreateSolidBrush(RGB(255,255,0));
+                                HBRUSH yellow_brush = CreateSolidBrush(RGB(0,0,0));
                                 RECT rrect = {635+0, 17, 840, 740};
                                 FillRect(hdc, &rrect, yellow_brush);
                                 DeleteObject(yellow_brush);
@@ -21412,7 +21412,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 SendMessage(hwnd, WM_SETICON, ICON_SMALL, (LPARAM)hIconSm);
 
             char b[100] = "white versus";
-            y = 0; h = 15;
+            y = 0; h = 18;
             x = 585+50; w = 120;
             hwnd_white = CreateWindow("static", NULL,
                                        WS_CHILD | WS_VISIBLE | WS_TABSTOP,
@@ -21422,7 +21422,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             SetWindowText(hwnd_white, b);
 
             char c[100] = "black";
-            y = 0; h = 15;
+            y = 0; h = 18;
             x = 660+60; w = 120;
             hwnd_black = CreateWindow("static", NULL,
                                        WS_CHILD | WS_VISIBLE | WS_TABSTOP,
@@ -21943,9 +21943,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     }
 
     hwnd = CreateWindowEx(WS_EX_LAYERED, 
-            g_szClassName, "My Chess", 
+            g_szClassName, "My Chess (programmed by Daniel Cho)", 
             WS_OVERLAPPEDWINDOW,
-            rect.left, rect.top, 915, 740, 
+            rect.left, rect.top, 909, 740, 
             NULL, NULL, hInstance, NULL);
 
     if(hwnd == NULL) {
