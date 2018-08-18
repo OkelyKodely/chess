@@ -21,7 +21,10 @@
 #include <math.h>
 #include "mychess.h"
 
-boolean iswhite;
+#define ID_VOICE_ALERTS 11212
+boolean vAlerts = TRUE;
+
+boolean iswhite = TRUE;
 char *user_name = NULL;
 char *pass_word = NULL;
 char *opponent = "YOYUO";
@@ -69,6 +72,7 @@ HBITMAP         hhbbs;
 #define GetCurrentDir _getcwd
 #else
 #include <unistd.h>
+#include <wingdi.h>
 #define GetCurrentDir getcwd
 #endif
 
@@ -315,6 +319,7 @@ HICON hIcon, hIconSm;
 char *newGame = "new game";
 char *getMine = "get mine";
 char *captureScreen = "capture screen";
+char *voiceAlerts = "turn off voice alerts";
 char *exitGame = "quit";
 
 char *pcGame = "> 1 PLAYER (HUMAN VERSUS P.C.)";
@@ -1856,6 +1861,18 @@ DWORD WINAPI waitItsWhite(void *data) {
                         FillRect(hdc, &rrect, yellow_brush);
                         DeleteObject(yellow_brush);
 
+                        HFONT font;
+                        
+                        font = CreateFont(12, 12, 0, 0,
+                                           FW_NORMAL, FALSE, FALSE, FALSE,
+                                           ANSI_CHARSET, OUT_DEFAULT_PRECIS,
+                                         CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+                                         DEFAULT_PITCH | FF_ROMAN,
+                                        "Times New Roman");
+
+                        SelectObject(hdc, font);
+                        SetTextColor(hdc, RGB(0,0,0));
+
                         if(whiteRook1.posX == 1300) {
                             hdcMem = CreateCompatibleDC(hdc);
                             HBITMAP hBmp = ReplaceColor(rookWhite_s,0xff0000,0x00ffff,hdcMem);
@@ -2247,6 +2264,8 @@ DWORD WINAPI waitItsWhite(void *data) {
                                 _y_ += 31;
                             }
                         }
+
+                        DeleteObject(font);
 
                         DeleteObject(pawnBlack_s);
                         DeleteObject(pawnWhite_s);
@@ -3521,6 +3540,18 @@ DWORD WINAPI waitItsBlack(void *data) {
                         FillRect(hdc, &rrect, yellow_brush);
                         DeleteObject(yellow_brush);
 
+                        HFONT font;
+                        
+                        font = CreateFont(12, 12, 0, 0,
+                                           FW_NORMAL, FALSE, FALSE, FALSE,
+                                           ANSI_CHARSET, OUT_DEFAULT_PRECIS,
+                                         CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+                                         DEFAULT_PITCH | FF_ROMAN,
+                                        "Times New Roman");
+
+                        SelectObject(hdc, font);
+                        SetTextColor(hdc, RGB(0,0,0));
+
                         if(whiteRook1.posX == 1300) {
                             hdcMem = CreateCompatibleDC(hdc);
                             HBITMAP hBmp = ReplaceColor(rookWhite_s,0xff0000,0x00ffff,hdcMem);
@@ -3912,6 +3943,8 @@ DWORD WINAPI waitItsBlack(void *data) {
                                 _y_ += 31;
                             }
                         }
+
+                        DeleteObject(font);
 
                         DeleteObject(pawnBlack_s);
                         DeleteObject(pawnWhite_s);
@@ -5143,6 +5176,11 @@ void SetMyMenu(int option) {
     AppendMenu(hSubMenu, MF_STRING, ID_CLICK_ME_NEW_GAME, newGame);
     AppendMenu(hSubMenu, MF_STRING, ID_FILE_DOWNLOAD, getMine);
     AppendMenu(hSubMenu, MF_STRING, ID_CAPTURE_SCREEN, captureScreen);
+    if(option == -1)
+        voiceAlerts = "turn off voice alerts";
+    if(option == -2)
+        voiceAlerts = "turn on voice alerts";
+    AppendMenu(hSubMenu, MF_STRING, ID_VOICE_ALERTS, voiceAlerts);
     AppendMenu(hSubMenu, MF_STRING, ID_CLICK_ME_QUIT, exitGame);
     AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "File");
 
@@ -8327,6 +8365,7 @@ HBITMAP ReplaceColor(HBITMAP hBmp,COLORREF cOldColor,COLORREF cNewColor,HDC hBmp
 }
 
 DWORD WINAPI ThreadFunc(void *data) {
+    int yt = 0;
     char b[91];
     SYSTEMTIME st;
     GetLocalTime(&st);
@@ -8417,6 +8456,107 @@ DWORD WINAPI ThreadFunc(void *data) {
         }
         if(ls != cs) {
             SetWindowText(hwnd_timer, b);
+            yt++;
+            if(yt == 4) {
+                yt = 0;
+                PostMessage(hwnd, WM_NOTIFY, 0, 0);
+            }
+            if(vAlerts == TRUE) {
+                if(iswhite == FALSE) {
+                    if(yt == 2 && turn == 'h')
+                        PlaySound(TEXT("oppturn.wav"), NULL, SND_FILENAME);
+                    if(yt == 2 && turn == 'r')
+                        PlaySound(TEXT("yourturn.wav"), NULL, SND_FILENAME);
+                } else {
+                    if(yt == 2 && turn == 'r')
+                        PlaySound(TEXT("oppturn.wav"), NULL, SND_FILENAME);
+                    if(yt == 2 && turn == 'h')
+                        PlaySound(TEXT("yourturn.wav"), NULL, SND_FILENAME);
+                }
+            }
+            if(iswhite == FALSE) {
+                if(yt == 2 && turn == 'h') {
+                    HDC         hDC;
+                    PAINTSTRUCT Ps;
+                    HFONT	    font;
+
+                    hDC = hdc;
+
+                    font = CreateFont(36, 28, 215, 0,
+                                       FW_NORMAL, FALSE, FALSE, FALSE,
+                                       ANSI_CHARSET, OUT_DEFAULT_PRECIS,
+                                     CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+                                     DEFAULT_PITCH | FF_ROMAN,
+                                    "Times New Roman");
+
+                    SelectObject(hDC, font);
+                    SetBkColor(hDC, RGB(255,255,0));
+                    SetTextColor(hDC, RGB(255,0,0));
+                    TextOut(hDC, 80, 280, "Opponent's Turn", 15);
+                    DeleteObject(font);
+                }
+                if(yt == 2 && turn == 'r') {
+                    HDC         hDC;
+                    PAINTSTRUCT Ps;
+                    HFONT	    font;
+
+                    hDC = hdc;
+
+                    font = CreateFont(36, 28, 215, 0,
+                                       FW_NORMAL, FALSE, FALSE, FALSE,
+                                       ANSI_CHARSET, OUT_DEFAULT_PRECIS,
+                                     CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+                                     DEFAULT_PITCH | FF_ROMAN,
+                                    "Times New Roman");
+
+                    SelectObject(hDC, font);
+                    SetBkColor(hDC, RGB(255,255,0));
+                    SetTextColor(hDC, RGB(255,0,0));
+                    TextOut(hDC, 80, 280, "Your Turn", 9);
+                    DeleteObject(font);
+                }
+            } else {
+                if(yt == 2 && turn == 'r') {
+                    HDC         hDC;
+                    PAINTSTRUCT Ps;
+                    HFONT	    font;
+
+                    hDC = hdc;
+
+                    font = CreateFont(36, 28, 215, 0,
+                                       FW_NORMAL, FALSE, FALSE, FALSE,
+                                       ANSI_CHARSET, OUT_DEFAULT_PRECIS,
+                                     CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+                                     DEFAULT_PITCH | FF_ROMAN,
+                                    "Times New Roman");
+
+                    SelectObject(hDC, font);
+                    SetBkColor(hDC, RGB(255,255,0));
+                    SetTextColor(hDC, RGB(255,0,0));
+                    TextOut(hDC, 80, 280, "Opponent's Turn", 15);
+                    DeleteObject(font);
+                }
+                if(yt == 2 && turn == 'h') {
+                    HDC         hDC;
+                    PAINTSTRUCT Ps;
+                    HFONT	    font;
+
+                    hDC = hdc;
+
+                    font = CreateFont(36, 28, 215, 0,
+                                       FW_NORMAL, FALSE, FALSE, FALSE,
+                                       ANSI_CHARSET, OUT_DEFAULT_PRECIS,
+                                     CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+                                     DEFAULT_PITCH | FF_ROMAN,
+                                    "Times New Roman");
+
+                    SelectObject(hDC, font);
+                    SetBkColor(hDC, RGB(255,255,0));
+                    SetTextColor(hDC, RGB(255,0,0));
+                    TextOut(hDC, 80, 280, "Your Turn", 9);
+                    DeleteObject(font);
+                }
+            }
             if(gettingit) {
                 SetWindowText(hwnd_timer, "thinking ....");
             } else {
@@ -9245,8 +9385,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 wLM[18] = "g2g4";
                 wLM[19] = "h2h4";
 
-                //sideLogoThread = CreateThread(NULL, 0, paintSideLogo, NULL, 0, NULL);
-
                 thread = CreateThread(NULL, 0, ThreadFunc, NULL, 0, NULL);
                 Play();
                 PostMessage(hwnd, WM_NOTIFY, 0, 0);
@@ -9745,6 +9883,18 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             FillRect(hdc, &rrect, yellow_brush);
             DeleteObject(yellow_brush);
 
+            HFONT font;
+
+            font = CreateFont(12, 12, 0, 0,
+                               FW_NORMAL, FALSE, FALSE, FALSE,
+                               ANSI_CHARSET, OUT_DEFAULT_PRECIS,
+                             CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+                             DEFAULT_PITCH | FF_ROMAN,
+                            "Times New Roman");
+
+            SelectObject(hdc, font);
+            SetTextColor(hdc, RGB(0,0,0));
+
             if(whiteRook1.posX == 1300) {
                 hdcMem = CreateCompatibleDC(hdc);
                 HBITMAP hBmp = ReplaceColor(rookWhite_s,0xff0000,0x00ffff,hdcMem);
@@ -10136,6 +10286,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     _y_ += 31;
                 }
             }
+
+            DeleteObject(font);
 
             DeleteObject(pawnBlack_s);
             DeleteObject(pawnWhite_s);
@@ -15744,6 +15896,18 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 FillRect(hdc, &rrect, yellow_brush);
                                 DeleteObject(yellow_brush);
 
+                                HFONT font;
+
+                                font = CreateFont(12, 12, 0, 0,
+                                                   FW_NORMAL, FALSE, FALSE, FALSE,
+                                                   ANSI_CHARSET, OUT_DEFAULT_PRECIS,
+                                                 CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+                                                 DEFAULT_PITCH | FF_ROMAN,
+                                                "Times New Roman");
+
+                                SelectObject(hdc, font);
+                                SetTextColor(hdc, RGB(255,0,0));
+
                                 if(whiteRook1.posX == 1300) {
                                     hdcMem = CreateCompatibleDC(hdc);
                                     HBITMAP hBmp = ReplaceColor(rookWhite_s,0xff0000,0x00ffff,hdcMem);
@@ -16135,6 +16299,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         _y_ += 31;
                                     }
                                 }
+
+                                DeleteObject(font);
 
                                 DeleteObject(pawnBlack_s);
                                 DeleteObject(pawnWhite_s);
@@ -21205,6 +21371,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             AppendMenu(hSubMenu, MF_STRING, ID_CLICK_ME_NEW_GAME, "new game");
             AppendMenu(hSubMenu, MF_STRING, ID_FILE_DOWNLOAD, "get mine");
             AppendMenu(hSubMenu, MF_STRING, ID_CAPTURE_SCREEN, "capture screen");
+            AppendMenu(hSubMenu, MF_STRING, ID_VOICE_ALERTS, "turn off voice alerts");
             AppendMenu(hSubMenu, MF_STRING, ID_CLICK_ME_QUIT, "quit");
             AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, "File");
             
@@ -21742,6 +21909,15 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                         exit(0);
                     }
                     break;
+                case ID_VOICE_ALERTS:
+                  if(vAlerts == TRUE) {
+                      vAlerts = FALSE;
+                      SetMyMenu(-2);
+                  } else if(vAlerts == FALSE) {
+                      vAlerts = TRUE;
+                      SetMyMenu(-1);
+                  }
+                break;
                 case ID_CLICK_ME_QUIT:
                     if(MessageBox(hwnd,"Would you like to quit?", "Quit", MB_YESNO) == IDYES) {
                         PostMessage(hwnd, WM_CLOSE, 0, 0);
