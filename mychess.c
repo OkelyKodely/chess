@@ -5727,13 +5727,6 @@ LRESULT CALLBACK aboutWindowProcess(HWND hwnd2, UINT msg, WPARAM wParam, LPARAM 
 
 LRESULT CALLBACK onlineWindowProcess(HWND h, UINT msg, WPARAM wParam, LPARAM lParam) {
     switch(msg) {
-        case WM_CTLCOLORSTATIC: {
-            HBRUSH BGColorBrush = CreateSolidBrush(RGB(240,240,240));
-            HDC hdcStatic = (HDC) wParam;
-            SetBkMode(hdcStatic,TRANSPARENT);
-            return (LRESULT)BGColorBrush;
-        }
-        break;
         case WM_COMMAND: {
             if(LOWORD(wParam) == IDC_COMBOBOX_TEXT)
             {
@@ -8491,7 +8484,7 @@ DWORD WINAPI ThreadFunc(void *data) {
             }
             if(iswhite == FALSE) {
                 if(yt == 12 && turn == 'h') {
-                    HFONT	    font;
+                    HFONT font;
 
                     font = CreateFont(18, 18, 215, 0,
                                        FW_NORMAL, FALSE, FALSE, FALSE,
@@ -8507,7 +8500,7 @@ DWORD WINAPI ThreadFunc(void *data) {
                     DeleteObject(font);
                 }
                 if(yt == 12 && turn == 'r') {
-                    HFONT	    font;
+                    HFONT font;
 
                     font = CreateFont(18, 18, 215, 0,
                                        FW_NORMAL, FALSE, FALSE, FALSE,
@@ -8524,7 +8517,7 @@ DWORD WINAPI ThreadFunc(void *data) {
                 }
             } else {
                 if(yt == 12 && turn == 'r') {
-                    HFONT	    font;
+                    HFONT font;
 
                     font = CreateFont(18, 18, 215, 0,
                                        FW_NORMAL, FALSE, FALSE, FALSE,
@@ -8540,7 +8533,7 @@ DWORD WINAPI ThreadFunc(void *data) {
                     DeleteObject(font);
                 }
                 if(yt == 12 && turn == 'h') {
-                    HFONT	    font;
+                    HFONT font;
 
                     font = CreateFont(18, 18, 215, 0,
                                        FW_NORMAL, FALSE, FALSE, FALSE,
@@ -9323,13 +9316,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     switch(msg)
     {
-        case WM_CTLCOLORSTATIC: {
-            HBRUSH BGColorBrush = CreateSolidBrush(RGB(255,0,0));
-            HDC hdcStatic = (HDC) wParam;
-            SetBkMode(hdcStatic,TRANSPARENT);
-            return (LRESULT)BGColorBrush;
-        }
-        break;
         case WM_PAINT:
         {
             if(finished == -1) {
