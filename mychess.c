@@ -1527,7 +1527,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                         GetObject(hBitmap, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, 0, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
 
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         DeleteDC(hdcMem); DeleteObject(hBitmap);
 
                         DrawChessBoard();
@@ -1578,7 +1578,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, whiteRook1.posX+25+7, whiteRook1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -1589,7 +1589,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, whiteRook2.posX+25+7, whiteRook2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -1600,7 +1600,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, whiteKnight1.posX+25+7, whiteKnight1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -1611,7 +1611,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, whiteKnight2.posX+25+7, whiteKnight2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -1622,7 +1622,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, whiteBishop1.posX+25+7, whiteBishop1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -1633,7 +1633,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, whiteBishop2.posX+25+7, whiteBishop2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -1644,7 +1644,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, whiteQueen.posX+25+7, whiteQueen.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -1655,7 +1655,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, whiteKing.posX+25+7, whiteKing.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         for(int o=0; o<8; o++) {
@@ -1667,7 +1667,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, whitePawns[o].posX+25+7, whitePawns[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                         }
 
@@ -1679,7 +1679,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, blackRook1.posX+25+7, blackRook1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -1690,7 +1690,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, blackRook2.posX+25+7, blackRook2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -1701,7 +1701,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, blackKnight1.posX+25+7, blackKnight1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -1712,7 +1712,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, blackKnight2.posX+25+7, blackKnight2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -1723,7 +1723,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, blackBishop1.posX+25+7, blackBishop1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -1734,7 +1734,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, blackBishop2.posX+25+7, blackBishop2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -1745,7 +1745,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, blackQueen.posX+25+7, blackQueen.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -1756,7 +1756,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, blackKing.posX+25+7, blackKing.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         for(int o=0; o<8; o++) {
@@ -1768,7 +1768,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, blackPawns[o].posX+25+7, blackPawns[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                         }
 
@@ -1781,7 +1781,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, whiteQueenK[m].posX+25+7, whiteQueenK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                         }
 
@@ -1794,7 +1794,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, blackQueenK[m].posX+25+7, blackQueenK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                         }
 
@@ -1871,6 +1871,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                                         "Times New Roman");
 
                         SelectObject(hdc, font);
+                        SetBkColor(hdc, RGB(255,255,0));
                         SetTextColor(hdc, RGB(0,0,0));
 
                         if(whiteRook1.posX == 1300) {
@@ -1881,14 +1882,14 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteRook1.from != NULL && whiteRook1.to != NULL) {
                                 if(strlen(whiteRook1.from) >= 2 && strlen(whiteRook1.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteRook1.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -1901,14 +1902,14 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteRook2.from != NULL && whiteRook2.to != NULL) {
                                 if(strlen(whiteRook2.from) >= 2 && strlen(whiteRook2.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteRook2.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -1921,14 +1922,14 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteKnight1.from != NULL && whiteKnight1.to != NULL) {
                                 if(strlen(whiteKnight1.from) >= 2 && strlen(whiteKnight1.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteKnight1.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -1941,14 +1942,14 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteKnight2.from != NULL && whiteKnight2.to != NULL) {
                                 if(strlen(whiteKnight2.from) >= 2 && strlen(whiteKnight2.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteKnight2.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -1961,14 +1962,14 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteBishop1.from != NULL && whiteBishop1.to != NULL) {
                                 if(strlen(whiteBishop1.from) >= 2 && strlen(whiteBishop1.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteBishop1.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -1981,14 +1982,14 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteBishop2.from != NULL && whiteBishop2.to != NULL) {
                                 if(strlen(whiteBishop2.from) >= 2 && strlen(whiteBishop2.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteBishop2.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -2001,14 +2002,14 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteQueen.from != NULL && whiteQueen.to != NULL) {
                                 if(strlen(whiteQueen.from) >= 2 && strlen(whiteQueen.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteQueen.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -2019,7 +2020,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -2033,14 +2034,14 @@ DWORD WINAPI waitItsWhite(void *data) {
                                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                 if(whitePawns[o].from != NULL && whitePawns[o].to != NULL) {
                                     if(strlen(whitePawns[o].from) >= 2 && strlen(whitePawns[o].to) >= 2) {
-                                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                        TextOut(hdc,
                                                 615+50,
                                                 _y_,
                                                 whitePawns[o].to,
                                                 GetTextSize("za"));
                                     }
                                 }
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                 _y_ += 31;
                             }
@@ -2055,14 +2056,14 @@ DWORD WINAPI waitItsWhite(void *data) {
                                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                 if(whiteQueenK[m].from != NULL && whiteQueenK[m].to != NULL) {
                                     if(strlen(whiteQueenK[m].from) >= 2 && strlen(whiteQueenK[m].to) >= 2) {
-                                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                        TextOut(hdc,
                                                 615+50,
                                                 _y_,
                                                 whiteQueenK[m].to,
                                                 GetTextSize("za"));
                                     }
                                 }
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                 _y_ += 31;
                             }
@@ -2078,14 +2079,14 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackRook1.from != NULL && blackRook1.to != NULL) {
                                 if(strlen(blackRook1.from) >= 2 && strlen(blackRook1.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackRook1.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -2098,14 +2099,14 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackRook2.from != NULL && blackRook2.to != NULL) {
                                 if(strlen(blackRook2.from) >= 2 && strlen(blackRook2.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackRook2.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -2118,14 +2119,14 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackKnight1.from != NULL && blackKnight1.to != NULL) {
                                 if(strlen(blackKnight1.from) >= 2 && strlen(blackKnight1.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackKnight1.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -2138,14 +2139,14 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackKnight2.from != NULL && blackKnight2.to != NULL) {
                                 if(strlen(blackKnight2.from) >= 2 && strlen(blackKnight2.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackKnight2.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -2158,14 +2159,14 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackBishop1.from != NULL && blackBishop1.to != NULL) {
                                 if(strlen(blackBishop1.from) >= 2 && strlen(blackBishop1.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackBishop1.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -2178,14 +2179,14 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackBishop2.from != NULL && blackBishop2.to != NULL) {
                                 if(strlen(blackBishop2.from) >= 2 && strlen(blackBishop2.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackBishop2.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -2198,14 +2199,14 @@ DWORD WINAPI waitItsWhite(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackQueen.from != NULL && blackQueen.to != NULL) {
                                 if(strlen(blackQueen.from) >= 2 && strlen(blackQueen.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackQueen.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -2216,7 +2217,7 @@ DWORD WINAPI waitItsWhite(void *data) {
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -2230,14 +2231,14 @@ DWORD WINAPI waitItsWhite(void *data) {
                                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                 if(blackPawns[o].from != NULL && blackPawns[o].to != NULL) {
                                     if(strlen(blackPawns[o].from) >= 2 && strlen(blackPawns[o].to) >= 2) {
-                                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                        TextOut(hdc,
                                                 690+50,
                                                 _y_,
                                                 blackPawns[o].to,
                                                 GetTextSize("za"));
                                     }
                                 }
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                 _y_ += 31;
                             }
@@ -2252,14 +2253,14 @@ DWORD WINAPI waitItsWhite(void *data) {
                                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                 if(blackQueenK[m].from != NULL && blackQueenK[m].to != NULL) {
                                     if(strlen(blackQueenK[m].from) >= 2 && strlen(blackQueenK[m].to) >= 2) {
-                                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                        TextOut(hdc,
                                                 690+50,
                                                 _y_,
                                                 blackQueenK[m].to,
                                                 GetTextSize("za"));
                                     }
                                 }
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                 _y_ += 31;
                             }
@@ -3206,7 +3207,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                         GetObject(hBitmap, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, 0, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
 
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         DeleteDC(hdcMem); DeleteObject(hBitmap);
 
                         DrawChessBoard();
@@ -3257,7 +3258,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, whiteRook1.posX+25+7, whiteRook1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -3268,7 +3269,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, whiteRook2.posX+25+7, whiteRook2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -3279,7 +3280,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, whiteKnight1.posX+25+7, whiteKnight1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -3290,7 +3291,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, whiteKnight2.posX+25+7, whiteKnight2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -3301,7 +3302,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, whiteBishop1.posX+25+7, whiteBishop1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -3312,7 +3313,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, whiteBishop2.posX+25+7, whiteBishop2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -3323,7 +3324,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, whiteQueen.posX+25+7, whiteQueen.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -3334,7 +3335,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, whiteKing.posX+25+7, whiteKing.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         for(int o=0; o<8; o++) {
@@ -3346,7 +3347,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, whitePawns[o].posX+25+7, whitePawns[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                         }
 
@@ -3358,7 +3359,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, blackRook1.posX+25+7, blackRook1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -3369,7 +3370,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, blackRook2.posX+25+7, blackRook2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -3380,7 +3381,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, blackKnight1.posX+25+7, blackKnight1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -3391,7 +3392,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, blackKnight2.posX+25+7, blackKnight2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -3402,7 +3403,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, blackBishop1.posX+25+7, blackBishop1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -3413,7 +3414,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, blackBishop2.posX+25+7, blackBishop2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -3424,7 +3425,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, blackQueen.posX+25+7, blackQueen.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         hdcMem = CreateCompatibleDC(hdc);
@@ -3435,7 +3436,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                         oldBitmap = SelectObject(hdcMem, hBmp);
                         GetObject(hBmp, sizeof(bitmap), &bitmap);
                         BitBlt(hdc, blackKing.posX+25+7, blackKing.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                        SelectObject(hdcMem, oldBitmap);
+                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                         for(int o=0; o<8; o++) {
@@ -3447,7 +3448,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, blackPawns[o].posX+25+7, blackPawns[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                         }
 
@@ -3460,7 +3461,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, whiteQueenK[m].posX+25+7, whiteQueenK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                         }
 
@@ -3473,7 +3474,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, blackQueenK[m].posX+25+7, blackQueenK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                         }
 
@@ -3550,6 +3551,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                                         "Times New Roman");
 
                         SelectObject(hdc, font);
+                        SetBkColor(hdc, RGB(255,255,0));
                         SetTextColor(hdc, RGB(0,0,0));
 
                         if(whiteRook1.posX == 1300) {
@@ -3560,14 +3562,14 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteRook1.from != NULL && whiteRook1.to != NULL) {
                                 if(strlen(whiteRook1.from) >= 2 && strlen(whiteRook1.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteRook1.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -3580,14 +3582,14 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteRook2.from != NULL && whiteRook2.to != NULL) {
                                 if(strlen(whiteRook2.from) >= 2 && strlen(whiteRook2.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteRook2.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -3600,14 +3602,14 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteKnight1.from != NULL && whiteKnight1.to != NULL) {
                                 if(strlen(whiteKnight1.from) >= 2 && strlen(whiteKnight1.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteKnight1.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -3620,14 +3622,14 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteKnight2.from != NULL && whiteKnight2.to != NULL) {
                                 if(strlen(whiteKnight2.from) >= 2 && strlen(whiteKnight2.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteKnight2.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -3640,14 +3642,14 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteBishop1.from != NULL && whiteBishop1.to != NULL) {
                                 if(strlen(whiteBishop1.from) >= 2 && strlen(whiteBishop1.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteBishop1.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -3660,14 +3662,14 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteBishop2.from != NULL && whiteBishop2.to != NULL) {
                                 if(strlen(whiteBishop2.from) >= 2 && strlen(whiteBishop2.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteBishop2.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -3680,14 +3682,14 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(whiteQueen.from != NULL && whiteQueen.to != NULL) {
                                 if(strlen(whiteQueen.from) >= 2 && strlen(whiteQueen.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             615+50,
                                             _y_,
                                             whiteQueen.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -3698,7 +3700,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -3712,14 +3714,14 @@ DWORD WINAPI waitItsBlack(void *data) {
                                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                 if(whitePawns[o].from != NULL && whitePawns[o].to != NULL) {
                                     if(strlen(whitePawns[o].from) >= 2 && strlen(whitePawns[o].to) >= 2) {
-                                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                        TextOut(hdc,
                                                 615+50,
                                                 _y_,
                                                 whitePawns[o].to,
                                                 GetTextSize("za"));
                                     }
                                 }
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                 _y_ += 31;
                             }
@@ -3734,14 +3736,14 @@ DWORD WINAPI waitItsBlack(void *data) {
                                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                 if(whiteQueenK[m].from != NULL && whiteQueenK[m].to != NULL) {
                                     if(strlen(whiteQueenK[m].from) >= 2 && strlen(whiteQueenK[m].to) >= 2) {
-                                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                        TextOut(hdc,
                                                 615+50,
                                                 _y_,
                                                 whiteQueenK[m].to,
                                                 GetTextSize("za"));
                                     }
                                 }
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                 _y_ += 31;
                             }
@@ -3757,14 +3759,14 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackRook1.from != NULL && blackRook1.to != NULL) {
                                 if(strlen(blackRook1.from) >= 2 && strlen(blackRook1.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackRook1.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -3777,14 +3779,14 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackRook2.from != NULL && blackRook2.to != NULL) {
                                 if(strlen(blackRook2.from) >= 2 && strlen(blackRook2.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackRook2.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -3797,14 +3799,14 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackKnight1.from != NULL && blackKnight1.to != NULL) {
                                 if(strlen(blackKnight1.from) >= 2 && strlen(blackKnight1.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackKnight1.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -3817,14 +3819,14 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackKnight2.from != NULL && blackKnight2.to != NULL) {
                                 if(strlen(blackKnight2.from) >= 2 && strlen(blackKnight2.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackKnight2.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -3837,14 +3839,14 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackBishop1.from != NULL && blackBishop1.to != NULL) {
                                 if(strlen(blackBishop1.from) >= 2 && strlen(blackBishop1.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackBishop1.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -3857,14 +3859,14 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackBishop2.from != NULL && blackBishop2.to != NULL) {
                                 if(strlen(blackBishop2.from) >= 2 && strlen(blackBishop2.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackBishop2.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -3877,14 +3879,14 @@ DWORD WINAPI waitItsBlack(void *data) {
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                             if(blackQueen.from != NULL && blackQueen.to != NULL) {
                                 if(strlen(blackQueen.from) >= 2 && strlen(blackQueen.to) >= 2) {
-                                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                    TextOut(hdc,
                                             690+50,
                                             _y_,
                                             blackQueen.to,
                                             GetTextSize("za"));
                                 }
                             }
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -3895,7 +3897,7 @@ DWORD WINAPI waitItsBlack(void *data) {
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             _y_ += 31;
                         }
@@ -3909,14 +3911,14 @@ DWORD WINAPI waitItsBlack(void *data) {
                                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                 if(blackPawns[o].from != NULL && blackPawns[o].to != NULL) {
                                     if(strlen(blackPawns[o].from) >= 2 && strlen(blackPawns[o].to) >= 2) {
-                                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                        TextOut(hdc,
                                                 690+50,
                                                 _y_,
                                                 blackPawns[o].to,
                                                 GetTextSize("za"));
                                     }
                                 }
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                 _y_ += 31;
                             }
@@ -3931,14 +3933,14 @@ DWORD WINAPI waitItsBlack(void *data) {
                                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                 if(blackQueenK[m].from != NULL && blackQueenK[m].to != NULL) {
                                     if(strlen(blackQueenK[m].from) >= 2 && strlen(blackQueenK[m].to) >= 2) {
-                                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                        TextOut(hdc,
                                                 690+50,
                                                 _y_,
                                                 blackQueenK[m].to,
                                                 GetTextSize("za"));
                                     }
                                 }
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                 _y_ += 31;
                             }
@@ -5707,7 +5709,7 @@ LRESULT CALLBACK aboutWindowProcess(HWND hwnd2, UINT msg, WPARAM wParam, LPARAM 
             GetObject(hBitmapAbout, sizeof(bitmap), &bitmap);
             BitBlt(hdc2, 0, 0, 504, 539, hdcMem, 0, 0, SRCCOPY);
 
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             DeleteDC(hdcMem); DeleteObject(hBitmapAbout);
             DeleteObject(hBitmapAbout);
 
@@ -5935,7 +5937,7 @@ void paintSideLogo() {
         GetObject(hBitmapSideLogo, sizeof(bitmap), &bitmap);
         BitBlt(hdc, 976, 0+ipp, 1030, 740+ipp, hdcMem, 0, 0, SRCCOPY);
 
-        SelectObject(hdcMem, oldBitmap);
+        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
         DeleteDC(hdcMem); DeleteObject(hBitmapSideLogo);
 
         ipp++;
@@ -7531,7 +7533,7 @@ DWORD WINAPI callApi(void *data) {
         GetObject(hBitmap, sizeof(bitmap), &bitmap);
         BitBlt(hdc, 0, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
 
-        SelectObject(hdcMem, oldBitmap);
+        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
         DeleteDC(hdcMem); DeleteObject(hBitmap);
 
         DrawChessBoard();
@@ -7582,7 +7584,7 @@ DWORD WINAPI callApi(void *data) {
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, whiteRook1.posX+25+7, whiteRook1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-        SelectObject(hdcMem, oldBitmap);
+        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         hdcMem = CreateCompatibleDC(hdc);
@@ -7593,7 +7595,7 @@ DWORD WINAPI callApi(void *data) {
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, whiteRook2.posX+25+7, whiteRook2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-        SelectObject(hdcMem, oldBitmap);
+        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         hdcMem = CreateCompatibleDC(hdc);
@@ -7604,7 +7606,7 @@ DWORD WINAPI callApi(void *data) {
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, whiteKnight1.posX+25+7, whiteKnight1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-        SelectObject(hdcMem, oldBitmap);
+        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         hdcMem = CreateCompatibleDC(hdc);
@@ -7615,7 +7617,7 @@ DWORD WINAPI callApi(void *data) {
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, whiteKnight2.posX+25+7, whiteKnight2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-        SelectObject(hdcMem, oldBitmap);
+        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         hdcMem = CreateCompatibleDC(hdc);
@@ -7626,7 +7628,7 @@ DWORD WINAPI callApi(void *data) {
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, whiteBishop1.posX+25+7, whiteBishop1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-        SelectObject(hdcMem, oldBitmap);
+        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         hdcMem = CreateCompatibleDC(hdc);
@@ -7637,7 +7639,7 @@ DWORD WINAPI callApi(void *data) {
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, whiteBishop2.posX+25+7, whiteBishop2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-        SelectObject(hdcMem, oldBitmap);
+        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         hdcMem = CreateCompatibleDC(hdc);
@@ -7648,7 +7650,7 @@ DWORD WINAPI callApi(void *data) {
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, whiteQueen.posX+25+7, whiteQueen.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-        SelectObject(hdcMem, oldBitmap);
+        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
         
         hdcMem = CreateCompatibleDC(hdc);
@@ -7659,7 +7661,7 @@ DWORD WINAPI callApi(void *data) {
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, whiteKing.posX+25+7, whiteKing.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-        SelectObject(hdcMem, oldBitmap);
+        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         for(int o=0; o<8; o++) {
@@ -7671,7 +7673,7 @@ DWORD WINAPI callApi(void *data) {
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, whitePawns[o].posX+25+7, whitePawns[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
         }
 
@@ -7683,7 +7685,7 @@ DWORD WINAPI callApi(void *data) {
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, blackRook1.posX+25+7, blackRook1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-        SelectObject(hdcMem, oldBitmap);
+        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         hdcMem = CreateCompatibleDC(hdc);
@@ -7694,7 +7696,7 @@ DWORD WINAPI callApi(void *data) {
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, blackRook2.posX+25+7, blackRook2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-        SelectObject(hdcMem, oldBitmap);
+        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         hdcMem = CreateCompatibleDC(hdc);
@@ -7705,7 +7707,7 @@ DWORD WINAPI callApi(void *data) {
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, blackKnight1.posX+25+7, blackKnight1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-        SelectObject(hdcMem, oldBitmap);
+        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         hdcMem = CreateCompatibleDC(hdc);
@@ -7716,7 +7718,7 @@ DWORD WINAPI callApi(void *data) {
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, blackKnight2.posX+25+7, blackKnight2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-        SelectObject(hdcMem, oldBitmap);
+        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         hdcMem = CreateCompatibleDC(hdc);
@@ -7727,7 +7729,7 @@ DWORD WINAPI callApi(void *data) {
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, blackBishop1.posX+25+7, blackBishop1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-        SelectObject(hdcMem, oldBitmap);
+        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         hdcMem = CreateCompatibleDC(hdc);
@@ -7738,7 +7740,7 @@ DWORD WINAPI callApi(void *data) {
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, blackBishop2.posX+25+7, blackBishop2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-        SelectObject(hdcMem, oldBitmap);
+        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         hdcMem = CreateCompatibleDC(hdc);
@@ -7749,7 +7751,7 @@ DWORD WINAPI callApi(void *data) {
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, blackQueen.posX+25+7, blackQueen.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-        SelectObject(hdcMem, oldBitmap);
+        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         hdcMem = CreateCompatibleDC(hdc);
@@ -7760,7 +7762,7 @@ DWORD WINAPI callApi(void *data) {
         oldBitmap = SelectObject(hdcMem, hBmp);
         GetObject(hBmp, sizeof(bitmap), &bitmap);
         BitBlt(hdc, blackKing.posX+25+7, blackKing.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-        SelectObject(hdcMem, oldBitmap);
+        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
         for(int o=0; o<8; o++) {
@@ -7772,7 +7774,7 @@ DWORD WINAPI callApi(void *data) {
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, blackPawns[o].posX+25+7, blackPawns[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
         }
 
@@ -7785,7 +7787,7 @@ DWORD WINAPI callApi(void *data) {
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, whiteQueenK[m].posX+25+7, whiteQueenK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
         }
 
@@ -7798,7 +7800,7 @@ DWORD WINAPI callApi(void *data) {
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, blackQueenK[m].posX+25+7, blackQueenK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
         }
 
@@ -7865,6 +7867,19 @@ DWORD WINAPI callApi(void *data) {
         FillRect(hdc, &rrect, yellow_brush);
         DeleteObject(yellow_brush);
 
+        HFONT font;
+
+        font = CreateFont(12, 12, 0, 0,
+                           FW_NORMAL, FALSE, FALSE, FALSE,
+                           ANSI_CHARSET, OUT_DEFAULT_PRECIS,
+                         CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+                         DEFAULT_PITCH | FF_ROMAN,
+                        "Times New Roman");
+
+        SelectObject(hdc, font);
+        SetBkColor(hdc, RGB(255,255,0));
+        SetTextColor(hdc, RGB(0,0,0));
+                        
         if(whiteRook1.posX == 1300) {
             hdcMem = CreateCompatibleDC(hdc);
             HBITMAP hBmp = ReplaceColor(rookWhite_s,0xff0000,0x00ffff,hdcMem);
@@ -7873,14 +7888,14 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(whiteRook1.from != NULL && whiteRook1.to != NULL) {
                 if(strlen(whiteRook1.from) >= 2 && strlen(whiteRook1.to) >= 2) {
-                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                    TextOut(hdc,
                             615+50,
                             _y_,
                             whiteRook1.to,
                             GetTextSize("za"));
                 }
             }
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
@@ -7893,14 +7908,14 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(whiteRook2.from != NULL && whiteRook2.to != NULL) {
                 if(strlen(whiteRook2.from) >= 2 && strlen(whiteRook2.to) >= 2) {
-                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                    TextOut(hdc,
                             615+50,
                             _y_,
                             whiteRook2.to,
                             GetTextSize("za"));
                 }
             }
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
@@ -7913,14 +7928,14 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(whiteKnight1.from != NULL && whiteKnight1.to != NULL) {
                 if(strlen(whiteKnight1.from) >= 2 && strlen(whiteKnight1.to) >= 2) {
-                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                    TextOut(hdc,
                             615+50,
                             _y_,
                             whiteKnight1.to,
                             GetTextSize("za"));
                 }
             }
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
@@ -7933,14 +7948,14 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(whiteKnight2.from != NULL && whiteKnight2.to != NULL) {
                 if(strlen(whiteKnight2.from) >= 2 && strlen(whiteKnight2.to) >= 2) {
-                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                    TextOut(hdc,
                             615+50,
                             _y_,
                             whiteKnight2.to,
                             GetTextSize("za"));
                 }
             }
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
@@ -7953,14 +7968,14 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(whiteBishop1.from != NULL && whiteBishop1.to != NULL) {
                 if(strlen(whiteBishop1.from) >= 2 && strlen(whiteBishop1.to) >= 2) {
-                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                    TextOut(hdc,
                             615+50,
                             _y_,
                             whiteBishop1.to,
                             GetTextSize("za"));
                 }
             }
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
@@ -7973,14 +7988,14 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(whiteBishop2.from != NULL && whiteBishop2.to != NULL) {
                 if(strlen(whiteBishop2.from) >= 2 && strlen(whiteBishop2.to) >= 2) {
-                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                    TextOut(hdc,
                             615+50,
                             _y_,
                             whiteBishop2.to,
                             GetTextSize("za"));
                 }
             }
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
@@ -7993,14 +8008,14 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(whiteQueen.from != NULL && whiteQueen.to != NULL) {
                 if(strlen(whiteQueen.from) >= 2 && strlen(whiteQueen.to) >= 2) {
-                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                    TextOut(hdc,
                             615+50,
                             _y_,
                             whiteQueen.to,
                             GetTextSize("za"));
                 }
             }
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
@@ -8011,7 +8026,7 @@ DWORD WINAPI callApi(void *data) {
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
@@ -8025,14 +8040,14 @@ DWORD WINAPI callApi(void *data) {
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(whitePawns[o].from != NULL && whitePawns[o].to != NULL) {
                     if(strlen(whitePawns[o].from) >= 2 && strlen(whitePawns[o].to) >= 2) {
-                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                        TextOut(hdc,
                                 615+50,
                                 _y_,
                                 whitePawns[o].to,
                                 GetTextSize("za"));
                     }
                 }
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
@@ -8047,14 +8062,14 @@ DWORD WINAPI callApi(void *data) {
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(whiteQueenK[m].from != NULL && whiteQueenK[m].to != NULL) {
                     if(strlen(whiteQueenK[m].from) >= 2 && strlen(whiteQueenK[m].to) >= 2) {
-                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                        TextOut(hdc,
                                 615+50,
                                 _y_,
                                 whiteQueenK[m].to,
                                 GetTextSize("za"));
                     }
                 }
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
@@ -8070,14 +8085,14 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(blackRook1.from != NULL && blackRook1.to != NULL) {
                 if(strlen(blackRook1.from) >= 2 && strlen(blackRook1.to) >= 2) {
-                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                    TextOut(hdc,
                             690+50,
                             _y_,
                             blackRook1.to,
                             GetTextSize("za"));
                 }
             }
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
@@ -8090,14 +8105,14 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(blackRook2.from != NULL && blackRook2.to != NULL) {
                 if(strlen(blackRook2.from) >= 2 && strlen(blackRook2.to) >= 2) {
-                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                    TextOut(hdc,
                             690+50,
                             _y_,
                             blackRook2.to,
                             GetTextSize("za"));
                 }
             }
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
@@ -8110,14 +8125,14 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(blackKnight1.from != NULL && blackKnight1.to != NULL) {
                 if(strlen(blackKnight1.from) >= 2 && strlen(blackKnight1.to) >= 2) {
-                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                    TextOut(hdc,
                             690+50,
                             _y_,
                             blackKnight1.to,
                             GetTextSize("za"));
                 }
             }
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
@@ -8130,14 +8145,14 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(blackKnight2.from != NULL && blackKnight2.to != NULL) {
                 if(strlen(blackKnight2.from) >= 2 && strlen(blackKnight2.to) >= 2) {
-                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                    TextOut(hdc,
                             690+50,
                             _y_,
                             blackKnight2.to,
                             GetTextSize("za"));
                 }
             }
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
@@ -8150,14 +8165,14 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(blackBishop1.from != NULL && blackBishop1.to != NULL) {
                 if(strlen(blackBishop1.from) >= 2 && strlen(blackBishop1.to) >= 2) {
-                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                    TextOut(hdc,
                             690+50,
                             _y_,
                             blackBishop1.to,
                             GetTextSize("za"));
                 }
             }
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
@@ -8170,14 +8185,14 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(blackBishop2.from != NULL && blackBishop2.to != NULL) {
                 if(strlen(blackBishop2.from) >= 2 && strlen(blackBishop2.to) >= 2) {
-                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                    TextOut(hdc,
                             690+50,
                             _y_,
                             blackBishop2.to,
                             GetTextSize("za"));
                 }
             }
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
@@ -8190,14 +8205,14 @@ DWORD WINAPI callApi(void *data) {
             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
             if(blackQueen.from != NULL && blackQueen.to != NULL) {
                 if(strlen(blackQueen.from) >= 2 && strlen(blackQueen.to) >= 2) {
-                    SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                    TextOut(hdc,
                             690+50,
                             _y_,
                             blackQueen.to,
                             GetTextSize("za"));
                 }
             }
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
@@ -8208,7 +8223,7 @@ DWORD WINAPI callApi(void *data) {
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             _y_ += 31;
         }
@@ -8222,14 +8237,14 @@ DWORD WINAPI callApi(void *data) {
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(blackPawns[o].from != NULL && blackPawns[o].to != NULL) {
                     if(strlen(blackPawns[o].from) >= 2 && strlen(blackPawns[o].to) >= 2) {
-                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                        TextOut(hdc,
                                 690+50,
                                 _y_,
                                 blackPawns[o].to,
                                 GetTextSize("za"));
                     }
                 }
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
@@ -8244,14 +8259,14 @@ DWORD WINAPI callApi(void *data) {
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(blackQueenK[m].from != NULL && blackQueenK[m].to != NULL) {
                     if(strlen(blackQueenK[m].from) >= 2 && strlen(blackQueenK[m].to) >= 2) {
-                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                        TextOut(hdc,
                                 690+50,
                                 _y_,
                                 blackQueenK[m].to,
                                 GetTextSize("za"));
                     }
                 }
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
@@ -8457,103 +8472,87 @@ DWORD WINAPI ThreadFunc(void *data) {
         if(ls != cs) {
             SetWindowText(hwnd_timer, b);
             yt++;
-            if(yt == 4) {
+            if(yt == 14) {
                 yt = 0;
                 PostMessage(hwnd, WM_NOTIFY, 0, 0);
             }
             if(vAlerts == TRUE) {
                 if(iswhite == FALSE) {
-                    if(yt == 2 && turn == 'h')
+                    if(yt == 12 && turn == 'h')
                         PlaySound(TEXT("oppturn.wav"), NULL, SND_FILENAME);
-                    if(yt == 2 && turn == 'r')
+                    if(yt == 12 && turn == 'r')
                         PlaySound(TEXT("yourturn.wav"), NULL, SND_FILENAME);
                 } else {
-                    if(yt == 2 && turn == 'r')
+                    if(yt == 12 && turn == 'r')
                         PlaySound(TEXT("oppturn.wav"), NULL, SND_FILENAME);
-                    if(yt == 2 && turn == 'h')
+                    if(yt == 12 && turn == 'h')
                         PlaySound(TEXT("yourturn.wav"), NULL, SND_FILENAME);
                 }
             }
             if(iswhite == FALSE) {
-                if(yt == 2 && turn == 'h') {
-                    HDC         hDC;
-                    PAINTSTRUCT Ps;
+                if(yt == 12 && turn == 'h') {
                     HFONT	    font;
 
-                    hDC = hdc;
-
-                    font = CreateFont(36, 28, 215, 0,
+                    font = CreateFont(18, 18, 215, 0,
                                        FW_NORMAL, FALSE, FALSE, FALSE,
                                        ANSI_CHARSET, OUT_DEFAULT_PRECIS,
                                      CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
                                      DEFAULT_PITCH | FF_ROMAN,
                                     "Times New Roman");
 
-                    SelectObject(hDC, font);
-                    SetBkColor(hDC, RGB(255,255,0));
-                    SetTextColor(hDC, RGB(255,0,0));
-                    TextOut(hDC, 80, 280, "Opponent's Turn", 15);
+                    SelectObject(hdc, font);
+                    SetTextColor(hdc, RGB(255,255,0));
+                    SetBkColor(hdc, RGB(255,0,0));
+                    TextOut(hdc, 80, 280, "Opponent's Turn", 15);
                     DeleteObject(font);
                 }
-                if(yt == 2 && turn == 'r') {
-                    HDC         hDC;
-                    PAINTSTRUCT Ps;
+                if(yt == 12 && turn == 'r') {
                     HFONT	    font;
 
-                    hDC = hdc;
-
-                    font = CreateFont(36, 28, 215, 0,
+                    font = CreateFont(18, 18, 215, 0,
                                        FW_NORMAL, FALSE, FALSE, FALSE,
                                        ANSI_CHARSET, OUT_DEFAULT_PRECIS,
                                      CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
                                      DEFAULT_PITCH | FF_ROMAN,
                                     "Times New Roman");
 
-                    SelectObject(hDC, font);
-                    SetBkColor(hDC, RGB(255,255,0));
-                    SetTextColor(hDC, RGB(255,0,0));
-                    TextOut(hDC, 80, 280, "Your Turn", 9);
+                    SelectObject(hdc, font);
+                    SetTextColor(hdc, RGB(255,255,0));
+                    SetBkColor(hdc, RGB(255,0,0));
+                    TextOut(hdc, 80, 280, "Your Turn", 9);
                     DeleteObject(font);
                 }
             } else {
-                if(yt == 2 && turn == 'r') {
-                    HDC         hDC;
-                    PAINTSTRUCT Ps;
+                if(yt == 12 && turn == 'r') {
                     HFONT	    font;
 
-                    hDC = hdc;
-
-                    font = CreateFont(36, 28, 215, 0,
+                    font = CreateFont(18, 18, 215, 0,
                                        FW_NORMAL, FALSE, FALSE, FALSE,
                                        ANSI_CHARSET, OUT_DEFAULT_PRECIS,
                                      CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
                                      DEFAULT_PITCH | FF_ROMAN,
                                     "Times New Roman");
 
-                    SelectObject(hDC, font);
-                    SetBkColor(hDC, RGB(255,255,0));
-                    SetTextColor(hDC, RGB(255,0,0));
-                    TextOut(hDC, 80, 280, "Opponent's Turn", 15);
+                    SelectObject(hdc, font);
+                    SetTextColor(hdc, RGB(255,255,0));
+                    SetBkColor(hdc, RGB(255,0,0));
+                    TextOut(hdc, 80, 280, "Opponent's Turn", 15);
                     DeleteObject(font);
                 }
-                if(yt == 2 && turn == 'h') {
-                    HDC         hDC;
-                    PAINTSTRUCT Ps;
+                if(yt == 12 && turn == 'h') {
                     HFONT	    font;
 
-                    hDC = hdc;
-
-                    font = CreateFont(36, 28, 215, 0,
+                    font = CreateFont(18, 18, 215, 0,
                                        FW_NORMAL, FALSE, FALSE, FALSE,
                                        ANSI_CHARSET, OUT_DEFAULT_PRECIS,
                                      CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
                                      DEFAULT_PITCH | FF_ROMAN,
                                     "Times New Roman");
 
-                    SelectObject(hDC, font);
-                    SetBkColor(hDC, RGB(255,255,0));
-                    SetTextColor(hDC, RGB(255,0,0));
-                    TextOut(hDC, 80, 280, "Your Turn", 9);
+                    SelectObject(hdc, font);
+                    SetTextColor(hdc, RGB(255,255,0));
+                    SetBkColor(hdc, RGB(255,0,0));
+                    TextOut(hdc, 80, 280, "Your Turn", 9);
                     DeleteObject(font);
                 }
             }
@@ -8566,9 +8565,12 @@ DWORD WINAPI ThreadFunc(void *data) {
                 }
             }
         }
-        if(!notimelimit) {
+        if(notimelimit) {
+            if(turnChanged)
+                turnChanged = FALSE;
+        } else if(!notimelimit) {
             if(total >= timeToWait || turnChanged) {
-                if(!turnChanged && !fftime) {
+                if(!turnChanged) {
                     if(turn == 'h') {
                         turn = 'r';
                     } else if(turn == 'r') {
@@ -9340,7 +9342,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 GetObject(hBitmap, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 0, 0, 1040, 740, hdcMem, 0, 0, SRCCOPY);
 
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 DeleteDC(hdcMem); DeleteObject(hBitmap);
 
                 finished = 0;
@@ -9356,7 +9358,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 GetObject(hBitmapSideLogo, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 845, 0, 895, 740, hdcMem, 0, 0, SRCCOPY);
 
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 DeleteDC(hdcMem); DeleteObject(hBitmapSideLogo);
 
                 EndPaint(hwnd, &ps);
@@ -9513,7 +9515,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 GetObject(hBitmapSq, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, i__PosX-30, i__PosY-30, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
 
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBitmapSq);
                 DeleteObject(oldBitmap);
                 
@@ -9535,8 +9537,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 DeleteObject(queenWhite);
                 DeleteObject(kingBlack);
                 DeleteObject(kingWhite);
-                
-                GdiFlush();
 
             } else {
 
@@ -9546,7 +9546,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 GetObject(hBitmap, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 0, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
 
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem); DeleteObject(hdcMem);
                 DeleteDC(hdcMem); DeleteObject(hBitmap);
 
                 DrawChessBoard();
@@ -9597,7 +9597,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, whiteRook1.posX+25+7, whiteRook1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
@@ -9608,7 +9608,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, whiteRook2.posX+25+7, whiteRook2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
@@ -9619,7 +9619,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, whiteKnight1.posX+25+7, whiteKnight1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
@@ -9630,7 +9630,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, whiteKnight2.posX+25+7, whiteKnight2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
@@ -9641,7 +9641,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, whiteBishop1.posX+25+7, whiteBishop1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
@@ -9652,7 +9652,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, whiteBishop2.posX+25+7, whiteBishop2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
@@ -9663,7 +9663,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, whiteQueen.posX+25+7, whiteQueen.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
@@ -9674,7 +9674,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, whiteKing.posX+25+7, whiteKing.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 for(int o=0; o<8; o++) {
@@ -9686,7 +9686,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     oldBitmap = SelectObject(hdcMem, hBmp);
                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                     BitBlt(hdc, whitePawns[o].posX+25+7, whitePawns[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                    SelectObject(hdcMem, oldBitmap);
+                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 }
 
@@ -9698,7 +9698,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, blackRook1.posX+25+7, blackRook1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
@@ -9709,7 +9709,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, blackRook2.posX+25+7, blackRook2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
@@ -9720,7 +9720,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, blackKnight1.posX+25+7, blackKnight1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
@@ -9731,7 +9731,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, blackKnight2.posX+25+7, blackKnight2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
@@ -9742,7 +9742,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, blackBishop1.posX+25+7, blackBishop1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
@@ -9753,7 +9753,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, blackBishop2.posX+25+7, blackBishop2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
@@ -9764,7 +9764,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, blackQueen.posX+25+7, blackQueen.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 hdcMem = CreateCompatibleDC(hdc);
@@ -9775,7 +9775,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, blackKing.posX+25+7, blackKing.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                 for(int o=0; o<8; o++) {
@@ -9787,7 +9787,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     oldBitmap = SelectObject(hdcMem, hBmp);
                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                     BitBlt(hdc, blackPawns[o].posX+25+7, blackPawns[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                    SelectObject(hdcMem, oldBitmap);
+                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 }
 
@@ -9800,7 +9800,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     oldBitmap = SelectObject(hdcMem, hBmp);
                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                     BitBlt(hdc, whiteQueenK[m].posX+25+7, whiteQueenK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                    SelectObject(hdcMem, oldBitmap);
+                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 }
 
@@ -9813,7 +9813,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     oldBitmap = SelectObject(hdcMem, hBmp);
                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                     BitBlt(hdc, blackQueenK[m].posX+25+7, blackQueenK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                    SelectObject(hdcMem, oldBitmap);
+                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 }
                 
@@ -9835,8 +9835,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 DeleteObject(queenWhite);
                 DeleteObject(kingBlack);
                 DeleteObject(kingWhite);
-    
-                GdiFlush();
             }
 
             Sleep(1);
@@ -9893,6 +9891,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             "Times New Roman");
 
             SelectObject(hdc, font);
+            SetBkColor(hdc, RGB(255,255,0));
             SetTextColor(hdc, RGB(0,0,0));
 
             if(whiteRook1.posX == 1300) {
@@ -9903,14 +9902,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(whiteRook1.from != NULL && whiteRook1.to != NULL) {
                     if(strlen(whiteRook1.from) >= 2 && strlen(whiteRook1.to) >= 2) {
-                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                        TextOut(hdc,
                                 615+50,
                                 _y_,
                                 whiteRook1.to,
                                 GetTextSize("za"));
                     }
                 }
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
@@ -9923,14 +9922,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(whiteRook2.from != NULL && whiteRook2.to != NULL) {
                     if(strlen(whiteRook2.from) >= 2 && strlen(whiteRook2.to) >= 2) {
-                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                        TextOut(hdc,
                                 615+50,
                                 _y_,
                                 whiteRook2.to,
                                 GetTextSize("za"));
                     }
                 }
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
@@ -9943,14 +9942,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(whiteKnight1.from != NULL && whiteKnight1.to != NULL) {
                     if(strlen(whiteKnight1.from) >= 2 && strlen(whiteKnight1.to) >= 2) {
-                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                        TextOut(hdc,
                                 615+50,
                                 _y_,
                                 whiteKnight1.to,
                                 GetTextSize("za"));
                     }
                 }
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
@@ -9963,14 +9962,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(whiteKnight2.from != NULL && whiteKnight2.to != NULL) {
                     if(strlen(whiteKnight2.from) >= 2 && strlen(whiteKnight2.to) >= 2) {
-                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                        TextOut(hdc,
                                 615+50,
                                 _y_,
                                 whiteKnight2.to,
                                 GetTextSize("za"));
                     }
                 }
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
@@ -9983,14 +9982,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(whiteBishop1.from != NULL && whiteBishop1.to != NULL) {
                     if(strlen(whiteBishop1.from) >= 2 && strlen(whiteBishop1.to) >= 2) {
-                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                        TextOut(hdc,
                                 615+50,
                                 _y_,
                                 whiteBishop1.to,
                                 GetTextSize("za"));
                     }
                 }
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
@@ -10003,14 +10002,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(whiteBishop2.from != NULL && whiteBishop2.to != NULL) {
                     if(strlen(whiteBishop2.from) >= 2 && strlen(whiteBishop2.to) >= 2) {
-                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                        TextOut(hdc,
                                 615+50,
                                 _y_,
                                 whiteBishop2.to,
                                 GetTextSize("za"));
                     }
                 }
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
@@ -10023,14 +10022,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(whiteQueen.from != NULL && whiteQueen.to != NULL) {
                     if(strlen(whiteQueen.from) >= 2 && strlen(whiteQueen.to) >= 2) {
-                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                        TextOut(hdc,
                                 615+50,
                                 _y_,
                                 whiteQueen.to,
                                 GetTextSize("za"));
                     }
                 }
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
@@ -10041,7 +10040,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
@@ -10055,14 +10054,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                     if(whitePawns[o].from != NULL && whitePawns[o].to != NULL) {
                         if(strlen(whitePawns[o].from) >= 2 && strlen(whitePawns[o].to) >= 2) {
-                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                            TextOut(hdc,
                                     615+50,
                                     _y_,
                                     whitePawns[o].to,
                                     GetTextSize("za"));
                         }
                     }
-                    SelectObject(hdcMem, oldBitmap);
+                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                     _y_ += 31;
                 }
@@ -10077,14 +10076,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                     if(whiteQueenK[m].from != NULL && whiteQueenK[m].to != NULL) {
                         if(strlen(whiteQueenK[m].from) >= 2 && strlen(whiteQueenK[m].to) >= 2) {
-                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                            TextOut(hdc,
                                     615+50,
                                     _y_,
                                     whiteQueenK[m].to,
                                     GetTextSize("za"));
                         }
                     }
-                    SelectObject(hdcMem, oldBitmap);
+                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                     _y_ += 31;
                 }
@@ -10100,14 +10099,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(blackRook1.from != NULL && blackRook1.to != NULL) {
                     if(strlen(blackRook1.from) >= 2 && strlen(blackRook1.to) >= 2) {
-                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                        TextOut(hdc,
                                 690+50,
                                 _y_,
                                 blackRook1.to,
                                 GetTextSize("za"));
                     }
                 }
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
@@ -10120,14 +10119,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(blackRook2.from != NULL && blackRook2.to != NULL) {
                     if(strlen(blackRook2.from) >= 2 && strlen(blackRook2.to) >= 2) {
-                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                        TextOut(hdc,
                                 690+50,
                                 _y_,
                                 blackRook2.to,
                                 GetTextSize("za"));
                     }
                 }
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
@@ -10140,14 +10139,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(blackKnight1.from != NULL && blackKnight1.to != NULL) {
                     if(strlen(blackKnight1.from) >= 2 && strlen(blackKnight1.to) >= 2) {
-                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                        TextOut(hdc,
                                 690+50,
                                 _y_,
                                 blackKnight1.to,
                                 GetTextSize("za"));
                     }
                 }
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
@@ -10160,14 +10159,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(blackKnight2.from != NULL && blackKnight2.to != NULL) {
                     if(strlen(blackKnight2.from) >= 2 && strlen(blackKnight2.to) >= 2) {
-                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                        TextOut(hdc,
                                 690+50,
                                 _y_,
                                 blackKnight2.to,
                                 GetTextSize("za"));
                     }
                 }
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
@@ -10180,14 +10179,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(blackBishop1.from != NULL && blackBishop1.to != NULL) {
                     if(strlen(blackBishop1.from) >= 2 && strlen(blackBishop1.to) >= 2) {
-                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                        TextOut(hdc,
                                 690+50,
                                 _y_,
                                 blackBishop1.to,
                                 GetTextSize("za"));
                     }
                 }
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
@@ -10200,14 +10199,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(blackBishop2.from != NULL && blackBishop2.to != NULL) {
                     if(strlen(blackBishop2.from) >= 2 && strlen(blackBishop2.to) >= 2) {
-                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                        TextOut(hdc,
                                 690+50,
                                 _y_,
                                 blackBishop2.to,
                                 GetTextSize("za"));
                     }
                 }
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
@@ -10220,14 +10219,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                 if(blackQueen.from != NULL && blackQueen.to != NULL) {
                     if(strlen(blackQueen.from) >= 2 && strlen(blackQueen.to) >= 2) {
-                        SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                        TextOut(hdc,
                                 690+50,
                                 _y_,
                                 blackQueen.to,
                                 GetTextSize("za"));
                     }
                 }
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
@@ -10238,7 +10237,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                 _y_ += 31;
             }
@@ -10252,14 +10251,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                     if(blackPawns[o].from != NULL && blackPawns[o].to != NULL) {
                         if(strlen(blackPawns[o].from) >= 2 && strlen(blackPawns[o].to) >= 2) {
-                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                            TextOut(hdc,
                                     690+50,
                                     _y_,
                                     blackPawns[o].to,
                                     GetTextSize("za"));
                         }
                     }
-                    SelectObject(hdcMem, oldBitmap);
+                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                     _y_ += 31;
                 }
@@ -10274,14 +10273,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                     if(blackQueenK[m].from != NULL && blackQueenK[m].to != NULL) {
                         if(strlen(blackQueenK[m].from) >= 2 && strlen(blackQueenK[m].to) >= 2) {
-                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                            TextOut(hdc,
                                     690+50,
                                     _y_,
                                     blackQueenK[m].to,
                                     GetTextSize("za"));
                         }
                     }
-                    SelectObject(hdcMem, oldBitmap);
+                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                     _y_ += 31;
                 }
@@ -10307,8 +10306,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             DeleteObject(queenWhite_s);
             DeleteObject(kingBlack_s);
             DeleteObject(kingWhite_s);
-
-            GdiFlush();
         }
         break;
         case WM_LBUTTONUP:
@@ -10362,7 +10359,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, whiteRook1.posX+25+7, whiteRook1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             hdcMem = CreateCompatibleDC(hdc);
@@ -10373,7 +10370,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, whiteRook2.posX+25+7, whiteRook2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             hdcMem = CreateCompatibleDC(hdc);
@@ -10384,7 +10381,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, whiteKnight1.posX+25+7, whiteKnight1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             hdcMem = CreateCompatibleDC(hdc);
@@ -10395,7 +10392,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, whiteKnight2.posX+25+7, whiteKnight2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             hdcMem = CreateCompatibleDC(hdc);
@@ -10406,7 +10403,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, whiteBishop1.posX+25+7, whiteBishop1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             hdcMem = CreateCompatibleDC(hdc);
@@ -10417,7 +10414,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, whiteBishop2.posX+25+7, whiteBishop2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             hdcMem = CreateCompatibleDC(hdc);
@@ -10428,7 +10425,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, whiteQueen.posX+25+7, whiteQueen.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             
             hdcMem = CreateCompatibleDC(hdc);
@@ -10439,7 +10436,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, whiteKing.posX+25+7, whiteKing.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             for(int o=0; o<8; o++) {
@@ -10451,7 +10448,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, whitePawns[o].posX+25+7, whitePawns[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             }
 
@@ -10463,7 +10460,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, blackRook1.posX+25+7, blackRook1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             hdcMem = CreateCompatibleDC(hdc);
@@ -10474,7 +10471,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, blackRook2.posX+25+7, blackRook2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             hdcMem = CreateCompatibleDC(hdc);
@@ -10485,7 +10482,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, blackKnight1.posX+25+7, blackKnight1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             hdcMem = CreateCompatibleDC(hdc);
@@ -10496,7 +10493,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, blackKnight2.posX+25+7, blackKnight2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             hdcMem = CreateCompatibleDC(hdc);
@@ -10507,7 +10504,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, blackBishop1.posX+25+7, blackBishop1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             hdcMem = CreateCompatibleDC(hdc);
@@ -10518,7 +10515,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, blackBishop2.posX+25+7, blackBishop2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             hdcMem = CreateCompatibleDC(hdc);
@@ -10529,7 +10526,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, blackQueen.posX+25+7, blackQueen.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             
             hdcMem = CreateCompatibleDC(hdc);
@@ -10540,7 +10537,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             oldBitmap = SelectObject(hdcMem, hBmp);
             GetObject(hBmp, sizeof(bitmap), &bitmap);
             BitBlt(hdc, blackKing.posX+25+7, blackKing.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-            SelectObject(hdcMem, oldBitmap);
+            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
             for(int o=0; o<8; o++) {
@@ -10552,7 +10549,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, blackPawns[o].posX+25+7, blackPawns[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             }
 
@@ -10565,7 +10562,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, whiteQueenK[m].posX+25+7, whiteQueenK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             }
 
@@ -10579,7 +10576,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 oldBitmap = SelectObject(hdcMem, hBmp);
                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                 BitBlt(hdc, blackQueenK[m].posX+25+7, blackQueenK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                SelectObject(hdcMem, oldBitmap);
+                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
             }
             
@@ -10601,8 +10598,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             DeleteObject(queenWhite);
             DeleteObject(kingBlack);
             DeleteObject(kingWhite);
-
-            GdiFlush();
 
         case WM_LBUTTONDOWN:
         {
@@ -15266,7 +15261,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             GetObject(hBitmap, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, 0, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
 
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             DeleteDC(hdcMem); DeleteObject(hBitmap);
 
                             Sleep(1);
@@ -15315,7 +15310,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, whiteRook1.posX+25+7, whiteRook1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -15326,7 +15321,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, whiteRook2.posX+25+7, whiteRook2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -15337,7 +15332,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, whiteKnight1.posX+25+7, whiteKnight1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -15348,7 +15343,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, whiteKnight2.posX+25+7, whiteKnight2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -15359,7 +15354,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, whiteBishop1.posX+25+7, whiteBishop1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -15370,7 +15365,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, whiteBishop2.posX+25+7, whiteBishop2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -15381,7 +15376,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, whiteQueen.posX+25+7, whiteQueen.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -15392,7 +15387,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, whiteKing.posX+25+7, whiteKing.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             for(int o=0; o<8; o++) {
@@ -15404,7 +15399,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, whitePawns[o].posX+25+7, whitePawns[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             }
 
@@ -15416,7 +15411,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, blackRook1.posX+25+7, blackRook1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -15427,7 +15422,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, blackRook2.posX+25+7, blackRook2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -15438,7 +15433,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, blackKnight1.posX+25+7, blackKnight1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -15449,7 +15444,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, blackKnight2.posX+25+7, blackKnight2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -15460,7 +15455,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, blackBishop1.posX+25+7, blackBishop1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -15471,7 +15466,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, blackBishop2.posX+25+7, blackBishop2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -15482,7 +15477,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, blackQueen.posX+25+7, blackQueen.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -15493,7 +15488,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, blackKing.posX+25+7, blackKing.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             for(int o=0; o<8; o++) {
@@ -15505,7 +15500,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, blackPawns[o].posX+25+7, blackPawns[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             }
 
@@ -15518,7 +15513,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, whiteQueenK[m].posX+25+7, whiteQueenK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             }
 
@@ -15531,7 +15526,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, blackQueenK[m].posX+25+7, blackQueenK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             }
 
@@ -15562,7 +15557,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 GetObject(hBitmap, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, 0, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
 
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 DeleteDC(hdcMem); DeleteObject(hBitmap);
 
                                 DrawChessBoard();
@@ -15613,7 +15608,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, whiteRook1.posX+25+7, whiteRook1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
@@ -15624,7 +15619,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, whiteRook2.posX+25+7, whiteRook2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
@@ -15635,7 +15630,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, whiteKnight1.posX+25+7, whiteKnight1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
@@ -15646,7 +15641,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, whiteKnight2.posX+25+7, whiteKnight2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
@@ -15657,7 +15652,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, whiteBishop1.posX+25+7, whiteBishop1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
@@ -15668,7 +15663,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, whiteBishop2.posX+25+7, whiteBishop2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
@@ -15679,7 +15674,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, whiteQueen.posX+25+7, whiteQueen.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
@@ -15690,7 +15685,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, whiteKing.posX+25+7, whiteKing.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 for(int o=0; o<8; o++) {
@@ -15702,7 +15697,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, whitePawns[o].posX+25+7, whitePawns[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                    SelectObject(hdcMem, oldBitmap);
+                                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                 }
 
@@ -15714,7 +15709,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, blackRook1.posX+25+7, blackRook1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
@@ -15725,7 +15720,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, blackRook2.posX+25+7, blackRook2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
@@ -15736,7 +15731,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, blackKnight1.posX+25+7, blackKnight1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
@@ -15747,7 +15742,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, blackKnight2.posX+25+7, blackKnight2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
@@ -15758,7 +15753,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, blackBishop1.posX+25+7, blackBishop1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
@@ -15769,7 +15764,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, blackBishop2.posX+25+7, blackBishop2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
@@ -15780,7 +15775,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, blackQueen.posX+25+7, blackQueen.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 hdcMem = CreateCompatibleDC(hdc);
@@ -15791,7 +15786,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, blackKing.posX+25+7, blackKing.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                                 for(int o=0; o<8; o++) {
@@ -15803,7 +15798,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, blackPawns[o].posX+25+7, blackPawns[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                    SelectObject(hdcMem, oldBitmap);
+                                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                 }
 
@@ -15816,7 +15811,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, whiteQueenK[m].posX+25+7, whiteQueenK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                    SelectObject(hdcMem, oldBitmap);
+                                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                 }
 
@@ -15829,7 +15824,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, blackQueenK[m].posX+25+7, blackQueenK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                    SelectObject(hdcMem, oldBitmap);
+                                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                 }
 
@@ -15906,6 +15901,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                 "Times New Roman");
 
                                 SelectObject(hdc, font);
+                                SetBkColor(hdc, RGB(255,255,0));
                                 SetTextColor(hdc, RGB(255,0,0));
 
                                 if(whiteRook1.posX == 1300) {
@@ -15916,14 +15912,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(whiteRook1.from != NULL && whiteRook1.to != NULL) {
                                         if(strlen(whiteRook1.from) >= 2 && strlen(whiteRook1.to) >= 2) {
-                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                            TextOut(hdc,
                                                     615+50,
                                                     _y_,
                                                     whiteRook1.to,
                                                     GetTextSize("za"));
                                         }
                                     }
-                                    SelectObject(hdcMem, oldBitmap);
+                                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
@@ -15936,14 +15932,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(whiteRook2.from != NULL && whiteRook2.to != NULL) {
                                         if(strlen(whiteRook2.from) >= 2 && strlen(whiteRook2.to) >= 2) {
-                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                            TextOut(hdc,
                                                     615+50,
                                                     _y_,
                                                     whiteRook2.to,
                                                     GetTextSize("za"));
                                         }
                                     }
-                                    SelectObject(hdcMem, oldBitmap);
+                                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
@@ -15956,14 +15952,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(whiteKnight1.from != NULL && whiteKnight1.to != NULL) {
                                         if(strlen(whiteKnight1.from) >= 2 && strlen(whiteKnight1.to) >= 2) {
-                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                            TextOut(hdc,
                                                     615+50,
                                                     _y_,
                                                     whiteKnight1.to,
                                                     GetTextSize("za"));
                                         }
                                     }
-                                    SelectObject(hdcMem, oldBitmap);
+                                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
@@ -15976,14 +15972,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(whiteKnight2.from != NULL && whiteKnight2.to != NULL) {
                                         if(strlen(whiteKnight2.from) >= 2 && strlen(whiteKnight2.to) >= 2) {
-                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                            TextOut(hdc,
                                                     615+50,
                                                     _y_,
                                                     whiteKnight2.to,
                                                     GetTextSize("za"));
                                         }
                                     }
-                                    SelectObject(hdcMem, oldBitmap);
+                                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
@@ -15996,14 +15992,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(whiteBishop1.from != NULL && whiteBishop1.to != NULL) {
                                         if(strlen(whiteBishop1.from) >= 2 && strlen(whiteBishop1.to) >= 2) {
-                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                            TextOut(hdc,
                                                     615+50,
                                                     _y_,
                                                     whiteBishop1.to,
                                                     GetTextSize("za"));
                                         }
                                     }
-                                    SelectObject(hdcMem, oldBitmap);
+                                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
@@ -16016,14 +16012,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(whiteBishop2.from != NULL && whiteBishop2.to != NULL) {
                                         if(strlen(whiteBishop2.from) >= 2 && strlen(whiteBishop2.to) >= 2) {
-                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                            TextOut(hdc,
                                                     615+50,
                                                     _y_,
                                                     whiteBishop2.to,
                                                     GetTextSize("za"));
                                         }
                                     }
-                                    SelectObject(hdcMem, oldBitmap);
+                                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
@@ -16036,14 +16032,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(whiteQueen.from != NULL && whiteQueen.to != NULL) {
                                         if(strlen(whiteQueen.from) >= 2 && strlen(whiteQueen.to) >= 2) {
-                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                            TextOut(hdc,
                                                     615+50,
                                                     _y_,
                                                     whiteQueen.to,
                                                     GetTextSize("za"));
                                         }
                                     }
-                                    SelectObject(hdcMem, oldBitmap);
+                                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
@@ -16054,7 +16050,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
-                                    SelectObject(hdcMem, oldBitmap);
+                                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
@@ -16068,14 +16064,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                         if(whitePawns[o].from != NULL && whitePawns[o].to != NULL) {
                                             if(strlen(whitePawns[o].from) >= 2 && strlen(whitePawns[o].to) >= 2) {
-                                                SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                                TextOut(hdc,
                                                         615+50,
                                                         _y_,
                                                         whitePawns[o].to,
                                                         GetTextSize("za"));
                                             }
                                         }
-                                        SelectObject(hdcMem, oldBitmap);
+                                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                         _y_ += 31;
                                     }
@@ -16090,14 +16086,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         BitBlt(hdc, 585+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                         if(whiteQueenK[m].from != NULL && whiteQueenK[m].to != NULL) {
                                             if(strlen(whiteQueenK[m].from) >= 2 && strlen(whiteQueenK[m].to) >= 2) {
-                                                SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                                TextOut(hdc,
                                                         615+50,
                                                         _y_,
                                                         whiteQueenK[m].to,
                                                         GetTextSize("za"));
                                             }
                                         }
-                                        SelectObject(hdcMem, oldBitmap);
+                                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                         _y_ += 31;
                                     }
@@ -16113,14 +16109,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(blackRook1.from != NULL && blackRook1.to != NULL) {
                                         if(strlen(blackRook1.from) >= 2 && strlen(blackRook1.to) >= 2) {
-                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                            TextOut(hdc,
                                                     690+50,
                                                     _y_,
                                                     blackRook1.to,
                                                     GetTextSize("za"));
                                         }
                                     }
-                                    SelectObject(hdcMem, oldBitmap);
+                                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
@@ -16133,14 +16129,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(blackRook2.from != NULL && blackRook2.to != NULL) {
                                         if(strlen(blackRook2.from) >= 2 && strlen(blackRook2.to) >= 2) {
-                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                            TextOut(hdc,
                                                     690+50,
                                                     _y_,
                                                     blackRook2.to,
                                                     GetTextSize("za"));
                                         }
                                     }
-                                    SelectObject(hdcMem, oldBitmap);
+                                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
@@ -16153,14 +16149,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(blackKnight1.from != NULL && blackKnight1.to != NULL) {
                                         if(strlen(blackKnight1.from) >= 2 && strlen(blackKnight1.to) >= 2) {
-                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                            TextOut(hdc,
                                                     690+50,
                                                     _y_,
                                                     blackKnight1.to,
                                                     GetTextSize("za"));
                                         }
                                     }
-                                    SelectObject(hdcMem, oldBitmap);
+                                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
@@ -16173,14 +16169,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(blackKnight2.from != NULL && blackKnight2.to != NULL) {
                                         if(strlen(blackKnight2.from) >= 2 && strlen(blackKnight2.to) >= 2) {
-                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                            TextOut(hdc,
                                                     690+50,
                                                     _y_,
                                                     blackKnight2.to,
                                                     GetTextSize("za"));
                                         }
                                     }
-                                    SelectObject(hdcMem, oldBitmap);
+                                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
@@ -16193,14 +16189,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(blackBishop1.from != NULL && blackBishop1.to != NULL) {
                                         if(strlen(blackBishop1.from) >= 2 && strlen(blackBishop1.to) >= 2) {
-                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                            TextOut(hdc,
                                                     690+50,
                                                     _y_,
                                                     blackBishop1.to,
                                                     GetTextSize("za"));
                                         }
                                     }
-                                    SelectObject(hdcMem, oldBitmap);
+                                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
@@ -16213,14 +16209,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(blackBishop2.from != NULL && blackBishop2.to != NULL) {
                                         if(strlen(blackBishop2.from) >= 2 && strlen(blackBishop2.to) >= 2) {
-                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                            TextOut(hdc,
                                                     690+50,
                                                     _y_,
                                                     blackBishop2.to,
                                                     GetTextSize("za"));
                                         }
                                     }
-                                    SelectObject(hdcMem, oldBitmap);
+                                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
@@ -16233,14 +16229,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                     if(blackQueen.from != NULL && blackQueen.to != NULL) {
                                         if(strlen(blackQueen.from) >= 2 && strlen(blackQueen.to) >= 2) {
-                                            SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                            TextOut(hdc,
                                                     690+50,
                                                     _y_,
                                                     blackQueen.to,
                                                     GetTextSize("za"));
                                         }
                                     }
-                                    SelectObject(hdcMem, oldBitmap);
+                                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
@@ -16251,7 +16247,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     oldBitmap = SelectObject(hdcMem, hBmp);
                                     GetObject(hBmp, sizeof(bitmap), &bitmap);
                                     BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
-                                    SelectObject(hdcMem, oldBitmap);
+                                    SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                     ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                     _y_ += 31;
                                 }
@@ -16265,14 +16261,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                         if(blackPawns[o].from != NULL && blackPawns[o].to != NULL) {
                                             if(strlen(blackPawns[o].from) >= 2 && strlen(blackPawns[o].to) >= 2) {
-                                                SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                                TextOut(hdc,
                                                         690+50,
                                                         _y_,
                                                         blackPawns[o].to,
                                                         GetTextSize("za"));
                                             }
                                         }
-                                        SelectObject(hdcMem, oldBitmap);
+                                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                         _y_ += 31;
                                     }
@@ -16287,14 +16283,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                         BitBlt(hdc, 660+50, _y_, 30, 30, hdcMem, 0, 0, SRCCOPY);
                                         if(blackQueenK[m].from != NULL && blackQueenK[m].to != NULL) {
                                             if(strlen(blackQueenK[m].from) >= 2 && strlen(blackQueenK[m].to) >= 2) {
-                                                SetBkColor(hdc, RGB(255,255,0));TextOut(hdc,
+                                                TextOut(hdc,
                                                         690+50,
                                                         _y_,
                                                         blackQueenK[m].to,
                                                         GetTextSize("za"));
                                             }
                                         }
-                                        SelectObject(hdcMem, oldBitmap);
+                                        SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                         ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                                         _y_ += 31;
                                     }
@@ -20725,7 +20721,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             GetObject(hBitmap, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, 0, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
 
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             DeleteDC(hdcMem); DeleteObject(hBitmap);
 
                             Sleep(1);
@@ -20774,7 +20770,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, whiteRook1.posX+25+7, whiteRook1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -20785,7 +20781,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, whiteRook2.posX+25+7, whiteRook2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -20796,7 +20792,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, whiteKnight1.posX+25+7, whiteKnight1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -20807,7 +20803,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, whiteKnight2.posX+25+7, whiteKnight2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -20818,7 +20814,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, whiteBishop1.posX+25+7, whiteBishop1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -20829,7 +20825,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, whiteBishop2.posX+25+7, whiteBishop2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -20840,7 +20836,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, whiteQueen.posX+25+7, whiteQueen.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -20851,7 +20847,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, whiteKing.posX+25+7, whiteKing.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             for(int o=0; o<8; o++) {
@@ -20863,7 +20859,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, whitePawns[o].posX+25+7, whitePawns[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             }
 
@@ -20875,7 +20871,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, blackRook1.posX+25+7, blackRook1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -20886,7 +20882,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, blackRook2.posX+25+7, blackRook2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -20897,7 +20893,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, blackKnight1.posX+25+7, blackKnight1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -20908,7 +20904,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, blackKnight2.posX+25+7, blackKnight2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -20919,7 +20915,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, blackBishop1.posX+25+7, blackBishop1.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -20930,7 +20926,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, blackBishop2.posX+25+7, blackBishop2.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -20941,7 +20937,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, blackQueen.posX+25+7, blackQueen.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             hdcMem = CreateCompatibleDC(hdc);
@@ -20952,7 +20948,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                             oldBitmap = SelectObject(hdcMem, hBmp);
                             GetObject(hBmp, sizeof(bitmap), &bitmap);
                             BitBlt(hdc, blackKing.posX+25+7, blackKing.posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                            SelectObject(hdcMem, oldBitmap);
+                            SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                             ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
 
                             for(int o=0; o<8; o++) {
@@ -20964,7 +20960,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, blackPawns[o].posX+25+7, blackPawns[o].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             }
 
@@ -20977,7 +20973,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, whiteQueenK[m].posX+25+7, whiteQueenK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             }
 
@@ -20990,7 +20986,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                 oldBitmap = SelectObject(hdcMem, hBmp);
                                 GetObject(hBmp, sizeof(bitmap), &bitmap);
                                 BitBlt(hdc, blackQueenK[m].posX+25+7, blackQueenK[m].posY+25, 46, 46, hdcMem, 0, 0, SRCCOPY);
-                                SelectObject(hdcMem, oldBitmap);
+                                SelectObject(hdcMem, oldBitmap); DeleteObject(oldBitmap); DeleteObject(hdcMem);
                                 ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hBmp);
                             }
 
@@ -21350,7 +21346,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                     if(turn == 'h') {
                                         if(from != NULL && to != NULL) {
                                             thread_3 = CreateThread(NULL, 0, putBlack, NULL, 0, NULL);
-                                            //thread_wb = CreateThread(NULL, 0, waitItsBlack, NULL, 0, NULL);
                                         }
                                         break;
                                     }
