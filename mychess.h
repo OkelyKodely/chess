@@ -503,16 +503,21 @@ char *map(int j, int i) {
 
 void DrawChessBoard() {
 
+    HBRUSH brush = CreateSolidBrush(RGB(255,0,255));
+    RECT rrect = {0, 0, 635, 626};
+    FillRect(hdc, &rrect, brush);
+    DeleteObject(brush);
+
     hhbb = (HBITMAP)LoadImage(hInst, "chessboard.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 
     hdcMem = CreateCompatibleDC(hdc);
     oldBitmap = SelectObject(hdcMem, hhbb);
 
     GetObject(hhbb, sizeof(bitmap), &bitmap);
-    BitBlt(hdc, 15, 12, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
+    BitBlt(hdc, 17, 12, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
 
     SelectObject(hdcMem, oldBitmap);
-    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hhbb); DeleteObject(oldBitmap);
+    ReleaseDC(hwnd, hdcMem); DeleteDC(hdcMem); DeleteObject(hdcMem); DeleteObject(hhbb); DeleteObject(oldBitmap);
     DeleteObject(hhbb);
 }
 

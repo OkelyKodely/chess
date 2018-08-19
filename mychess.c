@@ -9305,7 +9305,7 @@ void highlightPossibleMoves(int j, int i) {
             int x = re_Map(wLM[q], 0);
             HBRUSH rBrush;
             rBrush = CreateSolidBrush(RGB(255, 0, 0));
-            RECT r = {x+20+20+5-8, y+20+31-17, x+20+20 + 65, y+20+20-7 + 68};
+            RECT r = {x+20+20+5-8+2, y+20+31-17, x+20+20+2 + 65, y+20+20-7 + 68};
             FillRect(hdc, &r, rBrush);
             DeleteObject(rBrush);
         }
